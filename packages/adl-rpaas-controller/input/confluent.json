@@ -1,0 +1,100 @@
+{
+    "nameSpace": "Microsoft.Confluent",
+    "serviceName": "Confluent",
+    "resources": [
+        {
+            "name": "Organization",
+            "nameSpace": "Microsoft.Confluent",
+            "serviceName": "Confluent",
+            "serializedName": "organizations",
+            "nameParameter": "organizationName",
+            "hasSubscriptionList": true,
+            "hasResourceGroupList": true,
+            "itemPath": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}",
+
+            "operations": {
+                "CreateOrUpdate": {
+                    "returnType" : "Organization",
+                    "parameters": [
+                      {
+                          "name": "subscriptionId",
+                          "type": "string",
+                          "location": "path",
+                          "description": "The subscription Id."
+                      },
+                      {
+                        "name": "resourceGroupName",
+                        "type": "string",
+                        "location": "path",
+                        "description": "The resource group."
+                    },
+                    {
+                        "name": "organizationName",
+                        "type": "string",
+                        "location": "path",
+                        "description": "The name of the Organization resource."
+                    },
+                    {
+                        "name": "model",
+                        "type": "Organization",
+                        "location": "body",
+                        "description": "The details of the Organization resource."
+                    }
+                    ]
+                },
+                "Update": {
+                    "returnType" : "Organization",
+                    "parameters": [
+                      {
+                          "name": "subscriptionId",
+                          "type": "string",
+                          "location": "path",
+                          "description": "The subscription Id."
+                      },
+                      {
+                        "name": "resourceGroupName",
+                        "type": "string",
+                        "location": "path",
+                        "description": "The resource group."
+                    },
+                    {
+                        "name": "organizationName",
+                        "type": "string",
+                        "location": "path",
+                        "description": "The name of the Organization resource."
+                    },
+                    {
+                        "name": "model",
+                        "type": "ResourceUpdate",
+                        "location": "body",
+                        "description": "The resource tags to update."
+                    }
+                    ]
+                },
+                "Delete": {
+                    "returnType" : "void",
+                    "parameters": [
+                      {
+                          "name": "subscriptionId",
+                          "type": "string",
+                          "location": "path",
+                          "description": "The subscription Id."
+                      },
+                      {
+                        "name": "resourceGroupName",
+                        "type": "string",
+                        "location": "path",
+                        "description": "The resource group."
+                      },
+                      {
+                        "name": "organizationName",
+                        "type": "string",
+                        "location": "path",
+                        "description": "The name of the Organization resource."
+                      }
+                    ]
+                }
+            }
+        }
+    ]
+}

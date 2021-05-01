@@ -1,0 +1,119 @@
+using Microsoft.Adl.RPaaS;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
+using {{it.nameSpace}}.Service.Models;
+using {{it.nameSpace}}.Service.Controllers;
+using System.Net;
+
+namespace {{it.nameSpace}}.Service
+{
+    /// <summary>
+    /// Controller for user RP operations on the {{it.name}} resource.
+    /// </summary>
+    public abstract class {{it.name}}ControllerBase : Controller
+    {
+        internal readonly ILogger<{{it.name}}ControllerBase> _logger;
+
+        public {{it.name}}ControllerBase(ILogger<{{it.name}}ControllerBase> logger)
+        {
+            _logger = logger;
+        }
+        
+        {{_@foreach(it.operations) => operationName, operation}}
+        {{_! if (operationName.toLowerCase().includes("create")) operation.action = "Create";}}
+        {{_! if (operationName.toLowerCase().includes("delete")) operation.action = "Delete";}}
+        {{_! if (operationName.toLowerCase() === "update") operation.action = "Patch";}}
+        /// <summary>
+        /// Validate the request to {{operation.action}} the {{it.name}} resource.
+        /// </summary>
+        {{_@each(operation.parameters) => parameter, index}}
+        /// <param name="{{parameter.name}}"> {{parameter.description}}</param>
+        {{_/each}}
+        /// <returns> A ValidationResponse indicating the validity of the {{operation.action}} request.</returns>
+        [HttpPost]
+        [Route({{it.serviceName}}ServiceRoutes.Validate{{operation.action}})]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ValidationResponse))]
+        public async Task<ValidationResponse> Validate{{operation.action}}Async({{operation | decl}})
+        {
+            _logger.LogInformation($"Validate{{operation.action}}Async()");
+
+            var modelValidation = ValidationHelpers.Validate{{operation.action}}Model(resource);
+            if (modelValidation.Valid)
+            {
+                modelValidation = await OnValidateCreate({{operation | call}}, Request);
+            }
+
+            return modelValidation;
+        }
+
+        /// <summary>
+        /// {{operation.action}} the {{it.name}} resource.
+        /// </summary>
+        {{_@each(operation.parameters) => parameter, index}}
+        /// <param name="{{parameter.name}}"> {{parameter.description}}</param>
+        {{_/each}}
+        /// <returns> The {{it.name}} resource.</returns>
+        [HttpPut]
+        [Route({{it.serviceName}}ServiceRoutes.{{it.name}}Item)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{it.name}}Resource))]
+        [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof({{it.name}}Resource))]
+        public async Task<IActionResult> {{operation.action}}Async({{operation | decl}})
+        {
+            _logger.LogInformation("{{operation.action}}Async()");
+            resource = resource ?? throw new ArgumentNullException(nameof(resource));
+
+            if (Request == null)
+            {
+                _logger.LogError($"Http request is null");
+                return BadRequest("Http request is null");
+            }
+
+            return await On{{operation.action}}Async({{operation | call}}, Request);
+
+        }
+
+        internal abstract Task<ValidationResponse> OnValidate{{operation.action}}({{operation | decl}}, HttpRequest request);
+        internal abstract Task<IActionResult> On{{operation.action}}Async({{operation | decl}}, HttpRequest request);
+        {{_/foreach}}
+
+        {{_@if(it.hasSubscriptionList)}}
+        /// <summary>
+        /// List Organization resources in the specified subscription.
+        /// </summary>
+        /// <param name="subscriptionId"> The subscription id.</param>
+        /// <returns> The list of {{it.name}} Resources in the specified subscription.</returns>
+        [HttpGet]
+        [Route(ConfluentServiceRoutes.{{it.name}}ListBySubscription)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{it.name}}ResourceListResult))]
+        public Task<{{it.name}}ResourceListResult> ListBySubscription(string subscriptionId)
+        {
+            _logger.LogInformation("ListBySubscriptionAsync()");
+            return OnListBySubscription(subscriptionId, Request);
+        }
+
+        internal abstract Task<{{it.name}}ResourceListResult> OnListBySubscription(string subscriptionId, HttpRequest request);
+        {{_/if}}
+
+        {{@if(it.hasResourceGroupList)}}
+        /// <summary>
+        /// List {{it.name}} resources in the specified resource group.
+        /// </summary>
+        /// <param name="subscriptionId"> The subscription id.</param>
+        /// <param name="resourceGroupName"> The resource group name.</param>
+        /// <returns> The list of {{it.name}} Resources in the specified resource group.</returns>
+        [HttpGet]
+        [Route(ConfluentServiceRoutes.{{it.name}}ListByResourceGroup)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{it.name}}ResourceListResult))]
+        public Task<{{it.name}}ResourceListResult> ListByResourceGroupAsync(string subscriptionId, string resourceGroupName)
+        {
+            _logger.LogInformation("ListByResourceGroupAsync()");
+            return OnListByResourceGroupAsync(subscriptionId, resourceGroupName, Request);
+        }
+                
+        internal abstract Task<{{it.name}}ResourceListResult> OnListByResourceGroupAsync(string subscriptionId, string resourceGroupName, HttpRequest request);
+        {{_/if}}
+    }
+}
