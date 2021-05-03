@@ -10,17 +10,45 @@ var service = inputJson.serviceName
 
 sqrl.filters.define("decl", op => op.parameters.map( p => p.type + " " + p.name).join(', '));
 sqrl.filters.define("call", op => op.parameters.map( p => p.name).join(', '));
-var resource = inputJson.resources[0];
-var createOp = resource.operations.CreateOrUpdate;
-var parmsDecl = createOp.parameters.map( p => p.type + " " + p.name).join(', ');
-console.log("Parms")
-console.log(parmsDecl)
+
 var path = args[1];
 
 async function generateResource(resource) {
     var resourcePath = path + "/" + resource.name + "ControllerBase.cs";
     fs.writeFileSync(resourcePath, await sqrl.renderFile("templates/resourceControllerBase.sq", resource), {"flags": "w+"});
  }
+
+ function copyModelFiles(sourcePath, targetPath)
+ {
+     console.log("Copying (" + sourcePath + ", " + targetPath + ")");
+     if (!fs.existsSync(targetPath)) 
+     {
+         fs.mkdirSync(targetPath);
+     }
+     
+     fs.readdirSync(sourcePath).forEach( file => {
+        var sourceFile = sourcePath + "/" + file;
+        var targetFile = targetPath + "/" + file;
+        if (fs.lstatSync(sourceFile).isDirectory())
+        {
+            
+            console.log ("Creating directory " + targetFile);
+            if (!fs.existsSync(targetPath)) 
+            {
+               fs.mkdirSync(targetPath);
+            }
+
+            copyModelFiles(sourceFile, targetFile);
+        }
+        else
+        {
+            console.log("copying " + sourceFile + " to " + targetFile);
+            fs.copyFileSync(sourcePath + "/" + file, targetPath + "/" + file)
+        }
+     });
+ }
+
+ copyModelFiles("./clientlib", path + "/models");
 var routesPath = path + "/" + service + "ServiceRoutes.cs";
 var operationsPath = path + "/OperationControllerBase.cs";
 console.log("Writing service routes to: " + routesPath);

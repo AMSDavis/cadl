@@ -1,0 +1,27 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+//-----------------------------------------------------------------------------
+
+using Microsoft.Adl.RPaaS;
+using System;
+using System.Security.Policy;
+using System.Collections.Generic; 
+
+namespace Microsoft.{{it.serviceName}}.Service.Models
+{
+    /// <summary>
+    /// Details of the subscriber.
+    /// </summary>
+    public class {{it.name}}{{@if(it.isDerivedClass || it.isImplementer)}} : {{@if(it.baseClass !== empty)}}{{it.baseClass.name}}{{@if(if.baseClass.typeParameters !== null)}}{{it.baseClass.typeParameters | call}}{{/if}}{{@if(it.implements.length > 0)}} {{it.implements.join(", ")}}{{/if}}{{/if}}
+    {
+    {{@each(it.properties) => prop, propIndex}}
+        /// <summary>
+        ///  {{prop.description}}
+        /// </summary>
+        {{_@each(prop.validations) => attr, attrIndex}}
+        [{{attr.name}}({{attr.parameters | call}})]
+        {{_/each}}
+        public {{prop.type.name}} {{prop.name}} { get; set; }
+    {{_/each}}
+    }
+}

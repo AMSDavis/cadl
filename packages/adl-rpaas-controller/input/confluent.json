@@ -96,5 +96,181 @@
                 }
             }
         }
-    ]
+    ],
+    "models" : {
+        "OfferDetail" : {
+            "serviceName": "Confluent",
+            "description": "Details of the product offering.",
+            "name": "OfferDetail",
+            "nameSpace": "Microsoft.Confluent.Service.Models",
+            "isDerivedType": false,
+            "isImplementer": false,
+            "properties": [
+                {
+                    "name": "PublisherId",
+                    "type": {
+                        "name": "string",
+                        "nameSpace": "System"
+                    },
+                    "validations": [
+                        {
+                            "name": "Length",
+                            "parameters": {
+                                "name": 50,
+                                "type": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Id",
+                    "type": {
+                        "name": "string",
+                        "nameSpace": "System"
+                    },
+                    "validations": [
+                        {
+                            "name": "Length",
+                            "parameters": {
+                                "name": 50,
+                                "type": "int"
+                            }
+                        }
+                    ]
+
+                },
+                {
+                    "name": "PlanId",
+                    "type": {
+                        "name": "string",
+                        "nameSpace": "System"
+                    },
+                    "validations": [
+                        {
+                            "name": "Length",
+                            "parameters": {
+                                "name": 50,
+                                "type": "int"
+                            }
+                        }
+                    ]
+
+                },
+                {
+                    "name": "PlanName",
+                    "type": {
+                        "name": "string",
+                        "nameSpace": "System"
+                    },
+                    "validations": [
+                        {
+                            "name": "Length",
+                            "parameters": {
+                                "name": 50,
+                                "type": "int"
+                            }
+                        }
+                    ]
+
+                },
+                {
+                    "name": "TermUnit",
+                    "type": {
+                        "name": "string",
+                        "nameSpace": "System"
+                    },
+                    "validations": [
+                        {
+                            "name": "Length",
+                            "parameters": {
+                                "name": 25,
+                                "type": "int"
+                            }
+                        }
+                    ]
+
+                },
+                {
+                    "name": "Status",
+                    "type": {
+                        "name": "OfferStatus",
+                        "nameSpace": "Microsoft.Confluent.Service.Models"
+                    },
+                    "validations": []
+                }
+            ]
+        },
+        "Organization" : {
+            "serviceName": "Confluent",
+            "description": "The Microsoft.Confluent/organizations resource.",
+            "name": "Organization",
+            "nameSpace": "Microsoft.Confluent.Service.Models",
+            "isDerivedType": true,
+            "isImplementer": false,
+            "baseClass": {
+                "name": "TrackedResource",
+                "nameSpace": "Microsoft.Adl.RPaaS"
+            },
+            "properties": [
+                {
+                    "name": "Properties",
+                    "type": {
+                        "name": "OrganizationProperties",
+                        "nameSpace": "Microsoft.Confluent.Service.Models"
+                    },
+                    "validations": []
+                }
+            ]
+
+        },
+        "OrganizationProperties" : {
+
+        },
+        "OrganizationListResult" : {
+
+        },
+        "ResourceUpdate" : {
+
+        },
+        "ProvisioningState" : {
+
+        },
+        "UserDetail" : {
+
+        }
+    },
+    "enumerations": { 
+        "OfferStatus" : {
+            "Started": {
+                "name": "Started"
+             },
+             "PendingFulfillmentStart": {
+                 "name": "PendingFulfillmentStart"
+             },
+            "InProgress": {
+                "name": "InProgress"
+            }, 
+            "Subscribed": {
+                "name": "Subscribed"
+            }, 
+            "Suspended": {
+                "name": "Suspended"
+            }, 
+            "Reinstated": {
+                "name": "Reinstated"
+            },
+            "Succeeded": {
+                "name": "Succeeded"
+            },
+            "Failed": {
+                "name": "Failed"
+            },
+            "Unsubscribed": {
+                "name": "Unsubscribed"
+            },
+            "Updating": {
+                "name": "Updating"
+            }
+        }
+    }
 }
