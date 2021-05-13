@@ -18,6 +18,6 @@ namespace Microsoft.Confluent.Service.Models
         /// <summary>
         ///  ARM Resource Tags.
         /// </summary>
-        public IDictionary Tags { get; set; }
+        public IDictionary<string, string> Tags { get; set; }
     }
 }

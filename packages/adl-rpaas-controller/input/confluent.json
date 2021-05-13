@@ -339,11 +339,8 @@
                 "nameSpace": "Microsoft.Adl.RPaaS",
                 "typeParameters": [
                     {
-                        "name": null,
-                        "type": {
-                            "name": "Organization",
-                            "nameSpace": "Microsoft.Confluent.Service.Models"
-                        }
+                        "name": "Organization",
+                        "nameSpace": "Microsoft.Confluent.Service.Models"
                     }
                 ]
             },
@@ -363,21 +360,15 @@
                     "description": "ARM Resource Tags.",
                     "type": {
                         "name": "IDictionary",
-                        "nameSpace": "Systen.Collections",
+                        "nameSpace": "System.Collections",
                         "typeParameters": [
                             {
-                                "name": null,
-                                "type": {
-                                    "name": "string",
-                                    "nameSpace": "System"
-                                }
+                                "name": "string",
+                                "nameSpace": "System"
                             },
                             {
-                                "name": null,
-                                "type": {
-                                    "name": "string",
-                                    "nameSpace": "System"
-                                }
+                                "name": "string",
+                                "nameSpace": "System"
                             }
                         ]
                     }

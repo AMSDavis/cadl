@@ -10,7 +10,7 @@ var service = inputJson.serviceName
 
 sqrl.filters.define("decl", op => op.parameters.map( p => p.type + " " + p.name).join(', '));
 sqrl.filters.define("call", op => op.parameters.map( p => p.name).join(', '));
-sqrl.filters.define("typeParamList", op => op.map( p => p.type.name).join(', '));
+sqrl.filters.define("typeParamList", op => op.typeParameters.map( p => p.name).join(', '));
 sqrl.filters.define("callByValue", op => op.parameters.map( p => p.type === "string"?  '"' + p.value + '"': p.value ).join(', '));
 var path = args[1];
 
