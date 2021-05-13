@@ -115,10 +115,10 @@
                     "validations": [
                         {
                             "name": "Length",
-                            "parameters": {
-                                "name": 50,
+                            "parameters": [{
+                                "value": 50,
                                 "type": "int"
-                            }
+                            }]
                         }
                     ]
                 },
@@ -131,10 +131,10 @@
                     "validations": [
                         {
                             "name": "Length",
-                            "parameters": {
-                                "name": 50,
+                            "parameters": [{
+                                "value": 50,
                                 "type": "int"
-                            }
+                            }]
                         }
                     ]
 
@@ -148,10 +148,10 @@
                     "validations": [
                         {
                             "name": "Length",
-                            "parameters": {
-                                "name": 50,
+                            "parameters": [{
+                                "value": 50,
                                 "type": "int"
-                            }
+                            }]
                         }
                     ]
 
@@ -165,10 +165,10 @@
                     "validations": [
                         {
                             "name": "Length",
-                            "parameters": {
-                                "name": 50,
+                            "parameters": [{
+                                "value": 50,
                                 "type": "int"
-                            }
+                            }]
                         }
                     ]
 
@@ -182,10 +182,10 @@
                     "validations": [
                         {
                             "name": "Length",
-                            "parameters": {
-                                "name": 25,
+                            "parameters": [{
+                                "value": 25,
                                 "type": "int"
-                            }
+                            }]
                         }
                     ]
 
@@ -221,56 +221,305 @@
                     "validations": []
                 }
             ]
-
         },
         "OrganizationProperties" : {
-
+            "serviceName": "Confluent",
+            "description": "The Microsoft.Confluent/organizations rp-specific properties.",
+            "name": "OrganizationProperties",
+            "nameSpace": "Microsoft.Confluent.Service.Models",
+            "isDerivedType": false,
+            "isImplementer": false,
+            "baseClass": {},
+            "properties": [
+                {
+                    "name": "CreatedTime",
+                    "description": "UTC Time when Organization resource was created.",
+                    "type": {
+                        "name": "DateTime",
+                        "nameSpace": "System"
+                    },
+                    "validations": [
+                        {
+                            "name": "Visibility",
+                            "parameters" :[
+                                {
+                                    "type": "string",
+                                    "value": "read"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "ProvisioningState",
+                    "description": "The provisioning state of the resource.",
+                    "type": {
+                        "name": "ProvisioningState?",
+                        "nameSpace": "Microsoft.Confluent.Service.Models"
+                    },
+                    "validations": [           
+                        {
+                            "name": "Visibility",
+                            "parameters" :[
+                                {
+                                    "type": "string",
+                                    "value": "read"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "OrganizationId",
+                    "description": "Id of the Confluent organization.",
+                    "type": {
+                        "name": "string",
+                        "nameSpace": "System"
+                    },
+                    "validations": [         
+                        {
+                            "name": "Visibility",
+                            "parameters" :[
+                                {
+                                    "type": "string",
+                                    "value": "read"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "SsoUrl",
+                    "description": "Single sign-on url for the Confluent organization.",
+                    "type": {
+                        "name": "Uri",
+                        "nameSpace": "System"
+                    },
+                    "validations": [
+                        {
+                            "name": "Visibility",
+                            "parameters" :[
+                                {
+                                    "type": "string",
+                                    "value": "read"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "OfferDetail",
+                    "description": "Details of the product offering.",
+                    "type": {
+                        "name": "OfferDetail",
+                        "nameSpace": "System"
+                    },
+                    "validations": []
+                },
+                {
+                    "name": "UserDetail",
+                    "description": "Subscriber Details.",
+                    "type": {
+                        "name": "UserDetail",
+                        "nameSpace": "Microsoft.Confluent.Service.Models"
+                    },
+                    "validations": []
+                }
+            ]
         },
         "OrganizationListResult" : {
-
+            "serviceName": "Confluent",
+            "description": "A list of Microsoft.Confluent/organizations resources.",
+            "name": "OrganizationListResult",
+            "nameSpace": "Microsoft.Confluent.Service.Models",
+            "isDerivedType": true,
+            "isImplementer": false,
+            "baseClass": {
+                "name": "Pageable",
+                "nameSpace": "Microsoft.Adl.RPaaS",
+                "typeParameters": [
+                    {
+                        "name": null,
+                        "type": {
+                            "name": "Organization",
+                            "nameSpace": "Microsoft.Confluent.Service.Models"
+                        }
+                    }
+                ]
+            },
+            "properties": []
         },
         "ResourceUpdate" : {
-
-        },
-        "ProvisioningState" : {
-
+            "serviceName": "Confluent",
+            "description": "Microsoft.Confluent/organizations resource update properties.",
+            "name": "OrganizationUpdate",
+            "nameSpace": "Microsoft.Confluent.Service.Models",
+            "isDerivedType": false,
+            "isImplementer": false,
+            "baseClass": {},
+            "properties": [
+                {
+                    "name": "Tags",
+                    "description": "ARM Resource Tags.",
+                    "type": {
+                        "name": "IDictionary",
+                        "nameSpace": "Systen.Collections",
+                        "typeParameters": [
+                            {
+                                "name": null,
+                                "type": {
+                                    "name": "string",
+                                    "nameSpace": "System"
+                                }
+                            },
+                            {
+                                "name": null,
+                                "type": {
+                                    "name": "string",
+                                    "nameSpace": "System"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
         },
         "UserDetail" : {
+            "serviceName": "Confluent",
+            "description": "Microsoft.Confluent/organizations resource update properties.",
+            "name": "UserDetail",
+            "nameSpace": "Microsoft.Confluent.Service.Models",
+            "isDerivedType": false,
+            "isImplementer": false,
+            "baseClass": {},
+            "properties": [
+                {
+                    "name": "FirstName",
+                    "description": "Subscriber first name.",
+                    "type": {
+                        "name": "string",
+                        "nameSpace": "System"
+                    },
+                    "validations": [
+                        {
+                            "name": "Length",
+                            "parameters" :[
+                                {
+                                    "type": "int",
+                                    "value": 50
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "LastName",
+                    "description": "Subscriber last name.",
+                    "type": {
+                        "name": "string",
+                        "nameSpace": "System"
+                    },
+                    "validations": [
+                        {
+                            "name": "Length",
+                            "parameters" :[
+                                {
+                                    "type": "int",
+                                    "value": 50
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "EmailAddress",
+                    "description": "Subscriber email address.",
+                    "type": {
+                        "name": "string",
+                        "nameSpace": "System"
+                    },
+                    "validations": [
+                        {
+                            "name": "Pattern",
+                            "parameters" :[
+                                {
+                                    "type": "string",
+                                    "value": "\\w+\\@\\w+\\.\\w+"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
 
         }
     },
     "enumerations": { 
         "OfferStatus" : {
-            "Started": {
-                "name": "Started"
-             },
-             "PendingFulfillmentStart": {
-                 "name": "PendingFulfillmentStart"
-             },
-            "InProgress": {
-                "name": "InProgress"
-            }, 
-            "Subscribed": {
-                "name": "Subscribed"
-            }, 
-            "Suspended": {
-                "name": "Suspended"
-            }, 
-            "Reinstated": {
-                "name": "Reinstated"
-            },
-            "Succeeded": {
-                "name": "Succeeded"
-            },
-            "Failed": {
-                "name": "Failed"
-            },
-            "Unsubscribed": {
-                "name": "Unsubscribed"
-            },
-            "Updating": {
-                "name": "Updating"
-            }
+            "serviceName": "Confluent",
+            "name": "OfferStatus",
+            "description":  "Ststus of the customer offer.",
+            "isClosed": false,
+            "values": [
+                {
+                     "name": "Started"
+                },
+                {
+                    "name": "Pending",
+                    "value": "PendingFulfillmentStart",
+                    "description": "Received but not started."
+                },
+                {
+                    "name": "InProgress"
+                }, 
+                {
+                    "name": "Subscribed"
+                }, 
+                {
+                    "name": "Suspended"
+                }, 
+                {
+                    "name": "Reinstated"
+                },
+                {
+                    "name": "Succeeded"
+                },
+                {
+                    "name": "Failed"
+                },
+                {
+                    "name": "Unsubscribed"
+                },
+                {
+                    "name": "Updating"
+                }
+            ]
+        },
+        "ProvisioningState" : {
+            "serviceName": "Confluent",
+            "name": "ProvisioningState",
+            "description":  "Status of the resource.",
+            "isClosed": false,
+            "values": [
+                {
+                    "name": "Creating"
+                },
+                {
+                    "name": "ResolvingDNS"
+                },
+                {
+                    "name": "Moving"
+                }, 
+                {
+                    "name": "Deleting"
+                }, 
+                {
+                    "name": "Succeeded"
+                }, 
+                {
+                    "name": "Failed"
+                }
+            ]
         }
     }
 }
