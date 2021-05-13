@@ -41,7 +41,7 @@ import {
 } from "@azure-tools/adl-rest";
 import * as path from "path";
 import * as sqrl from "squirrelly"
-import * as fs from "fs"
+import * as fs from "fs/promises"
 export async function onBuild(program: Program) {
   const options : ServiceGenerationOptions = {
     controllerOutputPath : program.compilerOptions.serviceCodePath || path.resolve("./output")
@@ -168,31 +168,31 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       await program.host.writeFile(path.resolve(modelPath), await sqrl.renderFile(templateFile, model));
     }
 
-    function copyModelFiles(sourcePath: string, targetPath: string) {
+    async function copyModelFiles(sourcePath: string, targetPath: string) {
       console.log("Copying (" + sourcePath + ", " + targetPath + ")");
-      if (!fs.existsSync(targetPath)) 
+      if (!(await fs.stat(targetPath))) 
       {
-         fs.mkdirSync(targetPath);
+         await fs.mkdir(targetPath);
       }
      
-      fs.readdirSync(sourcePath).forEach( file => {
-        var sourceFile = sourcePath + "/" + file;
-        var targetFile = targetPath + "/" + file;
-        if (fs.lstatSync(sourceFile).isDirectory())
+      (await fs.readdir(sourcePath)).forEach( async file =>  {
+        var sourceFile = path.resolve(sourcePath + "/" + file);
+        var targetFile = path.resolve(targetPath + "/" + file);
+        if ((await fs.lstat(sourceFile)).isDirectory())
         {
             
             console.log ("Creating directory " + targetFile);
-            if (!fs.existsSync(targetPath)) 
+            if (!(await fs.stat(targetFile))) 
             {
-               fs.mkdirSync(targetPath);
+               await fs.mkdir(targetFile);
             }
 
-            copyModelFiles(sourceFile, targetFile);
+            await copyModelFiles(sourceFile, targetFile);
         }
         else
         {
             console.log("copying " + sourceFile + " to " + targetFile);
-            fs.copyFileSync(sourcePath + "/" + file, targetPath + "/" + file)
+            await fs.copyFile(sourceFile, targetFile)
         }
      });
    }
