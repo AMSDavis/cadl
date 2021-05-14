@@ -42,6 +42,7 @@ import {
 import * as path from "path";
 import * as sqrl from "squirrelly"
 import * as fs from "fs/promises"
+import { FileSystemError } from "vscode";
 export async function onBuild(program: Program) {
   const options : ServiceGenerationOptions = {
     controllerOutputPath : program.compilerOptions.serviceCodePath || path.resolve("./output")
@@ -71,24 +72,19 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
   interface Operation {
     returnType: string,
-    parameters?: methodParameter[],
+    parameters?: MethodParameter[],
   }
 
-  interface methodParameter {
+  interface MethodParameter {
     name: string,
     type: string,
     location?: string,
     description?: string
   }
 
-  interface Model {
+  interface Model  extends TypeDeclaration{
     serviceName: string,
     description?: string,
-    name: string,
-    nameSpace: string,
-    isDerivedType: boolean,
-    isImplementer: boolean,
-    baseClass?: TypeReference,
     properties: Property[]
   }
 
@@ -104,9 +100,16 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     typeParameters?: TypeReference[]
   }
 
+  interface TypeDeclaration extends TypeReference {
+    isDerivedType: boolean,
+    isImplementer: boolean,
+    baseClass?: TypeReference,
+    implements?: TypeReference[]
+  }
+
   interface ValidationAttribute {
     name: string,
-    parameters: ValueParameter[]
+    parameters?: ValueParameter[]
   }
 
   interface ValueParameter {
@@ -150,6 +153,157 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
   async function generateServiceCode() {
 
     const genPath = options.controllerOutputPath;
+
+    async function populateModels(namespace: NamespaceType) {
+      namespace.models.forEach(async model => {
+        outputModel.models.set(model.name, await convertModel(model, program.globalNamespace.name.sv));
+      })
+    } 
+
+    async function convertModel(model: ModelType, serviceName : string) : Promise<Model> {
+        const modelType = getCSharpTypeDecl(model);
+        const outModel: Model = {
+          serviceName: serviceName,
+          nameSpace: modelType.nameSpace,
+          isDerivedType: modelType.isDerivedType,
+          isImplementer: modelType.isImplementer,
+          baseClass: modelType.baseClass,
+          implements: modelType.implements,
+          name: modelType.name,
+          typeParameters: modelType.typeParameters,
+          properties: [...model.properties.values()].map(prop => getPropertyDecl(prop)),
+          description: getDoc(program, model)
+        }
+
+        return outModel;
+    }
+
+    function getPropertyDecl(property: ModelTypeProperty) : Property
+    {
+        const outPropertyType = getCSharpType(property.type);
+        const outProperty : Property = {
+          name: transformCSharpIdentifier(property.name),
+          type: outPropertyType,
+          validations: getPropertyValidators(property)
+        }
+
+        return outProperty;
+    }
+
+    function transformCSharpIdentifier(identifier: string) : string {
+       return identifier[0].toLocaleUpperCase() + identifier.substring(1);
+    }
+
+    function getPatternAttribute(parameter: string) : ValidationAttribute {
+      return {
+        name: "Pattern",
+        parameters: [
+          {
+            value: parameter,
+            type: "string"
+          }
+        ]
+      };
+    }
+
+    function getLengthAttribute(minLength?: number, maxLength?: number) : ValidationAttribute {
+      var output: ValidationAttribute = {
+        name: "Length",
+        parameters: []
+      };
+
+      if (minLength) {
+        output.parameters?.concat({type: "int", value: minLength});
+      }
+
+      if (maxLength) {
+        output.parameters?.concat({type: "int", value: maxLength});
+      }
+
+      return output;
+    }
+
+    function getPropertyValidators(property: ModelTypeProperty) : ValidationAttribute[]{
+        
+        const output : ValidationAttribute[] = [];
+        let format = getFormat(program, property.type)
+        if (format) {
+          output.concat(getPatternAttribute(format));
+        }
+
+        let minLength = getMinLength(program, property.type);
+        let maxLength = getMaxLength(program, property.type);
+        if (minLength || maxLength) {
+          output.concat(getLengthAttribute(minLength, maxLength));
+        }
+
+        return output;
+    }
+    
+    function getCSharpTypeDecl(adlType: Type) : TypeDeclaration {
+
+    }
+
+    function createInlineEnum(adlType: Type, value: string) : TypeReference {
+
+    }
+    
+    function getCSharpType(adlType: Type) : TypeReference | undefined {
+        switch (adlType.kind) {
+          case "String":
+            return createInlineEnum(adlType, adlType.value);
+          case "Boolean":
+            return { name: "bool", nameSpace: "System"};
+          case "Model":
+            // Is the type templated with only one type?
+            if (adlType.baseModels.length === 1 && !(adlType.properties)) {
+              return getCSharpType(adlType.baseModels[0]);
+            }
+
+            switch (adlType.name) {
+              case "byte":
+                return { name: "byte[]", nameSpace: "System" };
+              case "int32":
+                return {name: "int", nameSpace: "System"};
+              case "int64":
+                return {name: "int", nameSpace: "System"};
+              case "float64":
+                return {name: "double", nameSpace: "System"};
+              case "float32":
+                return {name: "float", nameSpace: "System"};
+              case "string":
+                return {name: "string", nameSpace: "System"};
+              case "boolean":
+                return {name: "bool", nameSpace: "System"};
+              case "plainDate":
+                return {name: "DateTime", nameSpace: "System"};
+              case "zonedDateTime":
+                return {name: "DateTime", nameSpace: "System"};
+              case "plainTime":
+                return {name: "DateTime", nameSpace: "System"};
+              case "Map":
+                // We assert on valType because Map types always have a type
+                const valType = adlType.properties.get("v");
+                return {
+                  name: "IDictionary",
+                  nameSpace: "System.Collections",
+                  typeParameters: [{name: "string", nameSpace: "System"}, getCSharpType(valType!.type)!]
+                };
+              default:
+            // Recursively call this function to find the underlying OpenAPI type
+                if (adlType.assignmentType) {
+                  const assignedType = getCSharpType(adlType.assignmentType);
+                  return assignedType ?? undefined;
+                }
+                break;
+        }
+      // fallthrough
+      default:
+        return undefined;
+      }
+    }
+
+    
 
     async function generateResource(resource: Resource) {
       var resourcePath = genPath + "/" + resource.name + "ControllerBase.cs";
