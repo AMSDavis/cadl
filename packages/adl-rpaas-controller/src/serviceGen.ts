@@ -1,63 +1,45 @@
 import {
-  ArrayType,
-  getAllTags,
   getDoc,
   getFormat,
-  getIntrinsicType,
   getMaxLength,
   getMinLength,
-  getMinValue,
-  getVisibility,
-  isIntrinsic,
-  isList,
-  isNumericType,
-  isSecret,
   ModelType,
   ModelTypeProperty,
   NamespaceType,
-  OperationType,
   Program,
-  StringLiteralType,
-  SyntaxKind,
-  throwDiagnostic,
-  Type,
-  UnionType
+  Type
 } from "@azure-tools/adl";
 import {
-  basePathForResource,
-  getConsumes,
-  getHeaderFieldName,
-  getOperationRoute,
-  getPathParamName,
-  getProduces,
-  getQueryParamName,
-  getResources,
-  getServiceNamespaceString,
-  getServiceTitle,
-  getServiceVersion,
-  HttpVerb,
-  isBody,
   _checkIfServiceNamespace
 } from "@azure-tools/adl-rest";
+
 import * as path from "path";
 import * as sqrl from "squirrelly"
 import * as fs from "fs/promises"
-import { FileSystemError } from "vscode";
+import { createDiagnostic } from "@azure-tools/adl/compiler";
+
 export async function onBuild(program: Program) {
+  // hack
+  const rootPath = path.join(path.resolve("."), "node_modules", "@azure-tools", "adl-rpaas-controller");
+  console.log("rootpath: " + rootPath);
   const options : ServiceGenerationOptions = {
-    controllerOutputPath : program.compilerOptions.serviceCodePath || path.resolve("./output")
+    controllerOutputPath : program.compilerOptions.serviceCodePath || path.join(path.resolve("."), "output"),
+    controllerModulePath: rootPath
   };
 
+  console.log("building using the new thing.")
   const generator = CreateServiceCodeGenerator(program, options);
   await generator.generateServiceCode();
 }
 
 export interface ServiceGenerationOptions {
-  controllerOutputPath: string;
+  controllerOutputPath: string,
+  controllerModulePath: string
 }
 
 export function CreateServiceCodeGenerator(program: Program, options: ServiceGenerationOptions) {
-
+  const rootPath = options.controllerModulePath;
+  const serviceName: string = getServiceName(program.globalNamespace.name.sv);
   interface Resource {
     name: string,
     nameSpace: string,
@@ -141,26 +123,33 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
   const outputModel: serviceModel = {
     nameSpace: "",
-    serviceName: "",
+    serviceName: serviceName,
     resources: [],
     models: new Map<string, Model>(),
     enumerations: new Map<string, Enumeration>()
   }
 
-  return {generateServiceCode};
+  let GenerationCounter: number = 1;
   
 
+  return {generateServiceCode};
+  
+  function getServiceName( serviceNamespace: string) : string {
+    return "Confluent";
+    //const dotPos = serviceNamespace.indexOf('.');
+    //return serviceNamespace.substring(dotPos);
+  }
   async function generateServiceCode() {
 
     const genPath = options.controllerOutputPath;
 
     async function populateModels(namespace: NamespaceType) {
       namespace.models.forEach(async model => {
-        outputModel.models.set(model.name, await convertModel(model, program.globalNamespace.name.sv));
+        outputModel.models.set(model.name, await convertModel(model));
       })
     } 
 
-    async function convertModel(model: ModelType, serviceName : string) : Promise<Model> {
+    async function convertModel(model: ModelType) : Promise<Model> {
         const modelType = getCSharpTypeDecl(model);
         const outModel: Model = {
           serviceName: serviceName,
@@ -172,7 +161,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           name: modelType.name,
           typeParameters: modelType.typeParameters,
           properties: [...model.properties.values()].map(prop => getPropertyDecl(prop)),
-          description: getDoc(program, model)
+          description: getDoc(model)
         }
 
         return outModel;
@@ -180,7 +169,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
     function getPropertyDecl(property: ModelTypeProperty) : Property
     {
-        const outPropertyType = getCSharpType(property.type);
+        const outPropertyType = getCSharpType(property.type)!;
         const outProperty : Property = {
           name: transformCSharpIdentifier(property.name),
           type: outPropertyType,
@@ -226,13 +215,13 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     function getPropertyValidators(property: ModelTypeProperty) : ValidationAttribute[]{
         
         const output : ValidationAttribute[] = [];
-        let format = getFormat(program, property.type)
+        let format = getFormat(property.type)
         if (format) {
           output.concat(getPatternAttribute(format));
         }
 
-        let minLength = getMinLength(program, property.type);
-        let maxLength = getMaxLength(program, property.type);
+        let minLength = getMinLength(property.type);
+        let maxLength = getMaxLength(property.type);
         if (minLength || maxLength) {
           output.concat(getLengthAttribute(minLength, maxLength));
         }
@@ -241,11 +230,36 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
     
     function getCSharpTypeDecl(adlType: Type) : TypeDeclaration {
+        let typeRef = getCSharpType(adlType)!;
+        let typeDecl: TypeDeclaration = {
+          isDerivedType: false, // fix this
+          isImplementer: false,
+          name: typeRef.name,
+          nameSpace: typeRef.nameSpace,
+          typeParameters: typeRef.typeParameters,
+        };
 
+        return typeDecl;
+    }
+
+    function getInlineEnumName( adlType: Type): string {
+        return "ServiceChoice" + (GenerationCounter++);
     }
 
     function createInlineEnum(adlType: Type, value: string) : TypeReference {
+        const outEnum: Enumeration = {
+            isClosed: false,
+            name: "",
+            serviceName: serviceName,
+            values: [{name:value}],
+        };
+        outputModel.enumerations.set(outEnum.name, outEnum);
+        const outType: TypeReference = {
+           name: outEnum.name,
+           nameSpace: "Microsoft.Service.Models",
+        }
 
+        return outType;
     }
     
     function getCSharpType(adlType: Type) : TypeReference | undefined {
@@ -305,30 +319,34 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
     
 
-    async function generateResource(resource: Resource) {
+    async function generateResource(resource: any) {
       var resourcePath = genPath + "/" + resource.name + "ControllerBase.cs";
       await program.host.writeFile(path.resolve(resourcePath), 
-        await sqrl.renderFile(path.resolve("templates/resourceControllerBase.sq"), resource));
+        await sqrl.renderFile(path.resolve(path.join(rootPath, "templates/resourceControllerBase.sq")), resource));
     }
 
-    async function generateModel(model: Model) {
+    async function generateModel(model: any) {
       var modelPath = genPath + "/models/" + model.name + ".cs";
-      await program.host.writeFile(path.resolve(modelPath), await sqrl.renderFile(path.resolve("templates/model.sq"), model));
+      await program.host.writeFile(path.resolve(modelPath), await sqrl.renderFile(path.resolve(path.join(rootPath, "templates/model.sq")), model));
     }
 
-    async function generateEnum(model: Enumeration) {
+    async function generateEnum(model: any) {
       var modelPath = genPath + "/models/" + model.name + ".cs";
-      var templateFile = path.resolve(model.isClosed? "templates/closedEnum.sq" : "templates/openEnum.sq");
+      var templateFile = path.resolve(path.join(rootPath, model.isClosed? "templates/closedEnum.sq" : "templates/openEnum.sq"));
       await program.host.writeFile(path.resolve(modelPath), await sqrl.renderFile(templateFile, model));
+    }
+
+    async function createDirIfNotExists( targetPath: string) {
+        if (!(await fs.stat(targetPath).catch(err => {
+            return false;}))) 
+          {
+         await fs.mkdir(targetPath);
+          }
     }
 
     async function copyModelFiles(sourcePath: string, targetPath: string) {
       console.log("Copying (" + sourcePath + ", " + targetPath + ")");
-      if (!(await fs.stat(targetPath))) 
-      {
-         await fs.mkdir(targetPath);
-      }
-     
+      await createDirIfNotExists(targetPath);
       (await fs.readdir(sourcePath)).forEach( async file =>  {
         var sourceFile = path.resolve(sourcePath + "/" + file);
         var targetFile = path.resolve(targetPath + "/" + file);
@@ -336,10 +354,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         {
             
             console.log ("Creating directory " + targetFile);
-            if (!(await fs.stat(targetFile))) 
-            {
-               await fs.mkdir(targetFile);
-            }
+            await createDirIfNotExists(targetFile);
 
             await copyModelFiles(sourceFile, targetFile);
         }
@@ -358,26 +373,31 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     sqrl.filters.define("typeParamList", op => op.typeParameters.map( (p: TypeReference) => p.name).join(', '));
     sqrl.filters.define("callByValue", op => op.parameters.map( (p: ValueParameter) => p.type === "string"?  '"' + p.value + '"': p.value ).join(', '));
 
-    copyModelFiles("./clientlib", path + "/models");
-    var routesPath = path.resolve(genPath + "/" + service + "ServiceRoutes.cs");
-    var operationsPath = path.resolve(genPath + "/OperationControllerBase.cs");
+    await createDirIfNotExists(genPath);
+    await copyModelFiles(path.join(rootPath, "clientlib"), path.join(genPath, "models"));
+    var routesPath = path.resolve(path.join(genPath, service + "ServiceRoutes.cs"));
+    var operationsPath = path.resolve(path.join(genPath, "OperationControllerBase.cs"));
     console.log("Writing service routes to: " + routesPath);
-    await program.host.writeFile(routesPath, await sqrl.renderFile("templates/serviceRoutingConstants.sq", outputModel));
+    let myOutputModel = JSON.parse((await fs.readFile(path.join(rootPath, "input", "confluent.json"), 'utf-8')));
+    await program.host.writeFile(routesPath, await sqrl.renderFile(path.join(rootPath, "templates", "serviceRoutingConstants.sq"), myOutputModel));
     console.log("Writing operations controller to: " + operationsPath);
-    await program.host.writeFile(operationsPath, await sqrl.renderFile("templates/operationControllerBase.sq", outputModel));
-    outputModel.resources.forEach( resource => generateResource(resource));
+    await program.host.writeFile(operationsPath, await sqrl.renderFile(path.join(rootPath, "templates", "operationControllerBase.sq"), myOutputModel));
+    myOutputModel.resources.forEach( (resource: any) => generateResource(resource));
     console.log("Writing models")
-    outputModel.models.forEach(model => {
-        console.log("Rendering model " + model.name);
-        console.log("using data " + JSON.stringify(model));
-        generateModel(model);
-    });
+    var models = myOutputModel.models;
+    for(var model in models) {   
+        console.log("Rendering model " + model);
+        console.log("using data " + JSON.stringify(models[model]));
+        generateModel(models[model]);
+    }
     
-    outputModel.enumerations.forEach(model => {
-      console.log("Rendering enum " + model.name);
-      console.log("using data " + JSON.stringify(model));
-      generateEnum(model);
-    });
+    var enums = myOutputModel.enumerations;
+    for(var model  in enums) { 
+      console.log("Rendering enum " + model);
+      console.log("using data " + enums[model]);
+      generateEnum(enums[model]);
+    }
+    
     console.log("Completed")
   }
 }

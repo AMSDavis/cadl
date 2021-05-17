@@ -6,6 +6,7 @@ dependencies:
   '@rush-temp/adl-openapi': file:projects/adl-openapi.tgz
   '@rush-temp/adl-rest': file:projects/adl-rest.tgz
   '@rush-temp/adl-rpaas': file:projects/adl-rpaas.tgz
+  '@rush-temp/adl-rpaas-controller': file:projects/adl-rpaas-controller.tgz
   '@rush-temp/adl-samples': file:projects/adl-samples.tgz
   '@rush-temp/adl-vs': file:projects/adl-vs.tgz
   '@rush-temp/adl-vscode': file:projects/adl-vscode.tgz
@@ -29,6 +30,7 @@ dependencies:
   resolve: 1.20.0
   rollup: 2.41.5
   source-map-support: 0.5.19
+  squirrelly: 8.0.8
   typescript: 4.2.4
   vsce: 1.85.1
   vscode-languageclient: 7.0.0
@@ -2189,6 +2191,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
+  /squirrelly/8.0.8:
+    dev: false
+    engines:
+      node: '>=6.0.0'
+    resolution:
+      integrity: sha512-7dyZJ9Gw86MmH0dYLiESsjGOTj6KG8IWToTaqBuB6LwPI+hyNb6mbQaZwrfnAQ4cMDnSWMUvX/zAYDLTSWLk/w==
   /sshpk/1.16.1:
     dependencies:
       asn1: 0.2.4
@@ -2778,6 +2786,17 @@ packages:
       integrity: sha512-If2xmLZ/HyX9iqPY13yClD7lesaYrkdEscVKTjwdhQhzkeHSte7tPiG/LjHL+qGbHaIRCzbIhypXf/cj+wXlqQ==
       tarball: file:projects/adl-rest.tgz
     version: 0.0.0
+  file:projects/adl-rpaas-controller.tgz:
+    dependencies:
+      '@types/node': 14.0.27
+      squirrelly: 8.0.8
+      typescript: 4.2.4
+    dev: false
+    name: '@rush-temp/adl-rpaas-controller'
+    resolution:
+      integrity: sha512-aUJqV93yyOmQeqeoANiD5lWOSuOCAsQ8dMMSWjMxgRKhHWpJVtO/yOMXe8c/8ROiIHYPiHDsTqrWSnWjp3RODA==
+      tarball: file:projects/adl-rpaas-controller.tgz
+    version: 0.0.0
   file:projects/adl-rpaas.tgz:
     dependencies:
       '@types/node': 14.0.27
@@ -2870,6 +2889,7 @@ specifiers:
   '@rush-temp/adl-openapi': file:./projects/adl-openapi.tgz
   '@rush-temp/adl-rest': file:./projects/adl-rest.tgz
   '@rush-temp/adl-rpaas': file:./projects/adl-rpaas.tgz
+  '@rush-temp/adl-rpaas-controller': file:./projects/adl-rpaas-controller.tgz
   '@rush-temp/adl-samples': file:./projects/adl-samples.tgz
   '@rush-temp/adl-vs': file:./projects/adl-vs.tgz
   '@rush-temp/adl-vscode': file:./projects/adl-vscode.tgz
@@ -2893,6 +2913,7 @@ specifiers:
   resolve: ~1.20.0
   rollup: ~2.41.4
   source-map-support: ~0.5.19
+  squirrelly: ^8.0.8
   typescript: ~4.2.4
   vsce: ~1.85.1
   vscode-languageclient: ~7.0.0

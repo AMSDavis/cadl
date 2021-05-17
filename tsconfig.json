@@ -14,6 +14,9 @@
       "path": "packages/adl-rpaas/tsconfig.json"
     },
     {
+      "path": "packages/adl-rpaas-controller/tsconfig.json"
+    },
+    {
       "path": "packages/adl-vscode/tsconfig.json"
     },
     {

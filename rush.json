@@ -93,6 +93,12 @@
       "shouldPublish": true
     },
     {
+      "packageName": "@azure-tools/adl-rpaas-controller",
+      "projectFolder": "packages/adl-rpaas-controller",
+      "reviewCategory": "production",
+      "shouldPublish": false
+    },
+    {
       "packageName": "@azure-tools/adl-samples",
       "projectFolder": "packages/adl-samples",
       "reviewCategory": "production",

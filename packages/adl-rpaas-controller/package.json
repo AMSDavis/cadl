@@ -4,7 +4,6 @@
   "description": "Azure ADL RPaaS service controller code generator",
   "homepage": "https://github.com/Azure/adl",
   "readme": "https://github.com/Azure/adl/blob/master/README.md",
-  "main": "adl-gen.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Azure/adl.git"
@@ -16,21 +15,28 @@
     "adl",
     "rpaas"
   ],
-  "bin": {
-    "adl-gen": "adl-gen.js"
-  },
   "author": "Microsoft Corporation",
   "license": "MIT",
   "type": "module",
+  "main": "dist/servicegen.js",
+  "adlMain": "dist/servicegen.js",
   "engines": {
     "node": ">=14.0.0"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "npm run compile",
+    "compile": "tsc -p .",
+    "watch": "tsc -p . --watch"
+  },
   "dependencies": {
     "squirrelly": "^8.0.8",
-    "@azure-tools/adl": "0.10.0",
-    "@azure-tools/adl-rest": "0.2.0",
-    "@azure-tools/adl-openapi": "0.2.0",
-    "@azure-tools/adl-rpaas": "0.3.0"
+    "@azure-tools/adl": "0.9.0",
+    "@azure-tools/adl-rest": "0.1.2",
+    "@azure-tools/adl-openapi": "0.1.2",
+    "@azure-tools/adl-rpaas": "0.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "~14.0.27",
+    "typescript": "~4.2.4"
   }
 }

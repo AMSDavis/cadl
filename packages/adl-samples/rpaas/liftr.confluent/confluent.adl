@@ -1,6 +1,7 @@
 ﻿import "@azure-tools/adl-rest";
 import "@azure-tools/adl-openapi";
 import "@azure-tools/adl-rpaas";
+import "@azure-tools/adl-rpaas-controller";
 
 @armNamespace
 @serviceTitle("Microsoft.Confluent")
