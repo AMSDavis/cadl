@@ -11,10 +11,10 @@ namespace {{it.nameSpace}}.Service.Controllers
         {{_@each(it.resources) => resource, index}}
         public const string {{resource.name}}Item = "{{resource.itemPath}}";
         {{_@if(resource.hasSubscriptionList)}}
-        public const string {{resource.name}}ListBySubscription = "subscriptions/{subscriptionId}/providers/{{resource.nameSpace}}/{{resource.serializedName}}";
+        public const string {{resource.name}}ListBySubscription = "/subscriptions/{subscriptionId}/providers/{{resource.nameSpace}}/{{resource.serializedName}}";
         {{_/if}}
         {{_@if(resource.hasResourceGroupList)}}
-        public const string {{resource.name}}ListByResourceGroup = "subscriptions/{subscriptionId}/resourceGroups{resourceGroupName}/providers/{{resource.nameSpace}}/{{resource.serializedName}}";
+        public const string {{resource.name}}ListByResourceGroup = "/subscriptions/{subscriptionId}/resourceGroups{resourceGroupName}/providers/{{resource.nameSpace}}/{{resource.serializedName}}";
         {{_/if}}
         {{_@foreach(resource.operations) => operationName, operation}}
         {{_@if(operationName === "CreateOrUpdate")}}

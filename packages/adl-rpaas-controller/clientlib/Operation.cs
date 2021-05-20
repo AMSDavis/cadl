@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Microsoft.Confluent.Service.Models
+namespace Microsoft.FluidRelay.Service.Models
 {
     /// <summary>
     /// Description of an RP Operation.

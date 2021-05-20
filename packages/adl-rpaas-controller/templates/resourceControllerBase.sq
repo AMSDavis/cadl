@@ -43,7 +43,7 @@ namespace {{it.nameSpace}}.Service
             var modelValidation = ValidationHelpers.Validate{{operation.action}}Model(resource);
             if (modelValidation.Valid)
             {
-                modelValidation = await OnValidateCreate({{operation | call}}, Request);
+                modelValidation = await OnValidate{{operation.action}}({{operation | call}}, Request);
             }
 
             return modelValidation;
@@ -56,7 +56,7 @@ namespace {{it.nameSpace}}.Service
         /// <param name="{{parameter.name}}"> {{parameter.description}}</param>
         {{_/each}}
         /// <returns> The {{it.name}} resource.</returns>
-        [HttpPut]
+        [Http{{@if(operation.action == "Create")}}Put{{#else}}{{operation.action}}{{/if}}]
         [Route({{it.serviceName}}ServiceRoutes.{{it.name}}Item)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{it.name}}Resource))]
         [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof({{it.name}}Resource))]

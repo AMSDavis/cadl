@@ -1,0 +1,205 @@
+{
+    "nameSpace": "Microsoft.FluidRelayService",
+    "serviceName": "FluidRelayService",
+    "resources": [
+    ],
+    "models" : {
+        "FluidRelayServer" : {
+            "serviceName": "FluidRelay",
+            "description": "The Microsoft.FluidRelay/fluidRelayServers resource.",
+            "name": "FluidRelayServer",
+            "nameSpace": "Microsoft.FluidRelay.Service.Models",
+            "isDerivedType": true,
+            "isImplementer": false,
+            "baseClass": {
+                "name": "TrackedResource",
+                "nameSpace": "Microsoft.Adl.RPaaS"
+            },
+            "properties": [
+                {
+                    "name": "Properties",
+                    "type": {
+                        "name": "FluidRelayServerProperties",
+                        "nameSpace": "Microsoft.FluidRelay.Service.Models"
+                    },
+                    "validations": []
+                }
+            ]
+        },
+        "FluidRelayServerProperties" : {
+            "serviceName": "FluidRelay",
+            "description": "The Microsoft.FluidRelay/fluidRelayServers rp-specific properties.",
+            "name": "FluidRelayServerProperties",
+            "nameSpace": "Microsoft.FluidRelay.Service.Models",
+            "isDerivedType": false,
+            "isImplementer": false,
+            "baseClass": {},
+            "properties": [
+                {
+                    "name": "FrsTenantId",
+                    "description": "The Fluid tenantId for this server",
+                    "type": {
+                        "name": "string",
+                        "nameSpace": "System"
+                    },
+                    "validations": [
+                        {
+                            "name": "Visibility",
+                            "parameters" :[
+                                {
+                                    "type": "string",
+                                    "value": "read"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "FluidRelayEndpoints",
+                    "description": "The Fluid tenantId for this server",
+                    "type": {
+                        "name": "FluidRelayEndpoints",
+                        "nameSpace": "Microsoft.FluidRelay.Service.Models"
+                    },
+                    "validations": [
+                        {
+                            "name": "Visibility",
+                            "parameters" :[
+                                {
+                                    "type": "string",
+                                    "value": "read"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "ProvisioningState",
+                    "description": "The provisioning state of the resource.",
+                    "type": {
+                        "name": "ProvisioningState?",
+                        "nameSpace": "Microsoft.FluidRelay.Service.Models"
+                    },
+                    "validations": []
+                }
+            ]
+        },
+        "FluidRelayServerListResult" : {
+            "serviceName": "FluidRelay",
+            "description": "A list of Microsoft.FluidRelay/fluidRelayServers resources.",
+            "name": "FluidRelayServerListResult",
+            "nameSpace": "Microsoft.FluidRelay.Service.Models",
+            "isDerivedType": true,
+            "isImplementer": false,
+            "baseClass": {
+                "name": "Pageable",
+                "nameSpace": "Microsoft.Adl.RPaaS",
+                "typeParameters": [
+                    {
+                        "name": "FluidRelayServer",
+                        "nameSpace": "Microsoft.FluidRelay.Service.Models"
+                    }
+                ]
+            },
+            "properties": []
+        },
+        "ResourceUpdate" : {
+            "serviceName": "FluidRelay",
+            "description": "Microsoft.FluidRelay/fluidRelayServers resource update properties.",
+            "name": "ResourceUpdate",
+            "nameSpace": "Microsoft.FluidRelay.Service.Models",
+            "isDerivedType": false,
+            "isImplementer": false,
+            "baseClass": {},
+            "properties": [
+                {
+                    "name": "Tags",
+                    "description": "ARM Resource Tags.",
+                    "type": {
+                        "name": "IDictionary",
+                        "nameSpace": "System.Collections",
+                        "typeParameters": [
+                            {
+                                "name": "string",
+                                "nameSpace": "System"
+                            },
+                            {
+                                "name": "string",
+                                "nameSpace": "System"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "FluidRelayEndpoints" : {
+            "serviceName": "FluidRelay",
+            "description": "Microsoft.FluidRelay/fluidRelayServers resource update properties.",
+            "name": "FluidRelayEndpoints",
+            "nameSpace": "Microsoft.FluidRelay.Service.Models",
+            "isDerivedType": false,
+            "isImplementer": false,
+            "baseClass": {},
+            "properties": [
+                {
+                    "name": "OrdererEndpoints",
+                    "description": "The Fluid Relay Orderer Endpoints.",
+                    "type": {
+                        "name": "Uri[]",
+                        "nameSpace": "System"
+                    },
+                    "validations": [
+                        {
+                            "name": "Visibility",
+                            "parameters" :[
+                                {
+                                    "type": "string",
+                                    "value": "read"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "StorageEndpoints",
+                    "description": "The Fluid Relay storage Endpoints.",
+                    "type": {
+                        "name": "Uri[]",
+                        "nameSpace": "System"
+                    },
+                    "validations": [
+                        {
+                            "name": "Visibility",
+                            "parameters" :[
+                                {
+                                    "type": "string",
+                                    "value": "read"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+
+        }
+    },
+    "enumerations": { 
+        "ProvisioningState" : {
+            "serviceName": "FluidRelay",
+            "name": "ProvisioningState",
+            "description":  "Status of the resource.",
+            "isClosed": false,
+            "values": [
+                {
+                    "name": "Cancelled"
+                }, 
+                {
+                    "name": "Succeeded"
+                }, 
+                {
+                    "name": "Failed"
+                }
+            ]
+        }
+    }
+}

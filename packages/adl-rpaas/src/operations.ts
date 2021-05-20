@@ -65,6 +65,7 @@ export function armResourceParams(program: Program, operation: Type): void {
 const apiVersionParameter: ParameterInfo = {
   name: "apiVersion",
   typeName: "ApiVersionParameter",
+  description: "The service Api Version"
 };
 
 function getOperationPathArguments(pathParameters: ParameterInfo[]): string {

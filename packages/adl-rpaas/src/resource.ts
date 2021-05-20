@@ -16,6 +16,7 @@ export interface ParameterInfo {
   name: string;
   typeName: string;
   resourceType?: Type;
+  description?: string;
 }
 
 function getPathParameterInfo(paramType: Type, resourceType?: Type): ParameterInfo {
@@ -62,6 +63,10 @@ export interface ArmResourceInfo {
   resourceNameParam?: ParameterInfo;
   parentResourceType?: Type;
   resourcePath?: ArmResourcePath;
+}
+
+export function getArmResources() : Type[] {
+   return [... armResourceNamespaces.keys()]; 
 }
 
 const armResourceNamespaces = new Map<Type, ArmResourceInfo>();
