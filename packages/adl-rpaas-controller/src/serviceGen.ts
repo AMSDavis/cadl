@@ -8,6 +8,7 @@ import {
   NamespaceType,
   OperationType,
   Program,
+  StringLiteralType,
   Type,
   UnionType
 } from "@azure-tools/adl";
@@ -95,7 +96,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
   interface TypeReference {
     name: string,
     nameSpace: string,
-    typeParameters?: TypeReference[]
+    typeParameters?: TypeReference[],
+    isBuiltIn: boolean
   }
 
   interface TypeDeclaration extends TypeReference {
@@ -252,33 +254,50 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       const models = new Map<string, Model>();
       function populateModel( adlType: Type) {
         let model = adlType as ModelType;
+        console.log("Processing type: " + safeStringify(adlType.kind))
         if (model) {
+          console .log("FOUND MODEL: " + model.name);
+          const typeRef = getCSharpType(model);
           //const info = getArmResourceInfo(model);
           const outModel : Model = {
-            name: model.name,
-            nameSpace: modelNamespace,
+            name: typeRef?.name ?? model.name,
+            nameSpace: typeRef?.nameSpace ?? modelNamespace,
             properties: [],
             description: getDoc(model),
             serviceName: serviceName,
             typeParameters: model.templateArguments? model.templateArguments!.map(arg => getCSharpType(arg)!) : [],
-            isDerivedType: model.baseModels  !== undefined ||  model.templateArguments !== undefined,
-            isImplementer: false
+            isDerivedType: false,
+            isImplementer: false,
+            isBuiltIn: typeRef?.isBuiltIn ?? false
           };
-          if (model.baseModels && model.baseModels.values()) {
-            //outModel.baseClass = getCSharpType([...model.baseModels.values()][0]);
+          if (model.baseModels && model.baseModels.length > 0) {
+            outModel.isDerivedType = true;
+            let baseType: TypeReference[] = [];
+            model.baseModels.forEach(model => {
+              const converted = getCSharpType(model);
+              if (converted) {
+                baseType.push(converted)
+              }
+            })
+            outModel.baseClass = baseType.length > 0 ? baseType[0] : undefined;
           }
-          if (model.properties && model.properties.values())
+          if (model.properties && model.properties.size > 0)
           {
             [...model.properties.values()]?.forEach(val => {
               populateModel(val.type);
               outModel.properties.push(getPropertyDecl(val));
             });
           }
-          models.set(outModel.name, outModel);
-          model.baseModels.forEach(base => {
-            populateModel(base)
-          });
+          if (!outModel.isBuiltIn) {
+            models.set(outModel.name, outModel);
+          }
+          if (model.baseModels && model.baseModels.length > 0) {
+            model.baseModels?.forEach(base => {
+              populateModel(base)
+            });
+          }
           if (model.templateArguments && model.templateArguments.length > 0) {
+            outModel.isDerivedType = true;
             model.templateArguments?.forEach(temp => populateModel(temp));
           }
         }
@@ -286,16 +305,21 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
       armResources.forEach( r => {
         let rModel = r as ModelType;
+        console.log("Processign model " + r.kind + ", " + rModel?.name )
         if (!models.has(rModel.name))
         {
           populateModel(r);
         }
       });
 
-      outputModel.models = models.values();
-      //console.log("MODELS");
-      //console.log("------");
-      //console.log(JSON.stringify(models));
+      models.forEach(model => {outputModel.models[model.name] = model;})
+      console.log("MODELS");
+      console.log("------");
+      console.log(JSON.stringify(models, replacer));
+
+      console.log("ENUMS");
+      console.log("-----");
+      console.log(JSON.stringify(outputModel.enumerations, replacer));
     }
 
     
@@ -396,8 +420,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       
     });
     populateResources();
-    //console.log(JSON.stringify(outputModel.resources, replacer));
-    //populateModels();
+    console.log(JSON.stringify(outputModel.resources, replacer));
+    populateModels();
     async function convertModel(model: ModelType) : Promise<Model> {
         const modelType = getCSharpTypeDecl(model);
         const outModel: Model = {
@@ -410,7 +434,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           name: modelType.name,
           typeParameters: modelType.typeParameters,
           properties: [...model.properties.values()].map(prop => getPropertyDecl(prop)),
-          description: getDoc(model)
+          description: getDoc(model),
+          isBuiltIn: modelType.isBuiltIn
         }
 
         return outModel;
@@ -490,6 +515,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           name: typeRef.name,
           nameSpace: typeRef.nameSpace,
           typeParameters: typeRef.typeParameters,
+          isBuiltIn: typeRef?.isBuiltIn ?? false
         };
 
         return typeDecl;
@@ -499,17 +525,29 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         return "ServiceChoice" + (GenerationCounter++);
     }
 
-    function createInlineEnum(adlType: Type, value: string) : TypeReference {
+    function createInlineEnum(adlType: UnionType) : TypeReference {
         const outEnum: Enumeration = {
             isClosed: false,
-            name: "",
+            name: "Enumeration" + GenerationCounter++,
             serviceName: serviceName,
-            values: [{name:value}],
+            values: [],
         };
-        outputModel.enumerations.set(outEnum.name, outEnum);
+        adlType.options.forEach(option => {
+          var stringOption = option as StringLiteralType;
+          if (stringOption) {
+            outEnum.values.push(
+              {
+                name: stringOption.value,
+                value: stringOption.value
+              }
+            )
+          }
+        })
+        outputModel.enumerations[outEnum.name] = outEnum;
         const outType: TypeReference = {
            name: outEnum.name,
            nameSpace: "Microsoft.Service.Models",
+           isBuiltIn: false
         }
 
         return outType;
@@ -519,9 +557,17 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         //console.log("Calling getCSharpType for type: " + adlType?.kind)
         switch (adlType.kind) {
           case "String":
-            return createInlineEnum(adlType, adlType.value);
+            return {name: "string", nameSpace: "System", isBuiltIn: true};
           case "Boolean":
-            return { name: "bool", nameSpace: "System"};
+            return { name: "bool", nameSpace: "System", isBuiltIn: true};
+          case "Union":
+            return createInlineEnum(adlType);
+          case "Array":
+            var arrType = getCSharpType(adlType.elementType);
+            if (arrType) {
+              return {name: arrType.name + "[]", nameSpace: arrType.nameSpace, isBuiltIn : arrType.isBuiltIn};
+            }
+            return undefined;
           case "Model":
             // Is the type templated with only one type?
             if (adlType.baseModels.length === 1 && !(adlType.properties)) {
@@ -530,39 +576,40 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
             switch (adlType.name) {
               case "byte":
-                return { name: "byte[]", nameSpace: "System" };
+                return { name: "byte[]", nameSpace: "System", isBuiltIn: true };
               case "int32":
-                return {name: "int", nameSpace: "System"};
+                return {name: "int", nameSpace: "System", isBuiltIn: true};
               case "int64":
-                return {name: "int", nameSpace: "System"};
+                return {name: "int", nameSpace: "System", isBuiltIn: true};
               case "float64":
-                return {name: "double", nameSpace: "System"};
+                return {name: "double", nameSpace: "System", isBuiltIn: true};
               case "float32":
-                return {name: "float", nameSpace: "System"};
+                return {name: "float", nameSpace: "System", isBuiltIn: true};
               case "string":
-                return {name: "string", nameSpace: "System"};
+                return {name: "string", nameSpace: "System", isBuiltIn: true};
               case "boolean":
-                return {name: "bool", nameSpace: "System"};
+                return {name: "bool", nameSpace: "System", isBuiltIn: true};
               case "plainDate":
-                return {name: "DateTime", nameSpace: "System"};
+                return {name: "DateTime", nameSpace: "System", isBuiltIn: true};
               case "zonedDateTime":
-                return {name: "DateTime", nameSpace: "System"};
+                return {name: "DateTime", nameSpace: "System", isBuiltIn: true};
               case "plainTime":
-                return {name: "DateTime", nameSpace: "System"};
+                return {name: "DateTime", nameSpace: "System", isBuiltIn: true};
               case "Map":
                 // We assert on valType because Map types always have a type
                 const valType = adlType.properties.get("v");
                 return {
                   name: "IDictionary",
                   nameSpace: "System.Collections",
-                  typeParameters: [{name: "string", nameSpace: "System"}, getCSharpType(valType!.type)!]
+                  isBuiltIn: true,
+                  typeParameters: [{name: "string", nameSpace: "System", isBuiltIn: true}, getCSharpType(valType!.type)!]
                 };
               default:
                 if (adlType.assignmentType) {
                   const assignedType = getCSharpType(adlType.assignmentType);
                   return assignedType ?? undefined;
                 }
-                return {name: adlType.name, nameSpace: modelNamespace, typeParameters: adlType.templateArguments? [...adlType.templateArguments!.map( arg => getCSharpType(arg)!)] : undefined};
+                return {name: adlType.name, nameSpace: modelNamespace, isBuiltIn: false, typeParameters: adlType.templateArguments? [...adlType.templateArguments!.map( arg => getCSharpType(arg)!)] : undefined};
                 break;
         }
       // fallthrough
