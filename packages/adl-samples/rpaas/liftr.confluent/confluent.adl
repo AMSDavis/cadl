@@ -100,7 +100,8 @@ model UserDetail {
   path: "/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/agreements",
   collectionName: "MarketplaceAgreements",
   parameterType: null,
-  pathParameters: [SubscriptionIdParameter]
+  pathParameters: [SubscriptionIdParameter],
+  standardOperations: ["read"]
 })
 @armListBy(SubscriptionIdParameter, "List")
 model ConfluentAgreementResource {

@@ -2,6 +2,7 @@ import {
   getIntrinsicType,
   isIntrinsic,
   ModelType,
+  NamespaceType,
   Program,
   StringLiteralType,
   throwDiagnostic,
@@ -9,6 +10,7 @@ import {
   Type,
 } from "@azure-tools/adl";
 import { extension } from "@azure-tools/adl-openapi";
+import { HttpOperationType } from "@azure-tools/adl-rest";
 import { getArmNamespace } from "./namespace.js";
 import { _generateStandardOperations } from "./operations.js";
 
@@ -63,6 +65,7 @@ export interface ArmResourceInfo {
   resourceNameParam?: ParameterInfo;
   parentResourceType?: Type;
   resourcePath?: ArmResourcePath;
+  operationNamespaces: Set<string>;
 }
 
 export function getArmResources() : Type[] {
@@ -241,6 +244,7 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     resourceNameParam,
     resourceModelName,
     resourceListModelName,
+    operationNamespaces: new Set<string>(),
   };
 
   armResourceInfo.resourcePath = getResourcePath(

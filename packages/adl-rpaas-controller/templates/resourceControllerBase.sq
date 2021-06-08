@@ -22,10 +22,10 @@ namespace {{it.nameSpace}}.Service
             _logger = logger;
         }
         
-        {{_@foreach(it.operations) => operationName, operation}}
-        {{_! if (operationName.toLowerCase().includes("create")) operation.action = "Create";}}
-        {{_! if (operationName.toLowerCase().includes("delete")) operation.action = "Delete";}}
-        {{_! if (operationName.toLowerCase() === "update") operation.action = "Patch";}}
+        {{_@each(it.operations) => operation}}
+        {{_! if (operation.name.toLowerCase().includes("create")) operation.action = "Create";}}
+        {{_! if (operation.name.toLowerCase().includes("delete")) operation.action = "Delete";}}
+        {{_! if (operation.name.toLowerCase() === "update") operation.action = "Patch";}}
         /// <summary>
         /// Validate the request to {{operation.action}} the {{it.name}} resource.
         /// </summary>
@@ -77,7 +77,7 @@ namespace {{it.nameSpace}}.Service
 
         internal abstract Task<ValidationResponse> OnValidate{{operation.action}}({{operation | decl}}, HttpRequest request);
         internal abstract Task<IActionResult> On{{operation.action}}Async({{operation | decl}}, HttpRequest request);
-        {{_/foreach}}
+        {{_/each}}
 
         {{_@if(it.hasSubscriptionList)}}
         /// <summary>

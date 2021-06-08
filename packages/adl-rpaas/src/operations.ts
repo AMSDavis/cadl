@@ -32,6 +32,9 @@ export function armResourceOperations(program: Program, target: Type, resourceTy
     );
   }
 
+  const namespace = target as NamespaceType;
+  armResourceInfo.operationNamespaces.add(namespace.name)
+
   // Set the resource path
   resource(program, target, armResourceInfo.resourcePath.path);
 
@@ -110,6 +113,7 @@ export function armStandardRead(program: Program, target: Type, documentation?: 
     target
   );
 
+  armResourceInfo.operationNamespaces?.add(namespace);
   if (!documentation) {
     documentation = `Get a ${armResourceInfo.resourceModelName}`;
   }
@@ -130,6 +134,7 @@ export function armStandardCreate(program: Program, target: Type, documentation?
     target
   );
 
+  armResourceInfo.operationNamespaces?.add(namespace);
   if (!documentation) {
     documentation = `Create a ${armResourceInfo.resourceModelName}`;
   }
@@ -150,6 +155,7 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
     target
   );
 
+  armResourceInfo.operationNamespaces?.add(namespace);
   if (!documentation) {
     documentation = `Update a ${armResourceInfo.resourceModelName}`;
   }
@@ -170,6 +176,7 @@ export function armStandardDelete(program: Program, target: Type, documentation?
     target
   );
 
+  armResourceInfo.operationNamespaces?.add(namespace);
   if (!documentation) {
     documentation = `Delete a ${armResourceInfo.resourceModelName}`;
   }
@@ -215,7 +222,7 @@ export function _generateStandardOperations(
   program: Program,
   resourceType: Type,
   standardOperations: string[]
-) {
+  ) {
   for (const op of standardOperations) {
     const generator = standardOperationFunctions[op];
     if (generator) {
@@ -289,6 +296,7 @@ function armListByInternal(
   }
 
   const finalPath = basePath + "/" + pathParts[pathParts.length - 1];
+  armResourceInfo.operationNamespaces?.add(armResourceInfo.collectionName + "." + operationName);
   program.evalAdlScript(`
     namespace ${armResourceInfo.parentNamespace} {
       @tag("${armResourceInfo.collectionName}")
