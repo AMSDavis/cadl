@@ -68,8 +68,8 @@ export interface ArmResourceInfo {
   operationNamespaces: Set<string>;
 }
 
-export function getArmResources() : Type[] {
-   return [... armResourceNamespaces.keys()]; 
+export function getArmResources(): Type[] {
+  return [...armResourceNamespaces.keys()];
 }
 
 const armResourceNamespaces = new Map<Type, ArmResourceInfo>();
@@ -215,9 +215,6 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     ? getPathParameterInfo(resourceParamType, resourceType)
     : undefined;
   const parentNamespace = program.checker!.getNamespaceString(resourceType.namespace);
-
-  // Mark the type as an Azure resource
-  extension(program, resourceType, "x-ms-azure-resource", true);
 
   // Detect the resource type
   let resourceKind: ResourceKind = "Plain";

@@ -122,8 +122,7 @@ export function armStandardRead(program: Program, target: Type, documentation?: 
     program,
     namespace,
     `@doc("${documentation}")
-     @get op Get(${getOperationPathArguments(operationParams)}): ArmResponse<${
-      armResourceInfo.resourceModelName
+     @get op Get(${getOperationPathArguments(operationParams)}): ArmResponse<${armResourceInfo.resourceModelName
     }> | ErrorResponse;`
   );
 }
@@ -143,8 +142,7 @@ export function armStandardCreate(program: Program, target: Type, documentation?
     program,
     namespace,
     `@doc("${documentation}")
-     @put op CreateOrUpdate(${getOperationPathArguments(operationParams)}, @body resource: ${
-      armResourceInfo.resourceModelName
+     @put op CreateOrUpdate(${getOperationPathArguments(operationParams)}, @body resource: ${armResourceInfo.resourceModelName
     }): ArmResponse<${armResourceInfo.resourceModelName}> | ErrorResponse;`
   );
 }
@@ -164,9 +162,8 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
     program,
     namespace,
     `@doc("${documentation}")
-     @patch op Update(${getOperationPathArguments(operationParams)}, @body resource: ${
-      armResourceInfo.resourceModelName
-    }): ArmResponse<${armResourceInfo.resourceModelName}> | ErrorResponse;`
+     @patch op Update(${getOperationPathArguments(operationParams)}, @body resource: ResourceUpdate
+     ): ArmResponse<${armResourceInfo.resourceModelName}> | ErrorResponse;`
   );
 }
 
@@ -186,8 +183,8 @@ export function armStandardDelete(program: Program, target: Type, documentation?
     namespace,
     `@doc("${documentation}")
      @_delete op Delete(${getOperationPathArguments(
-       operationParams
-     )}): ArmResponse<{}> | ErrorResponse;`
+      operationParams
+    )}): ArmEmptyOkResponse | ArmNoContentResponse | ErrorResponse;`
   );
 }
 
@@ -222,7 +219,7 @@ export function _generateStandardOperations(
   program: Program,
   resourceType: Type,
   standardOperations: string[]
-  ) {
+) {
   for (const op of standardOperations) {
     const generator = standardOperationFunctions[op];
     if (generator) {
@@ -259,7 +256,7 @@ function armListByInternal(
   let pathParams = resourcePath.parameters;
   const paramInfo =
     armResourceInfo.resourceNameParam &&
-    armResourceInfo.resourceNameParam.typeName === paramTypeName
+      armResourceInfo.resourceNameParam.typeName === paramTypeName
       ? armResourceInfo.resourceNameParam
       : pathParams.find((p) => p.typeName === paramTypeName);
 
@@ -304,9 +301,8 @@ function armListByInternal(
       namespace ${armResourceInfo.collectionName}${operationName} {
         @doc("${documentation}")
         @operationId("${armResourceInfo.collectionName}_${operationName}")
-        @list @get op ${operationName}(${getOperationPathArguments(pathParams)}): ArmResponse<${
-    armResourceInfo.resourceListModelName
-  }> | ErrorResponse;
+        @list @get op ${operationName}(${getOperationPathArguments(pathParams)}): ArmResponse<${armResourceInfo.resourceListModelName
+    }> | ErrorResponse;
       }
     }`);
 }

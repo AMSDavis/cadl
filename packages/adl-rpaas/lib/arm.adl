@@ -70,25 +70,25 @@ model NameParameter {
   @path name: string;
 }
 
-@doc("Response envelope for ARM operations.")
-model ArmResponseBase {
-  @header("x-ms-client-request-id")
-  clientRequestId: string;
-
-  @header("x-ms-correlation-request-id")
-  correlationRequestId: string;
-}
 
 @doc("Typed response envelope for ARM operations.")
 model ArmResponse<T> {
   ... OkResponse<T>;
-  ... ArmResponseBase;
+}
+
+@doc("Operation succeeded.")
+model ArmEmptyOkResponse {
+  @header statusCode: 200;
+}
+
+@doc("Operation succeeded with no response content.")
+model ArmNoContentResponse {
+  ... NoContentResponse
 }
 
 @doc("Typed response envelope for ARM PUT operations.")
 model ArmCreatedResponse<T> {
   ... CreatedResponse;
-  ... ArmResponseBase;
   @body body: T;
 }
 
@@ -317,4 +317,10 @@ model SystemData {
   @visibility("read")
   @doc("The timestamp of resource last modification (UTC)")
   lastModifiedAt?: plainDate;
+}
+
+@doc("Update model for resource tags")
+model ResourceUpdate {
+  @doc("ARM resource tags.")
+  tags?: Map<string, string>
 }

@@ -35,6 +35,7 @@ import {
   getServiceNamespaceString,
   getServiceTitle,
   getServiceVersion,
+  getServiceHost,
   HttpVerb,
   isBody,
   _checkIfServiceNamespace,
@@ -67,7 +68,7 @@ function getPageable(entity: Type): string | undefined {
 // Keep a list of all Types encountered that need schema definitions
 const schemas = new Set<Type>();
 
-export function getModels() : Type[] {
+export function getModels(): Type[] {
   return [...schemas.values()];
 }
 
@@ -148,6 +149,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       title: getServiceTitle(),
       version: getServiceVersion(),
     },
+    host: getServiceHost(),
     schemes: ["https"],
     produces: [], // Pre-initialize produces and consumes so that
     consumes: [], // they show up at the top of the document
@@ -261,8 +263,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       (route?.subPath
         ? `/${route?.subPath?.replace(/^\//g, "")}`
         : !inferredVerb && !route
-        ? "/get"
-        : "");
+          ? "/get"
+          : "");
 
     // Find path parameter names
     const declaredPathParamNames = routePath.match(/\{\w+\}/g)?.map((s) => s.slice(1, -1)) ?? [];
@@ -423,7 +425,10 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     }
 
     response.description = getResponseDescription(responseModel, statusCode);
-    response.schema = getSchemaOrRef(bodyModel);
+    const bodyType = bodyModel as ModelType;
+    if (!bodyType || (bodyType.name !== undefined && bodyType.name !== "")) {
+      response.schema = getSchemaOrRef(bodyModel);
+    }
 
     if (!currentEndpoint.produces.includes(contentType)) {
       currentEndpoint.produces.push(contentType);
@@ -474,7 +479,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       // Users will have to rename / alias type to have it get ref'ed.
       const schema = getSchemaForType(type);
       // helps to read output and correlate to ADL
-      schema["x-adl-name"] = name;
+      if (schema) { schema["x-adl-name"] = name; }
       return schema;
     } else {
       const placeholder = {
@@ -630,11 +635,13 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       ph.schema = schema;
     } else {
       schema = getSchemaForType(param.type);
-      if (param.type.kind == "Array") {
-        schema.items = getSchemaForType(param.type.elementType);
-      }
-      for (const property in schema) {
-        ph[property] = schema[property];
+      if (schema) {
+        if (param.type.kind == "Array") {
+          schema.items = getSchemaForType(param.type.elementType);
+        }
+        for (const property in schema) {
+          ph[property] = schema[property];
+        }
       }
     }
   }
@@ -659,7 +666,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     for (const type of schemas) {
       const name = getTypeNameForSchemaProperties(type);
       const schemaForType = getSchemaForType(type);
-      root.definitions[name] = schemaForType;
+      if (schemaForType) {
+        root.definitions[name] = schemaForType;
+      }
     }
   }
 
@@ -737,7 +746,10 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       if (nonNullOptions.length == 1) {
         // Get the schema for the model type
         const schema: any = getSchemaForType(nonNullOptions[0]);
-        schema["x-nullable"] = nullable;
+        if (schema) {
+          schema["x-nullable"] = nullable;
+        }
+
         return schema;
       } else {
         throwDiagnostic(
@@ -858,6 +870,11 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     // Attach any OpenAPI extensions
     attachExtensions(model, modelSchema);
 
+    if (modelSchema.properties === undefined || modelSchema.properties === null || Object.keys(modelSchema.properties).length == 0) {
+      console.log("blank schema ");
+      return undefined;
+    }
+
     return modelSchema;
   }
 
@@ -949,50 +966,53 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
   function applyIntrinsicDecorators(adlType: Type, schemaType: any): any {
     const pattern = getFormat(adlType);
-    if (schemaType.type === "string" && !schemaType.format && pattern) {
-      schemaType = {
-        ...schemaType,
-        pattern,
-      };
-    }
+    if (schemaType) {
+      if (schemaType.type === "string" && !schemaType.format && pattern) {
+        schemaType = {
+          ...schemaType,
+          pattern,
+        };
+      }
 
-    const minLength = getMinLength(adlType);
-    if (schemaType.type === "string" && !schemaType.minLength && minLength !== undefined) {
-      schemaType = {
-        ...schemaType,
-        minLength,
-      };
-    }
+      const minLength = getMinLength(adlType);
+      if (schemaType.type === "string" && !schemaType.minLength && minLength !== undefined) {
+        schemaType = {
+          ...schemaType,
+          minLength,
+        };
+      }
 
-    const maxLength = getMaxLength(adlType);
-    if (schemaType.type === "string" && !schemaType.maxLength && maxLength !== undefined) {
-      schemaType = {
-        ...schemaType,
-        maxLength,
-      };
-    }
+      const maxLength = getMaxLength(adlType);
+      if (schemaType.type === "string" && !schemaType.maxLength && maxLength !== undefined) {
+        schemaType = {
+          ...schemaType,
+          maxLength,
+        };
+      }
 
-    const minValue = getMinValue(adlType);
-    if (isNumericType(adlType) && !schemaType.minimum && minValue !== undefined) {
-      schemaType = {
-        ...schemaType,
-        minimum: minValue,
-      };
-    }
+      const minValue = getMinValue(adlType);
+      if (isNumericType(adlType) && !schemaType.minimum && minValue !== undefined) {
+        schemaType = {
+          ...schemaType,
+          minimum: minValue,
+        };
+      }
 
-    const maxValue = getMinValue(adlType);
-    if (isNumericType(adlType) && !schemaType.maximum && maxValue !== undefined) {
-      schemaType = {
-        ...schemaType,
-        maximum: maxValue,
-      };
-    }
+      const maxValue = getMinValue(adlType);
+      if (isNumericType(adlType) && !schemaType.maximum && maxValue !== undefined) {
+        schemaType = {
+          ...schemaType,
+          maximum: maxValue,
+        };
+      }
 
-    if (isSecret(adlType)) {
-      schemaType = {
-        ...schemaType,
-        format: "password",
-      };
+
+      if (isSecret(adlType)) {
+        schemaType = {
+          ...schemaType,
+          format: "password",
+        };
+      }
     }
 
     return schemaType;
