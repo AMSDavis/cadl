@@ -29,10 +29,6 @@ import {
   getHttpOperation
 } from "@azure-tools/adl-rest";
 
-import {
-  getModels
-} from "@azure-tools/adl-openapi";
-
 import { ArmResourceInfo, getArmNamespace, getArmResourceInfo, getArmResources, ParameterInfo } from "@azure-tools/adl-rpaas";
 
 import {
@@ -41,9 +37,6 @@ import {
 import * as path from "path";
 import * as sqrl from "squirrelly"
 import * as fs from "fs/promises"
-import { Console } from "console";
-import { stringify } from "querystring";
-import { toNamespacedPath } from "path";
 
 
 export async function onBuild(program: Program) {
@@ -122,7 +115,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     isDerivedType: boolean,
     isImplementer: boolean,
     baseClass?: TypeReference,
-    implements?: TypeReference[]
+    implements?: TypeReference[],
+    validations?: ValidationAttribute[]
   }
 
   interface ValidationAttribute {
@@ -236,9 +230,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         }
       }
 
-
-
-
       function GetAdditionalOperations() {
         const modelNameSpaces: NamespaceType[] = getResources().map(res => res as NamespaceType);
         const visitedNamespaces = new Map<string, NamespaceType>();
@@ -347,7 +338,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
               if (operation.parameters) {
                 operation.parameters.properties.forEach(prop => {
-                  var propType = getCSharpType(prop.type);
+                  var propType = getCSharpType(prop.type, prop.name);
                   if (prop.name === "api-version" && propType?.name === "string") {
                     console.log("** STANDARD API-VERSION PARAMETER **")
                   }
@@ -464,6 +455,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
       GetAdditionalOperations();
     }
+
     function populateModels() {
       const models = new Map<string, Model>();
       function populateModel(adlType: Type) {
@@ -479,26 +471,29 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               properties: [],
               description: getDoc(model),
               serviceName: serviceName,
-              typeParameters: model.templateArguments ? model.templateArguments!.map(arg => getCSharpType(arg)!) : [],
+              typeParameters: model.templateArguments ? model.templateArguments!.map(arg => getCSharpType(arg, model.name)!) : [],
               isDerivedType: false,
               isImplementer: false,
-              isBuiltIn: typeRef?.isBuiltIn ?? false
+              isBuiltIn: typeRef?.isBuiltIn ?? false,
+              validations: getValidations(adlType)
             };
             if (model.assignmentType || (model.baseModels && model.baseModels.length > 0) || (model.templateArguments && model.templateArguments.length > 0)) {
               outModel.isDerivedType = true;
               const baseType: TypeReference[] = [];
               const assignModel = model.assignmentType as ModelType;
               if (assignModel) {
-                var assignRef = getCSharpType(assignModel);
+                var assignRef = getCSharpType(assignModel, model.name);
                 if (assignRef) {
                   baseType.push(assignRef);
                 }
               }
               model.baseModels.forEach(model => {
+                let hint = undefined;
                 if (model.assignmentType) {
+                  hint = model.name;
                   model = model.assignmentType as ModelType;
                 }
-                const converted = getCSharpType(model);
+                const converted = getCSharpType(model, hint);
                 if (converted) {
                   baseType.push(converted)
                 }
@@ -507,10 +502,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 const templateBase = program.checker!.getTypeForNode(model.templateNode);
                 if (templateBase) {
                   let modelType = templateBase as ModelType;
+                  let hint = undefined;
                   if (modelType && modelType.assignmentType) {
+                    hint = modelType.name;
                     modelType = modelType.assignmentType as ModelType;
                   }
-                  const converted = getCSharpType(modelType);
+                  const converted = getCSharpType(modelType, hint);
                   if (converted) {
                     baseType.push(converted);
                   }
@@ -535,9 +532,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
 
       modelsToGenerate.forEach(r => {
-        let rModel = r as ModelType;
-        console.log("Processing model " + r.kind + ", " + rModel?.name)
-        if (!models.has(rModel.name)) {
+        console.log("Processing model " + r.kind + ", " + r.name)
+        if (!models.has(r.name)) {
           populateModel(r);
         }
       });
@@ -620,11 +616,11 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           }
         }
       }
-      const outPropertyType = getCSharpType(property.type)!;
+      const outPropertyType = getCSharpType(property.type, property.name)!;
       const outProperty: Property = {
         name: transformCSharpIdentifier(property.name),
         type: outPropertyType,
-        validations: getPropertyValidators(property)
+        validations: getValidations(property)
       }
       return outProperty;
     }
@@ -656,46 +652,20 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       };
 
       if (minLength) {
-        output.parameters?.concat({ type: "int", value: minLength });
+        output.parameters?.push({ type: "int", value: minLength });
       }
 
       if (maxLength) {
-        output.parameters?.concat({ type: "int", value: maxLength });
+        output.parameters?.push({ type: "int", value: maxLength });
       }
 
       return output;
     }
 
-    function getPropertyValidators(property: ModelTypeProperty): ValidationAttribute[] {
-
-      const output: ValidationAttribute[] = [];
-      const modelType: ModelType = property.type as ModelType;
-      const assignment: Type | undefined = modelType.assignmentType;
-      const baseType = modelType && modelType.baseModels && modelType.baseModels.length > 0 ? modelType.baseModels[0] : undefined;
-      const sourceType = modelType.templateNode ? program.checker!.getTypeForNode(modelType.templateNode) : undefined;
-
-      let format = getFormat(property.type) ?? baseType ?
-        getFormat(baseType!) : assignment ? getFormat(assignment!) : sourceType ? getFormat(sourceType) : undefined;
-      if (format) {
-        output.concat(getPatternAttribute(format));
-      }
-
-      let minLength = getMinLength(property.type) ?? baseType ?
-        getMinLength(baseType!) : assignment ? getMinLength(assignment!) : sourceType ? getMinLength(sourceType) : undefined;
-
-      let maxLength = getMaxLength(property.type) ?? baseType ?
-        getMaxLength(baseType!) : assignment ? getMaxLength(assignment!) : sourceType ? getMaxLength(sourceType) : undefined;
-      if (minLength || maxLength) {
-        output.concat(getLengthAttribute(minLength, maxLength));
-      }
-
-      return output;
-    }
-
-    function createInlineEnum(adlType: UnionType): TypeReference {
+    function createInlineEnum(adlType: UnionType, nameHint?: string): TypeReference {
       const outEnum: Enumeration = {
         isClosed: false,
-        name: "Enumeration" + GenerationCounter++,
+        name: nameHint ?? "Enumeration" + GenerationCounter++,
         serviceName: serviceName,
         values: [],
       };
@@ -721,7 +691,67 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       return outType;
     }
 
-    function getCSharpType(adlType: Type, verbose?: boolean): TypeReference | undefined {
+    function getValidations(adlType: Type): ValidationAttribute[] {
+      const visited: Map<Type, ValidationAttribute[]> = new Map<Type, ValidationAttribute[]>();
+      function getLocalValidators(localType: Type): ValidationAttribute[] {
+        if (visited.has(localType)) {
+          return visited.get(localType)!;
+        }
+
+        const output: ValidationAttribute[] = [];
+
+        let format = getFormat(localType);
+        if (format) {
+          output.push(getPatternAttribute(format));
+        }
+
+        let minLength = getMinLength(localType);
+        let maxLength = getMaxLength(localType);
+        if (minLength || maxLength) {
+          console.log("Minlength: " + minLength + ", MaxLength: " + maxLength);
+          output.push(getLengthAttribute(minLength, maxLength));
+        }
+
+        visited.set(localType, output);
+        return output;
+      }
+
+      console.log("Calling getValidations on type with kind" + adlType.kind);
+      const outValidations: ValidationAttribute[] = getLocalValidators(adlType);
+      switch (adlType.kind) {
+        case "Array":
+          getValidations(adlType.elementType).forEach(i => outValidations.push(i));
+          break;
+        case "Tuple":
+          adlType.values.forEach(v => getValidations(v).forEach(val => outValidations.push(val)));
+          break;
+        case "Union":
+          adlType.options.forEach(o => getValidations(o).forEach(val => outValidations.push(val)));
+          break;
+        case "Model":
+          if (adlType.assignmentType) {
+            getValidations(adlType.assignmentType).forEach(i => outValidations.push(i));
+          }
+          if (adlType.baseModels) {
+            adlType.baseModels.forEach(o => getValidations(o).forEach(val => outValidations.push(val)));
+          }
+          if (adlType.templateNode) {
+            const templateType = program.checker!.getTypeForNode(adlType.templateNode);
+            getValidations(templateType).forEach(val => outValidations.push(val));
+          }
+          break;
+        case "ModelProperty":
+          getValidations(adlType.type).forEach(val => outValidations.push(val));
+          break;
+        default:
+          // do nothing
+          break;
+      }
+
+      return outValidations;
+    }
+
+    function getCSharpType(adlType: Type, nameHint?: string): TypeReference | undefined {
       //console.log("Calling getCSharpType for type: " + adlType?.kind)
       switch (adlType.kind) {
         case "String":
@@ -729,9 +759,9 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         case "Boolean":
           return { name: "bool", nameSpace: "System", isBuiltIn: true };
         case "Union":
-          return createInlineEnum(adlType);
+          return createInlineEnum(adlType, nameHint ? transformCSharpIdentifier(nameHint) : undefined);
         case "Array":
-          var arrType = getCSharpType(adlType.elementType);
+          var arrType = getCSharpType(adlType.elementType, nameHint);
           if (arrType) {
             return { name: arrType.name + "[]", nameSpace: arrType.nameSpace, isBuiltIn: arrType.isBuiltIn };
           }
@@ -740,7 +770,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           console.log("~~~~~~~~~ Found tuple type ~~~~~~~~~")
           const params: TypeReference[] = [];
           adlType.values.forEach(val => {
-            const ref = getCSharpType(val);
+            const ref = getCSharpType(val, nameHint);
             if (ref) {
               console.log(ref);
               params.push(ref);
@@ -754,7 +784,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             typeParameters: params
           };
         case "Model":
-          if (verbose) {
+          if (isVerboseLogging()) {
             console.log("ADL TYPE NAME: " + adlType.name);
             console.log("ADL TYPE ATKIND: " + adlType.assignmentType?.kind);
             console.log("ADL TYPE BASEMODELELNGTH: " + adlType.baseModels?.length);
@@ -764,7 +794,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           }
           // Is the type templated with only one type?
           if (adlType.baseModels.length === 1 && !(adlType.properties)) {
-            return getCSharpType(adlType.baseModels[0]);
+            return getCSharpType(adlType.baseModels[0], nameHint);
           }
 
           switch (adlType.name) {
@@ -795,7 +825,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 name: "IDictionary",
                 nameSpace: "System.Collections",
                 isBuiltIn: true,
-                typeParameters: [{ name: "string", nameSpace: "System", isBuiltIn: true }, getCSharpType(valType!.type)!]
+                typeParameters: [{ name: "string", nameSpace: "System", isBuiltIn: true }, getCSharpType(valType!.type, nameHint)!]
               };
             default:
               var known = getKnownType(adlType);
@@ -823,8 +853,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               }
               if (adlType.assignmentType) {
                 console.log("found assigned type for " + adlType.namespace + "." + adlType.name);
-                var checkAssignment = getCSharpType(adlType.assignmentType);
-                if (checkAssignment && checkAssignment.isBuiltIn && checkAssignment.nameSpace === "System") {
+                var checkAssignment = getCSharpType(adlType.assignmentType, adlType.name);
+                if (checkAssignment) {
                   return checkAssignment;
                 }
               }
@@ -1048,3 +1078,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     console.log("Completed")
   }
 }
+function isVerboseLogging(): boolean {
+  return false;
+}
+
