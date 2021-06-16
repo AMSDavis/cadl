@@ -60,8 +60,13 @@ namespace {{it.nameSpace}}.Service
         /// <returns> The {{it.name}} resource.</returns>
         [Http{{operation.verb.toLowerCase() | initialCaps}}]
         [Route({{it.serviceName}}ServiceRoutes.{{it.name}}Item{{operation.subPath? operation.action :  ""}})]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{it.name}}Resource))]
-        [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof({{it.name}}Resource))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{operation.returnType}}))]
+        {{_@if(operation.verb.toUpperCase() === "PUT")}}
+        [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof({{operation.returnType}}))]
+        {{_/if}}
+        {{_@if(operation.verb.toUpperCase() === "DELETE")}}
+        [ProducesResponseType((int)HttpStatusCode.NoContent, Type = typeof({{operation.returnType}}))]
+        {{_/if}}
         public async Task<IActionResult> {{operation.action}}Async({{operation | decl}})
         {
             _logger.LogInformation("{{operation.action}}Async()");
