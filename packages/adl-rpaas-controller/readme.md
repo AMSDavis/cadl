@@ -1,5 +1,5 @@
 # ADL Service Code Generator for RPaaS
-The ADL service code generator for RPaaS creates an abstract UserRP implementation of specs using the ADL-RPaaS in ASP.Net.  This doc discusses the high-level design, challenges, and remaining work.
+The ADL service code generator for RPaaS creates an abstract UserRP implementation of specs using the ADL-RPaaS extension.  Code is generating using ASP.Net MVC framework.  This doc discusses the high-level design, challenges, and remaining work.
 ## Overview
 Service Code is laid out as follows:
 - One controller for each resource, containing resource operations
@@ -22,8 +22,10 @@ Generation follows this general algorithm:
   - Get operation verb/path info through ADL-Rest
   - Prevent duplication through maps/sets
   - Determine type references
-- Recursively process models and enumerations to create model generation list
-- Populate models and enumerations by iterating over generation list
+  - Process return types and parameters to create model generation list
+- Populate model and enumeration declarations by iterating over generation list
+  - Filter out properties that originate in parent classes
+- Copy files, and render ServiceModel data through templates to produce c# code
 ## Type Definitions
 ServiceModel
   - service metadata (name, namespace)
@@ -76,6 +78,7 @@ ServiceModel
   - Service-level tests
 ## Remaining Work
 ### General
+- Bring in latest updates from main (assignments, aliases, enumerations)
 - Support for default resource
 - Support for extension resources
 - Versioning prototype
