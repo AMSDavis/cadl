@@ -82,6 +82,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
   interface Operation {
     name: string,
     returnType: string,
+    verb: string,
+    subPath?: string,
     parameters?: MethodParameter[],
   }
 
@@ -201,33 +203,32 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             return {
               name: "Get",
               parameters: pathParams,
-              returnType: modelName
+              returnType: modelName,
+              verb: "GET"
             };
           case PutName:
             return {
               name: "CreateOrUpdate",
               parameters: [...pathParams!, { name: "body", location: "body", description: "The resource data.", type: modelName }],
-              returnType: modelName
+              returnType: modelName,
+              verb: "PUT"
             };
           case DeleteName:
             return {
               name: "Delete",
               parameters: pathParams,
-              returnType: "void"
+              returnType: "void",
+              verb: "Delete"
             };
           case PatchName:
             return {
               name: "Update",
               parameters: [...pathParams!, { name: "body", location: "body", description: "The resource patch data.", type: "ResourceUpdate" }],
-              returnType: modelName
+              returnType: modelName,
+              verb: "PATCH"
             };
           default:
-            return {
-              name: "List",
-              parameters: pathParams,
-              returnType: modelName
-            };
-            break;
+            return undefined;
         }
       }
 
@@ -360,6 +361,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 name: transformCSharpIdentifier(operation.name),
                 returnType: returnType?.name ?? "void",
                 parameters: parameters,
+                subPath: httpOperation!.route?.subPath,
+                verb: httpOperation!.route.verb
               };
               localOperations.push(outOperation);
 
@@ -413,7 +416,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             .filter(o => o == PutName || o == PatchName || o == DeleteName)
             .forEach(op => {
               let value = (getStandardOperation(op, resourceInfo, cSharpModelName)!);
-              if (!map.has(value.name)) {
+              if (value && !map.has(value.name)) {
                 map.set(value.name, value);
               }
             });
@@ -428,8 +431,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             serializedName: transformJsonIdentifier(resourceInfo.collectionName),
             operations: [...map.values()],
             specificationArmNamespace: matchingNamespace,
-            specificationModelName: modelName,
-            specificationListModelName: listName
+            specificationModelName: transformCSharpIdentifier(modelName),
+            specificationListModelName: transformCSharpIdentifier(listName)
           };
           resources.set(modelName, outResource);
           outputModel.resources.push(outResource);
@@ -1005,10 +1008,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
 
     const service = outputModel.serviceName;
+
     sqrl.filters.define("decl", op => op.parameters.map((p: any) => p.type + " " + p.name).join(', '));
     sqrl.filters.define("call", op => op.parameters.map((p: any) => p.name).join(', '));
     sqrl.filters.define("typeParamList", op => op.typeParameters.map((p: TypeReference) => p.name).join(', '));
     sqrl.filters.define("callByValue", op => op.parameters.map((p: ValueParameter) => p.type === "string" ? '"' + p.value + '"' : p.value).join(', '));
+    sqrl.filters.define("initialCaps", op => transformCSharpIdentifier(op));
     const operationsPath = path.resolve(path.join(genPath, "operations"));
     const routesPath = path.resolve(path.join(genPath, service + "ServiceRoutes.cs"));
     const templatePath = path.join(rootPath, "templates");

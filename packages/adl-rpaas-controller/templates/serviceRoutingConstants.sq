@@ -16,14 +16,17 @@ namespace {{it.nameSpace}}.Service.Controllers
         {{_@if(resource.hasResourceGroupList)}}
         public const string {{resource.name}}ListByResourceGroup = "/subscriptions/{subscriptionId}/resourceGroups{resourceGroupName}/providers/{{resource.nameSpace}}/{{resource.serializedName}}";
         {{_/if}}
-        {{_@foreach(resource.operations) => operationName, operation}}
-        {{_@if(operationName === "CreateOrUpdate")}}
+        {{_@each(resource.operations) => operation, opIndex}}
+        {{_@if(operation.verb.toUpperCase() === "PUT")}}
         public const string {{resource.name}}ValidateCreate = "{{resource.itemPath}}/validateCreate";{{/if}}
-        {{_@if(operationName === "Update")}}
+        {{_@if(operation.verb.toUpperCase() === "PATCH")}}
         public const string {{resource.name}}ValidatePatch = "{{resource.itemPath}}/validatePatch";{{/if}}
-        {{_@if(operationName === "Delete")}}
+        {{_@if(operation.verb.toUpperCase() === "DELETE")}}
         public const string {{resource.name}}ValidateDelete = "{{resource.itemPath}}/validateDelete";{{/if}}
-        {{_/foreach}}
+        {{_@if(operation.verb.toUpperCase() === "POST")}}
+        public const string {{resource.name}}Validate{{operation.name}} = "{{resource.itemPath}}/validate{{operation.subPath | initialCaps}}";
+        public const string {{resource.name}}Item{{operation.name}} = "{{resource.itemPath}}/{{operation.subPath}}";{{/if}}
+        {{_/each}}
         {{_/each}}
     }
 }

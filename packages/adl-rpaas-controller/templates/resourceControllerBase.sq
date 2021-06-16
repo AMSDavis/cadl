@@ -23,9 +23,11 @@ namespace {{it.nameSpace}}.Service
         }
         
         {{_@each(it.operations) => operation}}
-        {{_! if (operation.name.toLowerCase().includes("create")) operation.action = "Create";}}
-        {{_! if (operation.name.toLowerCase().includes("delete")) operation.action = "Delete";}}
-        {{_! if (operation.name.toLowerCase() === "update") operation.action = "Patch";}}
+        {{_! if (operation.verb.toLowerCase().includes("put")) operation.action = "Create";}}
+        {{_! if (operation.verb.toLowerCase().includes("delete")) operation.action = "Delete";}}
+        {{_! if (operation.verb.toLowerCase() === "patch") operation.action = "Patch";}}
+        {{_! if (operation.verb.toLowerCase() === "post") operation.action = "" + operation.subPath.substring(0, 1).toUpperCase() + operation.subPath.substring(1);}}
+        {{_@if(operation.action)}}
         /// <summary>
         /// Validate the request to {{operation.action}} the {{it.name}} resource.
         /// </summary>
@@ -34,7 +36,7 @@ namespace {{it.nameSpace}}.Service
         {{_/each}}
         /// <returns> A ValidationResponse indicating the validity of the {{operation.action}} request.</returns>
         [HttpPost]
-        [Route({{it.serviceName}}ServiceRoutes.Validate{{operation.action}})]
+        [Route({{it.serviceName}}ServiceRoutes.{{it.name}}Validate{{operation.action}})]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ValidationResponse))]
         public async Task<ValidationResponse> Validate{{operation.action}}Async({{operation | decl}})
         {
@@ -56,8 +58,8 @@ namespace {{it.nameSpace}}.Service
         /// <param name="{{parameter.name}}"> {{parameter.description}}</param>
         {{_/each}}
         /// <returns> The {{it.name}} resource.</returns>
-        [Http{{@if(operation.action == "Create")}}Put{{#else}}{{operation.action}}{{/if}}]
-        [Route({{it.serviceName}}ServiceRoutes.{{it.name}}Item)]
+        [Http{{operation.verb.toLowerCase() | initialCaps}}]
+        [Route({{it.serviceName}}ServiceRoutes.{{it.name}}Item{{operation.subPath? operation.action :  ""}})]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{it.name}}Resource))]
         [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof({{it.name}}Resource))]
         public async Task<IActionResult> {{operation.action}}Async({{operation | decl}})
@@ -77,6 +79,7 @@ namespace {{it.nameSpace}}.Service
 
         internal abstract Task<ValidationResponse> OnValidate{{operation.action}}({{operation | decl}}, HttpRequest request);
         internal abstract Task<IActionResult> On{{operation.action}}Async({{operation | decl}}, HttpRequest request);
+        {{_/if}}
         {{_/each}}
 
         {{_@if(it.hasSubscriptionList)}}
@@ -87,14 +90,14 @@ namespace {{it.nameSpace}}.Service
         /// <returns> The list of {{it.name}} Resources in the specified subscription.</returns>
         [HttpGet]
         [Route(ConfluentServiceRoutes.{{it.name}}ListBySubscription)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{it.name}}ResourceListResult))]
-        public Task<{{it.name}}ResourceListResult> ListBySubscription(string subscriptionId)
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{it.specificationListModelName}}))]
+        public Task<{{it.specificationListModelName}}> ListBySubscription(string subscriptionId)
         {
             _logger.LogInformation("ListBySubscriptionAsync()");
             return OnListBySubscription(subscriptionId, Request);
         }
 
-        internal abstract Task<{{it.name}}ResourceListResult> OnListBySubscription(string subscriptionId, HttpRequest request);
+        internal abstract Task<{{it.specificationListModelName}}> OnListBySubscription(string subscriptionId, HttpRequest request);
         {{_/if}}
 
         {{@if(it.hasResourceGroupList)}}
@@ -106,14 +109,14 @@ namespace {{it.nameSpace}}.Service
         /// <returns> The list of {{it.name}} Resources in the specified resource group.</returns>
         [HttpGet]
         [Route(ConfluentServiceRoutes.{{it.name}}ListByResourceGroup)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{it.name}}ResourceListResult))]
-        public Task<{{it.name}}ResourceListResult> ListByResourceGroupAsync(string subscriptionId, string resourceGroupName)
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{it.specificationListModelName}}))]
+        public Task<{{it.specificationListModelName}}> ListByResourceGroupAsync(string subscriptionId, string resourceGroupName)
         {
             _logger.LogInformation("ListByResourceGroupAsync()");
             return OnListByResourceGroupAsync(subscriptionId, resourceGroupName, Request);
         }
                 
-        internal abstract Task<{{it.name}}ResourceListResult> OnListByResourceGroupAsync(string subscriptionId, string resourceGroupName, HttpRequest request);
+        internal abstract Task<{{it.specificationListModelName}}> OnListByResourceGroupAsync(string subscriptionId, string resourceGroupName, HttpRequest request);
         {{_/if}}
     }
 }
