@@ -9,9 +9,11 @@ using System.Collections.Generic;
 
 namespace Microsoft.{{it.serviceName}}.Service.Models
 {
+    {{_@if(it.description)}}
     /// <summary>
-    /// Details of the subscriber.
+    /// {{it.description}}
     /// </summary>
+    {{_/if}}
     public class {{it.name}}{{@if(it.isDerivedType || it.isImplementer)}} : {{@if(it.baseClass)}}{{it.baseClass.name}}{{@if(it.baseClass.typeParameters)}}<{{it.baseClass | typeParamList}}>{{/if}}{{/if}}{{@if(it.implements)}}{{@if(it.isDerivedType)}}, {{/if}}{{it.implements.join(", ")}}{{/if}}{{/if}}
     {
     {{@each(it.properties) => prop, propIndex}}
