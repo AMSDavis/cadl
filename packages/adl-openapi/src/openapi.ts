@@ -871,7 +871,6 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     attachExtensions(model, modelSchema);
 
     if (modelSchema.properties === undefined || modelSchema.properties === null || Object.keys(modelSchema.properties).length == 0) {
-      console.log("blank schema ");
       return undefined;
     }
 

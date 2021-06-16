@@ -101,7 +101,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
   interface Property {
     name: string,
     type: TypeReference,
-    validations: ValidationAttribute[]
+    validations: ValidationAttribute[],
+    description?: string
   }
 
   interface TypeReference {
@@ -165,10 +166,10 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
   return { generateServiceCode };
 
   function getServiceName(serviceNamespace: string): string {
-    //console.log("^^^ Service Name: " + serviceNamespace);
     const dotPos = serviceNamespace.indexOf('.');
     return serviceNamespace.substring(dotPos + 1);
   }
+
   async function generateServiceCode() {
 
     const genPath = options.controllerOutputPath;
@@ -239,7 +240,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           const modelKey: string = model.name;
           if (!modelsToGenerate.has(modelKey) && !getKnownType(model)) {
             modelsToGenerate.set(modelKey, model);
-            console.log("added model " + modelKey);
           }
         }
 
@@ -247,15 +247,11 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
           var union = model as UnionType;
           if (union) {
-            console.log("*** Operation return type is union? " + union !== undefined)
             let outModel: ModelType | undefined = undefined;
             union?.options.forEach(option => {
-              console.log("Found union type option: " + option.kind);
               let optionModel = option as ModelType;
-              console.log("Found union type option with name: " + optionModel?.name + " and arg count: " + optionModel?.templateArguments?.length);
               if (optionModel && optionModel.name === "ArmResponse" && optionModel.templateArguments) {
                 let innerModel = optionModel.templateArguments[0] as ModelType;
-                console.log("Found inner model: " + innerModel?.name);
                 if (innerModel) {
                   outModel = innerModel;
                 }
@@ -267,12 +263,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           var simpleModel = model as ModelType;
           if (simpleModel !== undefined) {
             if (simpleModel.assignmentType) {
-              console.log("rerun for assignment type");
               return extractResponseType(simpleModel.assignmentType!);
             }
-            console.log("returning simple model with name: " + simpleModel.name + ", " + simpleModel.kind);
-            console.log("template node: " + simpleModel.templateNode?.kind + ", baseModels: " + simpleModel.baseModels.map(m => m.name) + ", args: " + simpleModel.templateArguments?.map(t => t.kind))
-
           }
 
           return simpleModel;
@@ -328,6 +320,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           function visitOperation(operation: OperationType, namespaceKey: string) {
             const operationKey: string = namespaceKey + "." + operation.name;
             let httpOperation = getHttpOperation(operation);
+            console.log("== BEGIN OPERATION " + operation.name + " ==");
             if (!visitedOperations.has(operationKey)) {
               visitedOperations.set(operationKey, operation);
               let returnType = extractResponseType(operation.returnType);
@@ -338,14 +331,13 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
               if (operation.parameters) {
                 operation.parameters.properties.forEach(prop => {
-                  var propType = getCSharpType(prop.type, prop.name);
+                  var propType = getCSharpType(prop.type);
                   if (prop.name === "api-version" && propType?.name === "string") {
-                    console.log("** STANDARD API-VERSION PARAMETER **")
+                    // skip standard api-version parameter
                   }
                   else if (propType) {
                     visitType(prop.type);
                     let propLoc: string = isQueryParam(prop) ? "Query" : isPathParam(prop) ? "Path" : isBody(prop) ? "Body" : "????";
-                    console.log("PARAM " + prop.name + " : " + propType?.nameSpace + "." + propType?.name + "( in " + propLoc + ")");
                     parameters.push({
                       name: prop.name,
                       type: propType.name,
@@ -353,9 +345,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                     })
                   }
                 })
-              }
-              if (isResource(operation)) {
-                console.log("Operation is a resource: " + basePathForResource(operation))
               }
 
               var route = httpOperation?.route;
@@ -378,7 +367,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               if (resource) {
 
                 exists = resource.operations?.some(op => op.name === outOperation.name) ?? false
-                console.log("Looking for place for operation " + outOperation.name + " in resource " + resource.name + "found? " + exists)
               }
 
               if (resource && !exists) {
@@ -389,9 +377,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         }
         function visitNamespace(visited: NamespaceType, parent?: string) {
           let key: string = visited.name;
-          console.log("visiting namespace " + key);
           if (isResource(visited)) {
-            console.log("namespace is a resource: " + basePathForResource(visited))
           }
 
           let resource: Resource | undefined = undefined;
@@ -403,7 +389,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             visitedNamespaces.set(key, visited);
             let armSpace = getArmNamespace(visited);
             if (armSpace) {
-              console.log("**** This is an arm namespace with name: " + armSpace + " ****");
               visitOperations(visited.operations, key, resource);
             }
           }
@@ -446,7 +431,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             specificationModelName: modelName,
             specificationListModelName: listName
           };
-          console.log("******************* processed resource: " + outResource.name);
           resources.set(modelName, outResource);
           outputModel.resources.push(outResource);
           resourceInfo.operationNamespaces.forEach(ns => armResourceLookup.set(ns, outResource));
@@ -460,10 +444,9 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       const models = new Map<string, Model>();
       function populateModel(adlType: Type) {
         let model = adlType as ModelType;
-        console.log("Processing type: " + safeStringify(adlType.kind))
         if (model) {
-          console.log("FOUND MODEL: " + model.name);
           const typeRef = getCSharpType(model);
+          console.log("*** " + model.name + " => " + typeRef?.name);
           if (typeRef) {
             const outModel: Model = {
               name: typeRef?.name ?? model.name,
@@ -471,7 +454,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               properties: [],
               description: getDoc(model),
               serviceName: serviceName,
-              typeParameters: model.templateArguments ? model.templateArguments!.map(arg => getCSharpType(arg, model.name)!) : [],
+              typeParameters: model.templateArguments ? model.templateArguments!.map(arg => getCSharpType(arg)!) : [],
               isDerivedType: false,
               isImplementer: false,
               isBuiltIn: typeRef?.isBuiltIn ?? false,
@@ -482,18 +465,16 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               const baseType: TypeReference[] = [];
               const assignModel = model.assignmentType as ModelType;
               if (assignModel) {
-                var assignRef = getCSharpType(assignModel, model.name);
+                var assignRef = getCSharpType(assignModel);
                 if (assignRef) {
                   baseType.push(assignRef);
                 }
               }
               model.baseModels.forEach(model => {
-                let hint = undefined;
                 if (model.assignmentType) {
-                  hint = model.name;
                   model = model.assignmentType as ModelType;
                 }
-                const converted = getCSharpType(model, hint);
+                const converted = getCSharpType(model);
                 if (converted) {
                   baseType.push(converted)
                 }
@@ -507,7 +488,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                     hint = modelType.name;
                     modelType = modelType.assignmentType as ModelType;
                   }
-                  const converted = getCSharpType(modelType, hint);
+                  const converted = getCSharpType(modelType);
                   if (converted) {
                     baseType.push(converted);
                   }
@@ -532,7 +513,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
 
       modelsToGenerate.forEach(r => {
-        console.log("Processing model " + r.kind + ", " + r.name)
         if (!models.has(r.name)) {
           populateModel(r);
         }
@@ -574,11 +554,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         return value;
       }
     }
-    //const globalNamespace = program.checker!.getTypeForNode(program.globalNamespace);
-    //processType(globalNamespace);
-    //getResources()!.forEach(adlType => processNamespace(adlType));
+
     getArmResources().forEach(adlType => {
-      console.log("ARM TYPE: kind:" + adlType.kind + ", name: " + (adlType as ModelType)?.name);
       const resourceMeta = getArmResourceInfo(adlType);
       console.log("ARM RESOURCE DETAILS");
       console.log("--------------------");
@@ -592,9 +569,9 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       console.log("resourceNameParam: " + resourceMeta.resourceNameParam?.name);
       console.log("parentResourceType: " + resourceMeta.parentResourceType?.kind);
       console.log("resourcePath: " + resourceMeta.resourcePath?.path);
-      console.log("--------------------");
       const cType = getCSharpType(adlType);
-      console.log("ARM TYPE: csharp value: " + cType?.nameSpace + "." + cType?.name);
+      console.log("-- " + resourceMeta.resourceModelName + " => " + cType?.nameSpace + "." + cType?.name);
+      console.log("--------------------");
 
     });
     populateResources();
@@ -611,16 +588,16 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           // remove special case when we refactor library type changes to models
           if (parentModel !== parent && property.name !== "properties") {
             const parentCsharp = getCSharpType(parentType);
-            console.log("^^^ excluding property " + property.name + ": " + parentModel.name + " <> " + parent?.name);
             return undefined;
           }
         }
       }
-      const outPropertyType = getCSharpType(property.type, property.name)!;
+      const outPropertyType = getCSharpType(property.type)!;
       const outProperty: Property = {
         name: transformCSharpIdentifier(property.name),
         type: outPropertyType,
-        validations: getValidations(property)
+        validations: getValidations(property),
+        description: getDoc(property)
       }
       return outProperty;
     }
@@ -708,7 +685,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         let minLength = getMinLength(localType);
         let maxLength = getMaxLength(localType);
         if (minLength || maxLength) {
-          console.log("Minlength: " + minLength + ", MaxLength: " + maxLength);
           output.push(getLengthAttribute(minLength, maxLength));
         }
 
@@ -716,7 +692,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         return output;
       }
 
-      console.log("Calling getValidations on type with kind" + adlType.kind);
       const outValidations: ValidationAttribute[] = getLocalValidators(adlType);
       switch (adlType.kind) {
         case "Array":
@@ -751,32 +726,33 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       return outValidations;
     }
 
-    function getCSharpType(adlType: Type, nameHint?: string): TypeReference | undefined {
-      //console.log("Calling getCSharpType for type: " + adlType?.kind)
+    function getCSharpType(adlType: Type): TypeReference | undefined {
       switch (adlType.kind) {
         case "String":
           return { name: "string", nameSpace: "System", isBuiltIn: true };
         case "Boolean":
           return { name: "bool", nameSpace: "System", isBuiltIn: true };
         case "Union":
+          let nameHint: string | undefined = undefined;
+          if (adlType.node.parent && adlType.node.parent.kind === SyntaxKind.ModelStatement) {
+            nameHint = adlType.node.parent.id.sv;
+          }
+
           return createInlineEnum(adlType, nameHint ? transformCSharpIdentifier(nameHint) : undefined);
         case "Array":
-          var arrType = getCSharpType(adlType.elementType, nameHint);
+          var arrType = getCSharpType(adlType.elementType);
           if (arrType) {
             return { name: arrType.name + "[]", nameSpace: arrType.nameSpace, isBuiltIn: arrType.isBuiltIn };
           }
           return undefined;
         case "Tuple":
-          console.log("~~~~~~~~~ Found tuple type ~~~~~~~~~")
           const params: TypeReference[] = [];
           adlType.values.forEach(val => {
-            const ref = getCSharpType(val, nameHint);
+            const ref = getCSharpType(val);
             if (ref) {
-              console.log(ref);
               params.push(ref);
             }
           });
-          console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
           return {
             isBuiltIn: false,
             name: "Tuple",
@@ -784,17 +760,9 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             typeParameters: params
           };
         case "Model":
-          if (isVerboseLogging()) {
-            console.log("ADL TYPE NAME: " + adlType.name);
-            console.log("ADL TYPE ATKIND: " + adlType.assignmentType?.kind);
-            console.log("ADL TYPE BASEMODELELNGTH: " + adlType.baseModels?.length);
-            console.log("ADL TYPE IPLENGTH: " + adlType.instantiationParameters?.length);
-            console.log("ADL TYPE TALENGTH: " + adlType.templateArguments?.length);
-            console.log("ADL TYPE PROPSIZE: " + adlType.properties?.size);
-          }
           // Is the type templated with only one type?
           if (adlType.baseModels.length === 1 && !(adlType.properties)) {
-            return getCSharpType(adlType.baseModels[0], nameHint);
+            return getCSharpType(adlType.baseModels[0]);
           }
 
           switch (adlType.name) {
@@ -825,74 +793,45 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 name: "IDictionary",
                 nameSpace: "System.Collections",
                 isBuiltIn: true,
-                typeParameters: [{ name: "string", nameSpace: "System", isBuiltIn: true }, getCSharpType(valType!.type, nameHint)!]
+                typeParameters: [{ name: "string", nameSpace: "System", isBuiltIn: true }, getCSharpType(valType!.type)!]
               };
             default:
               var known = getKnownType(adlType);
               if (adlType.name === undefined || adlType.name === "") {
-                console.log("====== FOUND BLANK ADL TYPE ======");
-                console.log("name: " + adlType.name);
-                console.log("assignment: " + adlType.assignmentType?.kind);
-                console.log("node kind: " + adlType.node?.kind);
-                console.log("node pos: " + adlType.node?.pos);
-                console.log("node end: " + adlType.node?.end);
-                console.log("==================================");
                 return undefined;
-              }
-              if (adlType.name?.indexOf("ListResult") > 0) {
-                console.log("====== FOUND List TYPE ======");
-                console.log("name: " + adlType.name);
-                console.log("assignment: " + adlType.assignmentType?.kind);
-                console.log("base models: " + JSON.stringify(adlType.baseModels.map(type => type?.name)));
-                console.log("template arguments: " + JSON.stringify(adlType.templateArguments?.map(type => "(" + type?.kind + ", " + (type as ModelType)?.name + ")")));
-                console.log("assignmentType: " + adlType.assignmentType?.kind + ", " + (adlType.assignmentType as ModelType)?.name);
-                console.log("==================================");
               }
               if (known) {
                 return known;
               }
               if (adlType.assignmentType) {
-                console.log("found assigned type for " + adlType.namespace + "." + adlType.name);
-                var checkAssignment = getCSharpType(adlType.assignmentType, adlType.name);
-                if (checkAssignment) {
+                var checkAssignment = getCSharpType(adlType.assignmentType);
+                if (checkAssignment && checkAssignment.isBuiltIn && checkAssignment.nameSpace === "System") {
                   return checkAssignment;
                 }
               }
-              console.log("Processing model " + adlType.name);
               if (adlType.templateNode) {
-                console.log("Found templated type ");
                 const tempType = program.checker!.getTypeForNode(adlType.templateNode);
-                console.log("Template type kind: " + adlType.kind);
                 var cSharpType = getCSharpType(tempType);
-                console.log("cSharp template type: " + JSON.stringify(cSharpType));
               }
-              if (adlType.templateArguments) { console.log("with type arguments: " + adlType.templateArguments.forEach(arg => (arg as ModelType)?.name + " ")); }
-              if (adlType.baseModels) { console.log("and base type: " + adlType.baseModels.forEach(arg => (arg as ModelType)?.name + " ")); }
               return {
                 name: adlType.name,
                 nameSpace: modelNamespace,
                 isBuiltIn: false,
-                //typeParameters: adlType.templateArguments ? [...adlType.templateArguments!.map(arg => getCSharpType(arg)!)] : undefined
               };
               break;
           }
         case "Intrinsic":
-          console.log("found intrinsic type: " + adlType.name);
           return undefined;
         case "TemplateParameter":
-          console.log("found template parameter");
           return undefined;
         case "String":
-          console.log("found string type: " + adlType.value);
           return undefined;
-        // fallthrough
         default:
           return undefined;
       }
     }
 
     function getKnownType(model: ModelType): TypeReference | undefined {
-
       switch (model.name) {
         case "ErrorResponse":
           return {
@@ -961,7 +900,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             nameSpace: "Microsoft.Adl.RPaaS"
           };
         case "Page": {
-          console.log("Found known type 'Page'");
           const returnValue: TypeReference = {
             isBuiltIn: true,
             name: "Pageable",
@@ -975,7 +913,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           return returnValue;
         }
         case "Pageable": {
-          console.log("Found known type 'Pageable'");
           const returnValue: TypeReference = {
             isBuiltIn: true,
             name: "Pageable",
@@ -989,10 +926,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           return returnValue;
         }
         default:
-          //if (model.assignmentType) {
-          //return getKnownType(model.assignmentType as ModelType);
-          //}
-
           return undefined;
       }
     }
@@ -1015,6 +948,29 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       await program.host.writeFile(path.resolve(modelPath), await sqrl.renderFile(templateFile, model));
     }
 
+    async function generateSingleDirectory(basePath: string, outPath: string) {
+      console.log("+++++++")
+      console.log("Generating single file templates");
+      console.log("    basePath: " + basePath);
+      console.log("    outPath: " + outPath);
+
+
+      const singleTemplatePath = path.join(basePath, "templates", "single");
+      await (await fs.readdir(singleTemplatePath)).forEach(async file => {
+        const templatePath = path.resolve(path.join(singleTemplatePath, file));
+        await generateSingleFile(templatePath, outPath);
+      });
+
+      console.log("++++++");
+      async function generateSingleFile(templatePath: string, outPath: string) {
+        const templateFile = path.basename(templatePath);
+        const baseName = templateFile.substring(0, templateFile.lastIndexOf("."));
+        const outFile = path.join(outPath, baseName + ".cs");
+        console.log("        -- " + templateFile + " => " + outFile);
+        await program.host.writeFile(path.resolve(outFile), await sqrl.renderFile(templatePath, outputModel))
+      }
+    }
+
     async function createDirIfNotExists(targetPath: string) {
       if (!(await fs.stat(targetPath).catch(err => {
         return false;
@@ -1023,62 +979,54 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       }
     }
 
+    async function ensureCleanDirectory(targetPath: string) {
+      if ((await fs.stat(targetPath).catch(err => {
+        return false;
+      }))) {
+        await fs.rmdir(targetPath, { recursive: true });
+      }
+
+      await fs.mkdir(targetPath);
+    }
+
     async function copyModelFiles(sourcePath: string, targetPath: string) {
-      console.log("Copying (" + sourcePath + ", " + targetPath + ")");
       await createDirIfNotExists(targetPath);
       (await fs.readdir(sourcePath)).forEach(async file => {
-        var sourceFile = path.resolve(sourcePath + "/" + file);
-        var targetFile = path.resolve(targetPath + "/" + file);
+        var sourceFile = path.resolve(sourcePath + path.sep + file);
+        var targetFile = path.resolve(targetPath + path.sep + file);
         if ((await fs.lstat(sourceFile)).isDirectory()) {
-
-          console.log("Creating directory " + targetFile);
           await createDirIfNotExists(targetFile);
-
           await copyModelFiles(sourceFile, targetFile);
         }
         else {
-          console.log("copying " + sourceFile + " to " + targetFile);
           await fs.copyFile(sourceFile, targetFile)
         }
       });
     }
 
-
-    const service = outputModel.serviceName
-
+    const service = outputModel.serviceName;
     sqrl.filters.define("decl", op => op.parameters.map((p: any) => p.type + " " + p.name).join(', '));
     sqrl.filters.define("call", op => op.parameters.map((p: any) => p.name).join(', '));
     sqrl.filters.define("typeParamList", op => op.typeParameters.map((p: TypeReference) => p.name).join(', '));
     sqrl.filters.define("callByValue", op => op.parameters.map((p: ValueParameter) => p.type === "string" ? '"' + p.value + '"' : p.value).join(', '));
-
-    await createDirIfNotExists(genPath);
-    await copyModelFiles(path.join(rootPath, "clientlib"), path.join(genPath, "models"));
-    var routesPath = path.resolve(path.join(genPath, service + "ServiceRoutes.cs"));
-    var operationsPath = path.resolve(path.join(genPath, "OperationControllerBase.cs"));
-    console.log("Writing service routes to: " + routesPath);
-    let myOutputModel = JSON.parse((await fs.readFile(path.join(rootPath, "input", "fluidrelay.json"), 'utf-8')));
-    await program.host.writeFile(routesPath, await sqrl.renderFile(path.join(rootPath, "templates", "serviceRoutingConstants.sq"), outputModel));
-    console.log("Writing operations controller to: " + operationsPath);
-    await program.host.writeFile(operationsPath, await sqrl.renderFile(path.join(rootPath, "templates", "operationControllerBase.sq"), outputModel));
+    const operationsPath = path.resolve(path.join(genPath, "operations"));
+    const routesPath = path.resolve(path.join(genPath, service + "ServiceRoutes.cs"));
+    const templatePath = path.join(rootPath, "templates");
+    const modelsPath = path.join(genPath, "models");
+    await ensureCleanDirectory(genPath);
+    await createDirIfNotExists(operationsPath);
+    await copyModelFiles(path.join(rootPath, "clientlib"), modelsPath);
+    await program.host.writeFile(routesPath, await sqrl.renderFile(path.join(templatePath, "serviceRoutingConstants.sq"), outputModel));
+    await generateSingleDirectory(rootPath, operationsPath);
     outputModel.resources.forEach((resource: Resource) => generateResource(resource));
-    console.log("Writing models")
-    var models = myOutputModel.models;
-    for (var model in models) {
-      console.log("Rendering model " + model);
-      //console.log("using data " + safeStringify(models[model]));
-      generateModel(models[model]);
-    }
+    outputModel.models.forEach(model => {
+      console.log("Rendering model " + model.nameSpace + "." + model.name);
+      generateModel(model);
+    });
 
-    var enums = myOutputModel.enumerations;
-    for (var model in enums) {
-      console.log("Rendering enum " + model);
-      generateEnum(enums[model]);
-    }
-
-    console.log("Completed")
+    outputModel.enumerations?.forEach(enumeration => {
+      console.log("Rendering enum " + enumeration.name);
+      generateEnum(enumeration);
+    });
   }
 }
-function isVerboseLogging(): boolean {
-  return false;
-}
-
