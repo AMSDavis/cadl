@@ -146,7 +146,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     description?: string
   }
 
-  interface serviceModel {
+  interface ServiceModel {
     nameSpace: string,
     serviceName: string,
     resources: Resource[],
@@ -154,7 +154,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     enumerations: Enumeration[]
   };
 
-  const outputModel: serviceModel = {
+  const outputModel: ServiceModel = {
     nameSpace: serviceNamespace,
     serviceName: serviceName,
     resources: [],
@@ -529,22 +529,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       console.log("ENUMS");
       console.log("-----");
       console.log(JSON.stringify(outputModel.enumerations, replacer));
-    }
-
-    function safeStringify(circ: any): string {
-      let cache: any[] = [];
-      const outValue = JSON.stringify(circ, (key, value) => {
-        if (typeof value === 'object' && value !== null) {
-          // Duplicate reference found, discard key
-          if (cache.includes(value)) return;
-
-          // Store value in our collection
-          cache.push(value);
-        }
-        return value;
-      });
-      cache = [];
-      return outValue;
     }
 
     function replacer(key: any, value: any) {
@@ -954,8 +938,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     async function generateSingleDirectory(basePath: string, outPath: string) {
       console.log("+++++++")
       console.log("Generating single file templates");
-      console.log("    basePath: " + basePath);
-      console.log("    outPath: " + outPath);
+      console.log("  basePath: " + basePath);
+      console.log("  outPath: " + outPath);
 
 
       const singleTemplatePath = path.join(basePath, "templates", "single");
@@ -969,7 +953,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         const templateFile = path.basename(templatePath);
         const baseName = templateFile.substring(0, templateFile.lastIndexOf("."));
         const outFile = path.join(outPath, baseName + ".cs");
-        console.log("        -- " + templateFile + " => " + outFile);
+        console.log("    -- " + templateFile + " => " + outFile);
         await program.host.writeFile(path.resolve(outFile), await sqrl.renderFile(templatePath, outputModel))
       }
     }
