@@ -5,7 +5,7 @@ Service Code is laid out as follows:
 - One controller for each resource, containing resource operations
   - Controller is abstract, to ease regeneration
   - Controller contains a validation and completion method for each resource operation
-  - Each method has an abstract template method that must be overridden by RP cudtom code
+  - Each method has an abstract template method that must be overridden by RP custom code
   - Methods give us scope for default implementations for the service
 - One static class containing service routing constants
 - A Folder containing operation list functionality

@@ -827,6 +827,14 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             nameSpace: "Microsoft.Adl.RPaaS"
           };
         case "ArmResponse":
+          console.log("***[ding][ding][ding] ");
+          var namespace = model.namespace;
+          if (namespace) {
+            console.log("and the namespace for ARMResponse is: " + namespace.name);
+          }
+          else {
+            console.log("NOOOO namespace for ArmResponse");
+          }
           return {
             isBuiltIn: true,
             name: "ArmResponse",
@@ -851,7 +859,14 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             nameSpace: "Microsoft.Adl.RPaaS"
           };
         case "TrackedResource":
-          return {
+          console.log("***[ding][ding][ding] ");
+          var namespace = model.namespace;
+          if (namespace) {
+            console.log("and the namespace for TrackedRespource is: " + namespace.name);
+          }
+          else {
+            console.log("NOOOO namespace for TrackedResource");
+          } return {
             isBuiltIn: true,
             name: "TrackedResource",
             nameSpace: "Microsoft.Adl.RPaaS"
