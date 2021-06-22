@@ -47,21 +47,21 @@ model Page<T> {
   nextLink: string;
 }
 
-model KeyValuePage = Page<KeyValue>;
-model KeyPage = Page<Key>;
+alias KeyValuePage = Page<KeyValue>;
+alias KeyPage = Page<Key>;
 
 model Label {
   name: string;
 }
-model LabelPage = Page<Label>;
+alias LabelPage = Page<Label>;
 
 
-model KeyValueHeaders =
-    SyncTokenHeader
+alias KeyValueHeaders =
+  & SyncTokenHeader
   & LastModifiedHeader
   & ETagHeader;
 
-model KeyValue = Key & Value;
+alias KeyValue = Key & Value;
 
 model Key {
   key: string;
@@ -73,5 +73,10 @@ model Value {
   locked: boolean;
 }
 
-model KeyField = "key" | "label" | "content_type" | "value" | "last_modified" | "tags" ;
-model LabelField = "name";
+enum KeyField {
+  key, label, content_type, value, last_modified, tags
+}
+
+enum LabelField {
+  name
+}

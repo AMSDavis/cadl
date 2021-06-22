@@ -314,8 +314,7 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string",
-          "pattern": "shelves/\\w+",
+          "$ref": "#/definitions/shelf_name",
           "description": "The resource name of the shelf.\nShelf names have the form `shelves/{shelf_id}`.\nThe name is ignored when creating a shelf."
         },
         "theme": {
@@ -348,6 +347,10 @@
       },
       "description": "An unexpected error response."
     },
+    "shelf_name": {
+      "type": "string",
+      "pattern": "shelves/\\w+"
+    },
     "ListShelvesResponse": {
       "type": "object",
       "properties": {
@@ -373,8 +376,7 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string",
-          "pattern": "shelves/\\w+/books/\\w+",
+          "$ref": "#/definitions/book_name",
           "description": "The resource name of the book.\nBook names have the form `shelves/{shelf_id}/books/{book_id}`.\nThe name is ignored when creating a book."
         },
         "author": {
@@ -394,6 +396,10 @@
       "required": [
         "name"
       ]
+    },
+    "book_name": {
+      "type": "string",
+      "pattern": "shelves/\\w+/books/\\w+"
     },
     "ListBooksResponse": {
       "type": "object",
@@ -490,8 +496,7 @@
       "required": true,
       "description": "The name of the shelf we're removing books from and deleting.",
       "schema": {
-        "type": "string",
-        "pattern": "shelves/\\w+"
+        "$ref": "#/definitions/shelf_name"
       }
     },
     "CreateBookRequest.name": {

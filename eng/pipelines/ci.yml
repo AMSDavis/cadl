@@ -1,7 +1,7 @@
 # Continuous Integration
 
 trigger:
-  - master
+  - main
 pr: none
 
 pool:
@@ -25,7 +25,7 @@ steps:
   - script: node common/scripts/install-run-rush.js rebuild --verbose
     displayName: Build
 
-  - script: node common/scripts/install-run-rush.js test
+  - script: node common/scripts/install-run-rush.js test-official
     displayName: Test
 
   - script: |

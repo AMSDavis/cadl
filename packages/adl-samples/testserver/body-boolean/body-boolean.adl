@@ -7,7 +7,7 @@ model Error {
   message: string;
 }
 
-model NullableBoolean = boolean | null;
+alias NullableBoolean = boolean | null;
 
 @doc("AutoRest Bool Test Service")
 @resource("/bool/true")

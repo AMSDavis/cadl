@@ -305,11 +305,23 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "Resource deleted successfully.",
             "schema": {
-              "type": "object",
-              "properties": {},
-              "x-adl-name": "{}"
+              "$ref": "#/definitions/ArmDeletedResponse"
+            }
+          },
+          "202": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deletion accepted.",
+            "schema": {
+              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
             }
           },
           "default": {
@@ -376,16 +388,7 @@
           "description": "The linker name."
         },
         "linkerStatus": {
-          "type": "string",
-          "enum": [
-            "Healthy",
-            "Not healthy"
-          ],
-          "x-ms-enum": {
-            "name": "LinkerStatus",
-            "modelAsString": true
-          },
-          "x-adl-name": "Healthy | Not healthy",
+          "$ref": "#/definitions/LinkerStatus",
           "description": "Specifies if the linker is healthy."
         },
         "reason": {
@@ -407,18 +410,7 @@
           "description": "The resource Id of the target service."
         },
         "authType": {
-          "type": "string",
-          "enum": [
-            "systemAssignedIdentity",
-            "userAssignedIdentity",
-            "servicePrincipal",
-            "secret"
-          ],
-          "x-ms-enum": {
-            "name": "AuthType",
-            "modelAsString": true
-          },
-          "x-adl-name": "systemAssignedIdentity | userAssignedIdentity | servicePrincipal | secret",
+          "$ref": "#/definitions/AuthType",
           "description": "The authentication type."
         }
       },
@@ -450,6 +442,74 @@
     },
     "LinkerResource": {
       "type": "object",
+      "properties": {},
+      "allOf": [
+        {
+          "$ref": "#/definitions/ExtensionResource_LinkerProperties"
+        }
+      ],
+      "x-ms-azure-resource": true
+    },
+    "ArmDeletedResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deleted successfully."
+    },
+    "ArmDeleteAcceptedResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deletion accepted."
+    },
+    "LinkerStatus": {
+      "type": "string",
+      "enum": [
+        "Healthy",
+        "Not healthy"
+      ],
+      "x-ms-enum": {
+        "name": "LinkerStatus",
+        "modelAsString": true
+      }
+    },
+    "AuthType": {
+      "type": "string",
+      "enum": [
+        "systemAssignedIdentity",
+        "userAssignedIdentity",
+        "servicePrincipal",
+        "secret"
+      ],
+      "x-ms-enum": {
+        "name": "AuthType",
+        "modelAsString": true
+      }
+    },
+    "SourceConfiguration": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "appSettings",
+            "connectionSettings",
+            "serviceBindings"
+          ],
+          "x-adl-name": "appSettings | connectionSettings | serviceBindings"
+        },
+        "linkConfig": {
+          "type": "object",
+          "properties": {},
+          "description": "The configuration of the linker for appSettings or connectionStrings or serviceBindings",
+          "x-adl-name": "(anonymous model)"
+        }
+      },
+      "required": [
+        "type",
+        "linkConfig"
+      ]
+    },
+    "ExtensionResource_LinkerProperties": {
+      "type": "object",
       "properties": {
         "properties": {
           "$ref": "#/definitions/LinkerProperties",
@@ -473,31 +533,6 @@
         {
           "$ref": "#/definitions/ArmResource"
         }
-      ],
-      "x-ms-azure-resource": true
-    },
-    "SourceConfiguration": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "appSettings",
-            "connectionSettings",
-            "serviceBindings"
-          ],
-          "x-adl-name": "appSettings | connectionSettings | serviceBindings"
-        },
-        "linkConfig": {
-          "type": "object",
-          "properties": {},
-          "description": "The configuration of the linker for appSettings or connectionStrings or serviceBindings",
-          "x-adl-name": "{}"
-        }
-      },
-      "required": [
-        "type",
-        "linkConfig"
       ]
     },
     "LinkerProperties": {
@@ -550,18 +585,7 @@
       "type": "object",
       "properties": {
         "authType": {
-          "type": "string",
-          "enum": [
-            "systemAssignedIdentity",
-            "userAssignedIdentity",
-            "servicePrincipal",
-            "secret"
-          ],
-          "x-ms-enum": {
-            "name": "AuthType",
-            "modelAsString": true
-          },
-          "x-adl-name": "systemAssignedIdentity | userAssignedIdentity | servicePrincipal | secret"
+          "$ref": "#/definitions/AuthType"
         }
       },
       "required": [

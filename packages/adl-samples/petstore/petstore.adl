@@ -1,5 +1,6 @@
 import "@azure-tools/adl-rest";
 import "@azure-tools/adl-openapi";
+import "./decorators.js";
 
 @serviceTitle("Pet Store Service")
 @serviceVersion("2021-03-25")

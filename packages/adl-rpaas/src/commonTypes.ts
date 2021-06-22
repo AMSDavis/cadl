@@ -1,4 +1,4 @@
-import { Program, throwDiagnostic, Type } from "@azure-tools/adl";
+import { Program, Type } from "@azure-tools/adl";
 import { useRef } from "@azure-tools/adl-openapi";
 
 export function getArmTypesPath(program: Program): string | undefined {
@@ -10,7 +10,11 @@ export function getArmTypesPath(program: Program): string | undefined {
 
 export function armCommonDefinition(program: Program, entity: Type, definitionName?: string): void {
   if (entity.kind !== "Model") {
-    throwDiagnostic("The @armCommonDefinition decorator can only be applied to models.", entity);
+    program.reportDiagnostic(
+      "The @armCommonDefinition decorator can only be applied to models.",
+      entity
+    );
+    return;
   }
 
   // Use the name of the model type if not specified
@@ -23,10 +27,11 @@ export function armCommonDefinition(program: Program, entity: Type, definitionNa
 
 export function armCommonParameter(program: Program, entity: Type, parameterName?: string): void {
   if (entity.kind !== "ModelProperty") {
-    throwDiagnostic(
+    program.reportDiagnostic(
       "The @armCommonParameter decorator can only be applied to model properties and operation parameters.",
       entity
     );
+    return;
   }
 
   // Use the name of the model type if not specified

@@ -25,6 +25,12 @@
     },
     {
       "commandKind": "global",
+      "name": "test-official",
+      "summary": "(CUSTOM) Runs all tests for CI or PR validation. Disallows .only.",
+      "shellCommand": "node eng/scripts/npm-run.js test-official"
+    },
+    {
+      "commandKind": "global",
       "name": "format",
       "summary": "(CUSTOM) Formats all code with Prettier.",
       "shellCommand": "node eng/scripts/format.js"

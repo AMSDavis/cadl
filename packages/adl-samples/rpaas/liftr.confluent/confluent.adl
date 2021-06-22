@@ -9,27 +9,27 @@ import "@azure-tools/adl-rpaas-controller";
 namespace Microsoft.Confluent;
 
 @doc("A string that represents a URI.")
-model Uri = string;
+model Uri extends string { };
 
 @doc("Reusable representation of an email address")
 @format("\\w+@\\w+\\.\\w+")
-model email = string;
+model email extends string { };
 
 @doc("Shorthand for setting length limit.")
 @minLength(5)
 @maxLength(50)
-model MediumString = string;
+model MediumString extends string { };
 
 @doc("Shorthand for setting length limit.")
 @maxLength(25)
-model ShortString = string;
+model ShortString extends string { };
 
 @armResource({
   path: "organizations",
   collectionName: "Organizations",
   parameterType: OrganizationNameParameter,
 })
-model Organization = TrackedResource<OrganizationProperties>;
+model Organization extends TrackedResource<OrganizationProperties> { };
 
 model OrganizationNameParameter {
   @doc("Organization resource name")
@@ -58,10 +58,11 @@ model OrganizationProperties {
 }
 
 @doc("SaaS offer status.")
-model OfferStatus =
-    "Started" | "PendingFulfillmentStart" | "InProgress" |
-    "Subscribed" | "Suspended" | "Reinstated" | "Succeeded" |
-    "Failed" | "Unsubscribed" | "Updating";
+enum OfferStatus {
+  Started, PendingFulfillmentStart, InProgress,
+  Subscribed, Suspended, Reinstated, Succeeded,
+  Failed, Unsubscribed, Updating
+}
 
 @doc("Details of the product offering.")
 model OfferDetail {

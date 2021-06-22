@@ -12,7 +12,7 @@ namespace Microsoft.ServiceLinker;
   collectionName: "Linker",
   parameterType: LinkerNameParameter
 })
-model LinkerResource = ExtensionResource<LinkerProperties>;
+model LinkerResource extends ExtensionResource<LinkerProperties> {}
 
 model LinkerNameParameter {
   @path linkerName: string;
@@ -39,7 +39,12 @@ model LinkerProperties {
   provisioningState: string;
 }
 
-model AuthType = "systemAssignedIdentity" | "userAssignedIdentity" | "servicePrincipal" | "secret";
+enum AuthType {
+  systemAssignedIdentity,
+  userAssignedIdentity,
+  servicePrincipal,
+  secret
+}
 
 // discriminator: authType
 model AuthInfoBase {
@@ -87,7 +92,9 @@ model SourceConfigurationResult {
   sourceConfigurations: SourceConfiguration[];
 }
 
-model LinkerStatus = "Healthy" | "Not healthy";
+enum LinkerStatus {
+  Healthy, "Not healthy"
+}
 
 model ValidateResult {
   @doc("The linker name.")

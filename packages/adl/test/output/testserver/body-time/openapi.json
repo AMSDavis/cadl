@@ -60,7 +60,7 @@
             "schema": {
               "type": "object",
               "properties": {},
-              "x-adl-name": "{}"
+              "x-adl-name": "(anonymous model)"
             }
           },
           "default": {

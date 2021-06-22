@@ -278,11 +278,23 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "Resource deleted successfully.",
             "schema": {
-              "type": "object",
-              "properties": {},
-              "x-adl-name": "{}"
+              "$ref": "#/definitions/ArmDeletedResponse"
+            }
+          },
+          "202": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deletion accepted.",
+            "schema": {
+              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
             }
           },
           "default": {
@@ -560,6 +572,57 @@
   "definitions": {
     "CodeSignAccount": {
       "type": "object",
+      "properties": {},
+      "description": "A CodeSignAccount resource",
+      "allOf": [
+        {
+          "$ref": "#/definitions/TrackedResource_CodeSignAccountProperties"
+        }
+      ],
+      "x-ms-azure-resource": true
+    },
+    "ArmDeletedResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deleted successfully."
+    },
+    "ArmDeleteAcceptedResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deletion accepted."
+    },
+    "CodeSignAccountListResult": {
+      "type": "object",
+      "properties": {},
+      "description": "The response of a CodeSignAccount list operation.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Page_CodeSignAccount"
+        }
+      ]
+    },
+    "CertificateProfile": {
+      "type": "object",
+      "properties": {},
+      "allOf": [
+        {
+          "$ref": "#/definitions/ProxyResource_CertificateProfileProperties"
+        }
+      ],
+      "x-ms-azure-resource": true
+    },
+    "CertificateProfileListResult": {
+      "type": "object",
+      "properties": {},
+      "description": "The response of a CertificateProfile list operation.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Page_CertificateProfile"
+        }
+      ]
+    },
+    "TrackedResource_CodeSignAccountProperties": {
+      "type": "object",
       "properties": {
         "properties": {
           "$ref": "#/definitions/CodeSignAccountProperties",
@@ -576,7 +639,7 @@
           "readOnly": true
         }
       },
-      "description": "A CodeSignAccount resource",
+      "description": "Concrete tracked resource types can be created by aliasing this type using a specific property type.",
       "required": [
         "properties"
       ],
@@ -584,10 +647,9 @@
         {
           "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
         }
-      ],
-      "x-ms-azure-resource": true
+      ]
     },
-    "CodeSignAccountListResult": {
+    "Page_CodeSignAccount": {
       "type": "object",
       "properties": {
         "value": {
@@ -603,13 +665,13 @@
           "description": "The link to the next page of items"
         }
       },
-      "description": "The response of a CodeSignAccount list operation.",
+      "description": "Paged response",
       "required": [
         "value",
         "nextLink"
       ]
     },
-    "CertificateProfile": {
+    "ProxyResource_CertificateProfileProperties": {
       "type": "object",
       "properties": {
         "properties": {
@@ -622,6 +684,7 @@
           "x-ms-client-flatten": true
         }
       },
+      "description": "Concrete proxy resource types can be created by aliasing this type using a specific property type.",
       "required": [
         "properties"
       ],
@@ -629,10 +692,9 @@
         {
           "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
         }
-      ],
-      "x-ms-azure-resource": true
+      ]
     },
-    "CertificateProfileListResult": {
+    "Page_CertificateProfile": {
       "type": "object",
       "properties": {
         "value": {
@@ -648,7 +710,7 @@
           "description": "The link to the next page of items"
         }
       },
-      "description": "The response of a CertificateProfile list operation.",
+      "description": "Paged response",
       "required": [
         "value",
         "nextLink"
@@ -663,35 +725,11 @@
           "readOnly": true
         },
         "verificationStatus": {
-          "type": "string",
-          "enum": [
-            "Completed",
-            "InProgress",
-            "NotCompleted"
-          ],
-          "x-ms-enum": {
-            "name": "VerificationStatus",
-            "modelAsString": true
-          },
-          "x-adl-name": "Completed | InProgress | NotCompleted",
+          "$ref": "#/definitions/VerificationStatus",
           "readOnly": true
         },
         "provisioningState": {
-          "type": "string",
-          "enum": [
-            "Succeeded",
-            "Failed",
-            "Cancelled",
-            "Provisioning",
-            "Updating",
-            "Deleting",
-            "Accepted"
-          ],
-          "x-ms-enum": {
-            "name": "ProvisioningState",
-            "modelAsString": true
-          },
-          "x-adl-name": "Succeeded | Failed | Cancelled | Provisioning | Updating | Deleting | Accepted",
+          "$ref": "#/definitions/ProvisioningState",
           "readOnly": true
         }
       },
@@ -701,28 +739,10 @@
       "type": "object",
       "properties": {
         "profileType": {
-          "type": "string",
-          "enum": [
-            "Test",
-            "Trial",
-            "PrivateTrust",
-            "PublicTrust"
-          ],
-          "x-ms-enum": {
-            "name": "ProfileType",
-            "modelAsString": true
-          },
-          "x-adl-name": "Test | Trial | PrivateTrust | PublicTrust"
+          "$ref": "#/definitions/ProfileType"
         },
         "rotationPolicy": {
-          "type": "string",
-          "enum": [
-            "Monthly"
-          ],
-          "x-ms-enum": {
-            "name": "RotationPolicy",
-            "modelAsString": true
-          }
+          "$ref": "#/definitions/RotationPolicy"
         },
         "commonName": {
           "type": "string",
@@ -766,21 +786,7 @@
           "readOnly": true
         },
         "provisioningState": {
-          "type": "string",
-          "enum": [
-            "Succeeded",
-            "Failed",
-            "Cancelled",
-            "Provisioning",
-            "Updating",
-            "Deleting",
-            "Accepted"
-          ],
-          "x-ms-enum": {
-            "name": "ProvisioningState",
-            "modelAsString": true
-          },
-          "x-adl-name": "Succeeded | Failed | Cancelled | Provisioning | Updating | Deleting | Accepted",
+          "$ref": "#/definitions/ProvisioningState",
           "readOnly": true
         }
       },
@@ -791,6 +797,57 @@
         "commonName",
         "subjectAlternativeName"
       ]
+    },
+    "VerificationStatus": {
+      "type": "string",
+      "enum": [
+        "Completed",
+        "InProgress",
+        "NotCompleted"
+      ],
+      "x-ms-enum": {
+        "name": "VerificationStatus",
+        "modelAsString": true
+      }
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "enum": [
+        "Suceeded",
+        "Failed",
+        "Cancelled",
+        "Provisioning",
+        "Updating",
+        "Deleting",
+        "Accepted"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true
+      }
+    },
+    "ProfileType": {
+      "type": "string",
+      "enum": [
+        "Test",
+        "Trial",
+        "PrivateTrust",
+        "PublicTrust"
+      ],
+      "x-ms-enum": {
+        "name": "ProfileType",
+        "modelAsString": true
+      }
+    },
+    "RotationPolicy": {
+      "type": "string",
+      "enum": [
+        "Monthly"
+      ],
+      "x-ms-enum": {
+        "name": "RotationPolicy",
+        "modelAsString": true
+      }
     },
     "Certificate": {
       "type": "object",

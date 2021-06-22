@@ -77,7 +77,7 @@ The name of a book.
 Book names have the form `shelves/{shelf_id}/books/{book_id}`
 """)
 @format("shelves/\\w+/books/\\w+")
-model book_name = string;
+model book_name extends string {};
 
 @doc("A single book in the library.")
 model Book {
@@ -103,7 +103,7 @@ The name of a shelf.
 Shelf names have the form `shelves/{shelf_id}`.
 """)
 @format("shelves/\\w+")
-model shelf_name = string;
+model shelf_name extends string {};
 
 @doc("A Shelf contains a collection of books with a theme.")
 model Shelf {

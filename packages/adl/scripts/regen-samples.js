@@ -1,50 +1,71 @@
 #!/usr/bin/env node
 
-// NOTE: For now, this script assumes it is being run from
-//       the repo path packages/adl/.
-
-import url from "url";
 import mkdirp from "mkdirp";
 import { run } from "../../../eng/scripts/helpers.js";
+import { readdirSync, rmdirSync } from "fs";
+import { fileURLToPath } from "url";
+import { dirname, join, normalize, resolve } from "path";
 
-// Get this from samples/ directory listing when reliable
-const sampleFolders = [
-  "documentation",
-  "grpc-library-example",
-  "grpc-kiosk-example",
-  "nested",
-  "nullable",
-  "operations",
-  "overloads",
-  "petstore",
-  "recursive",
-  "rpaas/codesigning",
-  "rpaas/servicelinker",
-  "rpaas/liftr.confluent",
-  "rpaas/liftr.frs",
-  "rpaas/logz",
-  "tags",
-  "testserver/media-types",
-  "testserver/body-boolean",
-  "testserver/body-time",
-  "visibility",
+const excludedSamples = [
+  // Doesn't currently compile: https://github.com/Azure/adl/issues/576
+  "appconfig",
+
+  // fails compilation by design to demo language server
+  "local-adl",
+
+  // no actual samples in these dirs
+  "node_modules",
+  "scratch",
+  ".rush",
 ];
 
-function resolvePath(...parts) {
-  const resolvedPath = new url.URL(parts.join(""), import.meta.url);
-  return url.fileURLToPath(resolvedPath);
+const rootInputPath = resolvePath("../../adl-samples");
+const rootOutputPath = resolvePath("../test/output");
+main();
+
+function main() {
+  // clear any previous output as otherwise failing to emit anything could
+  // escape PR validation. Also ensures we delete output for samples that
+  // no longer exist.
+  rmdirSync(rootOutputPath, { recursive: true });
+
+  for (const folderName of getSampleFolders()) {
+    const inputPath = join(rootInputPath, folderName);
+    const outputPath = join(rootOutputPath, folderName);
+    mkdirp(outputPath);
+
+    run(process.execPath, [
+      "dist/compiler/cli.js",
+      "compile",
+      inputPath,
+      `--output-path=${outputPath}`,
+      `--debug`,
+    ]);
+  }
 }
 
-for (const folderName of sampleFolders) {
-  const inputPath = `../adl-samples/${folderName}`;
-  const outputPath = resolvePath("../test/output/", folderName);
-  mkdirp(outputPath);
+function getSampleFolders() {
+  const samples = new Set();
+  const excludes = new Set(excludedSamples.map(normalize));
+  walk("");
+  return samples;
 
-  run(process.execPath, [
-    "dist/compiler/cli.js",
-    "compile",
-    inputPath,
-    `--output-path=${outputPath}`,
-    `--debug`,
-  ]);
+  function walk(relativeDir) {
+    if (samples.has(relativeDir) || excludes.has(relativeDir)) {
+      return;
+    }
+    const fullDir = join(rootInputPath, relativeDir);
+    for (const entry of readdirSync(fullDir, { withFileTypes: true })) {
+      if (entry.isDirectory()) {
+        walk(join(relativeDir, entry.name));
+      } else if (relativeDir && (entry.name === "main.adl" || entry.name === "package.json")) {
+        samples.add(relativeDir);
+      }
+    }
+  }
+}
+
+function resolvePath(...parts) {
+  const dir = dirname(fileURLToPath(import.meta.url));
+  return resolve(dir, ...parts);
 }

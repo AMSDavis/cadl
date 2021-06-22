@@ -351,11 +351,23 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "Resource deleted successfully.",
             "schema": {
-              "type": "object",
-              "properties": {},
-              "x-adl-name": "{}"
+              "$ref": "#/definitions/ArmDeletedResponse"
+            }
+          },
+          "202": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deletion accepted.",
+            "schema": {
+              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
             }
           },
           "default": {
@@ -605,11 +617,23 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "Resource deleted successfully.",
             "schema": {
-              "type": "object",
-              "properties": {},
-              "x-adl-name": "{}"
+              "$ref": "#/definitions/ArmDeletedResponse"
+            }
+          },
+          "202": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deletion accepted.",
+            "schema": {
+              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
             }
           },
           "default": {
@@ -1031,11 +1055,23 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "Resource deleted successfully.",
             "schema": {
-              "type": "object",
-              "properties": {},
-              "x-adl-name": "{}"
+              "$ref": "#/definitions/ArmDeletedResponse"
+            }
+          },
+          "202": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deletion accepted.",
+            "schema": {
+              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
             }
           },
           "default": {
@@ -1350,11 +1386,23 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "Resource deleted successfully.",
             "schema": {
-              "type": "object",
-              "properties": {},
-              "x-adl-name": "{}"
+              "$ref": "#/definitions/ArmDeletedResponse"
+            }
+          },
+          "202": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deletion accepted.",
+            "schema": {
+              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
             }
           },
           "default": {
@@ -1468,6 +1516,133 @@
   "definitions": {
     "MonitoredResourceListResponse": {
       "type": "object",
+      "properties": {},
+      "allOf": [
+        {
+          "$ref": "#/definitions/Page_MonitoredResource"
+        }
+      ]
+    },
+    "LogzMonitorResource": {
+      "type": "object",
+      "properties": {},
+      "allOf": [
+        {
+          "$ref": "#/definitions/TrackedResource_LogzMonitorResourceProperties"
+        }
+      ],
+      "x-ms-azure-resource": true
+    },
+    "SubAccountResource": {
+      "type": "object",
+      "properties": {},
+      "allOf": [
+        {
+          "$ref": "#/definitions/TrackedResource_LogzMonitorResourceProperties"
+        }
+      ],
+      "x-ms-azure-resource": true
+    },
+    "ArmDeletedResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deleted successfully."
+    },
+    "ArmDeleteAcceptedResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deletion accepted."
+    },
+    "LogzMonitorResourceListResult": {
+      "type": "object",
+      "properties": {},
+      "description": "The response of a LogzMonitorResource list operation.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Page_LogzMonitorResource"
+        }
+      ]
+    },
+    "SubAccountResourceListResult": {
+      "type": "object",
+      "properties": {},
+      "description": "The response of a SubAccountResource list operation.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Page_SubAccountResource"
+        }
+      ]
+    },
+    "SubAccountTagRuleResource": {
+      "type": "object",
+      "properties": {},
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "properties": {
+              "type": "object",
+              "properties": {},
+              "description": "The resource-specific properties for this resource.",
+              "x-adl-name": "(anonymous model)",
+              "x-ms-mutability": [
+                "read",
+                "create"
+              ],
+              "x-ms-client-flatten": true
+            },
+            "systemData": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+              "description": "System metadata for this resource.",
+              "readOnly": true
+            }
+          },
+          "description": "Concrete tracked resource types can be created by aliasing this type using a specific property type.",
+          "required": [
+            "properties"
+          ],
+          "allOf": [
+            {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
+            }
+          ],
+          "x-adl-name": "TrackedResource<(anonymous model)>"
+        }
+      ],
+      "x-ms-azure-resource": true
+    },
+    "SubAccountTagRuleResourceListResult": {
+      "type": "object",
+      "properties": {},
+      "description": "The response of a SubAccountTagRuleResource list operation.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Page_SubAccountTagRuleResource"
+        }
+      ]
+    },
+    "SingleSignOnConfigurationResource": {
+      "type": "object",
+      "properties": {},
+      "allOf": [
+        {
+          "$ref": "#/definitions/TrackedResource_LogzSingleSignOnProperties"
+        }
+      ],
+      "x-ms-azure-resource": true
+    },
+    "SingleSignOnConfigurationResourceListResult": {
+      "type": "object",
+      "properties": {},
+      "description": "The response of a SingleSignOnConfigurationResource list operation.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Page_SingleSignOnConfigurationResource"
+        }
+      ]
+    },
+    "Page_MonitoredResource": {
+      "type": "object",
       "properties": {
         "value": {
           "type": "array",
@@ -1482,12 +1657,13 @@
           "description": "The link to the next page of items"
         }
       },
+      "description": "Paged response",
       "required": [
         "value",
         "nextLink"
       ]
     },
-    "LogzMonitorResource": {
+    "TrackedResource_LogzMonitorResourceProperties": {
       "type": "object",
       "properties": {
         "properties": {
@@ -1505,6 +1681,7 @@
           "readOnly": true
         }
       },
+      "description": "Concrete tracked resource types can be created by aliasing this type using a specific property type.",
       "required": [
         "properties"
       ],
@@ -1512,38 +1689,9 @@
         {
           "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
         }
-      ],
-      "x-ms-azure-resource": true
+      ]
     },
-    "SubAccountResource": {
-      "type": "object",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/LogzMonitorResourceProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ],
-          "x-ms-client-flatten": true
-        },
-        "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
-          "description": "System metadata for this resource.",
-          "readOnly": true
-        }
-      },
-      "required": [
-        "properties"
-      ],
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
-        }
-      ],
-      "x-ms-azure-resource": true
-    },
-    "LogzMonitorResourceListResult": {
+    "Page_LogzMonitorResource": {
       "type": "object",
       "properties": {
         "value": {
@@ -1559,13 +1707,13 @@
           "description": "The link to the next page of items"
         }
       },
-      "description": "The response of a LogzMonitorResource list operation.",
+      "description": "Paged response",
       "required": [
         "value",
         "nextLink"
       ]
     },
-    "SubAccountResourceListResult": {
+    "Page_SubAccountResource": {
       "type": "object",
       "properties": {
         "value": {
@@ -1581,43 +1729,13 @@
           "description": "The link to the next page of items"
         }
       },
-      "description": "The response of a SubAccountResource list operation.",
+      "description": "Paged response",
       "required": [
         "value",
         "nextLink"
       ]
     },
-    "SubAccountTagRuleResource": {
-      "type": "object",
-      "properties": {
-        "properties": {
-          "type": "object",
-          "properties": {},
-          "description": "The resource-specific properties for this resource.",
-          "x-adl-name": "{}",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ],
-          "x-ms-client-flatten": true
-        },
-        "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
-          "description": "System metadata for this resource.",
-          "readOnly": true
-        }
-      },
-      "required": [
-        "properties"
-      ],
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
-        }
-      ],
-      "x-ms-azure-resource": true
-    },
-    "SubAccountTagRuleResourceListResult": {
+    "Page_SubAccountTagRuleResource": {
       "type": "object",
       "properties": {
         "value": {
@@ -1633,13 +1751,13 @@
           "description": "The link to the next page of items"
         }
       },
-      "description": "The response of a SubAccountTagRuleResource list operation.",
+      "description": "Paged response",
       "required": [
         "value",
         "nextLink"
       ]
     },
-    "SingleSignOnConfigurationResource": {
+    "TrackedResource_LogzSingleSignOnProperties": {
       "type": "object",
       "properties": {
         "properties": {
@@ -1657,6 +1775,7 @@
           "readOnly": true
         }
       },
+      "description": "Concrete tracked resource types can be created by aliasing this type using a specific property type.",
       "required": [
         "properties"
       ],
@@ -1664,10 +1783,9 @@
         {
           "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
         }
-      ],
-      "x-ms-azure-resource": true
+      ]
     },
-    "SingleSignOnConfigurationResourceListResult": {
+    "Page_SingleSignOnConfigurationResource": {
       "type": "object",
       "properties": {
         "value": {
@@ -1683,7 +1801,7 @@
           "description": "The link to the next page of items"
         }
       },
-      "description": "The response of a SingleSignOnConfigurationResource list operation.",
+      "description": "Paged response",
       "required": [
         "value",
         "nextLink"
@@ -1725,49 +1843,15 @@
       "type": "object",
       "properties": {
         "provisioningState": {
-          "type": "string",
-          "enum": [
-            "Accepted",
-            "Creating",
-            "Updating",
-            "Deleting",
-            "Succeeded",
-            "Failed",
-            "Canceled",
-            "Deleted",
-            "NotSpecified"
-          ],
-          "x-ms-enum": {
-            "name": "ProvisioningState",
-            "modelAsString": true
-          },
-          "x-adl-name": "Accepted | Creating | Updating | Deleting | Succeeded | Failed | Canceled | Deleted | NotSpecified",
+          "$ref": "#/definitions/ProvisioningState",
           "description": "Provisioning state of the resource."
         },
         "monitoringStatus": {
-          "type": "string",
-          "enum": [
-            "Enabled",
-            "Disabled"
-          ],
-          "x-ms-enum": {
-            "name": "MonitoringStatus",
-            "modelAsString": true
-          },
-          "x-adl-name": "Enabled | Disabled",
+          "$ref": "#/definitions/MonitoringStatus",
           "description": "Status of the monitor."
         },
         "marketplaceSubscriptionStatus": {
-          "type": "string",
-          "enum": [
-            "Active",
-            "Suspended"
-          ],
-          "x-ms-enum": {
-            "name": "MarketplaceSubscriptionStatus",
-            "modelAsString": true
-          },
-          "x-adl-name": "Active | Suspended",
+          "$ref": "#/definitions/MarketplaceSubscriptionStatus",
           "description": "Marketplace subscription status."
         },
         "logzOrganizationProperties": {
@@ -1783,16 +1867,7 @@
           "description": "Billing plan information."
         },
         "liftrResourceCategory": {
-          "type": "string",
-          "enum": [
-            "Unknown",
-            "MonitorLogs"
-          ],
-          "x-ms-enum": {
-            "name": "LiftrResourceCategories",
-            "modelAsString": true
-          },
-          "x-adl-name": "Unknown | MonitorLogs",
+          "$ref": "#/definitions/LiftrResourceCategories",
           "description": "Liftr Resource category."
         },
         "liftrResourcePreference": {
@@ -1817,18 +1892,7 @@
       "type": "object",
       "properties": {
         "singleSignOnState": {
-          "type": "string",
-          "enum": [
-            "Initial",
-            "Enable",
-            "Disable",
-            "Existing"
-          ],
-          "x-ms-enum": {
-            "name": "SingleSignOnStates",
-            "modelAsString": true
-          },
-          "x-adl-name": "Initial | Enable | Disable | Existing",
+          "$ref": "#/definitions/SingleSignOnStates",
           "description": "Various states of the SSO resource"
         },
         "enterpriseAppId": {
@@ -1840,23 +1904,7 @@
           "description": "The login URL specific to this Logz Organization."
         },
         "provisioningState": {
-          "type": "string",
-          "enum": [
-            "Accepted",
-            "Creating",
-            "Updating",
-            "Deleting",
-            "Succeeded",
-            "Failed",
-            "Canceled",
-            "Deleted",
-            "NotSpecified"
-          ],
-          "x-ms-enum": {
-            "name": "ProvisioningState",
-            "modelAsString": true
-          },
-          "x-adl-name": "Accepted | Creating | Updating | Deleting | Succeeded | Failed | Canceled | Deleted | NotSpecified",
+          "$ref": "#/definitions/ProvisioningState",
           "description": "The provisiong state of the SSO resource"
         }
       },
@@ -1866,6 +1914,46 @@
         "singleSignOnUrl",
         "provisioningState"
       ]
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "enum": [
+        "Accepted",
+        "Creating",
+        "Updating",
+        "Deleting",
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Deleted",
+        "NotSpecified"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true
+      }
+    },
+    "MonitoringStatus": {
+      "type": "string",
+      "enum": [
+        "Enabled",
+        "Disabled"
+      ],
+      "x-ms-enum": {
+        "name": "MonitoringStatus",
+        "modelAsString": true
+      }
+    },
+    "MarketplaceSubscriptionStatus": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "Suspended"
+      ],
+      "x-ms-enum": {
+        "name": "MarketplaceSubscriptionStatus",
+        "modelAsString": true
+      }
     },
     "LogzOrganizationProperties": {
       "type": "object",
@@ -1893,20 +1981,15 @@
       "type": "object",
       "properties": {
         "firstName": {
-          "type": "string",
-          "minLength": 5,
-          "maxLength": 50,
+          "$ref": "#/definitions/MediumString",
           "description": "First Name of the user"
         },
         "lastName": {
-          "type": "string",
-          "minLength": 5,
-          "maxLength": 50,
+          "$ref": "#/definitions/MediumString",
           "description": "Last Name of the user"
         },
         "emailAddress": {
-          "type": "string",
-          "pattern": "^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$",
+          "$ref": "#/definitions/email",
           "description": "Email of the user used by Logz for contacting them if needed"
         },
         "phoneNumber": {
@@ -1926,21 +2009,15 @@
       "type": "object",
       "properties": {
         "usageType": {
-          "type": "string",
-          "minLength": 5,
-          "maxLength": 50,
+          "$ref": "#/definitions/MediumString",
           "description": "different usage type like PAYG/COMMITTED. this could be enum"
         },
         "billingCycle": {
-          "type": "string",
-          "minLength": 5,
-          "maxLength": 50,
+          "$ref": "#/definitions/MediumString",
           "description": "different billing cycles like MONTHLY/WEEKLY. this could be enum"
         },
         "planDetails": {
-          "type": "string",
-          "minLength": 5,
-          "maxLength": 50,
+          "$ref": "#/definitions/MediumString",
           "description": "plan id as published by Logz"
         },
         "effectiveDate": {
@@ -1956,6 +2033,39 @@
         "planDetails",
         "effectiveDate"
       ]
+    },
+    "LiftrResourceCategories": {
+      "type": "string",
+      "enum": [
+        "Unknown",
+        "MonitorLogs"
+      ],
+      "x-ms-enum": {
+        "name": "LiftrResourceCategories",
+        "modelAsString": true
+      }
+    },
+    "SingleSignOnStates": {
+      "type": "string",
+      "enum": [
+        "Initial",
+        "Enable",
+        "Disable",
+        "Existing"
+      ],
+      "x-ms-enum": {
+        "name": "SingleSignOnStates",
+        "modelAsString": true
+      }
+    },
+    "MediumString": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 50
+    },
+    "email": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$"
     }
   },
   "parameters": {

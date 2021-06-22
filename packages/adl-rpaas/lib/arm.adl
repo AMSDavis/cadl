@@ -1,4 +1,4 @@
-import "../dist/arm.js";
+import "../dist/src/arm.js";
 
 @doc("Common properties for all ARM resources.")
 model ArmResource {
@@ -92,6 +92,18 @@ model ArmCreatedResponse<T> {
   @body body: T;
 }
 
+@doc("Resource deleted successfully.")
+model ArmDeletedResponse {
+  ... ArmResponseBase,
+  @header statusCode: 200;
+}
+
+@doc("Resource deletion accepted.")
+model ArmDeleteAcceptedResponse {
+  ... ArmResponseBase,
+  @header statusCode: 202;
+}
+
 @doc("Paged response")
 model Page<T> {
   @doc("The items on this page")
@@ -180,18 +192,18 @@ model Operation {
 @doc("""
 The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default value is "user,system"
 """)
-model Origin = "user" | "system" | "user,system";
+enum Origin { user, system, "user,system" };
 
 @doc("""
 Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
 """)
-model ActionType = "Internal";
+enum ActionType { Internal }
 
 @armCommonDefinition
 @doc("""
 A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
 """)
-model OperationListResult = Page<Operation>;
+model OperationListResult extends Page<Operation> { }
 
 @armCommonDefinition
 @doc("Localized display information for and operation.")
@@ -289,7 +301,7 @@ model ErrorAdditionalInfo {
 }
 
 // NOTE: This is how the enum is named in types.json
-model createdByType = "User" | "Application" | "ManagedIdentity" | "Key";
+enum createdByType { User, Application, ManagedIdentity, Key };
 
 @armCommonDefinition("systemData")
 @doc("Metadata pertaining to creation and last modification of the resource.")

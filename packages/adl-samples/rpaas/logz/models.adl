@@ -4,12 +4,12 @@ import "@azure-tools/adl-rpaas";
 
 @doc("Reusable representation of an email address")
 @format("^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$")
-model email = string;
+model email extends string {};
 
 @doc("Shorthand for setting length limit.")
 @minLength(5)
 @maxLength(50)
-model MediumString = string;
+model MediumString extends string {}
 
 model MonitoredResource {
   @doc("The ARM id of the resource.")
@@ -28,7 +28,7 @@ model MonitoredResource {
   reasonForLogsStatus: string;
 }
 
-model MonitoredResourceListResponse = Page<MonitoredResource>;
+model MonitoredResourceListResponse extends Page<MonitoredResource> {}
 
 @doc("The properties of a Logz Monitor Service resource.")
 model LogzMonitorResourceProperties {
@@ -52,7 +52,7 @@ model LogzMonitorResourceProperties {
 }
 
 @doc("Managed identity types")
-model ManagedIdentityTypes = "SystemAssigned" | "UserAssigned";
+enum ManagedIdentityTypes { "SystemAssigned", "UserAssigned" }
 
 model IdentityProperties {
   @doc("The identity ID.")
@@ -66,13 +66,16 @@ model IdentityProperties {
 }
 
 @doc("Provisioning state of the monitoring resource")
-model ProvisioningState = "Accepted" | "Creating" | "Updating" | "Deleting" | "Succeeded" | "Failed" | "Canceled" | "Deleted" | "NotSpecified";
+enum ProvisioningState {
+  "Accepted", "Creating", "Updating", "Deleting",
+  "Succeeded", "Failed", "Canceled", "Deleted", "NotSpecified"
+}
 
 @doc("Flag specifying if the resource monitoring is enabled or disabled.")
-model MonitoringStatus = "Enabled" | "Disabled";
+enum MonitoringStatus { "Enabled", "Disabled" }
 
 @doc("Flag specifying the Marketplace Subscription Status of the resource. If payment is not made in time, the resource will go in Suspended state.")
-model MarketplaceSubscriptionStatus = "Active" | "Suspended";
+enum MarketplaceSubscriptionStatus { "Active", "Suspended" }
 
 model LogzOrganizationProperties {
   @doc("Id of the Logz organization.")
@@ -117,7 +120,7 @@ model PlanData {
 }
 
 @doc("Liftr resource category")
-model LiftrResourceCategories = "Unknown" | "MonitorLogs";
+enum LiftrResourceCategories { "Unknown", "MonitorLogs" };
 
 @doc("Properties for the Tag rules resource of a Monitor account.")
 model MonitoringTagRulesProperties {
@@ -150,7 +153,7 @@ model FilteringTag {
 }
 
 @doc("Valid actions for a filtering tag. Exclusion takes priority over inclusion.")
-model TagAction = "Include" | "Exclude";
+enum TagAction { "Include", "Exclude" }
 
 model LogzSingleSignOnProperties {
   @doc("Various states of the SSO resource")
@@ -167,4 +170,4 @@ model LogzSingleSignOnProperties {
 }
 
 @doc("Various states of the SSO resource")
-model SingleSignOnStates = "Initial" | "Enable" | "Disable" | "Existing";
+enum SingleSignOnStates { "Initial", "Enable", "Disable", "Existing" };

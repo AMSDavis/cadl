@@ -120,6 +120,6 @@ model GetSignIdResponse {
     sign_id?: int32;
 }
 
-model KioskId = int32;
+alias KioskId = int32;
 
-model SignId = int32;
+alias SignId = int32;

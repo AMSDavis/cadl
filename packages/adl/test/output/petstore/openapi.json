@@ -28,7 +28,7 @@
             "schema": {
               "type": "object",
               "properties": {},
-              "x-adl-name": "{}"
+              "x-adl-name": "(anonymous model)"
             }
           },
           "default": {
@@ -93,24 +93,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "type": "object",
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/Pet"
-                  },
-                  "x-adl-name": "PetStore.Pet[]"
-                },
-                "nextLink": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "items",
-                "nextLink"
-              ],
-              "x-adl-name": "PetStore.ResponsePage<PetStore.Pet>"
+              "$ref": "#/definitions/ResponsePage_Pet"
             }
           },
           "default": {
@@ -183,24 +166,7 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "type": "object",
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/Toy"
-                  },
-                  "x-adl-name": "PetStore.Toy[]"
-                },
-                "nextLink": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "items",
-                "nextLink"
-              ],
-              "x-adl-name": "PetStore.ResponsePage<PetStore.Toy>"
+              "$ref": "#/definitions/ResponsePage_Toy"
             }
           },
           "default": {
@@ -234,6 +200,25 @@
         "message"
       ]
     },
+    "ResponsePage_Pet": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Pet"
+          },
+          "x-adl-name": "PetStore.Pet[]"
+        },
+        "nextLink": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "items",
+        "nextLink"
+      ]
+    },
     "Pet": {
       "type": "object",
       "properties": {
@@ -253,6 +238,25 @@
       "required": [
         "name",
         "age"
+      ]
+    },
+    "ResponsePage_Toy": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Toy"
+          },
+          "x-adl-name": "PetStore.Toy[]"
+        },
+        "nextLink": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "items",
+        "nextLink"
       ]
     },
     "Toy": {

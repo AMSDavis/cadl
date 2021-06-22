@@ -13,7 +13,7 @@ namespace Microsoft.Logz;
     collectionName: "Monitors",
     parameterType: MonitorNameParameter,
 })
-model LogzMonitorResource = TrackedResource<LogzMonitorResourceProperties>;
+model LogzMonitorResource extends TrackedResource<LogzMonitorResourceProperties> {}
 
 model MonitorNameParameter {
   @doc("Monitor resource name")
@@ -33,21 +33,12 @@ namespace LogzMonitors {
   parentResourceType: LogzMonitorResource,
   parameterType: TagNameParameter,
 })
-model TagRuleResource = TrackedResource<{}>;
+model TagRuleResource extends TrackedResource<{}> {}
 
 model TagNameParameter {
   @doc("Tag name")
   @path tagName: string;
 }
-
-
-@armResource({
-  path: "singleSignOnConfigurations",
-  collectionName: "SingleSignOnConfigurations",
-  parentResourceType: LogzMonitorResource,
-  parameterType: SingleSignOnConfigurationsParameter,
-})
-model SingleSignOnConfigurationResource = TrackedResource<LogzSingleSignOnProperties>;
 
 model SingleSignOnConfigurationsParameter {
   @doc("Configuration name")
@@ -55,12 +46,19 @@ model SingleSignOnConfigurationsParameter {
 }
 
 @armResource({
+  path: "singleSignOnConfigurations",
+  collectionName: "SingleSignOnConfigurations",
+  parentResourceType: LogzMonitorResource,
+  parameterType: SingleSignOnConfigurationsParameter,
+})
+model SingleSignOnConfigurationResource extends TrackedResource<LogzSingleSignOnProperties> {};
+@armResource({
   path: "accounts",
   collectionName: "SubAccounts",
   parentResourceType: LogzMonitorResource,
   parameterType: SubAccountNameParameter,
 })
-model SubAccountResource = TrackedResource<LogzMonitorResourceProperties>;
+model SubAccountResource extends TrackedResource<LogzMonitorResourceProperties> {}
 
 model SubAccountNameParameter {
   @doc("Sub account name")
@@ -77,7 +75,7 @@ namespace SubAccounts {
   @patch()
   @doc("Update a monitor resource.")
   op patch(
-      @path subscriptionId: string, 
+      @path subscriptionId: string,
       @path resourceGroupName: string, 
       @path monitorName: string, 
       @path subAccountName: string, 
@@ -90,4 +88,4 @@ namespace SubAccounts {
     parameterType: TagNameParameter,
     parentResourceType: SubAccountResource,
 })
-model SubAccountTagRuleResource = TrackedResource<{}>;
+model SubAccountTagRuleResource extends TrackedResource<{}> {};

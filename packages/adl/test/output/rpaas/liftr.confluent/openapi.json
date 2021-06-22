@@ -267,11 +267,23 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "Resource deleted successfully.",
             "schema": {
-              "type": "object",
-              "properties": {},
-              "x-adl-name": "{}"
+              "$ref": "#/definitions/ArmDeletedResponse"
+            }
+          },
+          "202": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deletion accepted.",
+            "schema": {
+              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
             }
           },
           "default": {
@@ -521,11 +533,23 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "Resource deleted successfully.",
             "schema": {
-              "type": "object",
-              "properties": {},
-              "x-adl-name": "{}"
+              "$ref": "#/definitions/ArmDeletedResponse"
+            }
+          },
+          "202": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deletion accepted.",
+            "schema": {
+              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
             }
           },
           "default": {
@@ -653,9 +677,7 @@
           "readOnly": true
         },
         "properties": {
-          "type": "object",
-          "properties": {},
-          "x-adl-name": "{}"
+          "$ref": "#/definitions/ConfluentAgreementResourceProperties"
         }
       },
       "required": [
@@ -666,7 +688,51 @@
       ],
       "x-ms-azure-resource": true
     },
+    "ArmDeletedResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deleted successfully."
+    },
+    "ArmDeleteAcceptedResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deletion accepted."
+    },
     "ConfluentAgreementResourceListResult": {
+      "type": "object",
+      "properties": {},
+      "description": "The response of a ConfluentAgreementResource list operation.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Page_ConfluentAgreementResource"
+        }
+      ]
+    },
+    "Organization": {
+      "type": "object",
+      "properties": {},
+      "allOf": [
+        {
+          "$ref": "#/definitions/TrackedResource_OrganizationProperties"
+        }
+      ],
+      "x-ms-azure-resource": true
+    },
+    "OrganizationListResult": {
+      "type": "object",
+      "properties": {},
+      "description": "The response of a Organization list operation.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Page_Organization"
+        }
+      ]
+    },
+    "ConfluentAgreementResourceProperties": {
+      "type": "object",
+      "properties": {}
+    },
+    "Page_ConfluentAgreementResource": {
       "type": "object",
       "properties": {
         "value": {
@@ -682,13 +748,13 @@
           "description": "The link to the next page of items"
         }
       },
-      "description": "The response of a ConfluentAgreementResource list operation.",
+      "description": "Paged response",
       "required": [
         "value",
         "nextLink"
       ]
     },
-    "Organization": {
+    "TrackedResource_OrganizationProperties": {
       "type": "object",
       "properties": {
         "properties": {
@@ -706,6 +772,7 @@
           "readOnly": true
         }
       },
+      "description": "Concrete tracked resource types can be created by aliasing this type using a specific property type.",
       "required": [
         "properties"
       ],
@@ -713,10 +780,9 @@
         {
           "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
         }
-      ],
-      "x-ms-azure-resource": true
+      ]
     },
-    "OrganizationListResult": {
+    "Page_Organization": {
       "type": "object",
       "properties": {
         "value": {
@@ -732,7 +798,7 @@
           "description": "The link to the next page of items"
         }
       },
-      "description": "The response of a Organization list operation.",
+      "description": "Paged response",
       "required": [
         "value",
         "nextLink"
@@ -753,7 +819,7 @@
           "readOnly": true
         },
         "ssoUrl": {
-          "type": "string",
+          "$ref": "#/definitions/Uri",
           "description": "Single sign-on url for the Confluent organization.",
           "readOnly": true
         },
@@ -775,57 +841,34 @@
         "userDetail"
       ]
     },
+    "Uri": {
+      "type": "string"
+    },
     "OfferDetail": {
       "type": "object",
       "properties": {
         "publisherId": {
-          "type": "string",
-          "minLength": 5,
-          "maxLength": 50,
+          "$ref": "#/definitions/MediumString",
           "description": "Id of the product publisher."
         },
         "id": {
-          "type": "string",
-          "minLength": 5,
-          "maxLength": 50,
+          "$ref": "#/definitions/MediumString",
           "description": "Id of the product offering."
         },
         "planId": {
-          "type": "string",
-          "minLength": 5,
-          "maxLength": 50,
+          "$ref": "#/definitions/MediumString",
           "description": "Id of the product offer plan."
         },
         "planName": {
-          "type": "string",
-          "minLength": 5,
-          "maxLength": 50,
+          "$ref": "#/definitions/MediumString",
           "description": "Name of the product offer plan."
         },
         "termUnit": {
-          "type": "string",
-          "maxLength": 25,
+          "$ref": "#/definitions/ShortString",
           "description": "Offer plan term unit."
         },
         "status": {
-          "type": "string",
-          "enum": [
-            "Started",
-            "PendingFulfillmentStart",
-            "InProgress",
-            "Subscribed",
-            "Suspended",
-            "Reinstated",
-            "Succeeded",
-            "Failed",
-            "Unsubscribed",
-            "Updating"
-          ],
-          "x-ms-enum": {
-            "name": "OfferStatus",
-            "modelAsString": true
-          },
-          "x-adl-name": "Started | PendingFulfillmentStart | InProgress | Subscribed | Suspended | Reinstated | Succeeded | Failed | Unsubscribed | Updating",
+          "$ref": "#/definitions/OfferStatus",
           "description": "SaaS offer status."
         }
       },
@@ -843,20 +886,15 @@
       "type": "object",
       "properties": {
         "firstName": {
-          "type": "string",
-          "minLength": 5,
-          "maxLength": 50,
+          "$ref": "#/definitions/MediumString",
           "description": "Subscriber first name."
         },
         "lastName": {
-          "type": "string",
-          "minLength": 5,
-          "maxLength": 50,
+          "$ref": "#/definitions/MediumString",
           "description": "Subscriber last name."
         },
         "emailAddress": {
-          "type": "string",
-          "pattern": "\\w+@\\w+\\.\\w+",
+          "$ref": "#/definitions/email",
           "description": "Subscriber email address."
         }
       },
@@ -866,6 +904,38 @@
         "lastName",
         "emailAddress"
       ]
+    },
+    "MediumString": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 50
+    },
+    "ShortString": {
+      "type": "string",
+      "maxLength": 25
+    },
+    "OfferStatus": {
+      "type": "string",
+      "enum": [
+        "Started",
+        "PendingFulfillmentStart",
+        "InProgress",
+        "Subscribed",
+        "Suspended",
+        "Reinstated",
+        "Succeeded",
+        "Failed",
+        "Unsubscribed",
+        "Updating"
+      ],
+      "x-ms-enum": {
+        "name": "OfferStatus",
+        "modelAsString": true
+      }
+    },
+    "email": {
+      "type": "string",
+      "pattern": "\\w+@\\w+\\.\\w+"
     }
   },
   "parameters": {

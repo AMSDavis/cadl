@@ -347,11 +347,23 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "Resource deleted successfully.",
             "schema": {
-              "type": "object",
-              "properties": {},
-              "x-adl-name": "{}"
+              "$ref": "#/definitions/ArmDeletedResponse"
+            }
+          },
+          "202": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deletion accepted.",
+            "schema": {
+              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
             }
           },
           "default": {
@@ -509,16 +521,7 @@
       "type": "object",
       "properties": {
         "keyName": {
-          "type": "string",
-          "enum": [
-            "key1",
-            "key2"
-          ],
-          "x-ms-enum": {
-            "name": "KeyName",
-            "modelAsString": true
-          },
-          "x-adl-name": "key1 | key2",
+          "$ref": "#/definitions/KeyName",
           "description": "The key to regenerate."
         }
       },
@@ -531,14 +534,12 @@
       "type": "object",
       "properties": {
         "key1": {
-          "type": "string",
-          "format": "password",
+          "$ref": "#/definitions/SecretKey",
           "description": "The primary key for this server.",
           "readOnly": true
         },
         "key2": {
-          "type": "string",
-          "format": "password",
+          "$ref": "#/definitions/SecretKey",
           "description": "The secondary key for this server.",
           "readOnly": true
         }
@@ -546,6 +547,51 @@
       "description": "The set of available keys for this server."
     },
     "FluidRelayServer": {
+      "type": "object",
+      "properties": {},
+      "allOf": [
+        {
+          "$ref": "#/definitions/TrackedResource_FluidRelayServerProperties"
+        }
+      ],
+      "x-ms-azure-resource": true
+    },
+    "ArmDeletedResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deleted successfully."
+    },
+    "ArmDeleteAcceptedResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deletion accepted."
+    },
+    "FluidRelayServerListResult": {
+      "type": "object",
+      "properties": {},
+      "description": "The response of a FluidRelayServer list operation.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Page_FluidRelayServer"
+        }
+      ]
+    },
+    "KeyName": {
+      "type": "string",
+      "enum": [
+        "key1",
+        "key2"
+      ],
+      "x-ms-enum": {
+        "name": "KeyName",
+        "modelAsString": true
+      }
+    },
+    "SecretKey": {
+      "type": "string",
+      "format": "password"
+    },
+    "TrackedResource_FluidRelayServerProperties": {
       "type": "object",
       "properties": {
         "properties": {
@@ -563,6 +609,7 @@
           "readOnly": true
         }
       },
+      "description": "Concrete tracked resource types can be created by aliasing this type using a specific property type.",
       "required": [
         "properties"
       ],
@@ -570,10 +617,9 @@
         {
           "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
         }
-      ],
-      "x-ms-azure-resource": true
+      ]
     },
-    "FluidRelayServerListResult": {
+    "Page_FluidRelayServer": {
       "type": "object",
       "properties": {
         "value": {
@@ -589,7 +635,7 @@
           "description": "The link to the next page of items"
         }
       },
-      "description": "The response of a FluidRelayServer list operation.",
+      "description": "Paged response",
       "required": [
         "value",
         "nextLink"
@@ -609,17 +655,7 @@
           "readOnly": true
         },
         "provisioningState": {
-          "type": "string",
-          "enum": [
-            "Succeeded",
-            "Failed",
-            "Cancelled"
-          ],
-          "x-ms-enum": {
-            "name": "ProvisioningState",
-            "modelAsString": true
-          },
-          "x-adl-name": "Succeeded | Failed | Cancelled",
+          "$ref": "#/definitions/ProvisioningState",
           "description": "Provisioning states for FluidRelay RP"
         }
       },
@@ -631,7 +667,7 @@
         "ordererEndpoints": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/Uri"
           },
           "x-adl-name": "Microsoft.FluidRelay.Uri[]",
           "description": "The Fluid Relay Orderer Endpoints.",
@@ -640,7 +676,7 @@
         "storageEndpoints": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/Uri"
           },
           "x-adl-name": "Microsoft.FluidRelay.Uri[]",
           "description": "The Fluid Relay storage endpoints.",
@@ -652,6 +688,21 @@
         "ordererEndpoints",
         "storageEndpoints"
       ]
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Cancelled"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true
+      }
+    },
+    "Uri": {
+      "type": "string"
     }
   },
   "parameters": {

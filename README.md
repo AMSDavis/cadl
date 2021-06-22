@@ -109,6 +109,17 @@ adl generate --client samples/petstore/
 
 Parameters for generating clients in other languages will be added soon.
 
+### Formatting adl files
+
+ADL provides an auto-formatter to keep your specs clean and organized.
+
+```bash
+adl format <patterns...>
+
+# Format all the files in the current directly with the adl extension.
+adl format **/*.adl
+```
+
 ### Installing VS Code Extension
 
 ```
@@ -123,7 +134,7 @@ Preferences -> Settings, and adjust `adl.adl-server.path` accordingly. You may
 need to restart VS Code after changing this.
 
 You can also configure a project to use a local npm install of
-`@azure-tools/adl`. See [local-adl sample](packages/adl/samples/local-adl).
+`@azure-tools/adl`. See [local-adl sample](packages/adl-samples/local-adl).
 
 ### Installing Visual Studio Extension
 

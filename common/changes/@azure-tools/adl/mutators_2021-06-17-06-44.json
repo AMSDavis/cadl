@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/adl",
+      "comment": "Add mutator library which enables the programmatic addition of model properties, operation parameters, and operation return types",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/adl",
+  "email": "daviwil@microsoft.com"
+}

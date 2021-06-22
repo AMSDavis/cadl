@@ -180,6 +180,9 @@ obj/
 .vs/
 *.binlog
 
+# tsc incremental build files
+*.tsbuildinfo
+
 *.vsix
 *.zip
 

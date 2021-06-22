@@ -14,7 +14,7 @@ namespace Microsoft.CodeSigning;
   parameterType: AccountNameParameter,
   collectionName: "CodeSignAccounts",
 })
-model CodeSignAccount = TrackedResource<CodeSignAccountProperties>;
+model CodeSignAccount extends TrackedResource<CodeSignAccountProperties> {};
 
 @doc("Properties of the code sign account")
 model CodeSignAccountProperties {
@@ -41,14 +41,15 @@ model AccountNameParameter {
   @path accountName: string;
 }
 
-model VerificationStatus = "Completed" | "InProgress" | "NotCompleted";
+enum VerificationStatus { Completed, InProgress, NotCompleted }
 
-model RotationPolicy = "Monthly";
+enum RotationPolicy { Monthly }
 
-model ProfileType = "Test" | "Trial" | "PrivateTrust" | "PublicTrust";
+enum ProfileType { Test, Trial, PrivateTrust, PublicTrust }
 
-model ProvisioningState = "Succeeded" | "Failed" | "Cancelled" | "Provisioning" |
-                          "Updating" | "Deleting" | "Accepted";
+enum ProvisioningState {
+  Suceeded, Failed, Cancelled, Provisioning, Updating, Deleting, Accepted
+}
 
 @armResource({
   path: "certificateProfiles",
@@ -58,7 +59,7 @@ model ProvisioningState = "Succeeded" | "Failed" | "Cancelled" | "Provisioning" 
   standardOperations: ["read", "update"],
 })
 @armListBy(AccountNameParameter, "ListByCodeSignAccounts")
-model CertificateProfile = ProxyResource<CertificateProfileProperties>;
+model CertificateProfile extends ProxyResource<CertificateProfileProperties> {}
 
 model ProfileNameParameter {
   @doc("Certificate profile name")

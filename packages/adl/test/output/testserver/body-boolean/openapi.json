@@ -62,7 +62,7 @@
             "schema": {
               "type": "object",
               "properties": {},
-              "x-adl-name": "{}"
+              "x-adl-name": "(anonymous model)"
             }
           },
           "default": {
@@ -145,12 +145,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "A successful response",
-            "schema": {
-              "type": "boolean",
-              "x-nullable": true,
-              "x-adl-name": "boolean | null"
-            }
+            "description": "Null response"
           },
           "default": {
             "description": "Error",

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/adl-rpaas",
+      "comment": "Add semantic error recovery",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/adl-rpaas",
+  "email": "nicholg@microsoft.com"
+}

@@ -4,15 +4,15 @@ steps:
       versionSpec: 14.x
     displayName: Install Node.js
 
-  - script: node common/scripts/install-run-rush.js change -v
-    condition: and(succeeded(), eq(startsWith(variables['System.PullRequest.SourceBranch'], 'publish/'), false))
-    displayName: Verify Change Files
-
   - script: node common/scripts/install-run-rush.js install
     displayName: Install JavaScript Dependencies
 
   - script: node packages/adl-vs/scripts/build.js --restore
     displayName: Restore .NET Dependencies
+
+  - script: node common/scripts/install-run-rush.js change -v
+    condition: and(succeeded(), eq(startsWith(variables['System.PullRequest.SourceBranch'], 'publish/'), false))
+    displayName: Verify Change Files
 
   - script: node common/scripts/install-run-rush.js check
     displayName: Check For Dependency Version Mismatches
@@ -20,7 +20,7 @@ steps:
   - script: node common/scripts/install-run-rush.js rebuild --verbose
     displayName: Build
 
-  - script: node common/scripts/install-run-rush.js test
+  - script: node common/scripts/install-run-rush.js test-official
     displayName: Test
 
   - script: node common/scripts/install-run-rush.js check-format
@@ -29,7 +29,7 @@ steps:
   - script: cd packages/adl && npm run regen-samples
     displayName: Regenerate Samples
 
-  - script: cd packages/adl-samples && npm link && npx adl generate rpaas/liftr.confluent/ --client --option arm-types-path=../../adl-samples/rpaas/types.json
+  - script: cd packages/adl-samples && npm link && npx adl generate rpaas/liftr.confluent/ --client --language typescript --option arm-types-path=../../adl-samples/rpaas/types.json
     displayName: Sanity Check Client Generation
 
   - script: node eng/scripts/check-for-changed-files.js
