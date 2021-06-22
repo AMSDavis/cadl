@@ -34,7 +34,7 @@
     "@azure-tools/adl": "0.11.0",
     "@azure-tools/adl-openapi": "0.2.1",
     "@azure-tools/adl-rest": "0.2.1",
-    "@azure-tools/adl-rpaas": "0.3.1"
+    "@azure-tools/adl-rpaas": "0.3.1",
     "@azure-tools/adl-rpaas-controller": "0.1.0"
   },
   "devDependencies": {}

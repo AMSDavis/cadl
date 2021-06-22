@@ -30,13 +30,13 @@
   },
   "dependencies": {
     "squirrelly": "^8.0.8",
-    "@azure-tools/adl": "0.9.0",
-    "@azure-tools/adl-rest": "0.1.2",
-    "@azure-tools/adl-openapi": "0.1.2",
-    "@azure-tools/adl-rpaas": "0.2.0"
+    "@azure-tools/adl": "0.11.0",
+    "@azure-tools/adl-openapi": "0.2.1",
+    "@azure-tools/adl-rest": "0.2.1",
+    "@azure-tools/adl-rpaas": "0.3.1"
   },
   "devDependencies": {
     "@types/node": "~14.0.27",
-    "typescript": "~4.2.4"
+    "typescript": "~4.3.2"
   }
 }

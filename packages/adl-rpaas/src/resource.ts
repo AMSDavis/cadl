@@ -81,11 +81,13 @@ export interface ArmResourceInfo {
   operationNamespaces: Set<string>;
 }
 
-export function getArmResources(): Type[] {
+const armResourceNamespacesKey = Symbol();
+export function getArmResources(program: Program): Type[] | undefined {
+  const armResourceNamespaces : Map<Type, ArmResourceInfo> = program.stateMap(armResourceNamespacesKey);
   return [...armResourceNamespaces.keys()];
 }
 
-const armResourceNamespacesKey = Symbol();
+
 
 export function getArmResourceInfo(
   program: Program,

@@ -233,7 +233,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       }
 
       function GetAdditionalOperations() {
-        const modelNameSpaces: NamespaceType[] = getResources().map(res => res as NamespaceType);
+        const modelNameSpaces: NamespaceType[] = getResources(program).map(res => res as NamespaceType);
         const visitedNamespaces = new Map<string, NamespaceType>();
         const visitedOperations = new Map<string, OperationType>();
         const outOperations = new Map<string, Operation[]>();
@@ -261,14 +261,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
             return outModel;
           }
-          var simpleModel = model as ModelType;
-          if (simpleModel !== undefined) {
-            if (simpleModel.assignmentType) {
-              return extractResponseType(simpleModel.assignmentType!);
-            }
-          }
-
-          return simpleModel;
+          
+          return model as ModelType;
         }
 
         function visitOperations(operations: Map<string, OperationType>, namespaceKey: string, resource?: Resource) {
@@ -300,10 +294,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                   visitType(adlType.type);
                   break;
                 case "Model":
-
-                  if (adlType.assignmentType) {
-                    visitType(adlType.assignmentType);
-                  }
                   adlType.baseModels?.forEach(element => { visitType(element) });
                   adlType.templateArguments?.forEach(element => { visitType(element) });
                   if (!getKnownType(adlType)) {
@@ -320,7 +310,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
           function visitOperation(operation: OperationType, namespaceKey: string) {
             const operationKey: string = namespaceKey + "." + operation.name;
-            let httpOperation = getHttpOperation(operation);
+            let httpOperation = getHttpOperation(program, operation);
             console.log("== BEGIN OPERATION " + operation.name + " ==");
             if (!visitedOperations.has(operationKey)) {
               visitedOperations.set(operationKey, operation);
@@ -338,7 +328,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                   }
                   else if (propType) {
                     visitType(prop.type);
-                    let propLoc: string = isQueryParam(prop) ? "Query" : isPathParam(prop) ? "Path" : isBody(prop) ? "Body" : "????";
+                    let propLoc: string = isQueryParam(program, prop) ? "Query" : isPathParam(program,prop) ? "Path" : isBody(program, prop) ? "Body" : "????";
                     parameters.push({
                       name: prop.name,
                       type: propType.name,
@@ -354,7 +344,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 console.log("using subpath: " + route?.subPath);
               }
 
-              getPathParamName(operation)
+              getPathParamName(program, operation)
               console.log("== END OPERATION " + operation.name + " ==");
               console.log();
               const outOperation = {
@@ -380,7 +370,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         }
         function visitNamespace(visited: NamespaceType, parent?: string) {
           let key: string = visited.name;
-          if (isResource(visited)) {
+          if (isResource(program, visited)) {
           }
 
           let resource: Resource | undefined = undefined;
@@ -455,7 +445,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               name: typeRef?.name ?? model.name,
               nameSpace: typeRef?.nameSpace ?? modelNamespace,
               properties: [],
-              description: getDoc(model),
+              description: getDoc(program, model),
               serviceName: serviceName,
               typeParameters: model.templateArguments ? model.templateArguments!.map(arg => getCSharpType(arg)!) : [],
               isDerivedType: false,
@@ -463,20 +453,10 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               isBuiltIn: typeRef?.isBuiltIn ?? false,
               validations: getValidations(adlType)
             };
-            if (model.assignmentType || (model.baseModels && model.baseModels.length > 0) || (model.templateArguments && model.templateArguments.length > 0)) {
+            if ((model.baseModels && model.baseModels.length > 0) || (model.templateArguments && model.templateArguments.length > 0)) {
               outModel.isDerivedType = true;
               const baseType: TypeReference[] = [];
-              const assignModel = model.assignmentType as ModelType;
-              if (assignModel) {
-                var assignRef = getCSharpType(assignModel);
-                if (assignRef) {
-                  baseType.push(assignRef);
-                }
-              }
               model.baseModels.forEach(model => {
-                if (model.assignmentType) {
-                  model = model.assignmentType as ModelType;
-                }
                 const converted = getCSharpType(model);
                 if (converted) {
                   baseType.push(converted)
@@ -486,11 +466,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 const templateBase = program.checker!.getTypeForNode(model.templateNode);
                 if (templateBase) {
                   let modelType = templateBase as ModelType;
-                  let hint = undefined;
-                  if (modelType && modelType.assignmentType) {
-                    hint = modelType.name;
-                    modelType = modelType.assignmentType as ModelType;
-                  }
                   const converted = getCSharpType(modelType);
                   if (converted) {
                     baseType.push(converted);
@@ -584,7 +559,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         name: transformCSharpIdentifier(property.name),
         type: outPropertyType,
         validations: getValidations(property),
-        description: getDoc(property)
+        description: getDoc(program, property)
       }
       return outProperty;
     }
@@ -664,13 +639,13 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
         const output: ValidationAttribute[] = [];
 
-        let format = getFormat(localType);
+        let format = getFormat(program, localType);
         if (format) {
           output.push(getPatternAttribute(format));
         }
 
-        let minLength = getMinLength(localType);
-        let maxLength = getMaxLength(localType);
+        let minLength = getMinLength(program, localType);
+        let maxLength = getMaxLength(program, localType);
         if (minLength || maxLength) {
           output.push(getLengthAttribute(minLength, maxLength));
         }
@@ -691,9 +666,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           adlType.options.forEach(o => getValidations(o).forEach(val => outValidations.push(val)));
           break;
         case "Model":
-          if (adlType.assignmentType) {
-            getValidations(adlType.assignmentType).forEach(i => outValidations.push(i));
-          }
           if (adlType.baseModels) {
             adlType.baseModels.forEach(o => getValidations(o).forEach(val => outValidations.push(val)));
           }
@@ -789,12 +761,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               }
               if (known) {
                 return known;
-              }
-              if (adlType.assignmentType) {
-                var checkAssignment = getCSharpType(adlType.assignmentType);
-                if (checkAssignment && checkAssignment.isBuiltIn && checkAssignment.nameSpace === "System") {
-                  return checkAssignment;
-                }
               }
               if (adlType.templateNode) {
                 const tempType = program.checker!.getTypeForNode(adlType.templateNode);

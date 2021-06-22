@@ -73,7 +73,6 @@ export function getModels(): Type[] {
   return [...schemas.values()];
 }
 
-const refTargets = new Map<Type, string>();
 export function useRef(program: Program, entity: Type, refUrl: string): void {
   if (entity.kind === "Model" || entity.kind === "ModelProperty") {
     program.stateMap(refTargetsKey).set(entity, refUrl);
@@ -157,7 +156,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       title: getServiceTitle(program),
       version: getServiceVersion(program),
     },
-    host: getServiceHost(),
+    host: getServiceHost(program),
     schemes: ["https"],
     produces: [], // Pre-initialize produces and consumes so that
     consumes: [], // they show up at the top of the document
@@ -667,12 +666,13 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       schema = getSchemaForType(param.type);
       if (param.type.kind === "Array") {
         schema.items = getSchemaForType(param.type.elementType);
-      if (schema) {
-        if (param.type.kind == "Array") {
-          schema.items = getSchemaForType(param.type.elementType);
-        }
-        for (const property in schema) {
-          ph[property] = schema[property];
+        if (schema) {
+          if (param.type.kind == "Array") {
+            schema.items = getSchemaForType(param.type.elementType);
+          }
+          for (const property in schema) {
+            ph[property] = schema[property];
+          }
         }
       }
     }
@@ -995,43 +995,44 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         };
       }
 
-    const minLength = getMinLength(program, adlType);
-    if (schemaType.type === "string" && !schemaType.minLength && minLength !== undefined) {
-      schemaType = {
-        ...schemaType,
-        minLength,
-      };
-    }
+      const minLength = getMinLength(program, adlType);
+      if (schemaType.type === "string" && !schemaType.minLength && minLength !== undefined) {
+        schemaType = {
+          ...schemaType,
+          minLength,
+        };
+      }
 
-    const maxLength = getMaxLength(program, adlType);
-    if (schemaType.type === "string" && !schemaType.maxLength && maxLength !== undefined) {
-      schemaType = {
-        ...schemaType,
-        maxLength,
-      };
-    }
+      const maxLength = getMaxLength(program, adlType);
+      if (schemaType.type === "string" && !schemaType.maxLength && maxLength !== undefined) {
+        schemaType = {
+          ...schemaType,
+          maxLength,
+        };
+      }
 
-    const minValue = getMinValue(program, adlType);
-    if (isNumericType(program, adlType) && !schemaType.minimum && minValue !== undefined) {
-      schemaType = {
-        ...schemaType,
-        minimum: minValue,
-      };
-    }
+      const minValue = getMinValue(program, adlType);
+      if (isNumericType(program, adlType) && !schemaType.minimum && minValue !== undefined) {
+        schemaType = {
+          ...schemaType,
+          minimum: minValue,
+        };
+      }
 
-    const maxValue = getMinValue(program, adlType);
-    if (isNumericType(program, adlType) && !schemaType.maximum && maxValue !== undefined) {
-      schemaType = {
-        ...schemaType,
-        maximum: maxValue,
-      };
-    }
+      const maxValue = getMinValue(program, adlType);
+      if (isNumericType(program, adlType) && !schemaType.maximum && maxValue !== undefined) {
+        schemaType = {
+          ...schemaType,
+          maximum: maxValue,
+        };
+      }
 
-    if (isSecret(program, adlType)) {
-      schemaType = {
-        ...schemaType,
-        format: "password",
-      };
+      if (isSecret(program, adlType)) {
+        schemaType = {
+          ...schemaType,
+          format: "password",
+        };
+      }
     }
 
     return schemaType;
@@ -1054,6 +1055,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
     return schema;
   }
+
 
   // Map an ADL type to an OA schema. Returns undefined when the resulting
   // OA schema is just a regular object schema.

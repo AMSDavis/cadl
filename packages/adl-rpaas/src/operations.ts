@@ -129,13 +129,12 @@ function evalInNamespace(program: Program, namespace: string, adlScript: string)
 
 export function armStandardRead(program: Program, target: Type, documentation?: string): void {
   const info = prepareOperationInfo(program, "armStandardRead", target);
-
-  armResourceInfo.operationNamespaces?.add(namespace);
   if (!info) {
     return;
   }
 
   const { armResourceInfo, operationParams, namespace } = info;
+  armResourceInfo.operationNamespaces?.add(namespace);
   if (!documentation) {
     documentation = `Get a ${armResourceInfo.resourceModelName}`;
   }
@@ -151,13 +150,12 @@ export function armStandardRead(program: Program, target: Type, documentation?: 
 
 export function armStandardCreate(program: Program, target: Type, documentation?: string): void {
   const info = prepareOperationInfo(program, "armStandardCreate", target);
-
-  armResourceInfo.operationNamespaces?.add(namespace);
   if (!info) {
     return;
   }
 
   const { armResourceInfo, operationParams, namespace } = info;
+  armResourceInfo.operationNamespaces?.add(namespace);
   if (!documentation) {
     documentation = `Create a ${armResourceInfo.resourceModelName}`;
   }
@@ -173,13 +171,12 @@ export function armStandardCreate(program: Program, target: Type, documentation?
 
 export function armStandardUpdate(program: Program, target: Type, documentation?: string): void {
   const info = prepareOperationInfo(program, "armStandardUpdate", target);
-
-  armResourceInfo.operationNamespaces?.add(namespace);
   if (!info) {
     return;
   }
 
   const { armResourceInfo, operationParams, namespace } = info;
+  armResourceInfo.operationNamespaces?.add(namespace);
   if (!documentation) {
     documentation = `Update a ${armResourceInfo.resourceModelName}`;
   }
@@ -195,13 +192,12 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
 
 export function armStandardDelete(program: Program, target: Type, documentation?: string): void {
   const info = prepareOperationInfo(program, "armStandardDelete", target);
-
-  armResourceInfo.operationNamespaces?.add(namespace);
   if (!info) {
     return;
   }
 
   const { armResourceInfo, operationParams, namespace } = info;
+  armResourceInfo.operationNamespaces?.add(namespace);
   if (!documentation) {
     documentation = `Delete a ${armResourceInfo.resourceModelName}`;
   }

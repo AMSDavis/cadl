@@ -49,6 +49,47 @@ dependencies:
   yargs: 16.2.0
 lockfileVersion: 5.2
 packages:
+  /@azure-tools/adl-openapi/0.1.2:
+    dependencies:
+      '@azure-tools/adl': 0.9.0
+      '@azure-tools/adl-rest': 0.1.2
+    dev: false
+    engines:
+      node: '>=14.0.0'
+    resolution:
+      integrity: sha512-S8t2w8w/jaoHvR+gaG2IAdBHkXrStS7zliJhGLfwrZkUdxRo3F3vHia2af2M7dqCHOx9pwhJZZ1V2NmcdQdMFQ==
+  /@azure-tools/adl-rest/0.1.2:
+    dependencies:
+      '@azure-tools/adl': 0.9.0
+    dev: false
+    engines:
+      node: '>=14.0.0'
+    resolution:
+      integrity: sha512-XSe36l+rml7EYhewwVaPCEqxV8wBaRuGlokQ21tJ/50QNYVPVBjthDGlq+h6LuZ2oLfImwXW6EhAE3rlYhpn/Q==
+  /@azure-tools/adl-rpaas/0.2.0:
+    dependencies:
+      '@azure-tools/adl': 0.9.0
+      '@azure-tools/adl-openapi': 0.1.2
+      '@azure-tools/adl-rest': 0.1.2
+    dev: false
+    engines:
+      node: '>=14.0.0'
+    resolution:
+      integrity: sha512-S7Uw5v8JnD075KkLF7XoXBXoDx+JOmYrkde1CU/jQxaK9SskE9TJLjdIRPfrahuxEa6pXHPEzAaN30xYu8j73Q==
+  /@azure-tools/adl/0.9.0:
+    dependencies:
+      autorest: 3.0.6339
+      mkdirp: 1.0.4
+      resolve: 1.20.0
+      vscode-languageserver: 7.0.0
+      vscode-languageserver-textdocument: 1.0.1
+      yargs: 16.2.0
+    dev: false
+    engines:
+      node: '>=14.0.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-fDU+8N43FZzYfMvU7QsEz8ylgGErRvGVFWG9BPFy0IZu9Aa0v8LUPXi/CCvdliNbCQOMhIfCvPvWNSHlI8Wv9g==
   /@babel/code-frame/7.12.13:
     dependencies:
       '@babel/highlight': 7.13.10
@@ -2870,13 +2911,17 @@ packages:
     version: 0.0.0
   file:projects/adl-rpaas-controller.tgz:
     dependencies:
+      '@azure-tools/adl': 0.9.0
+      '@azure-tools/adl-openapi': 0.1.2
+      '@azure-tools/adl-rest': 0.1.2
+      '@azure-tools/adl-rpaas': 0.2.0
       '@types/node': 14.0.27
       squirrelly: 8.0.8
-      typescript: 4.2.4
+      typescript: 4.3.2
     dev: false
     name: '@rush-temp/adl-rpaas-controller'
     resolution:
-      integrity: sha512-aUJqV93yyOmQeqeoANiD5lWOSuOCAsQ8dMMSWjMxgRKhHWpJVtO/yOMXe8c/8ROiIHYPiHDsTqrWSnWjp3RODA==
+      integrity: sha512-wW0ZcQCj5YYgUZDvEz+wq4eqA7PfefTI2VlrJr81u0J33efOgx6h2wtsQ5Dz2GBEf/g41jNUMjye1fn0m6CgaQ==
       tarball: file:projects/adl-rpaas-controller.tgz
     version: 0.0.0
   file:projects/adl-rpaas.tgz:
@@ -2900,7 +2945,7 @@ packages:
     dev: false
     name: '@rush-temp/adl-samples'
     resolution:
-      integrity: sha512-QW9j/WDN5pZof6z2SyEBeDchV1FFHElWRLiXi3vYKPArQiYa2UxdchttwwP9T4NjSvFUawV0/u1+7gTqrGxhaw==
+      integrity: sha512-vHKOIj0/yS+RGaRxzJith026bIS79b4oqiKonEt9qXDcaS8JW9uCI9qc15rE9gZQ+WJ5g18PdQii2KNciVh+mA==
       tarball: file:projects/adl-samples.tgz
     version: 0.0.0
   file:projects/adl-vs.tgz:
