@@ -1,4 +1,4 @@
-import "../dist/src/arm.js";
+import "../dist/arm.js";
 
 @doc("Common properties for all ARM resources.")
 model ArmResource {
@@ -94,13 +94,11 @@ model ArmCreatedResponse<T> {
 
 @doc("Resource deleted successfully.")
 model ArmDeletedResponse {
-  ... ArmResponseBase,
   @header statusCode: 200;
 }
 
 @doc("Resource deletion accepted.")
 model ArmDeleteAcceptedResponse {
-  ... ArmResponseBase,
   @header statusCode: 202;
 }
 

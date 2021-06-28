@@ -1,15 +1,13 @@
 import {
   getIntrinsicType,
   isIntrinsic,
+  logVerboseTestOutput,
   ModelType,
-  NamespaceType,
   Program,
   StringLiteralType,
   TupleType,
   Type,
 } from "@azure-tools/adl";
-import { extension } from "@azure-tools/adl-openapi";
-import { HttpOperationType } from "@azure-tools/adl-rest";
 import { getArmNamespace } from "./namespace.js";
 import { _generateStandardOperations } from "./operations.js";
 
@@ -82,12 +80,10 @@ export interface ArmResourceInfo {
 }
 
 const armResourceNamespacesKey = Symbol();
-export function getArmResources(program: Program): Type[] | undefined {
-  const armResourceNamespaces : Map<Type, ArmResourceInfo> = program.stateMap(armResourceNamespacesKey);
-  return [...armResourceNamespaces.keys()];
+const legacy = new Map<Type, ArmResourceInfo>();
+export function getArmResources(program: Program) : Type[] {
+  return Array.from(program.stateMap(armResourceNamespacesKey).keys()).map(r => <Type>r);
 }
-
-
 
 export function getArmResourceInfo(
   program: Program,
@@ -168,6 +164,7 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
   }
 
   if (!resourceType.namespace) {
+    console.log("Unable to find reosurce namespace for arm resoiurce: ", resourceType.name);
     program.reportDiagnostic(
       "The @armResource can only be applied to a model type that is defined in a namespace",
       resourceType
@@ -215,6 +212,7 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     "standardOperations",
     "Tuple"
   );
+
   if (operationsValue) {
     standardOperations = operationsValue.values.map((v) => {
       if (v.kind !== "String") {
@@ -243,6 +241,7 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
   // Locate the ARM namespace in the namespace hierarchy
   let armNamespace = getArmNamespace(program, resourceType.namespace);
   if (!armNamespace) {
+    console.log("Uanable to find namespace for resource type: ", resourceType.name);
     program.reportDiagnostic(
       "The @armNamespace decorator must be used to define the ARM namespace of the service.  This is best applied to the file-level namespace.",
       resourceType
@@ -294,6 +293,7 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     pathParameterTypes ? pathParameterTypes.values : []
   );
 
+  program.stateMap(armResourceNamespacesKey).set(resourceType, armResourceInfo);
   const finalPath = armResourceInfo.resourceNameParam
     ? `${armResourceInfo.resourcePath?.path}/{${armResourceInfo.resourceNameParam.name}}`
     : armResourceInfo.resourcePath?.path;
@@ -311,8 +311,7 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
       }
   `);
 
-  program.stateMap(armResourceNamespacesKey).set(resourceType, armResourceInfo);
-
+  
   _generateStandardOperations(program, resourceType, armResourceInfo.standardOperations);
 }
 
