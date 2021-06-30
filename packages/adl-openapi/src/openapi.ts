@@ -993,53 +993,54 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   }
 
   function applyIntrinsicDecorators(adlType: Type, target: any): any {
-    const pattern = getFormat(program, adlType);
-    if (schemaType) {
+    if (target) {
+      const pattern = getFormat(program, adlType);
       if (isStringType(program, adlType) && !target.pattern && pattern) {
         target = {
           ...target,
           pattern,
         };
       }
-    }
 
-    const minLength = getMinLength(program, adlType);
-    if (isStringType(program, adlType) && !target.minLength && minLength !== undefined) {
-      target = {
-        ...target,
-        minLength,
-      };
-    }
 
-    const maxLength = getMaxLength(program, adlType);
-    if (isStringType(program, adlType) && !target.maxLength && maxLength !== undefined) {
-      target = {
-        ...target,
-        maxLength,
-      };
-    }
+      const minLength = getMinLength(program, adlType);
+      if (isStringType(program, adlType) && !target.minLength && minLength !== undefined) {
+        target = {
+          ...target,
+          minLength,
+        };
+      }
 
-    const minValue = getMinValue(program, adlType);
-    if (isNumericType(program, adlType) && !target.minimum && minValue !== undefined) {
-      target = {
-        ...target,
-        minimum: minValue,
-      };
-    }
+      const maxLength = getMaxLength(program, adlType);
+      if (isStringType(program, adlType) && !target.maxLength && maxLength !== undefined) {
+        target = {
+          ...target,
+          maxLength,
+        };
+      }
 
-    const maxValue = getMinValue(program, adlType);
-    if (isNumericType(program, adlType) && !target.maximum && maxValue !== undefined) {
-      target = {
-        ...target,
-        maximum: maxValue,
-      };
-    }
+      const minValue = getMinValue(program, adlType);
+      if (isNumericType(program, adlType) && !target.minimum && minValue !== undefined) {
+        target = {
+          ...target,
+          minimum: minValue,
+        };
+      }
 
-    if (isSecret(program, adlType)) {
-      target = {
-        ...target,
-        format: "password",
-      };
+      const maxValue = getMinValue(program, adlType);
+      if (isNumericType(program, adlType) && !target.maximum && maxValue !== undefined) {
+        target = {
+          ...target,
+          maximum: maxValue,
+        };
+      }
+
+      if (isSecret(program, adlType)) {
+        target = {
+          ...target,
+          format: "password",
+        };
+      }
     }
 
     return target;
