@@ -181,12 +181,25 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
     documentation = `Update a ${armResourceInfo.resourceModelName}`;
   }
 
+  let updateModelName = armResourceInfo.resourceModelName;
+  if (armResourceInfo.resourceKind === "Tracked") {
+    updateModelName = `${armResourceInfo.resourceModelName}Update`;
+    evalInNamespace(
+      program,
+      armResourceInfo.parentNamespace,
+      `model ${updateModelName} { ...ArmTagsProperty }`
+    );
+  }
+
   evalInNamespace(
     program,
     namespace,
     `@doc("${documentation}")
-     @patch op Update(${getOperationPathArguments(operationParams)}, @body resource: ResourceUpdate
-     ): ArmResponse<${armResourceInfo.resourceModelName}> | ErrorResponse;`
+     @patch op Update(${getOperationPathArguments(
+       operationParams
+     )}, @body resource: ${updateModelName}): ArmResponse<${
+      armResourceInfo.resourceModelName
+    }> | ErrorResponse;`
   );
 }
 

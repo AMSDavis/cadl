@@ -3,6 +3,7 @@
 **/test/output/
 **/bin/
 **/obj/
+**/.vs/
 common/temp/
 common/scripts/
 common/changes/

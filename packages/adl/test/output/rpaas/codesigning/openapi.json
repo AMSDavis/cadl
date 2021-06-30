@@ -217,7 +217,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CodeSignAccount"
+              "$ref": "#/definitions/CodeSignAccountUpdate"
             }
           }
         ],
@@ -581,6 +581,23 @@
       ],
       "x-ms-azure-resource": true
     },
+    "CodeSignAccountUpdate": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Resource tags.",
+          "x-ms-mutability": [
+            "read",
+            "update",
+            "create"
+          ]
+        }
+      }
+    },
     "ArmDeletedResponse": {
       "type": "object",
       "properties": {},
@@ -901,6 +918,7 @@
       "in": "path",
       "required": true,
       "description": "Code Signing account name",
+      "pattern": "^[a-zA-Z0-9-]{3,24}$",
       "type": "string"
     },
     "ProfileNameParameter": {
@@ -909,6 +927,7 @@
       "in": "path",
       "required": true,
       "description": "Certificate profile name",
+      "pattern": "^[a-zA-Z0-9-]{3,24}$",
       "type": "string"
     }
   }

@@ -1,0 +1,92 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Parameter Decorators",
+    "version": "0000-00-00"
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [],
+  "paths": {
+    "/thing/{name}": {
+      "get": {
+        "operationId": "Operations_getThing",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "pattern": "^[a-zA-Z0-9-]{3,24}$",
+            "type": "string"
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": true,
+            "minimum": 0,
+            "maximum": 0,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Thing"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "Operations_putThing",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/NameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Thing"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Thing": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  },
+  "parameters": {
+    "NameParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "description": "Name parameter",
+      "pattern": "^[a-zA-Z0-9-]{3,24}$",
+      "type": "string"
+    }
+  }
+}

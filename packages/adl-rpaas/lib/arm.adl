@@ -19,6 +19,10 @@ model TrackedResourceBase extends ArmResource {
   @visibility("read", "create")
   location: string;
 
+  ...ArmTagsProperty
+}
+
+model ArmTagsProperty {
   @doc("Resource tags.")
   @visibility("read", "write", "create")
   tags?: Map<string, string>;

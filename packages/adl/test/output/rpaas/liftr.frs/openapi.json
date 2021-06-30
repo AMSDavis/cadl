@@ -286,7 +286,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/FluidRelayServer"
+              "$ref": "#/definitions/FluidRelayServerUpdate"
             }
           }
         ],
@@ -555,6 +555,23 @@
         }
       ],
       "x-ms-azure-resource": true
+    },
+    "FluidRelayServerUpdate": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Resource tags.",
+          "x-ms-mutability": [
+            "read",
+            "update",
+            "create"
+          ]
+        }
+      }
     },
     "ArmDeletedResponse": {
       "type": "object",

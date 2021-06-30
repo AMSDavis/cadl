@@ -1,6 +1,17 @@
 # Change Log - @azure-tools/adl-openapi
 
-This log was last generated on Tue, 18 May 2021 23:43:31 GMT and should not be manually modified.
+This log was last generated on Thu, 24 Jun 2021 03:57:43 GMT and should not be manually modified.
+
+## 0.3.0
+Thu, 24 Jun 2021 03:57:43 GMT
+
+### Minor changes
+
+- Add semantic error recovery
+
+### Patches
+
+- Fix decorator application to OpenAPI output when the target is a model property or operation parameter
 
 ## 0.2.1
 Tue, 18 May 2021 23:43:31 GMT

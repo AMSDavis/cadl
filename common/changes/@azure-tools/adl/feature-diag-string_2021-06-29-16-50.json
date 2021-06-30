@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@azure-tools/adl",
-      "comment": "Added typechecker type navigation",
+      "comment": "**Update** Diagnostics code to be a string",
       "type": "patch"
     }
   ],

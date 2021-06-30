@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@azure-tools/adl",
-      "comment": "**Added** ADL Configuration file loading",
+      "comment": "Use LSP to log messages from client to server",
       "type": "patch"
     }
   ],
   "packageName": "@azure-tools/adl",
-  "email": "tiguerin@microsoft.com"
+  "email": "nicholg@microsoft.com"
 }

@@ -2,6 +2,34 @@
   "name": "@azure-tools/adl-rpaas",
   "entries": [
     {
+      "version": "0.4.0",
+      "tag": "@azure-tools/adl-rpaas_v0.4.0",
+      "date": "Thu, 24 Jun 2021 03:57:43 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Generate proper request body for standard RPaaS update operation"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Add semantic error recovery"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@azure-tools/adl\" from `0.11.0` to `0.12.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/adl-openapi\" from `0.2.1` to `0.3.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/adl-rest\" from `0.2.1` to `0.3.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.1",
       "tag": "@azure-tools/adl-rpaas_v0.3.1",
       "date": "Tue, 18 May 2021 23:43:31 GMT",

@@ -1,0 +1,33 @@
+import "@azure-tools/adl-rest";
+import "@azure-tools/adl-openapi";
+
+@serviceTitle("Parameter Decorators")
+namespace ADL.Samples;
+
+@resource("/thing")
+namespace Operations {
+  @get("{name}")
+  op getThing(
+    @format("^[a-zA-Z0-9-]{3,24}$")
+    @path name: string,
+
+    @minValue(0)
+    @maxValue(10)
+    @query count: int32
+  ): OkResponse<Thing>;
+
+  @put("{name}")
+  op putThing(
+    ...NameParameter,
+  ): OkResponse<Thing>;
+}
+
+model Thing {
+  name: string;
+}
+
+model NameParameter {
+  @doc("Name parameter")
+  @format("^[a-zA-Z0-9-]{3,24}$")
+  @path name: string;
+}
