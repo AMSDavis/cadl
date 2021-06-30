@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/adl-rest",
+      "comment": "Add additional api to support code generation and host property",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/adl-rest",
+  "email": "markcowl@microsoft.com"
+}

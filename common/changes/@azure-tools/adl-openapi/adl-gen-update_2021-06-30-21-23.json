@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/adl-openapi",
+      "comment": "Fix swagger generation bugs for empt schema and support host property",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/adl-openapi",
+  "email": "markcowl@microsoft.com"
+}
