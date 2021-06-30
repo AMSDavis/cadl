@@ -30,10 +30,10 @@
   },
   "dependencies": {
     "squirrelly": "^8.0.8",
-    "@azure-tools/adl": "0.11.0",
-    "@azure-tools/adl-openapi": "0.2.1",
-    "@azure-tools/adl-rest": "0.2.1",
-    "@azure-tools/adl-rpaas": "0.3.1"
+    "@azure-tools/adl": "0.12.0",
+    "@azure-tools/adl-openapi": "0.3.0",
+    "@azure-tools/adl-rest": "0.3.0",
+    "@azure-tools/adl-rpaas": "0.4.0"
   },
   "devDependencies": {
     "@types/node": "~14.0.27",
