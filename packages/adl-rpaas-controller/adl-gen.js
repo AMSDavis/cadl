@@ -3,8 +3,6 @@ import * as fs from 'fs'
 var args = process.argv.slice(2)
 // node adl-gen.js <data-file> <outdir>
 console.log("using args: (" + args[0] + ", " + args[1] + ")")
-//var template = fs.readFileSync(args[0], 'utf8')
-//console.log("template: " + template)
 var inputJson = JSON.parse(fs.readFileSync(args[0]))
 var service = inputJson.serviceName
 
