@@ -1,4 +1,4 @@
-import "../dist/arm.js";
+import "../dist/src/arm.js";
 
 @doc("Common properties for all ARM resources.")
 model ArmResource {

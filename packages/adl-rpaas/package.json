@@ -16,7 +16,7 @@
   "keywords": [
     "adl"
   ],
-  "main": "dist/arm.js",
+  "main": "dist/src/arm.js",
   "adlMain": "lib/arm.adl",
   "type": "module",
   "engines": {
