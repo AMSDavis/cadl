@@ -1,7 +1,6 @@
 import {
   getIntrinsicType,
   isIntrinsic,
-  logVerboseTestOutput,
   ModelType,
   Program,
   StringLiteralType,
@@ -82,8 +81,8 @@ export interface ArmResourceInfo {
 
 const armResourceNamespacesKey = Symbol();
 const legacy = new Map<Type, ArmResourceInfo>();
-export function getArmResources(program: Program) : Type[] {
-  return Array.from(program.stateMap(armResourceNamespacesKey).keys()).map(r => <Type>r);
+export function getArmResources(program: Program): Type[] {
+  return Array.from(program.stateMap(armResourceNamespacesKey).keys()).map((r) => <Type>r);
 }
 
 export function getArmResourceInfo(
@@ -165,7 +164,6 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
   }
 
   if (!resourceType.namespace) {
-    console.log("Unable to find reosurce namespace for arm resoiurce: ", resourceType.name);
     program.reportDiagnostic(
       "The @armResource can only be applied to a model type that is defined in a namespace",
       resourceType
@@ -242,7 +240,6 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
   // Locate the ARM namespace in the namespace hierarchy
   let armNamespace = getArmNamespace(program, resourceType.namespace);
   if (!armNamespace) {
-    console.log("Uanable to find namespace for resource type: ", resourceType.name);
     program.reportDiagnostic(
       "The @armNamespace decorator must be used to define the ARM namespace of the service.  This is best applied to the file-level namespace.",
       resourceType
@@ -324,7 +321,6 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
       }
   `);
 
-  
   _generateStandardOperations(program, resourceType, armResourceInfo.standardOperations);
 }
 

@@ -34,10 +34,10 @@ import {
   getProduces,
   getQueryParamName,
   getResources,
+  getServiceHost,
   getServiceNamespaceString,
   getServiceTitle,
   getServiceVersion,
-  getServiceHost,
   HttpVerb,
   isBody,
   _checkIfServiceNamespace,
@@ -70,10 +70,6 @@ function getPageable(program: Program, entity: Type): string | undefined {
 const refTargetsKey = Symbol();
 // Keep a list of all Types encountered that need schema definitions
 const schemas = new Set<Type>();
-
-export function getModels(): Type[] {
-  return [...schemas.values()];
-}
 
 export function useRef(program: Program, entity: Type, refUrl: string): void {
   if (entity.kind === "Model" || entity.kind === "ModelProperty") {
@@ -286,8 +282,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       (route?.subPath
         ? `/${route?.subPath?.replace(/^\//g, "")}`
         : !inferredVerb && !route
-          ? "/get"
-          : "");
+        ? "/get"
+        : "");
 
     // Find path parameter names
     const declaredPathParamNames = routePath.match(/\{\w+\}/g)?.map((s) => s.slice(1, -1)) ?? [];
@@ -453,10 +449,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     }
 
     response.description = getResponseDescription(responseModel, statusCode);
-    const bodyType = bodyModel as ModelType;
-    if (!bodyType || (bodyType.name !== undefined && bodyType.name !== "")) {
-      response.schema = getSchemaOrRef(bodyModel);
-    }
+    response.schema = getSchemaOrRef(bodyModel);
 
     if (!currentEndpoint.produces.includes(contentType)) {
       currentEndpoint.produces.push(contentType);
@@ -524,7 +517,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       }
 
       // helps to read output and correlate to ADL
-      if (schema) { schema["x-adl-name"] = name; }
+      if (schema) {
+        schema["x-adl-name"] = name;
+      }
       return schema;
     } else {
       const placeholder = {
@@ -693,14 +688,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     } else {
       schema = getSchemaForType(param.type);
       if (param.type.kind === "Array") {
-        schema.items = getSchemaForType(param.type.elementType);
-        if (schema) {
-          if (param.type.kind == "Array") {
-            schema.items = getSchemaForType(param.type.elementType);
-          }
-          for (const property in schema) {
-            ph[property] = schema[property];
-          }
+        for (const property in schema) {
+          ph[property] = schema[property];
         }
       }
     }
@@ -980,11 +969,6 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
     // Attach any OpenAPI extensions
     attachExtensions(model, modelSchema);
-
-    if (modelSchema.properties === undefined || modelSchema.properties === null || Object.keys(modelSchema.properties).length == 0) {
-      return undefined;
-    }
-
     return modelSchema;
   }
 
@@ -1032,54 +1016,51 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   }
 
   function applyIntrinsicDecorators(adlType: Type, target: any): any {
-    if (target) {
-      const pattern = getFormat(program, adlType);
-      if (isStringType(program, adlType) && !target.pattern && pattern) {
-        target = {
-          ...target,
-          pattern,
-        };
-      }
+    const pattern = getFormat(program, adlType);
+    if (isStringType(program, adlType) && !target.pattern && pattern) {
+      target = {
+        ...target,
+        pattern,
+      };
+    }
 
+    const minLength = getMinLength(program, adlType);
+    if (isStringType(program, adlType) && !target.minLength && minLength !== undefined) {
+      target = {
+        ...target,
+        minLength,
+      };
+    }
 
-      const minLength = getMinLength(program, adlType);
-      if (isStringType(program, adlType) && !target.minLength && minLength !== undefined) {
-        target = {
-          ...target,
-          minLength,
-        };
-      }
+    const maxLength = getMaxLength(program, adlType);
+    if (isStringType(program, adlType) && !target.maxLength && maxLength !== undefined) {
+      target = {
+        ...target,
+        maxLength,
+      };
+    }
 
-      const maxLength = getMaxLength(program, adlType);
-      if (isStringType(program, adlType) && !target.maxLength && maxLength !== undefined) {
-        target = {
-          ...target,
-          maxLength,
-        };
-      }
+    const minValue = getMinValue(program, adlType);
+    if (isNumericType(program, adlType) && !target.minimum && minValue !== undefined) {
+      target = {
+        ...target,
+        minimum: minValue,
+      };
+    }
 
-      const minValue = getMinValue(program, adlType);
-      if (isNumericType(program, adlType) && !target.minimum && minValue !== undefined) {
-        target = {
-          ...target,
-          minimum: minValue,
-        };
-      }
+    const maxValue = getMinValue(program, adlType);
+    if (isNumericType(program, adlType) && !target.maximum && maxValue !== undefined) {
+      target = {
+        ...target,
+        maximum: maxValue,
+      };
+    }
 
-      const maxValue = getMinValue(program, adlType);
-      if (isNumericType(program, adlType) && !target.maximum && maxValue !== undefined) {
-        target = {
-          ...target,
-          maximum: maxValue,
-        };
-      }
-
-      if (isSecret(program, adlType)) {
-        target = {
-          ...target,
-          format: "password",
-        };
-      }
+    if (isSecret(program, adlType)) {
+      target = {
+        ...target,
+        format: "password",
+      };
     }
 
     return target;
@@ -1102,7 +1083,6 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
     return schema;
   }
-
 
   // Map an ADL type to an OA schema. Returns undefined when the resulting
   // OA schema is just a regular object schema.

@@ -74,35 +74,37 @@ model NameParameter {
   @path name: string;
 }
 
+@doc("Response envelope for ARM operations.")
+model ArmResponseBase {
+  @header("x-ms-client-request-id")
+  clientRequestId: string;
+
+  @header("x-ms-correlation-request-id")
+  correlationRequestId: string;
+}
 
 @doc("Typed response envelope for ARM operations.")
 model ArmResponse<T> {
   ... OkResponse<T>;
-}
-
-@doc("Operation succeeded.")
-model ArmEmptyOkResponse {
-  @header statusCode: 200;
-}
-
-@doc("Operation succeeded with no response content.")
-model ArmNoContentResponse {
-  ... NoContentResponse
+  ... ArmResponseBase;
 }
 
 @doc("Typed response envelope for ARM PUT operations.")
 model ArmCreatedResponse<T> {
   ... CreatedResponse;
+  ... ArmResponseBase;
   @body body: T;
 }
 
 @doc("Resource deleted successfully.")
 model ArmDeletedResponse {
+  ... ArmResponseBase,
   @header statusCode: 200;
 }
 
 @doc("Resource deletion accepted.")
 model ArmDeleteAcceptedResponse {
+  ... ArmResponseBase,
   @header statusCode: 202;
 }
 
