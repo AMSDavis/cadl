@@ -1,6 +1,14 @@
 # Change Log - @azure-tools/adl-rpaas
 
-This log was last generated on Thu, 24 Jun 2021 03:57:43 GMT and should not be manually modified.
+This log was last generated on Fri, 09 Jul 2021 20:21:06 GMT and should not be manually modified.
+
+## 0.4.1
+Fri, 09 Jul 2021 20:21:06 GMT
+
+### Patches
+
+- Include 204 NoContent response with generated DELETE operations
+- Improve "Update" type generation for PATCH operations to include properties of all resource types
 
 ## 0.4.0
 Thu, 24 Jun 2021 03:57:43 GMT

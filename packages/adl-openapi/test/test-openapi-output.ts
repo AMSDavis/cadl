@@ -148,15 +148,9 @@ describe("openapi: definitions", () => {
     );
 
     ok(res.isRef);
-    ok(res.defs.Foo_int32, "expected definition named Foo_int32");
+    ok(res.defs["Foo_int32"] === undefined, "no definition named Foo_int32");
     ok(res.defs.Bar, "expected definition named Bar");
     deepStrictEqual(res.defs.Bar, {
-      type: "object",
-      properties: {},
-      allOf: [{ $ref: "#/definitions/Foo_int32" }],
-    });
-
-    deepStrictEqual(res.defs.Foo_int32, {
       type: "object",
       properties: { y: { type: "integer", format: "int32" } },
       required: ["y"],

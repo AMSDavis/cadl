@@ -16,7 +16,7 @@ model AcceptDatetimeHeader {
 }
 
 model SyncTokenHeader {
-  @doc "Used to guarantee real-time consistency between requests."
+  @doc("Used to guarantee real-time consistency between requests.")
   @header syncToken?: string;
 }
 
@@ -24,21 +24,21 @@ model ServiceParams {
   @query apiVersion: string;
 }
 
-@doc "Azure App Configuration error object."
+@doc("Azure App Configuration error object.")
 model Error {
-  @doc "The type of the error"
+  @doc("The type of the error")
   type: string;
 
-  @doc "A brief summary of the error."
+  @doc("A brief summary of the error.")
   title: string;
 
-  @doc "The name of the parameter that resulted in the error."
+  @doc("The name of the parameter that resulted in the error.")
   name: string;
 
-  @doc "A detailed description of the error."
+  @doc("A detailed description of the error.")
   detail: string;
 
-  @doc "The HTTP status code that the error maps to." 
+  @doc("The HTTP status code that the error maps to.")
   statusCode: int32;
 }
 

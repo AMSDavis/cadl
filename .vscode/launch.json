@@ -63,6 +63,10 @@
       "type": "pwa-node",
       "request": "attach",
       "port": 4242,
+      "restart": {
+        "delay": 100,
+        "maxAttempts": 10
+      },
       "continueOnAttach": true,
       "smartStep": true,
       "sourceMaps": true,

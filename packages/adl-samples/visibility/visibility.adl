@@ -31,8 +31,17 @@ model WritablePerson {
   ... Writable<Person>;
 }
 
+model OptionalPerson {
+  ... OptionalProperties<Person>;
+}
+
+model WriteableOptionalPerson {
+  ... OptionalProperties<WritablePerson>;
+}
+
 @resource("/hello")
 namespace Hello {
   @get op read(@path id: string, @query fieldMask: string[]): ReadablePerson;
   @post op create(person: WritablePerson): ReadablePerson;
+  @put op update(person: WriteableOptionalPerson): ReadablePerson;
 }

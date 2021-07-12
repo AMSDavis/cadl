@@ -73,6 +73,7 @@ export interface ArmResourceInfo {
   resourceKind: ResourceKind;
   collectionName: string;
   standardOperations: string[];
+  propertiesType?: ModelType;
   resourceNameParam?: ParameterInfo;
   parentResourceType?: Type;
   resourcePath?: ArmResourcePath;
@@ -257,8 +258,9 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     : undefined;
   const parentNamespace = program.checker!.getNamespaceString(resourceType.namespace);
 
-  // Detect the resource type
+  // Detect the resource and properties types
   let resourceKind: ResourceKind = "Plain";
+  let propertiesType: ModelType | undefined = undefined;
   if (resourceType.baseModels.length === 1) {
     const coreType = resourceType.baseModels[0];
     if (coreType.kind === "Model") {
@@ -269,6 +271,16 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
       } else if (coreType.name.startsWith("ExtensionResource")) {
         resourceKind = "Extension";
       }
+
+      // Also extract the properties type while we're at it.
+      const propertiesProperty = coreType.properties.get("properties");
+      if (propertiesProperty) {
+        if (propertiesProperty.type.kind === "Model") {
+          propertiesType = propertiesProperty.type;
+        } else {
+          program.reportDiagnostic("Resource property type must be a model type.", resourceType);
+        }
+      }
     }
   }
 
@@ -276,6 +288,7 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     armNamespace: armNamespace ?? "",
     parentNamespace,
     resourceKind,
+    propertiesType,
     collectionName: collectionNameType?.value ?? "",
     parentResourceType,
     standardOperations,

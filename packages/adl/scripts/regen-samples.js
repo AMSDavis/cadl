@@ -7,9 +7,6 @@ import { fileURLToPath } from "url";
 import { dirname, join, normalize, resolve } from "path";
 
 const excludedSamples = [
-  // Doesn't currently compile: https://github.com/Azure/adl/issues/576
-  "appconfig",
-
   // fails compilation by design to demo language server
   "local-adl",
 

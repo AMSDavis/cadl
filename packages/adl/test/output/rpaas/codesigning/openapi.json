@@ -297,6 +297,20 @@
               "$ref": "#/definitions/ArmDeleteAcceptedResponse"
             }
           },
+          "204": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deleted successfully.",
+            "schema": {
+              "$ref": "#/definitions/ArmDeletedNoContentResponse"
+            }
+          },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
@@ -485,7 +499,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CertificateProfile"
+              "$ref": "#/definitions/CertificateProfileUpdate"
             }
           }
         ],
@@ -572,11 +586,29 @@
   "definitions": {
     "CodeSignAccount": {
       "type": "object",
-      "properties": {},
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/CodeSignAccountProperties",
+          "description": "The resource-specific properties for this resource.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
+        }
+      },
       "description": "A CodeSignAccount resource",
+      "required": [
+        "properties"
+      ],
       "allOf": [
         {
-          "$ref": "#/definitions/TrackedResource_CodeSignAccountProperties"
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
         }
       ],
       "x-ms-azure-resource": true
@@ -595,6 +627,25 @@
             "update",
             "create"
           ]
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "accountUri": {
+              "type": "string",
+              "description": "The URI of the code sign account for performing operations on certificate profiles. This property is readonly",
+              "readOnly": true
+            },
+            "verificationStatus": {
+              "$ref": "#/definitions/VerificationStatus",
+              "readOnly": true
+            },
+            "provisioningState": {
+              "$ref": "#/definitions/ProvisioningState",
+              "readOnly": true
+            }
+          },
+          "x-adl-name": "(anonymous model)"
         }
       }
     },
@@ -608,65 +659,12 @@
       "properties": {},
       "description": "Resource deletion accepted."
     },
+    "ArmDeletedNoContentResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deleted successfully."
+    },
     "CodeSignAccountListResult": {
-      "type": "object",
-      "properties": {},
-      "description": "The response of a CodeSignAccount list operation.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/Page_CodeSignAccount"
-        }
-      ]
-    },
-    "CertificateProfile": {
-      "type": "object",
-      "properties": {},
-      "allOf": [
-        {
-          "$ref": "#/definitions/ProxyResource_CertificateProfileProperties"
-        }
-      ],
-      "x-ms-azure-resource": true
-    },
-    "CertificateProfileListResult": {
-      "type": "object",
-      "properties": {},
-      "description": "The response of a CertificateProfile list operation.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/Page_CertificateProfile"
-        }
-      ]
-    },
-    "TrackedResource_CodeSignAccountProperties": {
-      "type": "object",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/CodeSignAccountProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ],
-          "x-ms-client-flatten": true
-        },
-        "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
-          "description": "System metadata for this resource.",
-          "readOnly": true
-        }
-      },
-      "description": "Concrete tracked resource types can be created by aliasing this type using a specific property type.",
-      "required": [
-        "properties"
-      ],
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
-        }
-      ]
-    },
-    "Page_CodeSignAccount": {
       "type": "object",
       "properties": {
         "value": {
@@ -682,13 +680,13 @@
           "description": "The link to the next page of items"
         }
       },
-      "description": "Paged response",
+      "description": "The response of a CodeSignAccount list operation.",
       "required": [
         "value",
         "nextLink"
       ]
     },
-    "ProxyResource_CertificateProfileProperties": {
+    "CertificateProfile": {
       "type": "object",
       "properties": {
         "properties": {
@@ -699,9 +697,13 @@
             "create"
           ],
           "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
         }
       },
-      "description": "Concrete proxy resource types can be created by aliasing this type using a specific property type.",
       "required": [
         "properties"
       ],
@@ -709,9 +711,72 @@
         {
           "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
         }
-      ]
+      ],
+      "x-ms-azure-resource": true
     },
-    "Page_CertificateProfile": {
+    "CertificateProfileUpdate": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "type": "object",
+          "properties": {
+            "profileType": {
+              "$ref": "#/definitions/ProfileType"
+            },
+            "rotationPolicy": {
+              "$ref": "#/definitions/RotationPolicy"
+            },
+            "commonName": {
+              "type": "string",
+              "description": "Name of the certificate"
+            },
+            "authority": {
+              "type": "string",
+              "description": "Certificate authority of the certificate",
+              "readOnly": true
+            },
+            "subjectAlternativeName": {
+              "type": "string",
+              "description": "Subject Alternative Name of the certificate"
+            },
+            "organization": {
+              "type": "string",
+              "readOnly": true
+            },
+            "streetAddress": {
+              "type": "string",
+              "readOnly": true
+            },
+            "city": {
+              "type": "string",
+              "readOnly": true
+            },
+            "state": {
+              "type": "string",
+              "readOnly": true
+            },
+            "country": {
+              "type": "string",
+              "readOnly": true
+            },
+            "certificates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Certificate"
+              },
+              "x-adl-name": "Microsoft.CodeSigning.Certificate[]",
+              "readOnly": true
+            },
+            "provisioningState": {
+              "$ref": "#/definitions/ProvisioningState",
+              "readOnly": true
+            }
+          },
+          "x-adl-name": "(anonymous model)"
+        }
+      }
+    },
+    "CertificateProfileListResult": {
       "type": "object",
       "properties": {
         "value": {
@@ -727,7 +792,7 @@
           "description": "The link to the next page of items"
         }
       },
-      "description": "Paged response",
+      "description": "The response of a CertificateProfile list operation.",
       "required": [
         "value",
         "nextLink"
@@ -751,6 +816,34 @@
         }
       },
       "description": "Properties of the code sign account"
+    },
+    "VerificationStatus": {
+      "type": "string",
+      "enum": [
+        "Completed",
+        "InProgress",
+        "NotCompleted"
+      ],
+      "x-ms-enum": {
+        "name": "VerificationStatus",
+        "modelAsString": true
+      }
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Cancelled",
+        "Provisioning",
+        "Updating",
+        "Deleting",
+        "Accepted"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true
+      }
     },
     "CertificateProfileProperties": {
       "type": "object",
@@ -814,34 +907,6 @@
         "commonName",
         "subjectAlternativeName"
       ]
-    },
-    "VerificationStatus": {
-      "type": "string",
-      "enum": [
-        "Completed",
-        "InProgress",
-        "NotCompleted"
-      ],
-      "x-ms-enum": {
-        "name": "VerificationStatus",
-        "modelAsString": true
-      }
-    },
-    "ProvisioningState": {
-      "type": "string",
-      "enum": [
-        "Suceeded",
-        "Failed",
-        "Cancelled",
-        "Provisioning",
-        "Updating",
-        "Deleting",
-        "Accepted"
-      ],
-      "x-ms-enum": {
-        "name": "ProvisioningState",
-        "modelAsString": true
-      }
     },
     "ProfileType": {
       "type": "string",

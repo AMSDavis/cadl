@@ -2,6 +2,29 @@
   "name": "@azure-tools/adl-openapi",
   "entries": [
     {
+      "version": "0.3.1",
+      "tag": "@azure-tools/adl-openapi_v0.3.1",
+      "date": "Fri, 09 Jul 2021 20:21:06 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Catch ErrorType instances while walking ADL types so that it's easier to diagnose syntax issues in source files"
+          },
+          {
+            "comment": "Absorb base templated model instance into derived type's schema definition when it's the only base type"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@azure-tools/adl\" from `0.12.0` to `0.13.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/adl-rest\" from `0.3.0` to `0.3.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.0",
       "tag": "@azure-tools/adl-openapi_v0.3.0",
       "date": "Thu, 24 Jun 2021 03:57:43 GMT",

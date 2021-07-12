@@ -1,13 +1,11 @@
 
 @resource("/labels")
-namespace LabelsResource(
-  ... ServiceParams,
-  ... SyncTokenHeader
-) {
-
+namespace LabelsResource {
   @doc("Gets a list of labels.")
   @operationId("GetLabels")
   op list(
+    ... ServiceParams,
+    ... SyncTokenHeader,
     ... AcceptDatetimeHeader,
 
     @query name?: string,
@@ -17,6 +15,8 @@ namespace LabelsResource(
   @doc("Requests the headers and status of the given resource.")
   @operationId("CheckLabels")
   op listHead(
+    ... ServiceParams,
+    ... SyncTokenHeader,
     ... AcceptDatetimeHeader,
 
     @query name?: string,

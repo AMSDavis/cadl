@@ -1,6 +1,14 @@
 # Change Log - @azure-tools/adl-openapi
 
-This log was last generated on Thu, 24 Jun 2021 03:57:43 GMT and should not be manually modified.
+This log was last generated on Fri, 09 Jul 2021 20:21:06 GMT and should not be manually modified.
+
+## 0.3.1
+Fri, 09 Jul 2021 20:21:06 GMT
+
+### Patches
+
+- Catch ErrorType instances while walking ADL types so that it's easier to diagnose syntax issues in source files
+- Absorb base templated model instance into derived type's schema definition when it's the only base type
 
 ## 0.3.0
 Thu, 24 Jun 2021 03:57:43 GMT

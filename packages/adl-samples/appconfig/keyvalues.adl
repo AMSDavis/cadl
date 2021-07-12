@@ -17,14 +17,12 @@ model KeyWithFilters {
 }
 
 @resource("/kv")
-namespace KeyValuesResource(
-  ... ServiceParams,
-  ... SyncTokenHeader
-) {
-
+namespace KeyValuesResource {
   @doc("Gets a list of key-values.")
   @operationId("GetKeyValues")
   op list(
+    ... ServiceParams,
+    ... SyncTokenHeader,
     ... AcceptDatetimeHeader,
     ... KeyFilters,
     
@@ -83,7 +81,9 @@ namespace KeyValuesResource(
 
   @doc("Updates a key-value pair")
   @operationId("UpdateKeyValue")
-  op createOrUpdate(
+  op createOrUpdate2(
+    ... ServiceParams,
+    ... SyncTokenHeader,
     ... ETagHeaders,
     ... KeyWithFilters,
 

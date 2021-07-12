@@ -2,6 +2,32 @@
   "name": "@azure-tools/adl-rpaas",
   "entries": [
     {
+      "version": "0.4.1",
+      "tag": "@azure-tools/adl-rpaas_v0.4.1",
+      "date": "Fri, 09 Jul 2021 20:21:06 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Include 204 NoContent response with generated DELETE operations"
+          },
+          {
+            "comment": "Improve \"Update\" type generation for PATCH operations to include properties of all resource types"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@azure-tools/adl\" from `0.12.0` to `0.13.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/adl-openapi\" from `0.3.0` to `0.3.1`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/adl-rest\" from `0.3.0` to `0.3.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.0",
       "tag": "@azure-tools/adl-rpaas_v0.4.0",
       "date": "Thu, 24 Jun 2021 03:57:43 GMT",

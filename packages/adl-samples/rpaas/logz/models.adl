@@ -165,7 +165,7 @@ model LogzSingleSignOnProperties {
   @doc("The login URL specific to this Logz Organization.")
   singleSignOnUrl: string;
 
-  @doc("The provisiong state of the SSO resource")
+  @doc("The provisioning state of the SSO resource")
   provisioningState: ProvisioningState;
 }
 

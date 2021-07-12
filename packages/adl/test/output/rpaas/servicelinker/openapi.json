@@ -247,7 +247,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/LinkerResource"
+              "$ref": "#/definitions/LinkerResourceUpdate"
             }
           }
         ],
@@ -322,6 +322,20 @@
             "description": "Resource deletion accepted.",
             "schema": {
               "$ref": "#/definitions/ArmDeleteAcceptedResponse"
+            }
+          },
+          "204": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deleted successfully.",
+            "schema": {
+              "$ref": "#/definitions/ArmDeletedNoContentResponse"
             }
           },
           "default": {
@@ -442,13 +456,55 @@
     },
     "LinkerResource": {
       "type": "object",
-      "properties": {},
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/LinkerProperties",
+          "description": "The resource-specific properties for this resource.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "properties"
+      ],
       "allOf": [
         {
-          "$ref": "#/definitions/ExtensionResource_LinkerProperties"
+          "$ref": "#/definitions/ArmResource"
         }
       ],
       "x-ms-azure-resource": true
+    },
+    "LinkerResourceUpdate": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "type": "object",
+          "properties": {
+            "targetId": {
+              "type": "string",
+              "description": "The resource Id of the target service."
+            },
+            "authInfo": {
+              "$ref": "#/definitions/AuthInfoBase",
+              "description": "The authentication type."
+            },
+            "provisioningState": {
+              "type": "string",
+              "description": "The provisioning state.",
+              "readOnly": true
+            }
+          },
+          "x-adl-name": "(anonymous model)"
+        }
+      }
     },
     "ArmDeletedResponse": {
       "type": "object",
@@ -459,6 +515,11 @@
       "type": "object",
       "properties": {},
       "description": "Resource deletion accepted."
+    },
+    "ArmDeletedNoContentResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deleted successfully."
     },
     "LinkerStatus": {
       "type": "string",
@@ -506,33 +567,6 @@
       "required": [
         "type",
         "linkConfig"
-      ]
-    },
-    "ExtensionResource_LinkerProperties": {
-      "type": "object",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/LinkerProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ],
-          "x-ms-client-flatten": true
-        },
-        "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
-          "description": "System metadata for this resource.",
-          "readOnly": true
-        }
-      },
-      "required": [
-        "properties"
-      ],
-      "allOf": [
-        {
-          "$ref": "#/definitions/ArmResource"
-        }
       ]
     },
     "LinkerProperties": {

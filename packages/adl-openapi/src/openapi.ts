@@ -9,6 +9,7 @@ import {
   getMinLength,
   getMinValue,
   getVisibility,
+  isErrorType,
   isIntrinsic,
   isList,
   isNumericType,
@@ -192,43 +193,56 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   return { emitOpenAPI };
 
   async function emitOpenAPI() {
-    for (let resource of getResources(program)) {
-      if (resource.kind !== "Namespace") {
-        program.reportDiagnostic("Resource goes on namespace", resource);
-        continue;
+    try {
+      for (let resource of getResources(program)) {
+        if (resource.kind !== "Namespace") {
+          program.reportDiagnostic("Resource goes on namespace", resource);
+          continue;
+        }
+
+        emitResource(resource as NamespaceType);
+      }
+      emitReferences();
+      emitTags();
+
+      // Finalize global produces/consumes
+      if (globalProduces.size > 0) {
+        root.produces = [...globalProduces.values()];
+      } else {
+        delete root.produces;
+      }
+      if (globalConsumes.size > 0) {
+        root.consumes = [...globalConsumes.values()];
+      } else {
+        delete root.consumes;
       }
 
-      emitResource(resource as NamespaceType);
-    }
-    emitReferences();
-    emitTags();
+      // Clean up empty entries
+      if (Object.keys(root["x-ms-paths"]).length === 0) {
+        delete root["x-ms-paths"];
+      }
+      if (Object.keys(root.security).length === 0) {
+        delete root["security"];
+      }
+      if (Object.keys(root.securityDefinitions).length === 0) {
+        delete root["securityDefinitions"];
+      }
 
-    // Finalize global produces/consumes
-    if (globalProduces.size > 0) {
-      root.produces = [...globalProduces.values()];
-    } else {
-      delete root.produces;
-    }
-    if (globalConsumes.size > 0) {
-      root.consumes = [...globalConsumes.values()];
-    } else {
-      delete root.consumes;
-    }
-
-    // Clean up empty entries
-    if (Object.keys(root["x-ms-paths"]).length === 0) {
-      delete root["x-ms-paths"];
-    }
-    if (Object.keys(root.security).length === 0) {
-      delete root["security"];
-    }
-    if (Object.keys(root.securityDefinitions).length === 0) {
-      delete root["securityDefinitions"];
-    }
-
-    if (!program.compilerOptions.noEmit && !program.hasError()) {
-      // Write out the OpenAPI document to the output path
-      await program.host.writeFile(path.resolve(options.outputFile), JSON.stringify(root, null, 2));
+      if (!program.compilerOptions.noEmit && !program.hasError()) {
+        // Write out the OpenAPI document to the output path
+        await program.host.writeFile(
+          path.resolve(options.outputFile),
+          JSON.stringify(root, null, 2)
+        );
+      }
+    } catch (err) {
+      if (err instanceof ErrorTypeFoundError) {
+        // Return early, there must be a parse error if an ErrorType was
+        // inserted into the ADL output
+        return;
+      } else {
+        throw err;
+      }
     }
   }
 
@@ -502,6 +516,13 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       // happen if ADL identifier uses characters that are problematic for OpenAPI.
       // Users will have to rename / alias type to have it get ref'ed.
       const schema = getSchemaForType(type);
+
+      if (schema === undefined && isErrorType(type)) {
+        // Exit early so that syntax errors are exposed.  This error will
+        // be caught and handled in emitOpenAPI.
+        throw new ErrorTypeFoundError();
+      }
+
       // helps to read output and correlate to ADL
       if (schema) { schema["x-adl-name"] = name; }
       return schema;
@@ -878,7 +899,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   }
 
   function getSchemaForModel(model: ModelType) {
-    const modelSchema: any = {
+    let modelSchema: any = {
       type: "object",
       properties: {},
       description: getDoc(program, model),
@@ -930,7 +951,25 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       attachExtensions(prop, modelSchema.properties[name]);
     }
 
-    if (model.baseModels.length > 0) {
+    // Special case: if a model type extends a single *templated* base type and
+    // has no properties of its own, absorb the definition of the base model
+    // into this schema definition.  The assumption here is that any model type
+    // defined like this is just meant to rename the underlying instance of a
+    // templated type.
+    if (
+      model.baseModels.length === 1 &&
+      model.baseModels[0].templateArguments &&
+      model.baseModels[0].templateArguments.length > 0 &&
+      Object.keys(modelSchema.properties).length === 0
+    ) {
+      // Take the base model schema but carry across the documentation property
+      // that we set before
+      const baseSchema = getSchemaForType(model.baseModels[0]);
+      modelSchema = {
+        ...baseSchema,
+        description: modelSchema.description,
+      };
+    } else if (model.baseModels.length > 0) {
       for (let base of model.baseModels) {
         if (!modelSchema.allOf) {
           modelSchema.allOf = [];
@@ -1125,4 +1164,10 @@ function isRefSafeName(name: string) {
 
 function getRefSafeName(name: string) {
   return name.replace(/^[A-Za-z0-9-_.]/g, "_");
+}
+
+class ErrorTypeFoundError extends Error {
+  constructor() {
+    super("Error type found in evaluated ADL output");
+  }
 }

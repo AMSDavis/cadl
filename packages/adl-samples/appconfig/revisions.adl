@@ -1,28 +1,28 @@
 
 @resource("/revisions")
-namespace RevisionsResource(
-  ... ServiceParams,
-  ... SyncTokenHeader
-) {
-
-  @doc "Gets a list of revisions."
-  @operationId "GetRevisions"
+namespace RevisionsResource {
+  @doc("Gets a list of revisions.")
+  @operationId("GetRevisions")
   op list(
+    ... ServiceParams,
+    ... SyncTokenHeader,
     ... AcceptDatetimeHeader,
 
-    @doc "Used to select what fields are present in the returned resource(s)."
+    @doc("Used to select what fields are present in the returned resource(s).")
     @query $Select?: KeyField[],
 
-    @doc "A filter used to match labels"
+    @doc("A filter used to match labels")
     @query label: string,
 
-    @doc "A filter used to match keys."
+    @doc("A filter used to match keys.")
     @query key: string,
   ): OkResponse<SyncTokenHeader & Page<KeyValue>> | Error;
 
-  @doc "Requests the headers and status of the given resource."
-  @operationId "CheckRevisions"
+  @doc("Requests the headers and status of the given resource.")
+  @operationId("CheckRevisions")
   op listHead(
+    ... ServiceParams,
+    ... SyncTokenHeader,
     ... AcceptDatetimeHeader,
 
     @query name: string,

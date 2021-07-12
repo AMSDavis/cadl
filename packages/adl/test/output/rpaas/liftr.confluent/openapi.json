@@ -286,6 +286,20 @@
               "$ref": "#/definitions/ArmDeleteAcceptedResponse"
             }
           },
+          "204": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deleted successfully.",
+            "schema": {
+              "$ref": "#/definitions/ArmDeletedNoContentResponse"
+            }
+          },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
@@ -552,6 +566,20 @@
               "$ref": "#/definitions/ArmDeleteAcceptedResponse"
             }
           },
+          "204": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deleted successfully.",
+            "schema": {
+              "$ref": "#/definitions/ArmDeletedNoContentResponse"
+            }
+          },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
@@ -698,22 +726,57 @@
       "properties": {},
       "description": "Resource deletion accepted."
     },
-    "ConfluentAgreementResourceListResult": {
+    "ArmDeletedNoContentResponse": {
       "type": "object",
       "properties": {},
-      "description": "The response of a ConfluentAgreementResource list operation.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/Page_ConfluentAgreementResource"
+      "description": "Resource deleted successfully."
+    },
+    "ConfluentAgreementResourceListResult": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConfluentAgreementResource"
+          },
+          "x-adl-name": "Microsoft.Confluent.ConfluentAgreementResource[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
         }
+      },
+      "description": "The response of a ConfluentAgreementResource list operation.",
+      "required": [
+        "value",
+        "nextLink"
       ]
     },
     "Organization": {
       "type": "object",
-      "properties": {},
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/OrganizationProperties",
+          "description": "The resource-specific properties for this resource.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "properties"
+      ],
       "allOf": [
         {
-          "$ref": "#/definitions/TrackedResource_OrganizationProperties"
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
         }
       ],
       "x-ms-azure-resource": true
@@ -732,74 +795,40 @@
             "update",
             "create"
           ]
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "createdTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "UTC Time when Organization resource was created.",
+              "readOnly": true
+            },
+            "organizationId": {
+              "type": "string",
+              "description": "Id of the Confluent organization.",
+              "readOnly": true
+            },
+            "ssoUrl": {
+              "$ref": "#/definitions/Uri",
+              "description": "Single sign-on url for the Confluent organization.",
+              "readOnly": true
+            },
+            "offerDetail": {
+              "$ref": "#/definitions/OfferDetail",
+              "description": "Details of the product offering."
+            },
+            "userDetail": {
+              "$ref": "#/definitions/UserDetail",
+              "description": "Subscriber details."
+            }
+          },
+          "x-adl-name": "(anonymous model)"
         }
       }
     },
     "OrganizationListResult": {
-      "type": "object",
-      "properties": {},
-      "description": "The response of a Organization list operation.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/Page_Organization"
-        }
-      ]
-    },
-    "ConfluentAgreementResourceProperties": {
-      "type": "object",
-      "properties": {}
-    },
-    "Page_ConfluentAgreementResource": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ConfluentAgreementResource"
-          },
-          "x-adl-name": "Microsoft.Confluent.ConfluentAgreementResource[]",
-          "description": "The items on this page"
-        },
-        "nextLink": {
-          "type": "string",
-          "description": "The link to the next page of items"
-        }
-      },
-      "description": "Paged response",
-      "required": [
-        "value",
-        "nextLink"
-      ]
-    },
-    "TrackedResource_OrganizationProperties": {
-      "type": "object",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/OrganizationProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ],
-          "x-ms-client-flatten": true
-        },
-        "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
-          "description": "System metadata for this resource.",
-          "readOnly": true
-        }
-      },
-      "description": "Concrete tracked resource types can be created by aliasing this type using a specific property type.",
-      "required": [
-        "properties"
-      ],
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
-        }
-      ]
-    },
-    "Page_Organization": {
       "type": "object",
       "properties": {
         "value": {
@@ -815,11 +844,15 @@
           "description": "The link to the next page of items"
         }
       },
-      "description": "Paged response",
+      "description": "The response of a Organization list operation.",
       "required": [
         "value",
         "nextLink"
       ]
+    },
+    "ConfluentAgreementResourceProperties": {
+      "type": "object",
+      "properties": {}
     },
     "OrganizationProperties": {
       "type": "object",

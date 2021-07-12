@@ -181,13 +181,28 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
     documentation = `Update a ${armResourceInfo.resourceModelName}`;
   }
 
-  let updateModelName = armResourceInfo.resourceModelName;
-  if (armResourceInfo.resourceKind === "Tracked") {
+  // Generate a special "Update" model type using the resource's properties type
+  let updateModelName = `${armResourceInfo.resourceModelName}`;
+  if (armResourceInfo.propertiesType) {
+    // If the properties type has a name generate a property that uses a copy of
+    // that type with all properties made optional.  If it has no name, we have no
+    // way to reference it so this approach won't work in that case.
+    const propertiesString =
+      armResourceInfo.propertiesType.name !== ""
+        ? `properties?: { ...OptionalProperties<${armResourceInfo.propertiesType.name}> };`
+        : "";
+
+    // Only TrackedResources have a tags property
+    const tagsString = armResourceInfo.resourceKind === "Tracked" ? "...ArmTagsProperty;" : "";
+
     updateModelName = `${armResourceInfo.resourceModelName}Update`;
     evalInNamespace(
       program,
       armResourceInfo.parentNamespace,
-      `model ${updateModelName} { ...ArmTagsProperty }`
+      `model ${updateModelName} {
+         ${tagsString}
+         ${propertiesString}
+       }`
     );
   }
 
@@ -221,7 +236,7 @@ export function armStandardDelete(program: Program, target: Type, documentation?
     `@doc("${documentation}")
      @_delete op Delete(${getOperationPathArguments(
        operationParams
-     )}): ArmDeletedResponse | ArmDeleteAcceptedResponse | ErrorResponse;`
+     )}): ArmDeletedResponse | ArmDeleteAcceptedResponse | ArmDeletedNoContentResponse | ErrorResponse;`
   );
 }
 

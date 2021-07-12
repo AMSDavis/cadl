@@ -48,7 +48,7 @@ enum RotationPolicy { Monthly }
 enum ProfileType { Test, Trial, PrivateTrust, PublicTrust }
 
 enum ProvisioningState {
-  Suceeded, Failed, Cancelled, Provisioning, Updating, Deleting, Accepted
+  Succeeded, Failed, Cancelled, Provisioning, Updating, Deleting, Accepted
 }
 
 @armResource({
