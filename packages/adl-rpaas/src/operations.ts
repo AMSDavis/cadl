@@ -38,7 +38,7 @@ export function armResourceOperations(program: Program, target: Type, resourceTy
   }
 
   const namespace = target as NamespaceType;
-  armResourceInfo.operationNamespaces.add(namespace.name)
+  armResourceInfo.operationNamespaces.add(namespace.name);
 
   // Set the resource path
   resource(program, target, armResourceInfo.resourcePath.path);
@@ -79,7 +79,7 @@ export function armResourceParams(program: Program, operation: Type): void {
 const apiVersionParameter: ParameterInfo = {
   name: "apiVersion",
   typeName: "ApiVersionParameter",
-  description: "The service Api Version"
+  description: "The service Api Version",
 };
 
 function getOperationPathArguments(pathParameters: ParameterInfo[]): string {
@@ -143,7 +143,8 @@ export function armStandardRead(program: Program, target: Type, documentation?: 
     program,
     namespace,
     `@doc("${documentation}")
-     @get op Get(${getOperationPathArguments(operationParams)}): ArmResponse<${armResourceInfo.resourceModelName
+     @get op Get(${getOperationPathArguments(operationParams)}): ArmResponse<${
+      armResourceInfo.resourceModelName
     }> | ErrorResponse;`
   );
 }
@@ -164,7 +165,8 @@ export function armStandardCreate(program: Program, target: Type, documentation?
     program,
     namespace,
     `@doc("${documentation}")
-     @put op CreateOrUpdate(${getOperationPathArguments(operationParams)}, @body resource: ${armResourceInfo.resourceModelName
+     @put op CreateOrUpdate(${getOperationPathArguments(operationParams)}, @body resource: ${
+      armResourceInfo.resourceModelName
     }): ArmResponse<${armResourceInfo.resourceModelName}> | ErrorResponse;`
   );
 }
@@ -187,19 +189,33 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
     // If the properties type has a name generate a property that uses a copy of
     // that type with all properties made optional.  If it has no name, we have no
     // way to reference it so this approach won't work in that case.
-    const propertiesString =
+
+    updateModelName = `${armResourceInfo.resourceModelName}Update`;
+    const updatePropertiesModel = `${updateModelName}Properties`;
+    const updatePropertiesDescription = `@doc("The updatable properties of ${armResourceInfo.propertiesType.name}")`;
+    const propertiesModelString =
       armResourceInfo.propertiesType.name !== ""
-        ? `properties?: { ...OptionalProperties<${armResourceInfo.propertiesType.name}> };`
+        ? `${updatePropertiesDescription}
+        model ${updatePropertiesModel} {
+          ...OptionalProperties<${armResourceInfo.propertiesType.name}>
+        }`
+        : "";
+
+    const propertiesString =
+      propertiesModelString !== ""
+        ? `${updatePropertiesDescription}
+        properties?: ${updatePropertiesModel}`
         : "";
 
     // Only TrackedResources have a tags property
     const tagsString = armResourceInfo.resourceKind === "Tracked" ? "...ArmTagsProperty;" : "";
 
-    updateModelName = `${armResourceInfo.resourceModelName}Update`;
     evalInNamespace(
       program,
       armResourceInfo.parentNamespace,
-      `model ${updateModelName} {
+      `${propertiesModelString}
+       @doc("The updatable properties of the ${armResourceInfo.resourceModelName}.")
+       model ${updateModelName} {
          ${tagsString}
          ${propertiesString}
        }`
@@ -311,7 +327,7 @@ function armListByInternal(
   let pathParams = resourcePath.parameters;
   const paramInfo =
     armResourceInfo.resourceNameParam &&
-      armResourceInfo.resourceNameParam.typeName === paramTypeName
+    armResourceInfo.resourceNameParam.typeName === paramTypeName
       ? armResourceInfo.resourceNameParam
       : pathParams.find((p) => p.typeName === paramTypeName);
 
@@ -357,8 +373,9 @@ function armListByInternal(
       namespace ${armResourceInfo.collectionName}${operationName} {
         @doc("${documentation}")
         @operationId("${armResourceInfo.collectionName}_${operationName}")
-        @list @get op ${operationName}(${getOperationPathArguments(pathParams)}): ArmResponse<${armResourceInfo.resourceListModelName
-    }> | ErrorResponse;
+        @list @get op ${operationName}(${getOperationPathArguments(pathParams)}): ArmResponse<${
+    armResourceInfo.resourceListModelName
+  }> | ErrorResponse;
       }
     }`);
 }
