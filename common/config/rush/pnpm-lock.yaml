@@ -24,7 +24,7 @@ dependencies:
   '@types/vscode': 1.53.0
   '@types/yargs': 15.0.13
   ajv: 8.4.0
-  autorest: 3.0.6339
+  autorest: 3.3.2
   ecmarkup: 7.0.3
   glob: 7.1.6
   grammarkdown: 3.1.2
@@ -467,14 +467,14 @@ packages:
     dev: false
     resolution:
       integrity: sha1-x57Zf380y48robyXkLzDZkdLS3k=
-  /autorest/3.0.6339:
+  /autorest/3.3.2:
     dev: false
     engines:
-      node: '>=10.13.0'
+      node: '>=12.0.0'
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-OCCmAxi5gUnh7yPho5A4n8kDrnp5uz4DdFrqwMmp/bU5DVByIdVwrWERlB7EnCFqQ9jz86oZtsjy91B07+zLnw==
+      integrity: sha512-Tj2Jyz57tMt/KIJK3NaQI13hzUBXZ3N9OmkVZfLU2vrYh1SEaxvdWCLkwWt883E5YlzasRXdbSkrMz86lzHnPA==
   /aws-sign2/0.7.0:
     dev: false
     resolution:
@@ -2846,7 +2846,7 @@ packages:
     dev: false
     name: '@rush-temp/adl-openapi'
     resolution:
-      integrity: sha512-cdCTT950NOOvQRYH0NkAiYlq5uABexk3PY/e6smBAgES4PdUm3n9Rjc8VrPN+rguloyaW5y8RVYcGFdKbpjl2A==
+      integrity: sha512-DeIi0ymYsFRdo1E/5Yb0nwm3WOObA6vvvOQ9hTm0BMxlDFT14N3IvaPXdNq6fzKlsKGpGJ/tOcQSzY8pHe1WbA==
       tarball: file:projects/adl-openapi.tgz
     version: 0.0.0
   file:projects/adl-rest.tgz:
@@ -2857,7 +2857,7 @@ packages:
     dev: false
     name: '@rush-temp/adl-rest'
     resolution:
-      integrity: sha512-HAQxqXvdmoNBnmd67UoYNYSkyeUEIfxHKYRsdAmZad0WLcB4j9tAOITjIuOy8H3m9+0h16q76e8ohEyCpVsE/w==
+      integrity: sha512-j1KPAf41++xw4JROWCUfuALbPC16bvUio19M9txgadFk+gHaSZ38czdyFYBnQ6UbsfiDdIKu/fXLHxeqQfZXqA==
       tarball: file:projects/adl-rest.tgz
     version: 0.0.0
   file:projects/adl-rpaas.tgz:
@@ -2870,7 +2870,7 @@ packages:
     dev: false
     name: '@rush-temp/adl-rpaas'
     resolution:
-      integrity: sha512-qGxzh6audCUjPPiegP2tHvsQdH5oTPNxjr9LZrVpz+CQ3CwhxIao6xvBA40s4EKuzy2ip8eBmWDcc3LvAJUgjw==
+      integrity: sha512-m7HQG8aTlBFkQMztRSxGPvkxigKtlKDKjQNRzfbLsZOf2nJL7CrsjtmeXfuoqMm9pqaWGd7rthGLi/u3ZTvvpg==
       tarball: file:projects/adl-rpaas.tgz
     version: 0.0.0
   file:projects/adl-samples.tgz:
@@ -2881,14 +2881,14 @@ packages:
     dev: false
     name: '@rush-temp/adl-samples'
     resolution:
-      integrity: sha512-QW9j/WDN5pZof6z2SyEBeDchV1FFHElWRLiXi3vYKPArQiYa2UxdchttwwP9T4NjSvFUawV0/u1+7gTqrGxhaw==
+      integrity: sha512-lW9AigaTjYoCZ17BldYXV+dwirBsbSDt/qo/X7B400gHLcdyvUM8ZqM77SUiLrYe4jgkitbJn6OMOPv2tNzCdA==
       tarball: file:projects/adl-samples.tgz
     version: 0.0.0
   file:projects/adl-vs.tgz:
     dev: false
     name: '@rush-temp/adl-vs'
     resolution:
-      integrity: sha512-yXEMMs59EMAjIgc141qc/Pz3XNdVKyKak6/vHMWItJ0NCLZuXMY11/qKaQjzPTB5tYPFZHe7D8QqUxIzOkxS4A==
+      integrity: sha512-Q5E6I4yle8JvqYrReUpuCepSZ4+fViWuBDKGeLaknlJL2VIhKE4rXgDXZIivMeOfYbGRZnj4WT7EaPYaHlbusQ==
       tarball: file:projects/adl-vs.tgz
     version: 0.0.0
   file:projects/adl-vscode.tgz:
@@ -2921,7 +2921,7 @@ packages:
       '@types/resolve': 1.20.0
       '@types/yargs': 15.0.13
       ajv: 8.4.0
-      autorest: 3.0.6339
+      autorest: 3.3.2
       glob: 7.1.6
       grammarkdown: 3.1.2
       js-yaml: 4.1.0
@@ -2938,7 +2938,7 @@ packages:
     dev: false
     name: '@rush-temp/adl'
     resolution:
-      integrity: sha512-wdkccDD4n6yctoQdt+PWbIkUTh9rs4h4XpYt0F90Nbhfb66Xs8OJfGUOe0Y3TP6c3RkqQrZ2GXHHtI4q0bCsRQ==
+      integrity: sha512-ek4qzPv7hYdhfxWGw/8WaeXA+Ems6th1CeOCJYpXWX37DltKam7cRgq8ZR/WW2XpeYfIMoOFTV66CUCax+hg2g==
       tarball: file:projects/adl.tgz
     version: 0.0.0
   file:projects/prettier-plugin-adl.tgz:
@@ -2953,7 +2953,7 @@ packages:
     dev: false
     name: '@rush-temp/prettier-plugin-adl'
     resolution:
-      integrity: sha512-fetGiA6q1YzfbohML82LL+vxsPm7Gd1tows5L6VXuX4ZkYvB5yDG02ajFP4hFEUSIc3hqncoRzhIybBU7JmEKQ==
+      integrity: sha512-XWY6FtSoEetOTJpX6ucXJJZx8glgJyK1n+sAHkVQt/1zcTaP46pPvQ7sBqr/QhL8sdVh756Oam3KXEUSBJCkkQ==
       tarball: file:projects/prettier-plugin-adl.tgz
     version: 0.0.0
   file:projects/tmlanguage-generator.tgz:
@@ -2995,7 +2995,7 @@ specifiers:
   '@types/vscode': ~1.53.0
   '@types/yargs': ~15.0.12
   ajv: ~8.4.0
-  autorest: ~3.0.6335
+  autorest: ~3.3.2
   ecmarkup: ~7.0.3
   glob: ~7.1.6
   grammarkdown: ~3.1.2
