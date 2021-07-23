@@ -31,9 +31,9 @@ namespace {{it.nameSpace}}.Service
         /// <summary>
         /// Validate the request to {{operation.action}} the {{it.name}} resource.
         /// </summary>
-        {{_@each(operation.parameters) => parameter, index}}
+{{@each(operation.parameters) => parameter, index}}
         /// <param name="{{parameter.name}}"> {{parameter.description}}</param>
-        {{_/each}}
+{{/each}}
         /// <returns> A ValidationResponse indicating the validity of the {{operation.action}} request.</returns>
         [HttpPost]
         [Route({{it.serviceName}}ServiceRoutes.{{it.name}}Validate{{operation.action}})]
@@ -54,19 +54,19 @@ namespace {{it.nameSpace}}.Service
         /// <summary>
         /// {{operation.action}} the {{it.name}} resource.
         /// </summary>
-        {{_@each(operation.parameters) => parameter, index}}
+{{@each(operation.parameters) => parameter, index}}
         /// <param name="{{parameter.name}}"> {{parameter.description}}</param>
-        {{_/each}}
+{{/each}}
         /// <returns> The {{it.name}} resource.</returns>
         [Http{{operation.verb.toLowerCase() | initialCaps}}]
         [Route({{it.serviceName}}ServiceRoutes.{{it.name}}Item{{operation.subPath? operation.action :  ""}})]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{operation.returnType}}))]
-        {{_@if(operation.verb.toUpperCase() === "PUT")}}
+{{@if(operation.verb.toUpperCase() === "PUT")}}
         [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof({{operation.returnType}}))]
-        {{_/if}}
-        {{_@if(operation.verb.toUpperCase() === "DELETE")}}
+{{/if}}
+{{@if(operation.verb.toUpperCase() === "DELETE")}}
         [ProducesResponseType((int)HttpStatusCode.NoContent, Type = typeof({{operation.returnType}}))]
-        {{_/if}}
+{{/if}}
         public async Task<IActionResult> {{operation.action}}Async({{operation | decl}})
         {
             _logger.LogInformation("{{operation.action}}Async()");
