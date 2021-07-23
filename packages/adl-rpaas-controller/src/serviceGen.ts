@@ -990,7 +990,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         message: "Writing resource controller for " + resource.name,
         severity: "warning",
       });
-      await fs.writeFile(
+      await program.host.writeFile(
         path.resolve(resourcePath),
         await sqrl.renderFile(
           path.resolve(path.join(rootPath, "templates/resourceControllerBase.sq")),
@@ -1002,7 +1002,10 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     async function generateModel(model: any) {
       const modelPath = genPath + "/models/" + model.name + ".cs";
       const templatePath = path.resolve(path.join(rootPath, "templates/model.sq"));
-      await fs.writeFile(path.resolve(modelPath), await sqrl.renderFile(templatePath, model));
+      await program.host.writeFile(
+        path.resolve(modelPath),
+        await sqrl.renderFile(templatePath, model)
+      );
     }
 
     async function generateEnum(model: any) {
@@ -1010,7 +1013,10 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       const templateFile = path.resolve(
         path.join(rootPath, model.isClosed ? "templates/closedEnum.sq" : "templates/openEnum.sq")
       );
-      await fs.writeFile(path.resolve(modelPath), await sqrl.renderFile(templateFile, model));
+      await program.host.writeFile(
+        path.resolve(modelPath),
+        await sqrl.renderFile(templateFile, model)
+      );
     }
 
     async function generateSingleDirectory(basePath: string, outPath: string) {
@@ -1036,7 +1042,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         const outFile = path.join(outPath, baseName + ".cs");
         reportInfo("    -- " + templateFile + " => " + outFile);
         const content = await sqrl.renderFile(templatePath, outputModel);
-        await fs
+        await program.host
           .writeFile(path.resolve(outFile), content)
           .catch((err) => reportError(`Error writing single file: ${outFile}, ${err}`));
       }
@@ -1044,7 +1050,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
     async function createDirIfNotExists(targetPath: string) {
       if (
-        !(await fs.stat(targetPath).catch((err) => {
+        !(await program.host.stat(targetPath).catch((err) => {
           return false;
         }))
       ) {
@@ -1054,7 +1060,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
     async function ensureCleanDirectory(targetPath: string) {
       if (
-        await fs.stat(targetPath).catch((err) => {
+        await program.host.stat(targetPath).catch((err) => {
           return false;
         })
       ) {
