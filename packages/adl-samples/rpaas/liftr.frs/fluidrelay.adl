@@ -84,6 +84,7 @@ model FluidRelayServerKeys {
   key2?: SecretKey;
 }
 
+@doc("The keys that are defined fro a FluidRelay Service.")
 enum KeyName { key1, key2 }
 
 @doc("Specifies which key should be generated.")

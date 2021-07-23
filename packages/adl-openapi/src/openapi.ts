@@ -688,9 +688,10 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     } else {
       schema = getSchemaForType(param.type);
       if (param.type.kind === "Array") {
-        for (const property in schema) {
-          ph[property] = schema[property];
-        }
+        schema.items = getSchemaForType(param.type.elementType);
+      }
+      for (const property in schema) {
+        ph[property] = schema[property];
       }
     }
   }

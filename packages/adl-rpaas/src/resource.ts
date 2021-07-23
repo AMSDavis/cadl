@@ -80,7 +80,6 @@ export interface ArmResourceInfo {
 }
 
 const armResourceNamespacesKey = Symbol();
-const legacy = new Map<Type, ArmResourceInfo>();
 export function getArmResources(program: Program): Type[] {
   return Array.from(program.stateMap(armResourceNamespacesKey).keys()).map((r) => <Type>r);
 }
