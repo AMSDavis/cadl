@@ -68,8 +68,6 @@ function getPageable(program: Program, entity: Type): string | undefined {
 }
 
 const refTargetsKey = Symbol();
-// Keep a list of all Types encountered that need schema definitions
-const schemas = new Set<Type>();
 
 export function useRef(program: Program, entity: Type, refUrl: string): void {
   if (entity.kind === "Model" || entity.kind === "ModelProperty") {
@@ -173,6 +171,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   let currentBasePath: string | undefined = "";
   let currentPath: any = root.paths;
   let currentEndpoint: any;
+
+  // Keep a list of all Types encountered that need schema definitions
+  const schemas = new Set<Type>();
 
   // Map model properties that represent shared parameters to their parameter
   // definition that will go in #/parameters. Inlined parameters do not go in

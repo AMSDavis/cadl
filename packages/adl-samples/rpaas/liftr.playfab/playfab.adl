@@ -9,23 +9,23 @@ import "@azure-tools/adl-rpaas-controller";
 namespace Microsoft.PlayFab;
 
 @doc("A string that represents a URI.")
-model Uri = string;
+model Uri extends string {}
 
 @doc("A reference to a resource of type title.")
 @format("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/titles\\/[^\\/]+")
-model TitleReference = string;
+model TitleReference extends string {}
 
 
 @doc("A reference to a player database resource.")
 @format("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/playerDatabases\\/[^\\/]+")
-model PlayerDatabaseReference = string;
+model PlayerDatabaseReference extends string {}
 
 @armResource({
     path: "playerDatabases",
     collectionName: "playerDatabases",
     parameterType: PlayerDatabaseNameParameter
 })
-model PlayerDatabase = TrackedResource<PlayerDatabaseProperties>;
+model PlayerDatabase extends TrackedResource<PlayerDatabaseProperties> {}
 
 model PlayerDatabaseNameParameter {
     @doc("The name of the player database resource.")
@@ -37,7 +37,7 @@ model PlayerDatabaseNameParameter {
     collectionName: "Titles",
     parameterType: TitleNameParameter
 })
-model Title = TrackedResource<TitleProperties>;
+model Title extends TrackedResource<TitleProperties> {}
 
 model TitleNameParameter {
     @doc("Name of the title resource.")
