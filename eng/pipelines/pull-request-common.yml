@@ -29,7 +29,7 @@ steps:
   - script: cd packages/adl && npm run regen-samples
     displayName: Regenerate Samples
 
-  - script: cd packages/adl-samples && npm link && npx adl generate rpaas/liftr.confluent/ --client --language typescript --option arm-types-path=../../adl-samples/rpaas/types.json
+  - script: cd packages/adl-samples && npx adl generate rpaas/liftr.confluent/ --client --language typescript --option arm-types-path=../../adl-samples/rpaas/types.json
     displayName: Sanity Check Client Generation
 
   - script: node eng/scripts/check-for-changed-files.js

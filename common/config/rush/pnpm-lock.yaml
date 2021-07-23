@@ -29,7 +29,7 @@ dependencies:
   '@types/vscode': 1.53.0
   '@types/yargs': 15.0.13
   ajv: 8.4.0
-  autorest: 3.0.6339
+  autorest: 3.3.2
   ecmarkup: 7.0.3
   glob: 7.1.6
   grammarkdown: 3.1.2
@@ -518,14 +518,14 @@ packages:
     dev: false
     resolution:
       integrity: sha1-x57Zf380y48robyXkLzDZkdLS3k=
-  /autorest/3.0.6339:
+  /autorest/3.3.2:
     dev: false
     engines:
-      node: '>=10.13.0'
+      node: '>=12.0.0'
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-OCCmAxi5gUnh7yPho5A4n8kDrnp5uz4DdFrqwMmp/bU5DVByIdVwrWERlB7EnCFqQ9jz86oZtsjy91B07+zLnw==
+      integrity: sha512-Tj2Jyz57tMt/KIJK3NaQI13hzUBXZ3N9OmkVZfLU2vrYh1SEaxvdWCLkwWt883E5YlzasRXdbSkrMz86lzHnPA==
   /aws-sign2/0.7.0:
     dev: false
     resolution:
@@ -2993,7 +2993,7 @@ packages:
       '@types/resolve': 1.20.0
       '@types/yargs': 15.0.13
       ajv: 8.4.0
-      autorest: 3.0.6339
+      autorest: 3.3.2
       glob: 7.1.6
       grammarkdown: 3.1.2
       js-yaml: 4.1.0
@@ -3010,7 +3010,7 @@ packages:
     dev: false
     name: '@rush-temp/adl'
     resolution:
-      integrity: sha512-wdkccDD4n6yctoQdt+PWbIkUTh9rs4h4XpYt0F90Nbhfb66Xs8OJfGUOe0Y3TP6c3RkqQrZ2GXHHtI4q0bCsRQ==
+      integrity: sha512-ek4qzPv7hYdhfxWGw/8WaeXA+Ems6th1CeOCJYpXWX37DltKam7cRgq8ZR/WW2XpeYfIMoOFTV66CUCax+hg2g==
       tarball: file:projects/adl.tgz
     version: 0.0.0
   file:projects/prettier-plugin-adl.tgz:
@@ -3072,7 +3072,7 @@ specifiers:
   '@types/vscode': ~1.53.0
   '@types/yargs': ~15.0.12
   ajv: ~8.4.0
-  autorest: ~3.0.6335
+  autorest: ~3.3.2
   ecmarkup: ~7.0.3
   glob: ~7.1.6
   grammarkdown: ~3.1.2

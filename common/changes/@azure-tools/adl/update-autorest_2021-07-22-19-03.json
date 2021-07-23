@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/adl",
+      "comment": "Use newer version of autorest from `adl generate`",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/adl",
+  "email": "nicholg@microsoft.com"
+}
