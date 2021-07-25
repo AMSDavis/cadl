@@ -1,0 +1,2 @@
+import "../../liftr.playfab/playfab.adl";
+import "@azure-tools/adl-rpaas-controller";

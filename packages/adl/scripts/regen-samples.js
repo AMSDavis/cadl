@@ -10,10 +10,8 @@ const excludedSamples = [
   // fails compilation by design to demo language server
   "local-adl",
 
-  // rpaas controller not published yet
-  "rpaas/liftr.confluent",
-  "rpaas/liftr.frs",
-  "rpaas/liftr.playfab",
+  // codegen package not yet published
+  "rpaas/codegen",
 
   // no actual samples in these dirs
   "node_modules",
