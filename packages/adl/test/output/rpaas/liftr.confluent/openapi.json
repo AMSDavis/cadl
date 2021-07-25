@@ -4,6 +4,7 @@
     "title": "Microsoft.Confluent",
     "version": "2021-03-01-preview"
   },
+  "host": "management.azure.com",
   "schemes": [
     "https"
   ],
@@ -139,177 +140,6 @@
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
-      },
-      "put": {
-        "operationId": "MarketplaceAgreements_CreateOrUpdate",
-        "summary": "Create a ConfluentAgreementResource",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ConfluentAgreementResource"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
-            "description": "Typed response envelope for ARM operations.",
-            "schema": {
-              "$ref": "#/definitions/ConfluentAgreementResource"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "MarketplaceAgreements"
-        ]
-      },
-      "patch": {
-        "operationId": "MarketplaceAgreements_Update",
-        "summary": "Update a ConfluentAgreementResource",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ConfluentAgreementResource"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
-            "description": "Typed response envelope for ARM operations.",
-            "schema": {
-              "$ref": "#/definitions/ConfluentAgreementResource"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "MarketplaceAgreements"
-        ]
-      },
-      "delete": {
-        "operationId": "MarketplaceAgreements_Delete",
-        "summary": "Delete a ConfluentAgreementResource",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedResponse"
-            }
-          },
-          "202": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
-            "description": "Resource deletion accepted.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
-            }
-          },
-          "204": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedNoContentResponse"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "MarketplaceAgreements"
-        ]
       }
     },
     "/providers/Microsoft.Confluent/operations": {
@@ -713,23 +543,7 @@
         "name",
         "type",
         "properties"
-      ],
-      "x-ms-azure-resource": true
-    },
-    "ArmDeletedResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deleted successfully."
-    },
-    "ArmDeleteAcceptedResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deletion accepted."
-    },
-    "ArmDeletedNoContentResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deleted successfully."
+      ]
     },
     "ConfluentAgreementResourceListResult": {
       "type": "object",
@@ -778,8 +592,7 @@
         {
           "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
         }
-      ],
-      "x-ms-azure-resource": true
+      ]
     },
     "OrganizationUpdate": {
       "type": "object",
@@ -797,36 +610,26 @@
           ]
         },
         "properties": {
-          "type": "object",
-          "properties": {
-            "createdTime": {
-              "type": "string",
-              "format": "date-time",
-              "description": "UTC Time when Organization resource was created.",
-              "readOnly": true
-            },
-            "organizationId": {
-              "type": "string",
-              "description": "Id of the Confluent organization.",
-              "readOnly": true
-            },
-            "ssoUrl": {
-              "$ref": "#/definitions/Uri",
-              "description": "Single sign-on url for the Confluent organization.",
-              "readOnly": true
-            },
-            "offerDetail": {
-              "$ref": "#/definitions/OfferDetail",
-              "description": "Details of the product offering."
-            },
-            "userDetail": {
-              "$ref": "#/definitions/UserDetail",
-              "description": "Subscriber details."
-            }
-          },
-          "x-adl-name": "(anonymous model)"
+          "$ref": "#/definitions/OrganizationUpdateProperties",
+          "description": "The updatable properties of OrganizationProperties"
         }
-      }
+      },
+      "description": "The updatable properties of the Organization."
+    },
+    "ArmDeletedResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deleted successfully."
+    },
+    "ArmDeleteAcceptedResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deletion accepted."
+    },
+    "ArmDeletedNoContentResponse": {
+      "type": "object",
+      "properties": {},
+      "description": "Resource deleted successfully."
     },
     "OrganizationListResult": {
       "type": "object",
@@ -890,6 +693,36 @@
         "offerDetail",
         "userDetail"
       ]
+    },
+    "OrganizationUpdateProperties": {
+      "type": "object",
+      "properties": {
+        "createdTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC Time when Organization resource was created.",
+          "readOnly": true
+        },
+        "organizationId": {
+          "type": "string",
+          "description": "Id of the Confluent organization.",
+          "readOnly": true
+        },
+        "ssoUrl": {
+          "$ref": "#/definitions/Uri",
+          "description": "Single sign-on url for the Confluent organization.",
+          "readOnly": true
+        },
+        "offerDetail": {
+          "$ref": "#/definitions/OfferDetail",
+          "description": "Details of the product offering."
+        },
+        "userDetail": {
+          "$ref": "#/definitions/UserDetail",
+          "description": "Subscriber details."
+        }
+      },
+      "description": "The updatable properties of OrganizationProperties"
     },
     "Uri": {
       "type": "string"

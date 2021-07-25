@@ -4,6 +4,7 @@
     "title": "Pet Store Service",
     "version": "2021-03-25"
   },
+  "host": "management.azure.com",
   "schemes": [
     "https"
   ],
