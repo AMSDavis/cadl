@@ -11,9 +11,9 @@ const excludedSamples = [
   "local-adl",
 
   // rpaas controller not published yet
-  "liftr.confluent",
-  "liftr.frs",
-  "liftr.playfab",
+  "rpaas/liftr.confluent",
+  "rpaas/liftr.frs",
+  "rpaas/liftr.playfab",
 
   // no actual samples in these dirs
   "node_modules",
