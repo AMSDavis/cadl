@@ -1026,9 +1026,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       reportInfo("  outPath: " + outPath);
 
       const singleTemplatePath = path.join(basePath, "templates", "single");
-      await (
-        await fs.readdir(singleTemplatePath)
-      ).forEach(async (file) => {
+      await (await fs.readdir(singleTemplatePath)).forEach(async (file) => {
         const templatePath = path.resolve(path.join(singleTemplatePath, file));
         await generateSingleFile(templatePath, outPath).catch((err) =>
           reportInfo("Error creating single file: " + file + " ", err)

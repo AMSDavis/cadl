@@ -5,20 +5,12 @@
     "version": "2021-06-15-preview"
   },
   "host": "management.azure.com",
-  "schemes": [
-    "https"
-  ],
-  "produces": [
-    "application/json"
-  ],
-  "consumes": [
-    "application/json"
-  ],
+  "schemes": ["https"],
+  "produces": ["application/json"],
+  "consumes": ["application/json"],
   "security": [
     {
-      "azure_auth": [
-        "user_impersonation"
-      ]
+      "azure_auth": ["user_impersonation"]
     }
   ],
   "securityDefinitions": {
@@ -48,9 +40,7 @@
       "get": {
         "operationId": "Operations_List",
         "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -70,9 +60,7 @@
             }
           }
         },
-        "tags": [
-          "Operations"
-        ],
+        "tags": ["Operations"],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -83,9 +71,7 @@
         "operationId": "playerDatabases_Get",
         "summary": "Get a PlayerDatabase",
         "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -114,19 +100,13 @@
             }
           }
         },
-        "tags": [
-          "playerDatabases"
-        ]
+        "tags": ["playerDatabases"]
       },
       "put": {
         "operationId": "playerDatabases_CreateOrUpdate",
         "summary": "Create a PlayerDatabase",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -163,19 +143,13 @@
             }
           }
         },
-        "tags": [
-          "playerDatabases"
-        ]
+        "tags": ["playerDatabases"]
       },
       "patch": {
         "operationId": "playerDatabases_Update",
         "summary": "Update a PlayerDatabase",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -212,17 +186,13 @@
             }
           }
         },
-        "tags": [
-          "playerDatabases"
-        ]
+        "tags": ["playerDatabases"]
       },
       "delete": {
         "operationId": "playerDatabases_Delete",
         "summary": "Delete a PlayerDatabase",
         "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -253,9 +223,7 @@
             }
           }
         },
-        "tags": [
-          "playerDatabases"
-        ]
+        "tags": ["playerDatabases"]
       }
     },
     "/subscriptions/{subscriptionId}/providers/Microsoft.PlayFab/playerDatabases": {
@@ -263,9 +231,7 @@
         "operationId": "playerDatabases_ListBySubscription",
         "summary": "List PlayerDatabase resources by subscription ID",
         "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -288,9 +254,7 @@
             }
           }
         },
-        "tags": [
-          "playerDatabases"
-        ],
+        "tags": ["playerDatabases"],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -301,9 +265,7 @@
         "operationId": "playerDatabases_ListByResourceGroup",
         "summary": "List PlayerDatabase resources by resource group",
         "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -329,9 +291,7 @@
             }
           }
         },
-        "tags": [
-          "playerDatabases"
-        ],
+        "tags": ["playerDatabases"],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -342,9 +302,7 @@
         "operationId": "Titles_Get",
         "summary": "Get a Title",
         "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -373,19 +331,13 @@
             }
           }
         },
-        "tags": [
-          "Titles"
-        ]
+        "tags": ["Titles"]
       },
       "put": {
         "operationId": "Titles_CreateOrUpdate",
         "summary": "Create a Title",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -422,19 +374,13 @@
             }
           }
         },
-        "tags": [
-          "Titles"
-        ]
+        "tags": ["Titles"]
       },
       "patch": {
         "operationId": "Titles_Update",
         "summary": "Update a Title",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -471,17 +417,13 @@
             }
           }
         },
-        "tags": [
-          "Titles"
-        ]
+        "tags": ["Titles"]
       },
       "delete": {
         "operationId": "Titles_Delete",
         "summary": "Delete a Title",
         "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -512,9 +454,7 @@
             }
           }
         },
-        "tags": [
-          "Titles"
-        ]
+        "tags": ["Titles"]
       }
     },
     "/subscriptions/{subscriptionId}/providers/Microsoft.PlayFab/titles": {
@@ -522,9 +462,7 @@
         "operationId": "Titles_ListBySubscription",
         "summary": "List Title resources by subscription ID",
         "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -547,9 +485,7 @@
             }
           }
         },
-        "tags": [
-          "Titles"
-        ],
+        "tags": ["Titles"],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -560,9 +496,7 @@
         "operationId": "Titles_ListByResourceGroup",
         "summary": "List Title resources by resource group",
         "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -588,9 +522,7 @@
             }
           }
         },
-        "tags": [
-          "Titles"
-        ],
+        "tags": ["Titles"],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -604,10 +536,7 @@
         "properties": {
           "$ref": "#/definitions/PlayerDatabaseProperties",
           "description": "The resource-specific properties for this resource.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ],
+          "x-ms-mutability": ["read", "create"],
           "x-ms-client-flatten": true
         },
         "systemData": {
@@ -616,9 +545,7 @@
           "readOnly": true
         }
       },
-      "required": [
-        "properties"
-      ],
+      "required": ["properties"],
       "allOf": [
         {
           "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
@@ -655,10 +582,7 @@
         }
       },
       "description": "The response of a PlayerDatabase list operation.",
-      "required": [
-        "value",
-        "nextLink"
-      ]
+      "required": ["value", "nextLink"]
     },
     "Title": {
       "type": "object",
@@ -666,10 +590,7 @@
         "properties": {
           "$ref": "#/definitions/TitleProperties",
           "description": "The resource-specific properties for this resource.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ],
+          "x-ms-mutability": ["read", "create"],
           "x-ms-client-flatten": true
         },
         "systemData": {
@@ -678,9 +599,7 @@
           "readOnly": true
         }
       },
-      "required": [
-        "properties"
-      ],
+      "required": ["properties"],
       "allOf": [
         {
           "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
@@ -704,10 +623,7 @@
         }
       },
       "description": "The response of a Title list operation.",
-      "required": [
-        "value",
-        "nextLink"
-      ]
+      "required": ["value", "nextLink"]
     },
     "PlayerDatabaseProperties": {
       "type": "object",
@@ -727,9 +643,7 @@
         }
       },
       "description": "The properties of a player database.",
-      "required": [
-        "userId"
-      ]
+      "required": ["userId"]
     },
     "TitleProperties": {
       "type": "object",
@@ -738,16 +652,11 @@
           "type": "string",
           "pattern": "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/playerDatabases\\/[^\\/]+",
           "description": "The player database for this title",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
+          "x-ms-mutability": ["read", "create"]
         }
       },
       "description": "The properties of a title.",
-      "required": [
-        "parentDatabase"
-      ]
+      "required": ["parentDatabase"]
     }
   },
   "parameters": {
