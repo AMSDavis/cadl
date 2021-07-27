@@ -33,6 +33,7 @@ export function armNamespace(program: Program, entity: Type, armNamespace?: stri
       @tag("Operations")
       @resource("/providers/${armNamespace}/operations")
       namespace Operations {
+        @doc("List the operations for ${armNamespace}")
         @list @get op List(...ApiVersionParameter): ArmResponse<OperationListResult> | ErrorResponse;
       }
     }`);

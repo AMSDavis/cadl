@@ -157,14 +157,33 @@ export function armStandardCreate(program: Program, target: Type, documentation?
     documentation = `Create a ${armResourceInfo.resourceModelName}`;
   }
 
-  evalInNamespace(
-    program,
-    namespace,
-    `@doc("${documentation}")
-     @put op CreateOrUpdate(${getOperationPathArguments(operationParams)}, @body resource: ${
-      armResourceInfo.resourceModelName
-    }): ArmResponse<${armResourceInfo.resourceModelName}> | ErrorResponse;`
-  );
+  if (info.armResourceInfo?.asyncOperations?.includes("create")) {
+    const lroFinalState =
+      info.armResourceInfo?.asyncPattern == "location" ? "location" : "azure-async-operation";
+    evalInNamespace(
+      program,
+      namespace,
+      `@doc("${documentation}")
+       @extension("x-ms-long-running-operation", true)
+       @asyncOperationOptions("${lroFinalState}")
+       @put op CreateOrUpdate(${getOperationPathArguments(operationParams)}, 
+       @doc("Resource create parameters.")
+       @body resource: ${armResourceInfo.resourceModelName}): ArmResponse<${
+        armResourceInfo.resourceModelName
+      }> | ArmCreatedResponse<${armResourceInfo.resourceModelName}> | ErrorResponse;`
+    );
+  } else {
+    evalInNamespace(
+      program,
+      namespace,
+      `@doc("${documentation}")
+       @put op CreateOrUpdate(${getOperationPathArguments(operationParams)}, 
+       @doc("Resource create parameters.")
+       @body resource: ${armResourceInfo.resourceModelName}): ArmResponse<${
+        armResourceInfo.resourceModelName
+      }> | ErrorResponse;`
+    );
+  }
 }
 
 export function armStandardUpdate(program: Program, target: Type, documentation?: string): void {
@@ -187,7 +206,7 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
     // way to reference it so this approach won't work in that case.
     const propertiesString =
       armResourceInfo.propertiesType.name !== ""
-        ? `properties?: { ...OptionalProperties<${armResourceInfo.propertiesType.name}> };`
+        ? `...OptionalProperties<UpdatableProperties<${armResourceInfo.propertiesType.name}>>;`
         : "";
 
     // Only TrackedResources have a tags property
@@ -197,7 +216,8 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
     evalInNamespace(
       program,
       armResourceInfo.parentNamespace,
-      `model ${updateModelName} {
+      `@doc("Updatable properties of ${armResourceInfo.resourceModelName}.")
+      model ${updateModelName} {
          ${tagsString}
          ${propertiesString}
        }`
@@ -210,7 +230,7 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
     `@doc("${documentation}")
      @patch op Update(${getOperationPathArguments(
        operationParams
-     )}, @body resource: ${updateModelName}): ArmResponse<${
+     )}, @doc("The resource properties to be updated.") @body resource: ${updateModelName}): ArmResponse<${
       armResourceInfo.resourceModelName
     }> | ErrorResponse;`
   );
@@ -228,14 +248,29 @@ export function armStandardDelete(program: Program, target: Type, documentation?
     documentation = `Delete a ${armResourceInfo.resourceModelName}`;
   }
 
-  evalInNamespace(
-    program,
-    namespace,
-    `@doc("${documentation}")
-     @_delete op Delete(${getOperationPathArguments(
-       operationParams
-     )}): ArmDeletedResponse | ArmDeleteAcceptedResponse | ArmDeletedNoContentResponse | ErrorResponse;`
-  );
+  if (info.armResourceInfo?.asyncOperations?.includes("delete")) {
+    const lroFinalState =
+      info.armResourceInfo?.asyncPattern == "location" ? "location" : "azure-async-operation";
+    evalInNamespace(
+      program,
+      namespace,
+      `@doc("${documentation}")
+       @extension("x-ms-long-running-operation", true)
+       @asyncOperationOptions("${lroFinalState}")
+       @_delete op Delete(${getOperationPathArguments(
+         operationParams
+       )}): ArmDeletedResponse | ArmDeletedNoContentResponse | ArmDeleteAcceptedResponse | ErrorResponse;`
+    );
+  } else {
+    evalInNamespace(
+      program,
+      namespace,
+      `@doc("${documentation}")
+       @_delete op Delete(${getOperationPathArguments(
+         operationParams
+       )}): ArmDeletedResponse | ArmDeletedNoContentResponse | ErrorResponse;`
+    );
+  }
 }
 
 export function armStandardList(program: Program, target: Type, documentation?: string): void {

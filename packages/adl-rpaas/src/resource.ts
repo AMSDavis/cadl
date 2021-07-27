@@ -7,7 +7,6 @@ import {
   TupleType,
   Type,
 } from "@azure-tools/adl";
-import { extension } from "@azure-tools/adl-openapi";
 import { getArmNamespace } from "./namespace.js";
 import { _generateStandardOperations } from "./operations.js";
 
@@ -72,6 +71,8 @@ export interface ArmResourceInfo {
   resourceKind: ResourceKind;
   collectionName: string;
   standardOperations: string[];
+  asyncOperations: string[];
+  asyncPattern?: string;
   propertiesType?: ModelType;
   resourceNameParam?: ParameterInfo;
   parentResourceType?: Type;
@@ -216,6 +217,30 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     });
   }
 
+  let asyncOperations: string[] = [];
+  const asyncOperationsValue = getPropertyValue<TupleType>(
+    program,
+    resourceDetails,
+    "asyncOperations",
+    "Tuple"
+  );
+
+  if (asyncOperationsValue) {
+    asyncOperations = asyncOperationsValue.values.map((v) => {
+      if (v.kind !== "String") {
+        program.reportDiagnostic(`Standard operation value must be a string`, v);
+        return "";
+      }
+
+      if (!standardOperations.includes(v.value)) {
+        program.reportDiagnostic("Async operatiosn value must be a standard operation", v);
+        return "";
+      }
+
+      return v.value;
+    });
+  }
+
   if (resourceParamType && resourceParamType.kind !== "Model") {
     program.reportDiagnostic(
       "The @armResource decorator only accepts model types for the resource parameter type.",
@@ -229,6 +254,13 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     resourceDetails,
     "pathParameters",
     "Tuple"
+  );
+
+  const asyncPatternType = getPropertyValue<StringLiteralType>(
+    program,
+    resourceDetails,
+    "asyncPattern",
+    "String"
   );
 
   // Locate the ARM namespace in the namespace hierarchy
@@ -250,7 +282,7 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
   const parentNamespace = program.checker!.getNamespaceString(resourceType.namespace);
 
   // Mark the type as an Azure resource
-  extension(program, resourceType, "x-ms-azure-resource", true);
+  //extension(program, resourceType, "x-ms-azure-resource", true);
 
   // Detect the resource and properties types
   let resourceKind: ResourceKind = "Plain";
@@ -286,9 +318,11 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     collectionName: collectionNameType?.value ?? "",
     parentResourceType,
     standardOperations,
+    asyncOperations,
     resourceNameParam,
     resourceModelName,
     resourceListModelName,
+    asyncPattern: asyncPatternType?.value ?? "operationLocation",
   };
 
   armResourceInfo.resourcePath = getResourcePath(

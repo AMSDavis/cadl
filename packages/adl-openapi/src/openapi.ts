@@ -135,6 +135,12 @@ export function extension(program: Program, entity: Type, extensionName: string,
   openApiExtensions.set(entity, typeExtensions);
 }
 
+export function asyncOperationOptions(program: Program, entity: Type, finalStateVia: string) {
+  let typeExtensions = openApiExtensions.get(entity) ?? new Map<string, any>();
+  typeExtensions.set("x-ms-long-running-operation-options", { "final-state-via": finalStateVia });
+  openApiExtensions.set(entity, typeExtensions);
+}
+
 function getExtensions(entity: Type): Map<string, any> {
   return openApiExtensions.get(entity) ?? new Map<string, any>();
 }
@@ -354,9 +360,10 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       // Synthesize an operation ID
       currentEndpoint.operationId = `${resource.name}_${op.name}`;
     }
+
+    // allow operation extensions
+    attachExtensions(op, currentEndpoint);
     currentEndpoint.summary = getDoc(program, op);
-    currentEndpoint.consumes = [];
-    currentEndpoint.produces = [];
     currentEndpoint.parameters = [];
     currentEndpoint.responses = {};
 
@@ -447,13 +454,25 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     }
 
     response.description = getResponseDescription(responseModel, statusCode);
-    response.schema = getSchemaOrRef(bodyModel);
-
-    if (!currentEndpoint.produces.includes(contentType)) {
-      currentEndpoint.produces.push(contentType);
+    let responseSchema = getSchemaOrRef(bodyModel);
+    if (!isEmptyType(bodyModel)) {
+      response.schema = responseSchema;
     }
 
+    //if (!currentEndpoint.produces.includes(contentType)) {
+    //currentEndpoint.produces.push(contentType);
+    //}
+
     currentEndpoint.responses[statusCode] = response;
+  }
+
+  function isEmptyType(adlType: Type) {
+    const model = adlType as ModelType;
+    if (!model) return false;
+    if (!(model.name.startsWith("Arm") && model.name.endsWith("Response"))) return false;
+    if (!model.properties) return true;
+    if (!model.properties.has("body")) return true;
+    return false;
   }
 
   function getResponseDescription(responseModel: Type, statusCode: string) {
@@ -491,6 +510,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       // primitive. In such cases, we don't want to emit a ref and instead just
       // emit the base type directly.
       const builtIn = mapADLTypeToOpenAPI(type);
+      // make sure we add documentation elements as appropriate to these schemas
       if (builtIn !== undefined) {
         return builtIn;
       }
@@ -521,6 +541,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       const placeholder = {
         $ref: "#/definitions/" + name,
       };
+
       schemas.add(type);
       return placeholder;
     }
@@ -586,7 +607,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         emitParameter(parent, param, "query");
       } else if (headerInfo) {
         if (headerInfo === "content-type") {
-          currentEndpoint.consumes = getContentTypes(param);
+          //currentEndpoint.consumes = getContentTypes(param);
         } else {
           emitParameter(parent, param, "header");
         }
@@ -601,19 +622,6 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         emittedImplicitBodyParam = true;
         bodyType = param.type;
         emitParameter(parent, param, "body");
-      }
-    }
-
-    if (currentEndpoint.consumes.length === 0 && bodyType) {
-      // we didn't find an explicit content type anywhere, so infer from body.
-      const modelType = getModelTypeIfNullable(bodyType);
-      if (modelType) {
-        let contentTypeParam = modelType.properties.get("contentType");
-        if (contentTypeParam) {
-          currentEndpoint.consumes = getContentTypes(contentTypeParam);
-        } else {
-          currentEndpoint.consumes = ["application/json"];
-        }
       }
     }
   }
@@ -712,7 +720,10 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     for (const type of schemas) {
       const name = getTypeNameForSchemaProperties(type);
       const schemaForType = getSchemaForType(type);
-      root.definitions[name] = schemaForType;
+      // exclude empty response schemas (hack)
+      if (!isEmptyType(type)) {
+        root.definitions[name] = schemaForType;
+      }
     }
   }
 
@@ -745,8 +756,14 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
   function getSchemaForType(type: Type) {
     const builtinType = mapADLTypeToOpenAPI(type);
-    if (builtinType !== undefined) return builtinType;
-
+    if (builtinType !== undefined) {
+      // add in description elements for types derived from primitive types (SecureString, etc.)
+      const doc = getDoc(program, type);
+      if (doc) {
+        builtinType.description = doc;
+      }
+      return builtinType;
+    }
     if (type.kind === "Array") {
       return getSchemaForArray(type);
     } else if (type.kind === "Model") {
@@ -773,7 +790,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       values.push(option.value ? option.value : option.name);
     }
 
-    const schema: any = { type };
+    const schema: any = { type, description: getDoc(program, e) };
     if (values.length > 0) {
       schema.enum = values;
       addXMSEnum(e, schema);
@@ -1053,6 +1070,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       target = {
         ...target,
         format: "password",
+        "x-ms-secret": true,
       };
     }
 
@@ -1124,6 +1142,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     // TODO: multiple inheritance is not supported here.
     if (adlType.kind === "Model" && adlType.baseModels.length > 0) {
       const baseSchema = mapADLTypeToOpenAPI(adlType.baseModels[0]);
+      // since applyIntrinsicDecorators is used in other contexts, it is not safe to
+      // apply the doc decorator there, but we should add it when defining the schema
       if (baseSchema) {
         return applyIntrinsicDecorators(adlType, baseSchema);
       }
