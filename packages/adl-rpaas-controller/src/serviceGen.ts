@@ -33,7 +33,7 @@ import {
   ParameterInfo,
 } from "@azure-tools/adl-rpaas";
 import * as fs from "fs/promises";
-import { mkdirp } from "mkdirp";
+import mkdirp from "mkdirp";
 import * as path from "path";
 import * as sqrl from "squirrelly";
 import { fileURLToPath } from "url";
