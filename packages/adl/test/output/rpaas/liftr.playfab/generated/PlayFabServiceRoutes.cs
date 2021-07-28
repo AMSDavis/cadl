@@ -1,0 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Microsoft.PlayFab.Service.Controllers
+{
+    public static class PlayFabServiceRoutes
+    {
+        public const string ListOperations = "providers/Microsoft.PlayFab/operations";        public const string PlayerDatabaseItem = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/playerDatabases/{name}";        public const string PlayerDatabaseListBySubscription = "/subscriptions/{subscriptionId}/providers/Microsoft.PlayFab/playerDatabases";        public const string PlayerDatabaseListByResourceGroup = "/subscriptions/{subscriptionId}/resourceGroups{resourceGroupName}/providers/Microsoft.PlayFab/playerDatabases";        public const string PlayerDatabaseValidateCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/playerDatabases/{name}/validateCreate";        public const string PlayerDatabaseValidatePatch = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/playerDatabases/{name}/validatePatch";        public const string PlayerDatabaseValidateDelete = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/playerDatabases/{name}/validateDelete";        public const string TitleItem = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/titles/{name}";        public const string TitleListBySubscription = "/subscriptions/{subscriptionId}/providers/Microsoft.PlayFab/titles";        public const string TitleListByResourceGroup = "/subscriptions/{subscriptionId}/resourceGroups{resourceGroupName}/providers/Microsoft.PlayFab/titles";        public const string TitleValidateCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/titles/{name}/validateCreate";        public const string TitleValidatePatch = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/titles/{name}/validatePatch";        public const string TitleValidateDelete = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/titles/{name}/validateDelete";    }
+}

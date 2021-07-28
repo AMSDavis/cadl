@@ -1,0 +1,44 @@
+{
+  "name": "@azure-tools/adl-rpaas-controller",
+  "version": "0.1.0",
+  "description": "Azure ADL RPaaS service controller code generator",
+  "homepage": "https://github.com/Azure/adl",
+  "readme": "https://github.com/Azure/adl/blob/master/README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Azure/adl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Azure/adl/issues"
+  },
+  "keywords": [
+    "adl",
+    "rpaas"
+  ],
+  "author": "Microsoft Corporation",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/generate.js",
+  "adlMain": "dist/generate.js",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "build": "npm run compile",
+    "compile": "tsc -p .",
+    "watch": "tsc -p . --watch"
+  },
+  "dependencies": {
+    "squirrelly": "^8.0.8",
+    "mkdirp": "~1.0.4",
+    "@azure-tools/adl": "0.13.0",
+    "@azure-tools/adl-openapi": "0.3.1",
+    "@azure-tools/adl-rest": "0.3.1",
+    "@azure-tools/adl-rpaas": "0.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "~14.0.27",
+    "@types/mkdirp": "~1.0.1",
+    "typescript": "~4.3.2"
+  }
+}

@@ -5,6 +5,16 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Generate code for FluidRelay",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/adl-samples",
+      "runtimeArgs": ["adl", "compile", "./rpaas/liftr.frs/fluidrelay.adl"],
+      "runtimeExecutable": "npx",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "pwa-node",
+      "outFiles": ["${workspaceFolder}/packages/*/dist/**/*.js"]
+    },
+    {
       "type": "pwa-node",
       "request": "attach",
       "name": "Attach to Default Port",

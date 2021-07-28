@@ -37,6 +37,8 @@ export function armResourceOperations(program: Program, target: Type, resourceTy
     return;
   }
 
+  armResourceInfo.operationNamespaces.add(target.name);
+
   // Set the resource path
   resource(program, target, armResourceInfo.resourcePath.path);
 
@@ -76,6 +78,7 @@ export function armResourceParams(program: Program, operation: Type): void {
 const apiVersionParameter: ParameterInfo = {
   name: "apiVersion",
   typeName: "ApiVersionParameter",
+  description: "The service API Version",
 };
 
 function getOperationPathArguments(pathParameters: ParameterInfo[]): string {
@@ -125,12 +128,12 @@ function evalInNamespace(program: Program, namespace: string, adlScript: string)
 
 export function armStandardRead(program: Program, target: Type, documentation?: string): void {
   const info = prepareOperationInfo(program, "armStandardRead", target);
-
   if (!info) {
     return;
   }
 
   const { armResourceInfo, operationParams, namespace } = info;
+  armResourceInfo.operationNamespaces?.add(namespace);
   if (!documentation) {
     documentation = `Get a ${armResourceInfo.resourceModelName}`;
   }
@@ -147,12 +150,12 @@ export function armStandardRead(program: Program, target: Type, documentation?: 
 
 export function armStandardCreate(program: Program, target: Type, documentation?: string): void {
   const info = prepareOperationInfo(program, "armStandardCreate", target);
-
   if (!info) {
     return;
   }
 
   const { armResourceInfo, operationParams, namespace } = info;
+  armResourceInfo.operationNamespaces?.add(namespace);
   if (!documentation) {
     documentation = `Create a ${armResourceInfo.resourceModelName}`;
   }
@@ -169,12 +172,12 @@ export function armStandardCreate(program: Program, target: Type, documentation?
 
 export function armStandardUpdate(program: Program, target: Type, documentation?: string): void {
   const info = prepareOperationInfo(program, "armStandardUpdate", target);
-
   if (!info) {
     return;
   }
 
   const { armResourceInfo, operationParams, namespace } = info;
+  armResourceInfo.operationNamespaces?.add(namespace);
   if (!documentation) {
     documentation = `Update a ${armResourceInfo.resourceModelName}`;
   }
@@ -185,19 +188,33 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
     // If the properties type has a name generate a property that uses a copy of
     // that type with all properties made optional.  If it has no name, we have no
     // way to reference it so this approach won't work in that case.
-    const propertiesString =
+
+    updateModelName = `${armResourceInfo.resourceModelName}Update`;
+    const updatePropertiesModel = `${updateModelName}Properties`;
+    const updatePropertiesDescription = `@doc("The updatable properties of ${armResourceInfo.propertiesType.name}")`;
+    const propertiesModelString =
       armResourceInfo.propertiesType.name !== ""
-        ? `properties?: { ...OptionalProperties<${armResourceInfo.propertiesType.name}> };`
+        ? `${updatePropertiesDescription}
+        model ${updatePropertiesModel} {
+          ...OptionalProperties<${armResourceInfo.propertiesType.name}>
+        }`
+        : "";
+
+    const propertiesString =
+      propertiesModelString !== ""
+        ? `${updatePropertiesDescription}
+        properties?: ${updatePropertiesModel}`
         : "";
 
     // Only TrackedResources have a tags property
     const tagsString = armResourceInfo.resourceKind === "Tracked" ? "...ArmTagsProperty;" : "";
 
-    updateModelName = `${armResourceInfo.resourceModelName}Update`;
     evalInNamespace(
       program,
       armResourceInfo.parentNamespace,
-      `model ${updateModelName} {
+      `${propertiesModelString}
+       @doc("The updatable properties of the ${armResourceInfo.resourceModelName}.")
+       model ${updateModelName} {
          ${tagsString}
          ${propertiesString}
        }`
@@ -218,12 +235,12 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
 
 export function armStandardDelete(program: Program, target: Type, documentation?: string): void {
   const info = prepareOperationInfo(program, "armStandardDelete", target);
-
   if (!info) {
     return;
   }
 
   const { armResourceInfo, operationParams, namespace } = info;
+  armResourceInfo.operationNamespaces?.add(namespace);
   if (!documentation) {
     documentation = `Delete a ${armResourceInfo.resourceModelName}`;
   }
@@ -347,6 +364,7 @@ function armListByInternal(
   }
 
   const finalPath = basePath + "/" + pathParts[pathParts.length - 1];
+  armResourceInfo.operationNamespaces?.add(armResourceInfo.collectionName + "." + operationName);
   program.evalAdlScript(`
     namespace ${armResourceInfo.parentNamespace} {
       @tag("${armResourceInfo.collectionName}")

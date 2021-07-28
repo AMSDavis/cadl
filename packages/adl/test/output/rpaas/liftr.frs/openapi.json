@@ -4,6 +4,7 @@
     "title": "Azure Fluid Relay",
     "version": "2021-03-12-preview"
   },
+  "host": "management.azure.com",
   "schemes": [
     "https"
   ],
@@ -585,8 +586,7 @@
         {
           "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
         }
-      ],
-      "x-ms-azure-resource": true
+      ]
     },
     "FluidRelayServerUpdate": {
       "type": "object",
@@ -604,26 +604,11 @@
           ]
         },
         "properties": {
-          "type": "object",
-          "properties": {
-            "frsTenantId": {
-              "type": "string",
-              "description": "The Fluid tenantId for this server",
-              "readOnly": true
-            },
-            "fluidRelayEndpoints": {
-              "$ref": "#/definitions/FluidRelayEndpoints",
-              "description": "The Fluid service endpoints for this server.",
-              "readOnly": true
-            },
-            "provisioningState": {
-              "$ref": "#/definitions/ProvisioningState",
-              "description": "Provisioning states for FluidRelay RP"
-            }
-          },
-          "x-adl-name": "(anonymous model)"
+          "$ref": "#/definitions/FluidRelayServerUpdateProperties",
+          "description": "The updatable properties of FluidRelayServerProperties"
         }
-      }
+      },
+      "description": "The updatable properties of the FluidRelayServer."
     },
     "ArmDeletedResponse": {
       "type": "object",
@@ -696,6 +681,26 @@
         }
       },
       "description": "The properties of a Fluid Relay Service resource."
+    },
+    "FluidRelayServerUpdateProperties": {
+      "type": "object",
+      "properties": {
+        "frsTenantId": {
+          "type": "string",
+          "description": "The Fluid tenantId for this server",
+          "readOnly": true
+        },
+        "fluidRelayEndpoints": {
+          "$ref": "#/definitions/FluidRelayEndpoints",
+          "description": "The Fluid service endpoints for this server.",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning states for FluidRelay RP"
+        }
+      },
+      "description": "The updatable properties of FluidRelayServerProperties"
     },
     "FluidRelayEndpoints": {
       "type": "object",

@@ -34,6 +34,7 @@ import {
   getProduces,
   getQueryParamName,
   getResources,
+  getServiceHost,
   getServiceNamespaceString,
   getServiceTitle,
   getServiceVersion,
@@ -67,6 +68,7 @@ function getPageable(program: Program, entity: Type): string | undefined {
 }
 
 const refTargetsKey = Symbol();
+
 export function useRef(program: Program, entity: Type, refUrl: string): void {
   if (entity.kind === "Model" || entity.kind === "ModelProperty") {
     program.stateMap(refTargetsKey).set(entity, refUrl);
@@ -150,6 +152,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       title: getServiceTitle(program),
       version: getServiceVersion(program),
     },
+    host: getServiceHost(program),
     schemes: ["https"],
     produces: [], // Pre-initialize produces and consumes so that
     consumes: [], // they show up at the top of the document
@@ -515,7 +518,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       }
 
       // helps to read output and correlate to ADL
-      schema["x-adl-name"] = name;
+      if (schema) {
+        schema["x-adl-name"] = name;
+      }
       return schema;
     } else {
       const placeholder = {
@@ -712,7 +717,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     for (const type of schemas) {
       const name = getTypeNameForSchemaProperties(type);
       const schemaForType = getSchemaForType(type);
-      root.definitions[name] = schemaForType;
+      if (schemaForType) {
+        root.definitions[name] = schemaForType;
+      }
     }
   }
 
@@ -827,7 +834,10 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       if (nonNullOptions.length === 1) {
         // Get the schema for the model type
         const schema: any = getSchemaForType(nonNullOptions[0]);
-        schema["x-nullable"] = nullable;
+        if (schema) {
+          schema["x-nullable"] = nullable;
+        }
+
         return schema;
       } else {
         program.reportDiagnostic(
@@ -961,7 +971,6 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
     // Attach any OpenAPI extensions
     attachExtensions(model, modelSchema);
-
     return modelSchema;
   }
 

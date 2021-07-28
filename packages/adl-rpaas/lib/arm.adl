@@ -340,3 +340,9 @@ model SystemData {
   @doc("The timestamp of resource last modification (UTC)")
   lastModifiedAt?: plainDate;
 }
+
+@doc("Update model for resource tags")
+model ResourceUpdate {
+  @doc("ARM resource tags.")
+  tags?: Map<string, string>
+}

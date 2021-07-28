@@ -7,7 +7,6 @@ import {
   TupleType,
   Type,
 } from "@azure-tools/adl";
-import { extension } from "@azure-tools/adl-openapi";
 import { getArmNamespace } from "./namespace.js";
 import { _generateStandardOperations } from "./operations.js";
 
@@ -15,6 +14,7 @@ export interface ParameterInfo {
   name: string;
   typeName: string;
   resourceType?: Type;
+  description?: string;
 }
 
 function getPathParameterInfo(
@@ -76,9 +76,13 @@ export interface ArmResourceInfo {
   resourceNameParam?: ParameterInfo;
   parentResourceType?: Type;
   resourcePath?: ArmResourcePath;
+  operationNamespaces: Set<string>;
 }
 
 const armResourceNamespacesKey = Symbol();
+export function getArmResources(program: Program): Type[] {
+  return Array.from(program.stateMap(armResourceNamespacesKey).keys()).map((r) => <Type>r);
+}
 
 export function getArmResourceInfo(
   program: Program,
@@ -206,6 +210,7 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     "standardOperations",
     "Tuple"
   );
+
   if (operationsValue) {
     standardOperations = operationsValue.values.map((v) => {
       if (v.kind !== "String") {
@@ -249,9 +254,6 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     : undefined;
   const parentNamespace = program.checker!.getNamespaceString(resourceType.namespace);
 
-  // Mark the type as an Azure resource
-  extension(program, resourceType, "x-ms-azure-resource", true);
-
   // Detect the resource and properties types
   let resourceKind: ResourceKind = "Plain";
   let propertiesType: ModelType | undefined = undefined;
@@ -289,6 +291,7 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     resourceNameParam,
     resourceModelName,
     resourceListModelName,
+    operationNamespaces: new Set<string>(),
   };
 
   armResourceInfo.resourcePath = getResourcePath(
@@ -299,6 +302,7 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     pathParameterTypes ? pathParameterTypes.values : []
   );
 
+  program.stateMap(armResourceNamespacesKey).set(resourceType, armResourceInfo);
   const finalPath = armResourceInfo.resourceNameParam
     ? `${armResourceInfo.resourcePath?.path}/{${armResourceInfo.resourceNameParam.name}}`
     : armResourceInfo.resourcePath?.path;
@@ -315,8 +319,6 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
         }
       }
   `);
-
-  program.stateMap(armResourceNamespacesKey).set(resourceType, armResourceInfo);
 
   _generateStandardOperations(program, resourceType, armResourceInfo.standardOperations);
 }
