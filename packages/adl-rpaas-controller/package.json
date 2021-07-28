@@ -18,8 +18,8 @@
   "author": "Microsoft Corporation",
   "license": "MIT",
   "type": "module",
-  "main": "dist/servicegen.js",
-  "adlMain": "dist/servicegen.js",
+  "main": "dist/generate.js",
+  "adlMain": "dist/generate.js",
   "engines": {
     "node": ">=14.0.0"
   },
