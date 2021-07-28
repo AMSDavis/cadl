@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "squirrelly": "^8.0.8",
+    "mkdirp": "~1.0.4",
     "@azure-tools/adl": "0.13.0",
     "@azure-tools/adl-openapi": "0.3.1",
     "@azure-tools/adl-rest": "0.3.1",

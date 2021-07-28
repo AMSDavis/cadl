@@ -1,19 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Microsoft.Adl.RPaaS
 {
     public static class ValidationHelpers
     {
-        public static ValidationResponse ValidateCreateModel<T>(T model)
+        public static ValidationResponse ValidateModel<T>(T model)
         {
-            throw new NotImplementedException();
-        }
-        public static ValidationResponse ValidatePatchModel<T>(T model)
-        {
-            throw new NotImplementedException();
+            bool valid = true;
+            foreach (var property in model.GetType().GetProperties())
+            {
+                foreach (var attribute in property.GetCustomAttributes(true).Where(a => a is IValidationAttribute))
+                {
+                    var validator = attribute as IValidationAttribute;
+                    valid = valid && validator.Validate(property.GetValue(model) as string);
+                }
+            }
+
+            return new ValidationResponse { Valid = valid };           
         }
 
     }

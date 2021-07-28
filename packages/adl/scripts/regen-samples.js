@@ -10,9 +10,6 @@ const excludedSamples = [
   // fails compilation by design to demo language server
   "local-adl",
 
-  // codegen package not yet published
-  "rpaas/codegen",
-
   // no actual samples in these dirs
   "node_modules",
   "scratch",

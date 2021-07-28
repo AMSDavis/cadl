@@ -1,2 +1,0 @@
-import "../../liftr.confluent/confluent.adl";
-import "@azure-tools/adl-rpaas-controller";

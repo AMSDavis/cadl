@@ -33,17 +33,20 @@ import {
   ParameterInfo,
 } from "@azure-tools/adl-rpaas";
 import * as fs from "fs/promises";
+import { mkdirp } from "mkdirp";
 import * as path from "path";
 import * as sqrl from "squirrelly";
 import { fileURLToPath } from "url";
 
 export async function onBuild(program: Program) {
-  const rootPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+  const rootPath = program.host.resolveAbsolutePath(
+    path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
+  );
   const options: ServiceGenerationOptions = {
     controllerOutputPath:
       program.compilerOptions.serviceCodePath || program.compilerOptions.outputPath
         ? path.join(program.compilerOptions.outputPath!, "generated")
-        : path.join(path.resolve("."), "adl-output", "generated"),
+        : path.join(program.host.resolveAbsolutePath(path.resolve(".")), "adl-output", "generated"),
     controllerModulePath: rootPath,
   };
 
@@ -173,14 +176,14 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     program.reportDiagnostic(
       {
         text: info,
-        severity: "warning",
+        severity: "info",
       },
       target ?? NoTarget
     );
   }
 
-  function reportError(error: string, target?: Node) {
-    program.reportDiagnostic(error, target ?? NoTarget);
+  function resolvePath(fsPath: string): string {
+    return program.host.resolveAbsolutePath(path.resolve(fsPath));
   }
 
   function getServiceName(serviceNamespace: string): string {
@@ -189,7 +192,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
   }
 
   async function generateServiceCode() {
-    //await program.checker?.checkProgram(program);
     const genPath = options.controllerOutputPath;
     // maps resource model name to arm Namespace
     const resourceNamespaceTable = new Map<string, string>();
@@ -284,7 +286,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         }
 
         function extractResponseType(model: Type): ModelType | undefined {
-          var union = model as UnionType;
+          let union = model as UnionType;
           if (union) {
             let outModel: ModelType | undefined = undefined;
             union?.options.forEach((option) => {
@@ -379,7 +381,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
               if (operation.parameters) {
                 operation.parameters.properties.forEach((prop) => {
-                  var propType = getCSharpType(prop.type);
+                  let propType = getCSharpType(prop.type);
                   if (prop.name === "api-version" && propType?.name === "string") {
                     // skip standard api-version parameter
                   } else if (propType) {
@@ -400,7 +402,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 });
               }
 
-              var route = httpOperation?.route;
+              let route = httpOperation?.route;
 
               getPathParamName(program, operation);
               const outOperation = {
@@ -450,12 +452,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       for (let res of getArmResources(program).map((r) => <Type>r)) {
         let resourceInfo = getArmResourceInfo(program, res)!;
         if (!resources.has(resourceInfo.resourceModelName)) {
-          var modelName = resourceInfo.resourceModelName;
-          var listName = resourceInfo.resourceListModelName;
-          var matchingNamespace = resourceInfo.armNamespace;
+          let modelName = resourceInfo.resourceModelName;
+          let listName = resourceInfo.resourceListModelName;
+          let matchingNamespace = resourceInfo.armNamespace;
           const cSharpModelName = transformCSharpIdentifier(resourceInfo.resourceModelName);
           resourceNamespaceTable.set(resourceInfo.resourceModelName, resourceInfo.armNamespace);
-          var map = new Map<string, Operation>();
+          const map = new Map<string, Operation>();
           resourceInfo.standardOperations
             .filter((o) => o == PutName || o == PatchName || o == DeleteName)
             .forEach((op) => {
@@ -619,7 +621,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           const parentModel = parentType as ModelType;
           // remove special case when we refactor library type changes to models
           if (parentModel !== parent && property.name !== "properties") {
-            const parentCsharp = getCSharpType(parentType);
             return undefined;
           }
         }
@@ -655,7 +656,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
 
     function getLengthAttribute(minLength?: number, maxLength?: number): ValidationAttribute {
-      var output: ValidationAttribute = {
+      const output: ValidationAttribute = {
         name: "Length",
         parameters: [],
       };
@@ -771,7 +772,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           program.reportDiagnostic("RPaaS types may not use unions", adlType.node);
           return undefined;
         case "Array":
-          var arrType = getCSharpType(adlType.elementType);
+          const arrType = getCSharpType(adlType.elementType);
           if (arrType) {
             return {
               name: arrType.name + "[]",
@@ -842,26 +843,20 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 ],
               };
             default:
-              var known = getKnownType(adlType);
+              const known = getKnownType(adlType);
               if (adlType.name === undefined || adlType.name === "") {
                 return undefined;
               }
               if (known) {
                 return known;
               }
-              if (adlType.templateNode) {
-                const tempType = program.checker!.getTypeForNode(adlType.templateNode);
-                var cSharpType = getCSharpType(tempType);
-              }
               return {
-                name: adlType.name,
+                name: transformCSharpIdentifier(adlType.name),
                 nameSpace: modelNamespace,
                 isBuiltIn: false,
               };
-              break;
           }
         case "Intrinsic":
-          console.log("Found intrinsic type: " + adlType.name);
           return undefined;
         case "TemplateParameter":
           return undefined;
@@ -881,7 +876,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             nameSpace: "Microsoft.Adl.RPaaS",
           };
         case "ArmResponse":
-          var namespace = model.namespace;
           return {
             isBuiltIn: true,
             name: "ArmResponse",
@@ -986,15 +980,15 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
 
     async function generateResource(resource: any) {
-      var resourcePath = genPath + "/" + resource.name + "ControllerBase.cs";
+      const resourcePath = genPath + "/" + resource.name + "ControllerBase.cs";
       program.reportDiagnostic({
         message: "Writing resource controller for " + resource.name,
         severity: "warning",
       });
       await program.host.writeFile(
-        path.resolve(resourcePath),
+        resolvePath(resourcePath),
         await sqrl.renderFile(
-          path.resolve(path.join(rootPath, "templates/resourceControllerBase.sq")),
+          resolvePath(path.join(rootPath, "templates/resourceControllerBase.sq")),
           resource
         )
       );
@@ -1002,20 +996,20 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
     async function generateModel(model: any) {
       const modelPath = genPath + "/models/" + model.name + ".cs";
-      const templatePath = path.resolve(path.join(rootPath, "templates/model.sq"));
+      const templatePath = resolvePath(path.join(rootPath, "templates/model.sq"));
       await program.host.writeFile(
-        path.resolve(modelPath),
+        resolvePath(modelPath),
         await sqrl.renderFile(templatePath, model)
       );
     }
 
     async function generateEnum(model: any) {
       const modelPath = genPath + "/models/" + model.name + ".cs";
-      const templateFile = path.resolve(
+      const templateFile = resolvePath(
         path.join(rootPath, model.isClosed ? "templates/closedEnum.sq" : "templates/openEnum.sq")
       );
       await program.host.writeFile(
-        path.resolve(modelPath),
+        resolvePath(modelPath),
         await sqrl.renderFile(templateFile, model)
       );
     }
@@ -1027,10 +1021,11 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       reportInfo("  outPath: " + outPath);
 
       const singleTemplatePath = path.join(basePath, "templates", "single");
-      await (await fs.readdir(singleTemplatePath)).forEach(async (file) => {
-        const templatePath = path.resolve(path.join(singleTemplatePath, file));
+
+      (await fs.readdir(singleTemplatePath)).forEach(async (file) => {
+        const templatePath = resolvePath(path.join(singleTemplatePath, file));
         await generateSingleFile(templatePath, outPath).catch((err) =>
-          reportInfo("Error creating single file: " + file + " ", err)
+          program.reportDiagnostic(`Error creating single file: ${file},  ${err}`, NoTarget)
         );
       });
 
@@ -1042,8 +1037,10 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         reportInfo("    -- " + templateFile + " => " + outFile);
         const content = await sqrl.renderFile(templatePath, outputModel);
         await program.host
-          .writeFile(path.resolve(outFile), content)
-          .catch((err) => reportError(`Error writing single file: ${outFile}, ${err}`));
+          .writeFile(resolvePath(outFile), content)
+          .catch((err) =>
+            program.reportDiagnostic(`Error writing single file: ${outFile}, ${err}`, NoTarget)
+          );
       }
     }
 
@@ -1053,18 +1050,15 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           return false;
         }))
       ) {
-        await fs.mkdir(targetPath);
+        await mkdirp(targetPath);
       }
     }
 
     async function ensureCleanDirectory(targetPath: string) {
-      if (
-        await program.host.stat(targetPath).catch((err) => {
-          return false;
-        })
-      ) {
+      try {
+        await program.host.stat(targetPath);
         await fs.rmdir(targetPath, { recursive: true });
-      }
+      } catch {}
 
       await fs.mkdir(targetPath);
     }
@@ -1072,12 +1066,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     async function copyModelFiles(sourcePath: string, targetPath: string) {
       await createDirIfNotExists(targetPath);
       (await fs.readdir(sourcePath)).forEach(async (file) => {
-        var sourceFile = path.resolve(sourcePath + path.sep + file);
-        var targetFile = path.resolve(targetPath + path.sep + file);
+        const sourceFile = resolvePath(sourcePath + path.sep + file);
+        const targetFile = resolvePath(targetPath + path.sep + file);
         if (
           (
             await fs.lstat(sourceFile).catch((err) => {
-              reportError(`fstat error: ${err}`);
+              program.reportDiagnostic(`fstat error: ${err}`, NoTarget);
             })
           )?.isDirectory()
         ) {
@@ -1104,39 +1098,43 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         .join(", ")
     );
     sqrl.filters.define("initialCaps", (op) => transformCSharpIdentifier(op));
-    const operationsPath = path.resolve(path.join(genPath, "operations"));
-    const routesPath = path.resolve(path.join(genPath, service + "ServiceRoutes.cs"));
+    const operationsPath = resolvePath(path.join(genPath, "operations"));
+    const routesPath = resolvePath(path.join(genPath, service + "ServiceRoutes.cs"));
     const templatePath = path.join(rootPath, "templates");
     const modelsPath = path.join(genPath, "models");
     if (!program.hasError()) {
       await ensureCleanDirectory(genPath).catch((err) =>
-        reportError(`Error cleaning output directory: ${err}`)
+        program.reportDiagnostic(`Error cleaning output directory: ${err}`, NoTarget)
       );
       await createDirIfNotExists(operationsPath).catch((err) =>
-        reportError(`Error creating output directory: ${err}`)
+        program.reportDiagnostic(`Error creating output directory: ${err}`, NoTarget)
       );
       await copyModelFiles(path.join(rootPath, "clientlib"), modelsPath).catch((err) =>
-        reportError(`Error copying model files: ${err}`)
+        program.reportDiagnostic(`Error copying model files: ${err}`, NoTarget)
       );
       await program.host.writeFile(
         routesPath,
         await sqrl.renderFile(path.join(templatePath, "serviceRoutingConstants.sq"), outputModel)
       );
       await generateSingleDirectory(rootPath, operationsPath).catch((err) =>
-        reportError(`Error creating operations directory: ${err}`)
+        program.reportDiagnostic(`Error creating operations directory: ${err}`, NoTarget)
       );
       outputModel.resources.forEach(
         async (resource: Resource) =>
           await generateResource(resource).catch((err) =>
-            reportError(
-              `Error generating resource: ${resource?.nameSpace}.${resource?.name}, ${err}`
+            program.reportDiagnostic(
+              `Error generating resource: ${resource?.nameSpace}.${resource?.name}, ${err}`,
+              NoTarget
             )
           )
       );
       outputModel.models.forEach(async (model) => {
         reportInfo(`Rendering model ${model.nameSpace}.${model.name}`);
         await generateModel(model).catch((err) =>
-          reportError(`Error generating model: ${model?.nameSpace}.${model?.name}, ${err}`)
+          program.reportDiagnostic(
+            `Error generating model: ${model?.nameSpace}.${model?.name}, ${err}`,
+            NoTarget
+          )
         );
       });
 

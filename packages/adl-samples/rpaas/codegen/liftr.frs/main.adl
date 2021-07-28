@@ -1,2 +1,0 @@
-import "../../liftr.frs/fluidrelay.adl";
-import "@azure-tools/adl-rpaas-controller";

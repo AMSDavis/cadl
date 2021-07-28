@@ -37,8 +37,7 @@ export function armResourceOperations(program: Program, target: Type, resourceTy
     return;
   }
 
-  const namespace = target as NamespaceType;
-  armResourceInfo.operationNamespaces.add(namespace.name);
+  armResourceInfo.operationNamespaces.add(target.name);
 
   // Set the resource path
   resource(program, target, armResourceInfo.resourcePath.path);
@@ -79,7 +78,7 @@ export function armResourceParams(program: Program, operation: Type): void {
 const apiVersionParameter: ParameterInfo = {
   name: "apiVersion",
   typeName: "ApiVersionParameter",
-  description: "The service Api Version",
+  description: "The service API Version",
 };
 
 function getOperationPathArguments(pathParameters: ParameterInfo[]): string {

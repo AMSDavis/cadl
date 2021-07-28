@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Microsoft.Adl.RPaaS
 {
@@ -12,6 +9,7 @@ namespace Microsoft.Adl.RPaaS
         {
             Level = level;
         }
+        
         public string Level { get; set; }
     }
 }
