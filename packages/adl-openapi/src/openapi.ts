@@ -338,6 +338,33 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     return undefined;
   }
 
+  function addProduces(producesValue: string) {
+    if (globalProduces.size < 1) {
+      globalProduces.add(producesValue);
+    }
+
+    if (!globalProduces.has(producesValue)) {
+      if (!currentEndpoint.produces) {
+        currentEndpoint.produces = [];
+      }
+      currentEndpoint.produces.push(producesValue);
+    }
+  }
+
+  function addConsumes(consumesValue: string) {
+    if (globalConsumes.size < 1) {
+      globalConsumes.add(consumesValue);
+    }
+
+    if (!globalConsumes.has(consumesValue)) {
+      if (!currentEndpoint.consumes) {
+        currentEndpoint.consumes = [];
+      }
+
+      currentEndpoint.consumes.push(consumesValue);
+    }
+  }
+
   function emitEndpoint(resource: NamespaceType, op: OperationType) {
     const params = getPathParameters(resource, op);
     const [verb, newPathParams, resolvedPath] = pathForEndpoint(op, params);
@@ -357,6 +384,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       currentPath[verb] = {};
     }
     currentEndpoint = currentPath[verb];
+
     if (program.stateMap(operationIdsKey).has(op)) {
       currentEndpoint.operationId = program.stateMap(operationIdsKey).get(op);
     } else {
@@ -462,9 +490,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       response.schema = responseSchema;
     }
 
-    //if (!currentEndpoint.produces.includes(contentType)) {
-    //currentEndpoint.produces.push(contentType);
-    //}
+    if (!currentEndpoint.produces.includes(contentType)) {
+      addProduces(contentType);
+    }
 
     currentEndpoint.responses[statusCode] = response;
   }
@@ -612,7 +640,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         emitParameter(parent, param, "query");
       } else if (headerInfo) {
         if (headerInfo === "content-type") {
-          //currentEndpoint.consumes = getContentTypes(param);
+          getContentTypes(param).forEach((c) => addConsumes(c));
         } else {
           emitParameter(parent, param, "header");
         }
@@ -627,6 +655,19 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         emittedImplicitBodyParam = true;
         bodyType = param.type;
         emitParameter(parent, param, "body");
+      }
+    }
+
+    if ((!currentEndpoint.consumes || currentEndpoint.consumes.length === 0) && bodyType) {
+      // we didn't find an explicit content type anywhere, so infer from body.
+      const modelType = getModelTypeIfNullable(bodyType);
+      if (modelType) {
+        let contentTypeParam = modelType.properties.get("contentType");
+        if (contentTypeParam) {
+          getContentTypes(contentTypeParam).forEach((c) => addConsumes(c));
+        } else {
+          addConsumes("application/json");
+        }
       }
     }
   }
