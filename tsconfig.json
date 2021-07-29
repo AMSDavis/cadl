@@ -4,6 +4,7 @@
     { "path": "packages/adl-openapi/tsconfig.json" },
     { "path": "packages/adl-rest/tsconfig.json" },
     { "path": "packages/adl-rpaas/tsconfig.json" },
+    { "path": "packages/adl-rpaas-controller/tsconfig.json" },
     { "path": "packages/adl-vscode/tsconfig.json" },
     { "path": "packages/tmlanguage-generator/tsconfig.json" }
   ],

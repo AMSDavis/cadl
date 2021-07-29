@@ -1,6 +1,7 @@
 import "@azure-tools/adl-rest";
 import "@azure-tools/adl-openapi";
 import "@azure-tools/adl-rpaas";
+import "@azure-tools/adl-rpaas-controller";
 
 @armNamespace
 @serviceTitle("Azure Fluid Relay")
@@ -83,6 +84,7 @@ model FluidRelayServerKeys {
   key2?: SecretKey;
 }
 
+@doc("The keys that are defined fro a FluidRelay Service.")
 enum KeyName { key1, key2 }
 
 @doc("Specifies which key should be generated.")

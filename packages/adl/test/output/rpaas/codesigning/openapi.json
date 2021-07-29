@@ -4,6 +4,7 @@
     "title": "CodeSigningManagementClient",
     "version": "2020-12-14-preview"
   },
+  "host": "management.azure.com",
   "schemes": [
     "https"
   ],
@@ -610,8 +611,7 @@
         {
           "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
         }
-      ],
-      "x-ms-azure-resource": true
+      ]
     },
     "CodeSignAccountUpdate": {
       "type": "object",
@@ -629,25 +629,11 @@
           ]
         },
         "properties": {
-          "type": "object",
-          "properties": {
-            "accountUri": {
-              "type": "string",
-              "description": "The URI of the code sign account for performing operations on certificate profiles. This property is readonly",
-              "readOnly": true
-            },
-            "verificationStatus": {
-              "$ref": "#/definitions/VerificationStatus",
-              "readOnly": true
-            },
-            "provisioningState": {
-              "$ref": "#/definitions/ProvisioningState",
-              "readOnly": true
-            }
-          },
-          "x-adl-name": "(anonymous model)"
+          "$ref": "#/definitions/CodeSignAccountUpdateProperties",
+          "description": "The updatable properties of CodeSignAccountProperties"
         }
-      }
+      },
+      "description": "The updatable properties of the CodeSignAccount."
     },
     "ArmDeletedResponse": {
       "type": "object",
@@ -711,70 +697,17 @@
         {
           "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
         }
-      ],
-      "x-ms-azure-resource": true
+      ]
     },
     "CertificateProfileUpdate": {
       "type": "object",
       "properties": {
         "properties": {
-          "type": "object",
-          "properties": {
-            "profileType": {
-              "$ref": "#/definitions/ProfileType"
-            },
-            "rotationPolicy": {
-              "$ref": "#/definitions/RotationPolicy"
-            },
-            "commonName": {
-              "type": "string",
-              "description": "Name of the certificate"
-            },
-            "authority": {
-              "type": "string",
-              "description": "Certificate authority of the certificate",
-              "readOnly": true
-            },
-            "subjectAlternativeName": {
-              "type": "string",
-              "description": "Subject Alternative Name of the certificate"
-            },
-            "organization": {
-              "type": "string",
-              "readOnly": true
-            },
-            "streetAddress": {
-              "type": "string",
-              "readOnly": true
-            },
-            "city": {
-              "type": "string",
-              "readOnly": true
-            },
-            "state": {
-              "type": "string",
-              "readOnly": true
-            },
-            "country": {
-              "type": "string",
-              "readOnly": true
-            },
-            "certificates": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Certificate"
-              },
-              "x-adl-name": "Microsoft.CodeSigning.Certificate[]",
-              "readOnly": true
-            },
-            "provisioningState": {
-              "$ref": "#/definitions/ProvisioningState",
-              "readOnly": true
-            }
-          },
-          "x-adl-name": "(anonymous model)"
+          "$ref": "#/definitions/CertificateProfileUpdateProperties",
+          "description": "The updatable properties of CertificateProfileProperties"
         }
-      }
+      },
+      "description": "The updatable properties of the CertificateProfile."
     },
     "CertificateProfileListResult": {
       "type": "object",
@@ -817,33 +750,24 @@
       },
       "description": "Properties of the code sign account"
     },
-    "VerificationStatus": {
-      "type": "string",
-      "enum": [
-        "Completed",
-        "InProgress",
-        "NotCompleted"
-      ],
-      "x-ms-enum": {
-        "name": "VerificationStatus",
-        "modelAsString": true
-      }
-    },
-    "ProvisioningState": {
-      "type": "string",
-      "enum": [
-        "Succeeded",
-        "Failed",
-        "Cancelled",
-        "Provisioning",
-        "Updating",
-        "Deleting",
-        "Accepted"
-      ],
-      "x-ms-enum": {
-        "name": "ProvisioningState",
-        "modelAsString": true
-      }
+    "CodeSignAccountUpdateProperties": {
+      "type": "object",
+      "properties": {
+        "accountUri": {
+          "type": "string",
+          "description": "The URI of the code sign account for performing operations on certificate profiles. This property is readonly",
+          "readOnly": true
+        },
+        "verificationStatus": {
+          "$ref": "#/definitions/VerificationStatus",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "readOnly": true
+        }
+      },
+      "description": "The updatable properties of CodeSignAccountProperties"
     },
     "CertificateProfileProperties": {
       "type": "object",
@@ -907,6 +831,91 @@
         "commonName",
         "subjectAlternativeName"
       ]
+    },
+    "CertificateProfileUpdateProperties": {
+      "type": "object",
+      "properties": {
+        "profileType": {
+          "$ref": "#/definitions/ProfileType"
+        },
+        "rotationPolicy": {
+          "$ref": "#/definitions/RotationPolicy"
+        },
+        "commonName": {
+          "type": "string",
+          "description": "Name of the certificate"
+        },
+        "authority": {
+          "type": "string",
+          "description": "Certificate authority of the certificate",
+          "readOnly": true
+        },
+        "subjectAlternativeName": {
+          "type": "string",
+          "description": "Subject Alternative Name of the certificate"
+        },
+        "organization": {
+          "type": "string",
+          "readOnly": true
+        },
+        "streetAddress": {
+          "type": "string",
+          "readOnly": true
+        },
+        "city": {
+          "type": "string",
+          "readOnly": true
+        },
+        "state": {
+          "type": "string",
+          "readOnly": true
+        },
+        "country": {
+          "type": "string",
+          "readOnly": true
+        },
+        "certificates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Certificate"
+          },
+          "x-adl-name": "Microsoft.CodeSigning.Certificate[]",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "readOnly": true
+        }
+      },
+      "description": "The updatable properties of CertificateProfileProperties"
+    },
+    "VerificationStatus": {
+      "type": "string",
+      "enum": [
+        "Completed",
+        "InProgress",
+        "NotCompleted"
+      ],
+      "x-ms-enum": {
+        "name": "VerificationStatus",
+        "modelAsString": true
+      }
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Cancelled",
+        "Provisioning",
+        "Updating",
+        "Deleting",
+        "Accepted"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true
+      }
     },
     "ProfileType": {
       "type": "string",
