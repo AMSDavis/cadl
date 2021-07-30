@@ -347,7 +347,10 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       if (!currentEndpoint.produces) {
         currentEndpoint.produces = [];
       }
-      currentEndpoint.produces.push(producesValue);
+
+      if (!currentEndpoint.produces.includes(producesValue)) {
+        currentEndpoint.produces.push(producesValue);
+      }
     }
   }
 
@@ -361,7 +364,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         currentEndpoint.consumes = [];
       }
 
-      currentEndpoint.consumes.push(consumesValue);
+      if (!currentEndpoint.consumes.includes(consumesValue)) {
+        currentEndpoint.consumes.push(consumesValue);
+      }
     }
   }
 
@@ -490,10 +495,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       response.schema = responseSchema;
     }
 
-    if (!currentEndpoint.produces.includes(contentType)) {
-      addProduces(contentType);
-    }
-
+    addProduces(contentType);
     currentEndpoint.responses[statusCode] = response;
   }
 
