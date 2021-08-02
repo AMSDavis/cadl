@@ -17,7 +17,7 @@
       "type": "process",
       "command": "node",
       "args": [
-        "${workspaceFolder}/packages/adl/node_modules/typescript/lib/tsc.js",
+        "${workspaceFolder}/packages/cadl/node_modules/typescript/lib/tsc.js",
         "--build",
         "--watch"
       ],
@@ -36,7 +36,7 @@
       "label": "watch-tmlanguage",
       "type": "process",
       "command": "node",
-      "args": ["${workspaceFolder}/packages/adl-vscode/scripts/watch-tmlanguage.js"],
+      "args": ["${workspaceFolder}/packages/cadl-vscode/scripts/watch-tmlanguage.js"],
       "problemMatcher": {
         "base": "$msCompile",
         "background": {
@@ -47,7 +47,7 @@
       },
       "isBackground": true,
       "options": {
-        "cwd": "${workspaceFolder}/packages/adl-vscode"
+        "cwd": "${workspaceFolder}/packages/cadl-vscode"
       },
       "presentation": {
         "echo": true,
@@ -62,7 +62,7 @@
       "label": "watch-spec",
       "type": "process",
       "command": "node",
-      "args": ["${workspaceFolder}/packages/adl-language/scripts/watch-spec.js"],
+      "args": ["${workspaceFolder}/packages/cadl-language/scripts/watch-spec.js"],
       "problemMatcher": {
         "base": "$msCompile",
         "background": {
@@ -73,7 +73,7 @@
       },
       "isBackground": true,
       "options": {
-        "cwd": "${workspaceFolder}/packages/adl-language"
+        "cwd": "${workspaceFolder}/packages/cadl-language"
       },
       "presentation": {
         "echo": true,
@@ -88,7 +88,7 @@
       "label": "test",
       "type": "shell",
       "options": {
-        "cwd": "${workspaceFolder}/packages/adl"
+        "cwd": "${workspaceFolder}/packages/cadl"
       },
       "command": "npm test",
       "group": {

@@ -1,11 +1,11 @@
 {
   "references": [
-    { "path": "packages/adl/tsconfig.json" },
-    { "path": "packages/adl-openapi/tsconfig.json" },
-    { "path": "packages/adl-rest/tsconfig.json" },
-    { "path": "packages/adl-rpaas/tsconfig.json" },
-    { "path": "packages/adl-rpaas-controller/tsconfig.json" },
-    { "path": "packages/adl-vscode/tsconfig.json" },
+    { "path": "packages/cadl/tsconfig.json" },
+    { "path": "packages/cadl-openapi/tsconfig.json" },
+    { "path": "packages/cadl-rest/tsconfig.json" },
+    { "path": "packages/cadl-rpaas/tsconfig.json" },
+    { "path": "packages/cadl-rpaas-controller/tsconfig.json" },
+    { "path": "packages/cadl-vscode/tsconfig.json" },
     { "path": "packages/tmlanguage-generator/tsconfig.json" }
   ],
   "files": []

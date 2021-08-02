@@ -1,0 +1,41 @@
+{
+  "name": "@azure-tools/cadl-samples",
+  "private": true,
+  "version": "1.0.0",
+  "author": "Microsoft Corporation",
+  "description": "Samples for Cadl",
+  "homepage": "https://github.com/Azure/adl",
+  "readme": "https://github.com/Azure/adl/blob/master/readme.md",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Azure/adl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Azure/adl/issues"
+  },
+  "keywords": [
+    "cadl",
+    "cli"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "build": "echo \"nothing to do for samples\""
+  },
+  "files": [
+    "lib/*.cadl",
+    "dist/**",
+    "!dist/test/**"
+  ],
+  "dependencies": {
+    "@azure-tools/cadl": "0.14.0",
+    "@azure-tools/cadl-openapi": "0.3.2",
+    "@azure-tools/cadl-rest": "0.3.2",
+    "@azure-tools/cadl-rpaas": "0.4.2",
+    "@azure-tools/cadl-rpaas-controller": "0.1.1"
+  },
+  "devDependencies": {}
+}

@@ -171,8 +171,8 @@ temp
 common/temp/**
 package-deps.json
 
-# Default ADL output
-adl-output/
+# Default Cadl output
+cadl-output/
 
 # Visual Studio / C#
 bin/

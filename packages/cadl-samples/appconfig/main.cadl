@@ -1,0 +1,9 @@
+import "@azure-tools/cadl-rest";
+import "@azure-tools/cadl-openapi";
+
+import "./keyvalues.cadl";
+import "./labels.cadl";
+import "./locks.cadl";
+import "./models.cadl";
+import "./revisions.cadl";
+import "./keys.cadl";

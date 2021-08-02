@@ -1,9 +1,0 @@
-import "@azure-tools/adl-rest";
-import "@azure-tools/adl-openapi";
-import "@azure-tools/adl-rpaas";
-
-@resource("/operations")
-namespace Operations {
-  @get op get(@path id: string): ArmResponse<OperationStatusResult>;
-  @get op list(): ArmResponse<OperationListResult> | ErrorResponse;
-}

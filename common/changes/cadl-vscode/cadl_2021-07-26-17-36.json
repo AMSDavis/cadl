@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "cadl-vscode",
+      "comment": "Rename ADL to Cadl",
+      "type": "minor"
+    }
+  ],
+  "packageName": "cadl-vscode",
+  "email": "nicholg@microsoft.com"
+}

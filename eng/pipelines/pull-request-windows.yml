@@ -6,7 +6,7 @@ pool:
   vmImage: windows-2019
 
 steps:
-  - script: echo '##vso[task.setvariable variable=ADL_VS_CI_BUILD;]true'
+  - script: echo '##vso[task.setvariable variable=CADL_VS_CI_BUILD;]true'
     displayName: Enable official Visual Studio extension build
 
   - template: pull-request-common.yml

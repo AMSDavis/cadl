@@ -82,7 +82,7 @@ Always open the root of the repo as the workspace. Things are setup to
 allow easy development across packages rather than opening one package
 at a time in the IDE.
 
- * File -> Open Workspace, select root folder where the ADL repo was
+ * File -> Open Workspace, select root folder where the Cadl repo was
    cloned
  * Or run `code /path/to/repo/root` on the command line
 
@@ -98,7 +98,7 @@ Terminal pane will have three parallel watch tasks running:
   * `watch-source`: tsc process that recompiles on TypeScript changes
   * `watch-spec`: process that regenerates spec.html when
     spec.emu.html changes
-  * `watch-tmlanguage`: process that regenerates adl.tmlanguage when
+  * `watch-tmlanguage`: process that regenerates cadl.tmlanguage when
     tmlanguage.ts changes
 
 ## Testing
@@ -120,16 +120,16 @@ Debug icon on the sidebar, pick one from its down, and press F5 to
 debug the last one you chose.
 
 1. **VS Code Extension**: This will run and debug an experimental
-   instance of VS Code with the ADL extension for VS Code and ADL
+   instance of VS Code with the Cadl extension for VS Code and Cadl
    language serever running live with any of your changes. It will
    attach to both the VS Code client process and the language server
    process automatically.
 2. **Compile Scratch**: Use this to debug compiling
-   `packages/adl-samples/scratch/*.adl`. The ADL source code in that
-   folder is excluded from source control by design. Create ADL files
+   `packages/cadl-samples/scratch/*.cadl`. The Cadl source code in that
+   folder is excluded from source control by design. Create Cadl files
    there to experiment and debug how the compiler reacts.
 3. **Compile Scratch (nostdlib)**: Same as above, but skips parsing
-   and evaluating the ADL standard library. Sometimes it's easier to
+   and evaluating the Cadl standard library. Sometimes it's easier to
 4. **Attach to Default Port**: Use this to attach to a manually run
    `node --debug` command.
 5. **Attach to Language Server**: Use this to attach to the language
@@ -137,7 +137,7 @@ debug the last one you chose.
    want to debug the language server in VS Code while debugging the VS
    client in VS.
 6. **Regenerate .tmlanguage**: This runs the code that produces the
-   adl.tmlanguage file that provides syntax highlighting of ADL in VS
+   cadl.tmlanguage file that provides syntax highlighting of Cadl in VS
    and VS Code. Select this to debug its build process.
 
 # Developing the Visual Studio Extension
@@ -158,7 +158,7 @@ will simply skip building the VS extension and only build the VS Code
 extension.
 
 ## Build VS extension in VS
-* Open packages/adl-vs/Microsoft.Adl.VisualStudio.sln in Visual Studio
+* Open packages/cadl-vs/Microsoft.Cadl.VisualStudio.sln in Visual Studio
 * Build -> Build solution (`Ctrl+Shift+B`)
 
 Unlike TypeScript in VS Code above, this is not a watching build, but
@@ -169,8 +169,8 @@ changes after you make them.
 * Click on the play icon in the toolbar or press `F5`
 
 This will run and debug an experimental instance of VS with a version
-of the ADL extension for VS Code running live with any of your changes
-to the extension or the ADL language server.
+of the Cadl extension for VS Code running live with any of your changes
+to the extension or the Cadl language server.
 
 The VS debugger will attach only to the VS client process. Use "Attach
 to Lanugage Server" described above to debug the language server in
@@ -199,21 +199,21 @@ updated packages will automatically be published to `npm`.
 rush dogfood
 ```
 
-This will globally install the @azure-tools/adl package, putting your
-build of `adl` on PATH, and install the VS Code extension if VS Code
+This will globally install the @azure-tools/cadl package, putting your
+build of `cadl` on PATH, and install the VS Code extension if VS Code
 is installed.
 
 Note the important difference between this and the steps to run and
 debug the VS Code extension above: the `dogfood` command installs the
-ADL extension with your changes in regular, non-experimental instance
+Cadl extension with your changes in regular, non-experimental instance
 of VS Code, meaning you will have it always, and not only when running
-the debug steps above. This is exactly like using `adl vscode
+the debug steps above. This is exactly like using `cadl vscode
 install`, only instead of downloading the latest release, it uses a
 build with your changes applied.
 
 There is no automatic `dogfood` process for installing the VS
-extension non-experimentally, but if you build the adl-vs project from
+extension non-experimentally, but if you build the cadl-vs project from
 the command line following the steps above, or build its Release
 configuration in Visual Studio, then you can install it by
-double-clicking on packages/adl-vs/Microsoft.Adl.VisualStudio.vsix
+double-clicking on packages/cadl-vs/Microsoft.Cadl.VisualStudio.vsix
 that gets produced.

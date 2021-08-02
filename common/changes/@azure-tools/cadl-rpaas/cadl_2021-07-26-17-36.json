@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas",
+      "comment": "Rename ADL to Cadl",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas",
+  "email": "nicholg@microsoft.com"
+}

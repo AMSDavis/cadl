@@ -1,0 +1,9 @@
+import "@azure-tools/cadl-rest";
+import "@azure-tools/cadl-openapi";
+import "@azure-tools/cadl-rpaas";
+
+@resource("/operations")
+namespace Operations {
+  @get op get(@path id: string): ArmResponse<OperationStatusResult>;
+  @get op list(): ArmResponse<OperationListResult> | ErrorResponse;
+}

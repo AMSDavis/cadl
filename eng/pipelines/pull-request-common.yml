@@ -7,7 +7,7 @@ steps:
   - script: node common/scripts/install-run-rush.js install
     displayName: Install JavaScript Dependencies
 
-  - script: node packages/adl-vs/scripts/build.js --restore
+  - script: node packages/cadl-vs/scripts/build.js --restore
     displayName: Restore .NET Dependencies
 
   - script: node common/scripts/install-run-rush.js change -v
@@ -26,10 +26,10 @@ steps:
   - script: node common/scripts/install-run-rush.js check-format
     displayName: Check Formatting
 
-  - script: cd packages/adl && npm run regen-samples
+  - script: cd packages/cadl && npm run regen-samples
     displayName: Regenerate Samples
 
-  - script: cd packages/adl-samples && npx adl generate rpaas/liftr.confluent/ --client --language typescript --option arm-types-path=../../adl-samples/rpaas/types.json
+  - script: cd packages/cadl-samples && npx cadl generate rpaas/liftr.confluent/ --client --language typescript --option arm-types-path=../../cadl-samples/rpaas/types.json
     displayName: Sanity Check Client Generation
 
   - script: node eng/scripts/check-for-changed-files.js

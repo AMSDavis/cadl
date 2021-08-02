@@ -1,0 +1,127 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "(title)",
+    "version": "0000-00-00"
+  },
+  "host": "management.azure.com",
+  "schemes": [
+    "https"
+  ],
+  "tags": [],
+  "paths": {
+    "/test": {
+      "get": {
+        "operationId": "NullableMethods_read",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "someParam",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "x-nullable": true
+          },
+          {
+            "name": "modelOrNull",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "num": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "required": [
+                "num"
+              ],
+              "x-nullable": true,
+              "x-cadl-name": "AnotherModel | null"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/HasNullables"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "HasNullables": {
+      "type": "object",
+      "properties": {
+        "str": {
+          "type": "string"
+        },
+        "when": {
+          "type": "string",
+          "format": "time"
+        },
+        "strOrNull": {
+          "type": "string",
+          "x-nullable": true,
+          "x-cadl-name": "string | null"
+        },
+        "modelOrNull": {
+          "type": "object",
+          "properties": {
+            "num": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "required": [
+            "num"
+          ],
+          "x-nullable": true,
+          "x-cadl-name": "AnotherModel | null"
+        },
+        "literalsOrNull": {
+          "type": "string",
+          "enum": [
+            "one",
+            "two"
+          ],
+          "x-nullable": true,
+          "x-cadl-name": "one | two | null"
+        },
+        "manyNullsOneString": {
+          "type": "string",
+          "x-nullable": true,
+          "x-cadl-name": "null | null | string | null"
+        },
+        "manyNullsSomeValues": {
+          "type": "number",
+          "enum": [
+            42,
+            100
+          ],
+          "x-nullable": true,
+          "x-cadl-name": "null | 42 | null | 100 | null"
+        }
+      },
+      "required": [
+        "str",
+        "when",
+        "strOrNull",
+        "modelOrNull",
+        "literalsOrNull",
+        "manyNullsOneString",
+        "manyNullsSomeValues"
+      ]
+    }
+  },
+  "parameters": {}
+}

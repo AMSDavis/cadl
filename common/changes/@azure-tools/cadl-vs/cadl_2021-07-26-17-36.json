@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-vs",
+      "comment": "Rename ADL to Cadl",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-vs",
+  "email": "nicholg@microsoft.com"
+}

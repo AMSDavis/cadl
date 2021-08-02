@@ -1,0 +1,94 @@
+import "@azure-tools/cadl-rest";
+import "@azure-tools/cadl-openapi";
+import "@azure-tools/cadl-rpaas";
+import "@azure-tools/cadl-rpaas-controller";
+
+@armNamespace
+@serviceTitle("Azure Fluid Relay")
+@serviceVersion("2021-03-12-preview")
+namespace Microsoft.FluidRelay;
+
+@doc("A string that represents a URI.")
+model Uri extends string {}
+
+@doc("The representation of a secret value, represented as a string on the wire")
+@secret
+model SecretKey extends string {}
+
+@armResource({
+  path: "fluidRelayServers",
+  collectionName: "FluidRelayServers",
+  parameterType: ResourceNameParameter
+})
+model FluidRelayServer extends TrackedResource<FluidRelayServerProperties> {}
+
+model ResourceNameParameter {
+  @doc("The resource name.")
+  @path name: string;
+}
+
+@armResourceOperations(FluidRelayServer)
+namespace FluidRelayServers {
+  @doc("Regenerate the primary or secondary key for this server.")
+  @post("regenerateKey")
+  op regenerateKey(
+    ...CommonResourceParameters,
+    @path name: string,
+    @body parameters: RegenerateKeyRequest
+  ): ArmResponse<FluidRelayServerKeys> | ErrorResponse;
+
+  @doc("Retrieve the keys for this server.")
+  @post("getKeys")
+  op getKeys(
+    ...CommonResourceParameters,
+    @path name: string
+  ): ArmResponse<FluidRelayServerKeys> | ErrorResponse;
+}
+
+@doc("The properties of a Fluid Relay Service resource.")
+model FluidRelayServerProperties {
+  @doc("The Fluid tenantId for this server")
+  @visibility("read")
+  frsTenantId?: string;
+
+  @doc("The Fluid service endpoints for this server.")
+  @visibility("read")
+  fluidRelayEndpoints?: FluidRelayEndpoints;
+
+  @doc("Provisioning states for FluidRelay RP")
+  provisioningState?: ProvisioningState;
+}
+
+@doc("Provisioning states for FluidRelay RP")
+enum ProvisioningState { Succeeded, Failed, Cancelled }
+
+@doc("The Fluid Relay Service endpoints for this server.")
+model FluidRelayEndpoints {
+  @doc("The Fluid Relay Orderer Endpoints.")
+  @visibility("read")
+  ordererEndpoints: Uri[];
+
+  @doc("The Fluid Relay storage endpoints.")
+  @visibility("read")
+  storageEndpoints: Uri[];
+}
+
+@doc("The set of available keys for this server.")
+model FluidRelayServerKeys {
+  @doc("The primary key for this server.")
+  @visibility("read")
+  key1?: SecretKey;
+
+  @doc("The secondary key for this server.")
+  @visibility("read")
+  key2?: SecretKey;
+}
+
+@doc("The keys that are defined fro a FluidRelay Service.")
+enum KeyName { key1, key2 }
+
+@doc("Specifies which key should be generated.")
+model RegenerateKeyRequest {
+  @doc("The key to regenerate.")
+  keyName: KeyName;
+}

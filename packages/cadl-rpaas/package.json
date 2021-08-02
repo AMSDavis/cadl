@@ -1,0 +1,47 @@
+{
+  "name": "@azure-tools/cadl-rpaas",
+  "version": "0.4.2",
+  "author": "Microsoft Corporation",
+  "description": "Azure RPaaS Cadl Library",
+  "homepage": "https://github.com/Azure/adl",
+  "readme": "https://github.com/Azure/adl/blob/master/README.md",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Azure/adl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Azure/adl/issues"
+  },
+  "keywords": [
+    "cadl"
+  ],
+  "main": "dist/src/arm.js",
+  "cadlMain": "lib/arm.cadl",
+  "type": "module",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "watch": "tsc -p . --watch",
+    "test": "mocha --timeout 5000 --require source-map-support/register --ignore 'dist/test/manual/**/*.js' 'dist/test/**/*.js'",
+    "test-official": "mocha --forbid-only --timeout 5000 --require source-map-support/register --ignore 'dist/test/manual/**/*.js' 'dist/test/**/*.js'"
+  },
+  "files": [
+    "lib/*.cadl",
+    "dist/**",
+    "!dist/test/**"
+  ],
+  "dependencies": {
+    "@azure-tools/cadl": "0.14.0",
+    "@azure-tools/cadl-openapi": "0.3.2",
+    "@azure-tools/cadl-rest": "0.3.2"
+  },
+  "devDependencies": {
+    "@types/mocha": "~7.0.2",
+    "@types/node": "~14.0.27",
+    "mocha": "~8.3.2",
+    "typescript": "~4.3.2"
+  }
+}

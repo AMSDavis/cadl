@@ -1,0 +1,91 @@
+import "@azure-tools/cadl-rest";
+import "@azure-tools/cadl-openapi";
+import "@azure-tools/cadl-rpaas";
+import "./models.cadl";
+
+@armNamespace
+@serviceTitle("Microsoft.Logz")
+@serviceVersion("2020-10-01-preview")
+namespace Microsoft.Logz;
+
+@armResource({
+    path: "monitors",
+    collectionName: "Monitors",
+    parameterType: MonitorNameParameter,
+})
+model LogzMonitorResource extends TrackedResource<LogzMonitorResourceProperties> {}
+
+model MonitorNameParameter {
+  @doc("Monitor resource name")
+  @path monitorName: string;
+}
+
+@armResourceOperations(LogzMonitorResource)
+namespace LogzMonitors {
+  @get("listMonitoredResources")
+  @doc("List the resources currently being monitored by the Logz monitor resource.")
+  op listMonitoredResources(@path subscriptionId: string, @path resourceGroupName: string, @path name: string): MonitoredResourceListResponse | ErrorResponse;
+}
+
+@armResource({
+  path: "tagRules",
+  collectionName: "TagRules",
+  parentResourceType: LogzMonitorResource,
+  parameterType: TagNameParameter,
+})
+model TagRuleResource extends TrackedResource<{}> {}
+
+model TagNameParameter {
+  @doc("Tag name")
+  @path tagName: string;
+}
+
+model SingleSignOnConfigurationsParameter {
+  @doc("Configuration name")
+  @path configurationName: string;
+}
+
+@armResource({
+  path: "singleSignOnConfigurations",
+  collectionName: "SingleSignOnConfigurations",
+  parentResourceType: LogzMonitorResource,
+  parameterType: SingleSignOnConfigurationsParameter,
+})
+model SingleSignOnConfigurationResource extends TrackedResource<LogzSingleSignOnProperties> {};
+@armResource({
+  path: "accounts",
+  collectionName: "SubAccounts",
+  parentResourceType: LogzMonitorResource,
+  parameterType: SubAccountNameParameter,
+})
+model SubAccountResource extends TrackedResource<LogzMonitorResourceProperties> {}
+
+model SubAccountNameParameter {
+  @doc("Sub account name")
+  @path subAccountName: string;
+}
+
+
+@armResourceOperations(SubAccountResource)
+namespace SubAccounts {
+  @get("listMonitoredResources")
+  @doc("List the resources currently being monitored by the Logz sub account resource.")
+  op listMonitoredResources(@path subscriptionId: string, @path resourceGroupName: string, @path monitorName: string, @path subAccountName: string): MonitoredResourceListResponse | ErrorResponse;
+
+  @patch()
+  @doc("Update a monitor resource.")
+  op patch(
+      @path subscriptionId: string,
+      @path resourceGroupName: string, 
+      @path monitorName: string, 
+      @path subAccountName: string, 
+      @body rule: LogzMonitorResource): ArmResponse<LogzMonitorResource> | ArmCreatedResponse<LogzMonitorResource> | ErrorResponse;
+}
+
+@armResource({
+    path: "tagRules",
+    collectionName: "TagRules",
+    parameterType: TagNameParameter,
+    parentResourceType: SubAccountResource,
+})
+model SubAccountTagRuleResource extends TrackedResource<{}> {};
