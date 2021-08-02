@@ -1,6 +1,32 @@
 {
-  "name": "@azure-tools/adl-rpaas-controller",
+  "name": "@azure-tools/cadl-rpaas-controller",
   "entries": [
+    {
+      "version": "0.2.0",
+      "tag": "@azure-tools/cadl-rpaas-controller_v0.2.0",
+      "date": "Mon, 02 Aug 2021 18:17:00 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Rename ADL to Cadl"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl\" from `0.14.0` to `0.15.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-openapi\" from `0.3.2` to `0.4.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-rest\" from `0.3.2` to `0.4.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-rpaas\" from `0.4.2` to `0.5.0`"
+          }
+        ]
+      }
+    },
     {
       "version": "0.1.1",
       "tag": "@azure-tools/adl-rpaas-controller_v0.1.1",

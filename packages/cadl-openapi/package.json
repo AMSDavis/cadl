@@ -1,6 +1,6 @@
 {
   "name": "@azure-tools/cadl-openapi",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "author": "Microsoft Corporation",
   "description": "Cadl library for emitting openapi from the Cadl REST protocol binding",
   "homepage": "https://github.com/Azure/adl",
@@ -34,8 +34,8 @@
     "!dist/test/**"
   ],
   "dependencies": {
-    "@azure-tools/cadl": "0.14.0",
-    "@azure-tools/cadl-rest": "0.3.2"
+    "@azure-tools/cadl": "0.15.0",
+    "@azure-tools/cadl-rest": "0.4.0"
   },
   "devDependencies": {
     "@types/mocha": "~7.0.2",
