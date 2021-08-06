@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl",
+      "comment": "**Update** to yargs 17 and update args parsing to use handlers logic to have full type safety",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl",
+  "email": "tiguerin@microsoft.com"
+}

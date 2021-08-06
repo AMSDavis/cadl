@@ -1,0 +1,16 @@
+import "@azure-tools/cadl-rest";
+import "@azure-tools/cadl-openapi";
+import "./decorators.js";
+import "./common.cadl";
+
+@addProperties
+model SomeModel {
+  name: string;
+}
+
+@resource("/ops")
+namespace Ops {
+  @addResponseTypes
+  @addCommonParameters
+  @get op SomeOp(input: SomeModel): OkResponse<int32>;
+}

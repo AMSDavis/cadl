@@ -51,7 +51,7 @@
       "commandKind": "global",
       "safeForSimultaneousRushProcesses": true,
       "name": "dogfood",
-      "summary": "(CUSTOM) Globally installs local builds of @azure-tools/adl and adl-vscode.",
+      "summary": "(CUSTOM) Globally installs local builds of @azure-tools/cadl and cadl-vscode.",
       "shellCommand": "node eng/scripts/dogfood.js"
     }
   ],

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl",
+      "comment": "Implement model is",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl",
+  "email": "brian.terlson@microsoft.com"
+}

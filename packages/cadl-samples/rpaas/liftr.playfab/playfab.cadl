@@ -1,0 +1,61 @@
+import "@azure-tools/cadl-rest";
+import "@azure-tools/cadl-openapi";
+import "@azure-tools/cadl-rpaas";
+import "@azure-tools/cadl-rpaas-controller";
+
+@armNamespace
+@serviceTitle("Azure PlayFab")
+@serviceVersion("2021-06-15-preview")
+namespace Microsoft.PlayFab;
+
+@doc("A string that represents a URI.")
+model Uri extends string {}
+
+@doc("A reference to a resource of type title.")
+@format("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/titles\\/[^\\/]+")
+model TitleReference extends string {}
+
+
+@doc("A reference to a player database resource.")
+@format("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/playerDatabases\\/[^\\/]+")
+model PlayerDatabaseReference extends string {}
+
+@armResource({
+    path: "playerDatabases",
+    collectionName: "playerDatabases",
+    parameterType: PlayerDatabaseNameParameter
+})
+model PlayerDatabase extends TrackedResource<PlayerDatabaseProperties> {}
+
+model PlayerDatabaseNameParameter {
+    @doc("The name of the player database resource.")
+    @path name: string;
+}
+
+@armResource({
+    path: "titles",
+    collectionName: "Titles",
+    parameterType: TitleNameParameter
+})
+model Title extends TrackedResource<TitleProperties> {}
+
+model TitleNameParameter {
+    @doc("Name of the title resource.")
+    @path name: string;
+}
+
+@doc("The properties of a player database.")
+model PlayerDatabaseProperties {
+  @doc("The user id for this player database")
+  userId: string;
+
+  @doc("The set of titles belonging to this player database.")
+  titles?: TitleReference[];
+}
+
+@doc("The properties of a title.")
+model TitleProperties {
+  @doc("The player database for this title")
+  @visibility("create", "read")
+  parentDatabase: PlayerDatabaseReference;
+}

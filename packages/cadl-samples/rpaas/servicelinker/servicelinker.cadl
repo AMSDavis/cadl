@@ -1,0 +1,120 @@
+import "@azure-tools/cadl-rest";
+import "@azure-tools/cadl-openapi";
+import "@azure-tools/cadl-rpaas";
+
+@armNamespace
+@serviceTitle("Microsoft.ServiceLinker provider")
+@serviceVersion("2021-01-01-privatepreview")
+namespace Microsoft.ServiceLinker;
+
+@armResource({
+  path: "linkers",
+  collectionName: "Linker",
+  parameterType: LinkerNameParameter
+})
+model LinkerResource extends ExtensionResource<LinkerProperties> {}
+
+model LinkerNameParameter {
+  @path linkerName: string;
+}
+
+@armResourceOperations(LinkerResource)
+namespace Linker {
+  @post("validateLinker")
+  op ValidateLinker(...ResourceUriParameter, ...LinkerNameParameter): ArmResponse<ValidateResult> | ErrorResponse;
+
+  @post("listConfigurations")
+  op ListConfigurations(...ResourceUriParameter, ...LinkerNameParameter): ArmResponse<SourceConfigurationResult> | ErrorResponse;
+}
+
+model LinkerProperties {
+  @doc("The resource Id of the target service.")
+  targetId: string;
+
+  @doc("The authentication type.")
+  authInfo: AuthInfoBase;
+
+  @doc("The provisioning state.")
+  @visibility("read")
+  provisioningState: string;
+}
+
+enum AuthType {
+  systemAssignedIdentity,
+  userAssignedIdentity,
+  servicePrincipal,
+  secret
+}
+
+// discriminator: authType
+model AuthInfoBase {
+  authType: AuthType;
+}
+
+// x-ms-discriminator-value: secret
+model SecretAuthInfo extends AuthInfoBase {
+  @doc("username or account name for secret auth.")
+  name: string;
+
+  // @secret
+  @doc("Password or account key for secret auth.")
+  secret?: string;
+}
+
+// x-ms-discriminator-value: userAssignedIdentity
+model UserAssignedIdentityAuthInfo extends AuthInfoBase {
+  @doc("Client Id for userAssignedIdentity")
+  id: string;
+}
+
+// x-ms-discriminator-value: systemAssignedIdentity
+model SystemAssignedIdentityAuthInfo extends AuthInfoBase {
+}
+
+// x-ms-discriminator-value: systemPrincipal
+model SystemPrincipalAuthInfo extends AuthInfoBase {
+  @doc("ServicePrincipal Id for servicePrincipal auth.")
+  id: string;
+
+  @doc("ServicePrincipal Name for servicePrincipal auth.")
+  name: string;
+}
+
+model SourceConfiguration {
+  type: "appSettings" | "connectionSettings" | "serviceBindings";
+
+  @doc("The configuration of the linker for appSettings or connectionStrings or serviceBindings")
+  linkConfig: {};
+}
+
+@doc("Configurations for source resource, include appSettings, connectionString and serviceBindings")
+model SourceConfigurationResult {
+  sourceConfigurations: SourceConfiguration[];
+}
+
+enum LinkerStatus {
+  Healthy, "Not healthy"
+}
+
+model ValidateResult {
+  @doc("The linker name.")
+  name: string;
+
+  @doc("Specifies if the linker is healthy.")
+  linkerStatus: LinkerStatus;
+
+  @doc("The reason of the error.")
+  reason: string;
+
+  @doc("The start time of the validation report.")
+  reportStartTimeUtc: plainDate;
+
+  @doc("The end time of the validation report.")
+  reportEndTimeUtc: plainDate;
+
+  @doc("The resource Id of the target service.")
+  targetId: string;
+
+  @doc("The authentication type.")
+  authType: AuthType;
+}

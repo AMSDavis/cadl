@@ -1,0 +1,14 @@
+import "@azure-tools/cadl-rest";
+import "@azure-tools/cadl-openapi";
+
+@doc("This is an example of a model with a recursive property reference")
+model Recursive {
+  name: string;
+  recursive: Recursive;
+  recursives: Recursive[];
+}
+
+@resource("/recursive")
+namespace RecursiveOps {
+  @get op getRecursive(): Recursive;
+}

@@ -1,0 +1,44 @@
+{
+  "name": "@azure-tools/cadl-rpaas-controller",
+  "version": "0.2.0",
+  "description": "Azure Cadl RPaaS service controller code generator",
+  "homepage": "https://github.com/Azure/adl",
+  "readme": "https://github.com/Azure/adl/blob/master/README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Azure/adl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Azure/adl/issues"
+  },
+  "keywords": [
+    "cadl",
+    "rpaas"
+  ],
+  "author": "Microsoft Corporation",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/generate.js",
+  "cadlMain": "dist/generate.js",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "build": "npm run compile",
+    "compile": "tsc -p .",
+    "watch": "tsc -p . --watch"
+  },
+  "dependencies": {
+    "squirrelly": "^8.0.8",
+    "mkdirp": "~1.0.4",
+    "@azure-tools/cadl": "0.15.0",
+    "@azure-tools/cadl-openapi": "0.4.0",
+    "@azure-tools/cadl-rest": "0.4.0",
+    "@azure-tools/cadl-rpaas": "0.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "~14.0.27",
+    "@types/mkdirp": "~1.0.1",
+    "typescript": "~4.3.2"
+  }
+}

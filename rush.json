@@ -46,8 +46,8 @@
   "telemetryEnabled": false,
   "projects": [
     {
-      "packageName": "@azure-tools/adl",
-      "projectFolder": "packages/adl",
+      "packageName": "@azure-tools/cadl",
+      "projectFolder": "packages/cadl",
       "reviewCategory": "production",
       "shouldPublish": true
     },
@@ -58,56 +58,56 @@
       "shouldPublish": true
     },
     {
-      "packageName": "adl-vscode",
-      "projectFolder": "packages/adl-vscode",
+      "packageName": "cadl-vscode",
+      "projectFolder": "packages/cadl-vscode",
       "reviewCategory": "production",
       "shouldPublish": true
     },
     {
-      "packageName": "@azure-tools/adl-vs",
-      "projectFolder": "packages/adl-vs",
+      "packageName": "@azure-tools/cadl-vs",
+      "projectFolder": "packages/cadl-vs",
       "reviewCategory": "production",
       "shouldPublish": true
     },
     {
-      "packageName": "@azure-tools/prettier-plugin-adl",
-      "projectFolder": "packages/prettier-plugin-adl",
+      "packageName": "@azure-tools/prettier-plugin-cadl",
+      "projectFolder": "packages/prettier-plugin-cadl",
       "reviewCategory": "production",
       "shouldPublish": true
     },
     {
-      "packageName": "@azure-tools/adl-language",
-      "projectFolder": "packages/adl-language",
+      "packageName": "@azure-tools/cadl-language",
+      "projectFolder": "packages/cadl-language",
       "reviewCategory": "production",
       "shouldPublish": false
     },
     {
-      "packageName": "@azure-tools/adl-rest",
-      "projectFolder": "packages/adl-rest",
+      "packageName": "@azure-tools/cadl-rest",
+      "projectFolder": "packages/cadl-rest",
       "reviewCategory": "production",
       "shouldPublish": true
     },
     {
-      "packageName": "@azure-tools/adl-rpaas",
-      "projectFolder": "packages/adl-rpaas",
+      "packageName": "@azure-tools/cadl-rpaas",
+      "projectFolder": "packages/cadl-rpaas",
       "reviewCategory": "production",
       "shouldPublish": true
     },
     {
-      "packageName": "@azure-tools/adl-openapi",
-      "projectFolder": "packages/adl-openapi",
+      "packageName": "@azure-tools/cadl-openapi",
+      "projectFolder": "packages/cadl-openapi",
       "reviewCategory": "production",
       "shouldPublish": true
     },
     {
-      "packageName": "@azure-tools/adl-rpaas-controller",
-      "projectFolder": "packages/adl-rpaas-controller",
+      "packageName": "@azure-tools/cadl-rpaas-controller",
+      "projectFolder": "packages/cadl-rpaas-controller",
       "reviewCategory": "production",
       "shouldPublish": true
     },
     {
-      "packageName": "@azure-tools/adl-samples",
-      "projectFolder": "packages/adl-samples",
+      "packageName": "@azure-tools/cadl-samples",
+      "projectFolder": "packages/cadl-samples",
       "reviewCategory": "production",
       "shouldPublish": false
     }

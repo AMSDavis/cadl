@@ -1,8 +1,8 @@
-# ADL
+# Cadl
 
-ADL is a language for describing cloud service APIs and generating other API
+Cadl is a language for describing cloud service APIs and generating other API
 description languages, client and service code, documentation, and other assets.
-ADL provides highly extensible core language primitives that can describe API
+Cadl provides highly extensible core language primitives that can describe API
 shapes common among REST, GraphQL, gRPC, and other protocols.
 
 You can try a work-in-progress build of the compiler by following the steps in
@@ -15,27 +15,27 @@ using the preview.
 | Name                                        | Changelog                    | Latest                                                     |
 | ------------------------------------------- | ---------------------------- | ---------------------------------------------------------- |
 | Core functionality                          |
-| [@azure-tools/adl][adl_src]                 | [Changelog][adl_chg]         | ![](https://img.shields.io/npm/v/@azure-tools/adl)         |
-| ADL Libraries                               |
-| [@azure-tools/adl-rest][adl-rest_src]       | [Changelog][adl-rest_chg]    | ![](https://img.shields.io/npm/v/@azure-tools/adl-rest)    |
-| [@azure-tools/adl-rpaas][adl-rpaas_src]     | [Changelog][adl-rpaas_chg]   | ![](https://img.shields.io/npm/v/@azure-tools/adl-rpaas)   |
-| [@azure-tools/adl-openapi][adl-openapi_src] | [Changelog][adl-openapi_chg] | ![](https://img.shields.io/npm/v/@azure-tools/adl-openapi) |
-| ADL Tools                                   |
-| [@azure-tools/adl-vs][adl-vs_src]           | [Changelog][adl-vs_chg]      | ![](https://img.shields.io/npm/v/@azure-tools/adl-vs)      |
-| [@azure-tools/adl-vscode][adl-vscode_src]   | [Changelog][adl-vscode_chg]  | ![](https://img.shields.io/npm/v/adl-vscode)               |
+| [@azure-tools/cadl][cadl_src]                 | [Changelog][cadl_chg]         | ![](https://img.shields.io/npm/v/@azure-tools/cadl)         |
+| Cadl Libraries                               |
+| [@azure-tools/cadl-rest][cadl-rest_src]       | [Changelog][cadl-rest_chg]    | ![](https://img.shields.io/npm/v/@azure-tools/cadl-rest)    |
+| [@azure-tools/cadl-rpaas][cadl-rpaas_src]     | [Changelog][cadl-rpaas_chg]   | ![](https://img.shields.io/npm/v/@azure-tools/cadl-rpaas)   |
+| [@azure-tools/cadl-openapi][cadl-openapi_src] | [Changelog][cadl-openapi_chg] | ![](https://img.shields.io/npm/v/@azure-tools/cadl-openapi) |
+| Cadl Tools                                   |
+| [@azure-tools/cadl-vs][cadl-vs_src]           | [Changelog][cadl-vs_chg]      | ![](https://img.shields.io/npm/v/@azure-tools/cadl-vs)      |
+| [@azure-tools/cadl-vscode][cadl-vscode_src]   | [Changelog][cadl-vscode_chg]  | ![](https://img.shields.io/npm/v/cadl-vscode)               |
 
-[adl_src]: packages/adl
-[adl_chg]: packages/adl/CHANGELOG.md
-[adl-rest_src]: packages/adl-rest
-[adl-rest_chg]: packages/adl-rest/CHANGELOG.md
-[adl-rpaas_src]: packages/adl-rpaas
-[adl-rpaas_chg]: packages/adl-rpaas/CHANGELOG.md
-[adl-openapi_src]: packages/adl-openapi
-[adl-openapi_chg]: packages/adl-openapi/CHANGELOG.md
-[adl-vs_src]: packages/adl-vs
-[adl-vs_chg]: packages/adl-vs/CHANGELOG.md
-[adl-vscode_src]: packages/adl-vscode
-[adl-vscode_chg]: packages/adl-vscode/CHANGELOG.md
+[cadl_src]: packages/cadl
+[cadl_chg]: packages/cadl/CHANGELOG.md
+[cadl-rest_src]: packages/cadl-rest
+[cadl-rest_chg]: packages/cadl-rest/CHANGELOG.md
+[cadl-rpaas_src]: packages/cadl-rpaas
+[cadl-rpaas_chg]: packages/cadl-rpaas/CHANGELOG.md
+[cadl-openapi_src]: packages/cadl-openapi
+[cadl-openapi_chg]: packages/cadl-openapi/CHANGELOG.md
+[cadl-vs_src]: packages/cadl-vs
+[cadl-vs_chg]: packages/cadl-vs/CHANGELOG.md
+[cadl-vscode_src]: packages/cadl-vscode
+[cadl-vscode_chg]: packages/cadl-vscode/CHANGELOG.md
 
 ## Getting Started
 
@@ -45,101 +45,101 @@ using the preview.
    npm --version
    ```
 
-2. Create a folder for your new ADL project
+2. Create a folder for your new Cadl project
 
 3. In a command prompt, run the following commands:
 
    ```
-   cd path\to\adl\project
+   cd path\to\cadl\project
    npm init -y
-   npm install -g @azure-tools/adl
-   npm install @azure-tools/adl-rest @azure-tools/adl-openapi @azure-tools/adl-rpaas
+   npm install -g @azure-tools/cadl
+   npm install @azure-tools/cadl-rest @azure-tools/cadl-openapi @azure-tools/cadl-rpaas
    ```
 
-   This will create a `package.json` file for your ADL project and add the necessary ADL dependencies to it.
+   This will create a `package.json` file for your Cadl project and add the necessary Cadl dependencies to it.
 
-4. Install the ADL extension for your editor of choice:
+4. Install the Cadl extension for your editor of choice:
 
    - [Instructions for Visual Studio](#installing-visual-studio-extension)
    - [Instructions for Visual Studio Code](#installing-vs-code-extension)
 
-5. Open the folder in your editor and create a new file with a `.adl` extension
+5. Open the folder in your editor and create a new file with a `.cadl` extension
 
-6. [Follow our tutorial](docs/tutorial.md) to get started writing ADL!
+6. [Follow our tutorial](docs/tutorial.md) to get started writing Cadl!
 
-7. Once you're ready to compile your ADL to Swagger, save the file and type this at the command prompt in your project folder:
+7. Once you're ready to compile your Cadl to Swagger, save the file and type this at the command prompt in your project folder:
 
    ```
-   npx adl compile .
+   npx cadl compile .
    ```
 
-   This will compile the ADL files in the project folder into one output file: `.\adl-output\openapi.json`.
+   This will compile the Cadl files in the project folder into one output file: `.\cadl-output\openapi.json`.
 
-You can also check out a variety of samples in the [adl-samples](packages/adl-samples/) folder.
+You can also check out a variety of samples in the [cadl-samples](packages/cadl-samples/) folder.
 
 ## Usage
 
 See full usage documentation by typing:
 
 ```
-adl --help
+cadl --help
 ```
 
-You can launch ADL in one of two ways:
+You can launch Cadl in one of two ways:
 
-### Compiling a folder of ADL files to an OpenAPI 2.0 (Swagger) specification
+### Compiling a folder of Cadl files to an OpenAPI 2.0 (Swagger) specification
 
-You can compile a folder containing `.adl` files into a single OpenAPI document by
+You can compile a folder containing `.cadl` files into a single OpenAPI document by
 using the following command:
 
 ```
-adl compile samples/petstore/
+cadl compile samples/petstore/
 ```
 
-You can now examine the emitted OpenAPI document in `./adl-output/openapi.json`.
+You can now examine the emitted OpenAPI document in `./cadl-output/openapi.json`.
 
-### Generating a TypeScript client from a folder of ADL files
+### Generating a TypeScript client from a folder of Cadl files
 
-You can compile a folder containing `.adl` files into a single OpenAPI document by
+You can compile a folder containing `.cadl` files into a single OpenAPI document by
 using the following command:
 
 ```
-adl generate --client samples/petstore/
+cadl generate --client samples/petstore/
 ```
 
 Parameters for generating clients in other languages will be added soon.
 
-### Formatting adl files
+### Formatting Cadl files
 
-ADL provides an auto-formatter to keep your specs clean and organized.
+Cadl provides an auto-formatter to keep your specs clean and organized.
 
 ```bash
-adl format <patterns...>
+cadl format <patterns...>
 
-# Format all the files in the current directly with the adl extension.
-adl format **/*.adl
+# Format all the files in the current directory with the cadl extension.
+cadl format **/*.cadl
 ```
 
 ### Installing VS Code Extension
 
 ```
-adl code install
+cadl code install
 ```
 
-This will download and install the latest VS Code extension. Use `adl code uninstall` to remove it. Pass `--insiders` if you use VS Code Insiders edition.
+This will download and install the latest VS Code extension. Use `cadl code uninstall` to remove it. Pass `--insiders` if you use VS Code Insiders edition.
 
-If `adl-server` cannot be found on PATH by VS Code in your setup, you can
-configure its location in VS Code settings. Search for "ADL" in File ->
-Preferences -> Settings, and adjust `adl.adl-server.path` accordingly. You may
+If `cadl-server` cannot be found on PATH by VS Code in your setup, you can
+configure its location in VS Code settings. Search for "Cadl" in File ->
+Preferences -> Settings, and adjust `cadl.cadl-server.path` accordingly. You may
 need to restart VS Code after changing this.
 
 You can also configure a project to use a local npm install of
-`@azure-tools/adl`. See [local-adl sample](packages/adl-samples/local-adl).
+`@azure-tools/cadl`. See [local-cadl sample](packages/cadl-samples/local-cadl).
 
 ### Installing Visual Studio Extension
 
 ```
-adl vs install
+cadl vs install
 ```
 
-This will download and install the latest Visual Studio extension. Use `adl vs uninstall` to remove it.
+This will download and install the latest Visual Studio extension. Use `cadl vs uninstall` to remove it.
