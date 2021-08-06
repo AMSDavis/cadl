@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl",
+      "comment": "Add `compile --watch` option to watch files for changes and recompile",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl",
+  "email": "daviwil@microsoft.com"
+}

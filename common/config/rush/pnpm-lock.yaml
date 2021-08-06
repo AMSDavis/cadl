@@ -32,6 +32,7 @@ dependencies:
   js-yaml: 4.1.0
   mkdirp: 1.0.4
   mocha: 8.3.2
+  node-watch: 0.7.1
   onigasm: 2.2.5
   plist: 3.0.2
   prettier: 2.2.1
@@ -1841,6 +1842,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
+  /node-watch/0.7.1:
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-UWblPYuZYrkCQCW5PxAwYSxaELNBLUckrTBBk8xr1/bUgyOkYYTsUcV4e3ytcazFEOyiRyiUrsG37pu6I0I05g==
   /nomnom/1.8.1:
     dependencies:
       chalk: 0.4.0
@@ -2997,6 +3004,7 @@ packages:
       js-yaml: 4.1.0
       mkdirp: 1.0.4
       mocha: 8.3.2
+      node-watch: 0.7.1
       prettier: 2.2.1
       prettier-plugin-organize-imports: 1.1.1_prettier@2.2.1+typescript@4.3.5
       resolve: 1.20.0
@@ -3008,7 +3016,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl'
     resolution:
-      integrity: sha512-JuHqBaSfVn63gb+/uE/dZGxGM3Qfb8WHAEvxAZlEYQarS7BFHg+AbeivL7CLgamP2HVTBZ1qsGaqIseDk/pySQ==
+      integrity: sha512-v5KqXfuTYMZ313oPzRIlbBBbEqSv2Ys7Gwzea7OkXF160YUrvf6bHvQlAPzlMjKtdUxsO3ctG4+xZT0LdymHCA==
       tarball: file:projects/cadl.tgz
     version: 0.0.0
   file:projects/prettier-plugin-cadl.tgz:
@@ -3073,6 +3081,7 @@ specifiers:
   js-yaml: ~4.1.0
   mkdirp: ~1.0.4
   mocha: ~8.3.2
+  node-watch: ~0.7.1
   onigasm: ~2.2.5
   plist: ~3.0.2
   prettier: ~2.2.1
