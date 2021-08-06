@@ -23,7 +23,7 @@ interface OperationResult {
 
 describe("openapi: produces/consumes", () => {
   it("produces global produces for simple json", async () => {
-    var result = await openApiForProducesConsumes([
+    const result = await openApiForProducesConsumes([
       {
         path: "/",
         namespace: "root",
@@ -42,7 +42,7 @@ describe("openapi: produces/consumes", () => {
     strictEqual(result.operations.get("/")?.consumes, undefined);
   });
   it("produces global consumes for simple json", async () => {
-    var result = await openApiForProducesConsumes([
+    const result = await openApiForProducesConsumes([
       {
         path: "/",
         namespace: "root",
@@ -60,27 +60,51 @@ describe("openapi: produces/consumes", () => {
     strictEqual(result.operations.get("/")?.produces, undefined);
     strictEqual(result.operations.get("/")?.consumes, undefined);
   });
+  it("produces individual produces/consumes if differences in methods", async () => {
+    const result = await openApiForProducesConsumes([
+      {
+        path: "/in",
+        namespace: "input",
+        type: "consumes",
+        modelDef: `
+        model simpleParam {
+          @header "content-type": "application/json";
+          name: string;
+        }
+        `,
+        modelName: "simpleParam",
+      },
+      {
+        path: "/out",
+        namespace: "output",
+        type: "produces",
+        modelDef: `
+        model simpleOutput {
+          @header "content-type": "text/json";
+          name: string;
+        }
+        `,
+        modelName: "simpleOutput",
+      },
+    ]);
+
+    strictEqual(result.globalConsumes[0], "application/json");
+    strictEqual(result.operations.get("/in")?.produces, undefined);
+    strictEqual(result.operations.get("/in")?.consumes, undefined);
+    strictEqual(result.operations.get("/out")!.produces![0], "text/json");
+    strictEqual(result.operations.get("/out")?.consumes, undefined);
+  });
 });
 
 async function openApiForProducesConsumes(
   configuration: ProducesConsumesOperation[]
 ): Promise<ProducesConsumes> {
-  const apiDoc: string[] = [];
-  configuration.forEach((config) => {
-    let opString =
-      config.type === "consumes"
-        ? `@_delete op remove(@body payload : ${config.modelName}) : NoContentResponse;`
-        : `@get op read() : ${config.modelName};`;
-    apiDoc.push(`
-    ${config.modelDef}
-    @resource("${config.path}")
-    namespace ${config.namespace} {
-      ${opString}
-    }
-  `);
-  });
+  const apiDoc: string[] = createAdlFromConfig(configuration);
 
-  const openApi = await openApiFor(apiDoc.join("\n"));
+  let input = apiDoc.join("\n");
+  let openApi = await openApiFor(input).finally(() => console.log(input));
+
+  console.log(input);
   const output = {
     globalProduces: openApi.produces as string[],
     globalConsumes: openApi.consumes,
@@ -98,4 +122,24 @@ async function openApiForProducesConsumes(
   });
 
   return output;
+}
+
+function createAdlFromConfig(configuration: ProducesConsumesOperation[]): string[] {
+  const apiDoc: string[] = [];
+  configuration.forEach((config) => {
+    let opString =
+      config.type === "consumes"
+        ? `@_delete op remove(@body payload : ${config.modelName}) : NoContentResponse;`
+        : `@get op read() : ${config.modelName};`;
+    let doc = `
+    ${config.modelDef}
+    @resource("${config.path}")
+    namespace ${config.namespace} {
+      ${opString}
+    }
+  `;
+    apiDoc.push(doc);
+  });
+
+  return apiDoc;
 }
