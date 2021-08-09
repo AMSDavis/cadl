@@ -229,7 +229,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         // Write out the OpenAPI document to the output path
         await program.host.writeFile(
           path.resolve(options.outputFile),
-          JSON.stringify(root, null, 2)
+          prettierOutput(JSON.stringify(root, null, 2))
         );
       }
     } catch (err) {
@@ -1146,6 +1146,10 @@ function isRefSafeName(name: string) {
 
 function getRefSafeName(name: string) {
   return name.replace(/^[A-Za-z0-9-_.]/g, "_");
+}
+
+function prettierOutput(output: string) {
+  return output + "\n";
 }
 
 class ErrorTypeFoundError extends Error {
