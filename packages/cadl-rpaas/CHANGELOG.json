@@ -2,6 +2,24 @@
   "name": "@azure-tools/cadl-rpaas",
   "entries": [
     {
+      "version": "0.5.1",
+      "tag": "@azure-tools/cadl-rpaas_v0.5.1",
+      "date": "Mon, 09 Aug 2021 21:14:12 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl\" from `0.15.0` to `0.16.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-openapi\" from `0.4.0` to `0.4.1`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-rest\" from `0.4.0` to `0.4.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.0",
       "tag": "@azure-tools/cadl-rpaas_v0.5.0",
       "date": "Mon, 02 Aug 2021 18:17:00 GMT",
