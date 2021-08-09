@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl",
+      "comment": "",
+      "type": "none"
+    }
+  ],
+  "packageName": "@azure-tools/cadl",
+  "email": "jianye.xi@microsoft.com"
+}
