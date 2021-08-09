@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-openapi",
+      "comment": "ensure correct prettier setting for geneated swagger",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-openapi",
+  "email": "jianye.xi@microsoft.com"
+}
