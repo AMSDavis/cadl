@@ -126,6 +126,16 @@ This will now produce all the endpoints(`get`, `post`, `put`, `patch` and `delet
 | `PATCH /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/UserResources/{UserResourceName}`  | patch item                           |
 | `DELETE /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/UserResources/{UserResourceName}` | delete item                          |
 
+#### Reference
+
+Types of resources and common models for defining arm resources
+
+| Name                           | Description                                                                             |
+| ------------------------------ | --------------------------------------------------------------------------------------- |
+| TrackedResource<TProperties>   | Defines a normal ARM resource, where `TProperties` is the model of the `properties`     |
+| ProxyResource<TProperties>     | Defines a proxy Proxy resource, where `TProperties` is the model of the `properties`    |
+| ExtensionResource<TProperties> | Defines an extension ARM resource, where `TProperties` is the model of the `properties` |
+
 ### Sub resources
 
 Azure Management resources can be a sub resource of another.
@@ -194,29 +204,3 @@ Common parameters that can be used in operation
 | `CommonResourceParameters`   | path & query | Group of Api version, Subscription ID and Resource group parameter |
 | `ResourceUriParameter`       | path         | Resource uri path parameter                                        |
 | `OperationIdParameter`       | path         | Operation Id path parameter                                        |
-
-### Reference
-
-#### `ArmResource`
-
-Base model for an arm resource with common properties.
-
-#### `TrackedResource<TProperties>`
-
-Concrete tracked resource types can be created by aliasing this type using a specific property type.
-
-#### `ProxyResource<TProperties>`
-
-Concrete proxy resource types can be created by aliasing this type using a specific property type.
-
-#### `ExtensionResource<TProperties>`
-
-Concrete proxy resource types can be created by aliasing this type using a specific property type.
-
-#### `NameParameter`
-
-Generic parameter model for the `{name}` parameter.
-
-### `ArmResponse<T>`
-
-Model of a generic arm response.
