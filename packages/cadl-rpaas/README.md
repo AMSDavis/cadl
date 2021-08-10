@@ -53,6 +53,8 @@ import "@azure-tools/cadl-rpaas";
 
 ## Concepts
 
+[General Cadl information](https://github.com/Azure/adl/blob/main/docs/tutorial.md)
+
 ### Service definition
 
 First thing is the global definition of the RPaaS service. For that you can add the `serviceTite`, `serviceVersion` and `armNamespace` decorator on your root namespace.
@@ -77,13 +79,13 @@ namespace Microsoft.MyService;
 
 See [Cadl Models docs](https://github.com/Azure/adl/blob/main/docs/tutorial.md#models) for the basic on models.
 
-RPaaS is composed of resources. Cadl rpaas library makes it much easier to define the structure and endpoints of such resources.
+RPaaS is composed of resources. Cadl RPaaS library makes it much easier to define the structure and endpoints of such resources.
 
 1. Define a model representing the `properties` of the ARM resource.
 
 ```cadl
-@doc("Properties of MyResource")
-model MyResourceProperties {
+@doc("Properties of UserResource")
+model UserResourceProperties {
   @doc("The name of my resource")
   name: string;
 
@@ -95,29 +97,126 @@ model MyResourceProperties {
 2. Define a model representing the parameter used to find the resource. `subscriptionId` and `resourceGroupName` will automatically be added.
 
 ```cadl
-model MyResourceNameParameter {
-  @doc("MyResource resource name")
-  @path myResourceName: string;
+model UserResourceNameParameter {
+  @doc("UserResource resource name")
+  @path UserResourceName: string;
 }
 ```
 
 3. Define the resource model as an Arm Tracked Resource
 
 ```cadl
-@doc("A MyResource")
+@doc("A UserResource")
 @armResource({
-  path: "myResources",
+  path: "UserResources",
   parameterType: AccountNameParameter,
-  collectionName: "MyResources",
+  collectionName: "UserResources",
 })
-model MyResource extends TrackedResource<MyResourceProperties> {};
+model UserResource extends TrackedResource<UserResourceProperties> {};
 ```
 
-This will now produce all the endpoints(`get`, `post`, `put`, `patch` and `delete`) for a resource called `MyResources` and the `operations` endpoint for the service:
+This will now produce all the endpoints(`get`, `post`, `put`, `patch` and `delete`) for a resource called `UserResources` and the `operations` endpoint for the service:
 
-- `GET /providers/Microsoft.MyService/operations`: List all operations for your service
-- `GET /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/myResources`: list all MyResource
-- `GET /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/myResources/{myResourceName}`: get item
-- `PUT /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/myResources/{myResourceName}`: insert item
-- `PATCH /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/myResources/{myResourceName}`: patch item
-- `DELETE /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/myResources/{myResourceName}`: delete item
+| Method & Path                                                                                                                              | Description                          |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------ |
+| `GET /providers/Microsoft.MyService/operations`                                                                                            | List all operations for your service |
+| `GET /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/UserResources`                       | list all UserResource                |
+| `GET /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/UserResources/{UserResourceName}`    | get item                             |
+| `PUT /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/UserResources/{UserResourceName}`    | insert item                          |
+| `PATCH /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/UserResources/{UserResourceName}`  | patch item                           |
+| `DELETE /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/UserResources/{UserResourceName}` | delete item                          |
+
+### Sub resources
+
+Azure Management resources can be a sub resource of another.
+This can easily be defined by setting the `parentResourceType` property on the `@armResource`.
+The value is the parent resource type(Model with the `@armResource` decorator)
+
+For example to create a new `AddressResource` resource under the `UserResource` defined above.
+
+```cadl
+@doc("A AddressResource")
+@armResource({
+  path: "AddressResources",
+  parameterType: SubResourceNameParameter,
+  collectionName: "AddressResource",
+  parentResourceType: UserResource
+})
+model UserResource extends TrackedResource<UserResourceProperties> {};
+```
+
+### Additional endpoints/operations
+
+Some resources will provide more than the basic CRUD operations and will need to define a custom endpoint.
+For that you can create a new namespace containing the operations and use the `@armResourceOperations` decorator referencing the resource those operations belong to.
+
+Example: To add a `GET /parent` and `PUT /parent` operation on the `UserResource` to create a relation between
+
+```cadl
+@armResourceOperations(UserResource)
+namespace Users {
+  @get("parent")
+  op getParent(
+    ...CommonResourceParameters,
+  ): ArmResponse<UserResource> | ErrorResponse;
+
+  @put("parent")
+  op getParent(
+    ...CommonResourceParameters,
+    @body parent: UserResource
+  ): ArmResponse<UserResource> | ErrorResponse;
+}
+```
+
+#### Response
+
+Custom operations in ARM still need to respect the correct response schema. Cadl-rpaas provide some models to help with reusablility and compliance.
+
+| Model                         | Code | Description                                   |
+| ----------------------------- | ---- | --------------------------------------------- |
+| `ArmResponse<T>`              | 200  | Base Arm 200 response.                        |
+| `ArmCreatedResponse<T>`       | 201  | Resource created response                     |
+| `ArmDeletedResponse`          | 200  | Resource deleted response                     |
+| `ArmDeleteAcceptedResponse`   | 202  | Resource deletion in progress response        |
+| `ArmDeletedNoContentResponse` | 204  | Resource deleted response                     |
+| `Page<T>`                     | 200  | Return a list of resource with ARM pagination |
+| `ErrorResponse<T>`            | x    | Error response                                |
+
+#### Parameters
+
+Common parameters that can be used in operation
+
+| Model                        | In           | Description                                                        |
+| ---------------------------- | ------------ | ------------------------------------------------------------------ |
+| `ApiVersionParameter`        | query        | `api-version` parameter                                            |
+| `SubscriptionIdParameter`    | path         | Subscription ID path parameter                                     |
+| `ResourceGroupNameParameter` | path         | Resource Group Name path parameter                                 |
+| `CommonResourceParameters`   | path & query | Group of Api version, Subscription ID and Resource group parameter |
+| `ResourceUriParameter`       | path         | Resource uri path parameter                                        |
+| `OperationIdParameter`       | path         | Operation Id path parameter                                        |
+
+### Reference
+
+#### `ArmResource`
+
+Base model for an arm resource with common properties.
+
+#### `TrackedResource<TProperties>`
+
+Concrete tracked resource types can be created by aliasing this type using a specific property type.
+
+#### `ProxyResource<TProperties>`
+
+Concrete proxy resource types can be created by aliasing this type using a specific property type.
+
+#### `ExtensionResource<TProperties>`
+
+Concrete proxy resource types can be created by aliasing this type using a specific property type.
+
+#### `NameParameter`
+
+Generic parameter model for the `{name}` parameter.
+
+### `ArmResponse<T>`
+
+Model of a generic arm response.
