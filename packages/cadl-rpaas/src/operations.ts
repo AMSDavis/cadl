@@ -215,7 +215,7 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
       armResourceInfo.propertiesType.name !== ""
         ? `${updatePropertiesDescription}
         model ${updatePropertiesModel} {
-          ...OptionalProperties<${armResourceInfo.propertiesType.name}>
+          ...UpdatableProperties<${armResourceInfo.propertiesType.name}>
         }`
         : "";
 

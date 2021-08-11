@@ -289,7 +289,9 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
 
   // Detect the resource and properties types
   let resourceKind: ResourceKind = "Plain";
-  let propertiesType: ModelType | undefined = undefined;
+  let propertiesType: ModelType | undefined = resourceType.properties.has("properties")
+    ? (resourceType.properties.get("properties")!.type as ModelType)
+    : undefined;
   if (resourceType.baseModels.length === 1) {
     const coreType = resourceType.baseModels[0];
     if (coreType.kind === "Model") {

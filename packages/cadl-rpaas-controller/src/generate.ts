@@ -416,6 +416,10 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 subPath: httpOperation!.route?.subPath,
                 verb: httpOperation!.route.verb,
               };
+              // use the default path for post operations
+              if (outOperation.verb === "post" && !outOperation.subPath) {
+                outOperation.subPath = outOperation.name;
+              }
               localOperations.push(outOperation);
 
               let exists: boolean = false;

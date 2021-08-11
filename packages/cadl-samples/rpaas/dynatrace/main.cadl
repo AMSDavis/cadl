@@ -1,11 +1,12 @@
 import "@azure-tools/cadl-rest";
 import "@azure-tools/cadl-openapi";
 import "@azure-tools/cadl-rpaas";
+import "@azure-tools/cadl-rpaas-controller";
 import "./models.cadl";
 
 @armNamespace
 @serviceTitle("Dynatrace.Observability")
-@serviceVersion("2021-06-01-preview")
+@serviceVersion("2021-06-02-preview")
 namespace Dynatrace.Observability;
 
 @doc("Dynatrace Monitor Resource")
@@ -16,7 +17,9 @@ namespace Dynatrace.Observability;
   asyncOperations: ["create", "delete"]
 })
 @armListBy(SubscriptionIdParameter, "ListBySubscriptionId") // not needed
-model MonitorResource extends TrackedResourceExtended<EnvelopeExtended, MonitorProperties> { };
+model MonitorResource is TrackedResource<MonitorProperties> { 
+  ...EnvelopeExtended;
+};
 
 model EnvelopeExtended {
   @doc("Identity properties of the monitor resource.")
