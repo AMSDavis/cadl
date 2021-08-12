@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/rest",
+      "comment": "Add isHeader functionality to discover if a proprty is a header property",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@cadl-lang/rest",
+  "email": "markcowl@microsoft.com"
+}
