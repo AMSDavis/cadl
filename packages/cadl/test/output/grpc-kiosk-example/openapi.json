@@ -8,6 +8,12 @@
   "schemes": [
     "https"
   ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
   "tags": [
     {
       "name": "Display"
@@ -18,12 +24,6 @@
       "post": {
         "operationId": "Display_CreateKiosk",
         "summary": "Create a kiosk. This enrolls the kiosk for sign display.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "body",
@@ -55,10 +55,6 @@
       "get": {
         "operationId": "Display_ListKiosks",
         "summary": "List active kiosks.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -83,10 +79,6 @@
       "get": {
         "operationId": "Display_GetKiosk",
         "summary": "Get a kiosk.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "id",
@@ -117,10 +109,6 @@
       "delete": {
         "operationId": "Display_DeleteKiosk",
         "summary": "Delete a kiosk.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "id",
@@ -150,12 +138,6 @@
       "post": {
         "operationId": "Display_CreateSign",
         "summary": "Create a sign. This enrolls the sign for sign display.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "sign",
@@ -187,10 +169,6 @@
       "get": {
         "operationId": "Display_ListSigns",
         "summary": "List active signs.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -209,10 +187,6 @@
       "get": {
         "operationId": "Display_GetSign",
         "summary": "Get a sign.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "id",
@@ -243,10 +217,6 @@
       "delete": {
         "operationId": "Display_DeleteSign",
         "summary": "Delete a sign.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "id",
@@ -276,10 +246,6 @@
       "post": {
         "operationId": "Display_SetSignIdForKioskIds",
         "summary": "Set a sign for display on one or more kiosks.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/SetSignIdForKioskIdsRequest.kiosk_ids"
@@ -308,10 +274,6 @@
       "get": {
         "operationId": "Display_GetSignIdForKioskId",
         "summary": "Get the sign that should be displayed on a kiosk.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "kiosk_id",

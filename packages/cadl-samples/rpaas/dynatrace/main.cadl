@@ -13,18 +13,12 @@ namespace Dynatrace.Observability;
 @armResource({
   path: "monitors",
   collectionName: "Monitors",
-  parameterType: MonitorNameParameter,
-  asyncOperations: ["create", "delete"]
+  parameterType: MonitorNameParameter
 })
 @armListBy(SubscriptionIdParameter, "ListBySubscriptionId") // not needed
 model MonitorResource is TrackedResource<MonitorProperties> { 
-  ...EnvelopeExtended;
+  ...ManagedServiceIdentity;
 };
-
-model EnvelopeExtended {
-  @doc("Identity properties of the monitor resource.")
-	identity?: IdentityProperties;
-}
 
 model MonitorNameParameter {
   @doc("Monitor resource name")

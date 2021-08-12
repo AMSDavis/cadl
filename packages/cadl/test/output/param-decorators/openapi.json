@@ -8,15 +8,14 @@
   "schemes": [
     "https"
   ],
+  "produces": [
+    "application/json"
+  ],
   "tags": [],
   "paths": {
     "/thing/{name}": {
       "get": {
         "operationId": "Operations_getThing",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "name",
@@ -46,10 +45,6 @@
       },
       "put": {
         "operationId": "Operations_putThing",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/NameParameter"

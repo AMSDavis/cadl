@@ -13,10 +13,5 @@ namespace Microsoft.PlayFab.Service.Models
     /// The updatable properties of TitleProperties 
     /// </summary>
     public class TitleUpdateProperties    {
-        /// <summary>
-        ///  The player database for this title 
-        /// </summary>
-        [Pattern(&quot;\/subscriptions\/[a-z0-9\-]+\/resourceGroups\/[^\/]+\/providers\/Microsoft\.PlayFab\/playerDatabases\/[^\/]+&quot;)]
-        public string ParentDatabase { get; set; }
     }
 }

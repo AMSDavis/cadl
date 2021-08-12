@@ -8,16 +8,18 @@
   "schemes": [
     "https"
   ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
   "tags": [],
   "paths": {
     "/pets/{petId}": {
       "delete": {
         "operationId": "Pets_delete",
         "summary": "Delete a pet.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/PetId"
@@ -25,12 +27,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
-            "schema": {
-              "type": "object",
-              "properties": {},
-              "x-cadl-name": "(anonymous model)"
-            }
+            "description": "A successful response"
           },
           "default": {
             "description": "Error",
@@ -43,10 +40,6 @@
       "get": {
         "operationId": "Pets_read",
         "summary": "Returns a pet. Supports eTags.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/PetId"
@@ -78,10 +71,6 @@
       "get": {
         "operationId": "Pets_list",
         "summary": "<blink>List pets.</blink>",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "nextLink",
@@ -110,12 +99,6 @@
       },
       "post": {
         "operationId": "Pets_create",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "pet",
@@ -145,10 +128,6 @@
     "/pets/{petId}/toys": {
       "get": {
         "operationId": "ListPetToysResponse_list",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "petId",

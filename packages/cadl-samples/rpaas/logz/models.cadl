@@ -51,20 +51,6 @@ model LogzMonitorResourceProperties {
   liftrResourcePreference: int32;
 }
 
-@doc("Managed identity types")
-enum ManagedIdentityTypes { "SystemAssigned", "UserAssigned" }
-
-model IdentityProperties {
-  @doc("The identity ID.")
-  principalId: string;
-
-  @doc("The tenant ID of resource.")
-  tenantId: string;
-
-  @doc("Type of idenity")
-  type: ManagedIdentityTypes
-}
-
 @doc("Provisioning state of the monitoring resource")
 enum ProvisioningState {
   "Accepted", "Creating", "Updating", "Deleting",

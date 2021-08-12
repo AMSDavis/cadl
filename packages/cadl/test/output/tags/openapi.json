@@ -8,6 +8,9 @@
   "schemes": [
     "https"
   ],
+  "produces": [
+    "application/json"
+  ],
   "tags": [
     {
       "name": "foo"
@@ -27,8 +30,6 @@
       "get": {
         "operationId": "foo_read",
         "summary": "includes namespace tag",
-        "consumes": [],
-        "produces": [],
         "parameters": [
           {
             "name": "id",
@@ -51,8 +52,6 @@
       "post": {
         "operationId": "foo_create",
         "summary": "includes namespace tag and two operations tags",
-        "consumes": [],
-        "produces": [],
         "parameters": [
           {
             "name": "id",
@@ -78,10 +77,6 @@
       "get": {
         "operationId": "bar_list",
         "summary": "no tags",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -101,8 +96,6 @@
       "post": {
         "operationId": "bar_create",
         "summary": "one operation tag",
-        "consumes": [],
-        "produces": [],
         "parameters": [
           {
             "name": "id",

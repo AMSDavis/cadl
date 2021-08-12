@@ -1242,7 +1242,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
             const valType = cadlType.properties.get("v");
             return {
               type: "object",
-              additionalProperties: mapCadlTypeToOpenAPI(valType!.type),
+              additionalProperties: getSchemaOrRef(valType!.type),
             };
         }
     }

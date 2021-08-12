@@ -8,16 +8,15 @@
   "schemes": [
     "https"
   ],
+  "produces": [
+    "application/json"
+  ],
   "tags": [],
   "paths": {
     "/bool/true": {
       "get": {
         "operationId": "bool_getTrue",
         "summary": "Get true Boolean value",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -40,10 +39,6 @@
       "put": {
         "operationId": "bool_putTrue",
         "summary": "Set Boolean value true",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "value",
@@ -59,12 +54,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
-            "schema": {
-              "type": "object",
-              "properties": {},
-              "x-cadl-name": "(anonymous model)"
-            }
+            "description": "A successful response"
           },
           "default": {
             "description": "Error",
@@ -79,10 +69,6 @@
       "get": {
         "operationId": "bool_getFalse",
         "summary": "Get true Boolean false",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -105,10 +91,6 @@
       "put": {
         "operationId": "bool_putFalse",
         "summary": "Set Boolean value false",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "value",
@@ -139,10 +121,6 @@
       "get": {
         "operationId": "bool_getNull",
         "summary": "Get null Boolean value",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -161,10 +139,6 @@
       "get": {
         "operationId": "bool_getInvalid",
         "summary": "Get invalid Boolean value",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {

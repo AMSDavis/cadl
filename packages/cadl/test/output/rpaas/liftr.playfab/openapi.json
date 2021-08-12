@@ -47,10 +47,7 @@
     "/providers/Microsoft.PlayFab/operations": {
       "get": {
         "operationId": "Operations_List",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "summary": "List the operations for Microsoft.PlayFab",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -66,7 +63,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/OperationListResult"
             }
@@ -90,10 +87,6 @@
       "get": {
         "operationId": "playerDatabases_Get",
         "summary": "Get a PlayerDatabase",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -118,7 +111,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/PlayerDatabase"
             }
@@ -136,13 +129,11 @@
       },
       "put": {
         "operationId": "playerDatabases_CreateOrUpdate",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Create a PlayerDatabase",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -160,6 +151,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "Resource create parameters.",
             "schema": {
               "$ref": "#/definitions/PlayerDatabase"
             }
@@ -175,7 +167,21 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/PlayerDatabase"
+            }
+          },
+          "201": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/PlayerDatabase"
             }
@@ -194,12 +200,6 @@
       "patch": {
         "operationId": "playerDatabases_Update",
         "summary": "Update a PlayerDatabase",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -217,6 +217,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "The resource properties to be updated.",
             "schema": {
               "$ref": "#/definitions/PlayerDatabaseUpdate"
             }
@@ -232,7 +233,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/PlayerDatabase"
             }
@@ -250,11 +251,11 @@
       },
       "delete": {
         "operationId": "playerDatabases_Delete",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Delete a PlayerDatabase",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -279,10 +280,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "202": {
             "headers": {
@@ -293,10 +291,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deletion accepted.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
-            }
+            "description": "Resource deletion accepted."
           },
           "204": {
             "headers": {
@@ -307,10 +302,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedNoContentResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
@@ -328,10 +320,6 @@
       "get": {
         "operationId": "playerDatabases_ListBySubscription",
         "summary": "List PlayerDatabase resources by subscription ID",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -350,7 +338,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/PlayerDatabaseListResult"
             }
@@ -374,10 +362,6 @@
       "get": {
         "operationId": "playerDatabases_ListByResourceGroup",
         "summary": "List PlayerDatabase resources by resource group",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -399,7 +383,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/PlayerDatabaseListResult"
             }
@@ -423,10 +407,6 @@
       "get": {
         "operationId": "Titles_Get",
         "summary": "Get a Title",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -451,7 +431,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/Title"
             }
@@ -469,13 +449,11 @@
       },
       "put": {
         "operationId": "Titles_CreateOrUpdate",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Create a Title",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -493,6 +471,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "Resource create parameters.",
             "schema": {
               "$ref": "#/definitions/Title"
             }
@@ -508,7 +487,21 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Title"
+            }
+          },
+          "201": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/Title"
             }
@@ -527,12 +520,6 @@
       "patch": {
         "operationId": "Titles_Update",
         "summary": "Update a Title",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -550,6 +537,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "The resource properties to be updated.",
             "schema": {
               "$ref": "#/definitions/TitleUpdate"
             }
@@ -565,7 +553,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/Title"
             }
@@ -583,11 +571,11 @@
       },
       "delete": {
         "operationId": "Titles_Delete",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Delete a Title",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -612,10 +600,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "202": {
             "headers": {
@@ -626,10 +611,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deletion accepted.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
-            }
+            "description": "Resource deletion accepted."
           },
           "204": {
             "headers": {
@@ -640,10 +622,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedNoContentResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
@@ -661,10 +640,6 @@
       "get": {
         "operationId": "Titles_ListBySubscription",
         "summary": "List Title resources by subscription ID",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -683,7 +658,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/TitleListResult"
             }
@@ -707,10 +682,6 @@
       "get": {
         "operationId": "Titles_ListByResourceGroup",
         "summary": "List Title resources by resource group",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -732,7 +703,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/TitleListResult"
             }
@@ -802,21 +773,6 @@
         }
       },
       "description": "The updatable properties of the PlayerDatabase."
-    },
-    "ArmDeletedResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deleted successfully."
-    },
-    "ArmDeleteAcceptedResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deletion accepted."
-    },
-    "ArmDeletedNoContentResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deleted successfully."
     },
     "PlayerDatabaseListResult": {
       "type": "object",
@@ -948,7 +904,10 @@
           "description": "The set of titles belonging to this player database."
         }
       },
-      "description": "The updatable properties of PlayerDatabaseProperties"
+      "description": "The updatable properties of PlayerDatabaseProperties",
+      "required": [
+        "userId"
+      ]
     },
     "TitleProperties": {
       "type": "object",
@@ -969,25 +928,18 @@
     },
     "TitleUpdateProperties": {
       "type": "object",
-      "properties": {
-        "parentDatabase": {
-          "$ref": "#/definitions/PlayerDatabaseReference",
-          "description": "The player database for this title",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        }
-      },
+      "properties": {},
       "description": "The updatable properties of TitleProperties"
     },
     "TitleReference": {
       "type": "string",
-      "pattern": "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/titles\\/[^\\/]+"
+      "pattern": "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/titles\\/[^\\/]+",
+      "description": "A reference to a resource of type title."
     },
     "PlayerDatabaseReference": {
       "type": "string",
-      "pattern": "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/playerDatabases\\/[^\\/]+"
+      "pattern": "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/playerDatabases\\/[^\\/]+",
+      "description": "A reference to a player database resource."
     }
   },
   "parameters": {

@@ -47,10 +47,7 @@
     "/providers/Microsoft.CodeSigning/operations": {
       "get": {
         "operationId": "Operations_List",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "summary": "List the operations for Microsoft.CodeSigning",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -66,7 +63,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/OperationListResult"
             }
@@ -90,10 +87,6 @@
       "get": {
         "operationId": "CodeSignAccounts_Get",
         "summary": "Get a CodeSignAccount",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -118,7 +111,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/CodeSignAccount"
             }
@@ -136,13 +129,11 @@
       },
       "put": {
         "operationId": "CodeSignAccounts_CreateOrUpdate",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Create a CodeSignAccount",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -160,6 +151,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "Resource create parameters.",
             "schema": {
               "$ref": "#/definitions/CodeSignAccount"
             }
@@ -175,7 +167,21 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CodeSignAccount"
+            }
+          },
+          "201": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/CodeSignAccount"
             }
@@ -194,12 +200,6 @@
       "patch": {
         "operationId": "CodeSignAccounts_Update",
         "summary": "Update a CodeSignAccount",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -217,6 +217,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "The resource properties to be updated.",
             "schema": {
               "$ref": "#/definitions/CodeSignAccountUpdate"
             }
@@ -232,7 +233,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/CodeSignAccount"
             }
@@ -250,11 +251,11 @@
       },
       "delete": {
         "operationId": "CodeSignAccounts_Delete",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Delete a CodeSignAccount",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -279,10 +280,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "202": {
             "headers": {
@@ -293,10 +291,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deletion accepted.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
-            }
+            "description": "Resource deletion accepted."
           },
           "204": {
             "headers": {
@@ -307,10 +302,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedNoContentResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
@@ -328,10 +320,6 @@
       "get": {
         "operationId": "CodeSignAccounts_ListBySubscription",
         "summary": "List CodeSignAccount resources by subscription ID",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -350,7 +338,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/CodeSignAccountListResult"
             }
@@ -374,10 +362,6 @@
       "get": {
         "operationId": "CodeSignAccounts_ListByResourceGroup",
         "summary": "List CodeSignAccount resources by resource group",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -399,7 +383,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/CodeSignAccountListResult"
             }
@@ -423,10 +407,6 @@
       "get": {
         "operationId": "CertificateProfiles_Get",
         "summary": "Get a CertificateProfile",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -454,7 +434,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/CertificateProfile"
             }
@@ -473,12 +453,6 @@
       "patch": {
         "operationId": "CertificateProfiles_Update",
         "summary": "Update a CertificateProfile",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -499,6 +473,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "The resource properties to be updated.",
             "schema": {
               "$ref": "#/definitions/CertificateProfileUpdate"
             }
@@ -514,7 +489,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/CertificateProfile"
             }
@@ -535,10 +510,6 @@
       "get": {
         "operationId": "CertificateProfiles_ListByCodeSignAccounts",
         "summary": "List all CertificateProfile by accountName",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -563,7 +534,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/CertificateProfileListResult"
             }
@@ -634,21 +605,6 @@
         }
       },
       "description": "The updatable properties of the CodeSignAccount."
-    },
-    "ArmDeletedResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deleted successfully."
-    },
-    "ArmDeleteAcceptedResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deletion accepted."
-    },
-    "ArmDeletedNoContentResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deleted successfully."
     },
     "CodeSignAccountListResult": {
       "type": "object",
@@ -752,21 +708,7 @@
     },
     "CodeSignAccountUpdateProperties": {
       "type": "object",
-      "properties": {
-        "accountUri": {
-          "type": "string",
-          "description": "The URI of the code sign account for performing operations on certificate profiles. This property is readonly",
-          "readOnly": true
-        },
-        "verificationStatus": {
-          "$ref": "#/definitions/VerificationStatus",
-          "readOnly": true
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "readOnly": true
-        }
-      },
+      "properties": {},
       "description": "The updatable properties of CodeSignAccountProperties"
     },
     "CertificateProfileProperties": {
@@ -845,49 +787,18 @@
           "type": "string",
           "description": "Name of the certificate"
         },
-        "authority": {
-          "type": "string",
-          "description": "Certificate authority of the certificate",
-          "readOnly": true
-        },
         "subjectAlternativeName": {
           "type": "string",
           "description": "Subject Alternative Name of the certificate"
-        },
-        "organization": {
-          "type": "string",
-          "readOnly": true
-        },
-        "streetAddress": {
-          "type": "string",
-          "readOnly": true
-        },
-        "city": {
-          "type": "string",
-          "readOnly": true
-        },
-        "state": {
-          "type": "string",
-          "readOnly": true
-        },
-        "country": {
-          "type": "string",
-          "readOnly": true
-        },
-        "certificates": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Certificate"
-          },
-          "x-cadl-name": "Microsoft.CodeSigning.Certificate[]",
-          "readOnly": true
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "readOnly": true
         }
       },
-      "description": "The updatable properties of CertificateProfileProperties"
+      "description": "The updatable properties of CertificateProfileProperties",
+      "required": [
+        "profileType",
+        "rotationPolicy",
+        "commonName",
+        "subjectAlternativeName"
+      ]
     },
     "VerificationStatus": {
       "type": "string",

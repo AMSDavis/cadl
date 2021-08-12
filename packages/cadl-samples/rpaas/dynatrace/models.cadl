@@ -155,23 +155,6 @@ model EnvironmentInfo {
 	logsIngestionEndpoint?: string;
 }
 
-@doc("Managed identity types")
-enum ManagedIdentityTypes { "SystemAssigned", "UserAssigned" }
-
-@doc("Identity properties of the monitor resource.")
-model IdentityProperties {
-  @doc("The identity ID.")
-  @visibility("read")
-  principalId?: string;
-
-  @visibility("read")
-  @doc("The tenant ID of resource.")
-  tenantId?: string;
-
-  @doc("Type of identity")
-  type?: ManagedIdentityTypes
-}
-
 @doc("Provisioning state of the monitoring resource")
 enum ProvisioningState {
   "Accepted", "Creating", "Updating", "Deleting",
