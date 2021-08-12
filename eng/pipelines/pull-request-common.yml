@@ -26,7 +26,7 @@ steps:
   - script: node common/scripts/install-run-rush.js check-format
     displayName: Check Formatting
 
-  - script: cd packages/cadl && npm run regen-samples
+  - script: cd packages/compiler && npm run regen-samples
     displayName: Regenerate Samples
 
   - script: cd packages/cadl-samples && npx cadl generate rpaas/liftr.confluent/ --client --language typescript --option arm-types-path=../../cadl-samples/rpaas/types.json

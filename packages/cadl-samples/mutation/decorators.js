@@ -2,8 +2,8 @@ import {
   addModelProperty,
   addOperationParameter,
   addOperationResponseType,
-} from "@azure-tools/cadl";
-import { path, query } from "@azure-tools/cadl-rest";
+} from "@cadl-lang/compiler";
+import { path, query } from "@cadl-lang/rest";
 
 export function addProperties(program, model) {
   // Add a property of intrinsic type

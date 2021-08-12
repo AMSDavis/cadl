@@ -199,7 +199,7 @@ updated packages will automatically be published to `npm`.
 rush dogfood
 ```
 
-This will globally install the @azure-tools/cadl package, putting your
+This will globally install the @cadl-lang/compiler package, putting your
 build of `cadl` on PATH, and install the VS Code extension if VS Code
 is installed.
 

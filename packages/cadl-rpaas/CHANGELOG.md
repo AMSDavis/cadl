@@ -1,6 +1,13 @@
 # Change Log - @azure-tools/cadl-rpaas
 
-This log was last generated on Mon, 09 Aug 2021 21:14:12 GMT and should not be manually modified.
+This log was last generated on Tue, 10 Aug 2021 20:23:04 GMT and should not be manually modified.
+
+## 0.6.0
+Tue, 10 Aug 2021 20:23:04 GMT
+
+### Minor changes
+
+- React to package renames
 
 ## 0.5.1
 Mon, 09 Aug 2021 21:14:12 GMT

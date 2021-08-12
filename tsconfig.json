@@ -1,8 +1,8 @@
 {
   "references": [
-    { "path": "packages/cadl/tsconfig.json" },
-    { "path": "packages/cadl-openapi/tsconfig.json" },
-    { "path": "packages/cadl-rest/tsconfig.json" },
+    { "path": "packages/compiler/tsconfig.json" },
+    { "path": "packages/cadl-autorest/tsconfig.json" },
+    { "path": "packages/rest/tsconfig.json" },
     { "path": "packages/cadl-rpaas/tsconfig.json" },
     { "path": "packages/cadl-rpaas-controller/tsconfig.json" },
     { "path": "packages/cadl-vscode/tsconfig.json" },

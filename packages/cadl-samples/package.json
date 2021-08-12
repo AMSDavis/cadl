@@ -31,11 +31,11 @@
     "!dist/test/**"
   ],
   "dependencies": {
-    "@azure-tools/cadl": "0.16.0",
-    "@azure-tools/cadl-openapi": "0.4.1",
-    "@azure-tools/cadl-rest": "0.4.1",
-    "@azure-tools/cadl-rpaas": "0.5.1",
-    "@azure-tools/cadl-rpaas-controller": "0.2.1"
+    "@cadl-lang/compiler": "0.17.0",
+    "@azure-tools/cadl-autorest": "0.5.0",
+    "@cadl-lang/rest": "0.5.0",
+    "@azure-tools/cadl-rpaas": "0.6.0",
+    "@azure-tools/cadl-rpaas-controller": "0.3.0"
   },
   "devDependencies": {}
 }

@@ -1,4 +1,11 @@
 import {
+  ArmResourceInfo,
+  getArmNamespace,
+  getArmResourceInfo,
+  getArmResources,
+  ParameterInfo,
+} from "@azure-tools/cadl-rpaas";
+import {
   EnumType,
   getDoc,
   getFormat,
@@ -14,7 +21,7 @@ import {
   Program,
   Type,
   UnionType,
-} from "@azure-tools/cadl";
+} from "@cadl-lang/compiler";
 import {
   getHttpOperation,
   getPathParamName,
@@ -24,14 +31,7 @@ import {
   isPathParam,
   isQueryParam,
   isResource,
-} from "@azure-tools/cadl-rest";
-import {
-  ArmResourceInfo,
-  getArmNamespace,
-  getArmResourceInfo,
-  getArmResources,
-  ParameterInfo,
-} from "@azure-tools/cadl-rpaas";
+} from "@cadl-lang/rest";
 import * as fs from "fs/promises";
 import mkdirp from "mkdirp";
 import * as path from "path";

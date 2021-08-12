@@ -1,5 +1,5 @@
-import { Program, Type } from "@azure-tools/cadl";
-import { useRef } from "@azure-tools/cadl-openapi";
+import { useRef } from "@azure-tools/cadl-autorest";
+import { Program, Type } from "@cadl-lang/compiler";
 
 export function getArmTypesPath(program: Program): string | undefined {
   return (

@@ -76,7 +76,7 @@
       "type": "pwa-node",
       "request": "launch",
       "name": "Compile Scratch",
-      "program": "${workspaceRoot}/packages/cadl/dist/compiler/cli.js",
+      "program": "${workspaceRoot}/packages/compiler/dist/core/cli.js",
       "args": ["compile", "../cadl-samples/scratch", "--output-path=temp/scratch-output"],
       "smartStep": true,
       "sourceMaps": true,
@@ -94,7 +94,7 @@
       "type": "pwa-node",
       "request": "launch",
       "name": "Compile Scratch (nostdlib)",
-      "program": "${workspaceRoot}/packages/cadl/dist/compiler/cli.js",
+      "program": "${workspaceRoot}/packages/compiler/dist/core/cli.js",
       "args": [
         "compile",
         "../cadl-samples/scratch",

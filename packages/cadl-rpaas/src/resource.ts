@@ -6,7 +6,7 @@ import {
   StringLiteralType,
   TupleType,
   Type,
-} from "@azure-tools/cadl";
+} from "@cadl-lang/compiler";
 import { getArmNamespace } from "./namespace.js";
 import { _generateStandardOperations } from "./operations.js";
 

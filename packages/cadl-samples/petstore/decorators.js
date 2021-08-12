@@ -1,5 +1,5 @@
 // pretend I just typed this file from scratch... and saved it
-import { doc } from "@azure-tools/cadl";
+import { doc } from "@cadl-lang/compiler";
 
 export function fancyDoc(program, target, text) {
   text = `<blink>${text}</blink>`;

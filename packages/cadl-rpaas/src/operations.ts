@@ -1,5 +1,5 @@
-import { NamespaceType, Program, Type } from "@azure-tools/cadl";
-import { resource } from "@azure-tools/cadl-rest";
+import { NamespaceType, Program, Type } from "@cadl-lang/compiler";
+import { resource } from "@cadl-lang/rest";
 import { ArmResourceInfo, getArmResourceInfo, ParameterInfo } from "./resource.js";
 
 type StandardOperationGenerator = (program: Program, target: Type, documentation?: string) => void;

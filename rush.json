@@ -46,47 +46,55 @@
   "telemetryEnabled": false,
   "projects": [
     {
-      "packageName": "@azure-tools/cadl",
-      "projectFolder": "packages/cadl",
+      "packageName": "@cadl-lang/compiler",
+      "projectFolder": "packages/compiler",
       "reviewCategory": "production",
       "shouldPublish": true
     },
     {
-      "packageName": "@azure-tools/tmlanguage-generator",
+      // TMLanguage generator not in an @scope because it is neither cadl nor azure-specific.
+      // Eventually, it should be split off into its own repo
+      "packageName": "tmlanguage-generator",
       "projectFolder": "packages/tmlanguage-generator",
       "reviewCategory": "production",
       "shouldPublish": true
     },
     {
+      // VS Code package can't be in an @scope as it breaks VSIX package
+      // Eventually, this package should probably be deprecated in favor of publishing to VS marketplace
       "packageName": "cadl-vscode",
       "projectFolder": "packages/cadl-vscode",
       "reviewCategory": "production",
       "shouldPublish": true
     },
     {
-      "packageName": "@azure-tools/cadl-vs",
+      // VS package not in @scope purely for symmetry with VSCode package
+      // Eventually this package will also be deprecated in favor or VS marketplace
+      "packageName": "cadl-vs",
       "projectFolder": "packages/cadl-vs",
       "reviewCategory": "production",
       "shouldPublish": true
     },
     {
-      "packageName": "@azure-tools/prettier-plugin-cadl",
+      "packageName": "@cadl-lang/prettier-plugin-cadl",
       "projectFolder": "packages/prettier-plugin-cadl",
       "reviewCategory": "production",
       "shouldPublish": true
     },
     {
-      "packageName": "@azure-tools/cadl-language",
-      "projectFolder": "packages/cadl-language",
+      "packageName": "@cadl-lang/spec",
+      "projectFolder": "packages/spec",
       "reviewCategory": "production",
       "shouldPublish": false
     },
     {
-      "packageName": "@azure-tools/cadl-rest",
-      "projectFolder": "packages/cadl-rest",
+      "packageName": "@cadl-lang/rest",
+      "projectFolder": "packages/rest",
       "reviewCategory": "production",
       "shouldPublish": true
     },
+    // Packages below in @azure-tools, not @cadl-lang because they will be
+    // split off and remain private and internal for azure-specific uses.
     {
       "packageName": "@azure-tools/cadl-rpaas",
       "projectFolder": "packages/cadl-rpaas",
@@ -94,8 +102,8 @@
       "shouldPublish": true
     },
     {
-      "packageName": "@azure-tools/cadl-openapi",
-      "projectFolder": "packages/cadl-openapi",
+      "packageName": "@azure-tools/cadl-autorest",
+      "projectFolder": "packages/cadl-autorest",
       "reviewCategory": "production",
       "shouldPublish": true
     },

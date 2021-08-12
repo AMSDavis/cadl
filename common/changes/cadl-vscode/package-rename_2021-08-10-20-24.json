@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "cadl-vscode",
+      "comment": "",
+      "type": "none"
+    }
+  ],
+  "packageName": "cadl-vscode",
+  "email": "nicholg@microsoft.com"
+}

@@ -1,5 +1,5 @@
-import "@azure-tools/cadl-rest";
-import "@azure-tools/cadl-openapi";
+import "@cadl-lang/rest";
+import "@azure-tools/cadl-autorest";
 import "@azure-tools/cadl-rpaas";
 
 @doc("Reusable representation of an email address")
