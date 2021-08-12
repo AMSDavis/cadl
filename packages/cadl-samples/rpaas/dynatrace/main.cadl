@@ -1,4 +1,4 @@
-import "@azure-tools/cadl-rest";
+import "@cadl-lang/rest";
 import "@azure-tools/cadl-openapi";
 import "@azure-tools/cadl-rpaas";
 import "@azure-tools/cadl-rpaas-controller";
