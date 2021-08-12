@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rest",
+      "comment": "Added support for identifying types with body and header decorations",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rest",
+  "email": "markcowl@microsoft.com"
+}

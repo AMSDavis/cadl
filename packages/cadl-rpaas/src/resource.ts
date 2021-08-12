@@ -221,30 +221,6 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     });
   }
 
-  let asyncOperations: string[] = [];
-  const asyncOperationsValue = getPropertyValue<TupleType>(
-    program,
-    resourceDetails,
-    "asyncOperations",
-    "Tuple"
-  );
-
-  if (asyncOperationsValue) {
-    asyncOperations = asyncOperationsValue.values.map((v) => {
-      if (v.kind !== "String") {
-        program.reportDiagnostic(`Standard operation value must be a string`, v);
-        return "";
-      }
-
-      if (!standardOperations.includes(v.value)) {
-        program.reportDiagnostic("Async operatiosn value must be a standard operation", v);
-        return "";
-      }
-
-      return v.value;
-    });
-  }
-
   if (resourceParamType && resourceParamType.kind !== "Model") {
     program.reportDiagnostic(
       "The @armResource decorator only accepts model types for the resource parameter type.",
@@ -258,13 +234,6 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     resourceDetails,
     "pathParameters",
     "Tuple"
-  );
-
-  const asyncPatternType = getPropertyValue<StringLiteralType>(
-    program,
-    resourceDetails,
-    "asyncPattern",
-    "String"
   );
 
   // Locate the ARM namespace in the namespace hierarchy
