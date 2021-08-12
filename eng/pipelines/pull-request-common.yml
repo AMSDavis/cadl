@@ -26,10 +26,10 @@ steps:
   - script: node common/scripts/install-run-rush.js check-format
     displayName: Check Formatting
 
-  - script: cd packages/cadl && npm run regen-samples
+  - script: cd packages/compiler && npm run regen-samples
     displayName: Regenerate Samples
 
-  - script: cd packages/cadl-samples && npx cadl generate rpaas/liftr.confluent/ --client --language typescript --option arm-types-path=../../cadl-samples/rpaas/types.json
+  - script: cd packages/cadl-samples/rpaas/liftr.confluent && npx cadl compile . --option arm-types-path=../../types.json && npx autorest --typescript --clear-output-folder=true --output-folder=cadl-output/client  --title=CadlClient --input-file=cadl-output/openapi.json
     displayName: Sanity Check Client Generation
 
   - script: node eng/scripts/check-for-changed-files.js

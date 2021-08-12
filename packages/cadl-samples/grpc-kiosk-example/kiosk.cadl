@@ -1,5 +1,5 @@
-import "@azure-tools/cadl-rest";
-import "@azure-tools/cadl-openapi";
+import "@cadl-lang/rest";
+import "@azure-tools/cadl-autorest";
 
 @resource("/v1")
 @tag("Display")

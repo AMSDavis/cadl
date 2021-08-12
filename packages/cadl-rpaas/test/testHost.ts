@@ -1,4 +1,4 @@
-import { createTestHost } from "@azure-tools/cadl/dist/test/test-host.js";
+import { createTestHost } from "@cadl-lang/compiler/dist/test/test-host.js";
 import { resolve } from "path";
 import { fileURLToPath } from "url";
 
@@ -22,26 +22,26 @@ export async function createArmTestHost() {
 
   // load rest
   await host.addRealCadlFile(
-    "./node_modules/cadl-rest/package.json",
-    resolve(root, "../cadl-rest/package.json")
+    "./node_modules/rest/package.json",
+    resolve(root, "../rest/package.json")
   );
   await host.addRealCadlFile(
-    "./node_modules/cadl-rest/lib/rest.cadl",
-    resolve(root, "../cadl-rest/lib/rest.cadl")
+    "./node_modules/rest/lib/rest.cadl",
+    resolve(root, "../rest/lib/rest.cadl")
   );
   await host.addRealJsFile(
-    "./node_modules/cadl-rest/dist/rest.js",
-    resolve(root, "../cadl-rest/dist/rest.js")
+    "./node_modules/rest/dist/rest.js",
+    resolve(root, "../rest/dist/rest.js")
   );
 
   // load openapi
   await host.addRealCadlFile(
-    "./node_modules/cadl-openapi/package.json",
-    resolve(root, "../cadl-openapi/package.json")
+    "./node_modules/cadl-autorest/package.json",
+    resolve(root, "../cadl-autorest/package.json")
   );
   await host.addRealJsFile(
-    "./node_modules/cadl-openapi/dist/openapi.js",
-    resolve(root, "../cadl-openapi/dist/openapi.js")
+    "./node_modules/cadl-autorest/dist/openapi.js",
+    resolve(root, "../cadl-autorest/dist/openapi.js")
   );
 
   return host;
@@ -52,7 +52,7 @@ export async function openApiFor(code: string) {
   const outPath = resolve("/openapi.json");
   host.addCadlFile(
     "./main.cadl",
-    `import "cadl-rest"; import "cadl-openapi"; import "cadl-rpaas";${code}`
+    `import "rest"; import "cadl-autorest"; import "cadl-rpaas";${code}`
   );
   await host.compile("./main.cadl", { noEmit: false, swaggerOutputFile: outPath });
   return JSON.parse(host.fs.get(outPath)!);

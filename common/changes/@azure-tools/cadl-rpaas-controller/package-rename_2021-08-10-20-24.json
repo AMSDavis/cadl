@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas-controller",
+      "comment": "",
+      "type": "none"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas-controller",
+  "email": "nicholg@microsoft.com"
+}

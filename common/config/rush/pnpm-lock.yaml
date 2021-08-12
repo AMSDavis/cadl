@@ -1,18 +1,19 @@
 dependencies:
+  '@azure-tools/tmlanguage-generator': 0.1.4
   '@rollup/plugin-commonjs': 17.1.0_rollup@2.41.5
   '@rollup/plugin-json': 4.1.0_rollup@2.41.5
   '@rollup/plugin-node-resolve': 11.2.1_rollup@2.41.5
   '@rollup/plugin-replace': 2.4.2_rollup@2.41.5
-  '@rush-temp/cadl': file:projects/cadl.tgz
-  '@rush-temp/cadl-language': file:projects/cadl-language.tgz
-  '@rush-temp/cadl-openapi': file:projects/cadl-openapi.tgz
-  '@rush-temp/cadl-rest': file:projects/cadl-rest.tgz
+  '@rush-temp/cadl-autorest': file:projects/cadl-autorest.tgz
   '@rush-temp/cadl-rpaas': file:projects/cadl-rpaas.tgz
   '@rush-temp/cadl-rpaas-controller': file:projects/cadl-rpaas-controller.tgz
   '@rush-temp/cadl-samples': file:projects/cadl-samples.tgz
   '@rush-temp/cadl-vs': file:projects/cadl-vs.tgz
   '@rush-temp/cadl-vscode': file:projects/cadl-vscode.tgz
+  '@rush-temp/compiler': file:projects/compiler.tgz
   '@rush-temp/prettier-plugin-cadl': file:projects/prettier-plugin-cadl.tgz
+  '@rush-temp/rest': file:projects/rest.tgz
+  '@rush-temp/spec': file:projects/spec.tgz
   '@rush-temp/tmlanguage-generator': file:projects/tmlanguage-generator.tgz
   '@types/glob': 7.1.4
   '@types/js-yaml': 4.0.2
@@ -95,6 +96,15 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-OHAscARow8geElAm0ISB2/hfSh8GKxAOp1LoeTKNcY+xCqWbsWf9EbiYigAeGkICwsS6aVsrYysqY/iRlI4vfw==
+  /@azure-tools/tmlanguage-generator/0.1.4:
+    dependencies:
+      onigasm: 2.2.5
+      plist: 3.0.2
+    dev: false
+    engines:
+      node: '>=14.0.0'
+    resolution:
+      integrity: sha512-JZ+PmgqvQoppgACth9CGX/gjzxfEwU/b1c5hs8o70tXSqdEnXlaORrM0sUsBm2AiaS+Ael5rajTGz8a0zScooQ==
   /@babel/code-frame/7.14.5:
     dependencies:
       '@babel/highlight': 7.14.5
@@ -2891,39 +2901,17 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
-  file:projects/cadl-language.tgz:
-    dependencies:
-      '@types/mkdirp': 1.0.2
-      '@types/node': 14.0.27
-      ecmarkup: 7.0.3
-      watch: 1.0.2
-    dev: false
-    name: '@rush-temp/cadl-language'
-    resolution:
-      integrity: sha512-F1JochMVWbHR80wse+H1EXY/PdnSBbyvwJ+ORdH8ixST0rSrpS/5ohKMsj23WRD8JWxz7sa6STvS2yYRNJc9LQ==
-      tarball: file:projects/cadl-language.tgz
-    version: 0.0.0
-  file:projects/cadl-openapi.tgz:
+  file:projects/cadl-autorest.tgz:
     dependencies:
       '@types/mocha': 7.0.2
       '@types/node': 14.0.27
       mocha: 8.3.2
       typescript: 4.3.5
     dev: false
-    name: '@rush-temp/cadl-openapi'
+    name: '@rush-temp/cadl-autorest'
     resolution:
-      integrity: sha512-FPesifaEc2VJYFUBSb7BIeSxd5mct2Bj1XHdzXNOPh8pLi088h2cn+LrGHbZRhVu24CMJ09GYjilQPITTwCe+g==
-      tarball: file:projects/cadl-openapi.tgz
-    version: 0.0.0
-  file:projects/cadl-rest.tgz:
-    dependencies:
-      '@types/node': 14.0.27
-      typescript: 4.3.5
-    dev: false
-    name: '@rush-temp/cadl-rest'
-    resolution:
-      integrity: sha512-Cg1Aua0O49l+xDnwm9d8yg+i+wCuaIIt4uAfYdbmJR105W/wd8RidHyni/MHSh5chwVruqiqsI2J8JINvi4tlg==
-      tarball: file:projects/cadl-rest.tgz
+      integrity: sha512-aq4pnmgO0mq9Zbw3XcSOWkS3H2cD0XOF3ij8eaWcABH4nyC6XdbrjTum9kzcUEW19+7n2SaMm5f2iqD81mofIQ==
+      tarball: file:projects/cadl-autorest.tgz
     version: 0.0.0
   file:projects/cadl-rpaas-controller.tgz:
     dependencies:
@@ -2939,7 +2927,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-rpaas-controller'
     resolution:
-      integrity: sha512-LFRKPUtQYZD8qcrqXy1iJsjuqYF6OUgpad1exrOGIdA4qWhm2WuiSzZLshmkM5AyBpaGQqBXhaZgM5n3o4+AaQ==
+      integrity: sha512-xyatLenif7Jp2qQ8tB6fnV6foc0sIlqFBzWaQEB2p9YCkm2v8fidC+OUDpHCmfWo9KQGCQ8/khiE5zWTd/EmEw==
       tarball: file:projects/cadl-rpaas-controller.tgz
     version: 0.0.0
   file:projects/cadl-rpaas.tgz:
@@ -2951,25 +2939,28 @@ packages:
     dev: false
     name: '@rush-temp/cadl-rpaas'
     resolution:
-      integrity: sha512-QcMmDRS+9FP2e2UmtqEj5W/44q+F2bxuUUS7Vcx8sJEX6NTHBrQyQEwnZBIvXGax+H/8JEdRJxDJZVjW4cQukg==
+      integrity: sha512-iRz6ziyiL5g0je7wDs9aRZyx2LQUHCL/L90nFWy5Pg4RVIF9+iem7UwCmyreJ6DUS71oDQQEjbMcU5dJKaXN4A==
       tarball: file:projects/cadl-rpaas.tgz
     version: 0.0.0
   file:projects/cadl-samples.tgz:
+    dependencies:
+      autorest: 3.3.2
     dev: false
     name: '@rush-temp/cadl-samples'
     resolution:
-      integrity: sha512-CtYiHCWXRo0cS8uA1gmhL+YlAg0kjHLBHVlJenFMPpqeB5QGiTLZKQdC3QcEWlAYSdoZgPlqYC3srGNSJbLhVw==
+      integrity: sha512-OfosnQIcE62LW3bxsvORhRU/KzRxCkPITnel5juBL0cwClnmasD6Ox2+D0Sbx8c2xm7JgNqiMFXb9xvqNoIjZg==
       tarball: file:projects/cadl-samples.tgz
     version: 0.0.0
   file:projects/cadl-vs.tgz:
     dev: false
     name: '@rush-temp/cadl-vs'
     resolution:
-      integrity: sha512-OFcWlH4XrtFNC4B73MbCBbmsh2YXd5YKnP127LONyTRBzDbYO0cg6ssKCniF5Ks8ozFxEPxxN6joJdbpKWL6ug==
+      integrity: sha512-ums6G+VTzmjtUA52uN77gOJrnAyd4NLDS1dRhe3TT54IRBD0idhWJQ48xgGRRny41Bw1YTPke8+wzNSwYJykHg==
       tarball: file:projects/cadl-vs.tgz
     version: 0.0.0
   file:projects/cadl-vscode.tgz:
     dependencies:
+      '@azure-tools/tmlanguage-generator': 0.1.4
       '@rollup/plugin-commonjs': 17.1.0_rollup@2.41.5
       '@rollup/plugin-node-resolve': 11.2.1_rollup@2.41.5
       '@types/mkdirp': 1.0.2
@@ -2984,10 +2975,10 @@ packages:
     dev: false
     name: '@rush-temp/cadl-vscode'
     resolution:
-      integrity: sha512-2K14oKIJdWJbasFgAUiQ6cpz9FAySWpsM1uPFK2lQQ0laMJIBfWjSSiti32HPR4Bbbsas8GI6iZP1SOMOpfB0Q==
+      integrity: sha512-yPLHL50Le58LBa3zedIOK9/O+Wo1i9d9R81hn9/nDeYP3q/DaSo4U1DTNYpK88WX6GCX6JAgV2RZ0oWVqyMU4w==
       tarball: file:projects/cadl-vscode.tgz
     version: 0.0.0
-  file:projects/cadl.tgz:
+  file:projects/compiler.tgz:
     dependencies:
       '@types/glob': 7.1.4
       '@types/js-yaml': 4.0.2
@@ -3014,10 +3005,10 @@ packages:
       vscode-languageserver-textdocument: 1.0.1
       yargs: 17.0.1
     dev: false
-    name: '@rush-temp/cadl'
+    name: '@rush-temp/compiler'
     resolution:
-      integrity: sha512-v5KqXfuTYMZ313oPzRIlbBBbEqSv2Ys7Gwzea7OkXF160YUrvf6bHvQlAPzlMjKtdUxsO3ctG4+xZT0LdymHCA==
-      tarball: file:projects/cadl.tgz
+      integrity: sha512-NTI1NTiiYXUmVkhItTwlV+lyDUOKToVYox9HwmaADlg4JbDvYXrKpM2Vd2yTXSee9K0FNEn5OClYPWcvW/X8jg==
+      tarball: file:projects/compiler.tgz
     version: 0.0.0
   file:projects/prettier-plugin-cadl.tgz:
     dependencies:
@@ -3031,8 +3022,30 @@ packages:
     dev: false
     name: '@rush-temp/prettier-plugin-cadl'
     resolution:
-      integrity: sha512-ZgrqAdv1TwEET6f8KH0/DNurwrWe5rGwpxwjkhLvu9J19B28gyb47brYZU5Ia3Xg7VujcH1xw8rzvDwJa9lRZQ==
+      integrity: sha512-o7NZ35rPkCOPQAzF3MwLyAhnDxrt6cMyhhx+XGe9Jyfz/v0jOYTNrQd7mCEip/9ASYNbxXfqCXkD442tUANoWQ==
       tarball: file:projects/prettier-plugin-cadl.tgz
+    version: 0.0.0
+  file:projects/rest.tgz:
+    dependencies:
+      '@types/node': 14.0.27
+      typescript: 4.3.5
+    dev: false
+    name: '@rush-temp/rest'
+    resolution:
+      integrity: sha512-6r+IMryJsR0HsuiK/pZKFQd/cNmCocMLVEwaMZhmC/1Ynj8UDlFiYFJSvseuSAEvWqNoFxfPc0coZAJAK3dB8A==
+      tarball: file:projects/rest.tgz
+    version: 0.0.0
+  file:projects/spec.tgz:
+    dependencies:
+      '@types/mkdirp': 1.0.2
+      '@types/node': 14.0.27
+      ecmarkup: 7.0.3
+      watch: 1.0.2
+    dev: false
+    name: '@rush-temp/spec'
+    resolution:
+      integrity: sha512-731o1vURtQUKTOyqs95GKJnWcq46wuaZIlIGokXvJL4QUhLkGrFYLVmTJ5rm4HEOVFofXp4+ilFuZpBlG+Hwtw==
+      tarball: file:projects/spec.tgz
     version: 0.0.0
   file:projects/tmlanguage-generator.tgz:
     dependencies:
@@ -3048,20 +3061,21 @@ packages:
     version: 0.0.0
 registry: ''
 specifiers:
+  '@azure-tools/tmlanguage-generator': 0.1.4
   '@rollup/plugin-commonjs': ~17.1.0
   '@rollup/plugin-json': ~4.1.0
   '@rollup/plugin-node-resolve': ~11.2.0
   '@rollup/plugin-replace': ~2.4.2
-  '@rush-temp/cadl': file:./projects/cadl.tgz
-  '@rush-temp/cadl-language': file:./projects/cadl-language.tgz
-  '@rush-temp/cadl-openapi': file:./projects/cadl-openapi.tgz
-  '@rush-temp/cadl-rest': file:./projects/cadl-rest.tgz
+  '@rush-temp/cadl-autorest': file:./projects/cadl-autorest.tgz
   '@rush-temp/cadl-rpaas': file:./projects/cadl-rpaas.tgz
   '@rush-temp/cadl-rpaas-controller': file:./projects/cadl-rpaas-controller.tgz
   '@rush-temp/cadl-samples': file:./projects/cadl-samples.tgz
   '@rush-temp/cadl-vs': file:./projects/cadl-vs.tgz
   '@rush-temp/cadl-vscode': file:./projects/cadl-vscode.tgz
+  '@rush-temp/compiler': file:./projects/compiler.tgz
   '@rush-temp/prettier-plugin-cadl': file:./projects/prettier-plugin-cadl.tgz
+  '@rush-temp/rest': file:./projects/rest.tgz
+  '@rush-temp/spec': file:./projects/spec.tgz
   '@rush-temp/tmlanguage-generator': file:./projects/tmlanguage-generator.tgz
   '@types/glob': ~7.1.3
   '@types/js-yaml': ~4.0.1

@@ -1,6 +1,6 @@
-import { NamespaceType, Program, Type } from "@azure-tools/cadl";
-import { _addSecurityDefinition, _addSecurityRequirement } from "@azure-tools/cadl-openapi";
-import { consumes, produces, _setServiceNamespace } from "@azure-tools/cadl-rest";
+import { _addSecurityDefinition, _addSecurityRequirement } from "@azure-tools/cadl-autorest";
+import { NamespaceType, Program, Type } from "@cadl-lang/compiler";
+import { consumes, produces, _setServiceNamespace } from "@cadl-lang/rest";
 
 const armNamespacesKey = Symbol();
 

@@ -15,23 +15,23 @@ using the preview.
 | Name                                        | Changelog                    | Latest                                                     |
 | ------------------------------------------- | ---------------------------- | ---------------------------------------------------------- |
 | Core functionality                          |
-| [@azure-tools/cadl][cadl_src]                 | [Changelog][cadl_chg]         | ![](https://img.shields.io/npm/v/@azure-tools/cadl)         |
+| [@cadl-lang/compiler][cadl_src]                 | [Changelog][cadl_chg]         | ![](https://img.shields.io/npm/v/@cadl-lang/compiler)         |
 | Cadl Libraries                               |
-| [@azure-tools/cadl-rest][cadl-rest_src]       | [Changelog][cadl-rest_chg]    | ![](https://img.shields.io/npm/v/@azure-tools/cadl-rest)    |
+| [@cadl-lang/rest][rest_src]       | [Changelog][rest_chg]    | ![](https://img.shields.io/npm/v/@cadl-lang/rest)    |
 | [@azure-tools/cadl-rpaas][cadl-rpaas_src]     | [Changelog][cadl-rpaas_chg]   | ![](https://img.shields.io/npm/v/@azure-tools/cadl-rpaas)   |
-| [@azure-tools/cadl-openapi][cadl-openapi_src] | [Changelog][cadl-openapi_chg] | ![](https://img.shields.io/npm/v/@azure-tools/cadl-openapi) |
+| [@azure-tools/cadl-autorest][cadl-autorest_src] | [Changelog][cadl-autorest_chg] | ![](https://img.shields.io/npm/v/@azure-tools/cadl-autorest) |
 | Cadl Tools                                   |
 | [@azure-tools/cadl-vs][cadl-vs_src]           | [Changelog][cadl-vs_chg]      | ![](https://img.shields.io/npm/v/@azure-tools/cadl-vs)      |
 | [@azure-tools/cadl-vscode][cadl-vscode_src]   | [Changelog][cadl-vscode_chg]  | ![](https://img.shields.io/npm/v/cadl-vscode)               |
 
 [cadl_src]: packages/cadl
-[cadl_chg]: packages/cadl/CHANGELOG.md
-[cadl-rest_src]: packages/cadl-rest
-[cadl-rest_chg]: packages/cadl-rest/CHANGELOG.md
+[cadl_chg]: packages/compiler/CHANGELOG.md
+[rest_src]: packages/rest
+[rest_chg]: packages/rest/CHANGELOG.md
 [cadl-rpaas_src]: packages/cadl-rpaas
 [cadl-rpaas_chg]: packages/cadl-rpaas/CHANGELOG.md
-[cadl-openapi_src]: packages/cadl-openapi
-[cadl-openapi_chg]: packages/cadl-openapi/CHANGELOG.md
+[cadl-autorest_src]: packages/cadl-autorest
+[cadl-autorest_chg]: packages/cadl-autorest/CHANGELOG.md
 [cadl-vs_src]: packages/cadl-vs
 [cadl-vs_chg]: packages/cadl-vs/CHANGELOG.md
 [cadl-vscode_src]: packages/cadl-vscode
@@ -52,8 +52,8 @@ using the preview.
    ```
    cd path\to\cadl\project
    npm init -y
-   npm install -g @azure-tools/cadl
-   npm install @azure-tools/cadl-rest @azure-tools/cadl-openapi @azure-tools/cadl-rpaas
+   npm install -g @cadl-lang/compiler
+   npm install @cadl-lang/rest @azure-tools/cadl-autorest @azure-tools/cadl-rpaas
    ```
 
    This will create a `package.json` file for your Cadl project and add the necessary Cadl dependencies to it.
@@ -134,7 +134,7 @@ Preferences -> Settings, and adjust `cadl.cadl-server.path` accordingly. You may
 need to restart VS Code after changing this.
 
 You can also configure a project to use a local npm install of
-`@azure-tools/cadl`. See [local-cadl sample](packages/cadl-samples/local-cadl).
+`@cadl-lang/compiler`. See [local-cadl sample](packages/cadl-samples/local-cadl).
 
 ### Installing Visual Studio Extension
 

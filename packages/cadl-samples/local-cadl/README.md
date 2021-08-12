@@ -4,13 +4,13 @@ This sample shows how to install Cadl locally to a project and have the VS Code
 extension use its locally installed language server.
 
 See `cadl.cadl-server.path` in [.vscode/settings.json](.vscode/settings.json) and
-`@azure-tools/cadl` dev dependency in [package.json](package.json).
+`@cadl-lang/compiler` dev dependency in [package.json](package.json).
 
 ## Steps
 
 ### 1. Install Cadl to project:
 ```
-npm install --save-dev @azure-tools/cadl
+npm install --save-dev @cadl-lang/compiler
 ```
 
 ### 2. Configure path in VS Code

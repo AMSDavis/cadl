@@ -1,9 +1,9 @@
 {
   "extends": "../tsconfig.json",
   "references": [
-    { "path": "../cadl/tsconfig.json" },
-    { "path": "../cadl-openapi/tsconfig.json" },
-    { "path": "../cadl-rest/tsconfig.json" }
+    { "path": "../compiler/tsconfig.json" },
+    { "path": "../cadl-autorest/tsconfig.json" },
+    { "path": "../rest/tsconfig.json" }
   ],
   "compilerOptions": {
     "outDir": "dist",

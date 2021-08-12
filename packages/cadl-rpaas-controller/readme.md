@@ -19,7 +19,7 @@ Generation follows this general algorithm:
   - Pre-populate standard operations
 - Iterate over the namespaces to collect operations
   - Determine resource association with namespace through cadl-rpaas
-  - Get operation verb/path info through cadl-rest
+  - Get operation verb/path info through rest
   - Prevent duplication through maps/sets
   - Determine type references
   - Process return types and parameters to create model generation list

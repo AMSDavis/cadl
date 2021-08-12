@@ -17,7 +17,7 @@
       "type": "process",
       "command": "node",
       "args": [
-        "${workspaceFolder}/packages/cadl/node_modules/typescript/lib/tsc.js",
+        "${workspaceFolder}/packages/compiler/node_modules/typescript/lib/tsc.js",
         "--build",
         "--watch"
       ],
@@ -62,7 +62,7 @@
       "label": "watch-spec",
       "type": "process",
       "command": "node",
-      "args": ["${workspaceFolder}/packages/cadl-language/scripts/watch-spec.js"],
+      "args": ["${workspaceFolder}/packages/spec/scripts/watch-spec.js"],
       "problemMatcher": {
         "base": "$msCompile",
         "background": {
@@ -73,7 +73,7 @@
       },
       "isBackground": true,
       "options": {
-        "cwd": "${workspaceFolder}/packages/cadl-language"
+        "cwd": "${workspaceFolder}/packages/spec"
       },
       "presentation": {
         "echo": true,

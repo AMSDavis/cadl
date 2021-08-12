@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-autorest",
+      "comment": "",
+      "type": "none"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-autorest",
+  "email": "nicholg@microsoft.com"
+}
