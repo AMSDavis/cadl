@@ -243,5 +243,5 @@ model FilteringTag {
   action?: TagAction;
 }
 
-@doc("Valid actions for a filtering tag. Exclusion takes priority over inclusion.")
+@doc("Valid actions for a filtering a tag. Exclusion takes priority over inclusion.")
 enum TagAction { "Include", "Exclude" }
