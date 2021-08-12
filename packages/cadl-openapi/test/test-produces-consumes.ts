@@ -102,9 +102,7 @@ async function openApiForProducesConsumes(
   const apiDoc: string[] = createAdlFromConfig(configuration);
 
   let input = apiDoc.join("\n");
-  let openApi = await openApiFor(input).finally(() => console.log(input));
-
-  console.log(input);
+  let openApi = await openApiFor(input);
   const output = {
     globalProduces: openApi.produces as string[],
     globalConsumes: openApi.consumes,

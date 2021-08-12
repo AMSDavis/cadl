@@ -72,8 +72,6 @@ export interface ArmResourceInfo {
   resourceKind: ResourceKind;
   collectionName: string;
   standardOperations: string[];
-  asyncOperations: string[];
-  asyncPattern?: string;
   propertiesType?: ModelType;
   resourceNameParam?: ParameterInfo;
   parentResourceType?: Type;
@@ -323,12 +321,10 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
     collectionName: collectionNameType?.value ?? "",
     parentResourceType,
     standardOperations,
-    asyncOperations,
     resourceNameParam,
     resourceModelName,
     resourceListModelName,
     operationNamespaces: new Set<string>(),
-    asyncPattern: asyncPatternType?.value ?? "operationLocation",
   };
 
   armResourceInfo.resourcePath = getResourcePath(

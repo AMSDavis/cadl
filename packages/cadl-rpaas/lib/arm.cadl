@@ -40,19 +40,6 @@ model TrackedResource<TProperties> extends TrackedResourceBase {
   systemData?: SystemData;
 }
 
-@doc("Concrete tracked resource types with additional header elements can be created by aliasing this type using a specific property type.")
-model TrackedResourceExtended<TEnvelope, TProperties> extends TrackedResourceBase {
-  ...TEnvelope;
-  @doc("The resource-specific properties for this resource.")
-  @visibility("read", "create")
-  @extension("x-ms-client-flatten", true)
-  properties: TProperties;
-
-  @doc("System metadata for this resource.")
-  @visibility("read")
-  systemData?: SystemData;
-}
-
 @armCommonDefinition("ProxyResource")
 model ProxyResourceBase {
   ...ArmResource,

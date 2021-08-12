@@ -40,6 +40,7 @@ import {
   getServiceVersion,
   HttpVerb,
   isBody,
+  isHeader,
   _checkIfServiceNamespace,
 } from "@azure-tools/cadl-rest";
 import * as path from "path";
@@ -89,11 +90,27 @@ function getRef(program: Program, entity: Type): string | undefined {
 // will be inserted into the `security` and `securityDefinitions` sections of
 // the emitted OpenAPI document.
 
-const securityDetails: {
-  namespace?: NamespaceType;
-  requirements: any[];
-  definitions: any;
-} = { requirements: [], definitions: {} };
+const securityDetailsKey = Symbol();
+const securityRequirementsKey = "requirements";
+const securityDefinitionsKey = "definitions";
+
+function getSecurityRequirements(program: Program) {
+  const definitions = program.stateMap(securityDetailsKey);
+  return definitions?.has(securityRequirementsKey) ? definitions.get(securityRequirementsKey) : [];
+}
+
+function setSecurityRequirements(program: Program, requirements: any[]) {
+  program.stateMap(securityDetailsKey).set(securityRequirementsKey, requirements);
+}
+
+function getSecurityDefinitions(program: Program) {
+  const definitions = program.stateMap(securityDetailsKey);
+  return definitions?.has(securityDefinitionsKey) ? definitions.get(securityDefinitionsKey) : {};
+}
+
+function setSecurityDefinitions(program: Program, definitions: any) {
+  program.stateMap(securityDetailsKey).set(securityDefinitionsKey, definitions);
+}
 
 export function _addSecurityRequirement(
   program: Program,
@@ -110,7 +127,9 @@ export function _addSecurityRequirement(
 
   const req: any = {};
   req[name] = scopes;
-  securityDetails.requirements.push(req);
+  const requirements = getSecurityRequirements(program);
+  requirements.push(req);
+  setSecurityRequirements(program, requirements);
 }
 
 export function _addSecurityDefinition(
@@ -127,7 +146,9 @@ export function _addSecurityDefinition(
     return;
   }
 
-  securityDetails.definitions[name] = details;
+  const definitions = getSecurityDefinitions(program);
+  definitions[name] = details;
+  setSecurityDefinitions(program, definitions);
 }
 
 const openApiExtensions = new Map<Type, Map<string, any>>();
@@ -162,8 +183,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     schemes: ["https"],
     produces: [], // Pre-initialize produces and consumes so that
     consumes: [], // they show up at the top of the document
-    security: securityDetails.requirements,
-    securityDefinitions: securityDetails.definitions,
+    security: getSecurityRequirements(program),
+    securityDefinitions: getSecurityDefinitions(program),
     tags: [],
     paths: {},
     "x-ms-paths": {},
@@ -248,8 +269,6 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       }
     }
 
-    securityDetails.requirements = [];
-    securityDetails.definitions = [];
     openApiExtensions.clear();
   }
 
@@ -494,8 +513,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     }
 
     response.description = getResponseDescription(responseModel, statusCode);
-    let responseSchema = getSchemaOrRef(bodyModel);
-    if (!isEmptyType(bodyModel)) {
+    if (!isEmptyResponse(bodyModel)) {
+      let responseSchema = getSchemaOrRef(bodyModel);
       response.schema = responseSchema;
     }
 
@@ -503,13 +522,51 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     currentEndpoint.responses[statusCode] = response;
   }
 
-  function isEmptyType(adlType: Type) {
-    const model = adlType as ModelType;
-    if (!model) return false;
-    if (!(model.name.startsWith("Arm") && model.name.endsWith("Response"))) return false;
-    if (!model.properties) return true;
-    if (!model.properties.has("body")) return true;
-    return false;
+  function isEmptyResponse(adlType: Type) {
+    switch (adlType.kind) {
+      case "TemplateParameter":
+        {
+          if (adlType.instantiationParameters) {
+            for (let element of adlType.instantiationParameters) {
+              if (!isEmptyResponse(element)) return false;
+            }
+          }
+        }
+        return true;
+      case "Model": {
+        if (adlType.properties) {
+          for (let element of adlType.properties.values()) {
+            if (!isHeader(program, element)) return false;
+          }
+        }
+        if (adlType.baseModels) {
+          for (let element of adlType.baseModels) {
+            if (!isEmptyResponse(element)) return false;
+          }
+        }
+        if (adlType.templateArguments) {
+          for (let element of adlType.templateArguments) {
+            if (!isEmptyResponse(element)) return false;
+          }
+        }
+
+        return true;
+      }
+      case "Tuple":
+        for (let element of adlType.values) {
+          if (!isEmptyResponse(element)) return false;
+        }
+
+        return false;
+      case "Union":
+        for (let element of adlType.options) {
+          if (!isEmptyResponse(element)) return false;
+        }
+
+        return false;
+      default:
+        return false;
+    }
   }
 
   function getResponseDescription(responseModel: Type, statusCode: string) {
@@ -547,7 +604,6 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       // primitive. In such cases, we don't want to emit a ref and instead just
       // emit the base type directly.
       const builtIn = mapCadlTypeToOpenAPI(type);
-      // make sure we add documentation elements as appropriate to these schemas
       if (builtIn !== undefined) {
         return builtIn;
       }
@@ -1195,8 +1251,6 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     // TODO: multiple inheritance is not supported here.
     if (cadlType.kind === "Model" && cadlType.baseModels.length > 0) {
       const baseSchema = mapCadlTypeToOpenAPI(cadlType.baseModels[0]);
-      // since applyIntrinsicDecorators is used in other contexts, it is not safe to
-      // apply the doc decorator there, but we should add it when defining the schema
       if (baseSchema) {
         return applyIntrinsicDecorators(cadlType, baseSchema);
       }

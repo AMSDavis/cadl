@@ -160,33 +160,19 @@ export function armStandardCreate(program: Program, target: Type, documentation?
     documentation = `Create a ${armResourceInfo.resourceModelName}`;
   }
 
-  if (info.armResourceInfo?.asyncOperations?.includes("create")) {
-    const lroFinalState =
-      info.armResourceInfo?.asyncPattern == "location" ? "location" : "azure-async-operation";
-    evalInNamespace(
-      program,
-      namespace,
-      `@doc("${documentation}")
+  const lroFinalState = "azure-async-operation";
+  evalInNamespace(
+    program,
+    namespace,
+    `@doc("${documentation}")
        @extension("x-ms-long-running-operation", true)
        @asyncOperationOptions("${lroFinalState}")
        @put op CreateOrUpdate(${getOperationPathArguments(operationParams)}, 
        @doc("Resource create parameters.")
        @body resource: ${armResourceInfo.resourceModelName}): ArmResponse<${
-        armResourceInfo.resourceModelName
-      }> | ArmCreatedResponse<${armResourceInfo.resourceModelName}> | ErrorResponse;`
-    );
-  } else {
-    evalInNamespace(
-      program,
-      namespace,
-      `@doc("${documentation}")
-       @put op CreateOrUpdate(${getOperationPathArguments(operationParams)}, 
-       @doc("Resource create parameters.")
-       @body resource: ${armResourceInfo.resourceModelName}): ArmResponse<${
-        armResourceInfo.resourceModelName
-      }> | ErrorResponse;`
-    );
-  }
+      armResourceInfo.resourceModelName
+    }> | ArmCreatedResponse<${armResourceInfo.resourceModelName}> | ErrorResponse;`
+  );
 }
 
 export function armStandardUpdate(program: Program, target: Type, documentation?: string): void {
@@ -264,29 +250,17 @@ export function armStandardDelete(program: Program, target: Type, documentation?
     documentation = `Delete a ${armResourceInfo.resourceModelName}`;
   }
 
-  if (info.armResourceInfo?.asyncOperations?.includes("delete")) {
-    const lroFinalState =
-      info.armResourceInfo?.asyncPattern == "location" ? "location" : "azure-async-operation";
-    evalInNamespace(
-      program,
-      namespace,
-      `@doc("${documentation}")
+  const lroFinalState = "azure-async-operation";
+  evalInNamespace(
+    program,
+    namespace,
+    `@doc("${documentation}")
        @extension("x-ms-long-running-operation", true)
        @asyncOperationOptions("${lroFinalState}")
        @_delete op Delete(${getOperationPathArguments(
          operationParams
        )}): ArmDeletedResponse | ArmDeletedNoContentResponse | ArmDeleteAcceptedResponse | ErrorResponse;`
-    );
-  } else {
-    evalInNamespace(
-      program,
-      namespace,
-      `@doc("${documentation}")
-       @_delete op Delete(${getOperationPathArguments(
-         operationParams
-       )}): ArmDeletedResponse | ArmDeletedNoContentResponse | ErrorResponse;`
-    );
-  }
+  );
 }
 
 export function armStandardList(program: Program, target: Type, documentation?: string): void {
