@@ -2943,10 +2943,12 @@ packages:
       tarball: file:projects/cadl-rpaas.tgz
     version: 0.0.0
   file:projects/cadl-samples.tgz:
+    dependencies:
+      autorest: 3.3.2
     dev: false
     name: '@rush-temp/cadl-samples'
     resolution:
-      integrity: sha512-IqzcIlwWQ2U9holpdECq6re2HteqqjF//xY7NWkaKk+UBBHKn0KodlBECEyTGuZOczkZYwMYcDiXIQwfe06ORQ==
+      integrity: sha512-OfosnQIcE62LW3bxsvORhRU/KzRxCkPITnel5juBL0cwClnmasD6Ox2+D0Sbx8c2xm7JgNqiMFXb9xvqNoIjZg==
       tarball: file:projects/cadl-samples.tgz
     version: 0.0.0
   file:projects/cadl-vs.tgz:
@@ -3005,7 +3007,7 @@ packages:
     dev: false
     name: '@rush-temp/compiler'
     resolution:
-      integrity: sha512-YAqKyOVWoScWMSIyxqyKxXtWJcM1+VDqzZPvwAM4EuPWv7UDWvuUxvHySGiwXWkRD23ZRQ47OP2sdYUmC8fopA==
+      integrity: sha512-NTI1NTiiYXUmVkhItTwlV+lyDUOKToVYox9HwmaADlg4JbDvYXrKpM2Vd2yTXSee9K0FNEn5OClYPWcvW/X8jg==
       tarball: file:projects/compiler.tgz
     version: 0.0.0
   file:projects/prettier-plugin-cadl.tgz:
