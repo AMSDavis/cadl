@@ -27,7 +27,10 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response"
+            "description": "A successful response",
+            "schema": {
+              "type": "string"
+            }
           }
         },
         "consumes": [
@@ -49,7 +52,10 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response"
+            "description": "A successful response",
+            "schema": {
+              "type": "string"
+            }
           }
         },
         "consumes": [

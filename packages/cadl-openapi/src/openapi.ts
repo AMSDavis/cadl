@@ -534,6 +534,20 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         }
         return true;
       case "Model": {
+        switch (adlType.name) {
+          case "byte":
+          case "int32":
+          case "int64":
+          case "float64":
+          case "float32":
+          case "string":
+          case "boolean":
+          case "plainDate":
+          case "zonedDateTime":
+          case "plainTime":
+          case "Map":
+            return false;
+        }
         if (adlType.properties) {
           for (let element of adlType.properties.values()) {
             if (!isHeader(program, element)) return false;
