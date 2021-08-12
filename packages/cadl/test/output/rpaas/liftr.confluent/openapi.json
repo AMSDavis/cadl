@@ -665,11 +665,7 @@
           "description": "Subscriber details."
         }
       },
-      "description": "The updatable properties of OrganizationProperties",
-      "required": [
-        "offerDetail",
-        "userDetail"
-      ]
+      "description": "The updatable properties of OrganizationProperties"
     },
     "Uri": {
       "type": "string",

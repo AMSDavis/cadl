@@ -904,10 +904,7 @@
           "description": "The set of titles belonging to this player database."
         }
       },
-      "description": "The updatable properties of PlayerDatabaseProperties",
-      "required": [
-        "userId"
-      ]
+      "description": "The updatable properties of PlayerDatabaseProperties"
     },
     "TitleProperties": {
       "type": "object",

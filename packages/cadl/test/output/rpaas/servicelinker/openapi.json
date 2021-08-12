@@ -582,11 +582,7 @@
           "description": "The authentication type."
         }
       },
-      "description": "The updatable properties of LinkerProperties",
-      "required": [
-        "targetId",
-        "authInfo"
-      ]
+      "description": "The updatable properties of LinkerProperties"
     },
     "AuthInfoBase": {
       "type": "object",

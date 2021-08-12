@@ -1929,17 +1929,7 @@
           "description": "The priority of the resource."
         }
       },
-      "description": "The updatable properties of LogzMonitorResourceProperties",
-      "required": [
-        "provisioningState",
-        "monitoringStatus",
-        "marketplaceSubscriptionStatus",
-        "logzOrganizationProperties",
-        "userInfo",
-        "planData",
-        "liftrResourceCategory",
-        "liftrResourcePreference"
-      ]
+      "description": "The updatable properties of LogzMonitorResourceProperties"
     },
     "LogzMonitorResourceUpdateProperties": {
       "type": "object",
@@ -1978,17 +1968,7 @@
           "description": "The priority of the resource."
         }
       },
-      "description": "The updatable properties of LogzMonitorResourceProperties",
-      "required": [
-        "provisioningState",
-        "monitoringStatus",
-        "marketplaceSubscriptionStatus",
-        "logzOrganizationProperties",
-        "userInfo",
-        "planData",
-        "liftrResourceCategory",
-        "liftrResourcePreference"
-      ]
+      "description": "The updatable properties of LogzMonitorResourceProperties"
     },
     "LogzSingleSignOnProperties": {
       "type": "object",
@@ -2037,13 +2017,7 @@
           "description": "The provisioning state of the SSO resource"
         }
       },
-      "description": "The updatable properties of LogzSingleSignOnProperties",
-      "required": [
-        "singleSignOnState",
-        "enterpriseAppId",
-        "singleSignOnUrl",
-        "provisioningState"
-      ]
+      "description": "The updatable properties of LogzSingleSignOnProperties"
     },
     "ProvisioningState": {
       "type": "string",

@@ -792,13 +792,7 @@
           "description": "Subject Alternative Name of the certificate"
         }
       },
-      "description": "The updatable properties of CertificateProfileProperties",
-      "required": [
-        "profileType",
-        "rotationPolicy",
-        "commonName",
-        "subjectAlternativeName"
-      ]
+      "description": "The updatable properties of CertificateProfileProperties"
     },
     "VerificationStatus": {
       "type": "string",
