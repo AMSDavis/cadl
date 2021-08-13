@@ -1,6 +1,6 @@
 {
   "name": "@azure-tools/cadl-autorest",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": "Microsoft Corporation",
   "description": "Cadl library for emitting openapi from the Cadl REST protocol binding",
   "homepage": "https://github.com/Azure/adl",
@@ -34,8 +34,8 @@
     "!dist/test/**"
   ],
   "dependencies": {
-    "@cadl-lang/compiler": "0.17.0",
-    "@cadl-lang/rest": "0.5.0"
+    "@cadl-lang/compiler": "0.18.0",
+    "@cadl-lang/rest": "0.5.1"
   },
   "devDependencies": {
     "@types/mocha": "~7.0.2",

@@ -1,6 +1,13 @@
 # Change Log - @azure-tools/cadl-rpaas
 
-This log was last generated on Tue, 10 Aug 2021 20:23:04 GMT and should not be manually modified.
+This log was last generated on Fri, 13 Aug 2021 19:10:21 GMT and should not be manually modified.
+
+## 0.6.1
+Fri, 13 Aug 2021 19:10:21 GMT
+
+### Patches
+
+- Added support for Managed Identity, fix documentation issues, fix patch bodies, add required lro support for put and delete
 
 ## 0.6.0
 Tue, 10 Aug 2021 20:23:04 GMT

@@ -2,6 +2,26 @@
   "name": "@azure-tools/cadl-autorest",
   "entries": [
     {
+      "version": "0.5.1",
+      "tag": "@azure-tools/cadl-autorest_v0.5.1",
+      "date": "Fri, 13 Aug 2021 19:10:21 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fixes for retaining state over multiple compilations, allowing lro extensions, minimizing produces/consumes usage, removing empty response schema, fixes for dictionaries with complex value types"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@cadl-lang/compiler\" from `0.17.0` to `0.18.0`"
+          },
+          {
+            "comment": "Updating dependency \"@cadl-lang/rest\" from `0.5.0` to `0.5.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.0",
       "tag": "@azure-tools/cadl-autorest_v0.5.0",
       "date": "Tue, 10 Aug 2021 20:23:04 GMT",
