@@ -45,12 +45,6 @@
       "post": {
         "operationId": "FluidRelayServers_regenerateKey",
         "summary": "Regenerate the primary or secondary key for this server.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -86,7 +80,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/FluidRelayServerKeys"
             }
@@ -107,10 +101,6 @@
       "post": {
         "operationId": "FluidRelayServers_getKeys",
         "summary": "Retrieve the keys for this server.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -138,7 +128,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/FluidRelayServerKeys"
             }
@@ -159,10 +149,6 @@
       "get": {
         "operationId": "FluidRelayServers_Get",
         "summary": "Get a FluidRelayServer",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -187,7 +173,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/FluidRelayServer"
             }
@@ -205,13 +191,11 @@
       },
       "put": {
         "operationId": "FluidRelayServers_CreateOrUpdate",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Create a FluidRelayServer",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -229,6 +213,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "Resource create parameters.",
             "schema": {
               "$ref": "#/definitions/FluidRelayServer"
             }
@@ -244,7 +229,21 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/FluidRelayServer"
+            }
+          },
+          "201": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/FluidRelayServer"
             }
@@ -263,12 +262,6 @@
       "patch": {
         "operationId": "FluidRelayServers_Update",
         "summary": "Update a FluidRelayServer",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -286,6 +279,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "The resource properties to be updated.",
             "schema": {
               "$ref": "#/definitions/FluidRelayServerUpdate"
             }
@@ -301,7 +295,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/FluidRelayServer"
             }
@@ -319,11 +313,11 @@
       },
       "delete": {
         "operationId": "FluidRelayServers_Delete",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Delete a FluidRelayServer",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -348,10 +342,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "202": {
             "headers": {
@@ -362,10 +353,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deletion accepted.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
-            }
+            "description": "Resource deletion accepted."
           },
           "204": {
             "headers": {
@@ -376,10 +364,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedNoContentResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
@@ -396,10 +381,7 @@
     "/providers/Microsoft.FluidRelay/operations": {
       "get": {
         "operationId": "Operations_List",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "summary": "List the operations for Microsoft.FluidRelay",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -415,7 +397,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/OperationListResult"
             }
@@ -439,10 +421,6 @@
       "get": {
         "operationId": "FluidRelayServers_ListBySubscription",
         "summary": "List FluidRelayServer resources by subscription ID",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -461,7 +439,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/FluidRelayServerListResult"
             }
@@ -485,10 +463,6 @@
       "get": {
         "operationId": "FluidRelayServers_ListByResourceGroup",
         "summary": "List FluidRelayServer resources by resource group",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -510,7 +484,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/FluidRelayServerListResult"
             }
@@ -605,25 +579,10 @@
         },
         "properties": {
           "$ref": "#/definitions/FluidRelayServerUpdateProperties",
-          "description": "The updatable properties of FluidRelayServerProperties"
+          "description": "The updateable properties of FluidRelayServerProperties"
         }
       },
       "description": "The updatable properties of the FluidRelayServer."
-    },
-    "ArmDeletedResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deleted successfully."
-    },
-    "ArmDeleteAcceptedResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deletion accepted."
-    },
-    "ArmDeletedNoContentResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deleted successfully."
     },
     "FluidRelayServerListResult": {
       "type": "object",
@@ -649,6 +608,7 @@
     },
     "KeyName": {
       "type": "string",
+      "description": "The keys that are defined fro a FluidRelay Service.",
       "enum": [
         "key1",
         "key2"
@@ -660,7 +620,9 @@
     },
     "SecretKey": {
       "type": "string",
-      "format": "password"
+      "format": "password",
+      "x-ms-secret": true,
+      "description": "The representation of a secret value, represented as a string on the wire"
     },
     "FluidRelayServerProperties": {
       "type": "object",
@@ -685,22 +647,12 @@
     "FluidRelayServerUpdateProperties": {
       "type": "object",
       "properties": {
-        "frsTenantId": {
-          "type": "string",
-          "description": "The Fluid tenantId for this server",
-          "readOnly": true
-        },
-        "fluidRelayEndpoints": {
-          "$ref": "#/definitions/FluidRelayEndpoints",
-          "description": "The Fluid service endpoints for this server.",
-          "readOnly": true
-        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Provisioning states for FluidRelay RP"
         }
       },
-      "description": "The updatable properties of FluidRelayServerProperties"
+      "description": "The updateable properties of FluidRelayServerProperties"
     },
     "FluidRelayEndpoints": {
       "type": "object",
@@ -732,6 +684,7 @@
     },
     "ProvisioningState": {
       "type": "string",
+      "description": "Provisioning states for FluidRelay RP",
       "enum": [
         "Succeeded",
         "Failed",
@@ -743,7 +696,8 @@
       }
     },
     "Uri": {
-      "type": "string"
+      "type": "string",
+      "description": "A string that represents a URI."
     }
   },
   "parameters": {

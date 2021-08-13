@@ -1,0 +1,63 @@
+import "@cadl-lang/rest";
+import "@azure-tools/cadl-autorest";
+import "@azure-tools/cadl-rpaas";
+import "@azure-tools/cadl-rpaas-controller";
+import "./models.cadl";
+
+@armNamespace
+@serviceTitle("Dynatrace.Observability")
+@serviceVersion("2021-06-02-preview")
+namespace Dynatrace.Observability;
+
+@doc("Dynatrace Monitor Resource")
+@armResource({
+  path: "monitors",
+  collectionName: "Monitors",
+  parameterType: MonitorNameParameter
+})
+@armListBy(SubscriptionIdParameter, "ListBySubscriptionId") // not needed
+model MonitorResource is TrackedResource<MonitorProperties> { 
+  ...ManagedServiceIdentity;
+};
+
+model MonitorNameParameter {
+  @doc("Monitor resource name")
+  @path monitorName: string;
+}
+
+@doc("Tag rules for a monitor resource")
+@armResource({
+  path: "tagRules",
+  parentResourceType: MonitorResource,
+  collectionName: "TagRules",
+  parameterType: RuleSetNameParameter,
+  asyncOperations: ["create", "delete"]
+})
+@armListBy(MonitorNameParameter, "List")
+model TagRule extends ProxyResource<MonitoringTagRulesProperties> { };
+
+model RuleSetNameParameter {
+  @doc("Monitor resource name")
+  @path ruleSetName: string;
+}
+
+@armResourceOperations(MonitorResource)
+namespace Monitors {
+  @post("getAccountCredentials")
+  @doc("Gets the user account credentials for a Monitor")
+  op GetAccountCredentials(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupNameParameter,
+    ...MonitorNameParameter
+  ): AccountInfoSecure | ErrorResponse;
+
+  @post("listMonitoredResources")
+  @doc("List the resources currently being monitored by the Dynatrace monitor resource.")
+  op ListMonitoredResources(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupNameParameter,
+    ...MonitorNameParameter
+  ): MonitoredResourceListResponse | ErrorResponse; 
+}

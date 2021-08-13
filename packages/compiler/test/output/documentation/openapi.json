@@ -8,15 +8,14 @@
   "schemes": [
     "https"
   ],
+  "produces": [
+    "application/json"
+  ],
   "tags": [],
   "paths": {
     "/foo/DefaultDescriptions": {
       "get": {
         "operationId": "foo_WithDefaultDescriptions",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -37,10 +36,6 @@
     "/foo/ModelDocDescriptions": {
       "get": {
         "operationId": "foo_WithModelDocDescriptions",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -61,10 +56,6 @@
     "/foo/NotFoundWithDocs": {
       "get": {
         "operationId": "foo_WithStatusCodeDocs",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -91,10 +82,6 @@
     "/foo/NotFoundDefaultDocs": {
       "get": {
         "operationId": "foo_WithDefaultDescNotFound",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {

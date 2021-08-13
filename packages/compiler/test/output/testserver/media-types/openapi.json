@@ -8,22 +8,18 @@
   "schemes": [
     "https"
   ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/pdf"
+  ],
   "tags": [],
   "paths": {
     "/mediatypes/analyze": {
       "post": {
         "operationId": "AnalyzeBody",
         "summary": "Analyze body, that could be different media types.",
-        "consumes": [
-          "application/pdf",
-          "application/json",
-          "image/jpeg",
-          "image/png",
-          "image/tiff"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/Input"
@@ -36,19 +32,19 @@
               "type": "string"
             }
           }
-        }
+        },
+        "consumes": [
+          "application/json",
+          "image/jpeg",
+          "image/png",
+          "image/tiff"
+        ]
       }
     },
     "/mediatypes/contentTypeWithEncoding": {
       "post": {
         "operationId": "contentTypeWithEncoding",
         "summary": "Pass in contentType 'text/plain; encoding=UTF-8' to pass test. Value for input does not matter",
-        "consumes": [
-          "text/plain"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/Input"
@@ -61,7 +57,10 @@
               "type": "string"
             }
           }
-        }
+        },
+        "consumes": [
+          "text/plain"
+        ]
       }
     }
   },

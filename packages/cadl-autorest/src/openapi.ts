@@ -40,6 +40,7 @@ import {
   getServiceVersion,
   HttpVerb,
   isBody,
+  isHeader,
   _checkIfServiceNamespace,
 } from "@cadl-lang/rest";
 import * as path from "path";
@@ -89,11 +90,27 @@ function getRef(program: Program, entity: Type): string | undefined {
 // will be inserted into the `security` and `securityDefinitions` sections of
 // the emitted OpenAPI document.
 
-const securityDetails: {
-  namespace?: NamespaceType;
-  requirements: any[];
-  definitions: any;
-} = { requirements: [], definitions: {} };
+const securityDetailsKey = Symbol();
+const securityRequirementsKey = "requirements";
+const securityDefinitionsKey = "definitions";
+
+function getSecurityRequirements(program: Program) {
+  const definitions = program.stateMap(securityDetailsKey);
+  return definitions?.has(securityRequirementsKey) ? definitions.get(securityRequirementsKey) : [];
+}
+
+function setSecurityRequirements(program: Program, requirements: any[]) {
+  program.stateMap(securityDetailsKey).set(securityRequirementsKey, requirements);
+}
+
+function getSecurityDefinitions(program: Program) {
+  const definitions = program.stateMap(securityDetailsKey);
+  return definitions?.has(securityDefinitionsKey) ? definitions.get(securityDefinitionsKey) : {};
+}
+
+function setSecurityDefinitions(program: Program, definitions: any) {
+  program.stateMap(securityDetailsKey).set(securityDefinitionsKey, definitions);
+}
 
 export function _addSecurityRequirement(
   program: Program,
@@ -110,7 +127,9 @@ export function _addSecurityRequirement(
 
   const req: any = {};
   req[name] = scopes;
-  securityDetails.requirements.push(req);
+  const requirements = getSecurityRequirements(program);
+  requirements.push(req);
+  setSecurityRequirements(program, requirements);
 }
 
 export function _addSecurityDefinition(
@@ -127,13 +146,21 @@ export function _addSecurityDefinition(
     return;
   }
 
-  securityDetails.definitions[name] = details;
+  const definitions = getSecurityDefinitions(program);
+  definitions[name] = details;
+  setSecurityDefinitions(program, definitions);
 }
 
 const openApiExtensions = new Map<Type, Map<string, any>>();
 export function extension(program: Program, entity: Type, extensionName: string, value: any) {
   let typeExtensions = openApiExtensions.get(entity) ?? new Map<string, any>();
   typeExtensions.set(extensionName, value);
+  openApiExtensions.set(entity, typeExtensions);
+}
+
+export function asyncOperationOptions(program: Program, entity: Type, finalStateVia: string) {
+  let typeExtensions = openApiExtensions.get(entity) ?? new Map<string, any>();
+  typeExtensions.set("x-ms-long-running-operation-options", { "final-state-via": finalStateVia });
   openApiExtensions.set(entity, typeExtensions);
 }
 
@@ -156,8 +183,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     schemes: ["https"],
     produces: [], // Pre-initialize produces and consumes so that
     consumes: [], // they show up at the top of the document
-    security: securityDetails.requirements,
-    securityDefinitions: securityDetails.definitions,
+    security: getSecurityRequirements(program),
+    securityDefinitions: getSecurityDefinitions(program),
     tags: [],
     paths: {},
     "x-ms-paths": {},
@@ -332,6 +359,38 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     return undefined;
   }
 
+  function addProduces(producesValue: string) {
+    if (globalProduces.size < 1) {
+      globalProduces.add(producesValue);
+    }
+
+    if (!globalProduces.has(producesValue)) {
+      if (!currentEndpoint.produces) {
+        currentEndpoint.produces = [];
+      }
+
+      if (!currentEndpoint.produces.includes(producesValue)) {
+        currentEndpoint.produces.push(producesValue);
+      }
+    }
+  }
+
+  function addConsumes(consumesValue: string) {
+    if (globalConsumes.size < 1) {
+      globalConsumes.add(consumesValue);
+    }
+
+    if (!globalConsumes.has(consumesValue)) {
+      if (!currentEndpoint.consumes) {
+        currentEndpoint.consumes = [];
+      }
+
+      if (!currentEndpoint.consumes.includes(consumesValue)) {
+        currentEndpoint.consumes.push(consumesValue);
+      }
+    }
+  }
+
   function emitEndpoint(resource: NamespaceType, op: OperationType) {
     const params = getPathParameters(resource, op);
     const [verb, newPathParams, resolvedPath] = pathForEndpoint(op, params);
@@ -351,15 +410,17 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       currentPath[verb] = {};
     }
     currentEndpoint = currentPath[verb];
+
     if (program.stateMap(operationIdsKey).has(op)) {
       currentEndpoint.operationId = program.stateMap(operationIdsKey).get(op);
     } else {
       // Synthesize an operation ID
       currentEndpoint.operationId = `${resource.name}_${op.name}`;
     }
+
+    // allow operation extensions
+    attachExtensions(op, currentEndpoint);
     currentEndpoint.summary = getDoc(program, op);
-    currentEndpoint.consumes = [];
-    currentEndpoint.produces = [];
     currentEndpoint.parameters = [];
     currentEndpoint.responses = {};
 
@@ -450,13 +511,63 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     }
 
     response.description = getResponseDescription(responseModel, statusCode);
-    response.schema = getSchemaOrRef(bodyModel);
-
-    if (!currentEndpoint.produces.includes(contentType)) {
-      currentEndpoint.produces.push(contentType);
+    if (!isEmptyResponse(bodyModel)) {
+      let responseSchema = getSchemaOrRef(bodyModel);
+      response.schema = responseSchema;
     }
 
+    addProduces(contentType);
     currentEndpoint.responses[statusCode] = response;
+  }
+
+  function isEmptyResponse(adlType: Type) {
+    switch (adlType.kind) {
+      case "TemplateParameter":
+        {
+          if (adlType.instantiationParameters) {
+            for (let element of adlType.instantiationParameters) {
+              if (!isEmptyResponse(element)) return false;
+            }
+          }
+        }
+        return true;
+      case "Model": {
+        if (isIntrinsic(program, adlType)) {
+          return false;
+        }
+        if (adlType.properties) {
+          for (let element of adlType.properties.values()) {
+            if (!isHeader(program, element)) return false;
+          }
+        }
+        if (adlType.baseModels) {
+          for (let element of adlType.baseModels) {
+            if (!isEmptyResponse(element)) return false;
+          }
+        }
+        if (adlType.templateArguments) {
+          for (let element of adlType.templateArguments) {
+            if (!isEmptyResponse(element)) return false;
+          }
+        }
+
+        return true;
+      }
+      case "Tuple":
+        for (let element of adlType.values) {
+          if (!isEmptyResponse(element)) return false;
+        }
+
+        return false;
+      case "Union":
+        for (let element of adlType.options) {
+          if (!isEmptyResponse(element)) return false;
+        }
+
+        return false;
+      default:
+        return false;
+    }
   }
 
   function getResponseDescription(responseModel: Type, statusCode: string) {
@@ -526,6 +637,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       const placeholder = {
         $ref: "#/definitions/" + name,
       };
+
       schemas.add(type);
       return placeholder;
     }
@@ -591,7 +703,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         emitParameter(parent, param, "query");
       } else if (headerInfo) {
         if (headerInfo === "content-type") {
-          currentEndpoint.consumes = getContentTypes(param);
+          getContentTypes(param).forEach((c) => addConsumes(c));
         } else {
           emitParameter(parent, param, "header");
         }
@@ -609,15 +721,15 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       }
     }
 
-    if (currentEndpoint.consumes.length === 0 && bodyType) {
+    if ((!currentEndpoint.consumes || currentEndpoint.consumes.length === 0) && bodyType) {
       // we didn't find an explicit content type anywhere, so infer from body.
       const modelType = getModelTypeIfNullable(bodyType);
       if (modelType) {
         let contentTypeParam = modelType.properties.get("contentType");
         if (contentTypeParam) {
-          currentEndpoint.consumes = getContentTypes(contentTypeParam);
+          getContentTypes(contentTypeParam).forEach((c) => addConsumes(c));
         } else {
-          currentEndpoint.consumes = ["application/json"];
+          addConsumes("application/json");
         }
       }
     }
@@ -752,8 +864,14 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
   function getSchemaForType(type: Type) {
     const builtinType = mapCadlTypeToOpenAPI(type);
-    if (builtinType !== undefined) return builtinType;
-
+    if (builtinType !== undefined) {
+      // add in description elements for types derived from primitive types (SecureString, etc.)
+      const doc = getDoc(program, type);
+      if (doc) {
+        builtinType.description = doc;
+      }
+      return builtinType;
+    }
     if (type.kind === "Array") {
       return getSchemaForArray(type);
     } else if (type.kind === "Model") {
@@ -780,7 +898,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       values.push(option.value ? option.value : option.name);
     }
 
-    const schema: any = { type };
+    const schema: any = { type, description: getDoc(program, e) };
     if (values.length > 0) {
       schema.enum = values;
       addXMSEnum(e, schema);
@@ -1062,6 +1180,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       target = {
         ...target,
         format: "password",
+        "x-ms-secret": true,
       };
     }
 
@@ -1124,7 +1243,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
             const valType = cadlType.properties.get("v");
             return {
               type: "object",
-              additionalProperties: mapCadlTypeToOpenAPI(valType!.type),
+              additionalProperties: getSchemaOrRef(valType!.type),
             };
         }
     }

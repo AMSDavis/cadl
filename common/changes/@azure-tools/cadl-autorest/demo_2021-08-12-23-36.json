@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-autorest",
+      "comment": "Fixes for retaining state over multiple compilations, allowing lro extensions, minimizing produces/consumes usage, removing empty response schema, fixes for dictionaries with complex value types",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-autorest",
+  "email": "markcowl@microsoft.com"
+}

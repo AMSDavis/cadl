@@ -8,15 +8,14 @@
   "schemes": [
     "https"
   ],
+  "produces": [
+    "application/json"
+  ],
   "tags": [],
   "paths": {
     "/recursive": {
       "get": {
         "operationId": "RecursiveOps_getRecursive",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {

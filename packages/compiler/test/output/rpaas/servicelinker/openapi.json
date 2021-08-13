@@ -44,10 +44,6 @@
     "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/validateLinker": {
       "post": {
         "operationId": "Linker_ValidateLinker",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/ResourceUriParameter"
@@ -66,7 +62,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/ValidateResult"
             }
@@ -86,10 +82,6 @@
     "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/listConfigurations": {
       "post": {
         "operationId": "Linker_ListConfigurations",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/ResourceUriParameter"
@@ -108,7 +100,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SourceConfigurationResult"
             }
@@ -129,10 +121,6 @@
       "get": {
         "operationId": "Linker_Get",
         "summary": "Get a LinkerResource",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -154,7 +142,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/LinkerResource"
             }
@@ -172,13 +160,11 @@
       },
       "put": {
         "operationId": "Linker_CreateOrUpdate",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Create a LinkerResource",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -193,6 +179,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "Resource create parameters.",
             "schema": {
               "$ref": "#/definitions/LinkerResource"
             }
@@ -208,7 +195,21 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/LinkerResource"
+            }
+          },
+          "201": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/LinkerResource"
             }
@@ -227,12 +228,6 @@
       "patch": {
         "operationId": "Linker_Update",
         "summary": "Update a LinkerResource",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -247,6 +242,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "The resource properties to be updated.",
             "schema": {
               "$ref": "#/definitions/LinkerResourceUpdate"
             }
@@ -262,7 +258,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/LinkerResource"
             }
@@ -280,11 +276,11 @@
       },
       "delete": {
         "operationId": "Linker_Delete",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Delete a LinkerResource",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -306,10 +302,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "202": {
             "headers": {
@@ -320,10 +313,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deletion accepted.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
-            }
+            "description": "Resource deletion accepted."
           },
           "204": {
             "headers": {
@@ -334,10 +324,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedNoContentResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
@@ -354,10 +341,7 @@
     "/providers/Microsoft.ServiceLinker/operations": {
       "get": {
         "operationId": "Operations_List",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "summary": "List the operations for Microsoft.ServiceLinker",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -373,7 +357,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/OperationListResult"
             }
@@ -487,25 +471,10 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/LinkerResourceUpdateProperties",
-          "description": "The updatable properties of LinkerProperties"
+          "description": "The updateable properties of LinkerProperties"
         }
       },
       "description": "The updatable properties of the LinkerResource."
-    },
-    "ArmDeletedResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deleted successfully."
-    },
-    "ArmDeleteAcceptedResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deletion accepted."
-    },
-    "ArmDeletedNoContentResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deleted successfully."
     },
     "LinkerStatus": {
       "type": "string",
@@ -611,14 +580,9 @@
         "authInfo": {
           "$ref": "#/definitions/AuthInfoBase",
           "description": "The authentication type."
-        },
-        "provisioningState": {
-          "type": "string",
-          "description": "The provisioning state.",
-          "readOnly": true
         }
       },
-      "description": "The updatable properties of LinkerProperties"
+      "description": "The updateable properties of LinkerProperties"
     },
     "AuthInfoBase": {
       "type": "object",

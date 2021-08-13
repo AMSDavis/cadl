@@ -8,17 +8,17 @@
   "schemes": [
     "https"
   ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
   "tags": [],
   "paths": {
     "/cadl/things": {
       "post": {
         "operationId": "Things_postThing",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "thing",
@@ -44,12 +44,6 @@
     "/cadl/things/?overload=withParam": {
       "post": {
         "operationId": "Things_postThingWithParam",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "body",
@@ -86,12 +80,6 @@
     "/cadl/things/?overload=returnString": {
       "post": {
         "operationId": "Things_postThingReturnString",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "text/plain; charset=utf=8"
-        ],
         "parameters": [
           {
             "name": "thing",
@@ -109,7 +97,10 @@
               "type": "string"
             }
           }
-        }
+        },
+        "produces": [
+          "text/plain; charset=utf=8"
+        ]
       }
     }
   },

@@ -8,15 +8,14 @@
   "schemes": [
     "https"
   ],
+  "produces": [
+    "application/json"
+  ],
   "tags": [],
   "paths": {
     "/operations/{id}": {
       "get": {
         "operationId": "Operations_get",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "id",
@@ -35,7 +34,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/OperationStatusResult"
             }
@@ -46,10 +45,6 @@
     "/operations": {
       "get": {
         "operationId": "Operations_list",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -61,7 +56,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/OperationListResult"
             }

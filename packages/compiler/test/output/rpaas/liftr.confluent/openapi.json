@@ -47,12 +47,6 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/agreements/default": {
       "put": {
         "operationId": "MarketplaceAgreements_Create",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -79,7 +73,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/ConfluentAgreementResource"
             }
@@ -100,10 +94,6 @@
       "get": {
         "operationId": "MarketplaceAgreements_List",
         "summary": "List all ConfluentAgreementResource by subscriptionId",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -122,7 +112,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/ConfluentAgreementResourceListResult"
             }
@@ -145,10 +135,7 @@
     "/providers/Microsoft.Confluent/operations": {
       "get": {
         "operationId": "Operations_List",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "summary": "List the operations for Microsoft.Confluent",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -164,7 +151,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/OperationListResult"
             }
@@ -188,10 +175,6 @@
       "get": {
         "operationId": "Organizations_Get",
         "summary": "Get a Organization",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -216,7 +199,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/Organization"
             }
@@ -234,13 +217,11 @@
       },
       "put": {
         "operationId": "Organizations_CreateOrUpdate",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Create a Organization",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -258,6 +239,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "Resource create parameters.",
             "schema": {
               "$ref": "#/definitions/Organization"
             }
@@ -273,7 +255,21 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Organization"
+            }
+          },
+          "201": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/Organization"
             }
@@ -292,12 +288,6 @@
       "patch": {
         "operationId": "Organizations_Update",
         "summary": "Update a Organization",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -315,6 +305,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "The resource properties to be updated.",
             "schema": {
               "$ref": "#/definitions/OrganizationUpdate"
             }
@@ -330,7 +321,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/Organization"
             }
@@ -348,11 +339,11 @@
       },
       "delete": {
         "operationId": "Organizations_Delete",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Delete a Organization",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -377,10 +368,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "202": {
             "headers": {
@@ -391,10 +379,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deletion accepted.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
-            }
+            "description": "Resource deletion accepted."
           },
           "204": {
             "headers": {
@@ -405,10 +390,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedNoContentResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
@@ -426,10 +408,6 @@
       "get": {
         "operationId": "Organizations_ListBySubscription",
         "summary": "List Organization resources by subscription ID",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -448,7 +426,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/OrganizationListResult"
             }
@@ -472,10 +450,6 @@
       "get": {
         "operationId": "Organizations_ListByResourceGroup",
         "summary": "List Organization resources by resource group",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -497,7 +471,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/OrganizationListResult"
             }
@@ -611,25 +585,10 @@
         },
         "properties": {
           "$ref": "#/definitions/OrganizationUpdateProperties",
-          "description": "The updatable properties of OrganizationProperties"
+          "description": "The updateable properties of OrganizationProperties"
         }
       },
       "description": "The updatable properties of the Organization."
-    },
-    "ArmDeletedResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deleted successfully."
-    },
-    "ArmDeleteAcceptedResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deletion accepted."
-    },
-    "ArmDeletedNoContentResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deleted successfully."
     },
     "OrganizationListResult": {
       "type": "object",
@@ -697,22 +656,6 @@
     "OrganizationUpdateProperties": {
       "type": "object",
       "properties": {
-        "createdTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "UTC Time when Organization resource was created.",
-          "readOnly": true
-        },
-        "organizationId": {
-          "type": "string",
-          "description": "Id of the Confluent organization.",
-          "readOnly": true
-        },
-        "ssoUrl": {
-          "$ref": "#/definitions/Uri",
-          "description": "Single sign-on url for the Confluent organization.",
-          "readOnly": true
-        },
         "offerDetail": {
           "$ref": "#/definitions/OfferDetail",
           "description": "Details of the product offering."
@@ -722,10 +665,11 @@
           "description": "Subscriber details."
         }
       },
-      "description": "The updatable properties of OrganizationProperties"
+      "description": "The updateable properties of OrganizationProperties"
     },
     "Uri": {
-      "type": "string"
+      "type": "string",
+      "description": "A string that represents a URI."
     },
     "OfferDetail": {
       "type": "object",
@@ -791,14 +735,17 @@
     "MediumString": {
       "type": "string",
       "minLength": 5,
-      "maxLength": 50
+      "maxLength": 50,
+      "description": "Shorthand for setting length limit."
     },
     "ShortString": {
       "type": "string",
-      "maxLength": 25
+      "maxLength": 25,
+      "description": "Shorthand for setting length limit."
     },
     "OfferStatus": {
       "type": "string",
+      "description": "SaaS offer status.",
       "enum": [
         "Started",
         "PendingFulfillmentStart",
@@ -818,7 +765,8 @@
     },
     "email": {
       "type": "string",
-      "pattern": "\\w+@\\w+\\.\\w+"
+      "pattern": "\\w+@\\w+\\.\\w+",
+      "description": "Reusable representation of an email address"
     }
   },
   "parameters": {

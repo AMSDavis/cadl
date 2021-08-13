@@ -160,13 +160,18 @@ export function armStandardCreate(program: Program, target: Type, documentation?
     documentation = `Create a ${armResourceInfo.resourceModelName}`;
   }
 
+  const lroFinalState = "azure-async-operation";
   evalInNamespace(
     program,
     namespace,
     `@doc("${documentation}")
-     @put op CreateOrUpdate(${getOperationPathArguments(operationParams)}, @body resource: ${
+       @extension("x-ms-long-running-operation", true)
+       @asyncOperationOptions("${lroFinalState}")
+       @put op CreateOrUpdate(${getOperationPathArguments(operationParams)}, 
+       @doc("Resource create parameters.")
+       @body resource: ${armResourceInfo.resourceModelName}): ArmResponse<${
       armResourceInfo.resourceModelName
-    }): ArmResponse<${armResourceInfo.resourceModelName}> | ErrorResponse;`
+    }> | ArmCreatedResponse<${armResourceInfo.resourceModelName}> | ErrorResponse;`
   );
 }
 
@@ -191,12 +196,12 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
 
     updateModelName = `${armResourceInfo.resourceModelName}Update`;
     const updatePropertiesModel = `${updateModelName}Properties`;
-    const updatePropertiesDescription = `@doc("The updatable properties of ${armResourceInfo.propertiesType.name}")`;
+    const updatePropertiesDescription = `@doc("The updateable properties of ${armResourceInfo.propertiesType.name}")`;
     const propertiesModelString =
       armResourceInfo.propertiesType.name !== ""
         ? `${updatePropertiesDescription}
         model ${updatePropertiesModel} {
-          ...OptionalProperties<${armResourceInfo.propertiesType.name}>
+          ...OptionalProperties<UpdateableProperties<${armResourceInfo.propertiesType.name}>>
         }`
         : "";
 
@@ -227,7 +232,7 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
     `@doc("${documentation}")
      @patch op Update(${getOperationPathArguments(
        operationParams
-     )}, @body resource: ${updateModelName}): ArmResponse<${
+     )}, @doc("The resource properties to be updated.") @body resource: ${updateModelName}): ArmResponse<${
       armResourceInfo.resourceModelName
     }> | ErrorResponse;`
   );
@@ -245,13 +250,16 @@ export function armStandardDelete(program: Program, target: Type, documentation?
     documentation = `Delete a ${armResourceInfo.resourceModelName}`;
   }
 
+  const lroFinalState = "azure-async-operation";
   evalInNamespace(
     program,
     namespace,
     `@doc("${documentation}")
-     @_delete op Delete(${getOperationPathArguments(
-       operationParams
-     )}): ArmDeletedResponse | ArmDeleteAcceptedResponse | ArmDeletedNoContentResponse | ErrorResponse;`
+       @extension("x-ms-long-running-operation", true)
+       @asyncOperationOptions("${lroFinalState}")
+       @_delete op Delete(${getOperationPathArguments(
+         operationParams
+       )}): ArmDeletedResponse | ArmDeletedNoContentResponse | ArmDeleteAcceptedResponse | ErrorResponse;`
   );
 }
 

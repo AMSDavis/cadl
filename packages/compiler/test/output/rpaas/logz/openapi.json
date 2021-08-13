@@ -54,10 +54,6 @@
       "get": {
         "operationId": "LogzMonitors_listMonitoredResources",
         "summary": "List the resources currently being monitored by the Logz monitor resource.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "subscriptionId",
@@ -98,10 +94,6 @@
       "get": {
         "operationId": "SubAccounts_listMonitoredResources",
         "summary": "List the resources currently being monitored by the Logz sub account resource.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "subscriptionId",
@@ -151,12 +143,6 @@
       "patch": {
         "operationId": "SubAccounts_Update",
         "summary": "Update a SubAccountResource",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -177,6 +163,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "The resource properties to be updated.",
             "schema": {
               "$ref": "#/definitions/SubAccountResourceUpdate"
             }
@@ -192,7 +179,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountResource"
             }
@@ -211,10 +198,6 @@
       "get": {
         "operationId": "SubAccounts_Get",
         "summary": "Get a SubAccountResource",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -242,7 +225,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountResource"
             }
@@ -260,13 +243,11 @@
       },
       "put": {
         "operationId": "SubAccounts_CreateOrUpdate",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Create a SubAccountResource",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -287,6 +268,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "Resource create parameters.",
             "schema": {
               "$ref": "#/definitions/SubAccountResource"
             }
@@ -302,7 +284,21 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SubAccountResource"
+            }
+          },
+          "201": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountResource"
             }
@@ -320,11 +316,11 @@
       },
       "delete": {
         "operationId": "SubAccounts_Delete",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Delete a SubAccountResource",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -352,10 +348,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "202": {
             "headers": {
@@ -366,10 +359,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deletion accepted.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
-            }
+            "description": "Resource deletion accepted."
           },
           "204": {
             "headers": {
@@ -380,10 +370,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedNoContentResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
@@ -400,10 +387,7 @@
     "/providers/Microsoft.Logz/operations": {
       "get": {
         "operationId": "Operations_List",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
+        "summary": "List the operations for Microsoft.Logz",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -419,7 +403,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/OperationListResult"
             }
@@ -443,10 +427,6 @@
       "get": {
         "operationId": "Monitors_Get",
         "summary": "Get a LogzMonitorResource",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -471,7 +451,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/LogzMonitorResource"
             }
@@ -489,13 +469,11 @@
       },
       "put": {
         "operationId": "Monitors_CreateOrUpdate",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Create a LogzMonitorResource",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -513,6 +491,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "Resource create parameters.",
             "schema": {
               "$ref": "#/definitions/LogzMonitorResource"
             }
@@ -528,7 +507,21 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/LogzMonitorResource"
+            }
+          },
+          "201": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/LogzMonitorResource"
             }
@@ -547,12 +540,6 @@
       "patch": {
         "operationId": "Monitors_Update",
         "summary": "Update a LogzMonitorResource",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -570,6 +557,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "The resource properties to be updated.",
             "schema": {
               "$ref": "#/definitions/LogzMonitorResourceUpdate"
             }
@@ -585,7 +573,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/LogzMonitorResource"
             }
@@ -603,11 +591,11 @@
       },
       "delete": {
         "operationId": "Monitors_Delete",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Delete a LogzMonitorResource",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -632,10 +620,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "202": {
             "headers": {
@@ -646,10 +631,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deletion accepted.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
-            }
+            "description": "Resource deletion accepted."
           },
           "204": {
             "headers": {
@@ -660,10 +642,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedNoContentResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
@@ -681,10 +660,6 @@
       "get": {
         "operationId": "Monitors_ListBySubscription",
         "summary": "List LogzMonitorResource resources by subscription ID",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -703,7 +678,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/LogzMonitorResourceListResult"
             }
@@ -727,10 +702,6 @@
       "get": {
         "operationId": "Monitors_ListByResourceGroup",
         "summary": "List LogzMonitorResource resources by resource group",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -752,7 +723,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/LogzMonitorResourceListResult"
             }
@@ -776,10 +747,6 @@
       "get": {
         "operationId": "SubAccounts_ListBySubscription",
         "summary": "List SubAccountResource resources by subscription ID",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -798,7 +765,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountResourceListResult"
             }
@@ -822,10 +789,6 @@
       "get": {
         "operationId": "SubAccounts_ListByResourceGroup",
         "summary": "List SubAccountResource resources by resource group",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -847,7 +810,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountResourceListResult"
             }
@@ -871,10 +834,6 @@
       "get": {
         "operationId": "TagRules_Get",
         "summary": "Get a SubAccountTagRuleResource",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -905,7 +864,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountTagRuleResource"
             }
@@ -923,13 +882,11 @@
       },
       "put": {
         "operationId": "TagRules_CreateOrUpdate",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Create a SubAccountTagRuleResource",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -953,6 +910,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "Resource create parameters.",
             "schema": {
               "$ref": "#/definitions/SubAccountTagRuleResource"
             }
@@ -968,7 +926,21 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SubAccountTagRuleResource"
+            }
+          },
+          "201": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountTagRuleResource"
             }
@@ -987,12 +959,6 @@
       "patch": {
         "operationId": "TagRules_Update",
         "summary": "Update a SubAccountTagRuleResource",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1016,6 +982,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "The resource properties to be updated.",
             "schema": {
               "$ref": "#/definitions/SubAccountTagRuleResourceUpdate"
             }
@@ -1031,7 +998,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountTagRuleResource"
             }
@@ -1049,11 +1016,11 @@
       },
       "delete": {
         "operationId": "TagRules_Delete",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Delete a SubAccountTagRuleResource",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1084,10 +1051,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "202": {
             "headers": {
@@ -1098,10 +1062,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deletion accepted.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
-            }
+            "description": "Resource deletion accepted."
           },
           "204": {
             "headers": {
@@ -1112,10 +1073,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedNoContentResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
@@ -1133,10 +1091,6 @@
       "get": {
         "operationId": "TagRules_ListBySubscription",
         "summary": "List SubAccountTagRuleResource resources by subscription ID",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1155,7 +1109,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountTagRuleResourceListResult"
             }
@@ -1179,10 +1133,6 @@
       "get": {
         "operationId": "TagRules_ListByResourceGroup",
         "summary": "List SubAccountTagRuleResource resources by resource group",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1204,7 +1154,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountTagRuleResourceListResult"
             }
@@ -1228,10 +1178,6 @@
       "get": {
         "operationId": "SingleSignOnConfigurations_Get",
         "summary": "Get a SingleSignOnConfigurationResource",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1259,7 +1205,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SingleSignOnConfigurationResource"
             }
@@ -1277,13 +1223,11 @@
       },
       "put": {
         "operationId": "SingleSignOnConfigurations_CreateOrUpdate",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Create a SingleSignOnConfigurationResource",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1304,6 +1248,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "Resource create parameters.",
             "schema": {
               "$ref": "#/definitions/SingleSignOnConfigurationResource"
             }
@@ -1319,7 +1264,21 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SingleSignOnConfigurationResource"
+            }
+          },
+          "201": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SingleSignOnConfigurationResource"
             }
@@ -1338,12 +1297,6 @@
       "patch": {
         "operationId": "SingleSignOnConfigurations_Update",
         "summary": "Update a SingleSignOnConfigurationResource",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1364,6 +1317,7 @@
             "name": "resource",
             "in": "body",
             "required": true,
+            "description": "The resource properties to be updated.",
             "schema": {
               "$ref": "#/definitions/SingleSignOnConfigurationResourceUpdate"
             }
@@ -1379,7 +1333,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SingleSignOnConfigurationResource"
             }
@@ -1397,11 +1351,11 @@
       },
       "delete": {
         "operationId": "SingleSignOnConfigurations_Delete",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "summary": "Delete a SingleSignOnConfigurationResource",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1429,10 +1383,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "202": {
             "headers": {
@@ -1443,10 +1394,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deletion accepted.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeleteAcceptedResponse"
-            }
+            "description": "Resource deletion accepted."
           },
           "204": {
             "headers": {
@@ -1457,10 +1405,7 @@
                 "type": "string"
               }
             },
-            "description": "Resource deleted successfully.",
-            "schema": {
-              "$ref": "#/definitions/ArmDeletedNoContentResponse"
-            }
+            "description": "Resource deleted successfully."
           },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
@@ -1478,10 +1423,6 @@
       "get": {
         "operationId": "SingleSignOnConfigurations_ListBySubscription",
         "summary": "List SingleSignOnConfigurationResource resources by subscription ID",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1500,7 +1441,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SingleSignOnConfigurationResourceListResult"
             }
@@ -1524,10 +1465,6 @@
       "get": {
         "operationId": "SingleSignOnConfigurations_ListByResourceGroup",
         "summary": "List SingleSignOnConfigurationResource resources by resource group",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1549,7 +1486,7 @@
                 "type": "string"
               }
             },
-            "description": "Typed response envelope for ARM operations.",
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SingleSignOnConfigurationResourceListResult"
             }
@@ -1663,25 +1600,10 @@
         },
         "properties": {
           "$ref": "#/definitions/SubAccountResourceUpdateProperties",
-          "description": "The updatable properties of LogzMonitorResourceProperties"
+          "description": "The updateable properties of LogzMonitorResourceProperties"
         }
       },
       "description": "The updatable properties of the SubAccountResource."
-    },
-    "ArmDeletedResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deleted successfully."
-    },
-    "ArmDeleteAcceptedResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deletion accepted."
-    },
-    "ArmDeletedNoContentResponse": {
-      "type": "object",
-      "properties": {},
-      "description": "Resource deleted successfully."
     },
     "LogzMonitorResourceUpdate": {
       "type": "object",
@@ -1700,7 +1622,7 @@
         },
         "properties": {
           "$ref": "#/definitions/LogzMonitorResourceUpdateProperties",
-          "description": "The updatable properties of LogzMonitorResourceProperties"
+          "description": "The updateable properties of LogzMonitorResourceProperties"
         }
       },
       "description": "The updatable properties of the LogzMonitorResource."
@@ -1862,7 +1784,7 @@
         },
         "properties": {
           "$ref": "#/definitions/SingleSignOnConfigurationResourceUpdateProperties",
-          "description": "The updatable properties of LogzSingleSignOnProperties"
+          "description": "The updateable properties of LogzSingleSignOnProperties"
         }
       },
       "description": "The updatable properties of the SingleSignOnConfigurationResource."
@@ -2007,7 +1929,7 @@
           "description": "The priority of the resource."
         }
       },
-      "description": "The updatable properties of LogzMonitorResourceProperties"
+      "description": "The updateable properties of LogzMonitorResourceProperties"
     },
     "LogzMonitorResourceUpdateProperties": {
       "type": "object",
@@ -2046,7 +1968,7 @@
           "description": "The priority of the resource."
         }
       },
-      "description": "The updatable properties of LogzMonitorResourceProperties"
+      "description": "The updateable properties of LogzMonitorResourceProperties"
     },
     "LogzSingleSignOnProperties": {
       "type": "object",
@@ -2095,10 +2017,11 @@
           "description": "The provisioning state of the SSO resource"
         }
       },
-      "description": "The updatable properties of LogzSingleSignOnProperties"
+      "description": "The updateable properties of LogzSingleSignOnProperties"
     },
     "ProvisioningState": {
       "type": "string",
+      "description": "Provisioning state of the monitoring resource",
       "enum": [
         "Accepted",
         "Creating",
@@ -2117,6 +2040,7 @@
     },
     "MonitoringStatus": {
       "type": "string",
+      "description": "Flag specifying if the resource monitoring is enabled or disabled.",
       "enum": [
         "Enabled",
         "Disabled"
@@ -2128,6 +2052,7 @@
     },
     "MarketplaceSubscriptionStatus": {
       "type": "string",
+      "description": "Flag specifying the Marketplace Subscription Status of the resource. If payment is not made in time, the resource will go in Suspended state.",
       "enum": [
         "Active",
         "Suspended"
@@ -2218,6 +2143,7 @@
     },
     "LiftrResourceCategories": {
       "type": "string",
+      "description": "Liftr resource category",
       "enum": [
         "Unknown",
         "MonitorLogs"
@@ -2229,6 +2155,7 @@
     },
     "SingleSignOnStates": {
       "type": "string",
+      "description": "Various states of the SSO resource",
       "enum": [
         "Initial",
         "Enable",
@@ -2243,11 +2170,13 @@
     "MediumString": {
       "type": "string",
       "minLength": 5,
-      "maxLength": 50
+      "maxLength": 50,
+      "description": "Shorthand for setting length limit."
     },
     "email": {
       "type": "string",
-      "pattern": "^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$"
+      "pattern": "^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$",
+      "description": "Reusable representation of an email address"
     }
   },
   "parameters": {

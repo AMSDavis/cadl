@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-openapi",
+      "comment": "Coalesce produces/consumes settings, fix issues with complex maps, fix issues with repeated compilation in security definitions, do not emit empty schema, allow lro extensions",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-openapi",
+  "email": "markcowl@microsoft.com"
+}

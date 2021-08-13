@@ -83,13 +83,13 @@ model ArmResponseBase {
   correlationRequestId: string;
 }
 
-@doc("Typed response envelope for ARM operations.")
+@doc("ARM operation completed successfully.")
 model ArmResponse<T> {
   ... OkResponse<T>;
   ... ArmResponseBase;
 }
 
-@doc("Typed response envelope for ARM PUT operations.")
+@doc("ARM create operation completed successfully.")
 model ArmCreatedResponse<T> {
   ... CreatedResponse;
   ... ArmResponseBase;
@@ -340,6 +340,45 @@ model SystemData {
   @doc("The timestamp of resource last modification (UTC)")
   lastModifiedAt?: plainDate;
 }
+
+model ManagedServiceIdentity {
+  @doc("The managed service identities assigned to this resource.")
+  identity?: IdentityProperties;
+}
+
+@doc("The properties of the managed service identities assigned to this resource.")
+model IdentityProperties{
+  @doc("The Active Directory tenant id of the principal.")
+  @visibility("read")
+  tenantId?: string;
+  
+  @doc("The active directory identifier of this principal.")
+  @visibility("read")
+  principalId?: string;
+  
+  @doc("The type of managed identity assigned to this resource.")
+  type: ManagedIdentityType;
+
+  @doc("The identities assigned to this resource by the user.")
+  userAssignedIdentities?: Map<string, UserAssignedIdentity>;
+}
+
+@doc("A managed identity assigned by the user.")
+model UserAssignedIdentity {
+  @doc("The active directory client identifier for this principal.")
+  clientId: string;
+  @doc("The active directory identifier for this principal.")
+  principalId: string;
+}
+
+@doc("The kind of managemed identity assigned to this resource.")
+enum ManagedIdentityType {
+  SystemAssigned,
+  UserAssigned,
+  SystemAndUserAssigned
+}
+
+
 
 @doc("Update model for resource tags")
 model ResourceUpdate {

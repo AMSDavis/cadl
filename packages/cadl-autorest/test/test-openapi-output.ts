@@ -215,11 +215,26 @@ describe("autorest: definitions", () => {
     });
   });
 
+  it("excludes response models with only headers", async () => {
+    const res = await oapiForModel(
+      "Foo",
+      `
+      model Foo { @header x: string};`
+    );
+
+    ok(!res.isRef);
+    deepStrictEqual(res.defs, {});
+    deepStrictEqual(res.response, {
+      description: "A successful response",
+      headers: { x: { type: "string" } },
+    });
+  });
+
   it("defines models with no properties extended", async () => {
     const res = await oapiForModel(
       "Bar",
       `
-      model Foo {};
+      model Foo { x?: string};
       model Bar extends Foo {};`
     );
 
@@ -234,7 +249,7 @@ describe("autorest: definitions", () => {
 
     deepStrictEqual(res.defs.Foo, {
       type: "object",
-      properties: {},
+      properties: { x: { type: "string" } },
     });
   });
 
@@ -400,11 +415,13 @@ async function oapiForModel(name: string, modelDef: string) {
     }
   `);
 
-  const useSchema = oapi.paths["/"].get.responses[200].schema;
+  const response = oapi.paths["/"].get.responses[200];
+  const useSchema = response?.schema;
 
   return {
-    isRef: !!useSchema.$ref,
+    isRef: !!useSchema?.$ref,
     useSchema,
     defs: oapi.definitions,
+    response: response,
   };
 }

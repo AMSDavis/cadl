@@ -8,16 +8,18 @@
   "schemes": [
     "https"
   ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
   "tags": [],
   "paths": {
     "/kv": {
       "get": {
         "operationId": "GetKeyValues",
         "summary": "Gets a list of key-values.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/ServiceParams"
@@ -125,10 +127,6 @@
       "get": {
         "operationId": "CheckKeyValues",
         "summary": "Gets a list of key-values.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/AcceptDatetimeHeader"
@@ -172,10 +170,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/SyncTokenHeader"
-            }
+            "description": "A successful response"
           },
           "default": {
             "description": "Azure App Configuration error object.",
@@ -190,10 +185,6 @@
       "get": {
         "operationId": "GetKeyValue",
         "summary": "Gets a single key-value.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/ETagHeaders.ifMatch"
@@ -274,10 +265,6 @@
       "delete": {
         "operationId": "DeleteKeyValue",
         "summary": "Deletes a key-value.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/KeyWithFilters.key"
@@ -323,12 +310,7 @@
             }
           },
           "304": {
-            "description": "A successful response",
-            "schema": {
-              "type": "object",
-              "properties": {},
-              "x-cadl-name": "NoContent<(anonymous model)>"
-            }
+            "description": "A successful response"
           },
           "default": {
             "description": "Azure App Configuration error object.",
@@ -343,12 +325,6 @@
       "get": {
         "operationId": "UpdateKeyValue",
         "summary": "Updates a key-value pair",
-        "consumes": [
-          "application/json-patch+json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/ServiceParams"
@@ -417,17 +393,16 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "consumes": [
+          "application/json-patch+json"
+        ]
       }
     },
     "/labels": {
       "get": {
         "operationId": "GetLabels",
         "summary": "Gets a list of labels.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/ServiceParams"
@@ -488,10 +463,6 @@
       "get": {
         "operationId": "CheckLabels",
         "summary": "Requests the headers and status of the given resource.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/ServiceParams"
@@ -533,10 +504,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/SyncTokenHeader"
-            }
+            "description": "A successful response"
           },
           "default": {
             "description": "Azure App Configuration error object.",
@@ -550,10 +518,6 @@
     "/locks/{key}": {
       "get": {
         "operationId": "GetLock",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/ServiceParams"
@@ -620,10 +584,6 @@
       },
       "delete": {
         "operationId": "DeleteLock",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/ServiceParams"
@@ -693,10 +653,6 @@
       "get": {
         "operationId": "GetRevisions",
         "summary": "Gets a list of revisions.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/ServiceParams"
@@ -804,10 +760,6 @@
       "get": {
         "operationId": "CheckRevisions",
         "summary": "Requests the headers and status of the given resource.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/ServiceParams"
@@ -833,10 +785,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/SyncTokenHeader"
-            }
+            "description": "A successful response"
           },
           "default": {
             "description": "Azure App Configuration error object.",
@@ -851,10 +800,6 @@
       "get": {
         "operationId": "GetKeys",
         "summary": "Gets a list of keys.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/ServiceParams"
@@ -915,10 +860,6 @@
       "get": {
         "operationId": "CheckKeys",
         "summary": "Requests the headers and status of the given resource.",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/ServiceParams"
@@ -944,10 +885,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/SyncTokenHeader"
-            }
+            "description": "A successful response"
           },
           "default": {
             "description": "Azure App Configuration error object.",
@@ -1008,10 +946,6 @@
         "detail",
         "statusCode"
       ]
-    },
-    "SyncTokenHeader": {
-      "type": "object",
-      "properties": {}
     },
     "Label": {
       "type": "object",

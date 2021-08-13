@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas-controller",
+      "comment": "Add support for default post operation path",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas-controller",
+  "email": "markcowl@microsoft.com"
+}
