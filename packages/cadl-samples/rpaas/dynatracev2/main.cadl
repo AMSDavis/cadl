@@ -1,0 +1,121 @@
+import "@cadl-lang/rest";
+import "@azure-tools/cadl-autorest";
+import "@azure-tools/cadl-rpaas";
+import "@azure-tools/cadl-rpaas-controller";
+import "./models.cadl";
+
+@armNamespace
+@serviceTitle("Dynatrace.Observability")
+@serviceVersion("2021-06-01-preview")
+namespace Dynatrace.Observability;
+
+@doc("Dynatrace Monitor Resource")
+@armResource({
+  path: "monitors",
+  collectionName: "Monitors",
+  parameterType: MonitorNameParameter
+})
+@armListBy(SubscriptionIdParameter, "ListBySubscriptionId") // not needed
+model MonitorResource is TrackedResource<MonitorProperties> {
+  ...ManagedServiceIdentity;  // change here to use the standard definition
+ };
+
+model MonitorNameParameter {
+  @doc("Monitor resource name")
+  @path monitorName: string;
+}
+
+@doc("Tag rules for a monitor resource")
+@armResource({
+  path: "tagRules",
+  parentResourceType: MonitorResource,
+  collectionName: "TagRules",
+  parameterType: RuleSetNameParameter
+})
+@armListBy(MonitorNameParameter, "List")
+model TagRule is ProxyResource<MonitoringTagRulesProperties> { };
+
+model RuleSetNameParameter {
+  @doc("Monitor resource name")
+  @path ruleSetName: string;
+}
+
+@armResourceOperations(MonitorResource)
+namespace Monitors {
+  @post("getAccountCredentials")
+  @doc("Gets the user account credentials for a Monitor")
+  op GetAccountCredentials(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupNameParameter,
+    ...MonitorNameParameter
+  ): AccountInfoSecure | ErrorResponse;
+
+  @post("listMonitoredResources")
+  @doc("List the resources currently being monitored by the Dynatrace monitor resource.")
+  @pageable("nextLink")
+  op ListMonitoredResources(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupNameParameter,
+    ...MonitorNameParameter
+  ): ArmResponse<MonitoredResourceListResponse> | ErrorResponse;
+  
+  @post("vmHostPayload")
+  @doc("Returns the payload that needs to be passed in the request body for installing Dynatrace agent on a VM.")
+  op GetVMHostPayload(  // needed to change the name here to make it a verb.
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupNameParameter,
+    ...MonitorNameParameter
+  ): ArmResponse<VMExtensionPayload> | ErrorResponse;
+
+  @post("vmHostUpdate")
+  @doc("Sending request to update the collection when Dynatrace agent has been installed on a VM for a given monitor.")
+  @pageable("nextLink")
+  op ListVmHostUpdate(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupNameParameter,
+    ...MonitorNameParameter,
+    ...VMHostUpdateParameter         // change here
+  ): ArmResponse<VMResourcesListResponse> | ErrorResponse;
+
+  @post("listVMHosts")
+  @doc("List the compute resources currently being monitored by the Dynatrace resource.")
+  @pageable("nextLink")
+  op ListVMHosts(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupNameParameter,
+    ...MonitorNameParameter
+  ): ArmResponse<VMResourcesListResponse> | ErrorResponse;
+
+  @post("singleSignOnConfigurations")
+  @doc("List the single sign-on configurations for a given monitor resource.")
+  @pageable("nextLink")
+  op ListSingleSignOnConfigurations(  // changed for compliance
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupNameParameter,
+    ...MonitorNameParameter
+  ): ArmResponse<VMResourcesListResponse> | ErrorResponse;
+}
+
+
+// note: I think you only need get.  It is odd to have PUT without DELETE, though.
+@doc("Single sign-on configurations for a given monitor resource.")
+@armResource({
+  path: "singleSignOnConfigurations",
+  parentResourceType: MonitorResource,
+  collectionName: "SingleSignOn",
+  parameterType: ConfigurationNameParameter,
+  standardOperations: ["create", "read"]      // check if this is correct. We only need these 2 operations
+})
+@armListBy(MonitorNameParameter, "List")
+model DynatraceSingleSignOnResource is ProxyResource<DynatraceSingleSignOnProperties> { };
+
+model ConfigurationNameParameter {
+  @doc("Single Sign On Configuration Name")
+  @path configurationName: string;
+}
