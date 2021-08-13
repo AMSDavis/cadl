@@ -1,6 +1,6 @@
 {
   "name": "@azure-tools/cadl-rpaas",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": "Microsoft Corporation",
   "description": "Azure RPaaS Cadl Library",
   "homepage": "https://github.com/Azure/adl",
@@ -34,9 +34,9 @@
     "!dist/test/**"
   ],
   "dependencies": {
-    "@cadl-lang/compiler": "0.17.0",
-    "@azure-tools/cadl-autorest": "0.5.0",
-    "@cadl-lang/rest": "0.5.0"
+    "@cadl-lang/compiler": "0.18.0",
+    "@azure-tools/cadl-autorest": "0.5.1",
+    "@cadl-lang/rest": "0.5.1"
   },
   "devDependencies": {
     "@types/mocha": "~7.0.2",

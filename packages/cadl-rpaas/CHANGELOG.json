@@ -2,6 +2,29 @@
   "name": "@azure-tools/cadl-rpaas",
   "entries": [
     {
+      "version": "0.6.1",
+      "tag": "@azure-tools/cadl-rpaas_v0.6.1",
+      "date": "Fri, 13 Aug 2021 19:10:21 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Added support for Managed Identity, fix documentation issues, fix patch bodies, add required lro support for put and delete"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@cadl-lang/compiler\" from `0.17.0` to `0.18.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `0.5.0` to `0.5.1`"
+          },
+          {
+            "comment": "Updating dependency \"@cadl-lang/rest\" from `0.5.0` to `0.5.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.6.0",
       "tag": "@azure-tools/cadl-rpaas_v0.6.0",
       "date": "Tue, 10 Aug 2021 20:23:04 GMT",
