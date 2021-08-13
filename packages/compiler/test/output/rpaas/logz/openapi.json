@@ -1600,7 +1600,7 @@
         },
         "properties": {
           "$ref": "#/definitions/SubAccountResourceUpdateProperties",
-          "description": "The updatable properties of LogzMonitorResourceProperties"
+          "description": "The updateable properties of LogzMonitorResourceProperties"
         }
       },
       "description": "The updatable properties of the SubAccountResource."
@@ -1622,7 +1622,7 @@
         },
         "properties": {
           "$ref": "#/definitions/LogzMonitorResourceUpdateProperties",
-          "description": "The updatable properties of LogzMonitorResourceProperties"
+          "description": "The updateable properties of LogzMonitorResourceProperties"
         }
       },
       "description": "The updatable properties of the LogzMonitorResource."
@@ -1784,7 +1784,7 @@
         },
         "properties": {
           "$ref": "#/definitions/SingleSignOnConfigurationResourceUpdateProperties",
-          "description": "The updatable properties of LogzSingleSignOnProperties"
+          "description": "The updateable properties of LogzSingleSignOnProperties"
         }
       },
       "description": "The updatable properties of the SingleSignOnConfigurationResource."
@@ -1929,7 +1929,7 @@
           "description": "The priority of the resource."
         }
       },
-      "description": "The updatable properties of LogzMonitorResourceProperties"
+      "description": "The updateable properties of LogzMonitorResourceProperties"
     },
     "LogzMonitorResourceUpdateProperties": {
       "type": "object",
@@ -1968,7 +1968,7 @@
           "description": "The priority of the resource."
         }
       },
-      "description": "The updatable properties of LogzMonitorResourceProperties"
+      "description": "The updateable properties of LogzMonitorResourceProperties"
     },
     "LogzSingleSignOnProperties": {
       "type": "object",
@@ -2017,7 +2017,7 @@
           "description": "The provisioning state of the SSO resource"
         }
       },
-      "description": "The updatable properties of LogzSingleSignOnProperties"
+      "description": "The updateable properties of LogzSingleSignOnProperties"
     },
     "ProvisioningState": {
       "type": "string",

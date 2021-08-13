@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Microsoft.Confluent.Service.Models
 {
     /// <summary>
-    /// The updatable properties of OrganizationProperties 
+    /// The updateable properties of OrganizationProperties 
     /// </summary>
     public class OrganizationUpdateProperties    {
         /// <summary>

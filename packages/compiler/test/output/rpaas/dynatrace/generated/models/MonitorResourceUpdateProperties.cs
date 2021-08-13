@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Microsoft.Observability.Service.Models
 {
     /// <summary>
-    /// The updatable properties of MonitorProperties 
+    /// The updateable properties of MonitorProperties 
     /// </summary>
     public class MonitorResourceUpdateProperties    {
         /// <summary>

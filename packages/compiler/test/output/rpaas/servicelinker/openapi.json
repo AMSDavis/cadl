@@ -471,7 +471,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/LinkerResourceUpdateProperties",
-          "description": "The updatable properties of LinkerProperties"
+          "description": "The updateable properties of LinkerProperties"
         }
       },
       "description": "The updatable properties of the LinkerResource."
@@ -582,7 +582,7 @@
           "description": "The authentication type."
         }
       },
-      "description": "The updatable properties of LinkerProperties"
+      "description": "The updateable properties of LinkerProperties"
     },
     "AuthInfoBase": {
       "type": "object",

@@ -14,7 +14,7 @@ namespace Microsoft.Observability.Service.Models
     /// </summary>
     public class TagRuleUpdate    {
         /// <summary>
-        ///  The updatable properties of MonitoringTagRulesProperties 
+        ///  The updateable properties of MonitoringTagRulesProperties 
         /// </summary>
         public TagRuleUpdateProperties Properties { get; set; }
     }

@@ -579,7 +579,7 @@
         },
         "properties": {
           "$ref": "#/definitions/FluidRelayServerUpdateProperties",
-          "description": "The updatable properties of FluidRelayServerProperties"
+          "description": "The updateable properties of FluidRelayServerProperties"
         }
       },
       "description": "The updatable properties of the FluidRelayServer."
@@ -652,7 +652,7 @@
           "description": "Provisioning states for FluidRelay RP"
         }
       },
-      "description": "The updatable properties of FluidRelayServerProperties"
+      "description": "The updateable properties of FluidRelayServerProperties"
     },
     "FluidRelayEndpoints": {
       "type": "object",

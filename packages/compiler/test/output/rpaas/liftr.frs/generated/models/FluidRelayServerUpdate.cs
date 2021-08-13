@@ -18,7 +18,7 @@ namespace Microsoft.FluidRelay.Service.Models
         /// </summary>
         public IDictionary<string, string> Tags { get; set; }
         /// <summary>
-        ///  The updatable properties of FluidRelayServerProperties 
+        ///  The updateable properties of FluidRelayServerProperties 
         /// </summary>
         public FluidRelayServerUpdateProperties Properties { get; set; }
     }

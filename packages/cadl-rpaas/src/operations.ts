@@ -196,12 +196,12 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
 
     updateModelName = `${armResourceInfo.resourceModelName}Update`;
     const updatePropertiesModel = `${updateModelName}Properties`;
-    const updatePropertiesDescription = `@doc("The updatable properties of ${armResourceInfo.propertiesType.name}")`;
+    const updatePropertiesDescription = `@doc("The updateable properties of ${armResourceInfo.propertiesType.name}")`;
     const propertiesModelString =
       armResourceInfo.propertiesType.name !== ""
         ? `${updatePropertiesDescription}
         model ${updatePropertiesModel} {
-          ...OptionalProperties<UpdatableProperties<${armResourceInfo.propertiesType.name}>>
+          ...OptionalProperties<UpdateableProperties<${armResourceInfo.propertiesType.name}>>
         }`
         : "";
 

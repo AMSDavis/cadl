@@ -769,7 +769,7 @@
         },
         "properties": {
           "$ref": "#/definitions/PlayerDatabaseUpdateProperties",
-          "description": "The updatable properties of PlayerDatabaseProperties"
+          "description": "The updateable properties of PlayerDatabaseProperties"
         }
       },
       "description": "The updatable properties of the PlayerDatabase."
@@ -840,7 +840,7 @@
         },
         "properties": {
           "$ref": "#/definitions/TitleUpdateProperties",
-          "description": "The updatable properties of TitleProperties"
+          "description": "The updateable properties of TitleProperties"
         }
       },
       "description": "The updatable properties of the Title."
@@ -904,7 +904,7 @@
           "description": "The set of titles belonging to this player database."
         }
       },
-      "description": "The updatable properties of PlayerDatabaseProperties"
+      "description": "The updateable properties of PlayerDatabaseProperties"
     },
     "TitleProperties": {
       "type": "object",
@@ -926,7 +926,7 @@
     "TitleUpdateProperties": {
       "type": "object",
       "properties": {},
-      "description": "The updatable properties of TitleProperties"
+      "description": "The updateable properties of TitleProperties"
     },
     "TitleReference": {
       "type": "string",

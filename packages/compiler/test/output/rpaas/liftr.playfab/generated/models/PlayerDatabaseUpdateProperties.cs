@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Microsoft.PlayFab.Service.Models
 {
     /// <summary>
-    /// The updatable properties of PlayerDatabaseProperties 
+    /// The updateable properties of PlayerDatabaseProperties 
     /// </summary>
     public class PlayerDatabaseUpdateProperties    {
         /// <summary>

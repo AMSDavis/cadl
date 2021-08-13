@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Microsoft.Observability.Service.Models
 {
     /// <summary>
-    /// The updatable properties of MonitoringTagRulesProperties 
+    /// The updateable properties of MonitoringTagRulesProperties 
     /// </summary>
     public class TagRuleUpdateProperties    {
         /// <summary>

@@ -18,7 +18,7 @@ namespace Microsoft.Observability.Service.Models
         /// </summary>
         public IDictionary<string, string> Tags { get; set; }
         /// <summary>
-        ///  The updatable properties of MonitorProperties 
+        ///  The updateable properties of MonitorProperties 
         /// </summary>
         public MonitorResourceUpdateProperties Properties { get; set; }
     }

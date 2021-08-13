@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Microsoft.FluidRelay.Service.Models
 {
     /// <summary>
-    /// The updatable properties of FluidRelayServerProperties 
+    /// The updateable properties of FluidRelayServerProperties 
     /// </summary>
     public class FluidRelayServerUpdateProperties    {
         /// <summary>

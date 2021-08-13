@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Microsoft.PlayFab.Service.Models
 {
     /// <summary>
-    /// The updatable properties of TitleProperties 
+    /// The updateable properties of TitleProperties 
     /// </summary>
     public class TitleUpdateProperties    {
     }

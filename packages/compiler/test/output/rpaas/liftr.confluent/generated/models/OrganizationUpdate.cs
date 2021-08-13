@@ -18,7 +18,7 @@ namespace Microsoft.Confluent.Service.Models
         /// </summary>
         public IDictionary<string, string> Tags { get; set; }
         /// <summary>
-        ///  The updatable properties of OrganizationProperties 
+        ///  The updateable properties of OrganizationProperties 
         /// </summary>
         public OrganizationUpdateProperties Properties { get; set; }
     }

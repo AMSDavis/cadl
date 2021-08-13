@@ -268,8 +268,6 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         throw err;
       }
     }
-
-    openApiExtensions.clear();
   }
 
   function emitResource(resource: NamespaceType): void {
