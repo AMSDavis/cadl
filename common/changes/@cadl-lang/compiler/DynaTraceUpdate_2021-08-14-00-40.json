@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/compiler",
+      "comment": "Update test output",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@cadl-lang/compiler",
+  "email": "markcowl@microsoft.com"
+}
