@@ -10,12 +10,8 @@ using System.Collections.Generic;
 namespace Microsoft.Observability.Service.Models
 {
     /// <summary>
-    /// Tag rules for a monitor resource 
+    /// List of all the resources being monitored by Dynatrace monitor resource 
     /// </summary>
-    public class TagRule : ProxyResourceBase    {
-        /// <summary>
-        ///  The resource-specific properties for this resource. 
-        /// </summary>
-        public MonitoringTagRulesProperties Properties { get; set; }
+    public class MonitoredResourceListResponse : Pageable<MonitoredResource>    {
     }
 }

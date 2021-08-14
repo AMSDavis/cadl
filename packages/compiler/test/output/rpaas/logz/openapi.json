@@ -1598,9 +1598,38 @@
             "create"
           ]
         },
-        "properties": {
-          "$ref": "#/definitions/SubAccountResourceUpdateProperties",
-          "description": "The updateable properties of LogzMonitorResourceProperties"
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the resource."
+        },
+        "monitoringStatus": {
+          "$ref": "#/definitions/MonitoringStatus",
+          "description": "Status of the monitor."
+        },
+        "marketplaceSubscriptionStatus": {
+          "$ref": "#/definitions/MarketplaceSubscriptionStatus",
+          "description": "Marketplace subscription status."
+        },
+        "logzOrganizationProperties": {
+          "$ref": "#/definitions/LogzOrganizationProperties",
+          "description": "Properties of the Logz organization."
+        },
+        "userInfo": {
+          "$ref": "#/definitions/UserInfo",
+          "description": "User info."
+        },
+        "planData": {
+          "$ref": "#/definitions/PlanData",
+          "description": "Billing plan information."
+        },
+        "liftrResourceCategory": {
+          "$ref": "#/definitions/LiftrResourceCategories",
+          "description": "Liftr Resource category."
+        },
+        "liftrResourcePreference": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The priority of the resource."
         }
       },
       "description": "The updatable properties of the SubAccountResource."
@@ -1620,9 +1649,38 @@
             "create"
           ]
         },
-        "properties": {
-          "$ref": "#/definitions/LogzMonitorResourceUpdateProperties",
-          "description": "The updateable properties of LogzMonitorResourceProperties"
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the resource."
+        },
+        "monitoringStatus": {
+          "$ref": "#/definitions/MonitoringStatus",
+          "description": "Status of the monitor."
+        },
+        "marketplaceSubscriptionStatus": {
+          "$ref": "#/definitions/MarketplaceSubscriptionStatus",
+          "description": "Marketplace subscription status."
+        },
+        "logzOrganizationProperties": {
+          "$ref": "#/definitions/LogzOrganizationProperties",
+          "description": "Properties of the Logz organization."
+        },
+        "userInfo": {
+          "$ref": "#/definitions/UserInfo",
+          "description": "User info."
+        },
+        "planData": {
+          "$ref": "#/definitions/PlanData",
+          "description": "Billing plan information."
+        },
+        "liftrResourceCategory": {
+          "$ref": "#/definitions/LiftrResourceCategories",
+          "description": "Liftr Resource category."
+        },
+        "liftrResourcePreference": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The priority of the resource."
         }
       },
       "description": "The updatable properties of the LogzMonitorResource."
@@ -1782,9 +1840,21 @@
             "create"
           ]
         },
-        "properties": {
-          "$ref": "#/definitions/SingleSignOnConfigurationResourceUpdateProperties",
-          "description": "The updateable properties of LogzSingleSignOnProperties"
+        "singleSignOnState": {
+          "$ref": "#/definitions/SingleSignOnStates",
+          "description": "Various states of the SSO resource"
+        },
+        "enterpriseAppId": {
+          "type": "string",
+          "description": "The Id of the Enterprise App used for Single sign-on."
+        },
+        "singleSignOnUrl": {
+          "type": "string",
+          "description": "The login URL specific to this Logz Organization."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the SSO resource"
         }
       },
       "description": "The updatable properties of the SingleSignOnConfigurationResource."
@@ -1891,133 +1961,6 @@
         "liftrResourceCategory",
         "liftrResourcePreference"
       ]
-    },
-    "SubAccountResourceUpdateProperties": {
-      "type": "object",
-      "properties": {
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Provisioning state of the resource."
-        },
-        "monitoringStatus": {
-          "$ref": "#/definitions/MonitoringStatus",
-          "description": "Status of the monitor."
-        },
-        "marketplaceSubscriptionStatus": {
-          "$ref": "#/definitions/MarketplaceSubscriptionStatus",
-          "description": "Marketplace subscription status."
-        },
-        "logzOrganizationProperties": {
-          "$ref": "#/definitions/LogzOrganizationProperties",
-          "description": "Properties of the Logz organization."
-        },
-        "userInfo": {
-          "$ref": "#/definitions/UserInfo",
-          "description": "User info."
-        },
-        "planData": {
-          "$ref": "#/definitions/PlanData",
-          "description": "Billing plan information."
-        },
-        "liftrResourceCategory": {
-          "$ref": "#/definitions/LiftrResourceCategories",
-          "description": "Liftr Resource category."
-        },
-        "liftrResourcePreference": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The priority of the resource."
-        }
-      },
-      "description": "The updateable properties of LogzMonitorResourceProperties"
-    },
-    "LogzMonitorResourceUpdateProperties": {
-      "type": "object",
-      "properties": {
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Provisioning state of the resource."
-        },
-        "monitoringStatus": {
-          "$ref": "#/definitions/MonitoringStatus",
-          "description": "Status of the monitor."
-        },
-        "marketplaceSubscriptionStatus": {
-          "$ref": "#/definitions/MarketplaceSubscriptionStatus",
-          "description": "Marketplace subscription status."
-        },
-        "logzOrganizationProperties": {
-          "$ref": "#/definitions/LogzOrganizationProperties",
-          "description": "Properties of the Logz organization."
-        },
-        "userInfo": {
-          "$ref": "#/definitions/UserInfo",
-          "description": "User info."
-        },
-        "planData": {
-          "$ref": "#/definitions/PlanData",
-          "description": "Billing plan information."
-        },
-        "liftrResourceCategory": {
-          "$ref": "#/definitions/LiftrResourceCategories",
-          "description": "Liftr Resource category."
-        },
-        "liftrResourcePreference": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The priority of the resource."
-        }
-      },
-      "description": "The updateable properties of LogzMonitorResourceProperties"
-    },
-    "LogzSingleSignOnProperties": {
-      "type": "object",
-      "properties": {
-        "singleSignOnState": {
-          "$ref": "#/definitions/SingleSignOnStates",
-          "description": "Various states of the SSO resource"
-        },
-        "enterpriseAppId": {
-          "type": "string",
-          "description": "The Id of the Enterprise App used for Single sign-on."
-        },
-        "singleSignOnUrl": {
-          "type": "string",
-          "description": "The login URL specific to this Logz Organization."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "The provisioning state of the SSO resource"
-        }
-      },
-      "required": [
-        "singleSignOnState",
-        "enterpriseAppId",
-        "singleSignOnUrl",
-        "provisioningState"
-      ]
-    },
-    "SingleSignOnConfigurationResourceUpdateProperties": {
-      "type": "object",
-      "properties": {
-        "singleSignOnState": {
-          "$ref": "#/definitions/SingleSignOnStates",
-          "description": "Various states of the SSO resource"
-        },
-        "enterpriseAppId": {
-          "type": "string",
-          "description": "The Id of the Enterprise App used for Single sign-on."
-        },
-        "singleSignOnUrl": {
-          "type": "string",
-          "description": "The login URL specific to this Logz Organization."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "The provisioning state of the SSO resource"
-        }
-      },
-      "description": "The updateable properties of LogzSingleSignOnProperties"
     },
     "ProvisioningState": {
       "type": "string",
@@ -2152,6 +2095,33 @@
         "name": "LiftrResourceCategories",
         "modelAsString": true
       }
+    },
+    "LogzSingleSignOnProperties": {
+      "type": "object",
+      "properties": {
+        "singleSignOnState": {
+          "$ref": "#/definitions/SingleSignOnStates",
+          "description": "Various states of the SSO resource"
+        },
+        "enterpriseAppId": {
+          "type": "string",
+          "description": "The Id of the Enterprise App used for Single sign-on."
+        },
+        "singleSignOnUrl": {
+          "type": "string",
+          "description": "The login URL specific to this Logz Organization."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the SSO resource"
+        }
+      },
+      "required": [
+        "singleSignOnState",
+        "enterpriseAppId",
+        "singleSignOnUrl",
+        "provisioningState"
+      ]
     },
     "SingleSignOnStates": {
       "type": "string",

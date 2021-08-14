@@ -16,12 +16,12 @@ namespace Microsoft.Observability.Service.Models
         /// <summary>
         ///  First Name of the user 
         /// </summary>
-        [Length(5, 50)]
+        [Length(50)]
         public string FirstName { get; set; }
         /// <summary>
         ///  Last Name of the user 
         /// </summary>
-        [Length(5, 50)]
+        [Length(50)]
         public string LastName { get; set; }
         /// <summary>
         ///  Email of the user used by Dynatrace for contacting them if needed 

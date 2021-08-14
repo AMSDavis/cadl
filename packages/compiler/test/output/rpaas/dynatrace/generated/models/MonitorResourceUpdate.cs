@@ -18,8 +18,24 @@ namespace Microsoft.Observability.Service.Models
         /// </summary>
         public IDictionary<string, string> Tags { get; set; }
         /// <summary>
-        ///  The updateable properties of MonitorProperties 
+        ///  Status of the monitor. 
         /// </summary>
-        public MonitorResourceUpdateProperties Properties { get; set; }
+        public MonitoringStatus MonitoringStatus { get; set; }
+        /// <summary>
+        ///  Marketplace subscription status. 
+        /// </summary>
+        public MarketplaceSubscriptionStatus MarketplaceSubscriptionStatus { get; set; }
+        /// <summary>
+        ///  Properties of the Dynatrace environment. 
+        /// </summary>
+        public DynatraceEnvironmentProperties DynatraceEnvironmentProperties { get; set; }
+        /// <summary>
+        ///  User info. 
+        /// </summary>
+        public UserInfo UserInfo { get; set; }
+        /// <summary>
+        ///  Billing plan information. 
+        /// </summary>
+        public PlanData PlanData { get; set; }
     }
 }

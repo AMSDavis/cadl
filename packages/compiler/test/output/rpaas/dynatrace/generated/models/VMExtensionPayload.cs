@@ -10,12 +10,16 @@ using System.Collections.Generic;
 namespace Microsoft.Observability.Service.Models
 {
     /// <summary>
-    /// Tag rules for a monitor resource 
+    /// Response of payload to be passed while installing VM agent. 
     /// </summary>
-    public class TagRule : ProxyResourceBase    {
+    public class VMExtensionPayload    {
         /// <summary>
-        ///  The resource-specific properties for this resource. 
+        ///  API Key of the user account 
         /// </summary>
-        public MonitoringTagRulesProperties Properties { get; set; }
+        public string ApiKey { get; set; }
+        /// <summary>
+        ///  Id of the environment created 
+        /// </summary>
+        public string EnvironmentId { get; set; }
     }
 }

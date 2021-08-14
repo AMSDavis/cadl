@@ -18,8 +18,8 @@ namespace Microsoft.FluidRelay.Service.Models
         /// </summary>
         public IDictionary<string, string> Tags { get; set; }
         /// <summary>
-        ///  The updateable properties of FluidRelayServerProperties 
+        ///  Provisioning states for FluidRelay RP 
         /// </summary>
-        public FluidRelayServerUpdateProperties Properties { get; set; }
+        public ProvisioningState ProvisioningState { get; set; }
     }
 }

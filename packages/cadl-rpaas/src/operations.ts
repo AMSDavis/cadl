@@ -205,11 +205,7 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
         }`
         : "";
 
-    const propertiesString =
-      propertiesModelString !== ""
-        ? `${updatePropertiesDescription}
-        properties?: ${updatePropertiesModel}`
-        : "";
+    const propertiesString = propertiesModelString !== "" ? `...${updatePropertiesModel}` : "";
 
     // Only TrackedResources have a tags property
     const tagsString = armResourceInfo.resourceKind === "Tracked" ? "...ArmTagsProperty;" : "";

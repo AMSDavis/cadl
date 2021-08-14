@@ -767,9 +767,17 @@
             "create"
           ]
         },
-        "properties": {
-          "$ref": "#/definitions/PlayerDatabaseUpdateProperties",
-          "description": "The updateable properties of PlayerDatabaseProperties"
+        "userId": {
+          "type": "string",
+          "description": "The user id for this player database"
+        },
+        "titles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TitleReference"
+          },
+          "x-cadl-name": "Microsoft.PlayFab.TitleReference[]",
+          "description": "The set of titles belonging to this player database."
         }
       },
       "description": "The updatable properties of the PlayerDatabase."
@@ -837,10 +845,6 @@
             "update",
             "create"
           ]
-        },
-        "properties": {
-          "$ref": "#/definitions/TitleUpdateProperties",
-          "description": "The updateable properties of TitleProperties"
         }
       },
       "description": "The updatable properties of the Title."
@@ -888,23 +892,10 @@
         "userId"
       ]
     },
-    "PlayerDatabaseUpdateProperties": {
-      "type": "object",
-      "properties": {
-        "userId": {
-          "type": "string",
-          "description": "The user id for this player database"
-        },
-        "titles": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TitleReference"
-          },
-          "x-cadl-name": "Microsoft.PlayFab.TitleReference[]",
-          "description": "The set of titles belonging to this player database."
-        }
-      },
-      "description": "The updateable properties of PlayerDatabaseProperties"
+    "TitleReference": {
+      "type": "string",
+      "pattern": "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/titles\\/[^\\/]+",
+      "description": "A reference to a resource of type title."
     },
     "TitleProperties": {
       "type": "object",
@@ -922,16 +913,6 @@
       "required": [
         "parentDatabase"
       ]
-    },
-    "TitleUpdateProperties": {
-      "type": "object",
-      "properties": {},
-      "description": "The updateable properties of TitleProperties"
-    },
-    "TitleReference": {
-      "type": "string",
-      "pattern": "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/titles\\/[^\\/]+",
-      "description": "A reference to a resource of type title."
     },
     "PlayerDatabaseReference": {
       "type": "string",

@@ -577,9 +577,9 @@
             "create"
           ]
         },
-        "properties": {
-          "$ref": "#/definitions/FluidRelayServerUpdateProperties",
-          "description": "The updateable properties of FluidRelayServerProperties"
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning states for FluidRelay RP"
         }
       },
       "description": "The updatable properties of the FluidRelayServer."
@@ -644,15 +644,18 @@
       },
       "description": "The properties of a Fluid Relay Service resource."
     },
-    "FluidRelayServerUpdateProperties": {
-      "type": "object",
-      "properties": {
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Provisioning states for FluidRelay RP"
-        }
-      },
-      "description": "The updateable properties of FluidRelayServerProperties"
+    "ProvisioningState": {
+      "type": "string",
+      "description": "Provisioning states for FluidRelay RP",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Cancelled"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true
+      }
     },
     "FluidRelayEndpoints": {
       "type": "object",
@@ -681,19 +684,6 @@
         "ordererEndpoints",
         "storageEndpoints"
       ]
-    },
-    "ProvisioningState": {
-      "type": "string",
-      "description": "Provisioning states for FluidRelay RP",
-      "enum": [
-        "Succeeded",
-        "Failed",
-        "Cancelled"
-      ],
-      "x-ms-enum": {
-        "name": "ProvisioningState",
-        "modelAsString": true
-      }
     },
     "Uri": {
       "type": "string",

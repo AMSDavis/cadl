@@ -598,10 +598,6 @@
             "update",
             "create"
           ]
-        },
-        "properties": {
-          "$ref": "#/definitions/CodeSignAccountUpdateProperties",
-          "description": "The updateable properties of CodeSignAccountProperties"
         }
       },
       "description": "The updatable properties of the CodeSignAccount."
@@ -658,9 +654,19 @@
     "CertificateProfileUpdate": {
       "type": "object",
       "properties": {
-        "properties": {
-          "$ref": "#/definitions/CertificateProfileUpdateProperties",
-          "description": "The updateable properties of CertificateProfileProperties"
+        "profileType": {
+          "$ref": "#/definitions/ProfileType"
+        },
+        "rotationPolicy": {
+          "$ref": "#/definitions/RotationPolicy"
+        },
+        "commonName": {
+          "type": "string",
+          "description": "Name of the certificate"
+        },
+        "subjectAlternativeName": {
+          "type": "string",
+          "description": "Subject Alternative Name of the certificate"
         }
       },
       "description": "The updatable properties of the CertificateProfile."
@@ -705,11 +711,6 @@
         }
       },
       "description": "Properties of the code sign account"
-    },
-    "CodeSignAccountUpdateProperties": {
-      "type": "object",
-      "properties": {},
-      "description": "The updateable properties of CodeSignAccountProperties"
     },
     "CertificateProfileProperties": {
       "type": "object",
@@ -774,25 +775,28 @@
         "subjectAlternativeName"
       ]
     },
-    "CertificateProfileUpdateProperties": {
-      "type": "object",
-      "properties": {
-        "profileType": {
-          "$ref": "#/definitions/ProfileType"
-        },
-        "rotationPolicy": {
-          "$ref": "#/definitions/RotationPolicy"
-        },
-        "commonName": {
-          "type": "string",
-          "description": "Name of the certificate"
-        },
-        "subjectAlternativeName": {
-          "type": "string",
-          "description": "Subject Alternative Name of the certificate"
-        }
-      },
-      "description": "The updateable properties of CertificateProfileProperties"
+    "ProfileType": {
+      "type": "string",
+      "enum": [
+        "Test",
+        "Trial",
+        "PrivateTrust",
+        "PublicTrust"
+      ],
+      "x-ms-enum": {
+        "name": "ProfileType",
+        "modelAsString": true
+      }
+    },
+    "RotationPolicy": {
+      "type": "string",
+      "enum": [
+        "Monthly"
+      ],
+      "x-ms-enum": {
+        "name": "RotationPolicy",
+        "modelAsString": true
+      }
     },
     "VerificationStatus": {
       "type": "string",
@@ -819,29 +823,6 @@
       ],
       "x-ms-enum": {
         "name": "ProvisioningState",
-        "modelAsString": true
-      }
-    },
-    "ProfileType": {
-      "type": "string",
-      "enum": [
-        "Test",
-        "Trial",
-        "PrivateTrust",
-        "PublicTrust"
-      ],
-      "x-ms-enum": {
-        "name": "ProfileType",
-        "modelAsString": true
-      }
-    },
-    "RotationPolicy": {
-      "type": "string",
-      "enum": [
-        "Monthly"
-      ],
-      "x-ms-enum": {
-        "name": "RotationPolicy",
         "modelAsString": true
       }
     },
