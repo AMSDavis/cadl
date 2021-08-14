@@ -24,7 +24,7 @@ using the preview.
 | [@azure-tools/cadl-vs][cadl-vs_src]           | [Changelog][cadl-vs_chg]      | ![](https://img.shields.io/npm/v/@azure-tools/cadl-vs)      |
 | [@azure-tools/cadl-vscode][cadl-vscode_src]   | [Changelog][cadl-vscode_chg]  | ![](https://img.shields.io/npm/v/cadl-vscode)               |
 
-[cadl_src]: packages/cadl
+[cadl_src]: packages/compiler
 [cadl_chg]: packages/compiler/CHANGELOG.md
 [rest_src]: packages/rest
 [rest_chg]: packages/rest/CHANGELOG.md
