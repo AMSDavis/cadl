@@ -29,11 +29,16 @@ Example:
    - commit all you changes.
    - push to the remote forked repo
    - send a pull request to the original repo from your forked repo.
+
+Note:
 the target branch of the pull request is RPSaaSMaster (or RPSaaSDev for dogfood).
 
 ## Fix the errors of PR reviewing CI checks
-The CI checks result will be commented on the PR. you can refer to the [CI fix Guide](https://github.com/Azure/azure-rest-api-specs/blob/main/documentation/ci-fix.md)
+The CI checks result will be commented on the PR. you can refer to the [CI fix Guide](https://github.com/Azure/azure-rest-api-specs/blob/main/documentation/ci-fix.md). 
+
+Note:
+Since the swagger is generated from cadl, you'd better update the cadl file and regenerate the swagger and avoid updating swagger directly to keep the consistency between swagger and cadl.
 
 
 ## Move your PR to public repo.
-Once the RP get approved and added label 'Approved-OkToMerge' , you can follow the last comment on the PR to complete the moving.
+Once the RP get approved and added label 'Approved-OkToMerge' , you can follow the `last comment` on the PR to publish your specs to the public repo on demand.
