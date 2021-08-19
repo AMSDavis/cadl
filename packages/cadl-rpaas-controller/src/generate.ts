@@ -38,7 +38,7 @@ import * as path from "path";
 import * as sqrl from "squirrelly";
 import { fileURLToPath } from "url";
 
-export async function onBuild(program: Program) {
+export async function $onBuild(program: Program) {
   const rootPath = program.host.resolveAbsolutePath(
     path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
   );

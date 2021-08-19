@@ -1,4 +1,4 @@
-import { useRef } from "@azure-tools/cadl-autorest";
+import { $useRef } from "@azure-tools/cadl-autorest";
 import { Program, Type } from "@cadl-lang/compiler";
 
 export function getArmTypesPath(program: Program): string | undefined {
@@ -8,7 +8,11 @@ export function getArmTypesPath(program: Program): string | undefined {
   );
 }
 
-export function armCommonDefinition(program: Program, entity: Type, definitionName?: string): void {
+export function $armCommonDefinition(
+  program: Program,
+  entity: Type,
+  definitionName?: string
+): void {
   if (entity.kind !== "Model") {
     program.reportDiagnostic(
       "The @armCommonDefinition decorator can only be applied to models.",
@@ -22,10 +26,10 @@ export function armCommonDefinition(program: Program, entity: Type, definitionNa
     definitionName = entity.name;
   }
 
-  useRef(program, entity, `${getArmTypesPath(program)}#/definitions/${definitionName}`);
+  $useRef(program, entity, `${getArmTypesPath(program)}#/definitions/${definitionName}`);
 }
 
-export function armCommonParameter(program: Program, entity: Type, parameterName?: string): void {
+export function $armCommonParameter(program: Program, entity: Type, parameterName?: string): void {
   if (entity.kind !== "ModelProperty") {
     program.reportDiagnostic(
       "The @armCommonParameter decorator can only be applied to model properties and operation parameters.",
@@ -39,5 +43,5 @@ export function armCommonParameter(program: Program, entity: Type, parameterName
     parameterName = entity.name;
   }
 
-  useRef(program, entity, `${getArmTypesPath(program)}#/parameters/${parameterName}`);
+  $useRef(program, entity, `${getArmTypesPath(program)}#/parameters/${parameterName}`);
 }

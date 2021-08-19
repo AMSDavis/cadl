@@ -3,9 +3,9 @@ import {
   addOperationParameter,
   addOperationResponseType,
 } from "@cadl-lang/compiler";
-import { path, query } from "@cadl-lang/rest";
+import { $path, $query } from "@cadl-lang/rest";
 
-export function addProperties(program, model) {
+export function $addProperties(program, model) {
   // Add a property of intrinsic type
   addModelProperty(program, model, "foo", "string");
 
@@ -14,18 +14,18 @@ export function addProperties(program, model) {
   addModelProperty(program, model, "other", "OtherModel");
 }
 
-export function addCommonParameters(program, operation) {
-  path(
+export function $addCommonParameters(program, operation) {
+  $path(
     program,
     addOperationParameter(program, operation, "subscriptionId", "string", { insertIndex: 0 })
   );
-  query(
+  $query(
     program,
     addOperationParameter(program, operation, "resourceGroup?", "string", { insertIndex: 1 })
   );
 }
 
-export function addResponseTypes(program, operation) {
+export function $addResponseTypes(program, operation) {
   addOperationResponseType(program, operation, "OkResponse<string>");
   addOperationResponseType(program, operation, "OtherModel");
 }

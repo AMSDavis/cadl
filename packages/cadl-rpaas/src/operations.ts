@@ -1,5 +1,5 @@
 import { NamespaceType, Program, Type } from "@cadl-lang/compiler";
-import { resource } from "@cadl-lang/rest";
+import { $resource } from "@cadl-lang/rest";
 import { ArmResourceInfo, getArmResourceInfo, ParameterInfo } from "./resource.js";
 
 type StandardOperationGenerator = (program: Program, target: Type, documentation?: string) => void;
@@ -14,7 +14,7 @@ const standardOperationFunctions: { [key: string]: StandardOperationGenerator } 
 
 const resourceOperationNamespaces = new Map<NamespaceType, Type>();
 
-export function armResourceOperations(program: Program, target: Type, resourceType: Type): void {
+export function $armResourceOperations(program: Program, target: Type, resourceType: Type): void {
   if (target.kind !== "Namespace") {
     program.reportDiagnostic(
       `The @armResourceOperations decorator can only be applied to namespaces.`,
@@ -40,7 +40,7 @@ export function armResourceOperations(program: Program, target: Type, resourceTy
   armResourceInfo.operationNamespaces.add(target.name);
 
   // Set the resource path
-  resource(program, target, armResourceInfo.resourcePath.path);
+  $resource(program, target, armResourceInfo.resourcePath.path);
 
   // Remember this namespace
   resourceOperationNamespaces.set(target, resourceType);
@@ -257,7 +257,7 @@ export function armStandardDelete(program: Program, target: Type, documentation?
     `@doc("${documentation}")
        @extension("x-ms-long-running-operation", true)
        @asyncOperationOptions("${lroFinalState}")
-       @_delete op Delete(${getOperationPathArguments(
+       @delete op Delete(${getOperationPathArguments(
          operationParams
        )}): ArmDeletedResponse | ArmDeletedNoContentResponse | ArmDeleteAcceptedResponse | ErrorResponse;`
   );
@@ -292,7 +292,7 @@ export function armStandardList(program: Program, target: Type, documentation?: 
   }
 }
 
-export function _generateStandardOperations(
+export function generateStandardOperations(
   program: Program,
   resourceType: Type,
   standardOperations: string[]
@@ -387,7 +387,7 @@ function armListByInternal(
     }`);
 }
 
-export function armListBy(
+export function $armListBy(
   program: Program,
   target: Type,
   paramType: Type,

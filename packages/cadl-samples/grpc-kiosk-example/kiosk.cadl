@@ -18,7 +18,7 @@ namespace Display {
     op GetKiosk(@path id: KioskId): Kiosk | RpcStatus;
 
     @doc("Delete a kiosk.")
-    @_delete("kiosks/{id}")
+    @delete("kiosks/{id}")
     op DeleteKiosk(@path id: KioskId): Empty | RpcStatus;
 
     @doc("Create a sign. This enrolls the sign for sign display.")
@@ -34,7 +34,7 @@ namespace Display {
     op GetSign(@path id: SignId): Sign | RpcStatus;
 
     @doc("Delete a sign.")
-    @_delete("signs/{id}")
+    @delete("signs/{id}")
     op DeleteSign(@path id: SignId): Empty | RpcStatus;
 
     @doc("Set a sign for display on one or more kiosks.")
