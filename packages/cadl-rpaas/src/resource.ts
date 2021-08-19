@@ -8,7 +8,7 @@ import {
   Type,
 } from "@cadl-lang/compiler";
 import { getArmNamespace } from "./namespace.js";
-import { _generateStandardOperations } from "./operations.js";
+import { generateStandardOperations } from "./operations.js";
 
 export interface ParameterInfo {
   name: string;
@@ -145,7 +145,7 @@ function getPropertyValue<TValue extends Type>(
   return undefined;
 }
 
-export function armResource(program: Program, resourceType: Type, resourceDetails: Type) {
+export function $armResource(program: Program, resourceType: Type, resourceDetails: Type) {
   if (resourceDetails.kind !== "Model") {
     program.reportDiagnostic(
       "The parameter to @armResource must be a model expression.",
@@ -322,7 +322,7 @@ export function armResource(program: Program, resourceType: Type, resourceDetail
       }
   `);
 
-  _generateStandardOperations(program, resourceType, armResourceInfo.standardOperations);
+  generateStandardOperations(program, resourceType, armResourceInfo.standardOperations);
 }
 
 function getDefaultResourcePath(resourceInfo: ArmResourceInfo): ArmResourcePath {

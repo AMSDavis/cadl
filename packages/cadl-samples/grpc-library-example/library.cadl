@@ -37,7 +37,7 @@ shelves will not necessarily be added to the end of this list.
     op ListShelves(... ListRequestBase): ListShelvesResponse | RpcStatus;
 
     @doc("Deletes a shelf. Returns NOT_FOUND if the shelf does not exist.")
-    @_delete("shelves")
+    @delete("shelves")
     op DeleteShelf(... DeleteShelfRequest): Empty | RpcStatus;
 
     @doc("""
@@ -67,7 +67,7 @@ Returns NOT_FOUND if the shelf does not exist.
     @get("shelves/{name}/books")
     op ListBooks(... ListBooksRequest): ListBooksResponse | RpcStatus;
 
-    @_delete("shelves/shelf_name/books/{name}")
+    @delete("shelves/shelf_name/books/{name}")
     @doc("Deletes a book. Returns NOT_FOUND if the book does not exist.")
     op DeleteBook(... DeleteBookRequest): Empty | RpcStatus;
 }

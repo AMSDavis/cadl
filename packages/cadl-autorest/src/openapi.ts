@@ -27,6 +27,7 @@ import {
 } from "@cadl-lang/compiler";
 import {
   basePathForResource,
+  checkIfServiceNamespace,
   getConsumes,
   getHeaderFieldName,
   getOperationRoute,
@@ -41,11 +42,10 @@ import {
   HttpVerb,
   isBody,
   isHeader,
-  _checkIfServiceNamespace,
 } from "@cadl-lang/rest";
 import * as path from "path";
 
-export async function onBuild(p: Program) {
+export async function $onBuild(p: Program) {
   const options: OpenAPIEmitterOptions = {
     outputFile: p.compilerOptions.swaggerOutputFile || path.resolve("./openapi.json"),
   };
@@ -55,12 +55,12 @@ export async function onBuild(p: Program) {
 }
 
 const operationIdsKey = Symbol();
-export function operationId(program: Program, entity: Type, opId: string) {
+export function $operationId(program: Program, entity: Type, opId: string) {
   program.stateMap(operationIdsKey).set(entity, opId);
 }
 
 const pageableOperationsKey = Symbol();
-export function pageable(program: Program, entity: Type, nextLinkName: string = "nextLink") {
+export function $pageable(program: Program, entity: Type, nextLinkName: string = "nextLink") {
   program.stateMap(pageableOperationsKey).set(entity, nextLinkName);
 }
 
@@ -70,7 +70,7 @@ function getPageable(program: Program, entity: Type): string | undefined {
 
 const refTargetsKey = Symbol();
 
-export function useRef(program: Program, entity: Type, refUrl: string): void {
+export function $useRef(program: Program, entity: Type, refUrl: string): void {
   if (entity.kind === "Model" || entity.kind === "ModelProperty") {
     program.stateMap(refTargetsKey).set(entity, refUrl);
   } else {
@@ -112,13 +112,13 @@ function setSecurityDefinitions(program: Program, definitions: any) {
   program.stateMap(securityDetailsKey).set(securityDefinitionsKey, definitions);
 }
 
-export function _addSecurityRequirement(
+export function addSecurityRequirement(
   program: Program,
   namespace: NamespaceType,
   name: string,
   scopes: string[]
 ): void {
-  if (!_checkIfServiceNamespace(program, namespace)) {
+  if (!checkIfServiceNamespace(program, namespace)) {
     program.reportDiagnostic(
       "Cannot add security details to a namespace other than the service namespace.",
       namespace
@@ -132,13 +132,13 @@ export function _addSecurityRequirement(
   setSecurityRequirements(program, requirements);
 }
 
-export function _addSecurityDefinition(
+export function addSecurityDefinition(
   program: Program,
   namespace: NamespaceType,
   name: string,
   details: any
 ): void {
-  if (!_checkIfServiceNamespace(program, namespace)) {
+  if (!checkIfServiceNamespace(program, namespace)) {
     program.reportDiagnostic(
       "Cannot add security details to a namespace other than the service namespace.",
       namespace
@@ -152,13 +152,13 @@ export function _addSecurityDefinition(
 }
 
 const openApiExtensions = new Map<Type, Map<string, any>>();
-export function extension(program: Program, entity: Type, extensionName: string, value: any) {
+export function $extension(program: Program, entity: Type, extensionName: string, value: any) {
   let typeExtensions = openApiExtensions.get(entity) ?? new Map<string, any>();
   typeExtensions.set(extensionName, value);
   openApiExtensions.set(entity, typeExtensions);
 }
 
-export function asyncOperationOptions(program: Program, entity: Type, finalStateVia: string) {
+export function $asyncOperationOptions(program: Program, entity: Type, finalStateVia: string) {
   let typeExtensions = openApiExtensions.get(entity) ?? new Map<string, any>();
   typeExtensions.set("x-ms-long-running-operation-options", { "final-state-via": finalStateVia });
   openApiExtensions.set(entity, typeExtensions);
