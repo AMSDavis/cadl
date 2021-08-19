@@ -98,17 +98,6 @@ cadl compile samples/petstore/
 
 You can now examine the emitted OpenAPI document in `./cadl-output/openapi.json`.
 
-### Generating a TypeScript client from a folder of Cadl files
-
-You can compile a folder containing `.cadl` files into a single OpenAPI document by
-using the following command:
-
-```
-cadl generate --client samples/petstore/
-```
-
-Parameters for generating clients in other languages will be added soon.
-
 ### Formatting Cadl files
 
 Cadl provides an auto-formatter to keep your specs clean and organized.
