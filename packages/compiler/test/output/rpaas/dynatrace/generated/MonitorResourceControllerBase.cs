@@ -245,7 +245,7 @@ namespace Microsoft.Observability.Service
         /// <returns> The MonitorResource resource.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceItemListMonitoredResources)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(MonitoredResourceListResponse))]
         public async Task<IActionResult> ListMonitoredResourcesAsync(string subscriptionId, string resourceGroupName, string monitorName)
         {
             _logger.LogInformation("ListMonitoredResourcesAsync()");
@@ -263,6 +263,200 @@ namespace Microsoft.Observability.Service
 
         internal abstract Task<ValidationResponse> OnValidateListMonitoredResources(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request);
         internal abstract Task<IActionResult> OnListMonitoredResourcesAsync(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request);        /// <summary>
+        /// Validate the request to VmHostPayload the MonitorResource resource.
+        /// </summary>
+        /// <param name="subscriptionId"> undefined</param>
+        /// <param name="resourceGroupName"> undefined</param>
+        /// <param name="monitorName"> undefined</param>
+        /// <returns> A ValidationResponse indicating the validity of the VmHostPayload request.</returns>
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.MonitorResourceValidateVmHostPayload)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ValidationResponse))]
+        public async Task<ValidationResponse> ValidateVmHostPayloadAsync(string subscriptionId, string resourceGroupName, string monitorName)
+        {
+            _logger.LogInformation($"ValidateVmHostPayloadAsync()");
+            var modelValidation = ValidationHelpers.ValidateModel(body);
+            if (modelValidation.Valid)
+            {
+                modelValidation = await OnValidateVmHostPayload(subscriptionId, resourceGroupName, monitorName, Request);
+            }
+
+            return modelValidation;
+        }
+
+        /// <summary>
+        /// VmHostPayload the MonitorResource resource.
+        /// </summary>
+        /// <param name="subscriptionId"> undefined</param>
+        /// <param name="resourceGroupName"> undefined</param>
+        /// <param name="monitorName"> undefined</param>
+        /// <returns> The MonitorResource resource.</returns>
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.MonitorResourceItemVmHostPayload)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(VMExtensionPayload))]
+        public async Task<IActionResult> VmHostPayloadAsync(string subscriptionId, string resourceGroupName, string monitorName)
+        {
+            _logger.LogInformation("VmHostPayloadAsync()");
+            resource = resource ?? throw new ArgumentNullException(nameof(resource));
+
+            if (Request == null)
+            {
+                _logger.LogError($"Http request is null");
+                return BadRequest("Http request is null");
+            }
+
+            return await OnVmHostPayloadAsync(subscriptionId, resourceGroupName, monitorName, Request);
+
+        }
+
+        internal abstract Task<ValidationResponse> OnValidateVmHostPayload(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request);
+        internal abstract Task<IActionResult> OnVmHostPayloadAsync(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request);        /// <summary>
+        /// Validate the request to VmHostUpdate the MonitorResource resource.
+        /// </summary>
+        /// <param name="subscriptionId"> undefined</param>
+        /// <param name="resourceGroupName"> undefined</param>
+        /// <param name="monitorName"> undefined</param>
+        /// <param name="request"> undefined</param>
+        /// <returns> A ValidationResponse indicating the validity of the VmHostUpdate request.</returns>
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.MonitorResourceValidateVmHostUpdate)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ValidationResponse))]
+        public async Task<ValidationResponse> ValidateVmHostUpdateAsync(string subscriptionId, string resourceGroupName, string monitorName, VMHostUpdateRequest request)
+        {
+            _logger.LogInformation($"ValidateVmHostUpdateAsync()");
+            var modelValidation = ValidationHelpers.ValidateModel(body);
+            if (modelValidation.Valid)
+            {
+                modelValidation = await OnValidateVmHostUpdate(subscriptionId, resourceGroupName, monitorName, request, Request);
+            }
+
+            return modelValidation;
+        }
+
+        /// <summary>
+        /// VmHostUpdate the MonitorResource resource.
+        /// </summary>
+        /// <param name="subscriptionId"> undefined</param>
+        /// <param name="resourceGroupName"> undefined</param>
+        /// <param name="monitorName"> undefined</param>
+        /// <param name="request"> undefined</param>
+        /// <returns> The MonitorResource resource.</returns>
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.MonitorResourceItemVmHostUpdate)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(VMResourcesListResponse))]
+        public async Task<IActionResult> VmHostUpdateAsync(string subscriptionId, string resourceGroupName, string monitorName, VMHostUpdateRequest request)
+        {
+            _logger.LogInformation("VmHostUpdateAsync()");
+            resource = resource ?? throw new ArgumentNullException(nameof(resource));
+
+            if (Request == null)
+            {
+                _logger.LogError($"Http request is null");
+                return BadRequest("Http request is null");
+            }
+
+            return await OnVmHostUpdateAsync(subscriptionId, resourceGroupName, monitorName, request, Request);
+
+        }
+
+        internal abstract Task<ValidationResponse> OnValidateVmHostUpdate(string subscriptionId, string resourceGroupName, string monitorName, VMHostUpdateRequest request, HttpRequest request);
+        internal abstract Task<IActionResult> OnVmHostUpdateAsync(string subscriptionId, string resourceGroupName, string monitorName, VMHostUpdateRequest request, HttpRequest request);        /// <summary>
+        /// Validate the request to ListVMHosts the MonitorResource resource.
+        /// </summary>
+        /// <param name="subscriptionId"> undefined</param>
+        /// <param name="resourceGroupName"> undefined</param>
+        /// <param name="monitorName"> undefined</param>
+        /// <returns> A ValidationResponse indicating the validity of the ListVMHosts request.</returns>
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.MonitorResourceValidateListVMHosts)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ValidationResponse))]
+        public async Task<ValidationResponse> ValidateListVMHostsAsync(string subscriptionId, string resourceGroupName, string monitorName)
+        {
+            _logger.LogInformation($"ValidateListVMHostsAsync()");
+            var modelValidation = ValidationHelpers.ValidateModel(body);
+            if (modelValidation.Valid)
+            {
+                modelValidation = await OnValidateListVMHosts(subscriptionId, resourceGroupName, monitorName, Request);
+            }
+
+            return modelValidation;
+        }
+
+        /// <summary>
+        /// ListVMHosts the MonitorResource resource.
+        /// </summary>
+        /// <param name="subscriptionId"> undefined</param>
+        /// <param name="resourceGroupName"> undefined</param>
+        /// <param name="monitorName"> undefined</param>
+        /// <returns> The MonitorResource resource.</returns>
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.MonitorResourceItemListVMHosts)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(VMResourcesListResponse))]
+        public async Task<IActionResult> ListVMHostsAsync(string subscriptionId, string resourceGroupName, string monitorName)
+        {
+            _logger.LogInformation("ListVMHostsAsync()");
+            resource = resource ?? throw new ArgumentNullException(nameof(resource));
+
+            if (Request == null)
+            {
+                _logger.LogError($"Http request is null");
+                return BadRequest("Http request is null");
+            }
+
+            return await OnListVMHostsAsync(subscriptionId, resourceGroupName, monitorName, Request);
+
+        }
+
+        internal abstract Task<ValidationResponse> OnValidateListVMHosts(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request);
+        internal abstract Task<IActionResult> OnListVMHostsAsync(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request);        /// <summary>
+        /// Validate the request to SingleSignOnConfigurations the MonitorResource resource.
+        /// </summary>
+        /// <param name="subscriptionId"> undefined</param>
+        /// <param name="resourceGroupName"> undefined</param>
+        /// <param name="monitorName"> undefined</param>
+        /// <returns> A ValidationResponse indicating the validity of the SingleSignOnConfigurations request.</returns>
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.MonitorResourceValidateSingleSignOnConfigurations)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ValidationResponse))]
+        public async Task<ValidationResponse> ValidateSingleSignOnConfigurationsAsync(string subscriptionId, string resourceGroupName, string monitorName)
+        {
+            _logger.LogInformation($"ValidateSingleSignOnConfigurationsAsync()");
+            var modelValidation = ValidationHelpers.ValidateModel(body);
+            if (modelValidation.Valid)
+            {
+                modelValidation = await OnValidateSingleSignOnConfigurations(subscriptionId, resourceGroupName, monitorName, Request);
+            }
+
+            return modelValidation;
+        }
+
+        /// <summary>
+        /// SingleSignOnConfigurations the MonitorResource resource.
+        /// </summary>
+        /// <param name="subscriptionId"> undefined</param>
+        /// <param name="resourceGroupName"> undefined</param>
+        /// <param name="monitorName"> undefined</param>
+        /// <returns> The MonitorResource resource.</returns>
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.MonitorResourceItemSingleSignOnConfigurations)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(VMResourcesListResponse))]
+        public async Task<IActionResult> SingleSignOnConfigurationsAsync(string subscriptionId, string resourceGroupName, string monitorName)
+        {
+            _logger.LogInformation("SingleSignOnConfigurationsAsync()");
+            resource = resource ?? throw new ArgumentNullException(nameof(resource));
+
+            if (Request == null)
+            {
+                _logger.LogError($"Http request is null");
+                return BadRequest("Http request is null");
+            }
+
+            return await OnSingleSignOnConfigurationsAsync(subscriptionId, resourceGroupName, monitorName, Request);
+
+        }
+
+        internal abstract Task<ValidationResponse> OnValidateSingleSignOnConfigurations(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request);
+        internal abstract Task<IActionResult> OnSingleSignOnConfigurationsAsync(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request);        /// <summary>
         /// List Organization resources in the specified subscription.
         /// </summary>
         /// <param name="subscriptionId"> The subscription id.</param>

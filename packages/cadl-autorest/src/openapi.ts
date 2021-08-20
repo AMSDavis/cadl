@@ -433,7 +433,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       }
     }
 
-    if (isList(program, op)) {
+    if (isList(program, op) || getPageable(program, op)) {
       const nextLinkName = getPageable(program, op) || "nextLink";
       if (nextLinkName) {
         currentEndpoint["x-ms-pageable"] = {

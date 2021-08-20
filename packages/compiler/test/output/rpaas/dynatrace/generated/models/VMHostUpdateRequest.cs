@@ -7,19 +7,19 @@ using System;
 using System.Security.Policy;
 using System.Collections.Generic; 
 
-namespace Microsoft.Confluent.Service.Models
+namespace Microsoft.Observability.Service.Models
 {
     /// <summary>
-    /// The updateable properties of OrganizationProperties 
+    /// Request of a list VM Host Update Operation. 
     /// </summary>
-    public class OrganizationUpdateProperties    {
+    public class VMHostUpdateRequest    {
         /// <summary>
-        ///  Details of the product offering. 
+        ///  VM resource ID on which agent is installed/deleted 
         /// </summary>
-        public OfferDetail OfferDetail { get; set; }
+        public VMResources[] VmResourceIds { get; set; }
         /// <summary>
-        ///  Subscriber details. 
+        ///  Specifies the state of the operation - install/ delete. 
         /// </summary>
-        public UserDetail UserDetail { get; set; }
+        public VMHostUpdateState State { get; set; }
     }
 }

@@ -7,11 +7,15 @@ using System;
 using System.Security.Policy;
 using System.Collections.Generic; 
 
-namespace Microsoft.PlayFab.Service.Models
+namespace Microsoft.Observability.Service.Models
 {
     /// <summary>
-    /// The updateable properties of TitleProperties 
+    /// Single sign-on configurations for a given monitor resource. 
     /// </summary>
-    public class TitleUpdateProperties    {
+    public class DynatraceSingleSignOnResource : ProxyResourceBase    {
+        /// <summary>
+        ///  The resource-specific properties for this resource. 
+        /// </summary>
+        public DynatraceSingleSignOnProperties Properties { get; set; }
     }
 }

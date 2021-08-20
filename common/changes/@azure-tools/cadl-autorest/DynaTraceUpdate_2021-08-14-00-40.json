@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-autorest",
+      "comment": "Allow x-ms-pageable in non-list operations (POST)",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-autorest",
+  "email": "markcowl@microsoft.com"
+}

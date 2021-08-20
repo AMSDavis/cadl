@@ -2,12 +2,15 @@ import "@cadl-lang/rest";
 import "@azure-tools/cadl-autorest";
 import "@azure-tools/cadl-rpaas";
 
+@doc("A virtual machine reference")
+@format("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.Compute\\/virtualMachines\\/[^\\/]+")
+model virtualMachineId extends string {}
+
 @doc("Reusable representation of an email address")
 @format("^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$")
 model email extends string {};
 
 @doc("Shorthand for setting length limit.")
-@minLength(5)
 @maxLength(50)
 model MediumString extends string {}
 
@@ -155,6 +158,7 @@ model EnvironmentInfo {
 	logsIngestionEndpoint?: string;
 }
 
+
 @doc("Provisioning state of the monitoring resource")
 enum ProvisioningState {
   "Accepted", "Creating", "Updating", "Deleting",
@@ -198,7 +202,7 @@ model PlanData {
   @doc("different billing cycles like MONTHLY/WEEKLY. this could be enum")
   billingCycle?: MediumString;
 
-  @doc("plan id as published by Dynatrace Observability")
+  @doc("plan id as published by Dynatrace")
   planDetails?: MediumString;
 
   @doc("date when plan was applied")
@@ -243,5 +247,65 @@ model FilteringTag {
   action?: TagAction;
 }
 
-@doc("Valid actions for a filtering a tag. Exclusion takes priority over inclusion.")
+@doc("Valid actions for a filtering tag. Exclusion takes priority over inclusion.")
 enum TagAction { "Include", "Exclude" }
+
+@doc("Response of payload to be passed while installing VM agent.")
+model VMExtensionPayload {
+	@doc("API Key of the user account")
+	apiKey?: SecureString;
+
+	@doc("Id of the environment created")
+	environmentId?: string;
+}
+
+@doc("VM Resource Ids")
+model VMResources {
+	@doc("VM resource ID on which agent is installed")
+	id?: virtualMachineId; // made a chaneg here to inform about the kind of reference this must be.
+
+	@doc("Version of the Dynatrace agent installed on the VM.")
+	agentVersion?: string;
+}
+
+@doc("Various states of the updating vm extension on resource")
+enum VMHostUpdateState {"Install", "Delete"}
+
+@doc("Response of a list VM Host Update Operation.")
+model VMResourcesListResponse extends Page<VMResources> {}
+
+@doc("Host Update Parameter specification.")
+model VMHostUpdateParameter {
+  @doc("The details of the VMHost update request.")
+  @body request: VMHostUpdateRequest;
+}
+
+@doc("Request of a list VM Host Update Operation.")
+model VMHostUpdateRequest {
+	@doc("VM resource ID on which agent is installed/deleted")
+	vmResourceIds?: VMResources[];    // [yes, it is] check if this is the correct way to make this an array
+
+	@doc("Specifies the state of the operation - install/ delete.")
+	state?: VMHostUpdateState;
+}
+
+@doc("Various states of the SSO resource")
+enum SingleSignOnStates {"Initial", "Enable", "Disable", "Existing"}
+
+@doc("The details of a DynaTrace single sign-on.")
+model DynatraceSingleSignOnProperties {
+    @doc("State of Single Sign On")
+	singleSignOnState?: SingleSignOnStates;
+
+	@doc("Version of the Dynatrace agent installed on the VM.")
+	enterpriseAppId?: string;
+
+    @doc("The login URL specific to this Dynatrace Environment")
+    singleSignOnUrl: string;
+
+	@doc("array of Aad(azure active directory) domains")
+	aadDomains: string[];    // [yes, it is] check if this is the correct way to make this an array
+
+    @doc("Provisioning state of the resource.")
+	provisioningState?: ProvisioningState;
+}

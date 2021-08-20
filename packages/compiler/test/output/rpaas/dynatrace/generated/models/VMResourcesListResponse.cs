@@ -10,12 +10,8 @@ using System.Collections.Generic;
 namespace Microsoft.Observability.Service.Models
 {
     /// <summary>
-    /// Tag rules for a monitor resource 
+    /// Response of a list VM Host Update Operation. 
     /// </summary>
-    public class TagRule : ProxyResourceBase    {
-        /// <summary>
-        ///  The resource-specific properties for this resource. 
-        /// </summary>
-        public MonitoringTagRulesProperties Properties { get; set; }
+    public class VMResourcesListResponse : Pageable<VMResources>    {
     }
 }

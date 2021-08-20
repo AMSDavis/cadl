@@ -10,12 +10,17 @@ using System.Collections.Generic;
 namespace Microsoft.Observability.Service.Models
 {
     /// <summary>
-    /// The updateable properties of MonitoringTagRulesProperties 
+    /// VM Resource Ids 
     /// </summary>
-    public class TagRuleUpdateProperties    {
+    public class VMResources    {
         /// <summary>
-        ///  Set of rules for sending logs for the Monitor resource. 
+        ///  VM resource ID on which agent is installed 
         /// </summary>
-        public LogRules LogRules { get; set; }
+        [Pattern(&quot;\/subscriptions\/[a-z0-9\-]+\/resourceGroups\/[^\/]+\/providers\/Microsoft\.Compute\/virtualMachines\/[^\/]+&quot;)]
+        public string Id { get; set; }
+        /// <summary>
+        ///  Version of the Dynatrace agent installed on the VM. 
+        /// </summary>
+        public string AgentVersion { get; set; }
     }
 }

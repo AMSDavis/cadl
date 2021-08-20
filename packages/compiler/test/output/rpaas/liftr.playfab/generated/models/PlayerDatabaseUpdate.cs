@@ -18,8 +18,13 @@ namespace Microsoft.PlayFab.Service.Models
         /// </summary>
         public IDictionary<string, string> Tags { get; set; }
         /// <summary>
-        ///  The updateable properties of PlayerDatabaseProperties 
+        ///  The user id for this player database 
         /// </summary>
-        public PlayerDatabaseUpdateProperties Properties { get; set; }
+        public string UserId { get; set; }
+        /// <summary>
+        ///  The set of titles belonging to this player database. 
+        /// </summary>
+        [Pattern(&quot;\/subscriptions\/[a-z0-9\-]+\/resourceGroups\/[^\/]+\/providers\/Microsoft\.PlayFab\/titles\/[^\/]+&quot;)]
+        public string[] Titles { get; set; }
     }
 }

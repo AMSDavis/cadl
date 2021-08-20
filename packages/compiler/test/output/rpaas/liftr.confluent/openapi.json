@@ -583,9 +583,13 @@
             "create"
           ]
         },
-        "properties": {
-          "$ref": "#/definitions/OrganizationUpdateProperties",
-          "description": "The updateable properties of OrganizationProperties"
+        "offerDetail": {
+          "$ref": "#/definitions/OfferDetail",
+          "description": "Details of the product offering."
+        },
+        "userDetail": {
+          "$ref": "#/definitions/UserDetail",
+          "description": "Subscriber details."
         }
       },
       "description": "The updatable properties of the Organization."
@@ -653,24 +657,6 @@
         "userDetail"
       ]
     },
-    "OrganizationUpdateProperties": {
-      "type": "object",
-      "properties": {
-        "offerDetail": {
-          "$ref": "#/definitions/OfferDetail",
-          "description": "Details of the product offering."
-        },
-        "userDetail": {
-          "$ref": "#/definitions/UserDetail",
-          "description": "Subscriber details."
-        }
-      },
-      "description": "The updateable properties of OrganizationProperties"
-    },
-    "Uri": {
-      "type": "string",
-      "description": "A string that represents a URI."
-    },
     "OfferDetail": {
       "type": "object",
       "properties": {
@@ -731,6 +717,10 @@
         "lastName",
         "emailAddress"
       ]
+    },
+    "Uri": {
+      "type": "string",
+      "description": "A string that represents a URI."
     },
     "MediumString": {
       "type": "string",

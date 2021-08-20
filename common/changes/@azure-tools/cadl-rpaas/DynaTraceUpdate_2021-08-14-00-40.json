@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas",
+      "comment": "Flatten PATCH models",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas",
+  "email": "markcowl@microsoft.com"
+}
