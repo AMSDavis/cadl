@@ -1,6 +1,17 @@
 # Change Log - @azure-tools/cadl-rpaas
 
-This log was last generated on Fri, 13 Aug 2021 19:10:21 GMT and should not be manually modified.
+This log was last generated on Sat, 21 Aug 2021 00:04:02 GMT and should not be manually modified.
+
+## 0.7.0
+Sat, 21 Aug 2021 00:04:02 GMT
+
+### Minor changes
+
+- Introduce naming convention `$name` for JavaScript-defined Cadl functions and decorators
+
+### Patches
+
+- Flatten PATCH models
 
 ## 0.6.1
 Fri, 13 Aug 2021 19:10:21 GMT

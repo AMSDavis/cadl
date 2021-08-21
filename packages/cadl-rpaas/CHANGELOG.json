@@ -2,6 +2,34 @@
   "name": "@azure-tools/cadl-rpaas",
   "entries": [
     {
+      "version": "0.7.0",
+      "tag": "@azure-tools/cadl-rpaas_v0.7.0",
+      "date": "Sat, 21 Aug 2021 00:04:02 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Introduce naming convention `$name` for JavaScript-defined Cadl functions and decorators"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Flatten PATCH models"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@cadl-lang/compiler\" from `0.18.0` to `0.19.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `0.5.1` to `0.6.0`"
+          },
+          {
+            "comment": "Updating dependency \"@cadl-lang/rest\" from `0.5.1` to `0.6.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.6.1",
       "tag": "@azure-tools/cadl-rpaas_v0.6.1",
       "date": "Fri, 13 Aug 2021 19:10:21 GMT",
