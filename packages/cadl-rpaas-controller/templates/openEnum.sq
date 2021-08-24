@@ -4,16 +4,17 @@
 
 namespace Microsoft.{{it.serviceName}}.Service.Models
 {
-    {{_@if(it.description)}}
+{{@if(it.description)}}
     /// <summary>
     /// {{it.description}}
     /// </summary>
-    {{_/if}}
-    public struct {{it.name}}
+{{/if}}
+    public struct {{it.name}} 
     {
         string _value;
 
-        public static readonly {{it.name}} {{@each(it.values) => value, valueIndex}}{{value.name}} = "{{value.value? value.value : value.name}}"{{_@if(valueIndex < it.values.length -1)}}, {{/if}}{{_/each}};
+        public static readonly {{it.name}} {{@each(it.values) => value, valueIndex}}{{value.name}} = "{{value.value? value.value : value.name}}"{{@if(valueIndex < it.values.length -1)}},{{#else}};{{/if}} {{/each}}
+
         public {{it.name}}( string value)
         {
             _value = value;

@@ -8,25 +8,29 @@ namespace {{it.nameSpace}}.Service.Controllers
     public static class {{it.serviceName}}ServiceRoutes
     {
         public const string ListOperations = "providers/{{it.nameSpace}}/operations";
-        {{_@each(it.resources) => resource, index}}
+{{@each(it.resources) => resource, index}}
         public const string {{resource.name}}Item = "{{resource.itemPath}}";
-        {{_@if(resource.hasSubscriptionList)}}
+{{@if(resource.hasSubscriptionList)}}
         public const string {{resource.name}}ListBySubscription = "/subscriptions/{subscriptionId}/providers/{{resource.nameSpace}}/{{resource.serializedName}}";
-        {{_/if}}
-        {{_@if(resource.hasResourceGroupList)}}
+{{/if}}
+{{@if(resource.hasResourceGroupList)}}
         public const string {{resource.name}}ListByResourceGroup = "/subscriptions/{subscriptionId}/resourceGroups{resourceGroupName}/providers/{{resource.nameSpace}}/{{resource.serializedName}}";
-        {{_/if}}
-        {{_@each(resource.operations) => operation, opIndex}}
-        {{_@if(operation.verb.toUpperCase() === "PUT")}}
-        public const string {{resource.name}}ValidateCreate = "{{resource.itemPath}}/validateCreate";{{/if}}
-        {{_@if(operation.verb.toUpperCase() === "PATCH")}}
-        public const string {{resource.name}}ValidatePatch = "{{resource.itemPath}}/validatePatch";{{/if}}
-        {{_@if(operation.verb.toUpperCase() === "DELETE")}}
-        public const string {{resource.name}}ValidateDelete = "{{resource.itemPath}}/validateDelete";{{/if}}
-        {{_@if(operation.verb.toUpperCase() === "POST")}}
+{{/if}}
+{{@each(resource.operations) => operation, opIndex}}
+{{@if(operation.verb.toUpperCase() === "PUT")}}
+        public const string {{resource.name}}ValidateCreate = "{{resource.itemPath}}/validateCreate";
+{{/if}}
+{{@if(operation.verb.toUpperCase() === "PATCH")}}
+        public const string {{resource.name}}ValidatePatch = "{{resource.itemPath}}/validatePatch";
+{{/if}}
+{{@if(operation.verb.toUpperCase() === "DELETE")}}
+        public const string {{resource.name}}ValidateDelete = "{{resource.itemPath}}/validateDelete";
+{{/if}}
+{{@if(operation.verb.toUpperCase() === "POST")}}
         public const string {{resource.name}}Validate{{operation.name}} = "{{resource.itemPath}}/validate{{operation.subPath | initialCaps}}";
-        public const string {{resource.name}}Item{{operation.name}} = "{{resource.itemPath}}/{{operation.subPath}}";{{/if}}
-        {{_/each}}
-        {{_/each}}
+        public const string {{resource.name}}Item{{operation.name}} = "{{resource.itemPath}}/{{operation.subPath}}";
+{{/if}}
+{{/each}}
+{{/each}}
     }
 }

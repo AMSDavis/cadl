@@ -22,12 +22,12 @@ namespace {{it.nameSpace}}.Service
             _logger = logger;
         }
         
-        {{_@each(it.operations) => operation}}
+{{@each(it.operations) => operation}}
         {{_! if (operation.verb.toLowerCase().includes("put")) operation.action = "Create";}}
         {{_! if (operation.verb.toLowerCase().includes("delete")) operation.action = "Delete";}}
         {{_! if (operation.verb.toLowerCase() === "patch") operation.action = "Patch";}}
         {{_! if (operation.verb.toLowerCase() === "post") operation.action = "" + operation.subPath.substring(0, 1).toUpperCase() + operation.subPath.substring(1);}}
-        {{_@if(operation.action)}}
+{{@if(operation.action)}}
         /// <summary>
         /// Validate the request to {{operation.action}} the {{it.name}} resource.
         /// </summary>
@@ -41,13 +41,13 @@ namespace {{it.nameSpace}}.Service
         public async Task<ValidationResponse> Validate{{operation.action}}Async({{operation | decl}})
         {
             _logger.LogInformation($"Validate{{operation.action}}Async()");
-{{@if(operation.action !== "Delete")}}
-            var modelValidation = ValidationHelpers.ValidateModel(body);
+{{@if(operation.requestParameter !== undefined)}}
+            var modelValidation = ValidationHelpers.ValidateModel({{operation.requestParameter.name}});
             if (modelValidation.Valid)
             {
 {{/if}}
                 modelValidation = await OnValidate{{operation.action}}({{operation | call}}, Request);
-{{@if(operation.action !== "Delete")}}
+{{@if(operation.requestParameter !== undefined)}}
             }
 {{/if}}
 
@@ -73,8 +73,10 @@ namespace {{it.nameSpace}}.Service
         public async Task<IActionResult> {{operation.action}}Async({{operation | decl}})
         {
             _logger.LogInformation("{{operation.action}}Async()");
-            resource = resource ?? throw new ArgumentNullException(nameof(resource));
+{{@if(operation.requestParameter !== undefined)}}
+            {{operation.requestParameter.name}} = {{operation.requestParameter.name}} ?? throw new ArgumentNullException(nameof({{operation.requestParameter.name}}));
 
+{{/if}}
             if (Request == null)
             {
                 _logger.LogError($"Http request is null");
@@ -87,17 +89,17 @@ namespace {{it.nameSpace}}.Service
 
         internal abstract Task<ValidationResponse> OnValidate{{operation.action}}({{operation | decl}}, HttpRequest request);
         internal abstract Task<IActionResult> On{{operation.action}}Async({{operation | decl}}, HttpRequest request);
-        {{_/if}}
-        {{_/each}}
+{{/if}}
 
-        {{_@if(it.hasSubscriptionList)}}
+{{/each}}
+{{@if(it.hasSubscriptionList)}}
         /// <summary>
         /// List Organization resources in the specified subscription.
         /// </summary>
         /// <param name="subscriptionId"> The subscription id.</param>
         /// <returns> The list of {{it.name}} Resources in the specified subscription.</returns>
         [HttpGet]
-        [Route(ConfluentServiceRoutes.{{it.name}}ListBySubscription)]
+        [Route({{it.serviceName}}ServiceRoutes.{{it.name}}ListBySubscription)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{it.specificationListModelName}}))]
         public Task<{{it.specificationListModelName}}> ListBySubscription(string subscriptionId)
         {
@@ -106,9 +108,9 @@ namespace {{it.nameSpace}}.Service
         }
 
         internal abstract Task<{{it.specificationListModelName}}> OnListBySubscription(string subscriptionId, HttpRequest request);
-        {{_/if}}
 
-        {{@if(it.hasResourceGroupList)}}
+{{/if}}
+{{@if(it.hasResourceGroupList)}}
         /// <summary>
         /// List {{it.name}} resources in the specified resource group.
         /// </summary>
@@ -116,7 +118,7 @@ namespace {{it.nameSpace}}.Service
         /// <param name="resourceGroupName"> The resource group name.</param>
         /// <returns> The list of {{it.name}} Resources in the specified resource group.</returns>
         [HttpGet]
-        [Route(ConfluentServiceRoutes.{{it.name}}ListByResourceGroup)]
+        [Route({{it.serviceName}}ServiceRoutes.{{it.name}}ListByResourceGroup)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{it.specificationListModelName}}))]
         public Task<{{it.specificationListModelName}}> ListByResourceGroupAsync(string subscriptionId, string resourceGroupName)
         {
@@ -125,6 +127,6 @@ namespace {{it.nameSpace}}.Service
         }
                 
         internal abstract Task<{{it.specificationListModelName}}> OnListByResourceGroupAsync(string subscriptionId, string resourceGroupName, HttpRequest request);
-        {{_/if}}
+{{/if}}
     }
 }

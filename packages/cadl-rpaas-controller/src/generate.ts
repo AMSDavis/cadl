@@ -97,6 +97,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     verb: string;
     subPath?: string;
     parameters?: MethodParameter[];
+    requestParameter?: MethodParameter;
   }
 
   interface MethodParameter {
@@ -247,6 +248,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               ],
               returnType: modelName,
               verb: "PUT",
+              requestParameter: {
+                name: "body",
+                location: "body",
+                description: "The resource data.",
+                type: modelName,
+              },
             };
           case DeleteName:
             return {
@@ -269,6 +276,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               ],
               returnType: modelName,
               verb: "PATCH",
+              requestParameter: {
+                name: "body",
+                location: "body",
+                description: "The resource patch data.",
+                type: `${modelName}Update`,
+              },
             };
           default:
             return undefined;
@@ -375,6 +388,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           function visitOperation(operation: OperationType, namespaceKey: string) {
             const operationKey: string = namespaceKey + "." + operation.name;
             let httpOperation = getHttpOperation(program, operation);
+            let bodyProp: MethodParameter | undefined = undefined;
             if (!visitedOperations.has(operationKey)) {
               visitedOperations.set(operationKey, operation);
               let returnType = extractResponseType(operation.returnType);
@@ -402,6 +416,13 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                       type: propType.name,
                       location: propLoc,
                     });
+                    if (propLoc === "Body") {
+                      bodyProp = {
+                        name: prop.name,
+                        type: propType.name,
+                        location: propLoc,
+                      };
+                    }
                   }
                 });
               }
@@ -409,13 +430,16 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               let route = httpOperation?.route;
 
               getPathParamName(program, operation);
-              const outOperation = {
+              const outOperation: Operation = {
                 name: transformCSharpIdentifier(operation.name),
                 returnType: returnType?.name ?? "void",
                 parameters: parameters,
                 subPath: httpOperation!.route?.subPath,
                 verb: httpOperation!.route.verb,
               };
+              if (bodyProp !== undefined) {
+                outOperation.requestParameter = bodyProp;
+              }
               // use the default path for post operations
               if (outOperation.verb === "post" && !outOperation.subPath) {
                 outOperation.subPath = outOperation.name;
@@ -907,6 +931,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             name: "Resource",
             nameSpace: "Microsoft.Cadl.RPaaS",
           };
+        case "TrackedResourceBase":
         case "TrackedResource": {
           const baseResource: TypeReference = {
             isBuiltIn: true,
@@ -922,16 +947,11 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
           return baseResource;
         }
+        case "ProxyResourceBase":
         case "ProxyResource":
           return {
             isBuiltIn: true,
-            name: "Resource",
-            nameSpace: "Microsoft.Cadl.RPaaS",
-          };
-        case "Resource":
-          return {
-            isBuiltIn: true,
-            name: "Resource",
+            name: "ProxyResource",
             nameSpace: "Microsoft.Cadl.RPaaS",
           };
         case "SystemData":
@@ -940,34 +960,15 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             name: "SystemData",
             nameSpace: "Microsoft.Cadl.RPaaS",
           };
-        case "TrackedResourceBase":
-          return {
-            isBuiltIn: true,
-            name: "TrackedResource",
-            nameSpace: "Microsoft.Cadl.RPaaS",
-          };
+        case "ExtensionResourceBase":
         case "ExtensionResource":
           return {
             isBuiltIn: true,
-            name: "ExtensionResource",
+            name: "ProxyResource",
             nameSpace: "Microsoft.Cadl.RPaaS",
           };
+        case "Pageable":
         case "Page": {
-          const returnValue: TypeReference = {
-            isBuiltIn: true,
-            name: "Pageable",
-            nameSpace: "Microsoft.Cadl.RPaaS",
-            typeParameters: [],
-          };
-          let innerType = model.templateArguments
-            ? getCSharpType(model.templateArguments![0])
-            : undefined;
-          if (innerType) {
-            returnValue.typeParameters!.push(innerType);
-          }
-          return returnValue;
-        }
-        case "Pageable": {
           const returnValue: TypeReference = {
             isBuiltIn: true,
             name: "Pageable",
@@ -1092,7 +1093,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
 
     const service = outputModel.serviceName;
-
     sqrl.filters.define("decl", (op) =>
       op.parameters.map((p: any) => p.type + " " + p.name).join(", ")
     );

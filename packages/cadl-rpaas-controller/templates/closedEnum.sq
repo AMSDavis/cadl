@@ -6,20 +6,20 @@ using System;
 
 namespace Microsoft.{{it.serviceName}}.Service.Models
 {
-    {{_@if(it.description)}}
+{{@if(it.description)}}
     /// <summary>
     /// {{it.description}}
     /// </summary>
-    {{_/if}}
-    public enum {{it.name}}
+{{/if}}
+    public enum {{it.name}} 
     {
-        {{_@each(it.values) => value, valueIndex}}
-        {{_@if(value.description)}}
+{{@each(it.values) => value, valueIndex}}
+{{@if(value.description)}}
         /// <summary>
         /// {{value.description}}
         /// </summary>
-        {{_/if}}
+{{/if}}
         {{value.name}} = "{{value.value? value.value : value.name}}"{{_@if(valueIndex < (it.values.length - 1))}},{{_/if}}
-        {{_/each}}
+{{/each}}
     }
 }
