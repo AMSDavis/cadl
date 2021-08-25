@@ -1,4 +1,4 @@
-# Guide for checking generated swagger from cadl file.
+# Guide for checking in generated swagger to azure-rest-api-specs repo.
 This documentation describes how to check in the swagger generated from `cadl` into the [azure-rest-api-specs](https://github.com/Azure/azure-rest-api-specs#azure-rest-api-specifications) which is the canonical source for REST API specifications for Microsoft Azure.
 
 ## Authoring cadl and generating swagger
