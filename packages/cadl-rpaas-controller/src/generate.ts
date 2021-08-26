@@ -52,6 +52,9 @@ export async function $onBuild(program: Program) {
             "generated"
           ),
     controllerModulePath: rootPath,
+    controllerHost: program.compilerOptions.miscOptions?.controllerHost || "rpaas",
+    operationPollingLocation:
+      program.compilerOptions.miscOptions?.operationPollingLocation || "tenant",
   };
 
   const generator = CreateServiceCodeGenerator(program, options);
@@ -61,6 +64,8 @@ export async function $onBuild(program: Program) {
 export interface ServiceGenerationOptions {
   controllerOutputPath: string;
   controllerModulePath: string;
+  controllerHost: "liftr" | "rpaas";
+  operationPollingLocation: "tenant" | "subscription";
 }
 
 export function CreateServiceCodeGenerator(program: Program, options: ServiceGenerationOptions) {
@@ -997,25 +1002,25 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       await program.host.writeFile(
         resolvePath(resourcePath),
         await sqrl.renderFile(
-          resolvePath(path.join(rootPath, "templates/resourceControllerBase.sq")),
+          resolvePath(path.join(templatePath, "resourceControllerBase.sq")),
           resource
         )
       );
     }
 
     async function generateModel(model: any) {
-      const modelPath = genPath + "/models/" + model.name + ".cs";
-      const templatePath = resolvePath(path.join(rootPath, "templates/model.sq"));
+      const modelPath = path.join(genPath, "models", model.name + ".cs");
+      const modelTemplate = resolvePath(path.join(templatePath, "model.sq"));
       await program.host.writeFile(
         resolvePath(modelPath),
-        await sqrl.renderFile(templatePath, model)
+        await sqrl.renderFile(modelTemplate, model)
       );
     }
 
     async function generateEnum(model: any) {
       const modelPath = genPath + "/models/" + model.name + ".cs";
       const templateFile = resolvePath(
-        path.join(rootPath, model.isClosed ? "templates/closedEnum.sq" : "templates/openEnum.sq")
+        path.join(templatePath, model.isClosed ? "closedEnum.sq" : "openEnum.sq")
       );
       await program.host.writeFile(
         resolvePath(modelPath),
@@ -1029,7 +1034,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       reportInfo("  basePath: " + basePath);
       reportInfo("  outPath: " + outPath);
 
-      const singleTemplatePath = path.join(basePath, "templates", "single");
+      const singleTemplatePath = path.join(templatePath, "single");
 
       (await fs.readdir(singleTemplatePath)).forEach(async (file) => {
         const templatePath = resolvePath(path.join(singleTemplatePath, file));
@@ -1108,7 +1113,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     sqrl.filters.define("initialCaps", (op) => transformCSharpIdentifier(op));
     const operationsPath = resolvePath(path.join(genPath, "operations"));
     const routesPath = resolvePath(path.join(genPath, service + "ServiceRoutes.cs"));
-    const templatePath = path.join(rootPath, "templates");
+    const templatePath = path.join(rootPath, "templates", options.controllerHost);
     const modelsPath = path.join(genPath, "models");
     if (!program.hasError()) {
       await ensureCleanDirectory(genPath).catch((err) =>
@@ -1117,9 +1122,10 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       await createDirIfNotExists(operationsPath).catch((err) =>
         program.reportDiagnostic(`Error creating output directory: ${err}`, NoTarget)
       );
-      await copyModelFiles(path.join(rootPath, "clientlib"), modelsPath).catch((err) =>
-        program.reportDiagnostic(`Error copying model files: ${err}`, NoTarget)
-      );
+      await copyModelFiles(
+        path.join(rootPath, "clientlib", options.controllerHost),
+        modelsPath
+      ).catch((err) => program.reportDiagnostic(`Error copying model files: ${err}`, NoTarget));
       await program.host.writeFile(
         routesPath,
         await sqrl.renderFile(path.join(templatePath, "serviceRoutingConstants.sq"), outputModel)
