@@ -18,6 +18,7 @@ using the preview.
 | [@cadl-lang/compiler][cadl_src]                 | [Changelog][cadl_chg]         | ![](https://img.shields.io/npm/v/@cadl-lang/compiler)         |
 | Cadl Libraries                               |
 | [@cadl-lang/rest][rest_src]       | [Changelog][rest_chg]    | ![](https://img.shields.io/npm/v/@cadl-lang/rest)    |
+| [@cadl-lang/openapi3][openapi3_src] | [Changelog][openapi3_chg] | ![](https://img.shields.io/npm/v/@cadl-lang/openapi3) |
 | [@azure-tools/cadl-rpaas][cadl-rpaas_src]     | [Changelog][cadl-rpaas_chg]   | ![](https://img.shields.io/npm/v/@azure-tools/cadl-rpaas)   |
 | [@azure-tools/cadl-autorest][cadl-autorest_src] | [Changelog][cadl-autorest_chg] | ![](https://img.shields.io/npm/v/@azure-tools/cadl-autorest) |
 | Cadl Tools                                   |
@@ -28,6 +29,8 @@ using the preview.
 [cadl_chg]: packages/compiler/CHANGELOG.md
 [rest_src]: packages/rest
 [rest_chg]: packages/rest/CHANGELOG.md
+[openapi3_src]: packages/openapi3
+[openapi3_chg]: packages/openapi3/CHANGELOG.md
 [cadl-rpaas_src]: packages/cadl-rpaas
 [cadl-rpaas_chg]: packages/cadl-rpaas/CHANGELOG.md
 [cadl-autorest_src]: packages/cadl-autorest

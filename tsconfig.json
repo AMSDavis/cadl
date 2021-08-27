@@ -2,6 +2,7 @@
   "references": [
     { "path": "packages/compiler/tsconfig.json" },
     { "path": "packages/cadl-autorest/tsconfig.json" },
+    { "path": "packages/openapi3/tsconfig.json" },
     { "path": "packages/rest/tsconfig.json" },
     { "path": "packages/cadl-rpaas/tsconfig.json" },
     { "path": "packages/cadl-rpaas-controller/tsconfig.json" },
