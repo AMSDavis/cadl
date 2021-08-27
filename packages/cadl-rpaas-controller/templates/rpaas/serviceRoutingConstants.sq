@@ -10,24 +10,23 @@ namespace {{it.nameSpace}}.Service.Controllers
         public const string ListOperations = "providers/{{it.nameSpace}}/operations";
 {{@each(it.resources) => resource, index}}
         public const string {{resource.name}}Item = "{{resource.itemPath}}";
-{{@if(resource.hasSubscriptionList)}}
-        public const string {{resource.name}}ListBySubscription = "/subscriptions/{subscriptionId}/providers/{{resource.nameSpace}}/{{resource.serializedName}}";
-{{/if}}
-{{@if(resource.hasResourceGroupList)}}
-        public const string {{resource.name}}ListByResourceGroup = "/subscriptions/{subscriptionId}/resourceGroups{resourceGroupName}/providers/{{resource.nameSpace}}/{{resource.serializedName}}";
-{{/if}}
 {{@each(resource.operations) => operation, opIndex}}
 {{@if(operation.verb.toUpperCase() === "PUT")}}
-        public const string {{resource.name}}ValidateCreate = "{{resource.itemPath}}/validateCreate";
+        public const string {{resource.name}}ValidateCreate = "{{resource.itemPath}}/resourceCreationValidate";
+        public const string {{resource.name}}EndCreate = "{{resource.itemPath}}/resourceCreationCompleted";
+{{/if}}
+{{@if(operation.verb.toUpperCase() === "GET")}}
+        public const string {{resource.name}}ValidateRead = "{{resource.itemPath}}/resourceReadValidate";
 {{/if}}
 {{@if(operation.verb.toUpperCase() === "PATCH")}}
-        public const string {{resource.name}}ValidatePatch = "{{resource.itemPath}}/validatePatch";
+        public const string {{resource.name}}ValidatePatch = "{{resource.itemPath}}/resourcePatchValidate";
+        public const string {{resource.name}}EndPatch = "{{resource.itemPath}}/resourcePatchCompleted";
 {{/if}}
 {{@if(operation.verb.toUpperCase() === "DELETE")}}
-        public const string {{resource.name}}ValidateDelete = "{{resource.itemPath}}/validateDelete";
+        public const string {{resource.name}}ValidateDelete = "{{resource.itemPath}}/resourceDeletionValidate";
+        public const string {{resource.name}}EndDelete = "{{resource.itemPath}}/resourceDeletionCompleted";
 {{/if}}
 {{@if(operation.verb.toUpperCase() === "POST")}}
-        public const string {{resource.name}}Validate{{operation.name}} = "{{resource.itemPath}}/validate{{operation.subPath | initialCaps}}";
         public const string {{resource.name}}Item{{operation.name}} = "{{resource.itemPath}}/{{operation.subPath}}";
 {{/if}}
 {{/each}}

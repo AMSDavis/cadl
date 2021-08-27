@@ -21,13 +21,15 @@ namespace {{it.nameSpace}}.Service
         {
             _logger = logger;
         }
-        
 {{@each(it.operations) => operation}}
-        {{_! if (operation.verb.toLowerCase().includes("put")) operation.action = "Create";}}
-        {{_! if (operation.verb.toLowerCase().includes("delete")) operation.action = "Delete";}}
-        {{_! if (operation.verb.toLowerCase() === "patch") operation.action = "Patch";}}
+        {{_! if (operation.verb.toLowerCase().includes("get")) operation.action = "Read"; operation.OperationName = "Read";}}
+        {{_! if (operation.verb.toLowerCase().includes("put")) operation.action = "Create"; operation.OperationName = "Creation";}}
+        {{_! if (operation.verb.toLowerCase().includes("delete")) operation.action = "Delete"; operation.OperationName = "Deletion";;}}
+        {{_! if (operation.verb.toLowerCase() === "patch") operation.action = "Patch"; operation.OperationName = "Patch";}}
         {{_! if (operation.verb.toLowerCase() === "post") operation.action = "" + operation.subPath.substring(0, 1).toUpperCase() + operation.subPath.substring(1);}}
 {{@if(operation.action)}}
+{{@if(operation.operationName)}}
+
         /// <summary>
         /// Validate the request to {{operation.action}} the {{it.name}} resource.
         /// </summary>
@@ -54,6 +56,28 @@ namespace {{it.nameSpace}}.Service
             return modelValidation;
         }
 
+        internal abstract Task<ValidationResponse> OnValidate{{operation.action}}({{operation | decl}}, HttpRequest request);
+
+        /// <summary>
+        /// Called after the end of the request to {{operation.action}} the {{it.name}} resource.
+        /// </summary>
+{{@each(operation.parameters) => parameter, index}}
+        /// <param name="{{parameter.name}}"> {{parameter.description}}</param>
+{{/each}}
+        /// <returns> A ValidationResponse indicating the validity of the {{operation.action}} request.</returns>
+        [HttpPost]
+        [Route({{it.serviceName}}ServiceRoutes.{{it.name}}End{{operation.action}})]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
+        public async Task End{{operation.action}}Async({{operation | decl}})
+        {
+            _logger.LogInformation($"End{{operation.action}}Async()");
+            await OnEnd{{operation.action}}({{operation | call}}, Request);
+            return;
+        }
+
+        internal abstract Task OnEnd{{operation.action}}({{operation | decl}}, HttpRequest request);
+{{/if}}
+
         /// <summary>
         /// {{operation.action}} the {{it.name}} resource.
         /// </summary>
@@ -64,8 +88,11 @@ namespace {{it.nameSpace}}.Service
         [Http{{operation.verb.toLowerCase() | initialCaps}}]
         [Route({{it.serviceName}}ServiceRoutes.{{it.name}}Item{{operation.subPath? operation.action :  ""}})]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{operation.returnType}}))]
-{{@if(operation.verb.toUpperCase() === "PUT")}}
+{{@if(operation.action === "Create" || operation.action === "Patch")}}
         [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof({{operation.returnType}}))]
+{{/if}}
+{{@if(operation.verb.toUpperCase() === "POST"}}
+        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof({{operation.returnType}}))]
 {{/if}}
 {{@if(operation.verb.toUpperCase() === "DELETE")}}
         [ProducesResponseType((int)HttpStatusCode.NoContent, Type = typeof({{operation.returnType}}))]
@@ -87,46 +114,8 @@ namespace {{it.nameSpace}}.Service
 
         }
 
-        internal abstract Task<ValidationResponse> OnValidate{{operation.action}}({{operation | decl}}, HttpRequest request);
         internal abstract Task<IActionResult> On{{operation.action}}Async({{operation | decl}}, HttpRequest request);
 {{/if}}
-
 {{/each}}
-{{@if(it.hasSubscriptionList)}}
-        /// <summary>
-        /// List Organization resources in the specified subscription.
-        /// </summary>
-        /// <param name="subscriptionId"> The subscription id.</param>
-        /// <returns> The list of {{it.name}} Resources in the specified subscription.</returns>
-        [HttpGet]
-        [Route({{it.serviceName}}ServiceRoutes.{{it.name}}ListBySubscription)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{it.specificationListModelName}}))]
-        public Task<{{it.specificationListModelName}}> ListBySubscription(string subscriptionId)
-        {
-            _logger.LogInformation("ListBySubscriptionAsync()");
-            return OnListBySubscription(subscriptionId, Request);
-        }
-
-        internal abstract Task<{{it.specificationListModelName}}> OnListBySubscription(string subscriptionId, HttpRequest request);
-
-{{/if}}
-{{@if(it.hasResourceGroupList)}}
-        /// <summary>
-        /// List {{it.name}} resources in the specified resource group.
-        /// </summary>
-        /// <param name="subscriptionId"> The subscription id.</param>
-        /// <param name="resourceGroupName"> The resource group name.</param>
-        /// <returns> The list of {{it.name}} Resources in the specified resource group.</returns>
-        [HttpGet]
-        [Route({{it.serviceName}}ServiceRoutes.{{it.name}}ListByResourceGroup)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{it.specificationListModelName}}))]
-        public Task<{{it.specificationListModelName}}> ListByResourceGroupAsync(string subscriptionId, string resourceGroupName)
-        {
-            _logger.LogInformation("ListByResourceGroupAsync()");
-            return OnListByResourceGroupAsync(subscriptionId, resourceGroupName, Request);
-        }
-                
-        internal abstract Task<{{it.specificationListModelName}}> OnListByResourceGroupAsync(string subscriptionId, string resourceGroupName, HttpRequest request);
-{{/if}}
     }
 }

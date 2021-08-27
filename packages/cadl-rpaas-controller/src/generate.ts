@@ -496,7 +496,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           resourceNamespaceTable.set(resourceInfo.resourceModelName, resourceInfo.armNamespace);
           const map = new Map<string, Operation>();
           resourceInfo.standardOperations
-            .filter((o) => o == PutName || o == PatchName || o == DeleteName)
+            .filter((o) => o == PutName || o == PatchName || o == DeleteName || o == GetName)
             .forEach((op) => {
               let value = getStandardOperation(op, resourceInfo, cSharpModelName)!;
               if (value && !map.has(value.name)) {
