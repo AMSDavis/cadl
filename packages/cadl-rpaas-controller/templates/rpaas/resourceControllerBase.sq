@@ -22,13 +22,18 @@ namespace {{it.nameSpace}}.Service
             _logger = logger;
         }
 {{@each(it.operations) => operation}}
-        {{_! if (operation.verb.toLowerCase().includes("get")) operation.action = "Read"; operation.OperationName = "Read";}}
-        {{_! if (operation.verb.toLowerCase().includes("put")) operation.action = "Create"; operation.OperationName = "Creation";}}
-        {{_! if (operation.verb.toLowerCase().includes("delete")) operation.action = "Delete"; operation.OperationName = "Deletion";;}}
-        {{_! if (operation.verb.toLowerCase() === "patch") operation.action = "Patch"; operation.OperationName = "Patch";}}
-        {{_! if (operation.verb.toLowerCase() === "post") operation.action = "" + operation.subPath.substring(0, 1).toUpperCase() + operation.subPath.substring(1);}}
+        {{_! if (operation.verb.toLowerCase() === "get") operation.action = "Read";}}
+        {{_! if (operation.verb.toLowerCase() === "put") operation.action = "Create";}}
+        {{_! if (operation.verb.toLowerCase() === "delete") operation.action = "Delete";}}
+        {{_! if (operation.verb.toLowerCase() === "patch") operation.action = "Patch";}}
+        {{_! if (operation.verb.toLowerCase() === "post")  operation.action = "" + operation.subPath.substring(0, 1).toUpperCase() + operation.subPath.substring(1)}}
+        {{_! if (operation.verb.toLowerCase() === "get") operation.operationName = "Read";}}
+        {{_! if (operation.verb.toLowerCase() === "put") operation.operationName = "Creation";}}
+        {{_! if (operation.verb.toLowerCase() === "delete") operation.operationName = "Deletion";}}
+        {{_! if (operation.verb.toLowerCase() === "patch") operation.operationName = "Patch";}}
+        {{_! if (operation.verb.toLowerCase() === "post")  operation.operationName = "Custom";}}
 {{@if(operation.action)}}
-{{@if(operation.operationName)}}
+{{@if(operation.operationName  !== "Custom")}}
 
         /// <summary>
         /// Validate the request to {{operation.action}} the {{it.name}} resource.
@@ -58,6 +63,7 @@ namespace {{it.nameSpace}}.Service
 
         internal abstract Task<ValidationResponse> OnValidate{{operation.action}}({{operation | decl}}, HttpRequest request);
 
+{{@if(operation.action !== "Read")}}
         /// <summary>
         /// Called after the end of the request to {{operation.action}} the {{it.name}} resource.
         /// </summary>
@@ -76,6 +82,7 @@ namespace {{it.nameSpace}}.Service
         }
 
         internal abstract Task OnEnd{{operation.action}}({{operation | decl}}, HttpRequest request);
+{{/if}}
 {{/if}}
 
         /// <summary>
