@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/compiler",
+      "comment": "Add IDE go-to definition support",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@cadl-lang/compiler",
+  "email": "nicholg@microsoft.com"
+}
