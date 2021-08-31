@@ -104,7 +104,7 @@ namespace {{it.nameSpace}}.Service
 {{@if(operation.verb.toUpperCase() === "DELETE")}}
         [ProducesResponseType((int)HttpStatusCode.NoContent, Type = typeof({{operation.returnType}}))]
 {{/if}}
-        public async Task<IActionResult> {{operation.action}}Async({{operation | decl}})
+        public async Task<IActionResult> Begin{{operation.action}}Async({{operation | decl}})
         {
             _logger.LogInformation("{{operation.action}}Async()");
 {{@if(operation.requestParameter !== undefined)}}
