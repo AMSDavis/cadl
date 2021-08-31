@@ -12,10 +12,12 @@ namespace Microsoft.FluidRelay.Service.Models
     /// <summary>
     /// Specifies which key should be generated. 
     /// </summary>
-    public class RegenerateKeyRequest    {
+    public class RegenerateKeyRequest 
+    {
         /// <summary>
         ///  The key to regenerate. 
         /// </summary>
         public KeyName KeyName { get; set; }
+
     }
 }

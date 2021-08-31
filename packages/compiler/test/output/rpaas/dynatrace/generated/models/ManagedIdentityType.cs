@@ -3,10 +3,12 @@
 //-----------------------------------------------------------------------------
 
 namespace Microsoft.Observability.Service.Models
-{    public struct ManagedIdentityType    {
+{
+    public struct ManagedIdentityType 
+    {
         string _value;
 
-        public static readonly ManagedIdentityType SystemAssigned = "SystemAssigned", UserAssigned = "UserAssigned", SystemAndUserAssigned = "SystemAndUserAssigned";
+        public static readonly ManagedIdentityType SystemAssigned = "SystemAssigned", UserAssigned = "UserAssigned", SystemAndUserAssigned = "SystemAndUserAssigned"; 
         public ManagedIdentityType( string value)
         {
             _value = value;

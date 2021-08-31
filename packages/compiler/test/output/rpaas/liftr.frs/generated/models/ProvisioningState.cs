@@ -3,10 +3,12 @@
 //-----------------------------------------------------------------------------
 
 namespace Microsoft.FluidRelay.Service.Models
-{    public struct ProvisioningState    {
+{
+    public struct ProvisioningState 
+    {
         string _value;
 
-        public static readonly ProvisioningState Succeeded = "Succeeded", Failed = "Failed", Cancelled = "Cancelled";
+        public static readonly ProvisioningState Succeeded = "Succeeded", Failed = "Failed", Cancelled = "Cancelled"; 
         public ProvisioningState( string value)
         {
             _value = value;

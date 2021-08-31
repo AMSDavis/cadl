@@ -12,6 +12,7 @@ namespace Microsoft.Observability.Service.Models
     /// <summary>
     /// The response of a TagRule list operation. 
     /// </summary>
-    public class TagRuleListResult : Pageable<TagRule>    {
+    public class TagRuleListResult : Pageable<TagRule> 
+    {
     }
 }

@@ -12,6 +12,7 @@ namespace Microsoft.FluidRelay.Service.Models
     /// <summary>
     /// The response of a FluidRelayServer list operation. 
     /// </summary>
-    public class FluidRelayServerListResult : Pageable<FluidRelayServer>    {
+    public class FluidRelayServerListResult : Pageable<FluidRelayServer> 
+    {
     }
 }

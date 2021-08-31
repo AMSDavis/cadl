@@ -3,10 +3,12 @@
 //-----------------------------------------------------------------------------
 
 namespace Microsoft.Observability.Service.Models
-{    public struct SingleSignOnStates    {
+{
+    public struct SingleSignOnStates 
+    {
         string _value;
 
-        public static readonly SingleSignOnStates Initial = "Initial", Enable = "Enable", Disable = "Disable", Existing = "Existing";
+        public static readonly SingleSignOnStates Initial = "Initial", Enable = "Enable", Disable = "Disable", Existing = "Existing"; 
         public SingleSignOnStates( string value)
         {
             _value = value;

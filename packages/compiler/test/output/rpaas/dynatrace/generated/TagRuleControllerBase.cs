@@ -20,7 +20,57 @@ namespace Microsoft.Observability.Service
         public TagRuleControllerBase(ILogger<TagRuleControllerBase> logger)
         {
             _logger = logger;
-        }        /// <summary>
+        }
+
+        /// <summary>
+        /// Validate the request to Read the TagRule resource.
+        /// </summary>
+        /// <param name="subscriptionId"> </param>
+        /// <param name="resourceGroupName"> </param>
+        /// <param name="monitorName"> </param>
+        /// <param name="ruleSetName"> </param>
+        /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.TagRuleValidateRead)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ValidationResponse))]
+        public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
+        {
+            _logger.LogInformation($"ValidateReadAsync()");
+                modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, monitorName, ruleSetName, Request);
+
+            return modelValidation;
+        }
+
+        internal abstract Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, HttpRequest request);
+
+
+        /// <summary>
+        /// Read the TagRule resource.
+        /// </summary>
+        /// <param name="subscriptionId"> </param>
+        /// <param name="resourceGroupName"> </param>
+        /// <param name="monitorName"> </param>
+        /// <param name="ruleSetName"> </param>
+        /// <returns> The TagRule resource.</returns>
+        [HttpGet]
+        [Route(ObservabilityServiceRoutes.TagRuleItem)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(TagRule))]
+        public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
+        {
+            _logger.LogInformation("ReadAsync()");
+            if (Request == null)
+            {
+                _logger.LogError($"Http request is null");
+                return BadRequest("Http request is null");
+            }
+
+            return await OnReadAsync(subscriptionId, resourceGroupName, monitorName, ruleSetName, Request);
+
+        }
+
+        internal abstract Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, HttpRequest request);
+
+        /// <summary>
         /// Validate the request to Create the TagRule resource.
         /// </summary>
         /// <param name="subscriptionId"> </param>
@@ -44,6 +94,29 @@ namespace Microsoft.Observability.Service
             return modelValidation;
         }
 
+        internal abstract Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body, HttpRequest request);
+
+        /// <summary>
+        /// Called after the end of the request to Create the TagRule resource.
+        /// </summary>
+        /// <param name="subscriptionId"> </param>
+        /// <param name="resourceGroupName"> </param>
+        /// <param name="monitorName"> </param>
+        /// <param name="ruleSetName"> </param>
+        /// <param name="body"> The resource data.</param>
+        /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.TagRuleEndCreate)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
+        public async Task EndCreateAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body)
+        {
+            _logger.LogInformation($"EndCreateAsync()");
+            await OnEndCreate(subscriptionId, resourceGroupName, monitorName, ruleSetName, body, Request);
+            return;
+        }
+
+        internal abstract Task OnEndCreate(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body, HttpRequest request);
+
         /// <summary>
         /// Create the TagRule resource.
         /// </summary>
@@ -57,10 +130,10 @@ namespace Microsoft.Observability.Service
         [Route(ObservabilityServiceRoutes.TagRuleItem)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(TagRule))]
         [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof(TagRule))]
-        public async Task<IActionResult> CreateAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body)
+        public async Task<IActionResult> BeginCreateAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body)
         {
             _logger.LogInformation("CreateAsync()");
-            resource = resource ?? throw new ArgumentNullException(nameof(resource));
+            body = body ?? throw new ArgumentNullException(nameof(body));
 
             if (Request == null)
             {
@@ -72,8 +145,9 @@ namespace Microsoft.Observability.Service
 
         }
 
-        internal abstract Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body, HttpRequest request);
-        internal abstract Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body, HttpRequest request);        /// <summary>
+        internal abstract Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body, HttpRequest request);
+
+        /// <summary>
         /// Validate the request to Patch the TagRule resource.
         /// </summary>
         /// <param name="subscriptionId"> </param>
@@ -97,6 +171,29 @@ namespace Microsoft.Observability.Service
             return modelValidation;
         }
 
+        internal abstract Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body, HttpRequest request);
+
+        /// <summary>
+        /// Called after the end of the request to Patch the TagRule resource.
+        /// </summary>
+        /// <param name="subscriptionId"> </param>
+        /// <param name="resourceGroupName"> </param>
+        /// <param name="monitorName"> </param>
+        /// <param name="ruleSetName"> </param>
+        /// <param name="body"> The resource patch data.</param>
+        /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.TagRuleEndPatch)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
+        public async Task EndPatchAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body)
+        {
+            _logger.LogInformation($"EndPatchAsync()");
+            await OnEndPatch(subscriptionId, resourceGroupName, monitorName, ruleSetName, body, Request);
+            return;
+        }
+
+        internal abstract Task OnEndPatch(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body, HttpRequest request);
+
         /// <summary>
         /// Patch the TagRule resource.
         /// </summary>
@@ -109,10 +206,11 @@ namespace Microsoft.Observability.Service
         [HttpPatch]
         [Route(ObservabilityServiceRoutes.TagRuleItem)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(TagRule))]
-        public async Task<IActionResult> PatchAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body)
+        [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof(TagRule))]
+        public async Task<IActionResult> BeginPatchAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body)
         {
             _logger.LogInformation("PatchAsync()");
-            resource = resource ?? throw new ArgumentNullException(nameof(resource));
+            body = body ?? throw new ArgumentNullException(nameof(body));
 
             if (Request == null)
             {
@@ -124,8 +222,9 @@ namespace Microsoft.Observability.Service
 
         }
 
-        internal abstract Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body, HttpRequest request);
-        internal abstract Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body, HttpRequest request);        /// <summary>
+        internal abstract Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body, HttpRequest request);
+
+        /// <summary>
         /// Validate the request to Delete the TagRule resource.
         /// </summary>
         /// <param name="subscriptionId"> </param>
@@ -144,6 +243,28 @@ namespace Microsoft.Observability.Service
             return modelValidation;
         }
 
+        internal abstract Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, HttpRequest request);
+
+        /// <summary>
+        /// Called after the end of the request to Delete the TagRule resource.
+        /// </summary>
+        /// <param name="subscriptionId"> </param>
+        /// <param name="resourceGroupName"> </param>
+        /// <param name="monitorName"> </param>
+        /// <param name="ruleSetName"> </param>
+        /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.TagRuleEndDelete)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
+        public async Task EndDeleteAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
+        {
+            _logger.LogInformation($"EndDeleteAsync()");
+            await OnEndDelete(subscriptionId, resourceGroupName, monitorName, ruleSetName, Request);
+            return;
+        }
+
+        internal abstract Task OnEndDelete(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, HttpRequest request);
+
         /// <summary>
         /// Delete the TagRule resource.
         /// </summary>
@@ -156,11 +277,9 @@ namespace Microsoft.Observability.Service
         [Route(ObservabilityServiceRoutes.TagRuleItem)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
         [ProducesResponseType((int)HttpStatusCode.NoContent, Type = typeof(void))]
-        public async Task<IActionResult> DeleteAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
+        public async Task<IActionResult> BeginDeleteAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
         {
             _logger.LogInformation("DeleteAsync()");
-            resource = resource ?? throw new ArgumentNullException(nameof(resource));
-
             if (Request == null)
             {
                 _logger.LogError($"Http request is null");
@@ -171,36 +290,6 @@ namespace Microsoft.Observability.Service
 
         }
 
-        internal abstract Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, HttpRequest request);
-        internal abstract Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, HttpRequest request);        /// <summary>
-        /// List Organization resources in the specified subscription.
-        /// </summary>
-        /// <param name="subscriptionId"> The subscription id.</param>
-        /// <returns> The list of TagRule Resources in the specified subscription.</returns>
-        [HttpGet]
-        [Route(ConfluentServiceRoutes.TagRuleListBySubscription)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(TagRuleListResult))]
-        public Task<TagRuleListResult> ListBySubscription(string subscriptionId)
-        {
-            _logger.LogInformation("ListBySubscriptionAsync()");
-            return OnListBySubscription(subscriptionId, Request);
-        }
-
-        internal abstract Task<TagRuleListResult> OnListBySubscription(string subscriptionId, HttpRequest request);
-                /// <summary>
-        /// List TagRule resources in the specified resource group.
-        /// </summary>
-        /// <param name="subscriptionId"> The subscription id.</param>
-        /// <param name="resourceGroupName"> The resource group name.</param>
-        /// <returns> The list of TagRule Resources in the specified resource group.</returns>
-        [HttpGet]
-        [Route(ConfluentServiceRoutes.TagRuleListByResourceGroup)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(TagRuleListResult))]
-        public Task<TagRuleListResult> ListByResourceGroupAsync(string subscriptionId, string resourceGroupName)
-        {
-            _logger.LogInformation("ListByResourceGroupAsync()");
-            return OnListByResourceGroupAsync(subscriptionId, resourceGroupName, Request);
-        }
-                
-        internal abstract Task<TagRuleListResult> OnListByResourceGroupAsync(string subscriptionId, string resourceGroupName, HttpRequest request);    }
+        internal abstract Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, HttpRequest request);
+    }
 }

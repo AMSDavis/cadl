@@ -12,6 +12,7 @@ namespace Microsoft.PlayFab.Service.Models
     /// <summary>
     /// The response of a PlayerDatabase list operation. 
     /// </summary>
-    public class PlayerDatabaseListResult : Pageable<PlayerDatabase>    {
+    public class PlayerDatabaseListResult : Pageable<PlayerDatabase> 
+    {
     }
 }

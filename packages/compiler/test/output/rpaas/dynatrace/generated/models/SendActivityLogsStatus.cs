@@ -3,10 +3,12 @@
 //-----------------------------------------------------------------------------
 
 namespace Microsoft.Observability.Service.Models
-{    public struct SendActivityLogsStatus    {
+{
+    public struct SendActivityLogsStatus 
+    {
         string _value;
 
-        public static readonly SendActivityLogsStatus Enabled = "Enabled", Disabled = "Disabled";
+        public static readonly SendActivityLogsStatus Enabled = "Enabled", Disabled = "Disabled"; 
         public SendActivityLogsStatus( string value)
         {
             _value = value;

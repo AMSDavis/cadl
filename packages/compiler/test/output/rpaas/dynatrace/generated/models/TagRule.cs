@@ -12,10 +12,12 @@ namespace Microsoft.Observability.Service.Models
     /// <summary>
     /// Tag rules for a monitor resource 
     /// </summary>
-    public class TagRule : ProxyResourceBase    {
+    public class TagRule : ProxyResource 
+    {
         /// <summary>
         ///  The resource-specific properties for this resource. 
         /// </summary>
         public MonitoringTagRulesProperties Properties { get; set; }
+
     }
 }

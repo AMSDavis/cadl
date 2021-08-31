@@ -9,6 +9,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.FluidRelay.Service.Models
 {
-    public class FluidRelayServer : TrackedResource<FluidRelayServerProperties>    {
+    public class FluidRelayServer : TrackedResource<FluidRelayServerProperties> 
+    {
     }
 }

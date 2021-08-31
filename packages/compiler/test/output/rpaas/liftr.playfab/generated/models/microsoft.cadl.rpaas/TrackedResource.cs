@@ -5,10 +5,14 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Cadl.RPaaS
 {
-    public class TrackedResource
+    public class TrackedResource : ProxyResource
     {
-        public string Id { get; internal set; }
-        public string Location { get; }
-        public IDictionary<string, string> Tags { get; }
+        public string Location { get; internal set;}
+        public IDictionary<string, string> Tags { get; internal set;}
+    }
+
+    public class TrackedResource<T> : TrackedResource where T: class
+    {
+        public T Properties { get; set;}
     }
 }

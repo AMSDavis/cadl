@@ -9,6 +9,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.PlayFab.Service.Models
 {
-    public class Title : TrackedResource<TitleProperties>    {
+    public class Title : TrackedResource<TitleProperties> 
+    {
     }
 }

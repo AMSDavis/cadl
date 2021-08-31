@@ -12,6 +12,7 @@ namespace Microsoft.Observability.Service.Models
     /// <summary>
     /// The response of a DynatraceSingleSignOnResource list operation. 
     /// </summary>
-    public class DynatraceSingleSignOnResourceListResult : Pageable<DynatraceSingleSignOnResource>    {
+    public class DynatraceSingleSignOnResourceListResult : Pageable<DynatraceSingleSignOnResource> 
+    {
     }
 }

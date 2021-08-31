@@ -3,10 +3,12 @@
 //-----------------------------------------------------------------------------
 
 namespace Microsoft.Confluent.Service.Models
-{    public struct OfferStatus    {
+{
+    public struct OfferStatus 
+    {
         string _value;
 
-        public static readonly OfferStatus Started = "Started", PendingFulfillmentStart = "PendingFulfillmentStart", InProgress = "InProgress", Subscribed = "Subscribed", Suspended = "Suspended", Reinstated = "Reinstated", Succeeded = "Succeeded", Failed = "Failed", Unsubscribed = "Unsubscribed", Updating = "Updating";
+        public static readonly OfferStatus Started = "Started", PendingFulfillmentStart = "PendingFulfillmentStart", InProgress = "InProgress", Subscribed = "Subscribed", Suspended = "Suspended", Reinstated = "Reinstated", Succeeded = "Succeeded", Failed = "Failed", Unsubscribed = "Unsubscribed", Updating = "Updating"; 
         public OfferStatus( string value)
         {
             _value = value;

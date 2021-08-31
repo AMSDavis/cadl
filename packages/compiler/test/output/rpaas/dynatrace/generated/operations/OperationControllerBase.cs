@@ -22,7 +22,7 @@ namespace Microsoft.Observability.Service
         /// </summary>
         /// <returns> The list of Microsoft.Observability operations.</returns>
         [HttpGet]
-        [Route(undefinedServiceRoutes.ListOperations)]
+        [Route(ObservabilityServiceRoutes.ListOperations)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(OperationListResult))]
         public async Task<OperationListResult> ListOperationsAsync()
         {

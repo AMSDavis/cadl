@@ -22,7 +22,7 @@ namespace Microsoft.Confluent.Service
         /// </summary>
         /// <returns> The list of Microsoft.Confluent operations.</returns>
         [HttpGet]
-        [Route(undefinedServiceRoutes.ListOperations)]
+        [Route(ConfluentServiceRoutes.ListOperations)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(OperationListResult))]
         public async Task<OperationListResult> ListOperationsAsync()
         {

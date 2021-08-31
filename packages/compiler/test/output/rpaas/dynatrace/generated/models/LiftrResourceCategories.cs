@@ -3,10 +3,12 @@
 //-----------------------------------------------------------------------------
 
 namespace Microsoft.Observability.Service.Models
-{    public struct LiftrResourceCategories    {
+{
+    public struct LiftrResourceCategories 
+    {
         string _value;
 
-        public static readonly LiftrResourceCategories Unknown = "Unknown", MonitorLogs = "MonitorLogs";
+        public static readonly LiftrResourceCategories Unknown = "Unknown", MonitorLogs = "MonitorLogs"; 
         public LiftrResourceCategories( string value)
         {
             _value = value;

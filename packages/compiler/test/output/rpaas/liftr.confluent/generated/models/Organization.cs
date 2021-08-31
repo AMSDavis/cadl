@@ -9,6 +9,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.Confluent.Service.Models
 {
-    public class Organization : TrackedResource<OrganizationProperties>    {
+    public class Organization : TrackedResource<OrganizationProperties> 
+    {
     }
 }

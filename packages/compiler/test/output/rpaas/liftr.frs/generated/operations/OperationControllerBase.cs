@@ -22,7 +22,7 @@ namespace Microsoft.FluidRelay.Service
         /// </summary>
         /// <returns> The list of Microsoft.FluidRelay operations.</returns>
         [HttpGet]
-        [Route(undefinedServiceRoutes.ListOperations)]
+        [Route(FluidRelayServiceRoutes.ListOperations)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(OperationListResult))]
         public async Task<OperationListResult> ListOperationsAsync()
         {

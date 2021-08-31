@@ -12,10 +12,12 @@ namespace Microsoft.PlayFab.Service.Models
     /// <summary>
     /// The updatable properties of the Title. 
     /// </summary>
-    public class TitleUpdate    {
+    public class TitleUpdate 
+    {
         /// <summary>
         ///  Resource tags. 
         /// </summary>
         public IDictionary<string, string> Tags { get; set; }
+
     }
 }

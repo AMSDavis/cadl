@@ -12,10 +12,12 @@ namespace Microsoft.Observability.Service.Models
     /// <summary>
     /// Single sign-on configurations for a given monitor resource. 
     /// </summary>
-    public class DynatraceSingleSignOnResource : ProxyResourceBase    {
+    public class DynatraceSingleSignOnResource : ProxyResource 
+    {
         /// <summary>
         ///  The resource-specific properties for this resource. 
         /// </summary>
         public DynatraceSingleSignOnProperties Properties { get; set; }
+
     }
 }
