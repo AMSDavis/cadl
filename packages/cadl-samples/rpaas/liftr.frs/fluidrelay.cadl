@@ -64,7 +64,7 @@ model FluidRelayServerProperties {
 }
 
 @doc("Provisioning states for FluidRelay RP")
-enum ProvisioningState { Succeeded, Failed, Cancelled }
+enum ProvisioningState { Succeeded, Failed, Canceled }
 
 @doc("The Fluid Relay Service endpoints for this server.")
 model FluidRelayEndpoints {

@@ -779,6 +779,10 @@
           },
           "x-cadl-name": "Microsoft.PlayFab.TitleReference[]",
           "description": "The set of titles belonging to this player database."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ResourceProvisioningState",
+          "description": "The provisioning state of the resource."
         }
       },
       "description": "The updatable properties of the PlayerDatabase."
@@ -847,6 +851,10 @@
             "update",
             "create"
           ]
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ResourceProvisioningState",
+          "description": "The provisioning state of the resource."
         }
       },
       "description": "The updatable properties of the Title."
@@ -887,17 +895,35 @@
           },
           "x-cadl-name": "Microsoft.PlayFab.TitleReference[]",
           "description": "The set of titles belonging to this player database."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ResourceProvisioningState",
+          "description": "The provisioning state of the resource."
         }
       },
       "description": "The properties of a player database.",
       "required": [
-        "userId"
+        "userId",
+        "provisioningState"
       ]
     },
     "TitleReference": {
       "type": "string",
       "pattern": "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/titles\\/[^\\/]+",
       "description": "A reference to a resource of type title."
+    },
+    "ResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a resource type.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true
+      }
     },
     "TitleProperties": {
       "type": "object",
@@ -909,11 +935,16 @@
             "read",
             "create"
           ]
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ResourceProvisioningState",
+          "description": "The provisioning state of the resource."
         }
       },
       "description": "The properties of a title.",
       "required": [
-        "parentDatabase"
+        "parentDatabase",
+        "provisioningState"
       ]
     },
     "PlayerDatabaseReference": {

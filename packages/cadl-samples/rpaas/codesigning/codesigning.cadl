@@ -54,7 +54,7 @@ enum ProfileType { Test, Trial, PrivateTrust, PublicTrust }
 
 @doc("The status of the current operation.")
 enum ProvisioningState {
-  Succeeded, Failed, Cancelled, Provisioning, Updating, Deleting, Accepted
+  Succeeded, Failed, Canceled, Provisioning, Updating, Deleting, Accepted
 }
 
 @armResource({

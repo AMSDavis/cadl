@@ -39,6 +39,7 @@ namespace LogzMonitors {
   parameterType: TagNameParameter,
   standardOperations: ["read", "create", "delete"]
 })
+
 @doc("Details of a TagRule.")
 @armListBy(MonitorNameParameter, "List")
 model TagRuleResource is ProxyResource<{}> {}

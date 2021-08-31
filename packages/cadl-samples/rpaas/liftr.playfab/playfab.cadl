@@ -53,6 +53,8 @@ model PlayerDatabaseProperties {
 
   @doc("The set of titles belonging to this player database.")
   titles?: TitleReference[];
+
+  ...DefaultProvisioningStateProperty;
 }
 
 @doc("The properties of a title.")
@@ -60,4 +62,6 @@ model TitleProperties {
   @doc("The player database for this title")
   @visibility("create", "read")
   parentDatabase: PlayerDatabaseReference;
+
+  ...DefaultProvisioningStateProperty;
 }

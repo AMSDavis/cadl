@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/adl-rest",
+      "comment": "",
+      "type": "none"
+    }
+  ],
+  "packageName": "@azure-tools/adl-rest",
+  "email": "daviwil@microsoft.com"
+}
