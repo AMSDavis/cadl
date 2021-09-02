@@ -29,7 +29,7 @@ namespace Microsoft.Observability.Service.Models
         /// <summary>
         ///  Email of the user used by Dynatrace for contacting them if needed 
         /// </summary>
-        [Pattern(&quot;^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}$&quot;)]
+        [Pattern(@"^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}$")]
         public string EmailAddress { get; set; }
 
         /// <summary>

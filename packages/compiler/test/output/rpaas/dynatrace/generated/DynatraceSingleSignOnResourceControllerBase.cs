@@ -56,7 +56,7 @@ namespace Microsoft.Observability.Service
         /// <param name="monitorName"> </param>
         /// <param name="configurationName"> </param>
         /// <param name="body"> The resource data.</param>
-        /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
+        /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.DynatraceSingleSignOnResourceEndCreate)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
@@ -113,8 +113,7 @@ namespace Microsoft.Observability.Service
         public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId, string resourceGroupName, string monitorName, string configurationName)
         {
             _logger.LogInformation($"ValidateReadAsync()");
-                modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, monitorName, configurationName, Request);
-
+            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, monitorName, configurationName, Request);
             return modelValidation;
         }
 

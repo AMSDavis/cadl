@@ -22,7 +22,7 @@ namespace Microsoft.PlayFab.Service.Models
         /// <summary>
         ///  The set of titles belonging to this player database. 
         /// </summary>
-        [Pattern(&quot;\/subscriptions\/[a-z0-9\-]+\/resourceGroups\/[^\/]+\/providers\/Microsoft\.PlayFab\/titles\/[^\/]+&quot;)]
+        [Pattern(@"\/subscriptions\/[a-z0-9\-]+\/resourceGroups\/[^\/]+\/providers\/Microsoft\.PlayFab\/titles\/[^\/]+")]
         public string[] Titles { get; set; }
 
     }

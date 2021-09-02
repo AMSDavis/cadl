@@ -35,8 +35,7 @@ namespace Microsoft.Confluent.Service
         public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId, string resourceGroupName, string organizationName)
         {
             _logger.LogInformation($"ValidateReadAsync()");
-                modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, organizationName, Request);
-
+            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, organizationName, Request);
             return modelValidation;
         }
 
@@ -100,7 +99,7 @@ namespace Microsoft.Confluent.Service
         /// <param name="resourceGroupName"> </param>
         /// <param name="organizationName"> </param>
         /// <param name="body"> The resource data.</param>
-        /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
+        /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ConfluentServiceRoutes.OrganizationEndCreate)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
@@ -174,7 +173,7 @@ namespace Microsoft.Confluent.Service
         /// <param name="resourceGroupName"> </param>
         /// <param name="organizationName"> </param>
         /// <param name="body"> The resource patch data.</param>
-        /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
+        /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ConfluentServiceRoutes.OrganizationEndPatch)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
@@ -229,8 +228,7 @@ namespace Microsoft.Confluent.Service
         public async Task<ValidationResponse> ValidateDeleteAsync(string subscriptionId, string resourceGroupName, string organizationName)
         {
             _logger.LogInformation($"ValidateDeleteAsync()");
-                modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, organizationName, Request);
-
+            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, organizationName, Request);
             return modelValidation;
         }
 
@@ -242,7 +240,7 @@ namespace Microsoft.Confluent.Service
         /// <param name="subscriptionId"> </param>
         /// <param name="resourceGroupName"> </param>
         /// <param name="organizationName"> </param>
-        /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
+        /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ConfluentServiceRoutes.OrganizationEndDelete)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]

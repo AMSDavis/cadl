@@ -1107,7 +1107,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     );
     sqrl.filters.define("callByValue", (op) =>
       op.parameters
-        .map((p: ValueParameter) => (p.type === "string" ? '"' + p.value + '"' : p.value))
+        .map((p: ValueParameter) => (p.type === "string" ? `@"${p.value}"` : p.value))
         .join(", ")
     );
     sqrl.filters.define("initialCaps", (op) => transformCSharpIdentifier(op));

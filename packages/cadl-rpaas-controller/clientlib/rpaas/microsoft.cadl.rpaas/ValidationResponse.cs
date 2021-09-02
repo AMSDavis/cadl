@@ -4,6 +4,6 @@ namespace Microsoft.Cadl.RPaaS
 {
     public class ValidationResponse
     {
-        public bool Valid { get; } = true;
+        public bool Valid { get; set; } = true;
     }
 }

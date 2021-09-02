@@ -52,12 +52,12 @@ namespace {{it.nameSpace}}.Service
             var modelValidation = ValidationHelpers.ValidateModel({{operation.requestParameter.name}});
             if (modelValidation.Valid)
             {
-{{/if}}
                 modelValidation = await OnValidate{{operation.action}}({{operation | call}}, Request);
-{{@if(operation.requestParameter !== undefined)}}
             }
-{{/if}}
 
+{{#else}}
+            var modelValidation = await OnValidate{{operation.action}}({{operation | call}}, Request);
+{{/if}}
             return modelValidation;
         }
 
@@ -70,7 +70,7 @@ namespace {{it.nameSpace}}.Service
 {{@each(operation.parameters) => parameter, index}}
         /// <param name="{{parameter.name}}"> {{parameter.description}}</param>
 {{/each}}
-        /// <returns> A ValidationResponse indicating the validity of the {{operation.action}} request.</returns>
+        /// <returns> Nothing.</returns>
         [HttpPost]
         [Route({{it.serviceName}}ServiceRoutes.{{it.name}}End{{operation.action}})]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
@@ -93,7 +93,7 @@ namespace {{it.nameSpace}}.Service
 {{/each}}
         /// <returns> The {{it.name}} resource.</returns>
         [Http{{operation.verb.toLowerCase() | initialCaps}}]
-        [Route({{it.serviceName}}ServiceRoutes.{{it.name}}Item{{operation.subPath? operation.action :  ""}})]
+        [Route({{it.serviceName}}ServiceRoutes.{{it.name}}Item{{operation.verb.toLowerCase() === "post"? operation.action :  ""}})]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{operation.returnType}}))]
 {{@if(operation.action === "Create" || operation.action === "Patch")}}
         [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof({{operation.returnType}}))]

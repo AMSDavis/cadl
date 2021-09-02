@@ -29,7 +29,7 @@ namespace Microsoft.Confluent.Service.Models
         /// <summary>
         ///  Subscriber email address. 
         /// </summary>
-        [Pattern(&quot;\w+@\w+\.\w+&quot;)]
+        [Pattern(@"\w+@\w+\.\w+")]
         public string EmailAddress { get; set; }
 
     }

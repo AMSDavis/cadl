@@ -17,7 +17,7 @@ namespace Microsoft.Observability.Service.Models
         /// <summary>
         ///  VM resource ID on which agent is installed 
         /// </summary>
-        [Pattern(&quot;\/subscriptions\/[a-z0-9\-]+\/resourceGroups\/[^\/]+\/providers\/Microsoft\.Compute\/virtualMachines\/[^\/]+&quot;)]
+        [Pattern(@"\/subscriptions\/[a-z0-9\-]+\/resourceGroups\/[^\/]+\/providers\/Microsoft\.Compute\/virtualMachines\/[^\/]+")]
         public string Id { get; set; }
 
         /// <summary>

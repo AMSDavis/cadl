@@ -7,7 +7,7 @@ namespace Microsoft.Cadl.RPaaS
 {
     public class Pageable<T> where T: class
     {
-        public IEnumerable<T> Values { get; internal set; }
+        public IEnumerable<T> Values { get; set; }
         public Uri NextLink { get; }
     }
 }

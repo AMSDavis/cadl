@@ -33,8 +33,7 @@ namespace Microsoft.Confluent.Service
         public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId)
         {
             _logger.LogInformation($"ValidateReadAsync()");
-                modelValidation = await OnValidateRead(subscriptionId, Request);
-
+            var modelValidation = await OnValidateRead(subscriptionId, Request);
             return modelValidation;
         }
 
@@ -92,7 +91,7 @@ namespace Microsoft.Confluent.Service
         /// </summary>
         /// <param name="subscriptionId"> undefined</param>
         /// <param name="agreement"> undefined</param>
-        /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
+        /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ConfluentServiceRoutes.ConfluentAgreementResourceEndCreate)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
@@ -112,7 +111,7 @@ namespace Microsoft.Confluent.Service
         /// <param name="agreement"> undefined</param>
         /// <returns> The ConfluentAgreementResource resource.</returns>
         [HttpPut]
-        [Route(ConfluentServiceRoutes.ConfluentAgreementResourceItemCreate)]
+        [Route(ConfluentServiceRoutes.ConfluentAgreementResourceItem)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ConfluentAgreementResource))]
         [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof(ConfluentAgreementResource))]
         public async Task<IActionResult> BeginCreateAsync(string subscriptionId, ConfluentAgreementResource agreement)

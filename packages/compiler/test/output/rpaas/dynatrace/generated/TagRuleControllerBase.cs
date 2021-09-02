@@ -36,8 +36,7 @@ namespace Microsoft.Observability.Service
         public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
         {
             _logger.LogInformation($"ValidateReadAsync()");
-                modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, monitorName, ruleSetName, Request);
-
+            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, monitorName, ruleSetName, Request);
             return modelValidation;
         }
 
@@ -104,7 +103,7 @@ namespace Microsoft.Observability.Service
         /// <param name="monitorName"> </param>
         /// <param name="ruleSetName"> </param>
         /// <param name="body"> The resource data.</param>
-        /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
+        /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.TagRuleEndCreate)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
@@ -181,7 +180,7 @@ namespace Microsoft.Observability.Service
         /// <param name="monitorName"> </param>
         /// <param name="ruleSetName"> </param>
         /// <param name="body"> The resource patch data.</param>
-        /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
+        /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.TagRuleEndPatch)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
@@ -238,8 +237,7 @@ namespace Microsoft.Observability.Service
         public async Task<ValidationResponse> ValidateDeleteAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
         {
             _logger.LogInformation($"ValidateDeleteAsync()");
-                modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, monitorName, ruleSetName, Request);
-
+            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, monitorName, ruleSetName, Request);
             return modelValidation;
         }
 
@@ -252,7 +250,7 @@ namespace Microsoft.Observability.Service
         /// <param name="resourceGroupName"> </param>
         /// <param name="monitorName"> </param>
         /// <param name="ruleSetName"> </param>
-        /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
+        /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.TagRuleEndDelete)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]

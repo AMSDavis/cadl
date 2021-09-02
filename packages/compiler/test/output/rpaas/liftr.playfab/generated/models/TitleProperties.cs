@@ -17,7 +17,7 @@ namespace Microsoft.PlayFab.Service.Models
         /// <summary>
         ///  The player database for this title 
         /// </summary>
-        [Pattern(&quot;\/subscriptions\/[a-z0-9\-]+\/resourceGroups\/[^\/]+\/providers\/Microsoft\.PlayFab\/playerDatabases\/[^\/]+&quot;)]
+        [Pattern(@"\/subscriptions\/[a-z0-9\-]+\/resourceGroups\/[^\/]+\/providers\/Microsoft\.PlayFab\/playerDatabases\/[^\/]+")]
         public string ParentDatabase { get; set; }
 
     }

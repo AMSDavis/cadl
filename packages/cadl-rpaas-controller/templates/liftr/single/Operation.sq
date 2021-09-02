@@ -33,6 +33,6 @@ namespace Microsoft.{{it.serviceName}}.Service.Models
         /// <summary>
         /// Indicates the action type. \"Internal\" refers to actions that are for internal only APIs.
         /// </summary>
-        public OperationActionType ActionType {get; internal set;}
+        public OperationAction ActionType {get; internal set;}
     }
 }

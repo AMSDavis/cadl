@@ -24,7 +24,7 @@ namespace Microsoft.{{it.serviceName}}.Service.Models
 {{/if}}
 {{@if( prop.validations)}}
 {{@each(prop.validations) => attr, attrIndex}}
-        [{{attr.name}}({{attr | callByValue}})]
+        [{{attr.name}}({{@each(attr.parameters) => param, paramIndex}}{{@if(param.type === "string")}}@"{{/if}}{{param.value}}{{@if(param.type === "string")}}"{{/if}}{{@if(paramIndex < attr.parameters.length - 1)}}, {{/if}}{{/each}})]
 {{/each}}
 {{/if}}
         public {{prop.type.name}}{{@if(prop.type.typeParameters)}}<{{prop.type | typeParamList}}>{{/if}} {{prop.name}} { get; set; }

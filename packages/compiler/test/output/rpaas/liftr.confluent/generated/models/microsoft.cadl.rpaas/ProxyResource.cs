@@ -7,9 +7,9 @@ namespace Microsoft.Cadl.RPaaS
 {
     public class ProxyResource
     {
-        public string Id { get; internal set;}
-        public string Name { get; internal set;}
-        public string Type { get; internal set;}
+        public string Id { get; set;}
+        public string Name { get; set;}
+        public string Type { get; set;}
     }
 
     public class ProxyResource<T> : ProxyResource where T: class
