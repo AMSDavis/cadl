@@ -21,7 +21,7 @@ interface OperationResult {
   consumes?: string[];
 }
 
-describe("openapi: produces/consumes", () => {
+describe("autorest: produces/consumes", () => {
   it("produces global produces for simple json", async () => {
     const result = await openApiForProducesConsumes([
       {
@@ -127,7 +127,7 @@ function createAdlFromConfig(configuration: ProducesConsumesOperation[]): string
   configuration.forEach((config) => {
     let opString =
       config.type === "consumes"
-        ? `@_delete op remove(@body payload : ${config.modelName}) : NoContentResponse;`
+        ? `@delete op remove(@body payload : ${config.modelName}) : NoContentResponse;`
         : `@get op read() : ${config.modelName};`;
     let doc = `
     ${config.modelDef}

@@ -93,6 +93,12 @@
       "reviewCategory": "production",
       "shouldPublish": true
     },
+    {
+      "packageName": "@cadl-lang/openapi3",
+      "projectFolder": "packages/openapi3",
+      "reviewCategory": "production",
+      "shouldPublish": true
+    },
     // Packages below in @azure-tools, not @cadl-lang because they will be
     // split off and remain private and internal for azure-specific uses.
     {
