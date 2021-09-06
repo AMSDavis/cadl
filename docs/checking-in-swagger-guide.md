@@ -26,7 +26,7 @@ Example:
 [network/readme](https://github.com/Azure/azure-rest-api-specs/blob/main/specification/network/resource-manager/readme.md)
 
 4. Send a pull request .
-   - commit all you changes.
+   - commit all your changes.
    - push to the remote forked repo
    - send a pull request to the original repo from your forked repo.
 
