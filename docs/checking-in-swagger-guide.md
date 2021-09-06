@@ -6,7 +6,7 @@ This documentation describes how to check in the swagger generated from `cadl` i
 follow the [getting started](../readme.md##Getting-Started)
 
 ## Checking into private repo.
-New RPaaS Resource provider or new RPaaS api version should be reviewed in the [azure-rest-api-specs-pr](https://github.com/Azure/azure-rest-api-specs-pr) and once it's ready for publishing it to public repository, you can move it to public repository.
+New RPaaS Resource provider or new RPaaS api version should be reviewed in the [azure-rest-api-specs-pr](https://github.com/Azure/azure-rest-api-specs-pr) and once it's ready for publishing it to public repository, you can move it to the public repository.
 
 ### Prepare and Send a Pull Request for reviewing.
 
