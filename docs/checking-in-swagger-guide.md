@@ -10,7 +10,7 @@ New RPaaS Resource provider or new RPaaS api version should be reviewed in the [
 
 ### Prepare and Send a Pull Request for reviewing.
 
-1. Fork and clone the forked 'azure-rest-api-specs-pr' repository.
+1. Fork and clone the forked 'azure-rest-api-specs-pr' repository. (```https://github.com/azure/azure-rest-api-specs-pr```)
 
 2. Move your generated swagger 'openapi.json' into corresponding api-version folder
 refer to the [directory structure](https://github.com/Azure/azure-rest-api-specs#directory-structure) to create a folder to place the swagger.
