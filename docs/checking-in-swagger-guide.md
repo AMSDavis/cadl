@@ -44,7 +44,7 @@ The CI checks result will be commented on the PR. you can refer to the [CI fix G
 
 Note:
 Since the swagger is generated from cadl, to change the swagger, you must update the cadl file and regenerate the swagger and avoid updating swagger directly to keep the consistency between swagger and cadl. 
-You can post a meesage to [cadl partbers - teams channel](https://teams.microsoft.com/l/channel/19%3a2d4efc54d99e4d00a568da7cf0643c1b%40thread.skype/Cadl%2520Partners?groupId=3e17dcb0-4257-4a30-b843-77f47f1d4121&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47) for support & help.
+For support & help, you can post a meesage to [cadl parters - teams channel](https://teams.microsoft.com/l/channel/19%3a2d4efc54d99e4d00a568da7cf0643c1b%40thread.skype/Cadl%2520Partners?groupId=3e17dcb0-4257-4a30-b843-77f47f1d4121&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47).
 
 
 ## Move your PR to public repo.
