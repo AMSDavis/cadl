@@ -37,7 +37,7 @@ the target branch of the pull request is RPSaaSMaster (or RPSaaSDev for dogfood)
 The CI checks result will be commented on the PR. you can refer to the [CI fix Guide](https://github.com/Azure/azure-rest-api-specs/blob/main/documentation/ci-fix.md). 
 
 Note:
-Since the swagger is generated from cadl, you'd better update the cadl file and regenerate the swagger and avoid updating swagger directly to keep the consistency between swagger and cadl.
+Since the swagger is generated from cadl, to change the swagger, you must update the cadl file and regenerate the swagger and avoid updating swagger directly to keep the consistency between swagger and cadl.
 
 
 ## Move your PR to public repo.
