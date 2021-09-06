@@ -25,7 +25,7 @@ the `readme.md` is the configuration file for `autorest` , see [generating clien
 Example:[sample-readme](https://github.com/Azure/azure-rest-api-specs/blob/main/documentation/samplefiles/samplereadme.md)
 
 4. Add 'examples' files for each operation of your swagger file.
-The [oav](https://github.com/Azure/oav) provides a command to auto-generate the examples files, it will generate two examples for each operation: one contains minimize properties set, the other contains the maximum properties set. Since the auto-generated examples consist of random values for most types, you needs to replace them with the reasonable values. 
+The [oav](https://github.com/Azure/oav) provides a command to auto-generate the examples files, it will generate two examples for each operation: one contains minimal properties set, the other contains the maximal properties set. Since the auto-generated examples consist of random values for most types, you needs to replace them with the reasonable values. 
 
 ```bash
 oav generate-examples openapi.json
