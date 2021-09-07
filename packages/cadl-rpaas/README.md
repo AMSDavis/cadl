@@ -9,7 +9,7 @@ This is a library to define an Azure Resource Manager service API.
 1. Run `cadl init https://raw.githubusercontent.com/Azure/cadl-rpaas/main/scaffolding.json` in a new folder
 1. Enter the project name
 
-This should have generate the initial files and included the necessary libraries.
+This should have generated the initial files and included the necessary libraries.
 
 - `package.json`:
 - `main.cadl`: Entrypoint of your api definition.
@@ -33,9 +33,9 @@ This should have generate the initial files and included the necessary libraries
     "build": "echo \"nothing to do for samples\""
   },
   "dependencies": {
-    "@azure-tools/cadl": "latest",
-    "@azure-tools/cadl-openapi": "latest",
-    "@azure-tools/cadl-rest": "latest",
+    "@cadl-lang/compiler": "latest",
+    "@cadl-lang/rest": "latest",
+    "@azure-tools/cadl-autorest": "latest",
     "@azure-tools/cadl-rpaas": "latest"
   },
   "devDependencies": {}
@@ -46,8 +46,8 @@ This should have generate the initial files and included the necessary libraries
 3. Create a `main.cadl` file with this content
 
 ```cadl
-import "@azure-tools/cadl-rest";
-import "@azure-tools/cadl-openapi";
+import "@cadl-lang/rest";
+import "@azure-tools/cadl-autorest";
 import "@azure-tools/cadl-rpaas";
 ```
 
@@ -94,12 +94,12 @@ model UserResourceProperties {
 }
 ```
 
-2. Define a model representing the parameter used to find the resource. `subscriptionId` and `resourceGroupName` will automatically be added.
+2. Define a model representing the parameter that corresponds to the resource name. Other resource identity parameters, like `subscriptionId` and `resourceGroupName` will automatically be added.
 
 ```cadl
 model UserResourceNameParameter {
   @doc("UserResource resource name")
-  @path UserResourceName: string;
+  @path userResourceName: string;
 }
 ```
 
@@ -112,19 +112,20 @@ model UserResourceNameParameter {
   parameterType: AccountNameParameter,
   collectionName: "UserResources",
 })
-model UserResource extends TrackedResource<UserResourceProperties> {};
+model UserResource is TrackedResource<UserResourceProperties> {};
 ```
 
-This will now produce all the endpoints(`get`, `post`, `put`, `patch` and `delete`) for a resource called `UserResources` and the `operations` endpoint for the service:
+This will now produce all the endpoints(`get`, `post`, `put`, `patch` and `delete`, listByResourceGroup, listBySubscription) for a resource called `UserResources` and the `operations` endpoint for the service:
 
-| Method & Path                                                                                                                              | Description                          |
-| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------ |
-| `GET /providers/Microsoft.MyService/operations`                                                                                            | List all operations for your service |
-| `GET /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/UserResources`                       | list all UserResource                |
-| `GET /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/UserResources/{UserResourceName}`    | get item                             |
-| `PUT /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/UserResources/{UserResourceName}`    | insert item                          |
-| `PATCH /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/UserResources/{UserResourceName}`  | patch item                           |
-| `DELETE /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/UserResources/{UserResourceName}` | delete item                          |
+| Method & Path                                                                                                                              | Description                             |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------- |
+| `GET /providers/Microsoft.MyService/operations`                                                                                            | List all operations for your service    |
+| `GET /subscriptions/{subscriptionId}/providers/Microsoft.MyService/userResources`                                                          | list all UserResource by subscription   |
+| `GET /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/userResources`                       | list all UserResource by resource group |
+| `GET /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/userResources/{userResourceName}`    | get item                                |
+| `PUT /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/userResources/{userResourceName}`    | insert item                             |
+| `PATCH /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/userResources/{userResourceName}`  | patch item                              |
+| `DELETE /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MyService/userResources/{userResourceName}` | delete item                             |
 
 #### Reference
 
@@ -152,7 +153,7 @@ For example to create a new `AddressResource` resource under the `UserResource` 
   collectionName: "AddressResource",
   parentResourceType: UserResource
 })
-model UserResource extends TrackedResource<UserResourceProperties> {};
+model UserResource is TrackedResource<UserResourceProperties> {};
 ```
 
 ### Additional endpoints/operations
@@ -160,15 +161,16 @@ model UserResource extends TrackedResource<UserResourceProperties> {};
 Some resources will provide more than the basic CRUD operations and will need to define a custom endpoint.
 For that you can create a new namespace containing the operations and use the `@armResourceOperations` decorator referencing the resource those operations belong to.
 
-Example: To add a `GET /parent` and `PUT /parent` operation on the `UserResource` to create a relation between
+Example: To add a `POST /notify` and `PUT /parent` operations on the `UserResource`.
 
 ```cadl
 @armResourceOperations(UserResource)
 namespace Users {
-  @get("parent")
-  op getParent(
+  @post("notify")
+  @doc("Send a notification to the user")
+  op notifyUser(
     ...CommonResourceParameters,
-  ): ArmResponse<UserResource> | ErrorResponse;
+  ): ArmResponse<bool> | ErrorResponse;
 
   @put("parent")
   op getParent(
