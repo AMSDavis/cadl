@@ -161,7 +161,7 @@ model UserResource is TrackedResource<UserResourceProperties> {};
 Some resources will provide more than the basic CRUD operations and will need to define a custom endpoint.
 For that you can create a new namespace containing the operations and use the `@armResourceOperations` decorator referencing the resource those operations belong to.
 
-Example: To add a `POST /notify` and `PUT /parent` operations on the `UserResource`.
+Example: To add a `POST /notify` operation on the `UserResource`.
 
 ```cadl
 @armResourceOperations(UserResource)
@@ -171,12 +171,6 @@ namespace Users {
   op notifyUser(
     ...CommonResourceParameters,
   ): ArmResponse<bool> | ErrorResponse;
-
-  @put("parent")
-  op getParent(
-    ...CommonResourceParameters,
-    @body parent: UserResource
-  ): ArmResponse<UserResource> | ErrorResponse;
 }
 ```
 
