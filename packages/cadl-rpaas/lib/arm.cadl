@@ -45,6 +45,12 @@ model ProxyResourceBase {
   ...ArmResource,
 };
 
+// Note that ProxyResource is the base definition for both kinds of resources
+@armCommonDefinition("ProxyResource")
+model ExtensionResourceBase {
+  ...ArmResource,
+};
+
 @doc("Concrete proxy resource types can be created by aliasing this type using a specific property type.")
 model ProxyResource<TProperties> extends ProxyResourceBase {
   @doc("The resource-specific properties for this resource.")
@@ -57,7 +63,7 @@ model ProxyResource<TProperties> extends ProxyResourceBase {
   systemData?: SystemData;
 }
 
-model ExtensionResource<TProperties> extends ArmResource {
+model ExtensionResource<TProperties> extends ExtensionResourceBase {
   @doc("The resource-specific properties for this resource.")
   @visibility("read", "create")
   @extension("x-ms-client-flatten", true)
@@ -311,6 +317,7 @@ model ErrorAdditionalInfo {
 }
 
 // NOTE: This is how the enum is named in types.json
+@doc("The kind of entity that created the resource.")
 enum createdByType { User, Application, ManagedIdentity, Key };
 
 @armCommonDefinition("systemData")

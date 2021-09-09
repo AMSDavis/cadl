@@ -9,13 +9,9 @@ using System.Collections.Generic;
 
 namespace Microsoft.Confluent.Service.Models
 {
-    /// <summary>
-    /// Details of the Confluent organization. 
-    /// </summary>
-    public class Organization : TrackedResource    {
-        /// <summary>
-        ///  The resource-specific properties for this resource. 
-        /// </summary>
-        public OrganizationProperties Properties { get; set; }
+    public class ProxyResourceBase    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
     }
 }

@@ -47,6 +47,7 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/agreements/default": {
       "put": {
         "operationId": "MarketplaceAgreements_Create",
+        "summary": "Create a new marketplace agreement.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -58,6 +59,7 @@
             "name": "agreement",
             "in": "body",
             "required": true,
+            "description": "The agreement details.",
             "schema": {
               "$ref": "#/definitions/ConfluentAgreementResource"
             }
@@ -496,27 +498,29 @@
     "ConfluentAgreementResource": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string",
-          "readOnly": true
-        },
-        "name": {
-          "type": "string",
-          "readOnly": true
-        },
-        "type": {
-          "type": "string",
-          "readOnly": true
-        },
         "properties": {
-          "$ref": "#/definitions/ConfluentAgreementResourceProperties"
+          "$ref": "#/definitions/ConfluentAgreementResourceProperties",
+          "description": "The resource-specific properties for this resource.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
         }
       },
+      "description": "The details of a marketplace agreement.",
       "required": [
-        "id",
-        "name",
-        "type",
         "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
+        }
       ]
     },
     "ConfluentAgreementResourceListResult": {
@@ -559,6 +563,7 @@
           "readOnly": true
         }
       },
+      "description": "Details of the Confluent organization.",
       "required": [
         "properties"
       ],
@@ -618,7 +623,8 @@
     },
     "ConfluentAgreementResourceProperties": {
       "type": "object",
-      "properties": {}
+      "properties": {},
+      "description": "The details of the agreement."
     },
     "OrganizationProperties": {
       "type": "object",
@@ -632,12 +638,18 @@
         "organizationId": {
           "type": "string",
           "description": "Id of the Confluent organization.",
-          "readOnly": true
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         },
         "ssoUrl": {
           "$ref": "#/definitions/Uri",
           "description": "Single sign-on url for the Confluent organization.",
-          "readOnly": true
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         },
         "offerDetail": {
           "$ref": "#/definitions/OfferDetail",
@@ -650,7 +662,6 @@
       },
       "description": "Details of the Confluent organization.",
       "required": [
-        "createdTime",
         "organizationId",
         "ssoUrl",
         "offerDetail",

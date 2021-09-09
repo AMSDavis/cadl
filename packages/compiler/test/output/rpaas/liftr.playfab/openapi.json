@@ -743,6 +743,7 @@
           "readOnly": true
         }
       },
+      "description": "Details of the player database.",
       "required": [
         "properties"
       ],
@@ -822,6 +823,7 @@
           "readOnly": true
         }
       },
+      "description": "Details of a title.",
       "required": [
         "properties"
       ],

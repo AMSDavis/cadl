@@ -59,12 +59,14 @@
             "name": "name",
             "in": "path",
             "required": true,
+            "description": "The resource name.",
             "type": "string"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
+            "description": "The details of the key generation request.",
             "schema": {
               "$ref": "#/definitions/RegenerateKeyRequest"
             }
@@ -115,6 +117,7 @@
             "name": "name",
             "in": "path",
             "required": true,
+            "description": "The resource name.",
             "type": "string"
           }
         ],
@@ -553,6 +556,7 @@
           "readOnly": true
         }
       },
+      "description": "Details of the FluidRelay server.",
       "required": [
         "properties"
       ],
@@ -679,11 +683,7 @@
           "readOnly": true
         }
       },
-      "description": "The Fluid Relay Service endpoints for this server.",
-      "required": [
-        "ordererEndpoints",
-        "storageEndpoints"
-      ]
+      "description": "The Fluid Relay Service endpoints for this server."
     },
     "Uri": {
       "type": "string",

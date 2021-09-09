@@ -642,6 +642,7 @@
           "readOnly": true
         }
       },
+      "description": "Concrete proxy resource types can be created by aliasing this type using a specific property type.",
       "required": [
         "properties"
       ],
@@ -655,10 +656,12 @@
       "type": "object",
       "properties": {
         "profileType": {
-          "$ref": "#/definitions/ProfileType"
+          "$ref": "#/definitions/ProfileType",
+          "description": "The kind of certificate profile represented."
         },
         "rotationPolicy": {
-          "$ref": "#/definitions/RotationPolicy"
+          "$ref": "#/definitions/RotationPolicy",
+          "description": "The certificate rotation policy."
         },
         "commonName": {
           "type": "string",
@@ -703,10 +706,12 @@
         },
         "verificationStatus": {
           "$ref": "#/definitions/VerificationStatus",
+          "description": "Indicates whether the account has been verified.",
           "readOnly": true
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation.",
           "readOnly": true
         }
       },
@@ -716,10 +721,12 @@
       "type": "object",
       "properties": {
         "profileType": {
-          "$ref": "#/definitions/ProfileType"
+          "$ref": "#/definitions/ProfileType",
+          "description": "The kind of certificate profile represented."
         },
         "rotationPolicy": {
-          "$ref": "#/definitions/RotationPolicy"
+          "$ref": "#/definitions/RotationPolicy",
+          "description": "The certificate rotation policy."
         },
         "commonName": {
           "type": "string",
@@ -736,22 +743,27 @@
         },
         "organization": {
           "type": "string",
+          "description": "The certificate organization.",
           "readOnly": true
         },
         "streetAddress": {
           "type": "string",
+          "description": "The street address of the entity the certificate was issued to.",
           "readOnly": true
         },
         "city": {
           "type": "string",
+          "description": "The city of the entity the certificate was issued to.",
           "readOnly": true
         },
         "state": {
           "type": "string",
+          "description": "The state of the entity the certificate was issued to.",
           "readOnly": true
         },
         "country": {
           "type": "string",
+          "description": "The country of the entity the certificate was issued to.",
           "readOnly": true
         },
         "certificates": {
@@ -760,10 +772,12 @@
             "$ref": "#/definitions/Certificate"
           },
           "x-cadl-name": "Microsoft.CodeSigning.Certificate[]",
+          "description": "The set of certificates associated with this profile.",
           "readOnly": true
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the certificate.",
           "readOnly": true
         }
       },
@@ -777,6 +791,7 @@
     },
     "ProfileType": {
       "type": "string",
+      "description": "The type of the profile.",
       "enum": [
         "Test",
         "Trial",
@@ -790,6 +805,7 @@
     },
     "RotationPolicy": {
       "type": "string",
+      "description": "The rotation policy for the profile.",
       "enum": [
         "Monthly"
       ],
@@ -800,6 +816,7 @@
     },
     "VerificationStatus": {
       "type": "string",
+      "description": "Current verification information.",
       "enum": [
         "Completed",
         "InProgress",
@@ -812,6 +829,7 @@
     },
     "ProvisioningState": {
       "type": "string",
+      "description": "The status of the current operation.",
       "enum": [
         "Succeeded",
         "Failed",
@@ -860,15 +878,7 @@
           "readOnly": true
         }
       },
-      "description": "Properties of the certificate",
-      "required": [
-        "id",
-        "subjectName",
-        "subjectAlternativeName",
-        "thumbprint",
-        "createdDate",
-        "expiryDate"
-      ]
+      "description": "Properties of the certificate"
     }
   },
   "parameters": {

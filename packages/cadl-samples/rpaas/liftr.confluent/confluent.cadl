@@ -29,7 +29,8 @@ model ShortString extends string { };
   collectionName: "Organizations",
   parameterType: OrganizationNameParameter,
 })
-model Organization extends TrackedResource<OrganizationProperties> { };
+@doc("Details of the Confluent organization.")
+model Organization is TrackedResource<OrganizationProperties> { };
 
 model OrganizationNameParameter {
   @doc("Organization resource name")
@@ -40,14 +41,14 @@ model OrganizationNameParameter {
 model OrganizationProperties {
   @doc("UTC Time when Organization resource was created.")
   @visibility("read")
-  createdTime: zonedDateTime;
+  createdTime?: zonedDateTime;
 
   @doc("Id of the Confluent organization.")
-  @visibility("read")
+  @visibility("read", "create")
   organizationId: string;
 
   @doc("Single sign-on url for the Confluent organization.")
-  @visibility("read")
+  @visibility("read", "create")
   ssoUrl: Uri;
 
   @doc("Details of the product offering.")
@@ -105,20 +106,21 @@ model UserDetail {
   standardOperations: ["read"]
 })
 @armListBy(SubscriptionIdParameter, "List")
-model ConfluentAgreementResource {
-  ...ArmResource;
-  properties: ConfluentAgreementResourceProperties;
-}
+@doc("The details of a marketplace agreement.")
+model ConfluentAgreementResource is ProxyResource<ConfluentAgreementResourceProperties> {}
 
+@doc("The details of the agreement.")
 model ConfluentAgreementResourceProperties {
 }
 
 @armResourceOperations(ConfluentAgreementResource)
 namespace MarketplaceAgreements {
   @put("default")
+  @doc("Create a new marketplace agreement.")
   op Create(
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
+    @doc("The agreement details.")
     @body agreement: ConfluentAgreementResource
   ): ArmResponse<ConfluentAgreementResource> | ErrorResponse;
 }

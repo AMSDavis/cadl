@@ -20,7 +20,8 @@ model SecretKey extends string {}
   collectionName: "FluidRelayServers",
   parameterType: ResourceNameParameter
 })
-model FluidRelayServer extends TrackedResource<FluidRelayServerProperties> {}
+@doc("Details of the FluidRelay server.")
+model FluidRelayServer is TrackedResource<FluidRelayServerProperties> {}
 
 model ResourceNameParameter {
   @doc("The resource name.")
@@ -33,7 +34,9 @@ namespace FluidRelayServers {
   @post("regenerateKey")
   op regenerateKey(
     ...CommonResourceParameters,
+    @doc("The resource name.")
     @path name: string,
+    @doc("The details of the key generation request.")
     @body parameters: RegenerateKeyRequest
   ): ArmResponse<FluidRelayServerKeys> | ErrorResponse;
 
@@ -41,6 +44,7 @@ namespace FluidRelayServers {
   @post("getKeys")
   op getKeys(
     ...CommonResourceParameters,
+    @doc("The resource name.")
     @path name: string
   ): ArmResponse<FluidRelayServerKeys> | ErrorResponse;
 }
@@ -66,11 +70,11 @@ enum ProvisioningState { Succeeded, Failed, Cancelled }
 model FluidRelayEndpoints {
   @doc("The Fluid Relay Orderer Endpoints.")
   @visibility("read")
-  ordererEndpoints: Uri[];
+  ordererEndpoints?: Uri[];
 
   @doc("The Fluid Relay storage endpoints.")
   @visibility("read")
-  storageEndpoints: Uri[];
+  storageEndpoints?: Uri[];
 }
 
 @doc("The set of available keys for this server.")

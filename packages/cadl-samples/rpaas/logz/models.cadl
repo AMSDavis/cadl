@@ -11,6 +11,7 @@ model email extends string {};
 @maxLength(50)
 model MediumString extends string {}
 
+@doc("A resource that is monitored by a Logz monitor instance.")
 model MonitoredResource {
   @doc("The ARM id of the resource.")
   id: string;
@@ -28,6 +29,7 @@ model MonitoredResource {
   reasonForLogsStatus: string;
 }
 
+@doc("A lit of monitored resources.")
 model MonitoredResourceListResponse extends Page<MonitoredResource> {}
 
 @doc("The properties of a Logz Monitor Service resource.")
@@ -63,6 +65,7 @@ enum MonitoringStatus { "Enabled", "Disabled" }
 @doc("Flag specifying the Marketplace Subscription Status of the resource. If payment is not made in time, the resource will go in Suspended state.")
 enum MarketplaceSubscriptionStatus { "Active", "Suspended" }
 
+@doc("Details of the log organization.")
 model LogzOrganizationProperties {
   @doc("Id of the Logz organization.")
   id: string;
@@ -74,6 +77,7 @@ model LogzOrganizationProperties {
   enterpriseAppId: string;
 }
 
+@doc("User details.")
 model UserInfo {
   @doc("First Name of the user")
   firstName: MediumString;
@@ -135,12 +139,14 @@ model FilteringTag {
   name: string;
   @doc("The value of the tag.")
   value: string;
+  @doc("The action associated with thsi tag.")
   action: TagAction;
 }
 
 @doc("Valid actions for a filtering tag. Exclusion takes priority over inclusion.")
 enum TagAction { "Include", "Exclude" }
 
+@doc("Single sign-on properties for a LogZ resource.")
 model LogzSingleSignOnProperties {
   @doc("Various states of the SSO resource")
   singleSignOnState: SingleSignOnStates;

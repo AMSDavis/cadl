@@ -25,7 +25,8 @@ model PlayerDatabaseReference extends string {}
     collectionName: "playerDatabases",
     parameterType: PlayerDatabaseNameParameter
 })
-model PlayerDatabase extends TrackedResource<PlayerDatabaseProperties> {}
+@doc("Details of the player database.")
+model PlayerDatabase is TrackedResource<PlayerDatabaseProperties> {}
 
 model PlayerDatabaseNameParameter {
     @doc("The name of the player database resource.")
@@ -37,6 +38,7 @@ model PlayerDatabaseNameParameter {
     collectionName: "Titles",
     parameterType: TitleNameParameter
 })
+@doc("Details of a title.")
 model Title extends TrackedResource<TitleProperties> {}
 
 model TitleNameParameter {

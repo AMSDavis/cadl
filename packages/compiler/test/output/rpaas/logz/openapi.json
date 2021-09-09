@@ -51,32 +51,30 @@
   ],
   "paths": {
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/listMonitoredResources/{name}": {
-      "get": {
+      "post": {
         "operationId": "LogzMonitors_listMonitoredResources",
         "summary": "List the resources currently being monitored by the Logz monitor resource.",
         "parameters": [
           {
-            "name": "subscriptionId",
-            "in": "path",
-            "required": true,
-            "type": "string"
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "name": "resourceGroupName",
-            "in": "path",
-            "required": true,
-            "type": "string"
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "name",
             "in": "path",
             "required": true,
+            "description": "The name of the Logz Monitor resource.",
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "A lit of monitored resources.",
             "schema": {
               "$ref": "#/definitions/MonitoredResourceListResponse"
             }
@@ -88,55 +86,6 @@
             }
           }
         }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts/{subAccountName}/listMonitoredResources": {
-      "get": {
-        "operationId": "SubAccounts_listMonitoredResources",
-        "summary": "List the resources currently being monitored by the Logz sub account resource.",
-        "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "resourceGroupName",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "monitorName",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "subAccountName",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/MonitoredResourceListResponse"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "SubAccounts"
-        ]
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts/{subAccountName}": {
@@ -1524,6 +1473,7 @@
           "description": "The link to the next page of items"
         }
       },
+      "description": "A lit of monitored resources.",
       "required": [
         "value",
         "nextLink"
@@ -1547,6 +1497,7 @@
           "readOnly": true
         }
       },
+      "description": "The LogZ Monitor resource details.",
       "required": [
         "properties"
       ],
@@ -1574,6 +1525,7 @@
           "readOnly": true
         }
       },
+      "description": "Details of a sub account.",
       "required": [
         "properties"
       ],
@@ -1749,6 +1701,7 @@
           "readOnly": true
         }
       },
+      "description": "Details of a SubAccount TagRule.",
       "required": [
         "properties"
       ],
@@ -1816,6 +1769,7 @@
           "readOnly": true
         }
       },
+      "description": "Details of a single sign-on configuration.",
       "required": [
         "properties"
       ],
@@ -1905,6 +1859,7 @@
           "description": "Reason for why the resource is sending logs (or why it is not sending)."
         }
       },
+      "description": "A resource that is monitored by a Logz monitor instance.",
       "required": [
         "id",
         "sendingMetrics",
@@ -2021,6 +1976,7 @@
           "description": "The Id of the Enterprise App used for Single sign on."
         }
       },
+      "description": "Details of the log organization.",
       "required": [
         "id",
         "companyName",
@@ -2048,6 +2004,7 @@
           "description": "Phone number of the user used by Logz for contacting them if needed"
         }
       },
+      "description": "User details.",
       "required": [
         "firstName",
         "lastName",
@@ -2116,6 +2073,7 @@
           "description": "The provisioning state of the SSO resource"
         }
       },
+      "description": "Single sign-on properties for a LogZ resource.",
       "required": [
         "singleSignOnState",
         "enterpriseAppId",
