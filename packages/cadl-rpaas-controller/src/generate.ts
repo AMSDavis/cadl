@@ -352,9 +352,9 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                   visitType(cadlType.type);
                   break;
                 case "Model":
-                  cadlType.baseModels?.forEach((element) => {
-                    visitType(element);
-                  });
+                  if (cadlType.baseModel) {
+                    visitType(cadlType.baseModel);
+                  }
                   cadlType.templateArguments?.forEach((element) => {
                     visitType(element);
                   });
@@ -524,17 +524,18 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               validations: getValidations(cadlType),
             };
             if (
-              (model.baseModels && model.baseModels.length > 0) ||
+              model.baseModel ||
               (model.templateArguments && model.templateArguments.length > 0)
             ) {
               outModel.isDerivedType = true;
               const baseType: TypeReference[] = [];
-              model.baseModels.forEach((model) => {
-                const converted = getCSharpType(model);
+              if (model.baseModel) {
+                const converted = getCSharpType(model.baseModel);
                 if (converted) {
                   baseType.push(converted);
                 }
-              });
+              }
+
               if (model.templateNode) {
                 const templateBase = program.checker!.getTypeForNode(model.templateNode);
                 if (templateBase) {
@@ -744,10 +745,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           );
           break;
         case "Model":
-          if (cadlType.baseModels) {
-            cadlType.baseModels.forEach((o) =>
-              getValidations(o).forEach((val) => outValidations.push(val))
-            );
+          if (cadlType.baseModel) {
+            getValidations(cadlType.baseModel).forEach((val) => outValidations.push(val));
           }
           if (cadlType.templateNode) {
             const templateType = program.checker!.getTypeForNode(cadlType.templateNode);
@@ -807,11 +806,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           return createInlineEnum(cadlType);
         case "Model":
           // Is the type templated with only one type?
-          if (
-            cadlType.baseModels.length === 1 &&
-            (!cadlType.properties || cadlType.properties.size === 0)
-          ) {
-            const outRef = getCSharpType(cadlType.baseModels[0]);
+          if (cadlType.baseModel && (!cadlType.properties || cadlType.properties.size === 0)) {
+            const outRef = getCSharpType(cadlType.baseModel);
             if (isSealedBaseModel(outRef)) {
               return outRef;
             }
