@@ -12,10 +12,12 @@ namespace Microsoft.Confluent.Service.Models
     /// <summary>
     /// Details of the Confluent organization. 
     /// </summary>
-    public class Organization : TrackedResource    {
+    public class Organization : TrackedResource 
+    {
         /// <summary>
         ///  The resource-specific properties for this resource. 
         /// </summary>
         public OrganizationProperties Properties { get; set; }
+
     }
 }
