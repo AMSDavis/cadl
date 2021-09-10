@@ -259,8 +259,8 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
   let propertiesType: ModelType | undefined = resourceType.properties.has("properties")
     ? (resourceType.properties.get("properties")!.type as ModelType)
     : undefined;
-  if (resourceType.baseModels.length === 1) {
-    const coreType = resourceType.baseModels[0];
+  if (resourceType.baseModel) {
+    const coreType = resourceType.baseModel;
     if (coreType.kind === "Model") {
       if (coreType.name.startsWith("TrackedResource")) {
         resourceKind = "Tracked";

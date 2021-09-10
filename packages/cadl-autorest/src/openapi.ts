@@ -459,7 +459,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   function emitResponseObject(responseModel: Type, statusCode: string = "200") {
     if (
       responseModel.kind === "Model" &&
-      responseModel.baseModels.length === 0 &&
+      !responseModel.baseModel &&
       responseModel.properties.size === 0
     ) {
       currentEndpoint.responses[200] = {
@@ -540,10 +540,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
             if (!isHeader(program, element)) return false;
           }
         }
-        if (adlType.baseModels) {
-          for (let element of adlType.baseModels) {
-            if (!isEmptyResponse(element)) return false;
-          }
+        if (adlType.baseModel) {
+          if (!isEmptyResponse(adlType.baseModel)) return false;
         }
         if (adlType.templateArguments) {
           for (let element of adlType.templateArguments) {
@@ -599,7 +597,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       };
     }
 
-    if (type.kind === "Model" && type.baseModels.length === 0) {
+    if (type.kind === "Model" && !type.baseModel) {
       // If this is a model that isn't derived from anything, there's a chance
       // it's a base Cadl "primitive" that corresponds directly to an OpenAPI
       // primitive. In such cases, we don't want to emit a ref and instead just
@@ -1066,25 +1064,20 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     // defined like this is just meant to rename the underlying instance of a
     // templated type.
     if (
-      model.baseModels.length === 1 &&
-      model.baseModels[0].templateArguments &&
-      model.baseModels[0].templateArguments.length > 0 &&
+      model.baseModel &&
+      model.baseModel.templateArguments &&
+      model.baseModel.templateArguments.length > 0 &&
       Object.keys(modelSchema.properties).length === 0
     ) {
       // Take the base model schema but carry across the documentation property
       // that we set before
-      const baseSchema = getSchemaForType(model.baseModels[0]);
+      const baseSchema = getSchemaForType(model.baseModel);
       modelSchema = {
         ...baseSchema,
         description: modelSchema.description,
       };
-    } else if (model.baseModels.length > 0) {
-      for (let base of model.baseModels) {
-        if (!modelSchema.allOf) {
-          modelSchema.allOf = [];
-        }
-        modelSchema.allOf.push(getSchemaOrRef(base));
-      }
+    } else if (model.baseModel) {
+      modelSchema.allOf = [getSchemaOrRef(model.baseModel)];
     }
 
     // Attach any OpenAPI extensions
@@ -1217,13 +1210,24 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         return { type: "boolean", enum: [cadlType.value] };
       case "Model":
         switch (cadlType.name) {
-          case "byte":
+          case "bytes":
             return { type: "string", format: "byte" };
+          case "int8":
+            return applyIntrinsicDecorators(cadlType, { type: "integer", format: "int8" });
+          case "int16":
+            return applyIntrinsicDecorators(cadlType, { type: "integer", format: "int16" });
           case "int32":
             return applyIntrinsicDecorators(cadlType, { type: "integer", format: "int32" });
           case "int64":
             return applyIntrinsicDecorators(cadlType, { type: "integer", format: "int64" });
-
+          case "uint8":
+            return applyIntrinsicDecorators(cadlType, { type: "integer", format: "uint8" });
+          case "uint16":
+            return applyIntrinsicDecorators(cadlType, { type: "integer", format: "uint16" });
+          case "uint32":
+            return applyIntrinsicDecorators(cadlType, { type: "integer", format: "uint32" });
+          case "uint64":
+            return applyIntrinsicDecorators(cadlType, { type: "integer", format: "uint64" });
           case "float64":
             return applyIntrinsicDecorators(cadlType, { type: "number", format: "double" });
           case "float32":
@@ -1249,9 +1253,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     }
     // The base model doesn't correspond to a primitive OA type, but it could
     // derive from one. Let's check.
-    // TODO: multiple inheritance is not supported here.
-    if (cadlType.kind === "Model" && cadlType.baseModels.length > 0) {
-      const baseSchema = mapCadlTypeToOpenAPI(cadlType.baseModels[0]);
+    if (cadlType.kind === "Model" && cadlType.baseModel) {
+      const baseSchema = mapCadlTypeToOpenAPI(cadlType.baseModel);
       if (baseSchema) {
         return applyIntrinsicDecorators(cadlType, baseSchema);
       }

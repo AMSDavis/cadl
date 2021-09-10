@@ -9,15 +9,13 @@ using System.Collections.Generic;
 
 namespace Microsoft.Confluent.Service.Models
 {
-    public class ConfluentAgreementResource 
-    {
-        public string Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Type { get; set; }
-
+    /// <summary>
+    /// The details of a marketplace agreement. 
+    /// </summary>
+    public class ConfluentAgreementResource : ProxyResourceBase    {
+        /// <summary>
+        ///  The resource-specific properties for this resource. 
+        /// </summary>
         public ConfluentAgreementResourceProperties Properties { get; set; }
-
     }
 }

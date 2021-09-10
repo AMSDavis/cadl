@@ -1,13 +1,13 @@
-import Ajv, { ErrorObject } from "ajv";
-import { compilerAssert, DiagnosticHandler } from "../core/diagnostics.js";
+import Ajv, { ErrorObject, JSONSchemaType } from "ajv";
+import { compilerAssert } from "../core/diagnostics.js";
 import { Diagnostic, SourceFile } from "../core/types.js";
-import { CadlConfigJsonSchema } from "./config-schema.js";
-import { CadlRawConfig } from "./types.js";
 
-export class ConfigValidator {
+export class SchemaValidator<T> {
   private ajv = new Ajv({
     strict: true,
   });
+
+  public constructor(private schema: JSONSchemaType<T>) {}
 
   /**
    * Validate the config is valid
@@ -15,22 +15,21 @@ export class ConfigValidator {
    * @param file @optional file for errors tracing.
    * @returns Validation
    */
-  public validateConfig(
-    config: CadlRawConfig,
-    file: SourceFile,
-    reportDiagnostic: DiagnosticHandler
-  ): void {
-    const validate = this.ajv.compile(CadlConfigJsonSchema);
+  public validate(config: unknown, file: SourceFile): Diagnostic[] {
+    const validate = this.ajv.compile(this.schema);
     const valid = validate(config);
     compilerAssert(
       !valid || !validate.errors,
-      "There should be errors reported if the config file is not valid."
+      "There should be errors reported if the schema is not valid."
     );
 
+    const diagnostics = [];
     for (const error of validate.errors ?? []) {
       const diagnostic = ajvErrorToDiagnostic(error, file);
-      reportDiagnostic(diagnostic);
+      diagnostics.push(diagnostic);
     }
+
+    return diagnostics;
   }
 }
 

@@ -14,7 +14,7 @@ namespace Microsoft.CodeSigning;
   parameterType: AccountNameParameter,
   collectionName: "CodeSignAccounts",
 })
-model CodeSignAccount extends TrackedResource<CodeSignAccountProperties> {};
+model CodeSignAccount is TrackedResource<CodeSignAccountProperties> {};
 
 @doc("Properties of the code sign account")
 model CodeSignAccountProperties {
@@ -23,9 +23,11 @@ model CodeSignAccountProperties {
   accountUri?: string;
 
   @visibility("read")
+  @doc("Indicates whether the account has been verified.")
   verificationStatus?: VerificationStatus;
 
   @visibility("read")
+  @doc("The status of the last operation.")
   provisioningState?: ProvisioningState;
 }
 
@@ -41,12 +43,16 @@ model AccountNameParameter {
   @path accountName: string;
 }
 
+@doc("Current verification information.")
 enum VerificationStatus { Completed, InProgress, NotCompleted }
 
+@doc("The rotation policy for the profile.")
 enum RotationPolicy { Monthly }
 
+@doc("The type of the profile.")
 enum ProfileType { Test, Trial, PrivateTrust, PublicTrust }
 
+@doc("The status of the current operation.")
 enum ProvisioningState {
   Succeeded, Failed, Cancelled, Provisioning, Updating, Deleting, Accepted
 }
@@ -59,7 +65,7 @@ enum ProvisioningState {
   standardOperations: ["read", "update"],
 })
 @armListBy(AccountNameParameter, "ListByCodeSignAccounts")
-model CertificateProfile extends ProxyResource<CertificateProfileProperties> {}
+model CertificateProfile is ProxyResource<CertificateProfileProperties> {}
 
 model ProfileNameParameter {
   @doc("Certificate profile name")
@@ -69,8 +75,10 @@ model ProfileNameParameter {
 
 @doc("Properties of the certificate profile")
 model CertificateProfileProperties {
+  @doc("The kind of certificate profile represented.")
   profileType: ProfileType;
 
+  @doc("The certificate rotation policy.")
   rotationPolicy: RotationPolicy;
 
   @doc("Name of the certificate")
@@ -84,25 +92,32 @@ model CertificateProfileProperties {
   subjectAlternativeName: string;
 
   @visibility("read")
+  @doc("The certificate organization.")
   organization?: string;
 
   @visibility("read")
+  @doc("The street address of the entity the certificate was issued to.")
   streetAddress?: string;
 
   @visibility("read")
+  @doc("The city of the entity the certificate was issued to.")
   city?: string;
 
   @visibility("read")
+  @doc("The state of the entity the certificate was issued to.")
   state?: string;
 
   @visibility("read")
+  @doc("The country of the entity the certificate was issued to.")
   country?: string;
 
   // TODO: Flatten?
   @visibility("read")
+  @doc("The set of certificates associated with this profile.")
   certificates?: Certificate[];
 
   @visibility("read")
+  @doc("The provisioning state of the certificate.")
   provisioningState?: ProvisioningState;
 }
 
@@ -110,25 +125,25 @@ model CertificateProfileProperties {
 model Certificate {
   @doc("Id of the certificate")
   @visibility("read")
-  id: string;
+  id?: string;
 
   @doc("Subject name of the certificate")
   @visibility("read")
-  subjectName: string;
+  subjectName?: string;
 
   @doc("Subject alternative name of the certificate")
   @visibility("read")
-  subjectAlternativeName: string;
+  subjectAlternativeName?: string;
 
   @doc("Thumbprint of the certificate")
   @visibility("read")
-  thumbprint: string;
+  thumbprint?: string;
 
   @doc("Certificate created date")
   @visibility("read")
-  createdDate: string;
+  createdDate?: string;
 
   @doc("Certificate expiry date")
   @visibility("read")
-  expiryDate: string;
+  expiryDate?: string;
 }

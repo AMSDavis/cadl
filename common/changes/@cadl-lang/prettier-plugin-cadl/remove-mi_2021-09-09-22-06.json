@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/prettier-plugin-cadl",
+      "comment": "Remove support for multiple inheritance",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@cadl-lang/prettier-plugin-cadl",
+  "email": "brian.terlson@microsoft.com"
+}

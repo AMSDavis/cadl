@@ -1,0 +1,14 @@
+steps:
+  - script: npm install -g autorest && cd eng/scripts && npm install
+    displayName: Install Dependencies
+  - script: node eng/scripts/download-common-types.js
+    displayName: Fetch common-types/v2/types.json
+  - script: node eng/scripts/lint-rpaas.js "packages/compiler/test/output/rpaas"
+    displayName: RPaaS Linting Swaggers
+    condition: succeededOrFailed()
+  - script: node eng/scripts/gen-sdk.js python "packages/compiler/test/output/rpaas"
+    displayName: Generate Python SDK
+    condition: succeededOrFailed()
+  - script: node eng/scripts/gen-sdk.js javascript "packages/compiler/test/output/rpaas"
+    displayName: Generate JavaScript SDK
+    condition: succeededOrFailed()

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/openapi3",
+      "comment": "Support for emitting `bytes` and new number types",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@cadl-lang/openapi3",
+  "email": "brian.terlson@microsoft.com"
+}

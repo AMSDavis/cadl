@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/compiler",
+      "comment": "Remove support for multiple inheritance",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@cadl-lang/compiler",
+  "email": "brian.terlson@microsoft.com"
+}

@@ -385,12 +385,8 @@
           "description": "text to display"
         },
         "image": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "format": "byte"
-          },
-          "x-cadl-name": "byte[]",
+          "type": "string",
+          "format": "byte",
           "description": "image to display"
         }
       },

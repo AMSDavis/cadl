@@ -9,7 +9,9 @@ using System.Collections.Generic;
 
 namespace Microsoft.Confluent.Service.Models
 {
-    public class ConfluentAgreementResourceProperties 
-    {
+    /// <summary>
+    /// The details of the agreement. 
+    /// </summary>
+    public class ConfluentAgreementResourceProperties    {
     }
 }

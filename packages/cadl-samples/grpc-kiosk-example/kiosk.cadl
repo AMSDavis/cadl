@@ -84,7 +84,7 @@ model Sign {
     text: string;
 
     @doc("image to display")
-    image: byte[];
+    image: bytes;
 }
 
 @doc("Represents the size of a screen in pixels.")

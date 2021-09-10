@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/openapi3",
+      "comment": "Remove support for multiple inheritance",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@cadl-lang/openapi3",
+  "email": "brian.terlson@microsoft.com"
+}

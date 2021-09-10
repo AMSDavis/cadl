@@ -1,0 +1,7 @@
+{
+  "rpaas": {
+    "title": "RPaaS Service",
+    "description": "Create a project representing an Azure Resource Management API",
+    "libraries": ["@cadl-lang/rest", "@azure-tools/cadl-autorest", "@azure-tools/cadl-rpaas"]
+  }
+}

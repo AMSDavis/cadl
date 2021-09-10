@@ -7,3 +7,4 @@ pool:
 
 steps:
   - template: pull-request-common.yml
+  - template: swagger-checks.yml

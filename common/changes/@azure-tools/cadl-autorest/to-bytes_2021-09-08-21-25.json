@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-autorest",
+      "comment": "Support for emitting `bytes` and new number types",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-autorest",
+  "email": "brian.terlson@microsoft.com"
+}

@@ -10,3 +10,4 @@ steps:
     displayName: Enable official Visual Studio extension build
 
   - template: pull-request-common.yml
+  - template: swagger-checks.yml

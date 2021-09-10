@@ -56,7 +56,7 @@ export interface ModelType extends BaseType, DecoratedType {
   node: ModelStatementNode | ModelExpressionNode | IntersectionExpressionNode;
   namespace?: NamespaceType;
   properties: Map<string, ModelTypeProperty>;
-  baseModels: ModelType[];
+  baseModel?: ModelType;
   templateArguments?: Type[];
   templateNode?: Node;
 }
@@ -360,7 +360,7 @@ export interface ModelStatementNode extends BaseNode, DeclarationNode {
   kind: SyntaxKind.ModelStatement;
   id: IdentifierNode;
   properties: (ModelPropertyNode | ModelSpreadPropertyNode)[];
-  extends: ReferenceExpression[];
+  extends?: ReferenceExpression;
   is?: ReferenceExpression;
   templateParameters: TemplateParameterDeclarationNode[];
   locals?: SymbolTable;
@@ -553,6 +553,9 @@ export interface Dirent {
 }
 
 export interface CompilerHost {
+  // read a file at the given url.
+  readUrl(url: string): Promise<SourceFile>;
+
   // read a utf-8 encoded file
   readFile(path: string): Promise<SourceFile>;
 
@@ -583,3 +586,16 @@ export interface CompilerHost {
   // get the real path of a possibly symlinked path
   realpath(path: string): Promise<string>;
 }
+
+export type SemanticNodeListener = {
+  root?: (context: Program) => void;
+  namespace?: (context: NamespaceType) => void;
+  model?: (context: ModelType) => void;
+  modelProperty?: (context: ModelTypeProperty) => void;
+  operation?: (context: OperationType) => void;
+  array?: (context: ArrayType) => void;
+  enum?: (context: EnumType) => void;
+  union?: (context: UnionType) => void;
+  tuple?: (context: TupleType) => void;
+  templateParameter?: (context: TemplateParameterType) => void;
+};

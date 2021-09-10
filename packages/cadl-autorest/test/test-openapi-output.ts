@@ -357,8 +357,14 @@ describe("autorest: definitions", () => {
 
 describe("autorest: primitives", () => {
   const cases = [
+    ["int8", { type: "integer", format: "int8" }],
+    ["int16", { type: "integer", format: "int16" }],
     ["int32", { type: "integer", format: "int32" }],
     ["int64", { type: "integer", format: "int64" }],
+    ["uint8", { type: "integer", format: "uint8" }],
+    ["uint16", { type: "integer", format: "uint16" }],
+    ["uint32", { type: "integer", format: "uint32" }],
+    ["uint64", { type: "integer", format: "uint64" }],
     ["float32", { type: "number", format: "float" }],
     ["float64", { type: "number", format: "double" }],
     ["string", { type: "string" }],
@@ -366,6 +372,7 @@ describe("autorest: primitives", () => {
     ["plainDate", { type: "string", format: "date" }],
     ["zonedDateTime", { type: "string", format: "date-time" }],
     ["plainTime", { type: "string", format: "time" }],
+    ["bytes", { type: "string", format: "byte" }],
   ];
 
   for (const test of cases) {
