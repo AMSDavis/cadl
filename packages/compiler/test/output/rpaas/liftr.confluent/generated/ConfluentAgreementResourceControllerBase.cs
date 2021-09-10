@@ -25,7 +25,7 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Validate the request to Read the ConfluentAgreementResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
+        /// <param name="subscriptionId"> The ID of the target subscription.</param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(ConfluentServiceRoutes.ConfluentAgreementResourceValidateRead)]
@@ -43,7 +43,7 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Read the ConfluentAgreementResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
+        /// <param name="subscriptionId"> The ID of the target subscription.</param>
         /// <returns> The ConfluentAgreementResource resource.</returns>
         [HttpGet]
         [Route(ConfluentServiceRoutes.ConfluentAgreementResourceItem)]
@@ -66,8 +66,8 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Validate the request to Create the ConfluentAgreementResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> undefined</param>
-        /// <param name="agreement"> undefined</param>
+        /// <param name="subscriptionId"> The ID of the target subscription.</param>
+        /// <param name="agreement"> The agreement details.</param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
         [Route(ConfluentServiceRoutes.ConfluentAgreementResourceValidateCreate)]
@@ -89,8 +89,8 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Called after the end of the request to Create the ConfluentAgreementResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> undefined</param>
-        /// <param name="agreement"> undefined</param>
+        /// <param name="subscriptionId"> The ID of the target subscription.</param>
+        /// <param name="agreement"> The agreement details.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ConfluentServiceRoutes.ConfluentAgreementResourceEndCreate)]
@@ -107,8 +107,8 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Create the ConfluentAgreementResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> undefined</param>
-        /// <param name="agreement"> undefined</param>
+        /// <param name="subscriptionId"> The ID of the target subscription.</param>
+        /// <param name="agreement"> The agreement details.</param>
         /// <returns> The ConfluentAgreementResource resource.</returns>
         [HttpPut]
         [Route(ConfluentServiceRoutes.ConfluentAgreementResourceItem)]

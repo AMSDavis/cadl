@@ -25,9 +25,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Read the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceValidateRead)]
@@ -45,9 +45,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Read the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpGet]
         [Route(ObservabilityServiceRoutes.MonitorResourceItem)]
@@ -70,9 +70,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Create the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
@@ -95,9 +95,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Called after the end of the request to Create the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
@@ -115,9 +115,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Create the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPut]
@@ -144,9 +144,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Patch the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
         [HttpPost]
@@ -169,9 +169,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Called after the end of the request to Patch the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
@@ -189,9 +189,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Patch the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPatch]
@@ -218,9 +218,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Delete the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceValidateDelete)]
@@ -237,9 +237,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Called after the end of the request to Delete the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceEndDelete)]
@@ -256,9 +256,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Delete the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpDelete]
         [Route(ObservabilityServiceRoutes.MonitorResourceItem)]
@@ -282,9 +282,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// GetAccountCredentials the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> undefined</param>
-        /// <param name="resourceGroupName"> undefined</param>
-        /// <param name="monitorName"> undefined</param>
+        /// <param name="subscriptionId"> The ID of the target subscription.</param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceItemGetAccountCredentials)]
@@ -308,9 +308,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// ListMonitoredResources the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> undefined</param>
-        /// <param name="resourceGroupName"> undefined</param>
-        /// <param name="monitorName"> undefined</param>
+        /// <param name="subscriptionId"> The ID of the target subscription.</param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceItemListMonitoredResources)]
@@ -334,9 +334,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// VmHostPayload the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> undefined</param>
-        /// <param name="resourceGroupName"> undefined</param>
-        /// <param name="monitorName"> undefined</param>
+        /// <param name="subscriptionId"> The ID of the target subscription.</param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceItemVmHostPayload)]
@@ -360,10 +360,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// VmHostUpdate the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> undefined</param>
-        /// <param name="resourceGroupName"> undefined</param>
-        /// <param name="monitorName"> undefined</param>
-        /// <param name="request"> undefined</param>
+        /// <param name="subscriptionId"> The ID of the target subscription.</param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="request"> The details of the VMHost update request.</param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceItemVmHostUpdate)]
@@ -389,9 +389,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// ListVMHosts the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> undefined</param>
-        /// <param name="resourceGroupName"> undefined</param>
-        /// <param name="monitorName"> undefined</param>
+        /// <param name="subscriptionId"> The ID of the target subscription.</param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceItemListVMHosts)]
@@ -415,9 +415,9 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// SingleSignOnConfigurations the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> undefined</param>
-        /// <param name="resourceGroupName"> undefined</param>
-        /// <param name="monitorName"> undefined</param>
+        /// <param name="subscriptionId"> The ID of the target subscription.</param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceItemSingleSignOnConfigurations)]

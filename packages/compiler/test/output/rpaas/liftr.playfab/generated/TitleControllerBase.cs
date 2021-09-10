@@ -25,9 +25,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Validate the request to Read the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(PlayFabServiceRoutes.TitleValidateRead)]
@@ -45,9 +45,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Read the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <returns> The Title resource.</returns>
         [HttpGet]
         [Route(PlayFabServiceRoutes.TitleItem)]
@@ -70,9 +70,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Validate the request to Create the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
@@ -95,9 +95,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Called after the end of the request to Create the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
@@ -115,9 +115,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Create the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> The Title resource.</returns>
         [HttpPut]
@@ -144,9 +144,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Validate the request to Patch the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
         [HttpPost]
@@ -169,9 +169,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Called after the end of the request to Patch the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
@@ -189,9 +189,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Patch the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> The Title resource.</returns>
         [HttpPatch]
@@ -218,9 +218,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Validate the request to Delete the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
         [HttpPost]
         [Route(PlayFabServiceRoutes.TitleValidateDelete)]
@@ -237,9 +237,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Called after the end of the request to Delete the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(PlayFabServiceRoutes.TitleEndDelete)]
@@ -256,9 +256,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Delete the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <returns> The Title resource.</returns>
         [HttpDelete]
         [Route(PlayFabServiceRoutes.TitleItem)]

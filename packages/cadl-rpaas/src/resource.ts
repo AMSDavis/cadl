@@ -1,4 +1,5 @@
 import {
+  getDoc,
   getIntrinsicType,
   isIntrinsic,
   ModelType,
@@ -42,6 +43,7 @@ function getPathParameterInfo(
   return {
     name: paramName!,
     typeName: paramType.name,
+    description: propType ? getDoc(program, propType) : "",
     resourceType,
   };
 }
@@ -333,6 +335,7 @@ function getDefaultResourcePath(resourceInfo: ArmResourceInfo): ArmResourcePath 
         {
           name: "resourceUri",
           typeName: "ResourceUriParameter",
+          description: "The uri of the target resource",
         },
       ],
     };
@@ -343,10 +346,12 @@ function getDefaultResourcePath(resourceInfo: ArmResourceInfo): ArmResourcePath 
         {
           name: "subscriptionId",
           typeName: "SubscriptionIdParameter",
+          description: "The subscription containing the resource.",
         },
         {
           name: "resourceGroupName",
           typeName: "ResourceGroupNameParameter",
+          description: "The resource group containing the resource.",
         },
       ],
     };

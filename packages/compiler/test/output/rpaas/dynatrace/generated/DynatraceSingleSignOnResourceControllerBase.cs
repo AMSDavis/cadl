@@ -25,10 +25,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Create the DynatraceSingleSignOnResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="configurationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="configurationName"> Single Sign On Configuration Name</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
@@ -51,10 +51,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Called after the end of the request to Create the DynatraceSingleSignOnResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="configurationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="configurationName"> Single Sign On Configuration Name</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
@@ -72,10 +72,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Create the DynatraceSingleSignOnResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="configurationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="configurationName"> Single Sign On Configuration Name</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> The DynatraceSingleSignOnResource resource.</returns>
         [HttpPut]
@@ -102,10 +102,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Read the DynatraceSingleSignOnResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="configurationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="configurationName"> Single Sign On Configuration Name</param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.DynatraceSingleSignOnResourceValidateRead)]
@@ -123,10 +123,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Read the DynatraceSingleSignOnResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="configurationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="configurationName"> Single Sign On Configuration Name</param>
         /// <returns> The DynatraceSingleSignOnResource resource.</returns>
         [HttpGet]
         [Route(ObservabilityServiceRoutes.DynatraceSingleSignOnResourceItem)]

@@ -25,9 +25,9 @@ namespace Microsoft.FluidRelay.Service
         /// <summary>
         /// Validate the request to Read the FluidRelayServer resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The resource name.</param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(FluidRelayServiceRoutes.FluidRelayServerValidateRead)]
@@ -45,9 +45,9 @@ namespace Microsoft.FluidRelay.Service
         /// <summary>
         /// Read the FluidRelayServer resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The resource name.</param>
         /// <returns> The FluidRelayServer resource.</returns>
         [HttpGet]
         [Route(FluidRelayServiceRoutes.FluidRelayServerItem)]
@@ -70,9 +70,9 @@ namespace Microsoft.FluidRelay.Service
         /// <summary>
         /// Validate the request to Create the FluidRelayServer resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The resource name.</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
@@ -95,9 +95,9 @@ namespace Microsoft.FluidRelay.Service
         /// <summary>
         /// Called after the end of the request to Create the FluidRelayServer resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The resource name.</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
@@ -115,9 +115,9 @@ namespace Microsoft.FluidRelay.Service
         /// <summary>
         /// Create the FluidRelayServer resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The resource name.</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> The FluidRelayServer resource.</returns>
         [HttpPut]
@@ -144,9 +144,9 @@ namespace Microsoft.FluidRelay.Service
         /// <summary>
         /// Validate the request to Patch the FluidRelayServer resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The resource name.</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
         [HttpPost]
@@ -169,9 +169,9 @@ namespace Microsoft.FluidRelay.Service
         /// <summary>
         /// Called after the end of the request to Patch the FluidRelayServer resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The resource name.</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
@@ -189,9 +189,9 @@ namespace Microsoft.FluidRelay.Service
         /// <summary>
         /// Patch the FluidRelayServer resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The resource name.</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> The FluidRelayServer resource.</returns>
         [HttpPatch]
@@ -218,9 +218,9 @@ namespace Microsoft.FluidRelay.Service
         /// <summary>
         /// Validate the request to Delete the FluidRelayServer resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The resource name.</param>
         /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
         [HttpPost]
         [Route(FluidRelayServiceRoutes.FluidRelayServerValidateDelete)]
@@ -237,9 +237,9 @@ namespace Microsoft.FluidRelay.Service
         /// <summary>
         /// Called after the end of the request to Delete the FluidRelayServer resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The resource name.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(FluidRelayServiceRoutes.FluidRelayServerEndDelete)]
@@ -256,9 +256,9 @@ namespace Microsoft.FluidRelay.Service
         /// <summary>
         /// Delete the FluidRelayServer resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The resource name.</param>
         /// <returns> The FluidRelayServer resource.</returns>
         [HttpDelete]
         [Route(FluidRelayServiceRoutes.FluidRelayServerItem)]
@@ -282,10 +282,10 @@ namespace Microsoft.FluidRelay.Service
         /// <summary>
         /// RegenerateKey the FluidRelayServer resource.
         /// </summary>
-        /// <param name="subscriptionId"> undefined</param>
-        /// <param name="resourceGroupName"> undefined</param>
-        /// <param name="name"> undefined</param>
-        /// <param name="parameters"> undefined</param>
+        /// <param name="subscriptionId"> The ID of the target subscription.</param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
+        /// <param name="name"> The resource name.</param>
+        /// <param name="parameters"> The details of the key generation request.</param>
         /// <returns> The FluidRelayServer resource.</returns>
         [HttpPost]
         [Route(FluidRelayServiceRoutes.FluidRelayServerItemRegenerateKey)]
@@ -311,9 +311,9 @@ namespace Microsoft.FluidRelay.Service
         /// <summary>
         /// GetKeys the FluidRelayServer resource.
         /// </summary>
-        /// <param name="subscriptionId"> undefined</param>
-        /// <param name="resourceGroupName"> undefined</param>
-        /// <param name="name"> undefined</param>
+        /// <param name="subscriptionId"> The ID of the target subscription.</param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
+        /// <param name="name"> The resource name.</param>
         /// <returns> The FluidRelayServer resource.</returns>
         [HttpPost]
         [Route(FluidRelayServiceRoutes.FluidRelayServerItemGetKeys)]

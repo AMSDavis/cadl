@@ -210,7 +210,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       return {
         name: parameter.name,
         type: "string",
-        description: "",
+        description: parameter.description,
         location: "path",
       };
     }
@@ -416,15 +416,18 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                       : isBody(program, prop)
                       ? "Body"
                       : "????";
+                    const paramDescription = getDoc(program, prop);
                     parameters.push({
                       name: prop.name,
                       type: propType.name,
+                      description: paramDescription,
                       location: propLoc,
                     });
                     if (propLoc === "Body") {
                       bodyProp = {
                         name: prop.name,
                         type: propType.name,
+                        description: paramDescription,
                         location: propLoc,
                       };
                     }
@@ -993,7 +996,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       const resourcePath = genPath + "/" + resource.name + "ControllerBase.cs";
       program.reportDiagnostic({
         message: "Writing resource controller for " + resource.name,
-        severity: "warning",
+        severity: "info",
       });
       await program.host.writeFile(
         resolvePath(resourcePath),

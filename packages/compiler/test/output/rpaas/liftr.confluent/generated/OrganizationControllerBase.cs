@@ -25,9 +25,9 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Validate the request to Read the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(ConfluentServiceRoutes.OrganizationValidateRead)]
@@ -45,9 +45,9 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Read the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <returns> The Organization resource.</returns>
         [HttpGet]
         [Route(ConfluentServiceRoutes.OrganizationItem)]
@@ -70,9 +70,9 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Validate the request to Create the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
@@ -95,9 +95,9 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Called after the end of the request to Create the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
@@ -115,9 +115,9 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Create the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> The Organization resource.</returns>
         [HttpPut]
@@ -144,9 +144,9 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Validate the request to Patch the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
         [HttpPost]
@@ -169,9 +169,9 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Called after the end of the request to Patch the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
@@ -189,9 +189,9 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Patch the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> The Organization resource.</returns>
         [HttpPatch]
@@ -218,9 +218,9 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Validate the request to Delete the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
         [HttpPost]
         [Route(ConfluentServiceRoutes.OrganizationValidateDelete)]
@@ -237,9 +237,9 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Called after the end of the request to Delete the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ConfluentServiceRoutes.OrganizationEndDelete)]
@@ -256,9 +256,9 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Delete the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <returns> The Organization resource.</returns>
         [HttpDelete]
         [Route(ConfluentServiceRoutes.OrganizationItem)]

@@ -25,9 +25,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Validate the request to Read the PlayerDatabase resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The name of the player database resource.</param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(PlayFabServiceRoutes.PlayerDatabaseValidateRead)]
@@ -45,9 +45,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Read the PlayerDatabase resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The name of the player database resource.</param>
         /// <returns> The PlayerDatabase resource.</returns>
         [HttpGet]
         [Route(PlayFabServiceRoutes.PlayerDatabaseItem)]
@@ -70,9 +70,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Validate the request to Create the PlayerDatabase resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The name of the player database resource.</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
@@ -95,9 +95,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Called after the end of the request to Create the PlayerDatabase resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The name of the player database resource.</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
@@ -115,9 +115,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Create the PlayerDatabase resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The name of the player database resource.</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> The PlayerDatabase resource.</returns>
         [HttpPut]
@@ -144,9 +144,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Validate the request to Patch the PlayerDatabase resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The name of the player database resource.</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
         [HttpPost]
@@ -169,9 +169,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Called after the end of the request to Patch the PlayerDatabase resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The name of the player database resource.</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
@@ -189,9 +189,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Patch the PlayerDatabase resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The name of the player database resource.</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> The PlayerDatabase resource.</returns>
         [HttpPatch]
@@ -218,9 +218,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Validate the request to Delete the PlayerDatabase resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The name of the player database resource.</param>
         /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
         [HttpPost]
         [Route(PlayFabServiceRoutes.PlayerDatabaseValidateDelete)]
@@ -237,9 +237,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Called after the end of the request to Delete the PlayerDatabase resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The name of the player database resource.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(PlayFabServiceRoutes.PlayerDatabaseEndDelete)]
@@ -256,9 +256,9 @@ namespace Microsoft.PlayFab.Service
         /// <summary>
         /// Delete the PlayerDatabase resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> The name of the player database resource.</param>
         /// <returns> The PlayerDatabase resource.</returns>
         [HttpDelete]
         [Route(PlayFabServiceRoutes.PlayerDatabaseItem)]

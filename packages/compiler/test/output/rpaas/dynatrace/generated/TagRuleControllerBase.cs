@@ -25,10 +25,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Read the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="ruleSetName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.TagRuleValidateRead)]
@@ -46,10 +46,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Read the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="ruleSetName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
         /// <returns> The TagRule resource.</returns>
         [HttpGet]
         [Route(ObservabilityServiceRoutes.TagRuleItem)]
@@ -72,10 +72,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Create the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="ruleSetName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
@@ -98,10 +98,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Called after the end of the request to Create the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="ruleSetName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
@@ -119,10 +119,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Create the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="ruleSetName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> The TagRule resource.</returns>
         [HttpPut]
@@ -149,10 +149,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Patch the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="ruleSetName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
         [HttpPost]
@@ -175,10 +175,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Called after the end of the request to Patch the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="ruleSetName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
@@ -196,10 +196,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Patch the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="ruleSetName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> The TagRule resource.</returns>
         [HttpPatch]
@@ -226,10 +226,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Delete the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="ruleSetName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
         /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.TagRuleValidateDelete)]
@@ -246,10 +246,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Called after the end of the request to Delete the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="ruleSetName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.TagRuleEndDelete)]
@@ -266,10 +266,10 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Delete the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="monitorName"> </param>
-        /// <param name="ruleSetName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
         /// <returns> The TagRule resource.</returns>
         [HttpDelete]
         [Route(ObservabilityServiceRoutes.TagRuleItem)]
