@@ -12,10 +12,12 @@ namespace Microsoft.FluidRelay.Service.Models
     /// <summary>
     /// Details of the FluidRelay server. 
     /// </summary>
-    public class FluidRelayServer : TrackedResource    {
+    public class FluidRelayServer : TrackedResource 
+    {
         /// <summary>
         ///  The resource-specific properties for this resource. 
         /// </summary>
         public FluidRelayServerProperties Properties { get; set; }
+
     }
 }

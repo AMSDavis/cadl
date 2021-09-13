@@ -12,14 +12,17 @@ namespace Microsoft.Observability.Service.Models
     /// <summary>
     /// A managed identity assigned by the user. 
     /// </summary>
-    public class UserAssignedIdentity    {
+    public class UserAssignedIdentity 
+    {
         /// <summary>
         ///  The active directory client identifier for this principal. 
         /// </summary>
         public string ClientId { get; set; }
+
         /// <summary>
         ///  The active directory identifier for this principal. 
         /// </summary>
         public string PrincipalId { get; set; }
+
     }
 }

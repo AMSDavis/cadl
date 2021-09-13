@@ -22,7 +22,7 @@ namespace Microsoft.PlayFab.Service
         /// </summary>
         /// <returns> The list of Microsoft.PlayFab operations.</returns>
         [HttpGet]
-        [Route(undefinedServiceRoutes.ListOperations)]
+        [Route(PlayFabServiceRoutes.ListOperations)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(OperationListResult))]
         public async Task<OperationListResult> ListOperationsAsync()
         {

@@ -1987,7 +1987,7 @@
       "name": "ruleSetName",
       "in": "path",
       "required": true,
-      "description": "Monitor resource name",
+      "description": "Monitor RuleSet resource name",
       "type": "string"
     },
     "ConfigurationNameParameter": {

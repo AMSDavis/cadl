@@ -12,6 +12,7 @@ namespace Microsoft.Confluent.Service.Models
     /// <summary>
     /// The response of a Organization list operation. 
     /// </summary>
-    public class OrganizationListResult : Pageable<Organization>    {
+    public class OrganizationListResult : Pageable<Organization> 
+    {
     }
 }

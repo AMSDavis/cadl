@@ -12,6 +12,7 @@ namespace Microsoft.Confluent.Service.Models
     /// <summary>
     /// The details of the agreement. 
     /// </summary>
-    public class ConfluentAgreementResourceProperties    {
+    public class ConfluentAgreementResourceProperties 
+    {
     }
 }

@@ -12,6 +12,7 @@ namespace Microsoft.Observability.Service.Models
     /// <summary>
     /// List of all the resources being monitored by Dynatrace monitor resource 
     /// </summary>
-    public class MonitoredResourceListResponse : Pageable<MonitoredResource>    {
+    public class MonitoredResourceListResponse : Pageable<MonitoredResource> 
+    {
     }
 }

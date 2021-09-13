@@ -12,14 +12,17 @@ namespace Microsoft.FluidRelay.Service.Models
     /// <summary>
     /// The set of available keys for this server. 
     /// </summary>
-    public class FluidRelayServerKeys    {
+    public class FluidRelayServerKeys 
+    {
         /// <summary>
         ///  The primary key for this server. 
         /// </summary>
         public string Key1 { get; set; }
+
         /// <summary>
         ///  The secondary key for this server. 
         /// </summary>
         public string Key2 { get; set; }
+
     }
 }

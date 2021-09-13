@@ -20,12 +20,59 @@ namespace Microsoft.Confluent.Service
         public OrganizationControllerBase(ILogger<OrganizationControllerBase> logger)
         {
             _logger = logger;
-        }        /// <summary>
+        }
+
+        /// <summary>
+        /// Validate the request to Read the Organization resource.
+        /// </summary>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
+        /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
+        [HttpPost]
+        [Route(ConfluentServiceRoutes.OrganizationValidateRead)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ValidationResponse))]
+        public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId, string resourceGroupName, string organizationName)
+        {
+            _logger.LogInformation($"ValidateReadAsync()");
+            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, organizationName, Request);
+            return modelValidation;
+        }
+
+        internal abstract Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request);
+
+
+        /// <summary>
+        /// Read the Organization resource.
+        /// </summary>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
+        /// <returns> The Organization resource.</returns>
+        [HttpGet]
+        [Route(ConfluentServiceRoutes.OrganizationItem)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Organization))]
+        public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string organizationName)
+        {
+            _logger.LogInformation("ReadAsync()");
+            if (Request == null)
+            {
+                _logger.LogError($"Http request is null");
+                return BadRequest("Http request is null");
+            }
+
+            return await OnReadAsync(subscriptionId, resourceGroupName, organizationName, Request);
+
+        }
+
+        internal abstract Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request);
+
+        /// <summary>
         /// Validate the request to Create the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
@@ -43,22 +90,44 @@ namespace Microsoft.Confluent.Service
             return modelValidation;
         }
 
+        internal abstract Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string organizationName, Organization body, HttpRequest request);
+
+        /// <summary>
+        /// Called after the end of the request to Create the Organization resource.
+        /// </summary>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
+        /// <param name="body"> The resource data.</param>
+        /// <returns> Nothing.</returns>
+        [HttpPost]
+        [Route(ConfluentServiceRoutes.OrganizationEndCreate)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
+        public async Task EndCreateAsync(string subscriptionId, string resourceGroupName, string organizationName, Organization body)
+        {
+            _logger.LogInformation($"EndCreateAsync()");
+            await OnEndCreate(subscriptionId, resourceGroupName, organizationName, body, Request);
+            return;
+        }
+
+        internal abstract Task OnEndCreate(string subscriptionId, string resourceGroupName, string organizationName, Organization body, HttpRequest request);
+
         /// <summary>
         /// Create the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> The Organization resource.</returns>
         [HttpPut]
         [Route(ConfluentServiceRoutes.OrganizationItem)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Organization))]
         [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof(Organization))]
-        public async Task<IActionResult> CreateAsync(string subscriptionId, string resourceGroupName, string organizationName, Organization body)
+        public async Task<IActionResult> BeginCreateAsync(string subscriptionId, string resourceGroupName, string organizationName, Organization body)
         {
             _logger.LogInformation("CreateAsync()");
-            resource = resource ?? throw new ArgumentNullException(nameof(resource));
+            body = body ?? throw new ArgumentNullException(nameof(body));
 
             if (Request == null)
             {
@@ -70,13 +139,14 @@ namespace Microsoft.Confluent.Service
 
         }
 
-        internal abstract Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string organizationName, Organization body, HttpRequest request);
-        internal abstract Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string organizationName, Organization body, HttpRequest request);        /// <summary>
+        internal abstract Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string organizationName, Organization body, HttpRequest request);
+
+        /// <summary>
         /// Validate the request to Patch the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
         [HttpPost]
@@ -94,21 +164,44 @@ namespace Microsoft.Confluent.Service
             return modelValidation;
         }
 
+        internal abstract Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body, HttpRequest request);
+
+        /// <summary>
+        /// Called after the end of the request to Patch the Organization resource.
+        /// </summary>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
+        /// <param name="body"> The resource patch data.</param>
+        /// <returns> Nothing.</returns>
+        [HttpPost]
+        [Route(ConfluentServiceRoutes.OrganizationEndPatch)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
+        public async Task EndPatchAsync(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body)
+        {
+            _logger.LogInformation($"EndPatchAsync()");
+            await OnEndPatch(subscriptionId, resourceGroupName, organizationName, body, Request);
+            return;
+        }
+
+        internal abstract Task OnEndPatch(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body, HttpRequest request);
+
         /// <summary>
         /// Patch the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> The Organization resource.</returns>
         [HttpPatch]
         [Route(ConfluentServiceRoutes.OrganizationItem)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Organization))]
-        public async Task<IActionResult> PatchAsync(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body)
+        [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof(Organization))]
+        public async Task<IActionResult> BeginPatchAsync(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body)
         {
             _logger.LogInformation("PatchAsync()");
-            resource = resource ?? throw new ArgumentNullException(nameof(resource));
+            body = body ?? throw new ArgumentNullException(nameof(body));
 
             if (Request == null)
             {
@@ -120,13 +213,14 @@ namespace Microsoft.Confluent.Service
 
         }
 
-        internal abstract Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body, HttpRequest request);
-        internal abstract Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body, HttpRequest request);        /// <summary>
+        internal abstract Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body, HttpRequest request);
+
+        /// <summary>
         /// Validate the request to Delete the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
         [HttpPost]
         [Route(ConfluentServiceRoutes.OrganizationValidateDelete)]
@@ -134,27 +228,45 @@ namespace Microsoft.Confluent.Service
         public async Task<ValidationResponse> ValidateDeleteAsync(string subscriptionId, string resourceGroupName, string organizationName)
         {
             _logger.LogInformation($"ValidateDeleteAsync()");
-                modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, organizationName, Request);
-
+            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, organizationName, Request);
             return modelValidation;
         }
+
+        internal abstract Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request);
+
+        /// <summary>
+        /// Called after the end of the request to Delete the Organization resource.
+        /// </summary>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
+        /// <returns> Nothing.</returns>
+        [HttpPost]
+        [Route(ConfluentServiceRoutes.OrganizationEndDelete)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
+        public async Task EndDeleteAsync(string subscriptionId, string resourceGroupName, string organizationName)
+        {
+            _logger.LogInformation($"EndDeleteAsync()");
+            await OnEndDelete(subscriptionId, resourceGroupName, organizationName, Request);
+            return;
+        }
+
+        internal abstract Task OnEndDelete(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request);
 
         /// <summary>
         /// Delete the Organization resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="organizationName"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="organizationName"> Organization resource name</param>
         /// <returns> The Organization resource.</returns>
         [HttpDelete]
         [Route(ConfluentServiceRoutes.OrganizationItem)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
         [ProducesResponseType((int)HttpStatusCode.NoContent, Type = typeof(void))]
-        public async Task<IActionResult> DeleteAsync(string subscriptionId, string resourceGroupName, string organizationName)
+        public async Task<IActionResult> BeginDeleteAsync(string subscriptionId, string resourceGroupName, string organizationName)
         {
             _logger.LogInformation("DeleteAsync()");
-            resource = resource ?? throw new ArgumentNullException(nameof(resource));
-
             if (Request == null)
             {
                 _logger.LogError($"Http request is null");
@@ -165,36 +277,6 @@ namespace Microsoft.Confluent.Service
 
         }
 
-        internal abstract Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request);
-        internal abstract Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request);        /// <summary>
-        /// List Organization resources in the specified subscription.
-        /// </summary>
-        /// <param name="subscriptionId"> The subscription id.</param>
-        /// <returns> The list of Organization Resources in the specified subscription.</returns>
-        [HttpGet]
-        [Route(ConfluentServiceRoutes.OrganizationListBySubscription)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(OrganizationListResult))]
-        public Task<OrganizationListResult> ListBySubscription(string subscriptionId)
-        {
-            _logger.LogInformation("ListBySubscriptionAsync()");
-            return OnListBySubscription(subscriptionId, Request);
-        }
-
-        internal abstract Task<OrganizationListResult> OnListBySubscription(string subscriptionId, HttpRequest request);
-                /// <summary>
-        /// List Organization resources in the specified resource group.
-        /// </summary>
-        /// <param name="subscriptionId"> The subscription id.</param>
-        /// <param name="resourceGroupName"> The resource group name.</param>
-        /// <returns> The list of Organization Resources in the specified resource group.</returns>
-        [HttpGet]
-        [Route(ConfluentServiceRoutes.OrganizationListByResourceGroup)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(OrganizationListResult))]
-        public Task<OrganizationListResult> ListByResourceGroupAsync(string subscriptionId, string resourceGroupName)
-        {
-            _logger.LogInformation("ListByResourceGroupAsync()");
-            return OnListByResourceGroupAsync(subscriptionId, resourceGroupName, Request);
-        }
-                
-        internal abstract Task<OrganizationListResult> OnListByResourceGroupAsync(string subscriptionId, string resourceGroupName, HttpRequest request);    }
+        internal abstract Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request);
+    }
 }

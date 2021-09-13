@@ -1,0 +1,128 @@
+using Microsoft.Cadl.RPaaS;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
+using {{it.nameSpace}}.Service.Models;
+using {{it.nameSpace}}.Service.Controllers;
+using System.Net;
+
+namespace {{it.nameSpace}}.Service
+{
+    /// <summary>
+    /// Controller for user RP operations on the {{it.name}} resource.
+    /// </summary>
+    public abstract class {{it.name}}ControllerBase : Controller
+    {
+        internal readonly ILogger<{{it.name}}ControllerBase> _logger;
+
+        public {{it.name}}ControllerBase(ILogger<{{it.name}}ControllerBase> logger)
+        {
+            _logger = logger;
+        }
+{{@each(it.operations) => operation}}
+        {{_! if (operation.verb.toLowerCase() === "get") operation.action = "Read";}}
+        {{_! if (operation.verb.toLowerCase() === "put") operation.action = "Create";}}
+        {{_! if (operation.verb.toLowerCase() === "delete") operation.action = "Delete";}}
+        {{_! if (operation.verb.toLowerCase() === "patch") operation.action = "Patch";}}
+        {{_! if (operation.verb.toLowerCase() === "post")  operation.action = "" + operation.subPath.substring(0, 1).toUpperCase() + operation.subPath.substring(1)}}
+        {{_! if (operation.verb.toLowerCase() === "get") operation.operationName = "Read";}}
+        {{_! if (operation.verb.toLowerCase() === "put") operation.operationName = "Creation";}}
+        {{_! if (operation.verb.toLowerCase() === "delete") operation.operationName = "Deletion";}}
+        {{_! if (operation.verb.toLowerCase() === "patch") operation.operationName = "Patch";}}
+        {{_! if (operation.verb.toLowerCase() === "post")  operation.operationName = "Custom";}}
+{{@if(operation.action)}}
+{{@if(operation.operationName  !== "Custom")}}
+
+        /// <summary>
+        /// Validate the request to {{operation.action}} the {{it.name}} resource.
+        /// </summary>
+{{@each(operation.parameters) => parameter, index}}
+        /// <param name="{{parameter.name}}"> {{parameter.description}}</param>
+{{/each}}
+        /// <returns> A ValidationResponse indicating the validity of the {{operation.action}} request.</returns>
+        [HttpPost]
+        [Route({{it.serviceName}}ServiceRoutes.{{it.name}}Validate{{operation.action}})]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ValidationResponse))]
+        public async Task<ValidationResponse> Validate{{operation.action}}Async({{operation | decl}})
+        {
+            _logger.LogInformation($"Validate{{operation.action}}Async()");
+{{@if(operation.requestParameter !== undefined)}}
+            var modelValidation = ValidationHelpers.ValidateModel({{operation.requestParameter.name}});
+            if (modelValidation.Valid)
+            {
+                modelValidation = await OnValidate{{operation.action}}({{operation | call}}, Request);
+            }
+
+{{#else}}
+            var modelValidation = await OnValidate{{operation.action}}({{operation | call}}, Request);
+{{/if}}
+            return modelValidation;
+        }
+
+        internal abstract Task<ValidationResponse> OnValidate{{operation.action}}({{operation | decl}}, HttpRequest request);
+
+{{@if(operation.action !== "Read")}}
+        /// <summary>
+        /// Called after the end of the request to {{operation.action}} the {{it.name}} resource.
+        /// </summary>
+{{@each(operation.parameters) => parameter, index}}
+        /// <param name="{{parameter.name}}"> {{parameter.description}}</param>
+{{/each}}
+        /// <returns> Nothing.</returns>
+        [HttpPost]
+        [Route({{it.serviceName}}ServiceRoutes.{{it.name}}End{{operation.action}})]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
+        public async Task End{{operation.action}}Async({{operation | decl}})
+        {
+            _logger.LogInformation($"End{{operation.action}}Async()");
+            await OnEnd{{operation.action}}({{operation | call}}, Request);
+            return;
+        }
+
+        internal abstract Task OnEnd{{operation.action}}({{operation | decl}}, HttpRequest request);
+{{/if}}
+{{/if}}
+
+        /// <summary>
+        /// {{operation.action}} the {{it.name}} resource.
+        /// </summary>
+{{@each(operation.parameters) => parameter, index}}
+        /// <param name="{{parameter.name}}"> {{parameter.description}}</param>
+{{/each}}
+        /// <returns> The {{it.name}} resource.</returns>
+        [Http{{operation.verb.toLowerCase() | initialCaps}}]
+        [Route({{it.serviceName}}ServiceRoutes.{{it.name}}Item{{operation.verb.toLowerCase() === "post"? operation.action :  ""}})]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{operation.returnType}}))]
+{{@if(operation.action === "Create" || operation.action === "Patch")}}
+        [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof({{operation.returnType}}))]
+{{/if}}
+{{@if(operation.verb.toUpperCase() === "POST"}}
+        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof({{operation.returnType}}))]
+{{/if}}
+{{@if(operation.verb.toUpperCase() === "DELETE")}}
+        [ProducesResponseType((int)HttpStatusCode.NoContent, Type = typeof({{operation.returnType}}))]
+{{/if}}
+        public async Task<IActionResult> Begin{{operation.action}}Async({{operation | decl}})
+        {
+            _logger.LogInformation("{{operation.action}}Async()");
+{{@if(operation.requestParameter !== undefined)}}
+            {{operation.requestParameter.name}} = {{operation.requestParameter.name}} ?? throw new ArgumentNullException(nameof({{operation.requestParameter.name}}));
+
+{{/if}}
+            if (Request == null)
+            {
+                _logger.LogError($"Http request is null");
+                return BadRequest("Http request is null");
+            }
+
+            return await On{{operation.action}}Async({{operation | call}}, Request);
+
+        }
+
+        internal abstract Task<IActionResult> On{{operation.action}}Async({{operation | decl}}, HttpRequest request);
+{{/if}}
+{{/each}}
+    }
+}

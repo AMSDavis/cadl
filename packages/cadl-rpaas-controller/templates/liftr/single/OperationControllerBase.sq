@@ -22,7 +22,7 @@ namespace {{it.nameSpace}}.Service
         /// </summary>
         /// <returns> The list of {{it.nameSpace}} operations.</returns>
         [HttpGet]
-        [Route({{it.name}}ServiceRoutes.ListOperations)]
+        [Route({{it.serviceName}}ServiceRoutes.ListOperations)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(OperationListResult))]
         public async Task<OperationListResult> ListOperationsAsync()
         {

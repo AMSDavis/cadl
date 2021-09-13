@@ -3,10 +3,12 @@
 //-----------------------------------------------------------------------------
 
 namespace Microsoft.FluidRelay.Service.Models
-{    public struct KeyName    {
+{
+    public struct KeyName 
+    {
         string _value;
 
-        public static readonly KeyName key1 = "key1", key2 = "key2";
+        public static readonly KeyName key1 = "key1", key2 = "key2"; 
         public KeyName( string value)
         {
             _value = value;

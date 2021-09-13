@@ -20,12 +20,59 @@ namespace Microsoft.PlayFab.Service
         public TitleControllerBase(ILogger<TitleControllerBase> logger)
         {
             _logger = logger;
-        }        /// <summary>
+        }
+
+        /// <summary>
+        /// Validate the request to Read the Title resource.
+        /// </summary>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
+        /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
+        [HttpPost]
+        [Route(PlayFabServiceRoutes.TitleValidateRead)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ValidationResponse))]
+        public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId, string resourceGroupName, string name)
+        {
+            _logger.LogInformation($"ValidateReadAsync()");
+            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, name, Request);
+            return modelValidation;
+        }
+
+        internal abstract Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string name, HttpRequest request);
+
+
+        /// <summary>
+        /// Read the Title resource.
+        /// </summary>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
+        /// <returns> The Title resource.</returns>
+        [HttpGet]
+        [Route(PlayFabServiceRoutes.TitleItem)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Title))]
+        public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string name)
+        {
+            _logger.LogInformation("ReadAsync()");
+            if (Request == null)
+            {
+                _logger.LogError($"Http request is null");
+                return BadRequest("Http request is null");
+            }
+
+            return await OnReadAsync(subscriptionId, resourceGroupName, name, Request);
+
+        }
+
+        internal abstract Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string name, HttpRequest request);
+
+        /// <summary>
         /// Validate the request to Create the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
@@ -43,22 +90,44 @@ namespace Microsoft.PlayFab.Service
             return modelValidation;
         }
 
+        internal abstract Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string name, Title body, HttpRequest request);
+
+        /// <summary>
+        /// Called after the end of the request to Create the Title resource.
+        /// </summary>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
+        /// <param name="body"> The resource data.</param>
+        /// <returns> Nothing.</returns>
+        [HttpPost]
+        [Route(PlayFabServiceRoutes.TitleEndCreate)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
+        public async Task EndCreateAsync(string subscriptionId, string resourceGroupName, string name, Title body)
+        {
+            _logger.LogInformation($"EndCreateAsync()");
+            await OnEndCreate(subscriptionId, resourceGroupName, name, body, Request);
+            return;
+        }
+
+        internal abstract Task OnEndCreate(string subscriptionId, string resourceGroupName, string name, Title body, HttpRequest request);
+
         /// <summary>
         /// Create the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <param name="body"> The resource data.</param>
         /// <returns> The Title resource.</returns>
         [HttpPut]
         [Route(PlayFabServiceRoutes.TitleItem)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Title))]
         [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof(Title))]
-        public async Task<IActionResult> CreateAsync(string subscriptionId, string resourceGroupName, string name, Title body)
+        public async Task<IActionResult> BeginCreateAsync(string subscriptionId, string resourceGroupName, string name, Title body)
         {
             _logger.LogInformation("CreateAsync()");
-            resource = resource ?? throw new ArgumentNullException(nameof(resource));
+            body = body ?? throw new ArgumentNullException(nameof(body));
 
             if (Request == null)
             {
@@ -70,13 +139,14 @@ namespace Microsoft.PlayFab.Service
 
         }
 
-        internal abstract Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string name, Title body, HttpRequest request);
-        internal abstract Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string name, Title body, HttpRequest request);        /// <summary>
+        internal abstract Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string name, Title body, HttpRequest request);
+
+        /// <summary>
         /// Validate the request to Patch the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
         [HttpPost]
@@ -94,21 +164,44 @@ namespace Microsoft.PlayFab.Service
             return modelValidation;
         }
 
+        internal abstract Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string name, TitleUpdate body, HttpRequest request);
+
+        /// <summary>
+        /// Called after the end of the request to Patch the Title resource.
+        /// </summary>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
+        /// <param name="body"> The resource patch data.</param>
+        /// <returns> Nothing.</returns>
+        [HttpPost]
+        [Route(PlayFabServiceRoutes.TitleEndPatch)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
+        public async Task EndPatchAsync(string subscriptionId, string resourceGroupName, string name, TitleUpdate body)
+        {
+            _logger.LogInformation($"EndPatchAsync()");
+            await OnEndPatch(subscriptionId, resourceGroupName, name, body, Request);
+            return;
+        }
+
+        internal abstract Task OnEndPatch(string subscriptionId, string resourceGroupName, string name, TitleUpdate body, HttpRequest request);
+
         /// <summary>
         /// Patch the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <param name="body"> The resource patch data.</param>
         /// <returns> The Title resource.</returns>
         [HttpPatch]
         [Route(PlayFabServiceRoutes.TitleItem)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Title))]
-        public async Task<IActionResult> PatchAsync(string subscriptionId, string resourceGroupName, string name, TitleUpdate body)
+        [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof(Title))]
+        public async Task<IActionResult> BeginPatchAsync(string subscriptionId, string resourceGroupName, string name, TitleUpdate body)
         {
             _logger.LogInformation("PatchAsync()");
-            resource = resource ?? throw new ArgumentNullException(nameof(resource));
+            body = body ?? throw new ArgumentNullException(nameof(body));
 
             if (Request == null)
             {
@@ -120,13 +213,14 @@ namespace Microsoft.PlayFab.Service
 
         }
 
-        internal abstract Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string name, TitleUpdate body, HttpRequest request);
-        internal abstract Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string name, TitleUpdate body, HttpRequest request);        /// <summary>
+        internal abstract Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string name, TitleUpdate body, HttpRequest request);
+
+        /// <summary>
         /// Validate the request to Delete the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
         [HttpPost]
         [Route(PlayFabServiceRoutes.TitleValidateDelete)]
@@ -134,27 +228,45 @@ namespace Microsoft.PlayFab.Service
         public async Task<ValidationResponse> ValidateDeleteAsync(string subscriptionId, string resourceGroupName, string name)
         {
             _logger.LogInformation($"ValidateDeleteAsync()");
-                modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, name, Request);
-
+            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, name, Request);
             return modelValidation;
         }
+
+        internal abstract Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string name, HttpRequest request);
+
+        /// <summary>
+        /// Called after the end of the request to Delete the Title resource.
+        /// </summary>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
+        /// <returns> Nothing.</returns>
+        [HttpPost]
+        [Route(PlayFabServiceRoutes.TitleEndDelete)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
+        public async Task EndDeleteAsync(string subscriptionId, string resourceGroupName, string name)
+        {
+            _logger.LogInformation($"EndDeleteAsync()");
+            await OnEndDelete(subscriptionId, resourceGroupName, name, Request);
+            return;
+        }
+
+        internal abstract Task OnEndDelete(string subscriptionId, string resourceGroupName, string name, HttpRequest request);
 
         /// <summary>
         /// Delete the Title resource.
         /// </summary>
-        /// <param name="subscriptionId"> </param>
-        /// <param name="resourceGroupName"> </param>
-        /// <param name="name"> </param>
+        /// <param name="subscriptionId"> The subscription containing the resource.</param>
+        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
+        /// <param name="name"> Name of the title resource.</param>
         /// <returns> The Title resource.</returns>
         [HttpDelete]
         [Route(PlayFabServiceRoutes.TitleItem)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
         [ProducesResponseType((int)HttpStatusCode.NoContent, Type = typeof(void))]
-        public async Task<IActionResult> DeleteAsync(string subscriptionId, string resourceGroupName, string name)
+        public async Task<IActionResult> BeginDeleteAsync(string subscriptionId, string resourceGroupName, string name)
         {
             _logger.LogInformation("DeleteAsync()");
-            resource = resource ?? throw new ArgumentNullException(nameof(resource));
-
             if (Request == null)
             {
                 _logger.LogError($"Http request is null");
@@ -165,36 +277,6 @@ namespace Microsoft.PlayFab.Service
 
         }
 
-        internal abstract Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string name, HttpRequest request);
-        internal abstract Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string name, HttpRequest request);        /// <summary>
-        /// List Organization resources in the specified subscription.
-        /// </summary>
-        /// <param name="subscriptionId"> The subscription id.</param>
-        /// <returns> The list of Title Resources in the specified subscription.</returns>
-        [HttpGet]
-        [Route(ConfluentServiceRoutes.TitleListBySubscription)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(TitleListResult))]
-        public Task<TitleListResult> ListBySubscription(string subscriptionId)
-        {
-            _logger.LogInformation("ListBySubscriptionAsync()");
-            return OnListBySubscription(subscriptionId, Request);
-        }
-
-        internal abstract Task<TitleListResult> OnListBySubscription(string subscriptionId, HttpRequest request);
-                /// <summary>
-        /// List Title resources in the specified resource group.
-        /// </summary>
-        /// <param name="subscriptionId"> The subscription id.</param>
-        /// <param name="resourceGroupName"> The resource group name.</param>
-        /// <returns> The list of Title Resources in the specified resource group.</returns>
-        [HttpGet]
-        [Route(ConfluentServiceRoutes.TitleListByResourceGroup)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(TitleListResult))]
-        public Task<TitleListResult> ListByResourceGroupAsync(string subscriptionId, string resourceGroupName)
-        {
-            _logger.LogInformation("ListByResourceGroupAsync()");
-            return OnListByResourceGroupAsync(subscriptionId, resourceGroupName, Request);
-        }
-                
-        internal abstract Task<TitleListResult> OnListByResourceGroupAsync(string subscriptionId, string resourceGroupName, HttpRequest request);    }
+        internal abstract Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string name, HttpRequest request);
+    }
 }

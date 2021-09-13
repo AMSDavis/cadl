@@ -14,7 +14,7 @@ namespace Microsoft.{{it.serviceName}}.Service.Models
     /// {{it.description}} 
     /// </summary>
 {{/if}}
-    public class {{it.name}}{{@if(it.isDerivedType || it.isImplementer)}} : {{@if(it.baseClass)}}{{it.baseClass.name}}{{@if(it.baseClass.typeParameters)}}<{{it.baseClass | typeParamList}}>{{/if}}{{/if}}{{@if(it.implements)}}{{@if(it.isDerivedType)}}, {{/if}}{{it.implements.join(", ")}}{{/if}}{{/if}}
+    public class {{it.name}}{{@if(it.isDerivedType || it.isImplementer)}} : {{@if(it.baseClass)}}{{it.baseClass.name}}{{@if(it.baseClass.typeParameters)}}<{{it.baseClass | typeParamList}}>{{/if}}{{/if}}{{@if(it.implements)}}{{@if(it.isDerivedType)}}, {{/if}}{{it.implements.join(", ")}}{{/if}}{{/if}} 
     {
 {{@each(it.properties) => prop, propIndex}}
 {{@if(prop.description)}}
@@ -22,10 +22,13 @@ namespace Microsoft.{{it.serviceName}}.Service.Models
         ///  {{prop.description}} 
         /// </summary>
 {{/if}}
-{{@if( prop.validations)}}{{_@each(prop.validations) => attr, attrIndex}}
-        [{{attr.name}}({{attr | callByValue}})]
-{{/each}}{{/if}}
+{{@if( prop.validations)}}
+{{@each(prop.validations) => attr, attrIndex}}
+        [{{attr.name}}({{@each(attr.parameters) => param, paramIndex}}{{@if(param.type === "string")}}@"{{/if}}{{param.value}}{{@if(param.type === "string")}}"{{/if}}{{@if(paramIndex < attr.parameters.length - 1)}}, {{/if}}{{/each}})]
+{{/each}}
+{{/if}}
         public {{prop.type.name}}{{@if(prop.type.typeParameters)}}<{{prop.type | typeParamList}}>{{/if}} {{prop.name}} { get; set; }
+
 {{/each}}
     }
 }

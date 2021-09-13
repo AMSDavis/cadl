@@ -3,10 +3,12 @@
 //-----------------------------------------------------------------------------
 
 namespace Microsoft.Observability.Service.Models
-{    public struct VMHostUpdateState    {
+{
+    public struct VMHostUpdateState 
+    {
         string _value;
 
-        public static readonly VMHostUpdateState Install = "Install", Delete = "Delete";
+        public static readonly VMHostUpdateState Install = "Install", Delete = "Delete"; 
         public VMHostUpdateState( string value)
         {
             _value = value;

@@ -36,7 +36,7 @@ model MonitorNameParameter {
 model TagRule is ProxyResource<MonitoringTagRulesProperties> { };
 
 model RuleSetNameParameter {
-  @doc("Monitor resource name")
+  @doc("Monitor RuleSet resource name")
   @path ruleSetName: string;
 }
 

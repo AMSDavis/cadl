@@ -3,10 +3,12 @@
 //-----------------------------------------------------------------------------
 
 namespace Microsoft.Observability.Service.Models
-{    public struct ProvisioningState    {
+{
+    public struct ProvisioningState 
+    {
         string _value;
 
-        public static readonly ProvisioningState Accepted = "Accepted", Creating = "Creating", Updating = "Updating", Deleting = "Deleting", Succeeded = "Succeeded", Failed = "Failed", Canceled = "Canceled", Deleted = "Deleted", NotSpecified = "NotSpecified";
+        public static readonly ProvisioningState Accepted = "Accepted", Creating = "Creating", Updating = "Updating", Deleting = "Deleting", Succeeded = "Succeeded", Failed = "Failed", Canceled = "Canceled", Deleted = "Deleted", NotSpecified = "NotSpecified"; 
         public ProvisioningState( string value)
         {
             _value = value;

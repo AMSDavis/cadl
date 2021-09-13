@@ -12,18 +12,22 @@ namespace Microsoft.Observability.Service.Models
     /// <summary>
     /// Properties of the Dynatrace environment. 
     /// </summary>
-    public class DynatraceEnvironmentProperties    {
+    public class DynatraceEnvironmentProperties 
+    {
         /// <summary>
         ///  User id 
         /// </summary>
         public string UserId { get; set; }
+
         /// <summary>
         ///  Dynatrace Account Information 
         /// </summary>
         public AccountInfo AccountInfo { get; set; }
+
         /// <summary>
         ///  Dynatrace Environment Information 
         /// </summary>
         public EnvironmentInfo EnvironmentInfo { get; set; }
+
     }
 }

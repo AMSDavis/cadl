@@ -12,18 +12,22 @@ namespace Microsoft.Confluent.Service.Models
     /// <summary>
     /// The updatable properties of the Organization. 
     /// </summary>
-    public class OrganizationUpdate    {
+    public class OrganizationUpdate 
+    {
         /// <summary>
         ///  Resource tags. 
         /// </summary>
         public IDictionary<string, string> Tags { get; set; }
+
         /// <summary>
         ///  Details of the product offering. 
         /// </summary>
         public OfferDetail OfferDetail { get; set; }
+
         /// <summary>
         ///  Subscriber details. 
         /// </summary>
         public UserDetail UserDetail { get; set; }
+
     }
 }

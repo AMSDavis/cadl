@@ -12,6 +12,7 @@ namespace Microsoft.Observability.Service.Models
     /// <summary>
     /// The response of a MonitorResource list operation. 
     /// </summary>
-    public class MonitorResourceListResult : Pageable<MonitorResource>    {
+    public class MonitorResourceListResult : Pageable<MonitorResource> 
+    {
     }
 }

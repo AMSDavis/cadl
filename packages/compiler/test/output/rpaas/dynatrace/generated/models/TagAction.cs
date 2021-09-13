@@ -3,10 +3,12 @@
 //-----------------------------------------------------------------------------
 
 namespace Microsoft.Observability.Service.Models
-{    public struct TagAction    {
+{
+    public struct TagAction 
+    {
         string _value;
 
-        public static readonly TagAction Include = "Include", Exclude = "Exclude";
+        public static readonly TagAction Include = "Include", Exclude = "Exclude"; 
         public TagAction( string value)
         {
             _value = value;
