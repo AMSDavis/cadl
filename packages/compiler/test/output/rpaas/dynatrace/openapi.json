@@ -1730,7 +1730,7 @@
           "items": {
             "type": "string"
           },
-          "x-cadl-name": "string[]",
+          "x-cadl-name": "Cadl.string[]",
           "description": "array of Aad(azure active directory) domains"
         },
         "provisioningState": {

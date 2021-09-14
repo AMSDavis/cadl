@@ -43,7 +43,7 @@
                 "num"
               ],
               "x-nullable": true,
-              "x-cadl-name": "AnotherModel | null"
+              "x-cadl-name": "AnotherModel | Cadl.null"
             }
           }
         ],
@@ -72,7 +72,7 @@
         "strOrNull": {
           "type": "string",
           "x-nullable": true,
-          "x-cadl-name": "string | null"
+          "x-cadl-name": "Cadl.string | Cadl.null"
         },
         "modelOrNull": {
           "type": "object",
@@ -86,7 +86,7 @@
             "num"
           ],
           "x-nullable": true,
-          "x-cadl-name": "AnotherModel | null"
+          "x-cadl-name": "AnotherModel | Cadl.null"
         },
         "literalsOrNull": {
           "type": "string",
@@ -95,12 +95,12 @@
             "two"
           ],
           "x-nullable": true,
-          "x-cadl-name": "one | two | null"
+          "x-cadl-name": "one | two | Cadl.null"
         },
         "manyNullsOneString": {
           "type": "string",
           "x-nullable": true,
-          "x-cadl-name": "null | null | string | null"
+          "x-cadl-name": "Cadl.null | Cadl.null | Cadl.string | Cadl.null"
         },
         "manyNullsSomeValues": {
           "type": "number",
@@ -109,7 +109,7 @@
             100
           ],
           "x-nullable": true,
-          "x-cadl-name": "null | 42 | null | 100 | null"
+          "x-cadl-name": "Cadl.null | 42 | Cadl.null | 100 | Cadl.null"
         }
       },
       "required": [
