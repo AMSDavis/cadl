@@ -37,6 +37,7 @@ namespace LogzMonitors {
   collectionName: "TagRules",
   parentResourceType: LogzMonitorResource,
   parameterType: TagNameParameter,
+  standardOperations: ["read", "create", "delete"]
 })
 @doc("Details of a TagRule.")
 @armListBy(MonitorNameParameter, "List")
@@ -96,6 +97,7 @@ namespace SubAccounts {
     collectionName: "SubAccountTagRules",
     parameterType: TagNameParameter,
     parentResourceType: SubAccountResource,
+    standardOperations: ["read", "create", "delete"]
 })
 @doc("Details of a SubAccount TagRule.")
 @armListBy(SubAccountNameParameter, "List")

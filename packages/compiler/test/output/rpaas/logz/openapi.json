@@ -863,61 +863,6 @@
           "TagRules"
         ]
       },
-      "patch": {
-        "operationId": "TagRules_Update",
-        "summary": "Update a TagRuleResource",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "#/parameters/MonitorNameParameter"
-          },
-          {
-            "$ref": "#/parameters/TagNameParameter"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "required": true,
-            "description": "The resource properties to be updated.",
-            "schema": {
-              "$ref": "#/definitions/TagRuleResourceUpdate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/TagRuleResource"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "TagRules"
-        ]
-      },
       "delete": {
         "operationId": "TagRules_Delete",
         "x-ms-long-running-operation": true,
@@ -1455,64 +1400,6 @@
           "SubAccountTagRules"
         ]
       },
-      "patch": {
-        "operationId": "SubAccountTagRules_Update",
-        "summary": "Update a SubAccountTagRuleResource",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "#/parameters/MonitorNameParameter"
-          },
-          {
-            "$ref": "#/parameters/SubAccountNameParameter"
-          },
-          {
-            "$ref": "#/parameters/TagNameParameter"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "required": true,
-            "description": "The resource properties to be updated.",
-            "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResourceUpdate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResource"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "SubAccountTagRules"
-        ]
-      },
       "delete": {
         "operationId": "SubAccountTagRules_Delete",
         "x-ms-long-running-operation": true,
@@ -1881,11 +1768,6 @@
         }
       ]
     },
-    "TagRuleResourceUpdate": {
-      "type": "object",
-      "properties": {},
-      "description": "The updatable properties of the TagRuleResource."
-    },
     "TagRuleResourceListResult": {
       "type": "object",
       "properties": {
@@ -2009,11 +1891,6 @@
           "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
         }
       ]
-    },
-    "SubAccountTagRuleResourceUpdate": {
-      "type": "object",
-      "properties": {},
-      "description": "The updatable properties of the SubAccountTagRuleResource."
     },
     "SubAccountTagRuleResourceListResult": {
       "type": "object",
