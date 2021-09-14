@@ -39,7 +39,7 @@ namespace LogzMonitors {
   parameterType: TagNameParameter,
 })
 @doc("Details of a TagRule.")
-@armListBy(MonitorNameParameter)
+@armListBy(MonitorNameParameter, "List")
 model TagRuleResource is TrackedResource<{}> {}
 
 model TagNameParameter {
@@ -59,7 +59,7 @@ model SingleSignOnConfigurationsParameter {
   parameterType: SingleSignOnConfigurationsParameter,
 })
 @doc("Details of a single sign-on configuration.")
-@armListBy(MonitorNameParameter)
+@armListBy(MonitorNameParameter, "List")
 model SingleSignOnConfigurationResource is ProxyResource<LogzSingleSignOnProperties> {};
 
 @armResource({
@@ -69,14 +69,13 @@ model SingleSignOnConfigurationResource is ProxyResource<LogzSingleSignOnPropert
   parameterType: SubAccountNameParameter,
 })
 @doc("Details of a sub account.")
-@armListBy(MonitorNameParameter)
+@armListBy(MonitorNameParameter, "List")
 model SubAccountResource is ProxyResource<LogzMonitorResourceProperties> {}
 
 model SubAccountNameParameter {
   @doc("Sub account name")
   @path subAccountName: string;
 }
-
 
 @armResourceOperations(SubAccountResource)
 namespace SubAccounts {
@@ -99,5 +98,5 @@ namespace SubAccounts {
     parentResourceType: SubAccountResource,
 })
 @doc("Details of a SubAccount TagRule.")
-@armListBy(SubAccountNameParameter)
+@armListBy(SubAccountNameParameter, "List")
 model SubAccountTagRuleResource is ProxyResource<{}> {};
