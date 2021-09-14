@@ -14,7 +14,7 @@ namespace Microsoft.Logz;
     parameterType: MonitorNameParameter,
 })
 @doc("The LogZ Monitor resource details.")
-model LogzMonitorResource extends TrackedResource<LogzMonitorResourceProperties> {}
+model LogzMonitorResource is TrackedResource<LogzMonitorResourceProperties> {}
 
 model MonitorNameParameter {
   @doc("Monitor resource name")
@@ -39,6 +39,7 @@ namespace LogzMonitors {
   parameterType: TagNameParameter,
 })
 @doc("Details of a TagRule.")
+@armListBy(MonitorNameParameter)
 model TagRuleResource is TrackedResource<{}> {}
 
 model TagNameParameter {
@@ -58,7 +59,9 @@ model SingleSignOnConfigurationsParameter {
   parameterType: SingleSignOnConfigurationsParameter,
 })
 @doc("Details of a single sign-on configuration.")
-model SingleSignOnConfigurationResource is TrackedResource<LogzSingleSignOnProperties> {};
+@armListBy(MonitorNameParameter)
+model SingleSignOnConfigurationResource is ProxyResource<LogzSingleSignOnProperties> {};
+
 @armResource({
   path: "accounts",
   collectionName: "SubAccounts",
@@ -66,7 +69,8 @@ model SingleSignOnConfigurationResource is TrackedResource<LogzSingleSignOnPrope
   parameterType: SubAccountNameParameter,
 })
 @doc("Details of a sub account.")
-model SubAccountResource is TrackedResource<LogzMonitorResourceProperties> {}
+@armListBy(MonitorNameParameter)
+model SubAccountResource is ProxyResource<LogzMonitorResourceProperties> {}
 
 model SubAccountNameParameter {
   @doc("Sub account name")
@@ -90,9 +94,10 @@ namespace SubAccounts {
 
 @armResource({
     path: "tagRules",
-    collectionName: "TagRules",
+    collectionName: "SubAccountTagRules",
     parameterType: TagNameParameter,
     parentResourceType: SubAccountResource,
 })
 @doc("Details of a SubAccount TagRule.")
-model SubAccountTagRuleResource is TrackedResource<{}> {};
+@armListBy(SubAccountNameParameter)
+model SubAccountTagRuleResource is ProxyResource<{}> {};

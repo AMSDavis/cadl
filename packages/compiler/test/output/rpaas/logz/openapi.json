@@ -47,6 +47,9 @@
     },
     {
       "name": "SingleSignOnConfigurations"
+    },
+    {
+      "name": "SubAccountTagRules"
     }
   ],
   "paths": {
@@ -692,97 +695,10 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Logz/accounts": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts": {
       "get": {
-        "operationId": "SubAccounts_ListBySubscription",
-        "summary": "List SubAccountResource resources by subscription ID",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/SubAccountResourceListResult"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "SubAccounts"
-        ],
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/accounts": {
-      "get": {
-        "operationId": "SubAccounts_ListByResourceGroup",
-        "summary": "List SubAccountResource resources by resource group",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/SubAccountResourceListResult"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "SubAccounts"
-        ],
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/tagRules/{tagName}/{subAccountName}": {
-      "get": {
-        "operationId": "TagRules_Get",
-        "summary": "Get a SubAccountTagRuleResource",
+        "operationId": "SubAccounts_undefined",
+        "summary": "List all SubAccountResource by monitorName",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -795,9 +711,54 @@
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SubAccountResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SubAccounts"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/tagRules/{tagName}": {
+      "get": {
+        "operationId": "TagRules_Get",
+        "summary": "Get a TagRuleResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubAccountNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
           },
           {
             "$ref": "#/parameters/TagNameParameter"
@@ -815,7 +776,7 @@
             },
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResource"
+              "$ref": "#/definitions/TagRuleResource"
             }
           },
           "default": {
@@ -835,7 +796,7 @@
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
-        "summary": "Create a SubAccountTagRuleResource",
+        "summary": "Create a TagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -850,9 +811,6 @@
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "#/parameters/SubAccountNameParameter"
-          },
-          {
             "$ref": "#/parameters/TagNameParameter"
           },
           {
@@ -861,7 +819,7 @@
             "required": true,
             "description": "Resource create parameters.",
             "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResource"
+              "$ref": "#/definitions/TagRuleResource"
             }
           }
         ],
@@ -877,7 +835,7 @@
             },
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResource"
+              "$ref": "#/definitions/TagRuleResource"
             }
           },
           "201": {
@@ -891,7 +849,7 @@
             },
             "description": "ARM create operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResource"
+              "$ref": "#/definitions/TagRuleResource"
             }
           },
           "default": {
@@ -907,7 +865,7 @@
       },
       "patch": {
         "operationId": "TagRules_Update",
-        "summary": "Update a SubAccountTagRuleResource",
+        "summary": "Update a TagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -922,9 +880,6 @@
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "#/parameters/SubAccountNameParameter"
-          },
-          {
             "$ref": "#/parameters/TagNameParameter"
           },
           {
@@ -933,7 +888,7 @@
             "required": true,
             "description": "The resource properties to be updated.",
             "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResourceUpdate"
+              "$ref": "#/definitions/TagRuleResourceUpdate"
             }
           }
         ],
@@ -949,7 +904,7 @@
             },
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResource"
+              "$ref": "#/definitions/TagRuleResource"
             }
           },
           "default": {
@@ -969,7 +924,7 @@
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
-        "summary": "Delete a SubAccountTagRuleResource",
+        "summary": "Delete a TagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -982,9 +937,6 @@
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
-          },
-          {
-            "$ref": "#/parameters/SubAccountNameParameter"
           },
           {
             "$ref": "#/parameters/TagNameParameter"
@@ -1039,7 +991,7 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.Logz/tagRules": {
       "get": {
         "operationId": "TagRules_ListBySubscription",
-        "summary": "List SubAccountTagRuleResource resources by subscription ID",
+        "summary": "List TagRuleResource resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1060,7 +1012,7 @@
             },
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResourceListResult"
+              "$ref": "#/definitions/TagRuleResourceListResult"
             }
           },
           "default": {
@@ -1081,7 +1033,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/tagRules": {
       "get": {
         "operationId": "TagRules_ListByResourceGroup",
-        "summary": "List SubAccountTagRuleResource resources by resource group",
+        "summary": "List TagRuleResource resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1105,7 +1057,55 @@
             },
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResourceListResult"
+              "$ref": "#/definitions/TagRuleResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "TagRules"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/tagRules": {
+      "get": {
+        "operationId": "TagRules_undefined",
+        "summary": "List all TagRuleResource by monitorName",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/TagRuleResourceListResult"
             }
           },
           "default": {
@@ -1368,16 +1368,22 @@
         ]
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Logz/singleSignOnConfigurations": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/singleSignOnConfigurations": {
       "get": {
-        "operationId": "SingleSignOnConfigurations_ListBySubscription",
-        "summary": "List SingleSignOnConfigurationResource resources by subscription ID",
+        "operationId": "SingleSignOnConfigurations_undefined",
+        "summary": "List all SingleSignOnConfigurationResource by monitorName",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
           }
         ],
         "responses": {
@@ -1410,10 +1416,10 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/singleSignOnConfigurations": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts/{subAccountName}/tagRules/{tagName}": {
       "get": {
-        "operationId": "SingleSignOnConfigurations_ListByResourceGroup",
-        "summary": "List SingleSignOnConfigurationResource resources by resource group",
+        "operationId": "SubAccountTagRules_Get",
+        "summary": "Get a SubAccountTagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1423,6 +1429,15 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "$ref": "#/parameters/SubAccountNameParameter"
+          },
+          {
+            "$ref": "#/parameters/TagNameParameter"
           }
         ],
         "responses": {
@@ -1437,7 +1452,7 @@
             },
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SingleSignOnConfigurationResourceListResult"
+              "$ref": "#/definitions/SubAccountTagRuleResource"
             }
           },
           "default": {
@@ -1448,7 +1463,261 @@
           }
         },
         "tags": [
-          "SingleSignOnConfigurations"
+          "SubAccountTagRules"
+        ]
+      },
+      "put": {
+        "operationId": "SubAccountTagRules_CreateOrUpdate",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "summary": "Create a SubAccountTagRuleResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "$ref": "#/parameters/SubAccountNameParameter"
+          },
+          {
+            "$ref": "#/parameters/TagNameParameter"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "description": "Resource create parameters.",
+            "schema": {
+              "$ref": "#/definitions/SubAccountTagRuleResource"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SubAccountTagRuleResource"
+            }
+          },
+          "201": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SubAccountTagRuleResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SubAccountTagRules"
+        ]
+      },
+      "patch": {
+        "operationId": "SubAccountTagRules_Update",
+        "summary": "Update a SubAccountTagRuleResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "$ref": "#/parameters/SubAccountNameParameter"
+          },
+          {
+            "$ref": "#/parameters/TagNameParameter"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "description": "The resource properties to be updated.",
+            "schema": {
+              "$ref": "#/definitions/SubAccountTagRuleResourceUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SubAccountTagRuleResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SubAccountTagRules"
+        ]
+      },
+      "delete": {
+        "operationId": "SubAccountTagRules_Delete",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "summary": "Delete a SubAccountTagRuleResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "$ref": "#/parameters/SubAccountNameParameter"
+          },
+          {
+            "$ref": "#/parameters/TagNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deleted successfully."
+          },
+          "202": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deletion accepted."
+          },
+          "204": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "Resource deleted successfully."
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SubAccountTagRules"
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts/{subAccountName}/tagRules": {
+      "get": {
+        "operationId": "SubAccountTagRules_undefined",
+        "summary": "List all SubAccountTagRuleResource by subAccountName",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "$ref": "#/parameters/SubAccountNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "headers": {
+              "x-ms-client-request-id": {
+                "type": "string"
+              },
+              "x-ms-correlation-request-id": {
+                "type": "string"
+              }
+            },
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SubAccountTagRuleResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SubAccountTagRules"
         ],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -1531,25 +1800,13 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
         }
       ]
     },
     "SubAccountResourceUpdate": {
       "type": "object",
       "properties": {
-        "tags": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "description": "Resource tags.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
-        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Provisioning state of the resource."
@@ -1681,7 +1938,7 @@
         "nextLink"
       ]
     },
-    "SubAccountTagRuleResource": {
+    "TagRuleResource": {
       "type": "object",
       "properties": {
         "properties": {
@@ -1701,7 +1958,7 @@
           "readOnly": true
         }
       },
-      "description": "Details of a SubAccount TagRule.",
+      "description": "Details of a TagRule.",
       "required": [
         "properties"
       ],
@@ -1711,7 +1968,7 @@
         }
       ]
     },
-    "SubAccountTagRuleResourceUpdate": {
+    "TagRuleResourceUpdate": {
       "type": "object",
       "properties": {
         "tags": {
@@ -1727,17 +1984,17 @@
           ]
         }
       },
-      "description": "The updatable properties of the SubAccountTagRuleResource."
+      "description": "The updatable properties of the TagRuleResource."
     },
-    "SubAccountTagRuleResourceListResult": {
+    "TagRuleResourceListResult": {
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/SubAccountTagRuleResource"
+            "$ref": "#/definitions/TagRuleResource"
           },
-          "x-cadl-name": "Microsoft.Logz.SubAccountTagRuleResource[]",
+          "x-cadl-name": "Microsoft.Logz.TagRuleResource[]",
           "description": "The items on this page"
         },
         "nextLink": {
@@ -1745,7 +2002,7 @@
           "description": "The link to the next page of items"
         }
       },
-      "description": "The response of a SubAccountTagRuleResource list operation.",
+      "description": "The response of a TagRuleResource list operation.",
       "required": [
         "value",
         "nextLink"
@@ -1775,25 +2032,13 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
         }
       ]
     },
     "SingleSignOnConfigurationResourceUpdate": {
       "type": "object",
       "properties": {
-        "tags": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "description": "Resource tags.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
-        },
         "singleSignOnState": {
           "$ref": "#/definitions/SingleSignOnStates",
           "description": "Various states of the SSO resource"
@@ -1830,6 +2075,63 @@
         }
       },
       "description": "The response of a SingleSignOnConfigurationResource list operation.",
+      "required": [
+        "value",
+        "nextLink"
+      ]
+    },
+    "SubAccountTagRuleResource": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "description": "The resource-specific properties for this resource.",
+          "x-cadl-name": "(anonymous model)",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
+        }
+      },
+      "description": "Details of a SubAccount TagRule.",
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "SubAccountTagRuleResourceUpdate": {
+      "type": "object",
+      "properties": {},
+      "description": "The updatable properties of the SubAccountTagRuleResource."
+    },
+    "SubAccountTagRuleResourceListResult": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubAccountTagRuleResource"
+          },
+          "x-cadl-name": "Microsoft.Logz.SubAccountTagRuleResource[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "The response of a SubAccountTagRuleResource list operation.",
       "required": [
         "value",
         "nextLink"
