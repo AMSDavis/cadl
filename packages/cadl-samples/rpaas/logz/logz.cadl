@@ -40,7 +40,7 @@ namespace LogzMonitors {
 })
 @doc("Details of a TagRule.")
 @armListBy(MonitorNameParameter, "List")
-model TagRuleResource is TrackedResource<{}> {}
+model TagRuleResource is ProxyResource<{}> {}
 
 model TagNameParameter {
   @doc("Tag name")
