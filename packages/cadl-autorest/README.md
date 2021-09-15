@@ -21,7 +21,7 @@ The generated OpenAPI spec will have custom `x-ms-` extensions properties that A
 3. Import `@azure-tools/cadl-autorest` in your `main.cadl` file
 
 ```cadl
-imoport "@azure-tools/cadl-autorest";
+import "@azure-tools/cadl-autorest";
 ```
 
 4. Run `cadl compile`. This will result in a `swagger.json` file crated in `./cadl-output/swagger.json`
