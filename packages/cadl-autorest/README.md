@@ -1,7 +1,7 @@
 # Cadl AutoRest Library
 
 This is a Cadl emitter library that will emit an enriched OpenAPI 2.0 specificiation that can be consumed by AutoRest.
-The generated OpenAPI spec will have custom `x-ms-` extensions properties that AutoRest understand to generate a more accurate SDK.
+The generated OpenAPI spec will have custom `x-ms-` extensions properties and conform to standards required by  AutoRest to generate a more accurate SDK.
 
 ## Getting started
 
