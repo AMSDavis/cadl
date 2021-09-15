@@ -14,7 +14,7 @@ namespace Microsoft.Logz;
     parameterType: MonitorNameParameter,
 })
 @doc("The LogZ Monitor resource details.")
-model LogzMonitorResource extends TrackedResource<LogzMonitorResourceProperties> {}
+model LogzMonitorResource is TrackedResource<LogzMonitorResourceProperties> {}
 
 model MonitorNameParameter {
   @doc("Monitor resource name")
@@ -37,9 +37,11 @@ namespace LogzMonitors {
   collectionName: "TagRules",
   parentResourceType: LogzMonitorResource,
   parameterType: TagNameParameter,
+  standardOperations: ["read", "create", "delete"]
 })
 @doc("Details of a TagRule.")
-model TagRuleResource is TrackedResource<{}> {}
+@armListBy(MonitorNameParameter, "List")
+model TagRuleResource is ProxyResource<{}> {}
 
 model TagNameParameter {
   @doc("Tag name")
@@ -58,7 +60,9 @@ model SingleSignOnConfigurationsParameter {
   parameterType: SingleSignOnConfigurationsParameter,
 })
 @doc("Details of a single sign-on configuration.")
-model SingleSignOnConfigurationResource is TrackedResource<LogzSingleSignOnProperties> {};
+@armListBy(MonitorNameParameter, "List")
+model SingleSignOnConfigurationResource is ProxyResource<LogzSingleSignOnProperties> {};
+
 @armResource({
   path: "accounts",
   collectionName: "SubAccounts",
@@ -66,13 +70,13 @@ model SingleSignOnConfigurationResource is TrackedResource<LogzSingleSignOnPrope
   parameterType: SubAccountNameParameter,
 })
 @doc("Details of a sub account.")
-model SubAccountResource is TrackedResource<LogzMonitorResourceProperties> {}
+@armListBy(MonitorNameParameter, "List")
+model SubAccountResource is ProxyResource<LogzMonitorResourceProperties> {}
 
 model SubAccountNameParameter {
   @doc("Sub account name")
   @path subAccountName: string;
 }
-
 
 @armResourceOperations(SubAccountResource)
 namespace SubAccounts {
@@ -90,9 +94,11 @@ namespace SubAccounts {
 
 @armResource({
     path: "tagRules",
-    collectionName: "TagRules",
+    collectionName: "SubAccountTagRules",
     parameterType: TagNameParameter,
     parentResourceType: SubAccountResource,
+    standardOperations: ["read", "create", "delete"]
 })
 @doc("Details of a SubAccount TagRule.")
-model SubAccountTagRuleResource is TrackedResource<{}> {};
+@armListBy(SubAccountNameParameter, "List")
+model SubAccountTagRuleResource is ProxyResource<{}> {};
