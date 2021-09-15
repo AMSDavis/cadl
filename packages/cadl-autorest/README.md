@@ -34,7 +34,7 @@ Generate the OpenAPI spec as shown above then run autorest cli directly on it.
 
 ### Via Autorest
 
-AutoRest provide a plugin that will directly take Cadl as input. Make sure to use `Autorest Core >=3.6.0`
+AutoRest provides a plugin that will directly take Cadl as input. Make sure to use `Autorest Core >=3.6.0`
 
 ```bash
 autorest --cadl --input-file=./main.cadl
