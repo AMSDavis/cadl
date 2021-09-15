@@ -44,7 +44,7 @@ autorest --cadl --input-file=./main.cadl
 
 ### Output path
 
-Sepcify the `--output-path` option:
+Specify the `--output-path` option, this changes the directory where the OpenAPI specification (openapi.json) wil be omitted:
 
 ```bash
 cadl compile --output-path=`./custom`
