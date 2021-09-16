@@ -29,5 +29,10 @@ namespace Microsoft.Confluent.Service.Models
         /// </summary>
         public UserDetail UserDetail { get; set; }
 
+        /// <summary>
+        ///  The provisioning state of the resource. 
+        /// </summary>
+        public ResourceProvisioningState ProvisioningState { get; set; }
+
     }
 }

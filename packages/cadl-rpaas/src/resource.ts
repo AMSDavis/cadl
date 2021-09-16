@@ -11,6 +11,8 @@ import {
 import { getArmNamespace } from "./namespace.js";
 import { generateStandardOperations } from "./operations.js";
 
+const ExpectedProvisioningStates = ["Succeeded", "Failed", "Canceled"];
+
 export interface ParameterInfo {
   name: string;
   typeName: string;
@@ -258,28 +260,52 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
 
   // Detect the resource and properties types
   let resourceKind: ResourceKind = "Plain";
-  let propertiesType: ModelType | undefined = resourceType.properties.has("properties")
-    ? (resourceType.properties.get("properties")!.type as ModelType)
-    : undefined;
+  let propertiesType: ModelType | undefined = undefined;
+
   if (resourceType.baseModel) {
     const coreType = resourceType.baseModel;
     if (coreType.kind === "Model") {
+      // There are two possibilities here:
+      // 1. Resource defined with `model is`, look for `properties` property
+      // 2. Resource defined with `model extends`, look for properties type in template args
+      if (coreType.templateArguments?.length === 1) {
+        propertiesType = coreType.templateArguments?.[0] as ModelType;
+      } else {
+        const propertiesProperty = resourceType.properties?.get("properties");
+        propertiesType = propertiesProperty?.type as ModelType;
+      }
+
+      if (!propertiesType || propertiesType.kind !== "Model") {
+        program.reportDiagnostic("Resource property type must be a model type.", resourceType);
+      }
+
+      // This will find either TrackedResource<T> or TrackedResourceBase
       if (coreType.name.startsWith("TrackedResource")) {
+        const provisioningStateProperty = propertiesType.properties.get("provisioningState");
+        if (!provisioningStateProperty || provisioningStateProperty.type.kind !== "Enum") {
+          program.reportDiagnostic(
+            "TrackedResource properties type must contain a 'provisioningState' property of an 'enum' type.",
+            resourceType
+          );
+          return;
+        }
+
+        // Check the enum for the mandatory provisioning state values
+        const enumValues = new Set(provisioningStateProperty.type.members.map((m) => m.name));
+        const missingStates = ExpectedProvisioningStates.filter((v) => !enumValues.has(v));
+        if (missingStates.length > 0) {
+          program.reportDiagnostic(
+            `The enum type '${provisioningStateProperty.type.name}' must also contain the following provisioning states: ${missingStates}.`,
+            resourceType
+          );
+          return;
+        }
+
         resourceKind = "Tracked";
       } else if (coreType.name.startsWith("ProxyResource")) {
         resourceKind = "Proxy";
       } else if (coreType.name.startsWith("ExtensionResource")) {
         resourceKind = "Extension";
-      }
-
-      // Also extract the properties type while we're at it.
-      const propertiesProperty = coreType.properties.get("properties");
-      if (propertiesProperty) {
-        if (propertiesProperty.type.kind === "Model") {
-          propertiesType = propertiesProperty.type;
-        } else {
-          program.reportDiagnostic("Resource property type must be a model type.", resourceType);
-        }
       }
     }
   }

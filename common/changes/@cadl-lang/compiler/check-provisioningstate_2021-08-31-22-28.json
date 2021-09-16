@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/compiler",
+      "comment": "",
+      "type": "none"
+    }
+  ],
+  "packageName": "@cadl-lang/compiler",
+  "email": "daviwil@microsoft.com"
+}

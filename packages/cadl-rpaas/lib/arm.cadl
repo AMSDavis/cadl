@@ -28,6 +28,15 @@ model ArmTagsProperty {
   tags?: Map<string, string>;
 }
 
+@doc("The provisioning state of a resource type.")
+enum ResourceProvisioningState { Succeeded, Failed, Canceled };
+
+@doc("Contains a default provisioningState property to be spread into resource property types")
+model DefaultProvisioningStateProperty {
+  @doc("The provisioning state of the resource.")
+  provisioningState: ResourceProvisioningState;
+}
+
 @doc("Concrete tracked resource types can be created by aliasing this type using a specific property type.")
 model TrackedResource<TProperties> extends TrackedResourceBase {
   @doc("The resource-specific properties for this resource.")
@@ -384,8 +393,6 @@ enum ManagedIdentityType {
   UserAssigned,
   SystemAndUserAssigned
 }
-
-
 
 @doc("Update model for resource tags")
 model ResourceUpdate {

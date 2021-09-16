@@ -595,6 +595,10 @@
         "userDetail": {
           "$ref": "#/definitions/UserDetail",
           "description": "Subscriber details."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ResourceProvisioningState",
+          "description": "The provisioning state of the resource."
         }
       },
       "description": "The updatable properties of the Organization."
@@ -658,6 +662,10 @@
         "userDetail": {
           "$ref": "#/definitions/UserDetail",
           "description": "Subscriber details."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ResourceProvisioningState",
+          "description": "The provisioning state of the resource."
         }
       },
       "description": "Details of the Confluent organization.",
@@ -665,7 +673,8 @@
         "organizationId",
         "ssoUrl",
         "offerDetail",
-        "userDetail"
+        "userDetail",
+        "provisioningState"
       ]
     },
     "OfferDetail": {
@@ -728,6 +737,19 @@
         "lastName",
         "emailAddress"
       ]
+    },
+    "ResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a resource type.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true
+      }
     },
     "Uri": {
       "type": "string",

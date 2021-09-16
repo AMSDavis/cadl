@@ -8,7 +8,7 @@ namespace Microsoft.FluidRelay.Service.Models
     {
         string _value;
 
-        public static readonly ProvisioningState Succeeded = "Succeeded", Failed = "Failed", Cancelled = "Cancelled"; 
+        public static readonly ProvisioningState Succeeded = "Succeeded", Failed = "Failed", Canceled = "Canceled"; 
         public ProvisioningState( string value)
         {
             _value = value;

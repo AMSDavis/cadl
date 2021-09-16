@@ -190,22 +190,13 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
   // Generate a special "Update" model type using the resource's properties type
   let updateModelName = `${armResourceInfo.resourceModelName}`;
   if (armResourceInfo.propertiesType) {
-    // If the properties type has a name generate a property that uses a copy of
-    // that type with all properties made optional.  If it has no name, we have no
-    // way to reference it so this approach won't work in that case.
-
     updateModelName = `${armResourceInfo.resourceModelName}Update`;
     const updatePropertiesModel = `${updateModelName}Properties`;
     const updatePropertiesDescription = `@doc("The updateable properties of ${armResourceInfo.propertiesType.name}")`;
-    const propertiesModelString =
-      armResourceInfo.propertiesType.name !== ""
-        ? `${updatePropertiesDescription}
+    const propertiesModelString = `${updatePropertiesDescription}
         model ${updatePropertiesModel} {
           ...OptionalProperties<UpdateableProperties<${armResourceInfo.propertiesType.name}>>
-        }`
-        : "";
-
-    const propertiesString = propertiesModelString !== "" ? `...${updatePropertiesModel}` : "";
+        }`;
 
     // Only TrackedResources have a tags property
     const tagsString = armResourceInfo.resourceKind === "Tracked" ? "...ArmTagsProperty;" : "";
@@ -217,7 +208,7 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
        @doc("The updatable properties of the ${armResourceInfo.resourceModelName}.")
        model ${updateModelName} {
          ${tagsString}
-         ${propertiesString}
+         ...${updatePropertiesModel};
        }`
     );
   }

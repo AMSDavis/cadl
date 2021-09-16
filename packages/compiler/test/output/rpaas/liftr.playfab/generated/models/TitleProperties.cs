@@ -20,5 +20,10 @@ namespace Microsoft.PlayFab.Service.Models
         [Pattern(@"\/subscriptions\/[a-z0-9\-]+\/resourceGroups\/[^\/]+\/providers\/Microsoft\.PlayFab\/playerDatabases\/[^\/]+")]
         public string ParentDatabase { get; set; }
 
+        /// <summary>
+        ///  The provisioning state of the resource. 
+        /// </summary>
+        public ResourceProvisioningState ProvisioningState { get; set; }
+
     }
 }

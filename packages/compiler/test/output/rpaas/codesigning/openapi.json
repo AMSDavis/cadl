@@ -833,7 +833,7 @@
       "enum": [
         "Succeeded",
         "Failed",
-        "Cancelled",
+        "Canceled",
         "Provisioning",
         "Updating",
         "Deleting",
