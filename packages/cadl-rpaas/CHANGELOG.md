@@ -1,6 +1,20 @@
 # Change Log - @azure-tools/cadl-rpaas
 
-This log was last generated on Sat, 21 Aug 2021 00:04:02 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Sep 2021 00:49:37 GMT and should not be manually modified.
+
+## 0.8.0
+Fri, 17 Sep 2021 00:49:37 GMT
+
+### Minor changes
+
+- Added a check for the existence of a 'provisioningState' property in any properties type for a resource derived from TrackedResource<T>.
+- Remove support for multiple inheritance
+
+### Patches
+
+- Capture standard operation parameter descriptions
+- Added documentation and scaffolding template
+- Update extension definition to use common types
 
 ## 0.7.0
 Sat, 21 Aug 2021 00:04:02 GMT
