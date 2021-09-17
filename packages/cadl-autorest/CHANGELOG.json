@@ -2,6 +2,34 @@
   "name": "@azure-tools/cadl-autorest",
   "entries": [
     {
+      "version": "0.7.0",
+      "tag": "@azure-tools/cadl-autorest_v0.7.0",
+      "date": "Fri, 17 Sep 2021 00:49:37 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Updates for cadl namespace addition"
+          },
+          {
+            "comment": "Support for emitting `bytes` and new number types"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Remove support for multiple inheritance"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@cadl-lang/compiler\" from `0.19.0` to `0.20.0`"
+          },
+          {
+            "comment": "Updating dependency \"@cadl-lang/rest\" from `0.6.0` to `0.6.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.6.0",
       "tag": "@azure-tools/cadl-autorest_v0.6.0",
       "date": "Sat, 21 Aug 2021 00:04:02 GMT",
