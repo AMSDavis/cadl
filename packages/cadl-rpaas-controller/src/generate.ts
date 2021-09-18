@@ -6,6 +6,8 @@ import {
   ParameterInfo,
 } from "@azure-tools/cadl-rpaas";
 import {
+  createSourceFile,
+  DiagnosticTarget,
   EnumType,
   getDoc,
   getFormat,
@@ -15,7 +17,6 @@ import {
   ModelType,
   ModelTypeProperty,
   NamespaceType,
-  Node,
   NoTarget,
   OperationType,
   Program,
@@ -73,6 +74,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
   const serviceName: string = getServiceName(getServiceNamespaceString(program)!);
   const serviceNamespace = "Microsoft." + serviceName;
   const modelNamespace = serviceNamespace + ".Models";
+  let defaultTarget: DiagnosticTarget | undefined = undefined;
   const ListName = "list",
     PutName = "create",
     PatchName = "update",
@@ -182,14 +184,31 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
   return { generateServiceCode };
 
-  function reportInfo(info: string, target?: Node) {
+  function reportInfo(info: string, target?: DiagnosticTarget) {
     program.reportDiagnostic(
       {
         text: info,
         severity: "info",
       },
-      target ?? NoTarget
+      target ?? getDefaultTarget()
     );
+  }
+
+  function getDefaultTarget(): DiagnosticTarget {
+    if (defaultTarget === undefined) {
+      if (program.sourceFiles?.size > 0) {
+        program.sourceFiles.forEach((value) => {
+          defaultTarget = defaultTarget ?? value;
+        });
+      } else {
+        defaultTarget = {
+          file: createSourceFile("", "<unknown location>"),
+          pos: 0,
+          end: 0,
+        };
+      }
+    }
+    return defaultTarget!;
   }
 
   function resolvePath(fsPath: string): string {
@@ -1114,7 +1133,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     const routesPath = resolvePath(path.join(genPath, service + "ServiceRoutes.cs"));
     const templatePath = path.join(rootPath, "templates", options.controllerHost);
     const modelsPath = path.join(genPath, "models");
-    if (!program.hasError()) {
+    if (!program.compilerOptions.noEmit && !program.hasError()) {
       await ensureCleanDirectory(genPath).catch((err) =>
         program.reportDiagnostic(`Error cleaning output directory: ${err}`, NoTarget)
       );
