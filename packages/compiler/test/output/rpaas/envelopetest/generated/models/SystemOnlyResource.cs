@@ -7,22 +7,22 @@ using System;
 using System.Security.Policy;
 using System.Collections.Generic; 
 
-namespace Microsoft.Observability.Service.Models
+namespace Microsoft.EnvelopeTest.Service.Models
 {
     /// <summary>
-    /// Dynatrace Monitor Resource 
+    /// Concrete tracked resource types can be created by aliasing this type using a specific property type. 
     /// </summary>
-    public class MonitorResource : TrackedResource 
+    public class SystemOnlyResource : TrackedResource 
     {
         /// <summary>
         ///  The resource-specific properties for this resource. 
         /// </summary>
-        public MonitorProperties Properties { get; set; }
+        public SystemOnlyProperties Properties { get; set; }
 
         /// <summary>
         ///  The managed service identities assigned to this resource. 
         /// </summary>
-        public ManagedIdentityProperties Identity { get; set; }
+        public ManagedSystemIdentityProperties Identity { get; set; }
 
     }
 }
