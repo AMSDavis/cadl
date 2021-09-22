@@ -84,9 +84,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     PatchName = "update",
     DeleteName = "delete",
     GetName = "read";
-  // TODO: GET NODE INFO
   reportInfo(`Service name: ${serviceName}`, serviceRootNamespace?.node);
-  // TODO: Use progress logging method
   reportProgress("rootpath: " + rootPath);
 
   interface TraceableEntity {
@@ -672,16 +670,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         outputModel.models.push(model);
       });
 
-      //TODO: Replace with progress writer
       reportVerboseInfo("MODELS");
       reportVerboseInfo("------");
-      //TODO: Replace with verbose logger
       reportVerboseInfo(JSON.stringify(models, replacer));
 
-      //TODO: Replace with progress writer
       reportVerboseInfo("ENUMS");
       reportVerboseInfo("-----");
-      //TODO: replace with bulk logger
       reportVerboseInfo(JSON.stringify(outputModel.enumerations, replacer));
     }
 
@@ -723,7 +717,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       reportResourceInfo("--------------------");
     });
     populateResources();
-    //TODO: Use verbose logging method
     reportVerboseInfo(JSON.stringify(outputModel.resources, replacer));
     populateModels();
 
@@ -1107,7 +1100,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
 
     async function generateSingleDirectory(basePath: string, outPath: string) {
-      // TODO: Use progress reporting
       reportProgress("+++++++");
       reportProgress("Generating single file templates");
       reportProgress("  basePath: " + basePath);
@@ -1122,13 +1114,11 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         );
       });
 
-      // TODO: use progress reporting
       reportProgress("++++++");
       async function generateSingleFile(templatePath: string, outPath: string) {
         const templateFile = path.basename(templatePath);
         const baseName = templateFile.substring(0, templateFile.lastIndexOf("."));
         const outFile = path.join(outPath, baseName + ".cs");
-        //TODO: use progress logger
         reportProgress(`    -- ${templateFile} => ${outFile}`);
         const content = await sqrl.renderFile(templatePath, outputModel);
         await program.host
