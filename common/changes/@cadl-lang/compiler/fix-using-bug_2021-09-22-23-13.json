@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/compiler",
+      "comment": "fix using a namespace merged after current namespace",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@cadl-lang/compiler",
+  "email": "brian.terlson@microsoft.com"
+}
