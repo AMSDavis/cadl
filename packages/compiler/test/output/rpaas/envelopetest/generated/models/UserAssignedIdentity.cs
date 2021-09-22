@@ -7,22 +7,22 @@ using System;
 using System.Security.Policy;
 using System.Collections.Generic; 
 
-namespace Microsoft.Observability.Service.Models
+namespace Microsoft.EnvelopeTest.Service.Models
 {
     /// <summary>
-    /// Dynatrace Monitor Resource 
+    /// A managed identity assigned by the user. 
     /// </summary>
-    public class MonitorResource : TrackedResource 
+    public class UserAssignedIdentity 
     {
         /// <summary>
-        ///  The resource-specific properties for this resource. 
+        ///  The active directory client identifier for this principal. 
         /// </summary>
-        public MonitorProperties Properties { get; set; }
+        public string ClientId { get; set; }
 
         /// <summary>
-        ///  The managed service identities assigned to this resource. 
+        ///  The active directory identifier for this principal. 
         /// </summary>
-        public ManagedIdentityProperties Identity { get; set; }
+        public string PrincipalId { get; set; }
 
     }
 }

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas",
+      "comment": "Add ARM envelope optional properties",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas",
+  "email": "markcowl@microsoft.com"
+}
