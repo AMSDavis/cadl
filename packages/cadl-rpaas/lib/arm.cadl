@@ -389,7 +389,7 @@ model ResourceKind {
 }
 
 @doc("Details of the resource plan.")
-@armCommonDefinition("plan")
+@armCommonDefinition("Plan")
 model ResourcePlanType {
   @doc("A user defined name of the 3rd Party Artifact that is being procured.")
   name: string;
@@ -416,7 +416,7 @@ model ResourcePlan {
 enum SkuTier { "Free", "Basic", "Standard", "Premium"}
 
 @doc("The SKU (Stock Keeping Unit) assigned to this resource.")
-@armCommonDefinition("sku")
+@armCommonDefinition("Sku")
 model ResourceSkuType {
   @doc("The name of the SKU, usually a combination of letters and numbers, for example, 'P3'")
   name: string;

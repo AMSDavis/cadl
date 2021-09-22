@@ -765,11 +765,11 @@
           ]
         },
         "plan": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/plan",
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/Plan",
           "description": "Details of the resource plan."
         },
         "sku": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/sku",
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/Sku",
           "description": "The SKU (Stock Keeping Unit) assigned to this resource."
         },
         "identity": {
