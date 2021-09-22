@@ -6,8 +6,6 @@ import {
   ParameterInfo,
 } from "@azure-tools/cadl-rpaas";
 import {
-  createSourceFile,
-  DiagnosticTarget,
   EnumType,
   getDoc,
   getFormat,
@@ -17,6 +15,7 @@ import {
   ModelType,
   ModelTypeProperty,
   NamespaceType,
+  Node,
   NoTarget,
   OperationType,
   Program,
@@ -24,6 +23,7 @@ import {
   UnionType,
 } from "@cadl-lang/compiler";
 import {
+  checkIfServiceNamespace,
   getHttpOperation,
   getPathParamName,
   getResources,
@@ -71,19 +71,29 @@ export interface ServiceGenerationOptions {
 
 export function CreateServiceCodeGenerator(program: Program, options: ServiceGenerationOptions) {
   const rootPath = options.controllerModulePath;
-  const serviceName: string = getServiceName(getServiceNamespaceString(program)!);
+  const serviceNamespaceName = getServiceNamespaceString(program)!;
+  const serviceName: string = getServiceName(serviceNamespaceName);
+  const serviceRootNamespace = findServiceNamespace(
+    program,
+    program.checker!.getGlobalNamespaceType()
+  );
   const serviceNamespace = "Microsoft." + serviceName;
   const modelNamespace = serviceNamespace + ".Models";
-  let defaultTarget: DiagnosticTarget | undefined = undefined;
   const ListName = "list",
     PutName = "create",
     PatchName = "update",
     DeleteName = "delete",
     GetName = "read";
-  reportInfo("Service name: " + serviceName);
-  reportInfo("rootpath: " + rootPath);
+  // TODO: GET NODE INFO
+  reportInfo(`Service name: ${serviceName}`, serviceRootNamespace?.node);
+  // TODO: Use progress logging method
+  reportProgress("rootpath: " + rootPath);
 
-  interface Resource {
+  interface TraceableEntity {
+    sourceNode?: Node;
+  }
+
+  interface Resource extends TraceableEntity {
     name: string;
     nameSpace: string;
     serviceName: string;
@@ -98,7 +108,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     specificationListModelName: string;
   }
 
-  interface Operation {
+  interface Operation extends TraceableEntity {
     name: string;
     returnType: string;
     verb: string;
@@ -107,20 +117,20 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     requestParameter?: MethodParameter;
   }
 
-  interface MethodParameter {
+  interface MethodParameter extends TraceableEntity {
     name: string;
     type: string;
     location?: string;
     description?: string;
   }
 
-  interface Model extends TypeDeclaration {
+  interface Model extends TypeDeclaration, TraceableEntity {
     serviceName: string;
     description?: string;
     properties: Property[];
   }
 
-  interface Property {
+  interface Property extends TraceableEntity {
     name: string;
     type: TypeReference;
     validations: ValidationAttribute[];
@@ -152,7 +162,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     type: string;
   }
 
-  interface Enumeration {
+  interface Enumeration extends TraceableEntity {
     serviceName: string;
     name: string;
     description?: string;
@@ -160,7 +170,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     values: EnumValue[];
   }
 
-  interface EnumValue {
+  interface EnumValue extends TraceableEntity {
     name: string;
     value?: string | number;
     description?: string;
@@ -184,31 +194,54 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
   return { generateServiceCode };
 
-  function reportInfo(info: string, target?: DiagnosticTarget) {
+  function reportInfo(info: string, target: Node | undefined) {
     program.reportDiagnostic(
       {
         text: info,
         severity: "info",
       },
-      target ?? getDefaultTarget()
+      target ?? NoTarget
     );
   }
 
-  function getDefaultTarget(): DiagnosticTarget {
-    if (defaultTarget === undefined) {
-      if (program.sourceFiles?.size > 0) {
-        program.sourceFiles.forEach((value) => {
-          defaultTarget = defaultTarget ?? value;
-        });
-      } else {
-        defaultTarget = {
-          file: createSourceFile("", "<unknown location>"),
-          pos: 0,
-          end: 0,
-        };
-      }
+  function reportProgress(message: string) {
+    program.reportDiagnostic(
+      {
+        text: message,
+        severity: "info",
+      },
+      NoTarget
+    );
+  }
+
+  function reportVerboseInfo(message: string) {
+    program.reportDiagnostic(
+      {
+        text: message,
+        severity: "info",
+      },
+      NoTarget
+    );
+  }
+
+  function findServiceNamespace(
+    program: Program,
+    rootNamespace: NamespaceType
+  ): NamespaceType | undefined {
+    let current = rootNamespace;
+    if (checkIfServiceNamespace(program, current)) {
+      return current;
     }
-    return defaultTarget!;
+
+    let result: NamespaceType | undefined = undefined;
+    current.namespaces.forEach((namespace) => {
+      let candidate = findServiceNamespace(program, namespace);
+      if (candidate && result === undefined) {
+        result = candidate;
+      }
+    });
+
+    return result;
   }
 
   function resolvePath(fsPath: string): string {
@@ -231,6 +264,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         type: "string",
         description: parameter.description,
         location: "path",
+        sourceNode: parameter.resourceType?.node,
       };
     }
 
@@ -242,7 +276,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       function getStandardOperation(
         opName: string,
         resourceInfo: ArmResourceInfo,
-        modelName: string
+        modelName: string,
+        sourceType: Type
       ): Operation | undefined {
         const pathParams = resourceInfo.resourcePath?.parameters.map((p) =>
           transformPathParameter(p)
@@ -257,6 +292,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               parameters: pathParams,
               returnType: modelName,
               verb: "GET",
+              sourceNode: sourceType.node,
             };
           case PutName:
             return {
@@ -268,6 +304,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                   location: "body",
                   description: "The resource data.",
                   type: modelName,
+                  sourceNode: sourceType.node,
                 },
               ],
               returnType: modelName,
@@ -278,6 +315,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 description: "The resource data.",
                 type: modelName,
               },
+              sourceNode: sourceType.node,
             };
           case DeleteName:
             return {
@@ -285,6 +323,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               parameters: pathParams,
               returnType: "void",
               verb: "Delete",
+              sourceNode: sourceType.node,
             };
           case PatchName:
             return {
@@ -296,6 +335,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                   location: "body",
                   description: "The resource patch data.",
                   type: `${modelName}Update`,
+                  sourceNode: sourceType.node,
                 },
               ],
               returnType: modelName,
@@ -306,6 +346,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 description: "The resource patch data.",
                 type: `${modelName}Update`,
               },
+              sourceNode: sourceType.node,
             };
           default:
             return undefined;
@@ -441,6 +482,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                       type: propType.name,
                       description: paramDescription,
                       location: propLoc,
+                      sourceNode: prop.node,
                     });
                     if (propLoc === "Body") {
                       bodyProp = {
@@ -448,6 +490,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                         type: propType.name,
                         description: paramDescription,
                         location: propLoc,
+                        sourceNode: prop.node,
                       };
                     }
                   }
@@ -463,6 +506,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 parameters: parameters,
                 subPath: httpOperation!.route?.subPath,
                 verb: httpOperation!.route.verb,
+                sourceNode: operation.node,
               };
               if (bodyProp !== undefined) {
                 outOperation.requestParameter = bodyProp;
@@ -520,7 +564,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           resourceInfo.standardOperations
             .filter((o) => o == PutName || o == PatchName || o == DeleteName || o == GetName)
             .forEach((op) => {
-              let value = getStandardOperation(op, resourceInfo, cSharpModelName)!;
+              let value = getStandardOperation(op, resourceInfo, cSharpModelName, res)!;
               if (value && !map.has(value.name)) {
                 map.set(value.name, value);
               }
@@ -542,6 +586,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             specificationArmNamespace: matchingNamespace,
             specificationModelName: transformCSharpIdentifier(modelName),
             specificationListModelName: transformCSharpIdentifier(listName),
+            sourceNode: res.node,
           };
           resources.set(modelName, outResource);
           outputModel.resources.push(outResource);
@@ -558,7 +603,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         let model = cadlType as ModelType;
         if (model && model.name && model.name.length > 0) {
           const typeRef = getCSharpType(model);
-          reportInfo("*** " + model.name + " => " + typeRef?.name);
+          reportInfo(`*** ${model.name} => ${typeRef?.name}`, model.node);
           if (typeRef) {
             const outModel: Model = {
               name: typeRef?.name ?? model.name,
@@ -573,6 +618,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               isImplementer: false,
               isBuiltIn: typeRef?.isBuiltIn ?? false,
               validations: getValidations(cadlType),
+              sourceNode: cadlType.node,
             };
             if (
               model.baseModel ||
@@ -625,16 +671,24 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       models.forEach((model) => {
         outputModel.models.push(model);
       });
-      reportInfo("MODELS");
-      reportInfo("------");
-      reportInfo(JSON.stringify(models, replacer));
 
-      reportInfo("ENUMS");
-      reportInfo("-----");
-      reportInfo(JSON.stringify(outputModel.enumerations, replacer));
+      //TODO: Replace with progress writer
+      reportVerboseInfo("MODELS");
+      reportVerboseInfo("------");
+      //TODO: Replace with verbose logger
+      reportVerboseInfo(JSON.stringify(models, replacer));
+
+      //TODO: Replace with progress writer
+      reportVerboseInfo("ENUMS");
+      reportVerboseInfo("-----");
+      //TODO: replace with bulk logger
+      reportVerboseInfo(JSON.stringify(outputModel.enumerations, replacer));
     }
 
     function replacer(key: any, value: any) {
+      if (key === "sourceNode") {
+        return "<redacted>";
+      }
       if (value instanceof Map) {
         return {
           dataType: "Map",
@@ -646,27 +700,31 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
 
     getArmResources(program).forEach((cadlType) => {
+      function reportResourceInfo(message: string) {
+        reportInfo(message, cadlType.node);
+      }
       const resourceMeta = getArmResourceInfo(program, cadlType)!;
-      reportInfo("ARM RESOURCE DETAILS");
-      reportInfo("--------------------");
-      reportInfo("armNamespace: " + resourceMeta.armNamespace);
-      reportInfo("parentNamespace: " + resourceMeta.parentNamespace);
-      reportInfo("resourceModelName: " + resourceMeta.resourceModelName);
-      reportInfo("resourceListModelName: " + resourceMeta.resourceListModelName);
-      reportInfo("resourceKind: " + resourceMeta.resourceKind);
-      reportInfo("collectionName: " + resourceMeta.collectionName);
-      reportInfo("operations: " + resourceMeta.standardOperations);
-      reportInfo("resourceNameParam: " + resourceMeta.resourceNameParam?.name);
-      reportInfo("parentResourceType: " + resourceMeta.parentResourceType?.kind);
-      reportInfo("resourcePath: " + resourceMeta.resourcePath?.path);
+      reportResourceInfo("ARM RESOURCE DETAILS");
+      reportResourceInfo("--------------------");
+      reportResourceInfo("armNamespace: " + resourceMeta.armNamespace);
+      reportResourceInfo("parentNamespace: " + resourceMeta.parentNamespace);
+      reportResourceInfo("resourceModelName: " + resourceMeta.resourceModelName);
+      reportResourceInfo("resourceListModelName: " + resourceMeta.resourceListModelName);
+      reportResourceInfo("resourceKind: " + resourceMeta.resourceKind);
+      reportResourceInfo("collectionName: " + resourceMeta.collectionName);
+      reportResourceInfo("operations: " + resourceMeta.standardOperations);
+      reportResourceInfo("resourceNameParam: " + resourceMeta.resourceNameParam?.name);
+      reportResourceInfo("parentResourceType: " + resourceMeta.parentResourceType?.kind);
+      reportResourceInfo("resourcePath: " + resourceMeta.resourcePath?.path);
       const cType = getCSharpType(cadlType);
-      reportInfo(
-        "-- " + resourceMeta.resourceModelName + " => " + cType?.nameSpace + "." + cType?.name
+      reportResourceInfo(
+        `-- ${resourceMeta.resourceModelName} => ${cType?.nameSpace}.${cType?.name}`
       );
-      reportInfo("--------------------");
+      reportResourceInfo("--------------------");
     });
     populateResources();
-    reportInfo(JSON.stringify(outputModel.resources, replacer));
+    //TODO: Use verbose logging method
+    reportVerboseInfo(JSON.stringify(outputModel.resources, replacer));
     populateModels();
 
     function getPropertyDecl(
@@ -738,11 +796,13 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         name: cadlType.name,
         serviceName: serviceName,
         values: [],
+        sourceNode: cadlType.node,
       };
       cadlType.members.forEach((option) => {
         outEnum.values.push({
           name: option.name,
           value: option.value,
+          sourceNode: option.node,
         });
       });
 
@@ -1047,10 +1107,11 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
 
     async function generateSingleDirectory(basePath: string, outPath: string) {
-      reportInfo("+++++++");
-      reportInfo("Generating single file templates");
-      reportInfo("  basePath: " + basePath);
-      reportInfo("  outPath: " + outPath);
+      // TODO: Use progress reporting
+      reportProgress("+++++++");
+      reportProgress("Generating single file templates");
+      reportProgress("  basePath: " + basePath);
+      reportProgress("  outPath: " + outPath);
 
       const singleTemplatePath = path.join(templatePath, "single");
 
@@ -1061,12 +1122,14 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         );
       });
 
-      reportInfo("++++++");
+      // TODO: use progress reporting
+      reportProgress("++++++");
       async function generateSingleFile(templatePath: string, outPath: string) {
         const templateFile = path.basename(templatePath);
         const baseName = templateFile.substring(0, templateFile.lastIndexOf("."));
         const outFile = path.join(outPath, baseName + ".cs");
-        reportInfo("    -- " + templateFile + " => " + outFile);
+        //TODO: use progress logger
+        reportProgress(`    -- ${templateFile} => ${outFile}`);
         const content = await sqrl.renderFile(templatePath, outputModel);
         await program.host
           .writeFile(resolvePath(outFile), content)
@@ -1156,22 +1219,22 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           await generateResource(resource).catch((err) =>
             program.reportDiagnostic(
               `Error generating resource: ${resource?.nameSpace}.${resource?.name}, ${err}`,
-              NoTarget
+              resource.sourceNode || NoTarget
             )
           )
       );
       outputModel.models.forEach(async (model) => {
-        reportInfo(`Rendering model ${model.nameSpace}.${model.name}`);
+        reportInfo(`Rendering model ${model.nameSpace}.${model.name}`, model.sourceNode);
         await generateModel(model).catch((err) =>
           program.reportDiagnostic(
             `Error generating model: ${model?.nameSpace}.${model?.name}, ${err}`,
-            NoTarget
+            model.sourceNode || NoTarget
           )
         );
       });
 
       outputModel.enumerations?.forEach((enumeration) => {
-        reportInfo(`Rendering enum ${enumeration.name}`);
+        reportInfo(`Rendering enum ${enumeration.name}`, enumeration.sourceNode);
         generateEnum(enumeration);
       });
     }
