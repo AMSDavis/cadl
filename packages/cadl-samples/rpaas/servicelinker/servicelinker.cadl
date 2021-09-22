@@ -7,6 +7,8 @@ import "@azure-tools/cadl-rpaas";
 @serviceVersion("2021-01-01-privatepreview")
 namespace Microsoft.ServiceLinker;
 
+using Azure.ARM;
+
 @armResource({
   path: "linkers",
   collectionName: "Linker",

@@ -8,6 +8,8 @@ import "./models.cadl";
 @serviceVersion("2020-10-01-preview")
 namespace Microsoft.Logz;
 
+using Azure.ARM;
+
 @armResource({
     path: "monitors",
     collectionName: "Monitors",

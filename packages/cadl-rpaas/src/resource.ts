@@ -339,6 +339,7 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
 
   // Prepare the namespace for the operation group
   program.evalCadlScript(`
+      using Azure.ARM;
       namespace ${armResourceInfo.parentNamespace} {
         @doc("The response of a ${armResourceInfo.resourceModelName} list operation.")
         model ${armResourceInfo.resourceListModelName} extends Page<${armResourceInfo.resourceModelName}> { };

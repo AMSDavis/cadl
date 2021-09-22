@@ -8,6 +8,8 @@ import "@azure-tools/cadl-rpaas-controller";
 @armNamespace
 namespace Microsoft.EnvelopeTest;
 
+using Azure.ARM;
+
 @armResource(
   {path: "allProperties",
   collectionName: "AllProperties",

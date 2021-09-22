@@ -1534,7 +1534,7 @@
           "items": {
             "$ref": "#/definitions/MonitoredResource"
           },
-          "x-cadl-name": "MonitoredResource[]",
+          "x-cadl-name": "Microsoft.Logz.MonitoredResource[]",
           "description": "The items on this page"
         },
         "nextLink": {
