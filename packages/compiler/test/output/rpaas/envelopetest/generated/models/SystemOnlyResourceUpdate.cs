@@ -7,22 +7,22 @@ using System;
 using System.Security.Policy;
 using System.Collections.Generic; 
 
-namespace Microsoft.Observability.Service.Models
+namespace Microsoft.EnvelopeTest.Service.Models
 {
     /// <summary>
-    /// Dynatrace Monitor Resource 
+    /// The updatable properties of the SystemOnlyResource. 
     /// </summary>
-    public class MonitorResource : TrackedResource 
+    public class SystemOnlyResourceUpdate 
     {
         /// <summary>
-        ///  The resource-specific properties for this resource. 
+        ///  Resource tags. 
         /// </summary>
-        public MonitorProperties Properties { get; set; }
+        public IDictionary<string, string> Tags { get; set; }
 
         /// <summary>
-        ///  The managed service identities assigned to this resource. 
+        ///  The status of the last operation performed on this resource. 
         /// </summary>
-        public ManagedIdentityProperties Identity { get; set; }
+        public EnvelopeProvisioningState ProvisioningState { get; set; }
 
     }
 }

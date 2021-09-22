@@ -1260,7 +1260,7 @@
           "readOnly": true
         },
         "identity": {
-          "$ref": "#/definitions/IdentityProperties",
+          "$ref": "#/definitions/ManagedIdentityProperties",
           "description": "The managed service identities assigned to this resource."
         }
       },
@@ -1544,7 +1544,7 @@
       },
       "description": "Properties specific to the monitor resource."
     },
-    "IdentityProperties": {
+    "ManagedIdentityProperties": {
       "type": "object",
       "properties": {
         "tenantId": {
@@ -1808,9 +1808,10 @@
       "type": "string",
       "description": "The kind of managemed identity assigned to this resource.",
       "enum": [
+        "None",
         "SystemAssigned",
         "UserAssigned",
-        "SystemAndUserAssigned"
+        "SystemAssigned,UserAssigned"
       ],
       "x-ms-enum": {
         "name": "ManagedIdentityType",

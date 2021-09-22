@@ -7,12 +7,12 @@ using System;
 using System.Security.Policy;
 using System.Collections.Generic; 
 
-namespace Microsoft.Observability.Service.Models
+namespace Microsoft.EnvelopeTest.Service.Models
 {
     /// <summary>
     /// The properties of the managed service identities assigned to this resource. 
     /// </summary>
-    public class IdentityProperties 
+    public class ManagedIdentityProperties 
     {
         /// <summary>
         ///  The Active Directory tenant id of the principal. 
