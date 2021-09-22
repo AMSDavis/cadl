@@ -86,11 +86,9 @@
     },
     {
       "label": "test",
-      "type": "shell",
-      "options": {
-        "cwd": "${workspaceFolder}/packages/cadl"
-      },
-      "command": "npm test",
+      "type": "process",
+      "command": "node",
+      "args": ["${workspaceFolder}/eng/scripts/npm-run.js", "test"],
       "group": {
         "kind": "test",
         "isDefault": true

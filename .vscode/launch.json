@@ -85,7 +85,7 @@
         "${workspaceFolder}/packages/*/dist/**/*.js",
         "${workspaceFolder}/packages/*/dist-dev/**/*.js"
       ],
-      "cwd": "${workspaceRoot}/packages/cadl",
+      "cwd": "${workspaceRoot}/packages/compiler",
       "presentation": {
         "order": 2
       }
@@ -108,7 +108,7 @@
         "${workspaceFolder}/packages/*/dist/**/*.js",
         "${workspaceFolder}/packages/*/dist-dev/**/*.js"
       ],
-      "cwd": "${workspaceRoot}/packages/cadl",
+      "cwd": "${workspaceRoot}/packages/compiler",
       "presentation": {
         "order": 2
       }
