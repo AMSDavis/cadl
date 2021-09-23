@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas-controller",
+      "comment": "Fix issues with language server",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas-controller",
+  "email": "markcowl@microsoft.com"
+}
