@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/compiler",
+      "comment": "Surface decorator and emitter errors in IDE",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@cadl-lang/compiler",
+  "email": "nicholg@microsoft.com"
+}
