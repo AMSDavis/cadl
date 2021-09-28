@@ -52,6 +52,7 @@ export async function CheckFor(code: string) {
   const result = await host.diagnose("./main.cadl", {
     noEmit: false,
     swaggerOutputFile: outPath,
+    onBuildCheck: true,
   });
   return result;
 }
