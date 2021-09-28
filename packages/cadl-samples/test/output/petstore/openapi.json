@@ -60,7 +60,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "The request has succeeded.",
             "schema": {
               "$ref": "#/definitions/Pet"
             }
@@ -105,7 +105,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "The request has succeeded.",
             "schema": {
               "$ref": "#/definitions/Pet"
             }
@@ -144,7 +144,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "The request has succeeded.",
             "schema": {
               "$ref": "#/definitions/ResponsePage_Toy"
             }
