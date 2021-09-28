@@ -416,5 +416,16 @@ export function $armListBy(
     return;
   }
 
+  if (operationName.includes(armResourceInfo.resourceModelName)) {
+    program.reportDiagnostic(
+      `The operation name should not repeat the resource name '${armResourceInfo.resourceModelName}'`,
+      target
+    );
+  }
+
+  if (operationName.includes("_")) {
+    program.reportDiagnostic(`The operation name should not contain underscore.`, target);
+  }
+
   armListByInternal(program, target, armResourceInfo, paramType.name, operationName, documentation);
 }

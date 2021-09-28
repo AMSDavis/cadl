@@ -190,6 +190,14 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
     return;
   }
 
+  if (resourceType.name.includes("_")) {
+    program.reportDiagnostic(
+      "The resource type should not include underscore, or it will produce invalid operationId in the generated swagger.",
+      resourceType
+    );
+    return;
+  }
+
   const resourcePathType = getRequiredPropertyValue<StringLiteralType>(
     program,
     resourceDetails,
