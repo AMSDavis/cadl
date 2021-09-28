@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/rest",
+      "comment": "add documentation for models",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@cadl-lang/rest",
+  "email": "jianyxi@microsoft.com"
+}

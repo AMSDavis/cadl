@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/compiler",
+      "comment": "improve navigation algorithm ",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@cadl-lang/compiler",
+  "email": "jianyxi@microsoft.com"
+}
