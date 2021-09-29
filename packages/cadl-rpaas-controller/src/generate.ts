@@ -71,12 +71,19 @@ export interface ServiceGenerationOptions {
 
 export function CreateServiceCodeGenerator(program: Program, options: ServiceGenerationOptions) {
   const rootPath = options.controllerModulePath;
-  const serviceNamespaceName = getServiceNamespaceString(program)!;
-  const serviceName: string = getServiceName(serviceNamespaceName);
+  const serviceNamespaceName = getServiceNamespaceString(program);
   const serviceRootNamespace = findServiceNamespace(
     program,
     program.checker!.getGlobalNamespaceType()
   );
+  if (!serviceNamespaceName) {
+    return {
+      generateServiceCode(): void {
+        return;
+      },
+    };
+  }
+  const serviceName: string = getServiceName(serviceNamespaceName);
   const serviceNamespace = "Microsoft." + serviceName;
   const modelNamespace = serviceNamespace + ".Models";
   const ListName = "list",

@@ -15,11 +15,9 @@ namespace Dynatrace.Observability;
   collectionName: "Monitors",
   parameterType: MonitorNameParameter
 })
-@armListBy(SubscriptionIdParameter, "ListBySubscriptionId") // not needed
 model MonitorResource is TrackedResource<MonitorProperties> {
   ...ManagedServiceIdentity;  // change here to use the standard definition
  };
-
 model MonitorNameParameter {
   @doc("Monitor resource name")
   @path monitorName: string;

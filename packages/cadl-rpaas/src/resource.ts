@@ -284,7 +284,7 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
         const provisioningStateProperty = propertiesType.properties.get("provisioningState");
         if (!provisioningStateProperty || provisioningStateProperty.type.kind !== "Enum") {
           program.reportDiagnostic(
-            "TrackedResource properties type must contain a 'provisioningState' property of an 'enum' type.",
+            "A TrackedResource must have a 'provisioningState' property of type 'enum' to track the provisioningState of the last operation. The enum must include values 'Failed', 'Succeeded', and 'Canceled'.",
             resourceType
           );
           return;

@@ -39,7 +39,7 @@ model PlayerDatabaseNameParameter {
     parameterType: TitleNameParameter
 })
 @doc("Details of a title.")
-model Title extends TrackedResource<TitleProperties> {}
+model Title is TrackedResource<TitleProperties> {}
 
 model TitleNameParameter {
     @doc("Name of the title resource.")
