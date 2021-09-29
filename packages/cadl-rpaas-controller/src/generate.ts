@@ -73,7 +73,11 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
   const rootPath = options.controllerModulePath;
   const serviceNamespaceName = getServiceNamespaceString(program);
   if (!serviceNamespaceName) {
-    return { generateServiceCode(): void {return;}}
+    return {
+      generateServiceCode(): void {
+        return;
+      },
+    };
   }
   const serviceName: string = getServiceName(serviceNamespaceName);
   const serviceNamespace = "Microsoft." + serviceName;
@@ -193,37 +197,37 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
   function reportInfo(info: string, target: Node | undefined) {
     try {
-    program.reportDiagnostic(
-      {
-        text: info,
-        severity: "info",
-      },
-      target ?? NoTarget
-    );
+      program.reportDiagnostic(
+        {
+          text: info,
+          severity: "info",
+        },
+        target ?? NoTarget
+      );
     } catch {}
   }
 
   function reportProgress(message: string) {
     try {
-    program.reportDiagnostic(
-      {
-        text: message,
-        severity: "info",
-      },
-      NoTarget
-    );
+      program.reportDiagnostic(
+        {
+          text: message,
+          severity: "info",
+        },
+        NoTarget
+      );
     } catch {}
   }
 
   function reportVerboseInfo(message: string) {
     try {
-    program.reportDiagnostic(
-      {
-        text: message,
-        severity: "info",
-      },
-      NoTarget
-    );
+      program.reportDiagnostic(
+        {
+          text: message,
+          severity: "info",
+        },
+        NoTarget
+      );
     } catch {}
   }
 
