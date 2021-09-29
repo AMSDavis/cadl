@@ -71,12 +71,11 @@ export interface ServiceGenerationOptions {
 
 export function CreateServiceCodeGenerator(program: Program, options: ServiceGenerationOptions) {
   const rootPath = options.controllerModulePath;
-  const serviceNamespaceName = getServiceNamespaceString(program)!;
+  const serviceNamespaceName = getServiceNamespaceString(program);
+  if (!serviceNamespaceName) {
+    return { generateServiceCode(): void {return;}}
+  }
   const serviceName: string = getServiceName(serviceNamespaceName);
-  const serviceRootNamespace = findServiceNamespace(
-    program,
-    program.checker!.getGlobalNamespaceType()
-  );
   const serviceNamespace = "Microsoft." + serviceName;
   const modelNamespace = serviceNamespace + ".Models";
   const ListName = "list",
@@ -84,7 +83,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     PatchName = "update",
     DeleteName = "delete",
     GetName = "read";
-  reportInfo(`Service name: ${serviceName}`, serviceRootNamespace?.node);
+  reportProgress(`Service name: ${serviceName}`);
   reportProgress("rootpath: " + rootPath);
 
   interface TraceableEntity {
@@ -193,6 +192,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
   return { generateServiceCode };
 
   function reportInfo(info: string, target: Node | undefined) {
+    try {
     program.reportDiagnostic(
       {
         text: info,
@@ -200,9 +200,11 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       },
       target ?? NoTarget
     );
+    } catch {}
   }
 
   function reportProgress(message: string) {
+    try {
     program.reportDiagnostic(
       {
         text: message,
@@ -210,9 +212,11 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       },
       NoTarget
     );
+    } catch {}
   }
 
   function reportVerboseInfo(message: string) {
+    try {
     program.reportDiagnostic(
       {
         text: message,
@@ -220,6 +224,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       },
       NoTarget
     );
+    } catch {}
   }
 
   function findServiceNamespace(

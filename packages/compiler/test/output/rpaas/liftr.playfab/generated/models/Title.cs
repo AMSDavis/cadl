@@ -12,7 +12,12 @@ namespace Microsoft.PlayFab.Service.Models
     /// <summary>
     /// Details of a title. 
     /// </summary>
-    public class Title : TrackedResource<TitleProperties> 
+    public class Title : TrackedResource 
     {
+        /// <summary>
+        ///  The resource-specific properties for this resource. 
+        /// </summary>
+        public TitleProperties Properties { get; set; }
+
     }
 }

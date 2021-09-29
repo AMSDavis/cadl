@@ -644,8 +644,8 @@
     },
     "/subscriptions/{subscriptionId}/providers/Dynatrace.Observability/monitors": {
       "get": {
-        "operationId": "Monitors_ListBySubscriptionId",
-        "summary": "List all MonitorResource by subscriptionId",
+        "operationId": "Monitors_ListBySubscription",
+        "summary": "List MonitorResource resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
