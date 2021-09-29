@@ -1,11 +1,10 @@
 import {
-  $doc,
-  $intrinsic,
   createDiagnostic,
-  DecoratedType,
   Diagnostic,
   DiagnosticTarget,
   EventEmitter,
+  getDoc,
+  isIntrinsic,
   Message,
   ModelType,
   navigateProgram,
@@ -13,6 +12,7 @@ import {
   OperationType,
   Program,
   SemanticNodeListener,
+  SyntaxKind,
 } from "@cadl-lang/compiler";
 export const Messages = {
   NoInlineModel: {
@@ -45,27 +45,13 @@ const checkInlineModel: SemanticNodeListener = {
   },
 };
 
-const checkDocumentation: SemanticNodeListener = {
-  operation: (context: OperationType) => {
-    if (!hasDoc(context)) {
-      Checker.report(Messages.OperationDocumentation, context);
-    }
-  },
-  model: (context: ModelType) => {
-    if (!isIntrinsic(context) && !hasDoc(context)) {
-      Checker.report(Messages.ModelDocumentation, context);
-    }
-  },
-};
-
-// using this function instead of getDoc
-// when a model is referenced in another namespace , the getDoc cannot get the doc correctly.
-function hasDoc(target: DecoratedType) {
-  return target.decorators.some((dec) => dec.decorator === $doc);
-}
-
-function isIntrinsic(target: DecoratedType) {
-  return target.decorators.some((dec) => dec.decorator === $intrinsic);
+/**
+ *
+ * @param target
+ * @returns true if the model type is a model with template declaration.
+ */
+function isTemplateDeclaration(target: ModelType) {
+  return target.node?.kind === SyntaxKind.ModelStatement && target.node.templateParameters.length;
 }
 
 class Checker {
@@ -97,6 +83,19 @@ class Checker {
 
 export const runChecker = (p: Program) => {
   const checker = new Checker();
+  const checkDocumentation: SemanticNodeListener = {
+    operation: (context: OperationType) => {
+      if (!getDoc(p, context)) {
+        Checker.report(Messages.OperationDocumentation, context);
+      }
+    },
+    model: (context: ModelType) => {
+      // the `getDoc` function can't get the `doc` for template declaration , not sure if it's expected ?? here we just skip it.
+      if (!isIntrinsic(p, context) && !isTemplateDeclaration(context) && !getDoc(p, context)) {
+        Checker.report(Messages.ModelDocumentation, context);
+      }
+    },
+  };
   checker.register([checkInlineModel, checkDocumentation]);
   return checker.run(p);
 };
