@@ -50,7 +50,7 @@ const checkInlineModel: SemanticNodeListener = {
  * @param target
  * @returns true if the model type is a model with template declaration.
  */
-function isTemplateDeclaration(target: ModelType) {
+function isTemplateDeclarationType(target: ModelType) {
   return target.node?.kind === SyntaxKind.ModelStatement && target.node.templateParameters.length;
 }
 
@@ -90,8 +90,8 @@ export const runChecker = (p: Program) => {
       }
     },
     model: (context: ModelType) => {
-      // the `getDoc` function can't get the `doc` for template declaration , not sure if it's expected ?? here we just skip it.
-      if (!isIntrinsic(p, context) && !isTemplateDeclaration(context) && !getDoc(p, context)) {
+      // the `getDoc` function can't get the `doc` for template declaration type but it can get  doc from an instantiation template type, not sure if it's expected ?? here we just skip it.
+      if (!isIntrinsic(p, context) && !isTemplateDeclarationType(context) && !getDoc(p, context)) {
         Checker.report(Messages.ModelDocumentation, context);
       }
     },
