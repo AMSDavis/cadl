@@ -72,6 +72,10 @@ export interface ServiceGenerationOptions {
 export function CreateServiceCodeGenerator(program: Program, options: ServiceGenerationOptions) {
   const rootPath = options.controllerModulePath;
   const serviceNamespaceName = getServiceNamespaceString(program);
+  const serviceRootNamespace = findServiceNamespace(
+    program,
+    program.checker!.getGlobalNamespaceType()
+  );
   if (!serviceNamespaceName) {
     return {
       generateServiceCode(): void {
@@ -87,7 +91,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     PatchName = "update",
     DeleteName = "delete",
     GetName = "read";
-  reportProgress(`Service name: ${serviceName}`);
+  reportInfo(`Service name: ${serviceName}`, serviceRootNamespace?.node);
   reportProgress("rootpath: " + rootPath);
 
   interface TraceableEntity {
@@ -196,39 +200,33 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
   return { generateServiceCode };
 
   function reportInfo(info: string, target: Node | undefined) {
-    try {
-      program.reportDiagnostic(
-        {
-          text: info,
-          severity: "info",
-        },
-        target ?? NoTarget
-      );
-    } catch {}
+    program.reportDiagnostic(
+      {
+        text: info,
+        severity: "info",
+      },
+      target ?? NoTarget
+    );
   }
 
   function reportProgress(message: string) {
-    try {
-      program.reportDiagnostic(
-        {
-          text: message,
-          severity: "info",
-        },
-        NoTarget
-      );
-    } catch {}
+    program.reportDiagnostic(
+      {
+        text: message,
+        severity: "info",
+      },
+      NoTarget
+    );
   }
 
   function reportVerboseInfo(message: string) {
-    try {
-      program.reportDiagnostic(
-        {
-          text: message,
-          severity: "info",
-        },
-        NoTarget
-      );
-    } catch {}
+    program.reportDiagnostic(
+      {
+        text: message,
+        severity: "info",
+      },
+      NoTarget
+    );
   }
 
   function findServiceNamespace(
