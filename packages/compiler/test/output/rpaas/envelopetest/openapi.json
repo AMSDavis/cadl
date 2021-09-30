@@ -129,10 +129,10 @@
       },
       "put": {
         "operationId": "AllProperties_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a AllPropertiesResource",
         "parameters": [
           {
@@ -251,10 +251,10 @@
       },
       "delete": {
         "operationId": "AllProperties_Delete",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Delete a AllPropertiesResource",
         "parameters": [
           {
@@ -449,10 +449,10 @@
       },
       "put": {
         "operationId": "SystemsOnlyResources_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a SystemOnlyResource",
         "parameters": [
           {
@@ -571,10 +571,10 @@
       },
       "delete": {
         "operationId": "SystemsOnlyResources_Delete",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Delete a SystemOnlyResource",
         "parameters": [
           {

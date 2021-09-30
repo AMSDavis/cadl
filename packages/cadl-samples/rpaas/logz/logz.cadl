@@ -32,6 +32,7 @@ namespace LogzMonitors {
     ): MonitoredResourceListResponse | ErrorResponse;
 }
 
+@armListBy(MonitorNameParameter, "List")
 @armResource({
   path: "tagRules",
   collectionName: "TagRules",
@@ -39,9 +40,7 @@ namespace LogzMonitors {
   parameterType: TagNameParameter,
   standardOperations: ["read", "create", "delete"]
 })
-
 @doc("Details of a TagRule.")
-@armListBy(MonitorNameParameter, "List")
 model TagRuleResource is ProxyResource<{}> {}
 
 model TagNameParameter {
@@ -54,6 +53,7 @@ model SingleSignOnConfigurationsParameter {
   @path configurationName: string;
 }
 
+@armListBy(MonitorNameParameter, "List")
 @armResource({
   path: "singleSignOnConfigurations",
   collectionName: "SingleSignOnConfigurations",
@@ -61,9 +61,9 @@ model SingleSignOnConfigurationsParameter {
   parameterType: SingleSignOnConfigurationsParameter,
 })
 @doc("Details of a single sign-on configuration.")
-@armListBy(MonitorNameParameter, "List")
 model SingleSignOnConfigurationResource is ProxyResource<LogzSingleSignOnProperties> {};
 
+@armListBy(MonitorNameParameter, "List")
 @armResource({
   path: "accounts",
   collectionName: "SubAccounts",
@@ -71,7 +71,6 @@ model SingleSignOnConfigurationResource is ProxyResource<LogzSingleSignOnPropert
   parameterType: SubAccountNameParameter,
 })
 @doc("Details of a sub account.")
-@armListBy(MonitorNameParameter, "List")
 model SubAccountResource is ProxyResource<LogzMonitorResourceProperties> {}
 
 model SubAccountNameParameter {
@@ -93,6 +92,7 @@ namespace SubAccounts {
       @body rule: LogzMonitorResource): ArmResponse<LogzMonitorResource> | ArmCreatedResponse<LogzMonitorResource> | ErrorResponse;
 }
 
+@armListBy(SubAccountNameParameter, "List")
 @armResource({
     path: "tagRules",
     collectionName: "SubAccountTagRules",
@@ -101,5 +101,4 @@ namespace SubAccounts {
     standardOperations: ["read", "create", "delete"]
 })
 @doc("Details of a SubAccount TagRule.")
-@armListBy(SubAccountNameParameter, "List")
 model SubAccountTagRuleResource is ProxyResource<{}> {};

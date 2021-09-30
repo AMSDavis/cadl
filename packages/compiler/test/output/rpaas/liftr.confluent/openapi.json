@@ -219,10 +219,10 @@
       },
       "put": {
         "operationId": "Organizations_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a Organization",
         "parameters": [
           {
@@ -341,10 +341,10 @@
       },
       "delete": {
         "operationId": "Organizations_Delete",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Delete a Organization",
         "parameters": [
           {

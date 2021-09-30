@@ -129,10 +129,10 @@
       },
       "put": {
         "operationId": "CodeSignAccounts_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a CodeSignAccount",
         "parameters": [
           {
@@ -251,10 +251,10 @@
       },
       "delete": {
         "operationId": "CodeSignAccounts_Delete",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Delete a CodeSignAccount",
         "parameters": [
           {

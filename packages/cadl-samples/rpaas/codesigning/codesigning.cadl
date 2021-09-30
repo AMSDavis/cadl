@@ -57,6 +57,7 @@ enum ProvisioningState {
   Succeeded, Failed, Canceled, Provisioning, Updating, Deleting, Accepted
 }
 
+@armListBy(AccountNameParameter, "ListByCodeSignAccounts")
 @armResource({
   path: "certificateProfiles",
   parameterType: ProfileNameParameter,
@@ -64,7 +65,6 @@ enum ProvisioningState {
   collectionName: "CertificateProfiles",
   standardOperations: ["read", "update"],
 })
-@armListBy(AccountNameParameter, "ListByCodeSignAccounts")
 model CertificateProfile is ProxyResource<CertificateProfileProperties> {}
 
 model ProfileNameParameter {

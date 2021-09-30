@@ -162,10 +162,10 @@
       },
       "put": {
         "operationId": "Linker_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a LinkerResource",
         "parameters": [
           {
@@ -278,10 +278,10 @@
       },
       "delete": {
         "operationId": "Linker_Delete",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Delete a LinkerResource",
         "parameters": [
           {

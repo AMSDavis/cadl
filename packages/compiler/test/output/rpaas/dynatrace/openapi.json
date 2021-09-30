@@ -416,10 +416,10 @@
       },
       "put": {
         "operationId": "Monitors_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a MonitorResource",
         "parameters": [
           {
@@ -538,10 +538,10 @@
       },
       "delete": {
         "operationId": "Monitors_Delete",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Delete a MonitorResource",
         "parameters": [
           {
@@ -778,10 +778,10 @@
       },
       "put": {
         "operationId": "TagRules_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a TagRule",
         "parameters": [
           {
@@ -906,10 +906,10 @@
       },
       "delete": {
         "operationId": "TagRules_Delete",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Delete a TagRule",
         "parameters": [
           {
@@ -1025,10 +1025,10 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/singleSignOnConfigurations/{configurationName}": {
       "put": {
         "operationId": "SingleSignOn_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a DynatraceSingleSignOnResource",
         "parameters": [
           {

@@ -129,10 +129,10 @@
       },
       "put": {
         "operationId": "playerDatabases_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a PlayerDatabase",
         "parameters": [
           {
@@ -251,10 +251,10 @@
       },
       "delete": {
         "operationId": "playerDatabases_Delete",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Delete a PlayerDatabase",
         "parameters": [
           {
@@ -449,10 +449,10 @@
       },
       "put": {
         "operationId": "Titles_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a Title",
         "parameters": [
           {
@@ -571,10 +571,10 @@
       },
       "delete": {
         "operationId": "Titles_Delete",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Delete a Title",
         "parameters": [
           {

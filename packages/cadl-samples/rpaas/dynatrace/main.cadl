@@ -10,6 +10,7 @@ import "./models.cadl";
 namespace Dynatrace.Observability;
 
 @doc("Dynatrace Monitor Resource")
+@armListBy(SubscriptionIdParameter, "ListBySubscriptionId") // not needed
 @armResource({
   path: "monitors",
   collectionName: "Monitors",
@@ -24,13 +25,13 @@ model MonitorNameParameter {
 }
 
 @doc("Tag rules for a monitor resource")
+@armListBy(MonitorNameParameter, "List")
 @armResource({
   path: "tagRules",
   parentResourceType: MonitorResource,
   collectionName: "TagRules",
   parameterType: RuleSetNameParameter
 })
-@armListBy(MonitorNameParameter, "List")
 model TagRule is ProxyResource<MonitoringTagRulesProperties> { };
 
 model RuleSetNameParameter {
@@ -103,6 +104,7 @@ namespace Monitors {
 
 // note: I think you only need get.  It is odd to have PUT without DELETE, though.
 @doc("Single sign-on configurations for a given monitor resource.")
+@armListBy(MonitorNameParameter, "List")
 @armResource({
   path: "singleSignOnConfigurations",
   parentResourceType: MonitorResource,
@@ -110,7 +112,6 @@ namespace Monitors {
   parameterType: ConfigurationNameParameter,
   standardOperations: ["create", "read"]      // check if this is correct. We only need these 2 operations
 })
-@armListBy(MonitorNameParameter, "List")
 model DynatraceSingleSignOnResource is ProxyResource<DynatraceSingleSignOnProperties> { };
 
 model ConfigurationNameParameter {

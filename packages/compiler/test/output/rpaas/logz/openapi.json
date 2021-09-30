@@ -195,10 +195,10 @@
       },
       "put": {
         "operationId": "SubAccounts_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a SubAccountResource",
         "parameters": [
           {
@@ -268,10 +268,10 @@
       },
       "delete": {
         "operationId": "SubAccounts_Delete",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Delete a SubAccountResource",
         "parameters": [
           {
@@ -421,10 +421,10 @@
       },
       "put": {
         "operationId": "Monitors_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a LogzMonitorResource",
         "parameters": [
           {
@@ -543,10 +543,10 @@
       },
       "delete": {
         "operationId": "Monitors_Delete",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Delete a LogzMonitorResource",
         "parameters": [
           {
@@ -792,10 +792,10 @@
       },
       "put": {
         "operationId": "TagRules_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a TagRuleResource",
         "parameters": [
           {
@@ -865,10 +865,10 @@
       },
       "delete": {
         "operationId": "TagRules_Delete",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Delete a TagRuleResource",
         "parameters": [
           {
@@ -1030,10 +1030,10 @@
       },
       "put": {
         "operationId": "SingleSignOnConfigurations_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a SingleSignOnConfigurationResource",
         "parameters": [
           {
@@ -1158,10 +1158,10 @@
       },
       "delete": {
         "operationId": "SingleSignOnConfigurations_Delete",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Delete a SingleSignOnConfigurationResource",
         "parameters": [
           {
@@ -1326,10 +1326,10 @@
       },
       "put": {
         "operationId": "SubAccountTagRules_CreateOrUpdate",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Create a SubAccountTagRuleResource",
         "parameters": [
           {
@@ -1402,10 +1402,10 @@
       },
       "delete": {
         "operationId": "SubAccountTagRules_Delete",
-        "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
+        "x-ms-long-running-operation": true,
         "summary": "Delete a SubAccountTagRuleResource",
         "parameters": [
           {
