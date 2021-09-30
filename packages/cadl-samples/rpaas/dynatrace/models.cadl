@@ -2,6 +2,10 @@ import "@cadl-lang/rest";
 import "@azure-tools/cadl-autorest";
 import "@azure-tools/cadl-rpaas";
 
+namespace Dynatrace.Observability;
+
+using Azure.ARM;
+
 @doc("A virtual machine reference")
 @format("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.Compute\\/virtualMachines\\/[^\\/]+")
 model virtualMachineId extends string {}

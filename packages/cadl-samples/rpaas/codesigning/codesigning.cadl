@@ -8,6 +8,8 @@ import "@azure-tools/cadl-rpaas";
 @doc("Code Sign Resource Provider Account and Certificate Profile management API.")
 namespace Microsoft.CodeSigning;
 
+using Azure.ARM;
+
 @doc("A CodeSignAccount resource")
 @armResource({
   path: "codeSignAccounts",

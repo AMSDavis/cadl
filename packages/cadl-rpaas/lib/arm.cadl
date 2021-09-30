@@ -1,5 +1,7 @@
 import "../dist/src/arm.js";
 
+namespace Azure.ARM;
+
 @doc("Common properties for all ARM resources.")
 model ArmResource {
   @visibility("read")

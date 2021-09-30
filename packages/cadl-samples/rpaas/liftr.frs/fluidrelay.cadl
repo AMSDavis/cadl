@@ -8,6 +8,8 @@ import "@azure-tools/cadl-rpaas-controller";
 @serviceVersion("2021-03-12-preview")
 namespace Microsoft.FluidRelay;
 
+using Azure.ARM;
+
 @doc("A string that represents a URI.")
 model Uri extends string {}
 

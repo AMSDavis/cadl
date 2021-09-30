@@ -47,7 +47,7 @@
         "summary": "Validate a linker resource.",
         "parameters": [
           {
-            "$ref": "#/parameters/ResourceUriParameter"
+            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
           },
           {
             "$ref": "#/parameters/LinkerNameParameter"
@@ -86,7 +86,7 @@
         "summary": "List linker resource configurations.",
         "parameters": [
           {
-            "$ref": "#/parameters/ResourceUriParameter"
+            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
           },
           {
             "$ref": "#/parameters/LinkerNameParameter"
@@ -128,7 +128,7 @@
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/ResourceUriParameter"
+            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
           },
           {
             "$ref": "#/parameters/LinkerNameParameter"
@@ -172,7 +172,7 @@
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/ResourceUriParameter"
+            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
           },
           {
             "$ref": "#/parameters/LinkerNameParameter"
@@ -235,7 +235,7 @@
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/ResourceUriParameter"
+            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
           },
           {
             "$ref": "#/parameters/LinkerNameParameter"
@@ -288,7 +288,7 @@
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/ResourceUriParameter"
+            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
           },
           {
             "$ref": "#/parameters/LinkerNameParameter"
@@ -580,7 +580,7 @@
     }
   },
   "parameters": {
-    "ResourceUriParameter": {
+    "Azure.ARM.ResourceUriParameter": {
       "x-ms-parameter-location": "method",
       "name": "resourceUri",
       "in": "path",

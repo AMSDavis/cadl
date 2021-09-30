@@ -1174,7 +1174,7 @@
           "items": {
             "$ref": "#/definitions/MonitoredResource"
           },
-          "x-cadl-name": "MonitoredResource[]",
+          "x-cadl-name": "Dynatrace.Observability.MonitoredResource[]",
           "description": "The items on this page"
         },
         "nextLink": {
@@ -1210,7 +1210,7 @@
           "items": {
             "$ref": "#/definitions/VMResources"
           },
-          "x-cadl-name": "VMResources[]",
+          "x-cadl-name": "Dynatrace.Observability.VMResources[]",
           "description": "VM resource ID on which agent is installed/deleted"
         },
         "state": {
@@ -1228,7 +1228,7 @@
           "items": {
             "$ref": "#/definitions/VMResources"
           },
-          "x-cadl-name": "VMResources[]",
+          "x-cadl-name": "Dynatrace.Observability.VMResources[]",
           "description": "The items on this page"
         },
         "nextLink": {
@@ -1260,7 +1260,7 @@
           "readOnly": true
         },
         "identity": {
-          "$ref": "#/definitions/ManagedIdentityProperties",
+          "$ref": "#/definitions/Azure.ARM.ManagedIdentityProperties",
           "description": "The managed service identities assigned to this resource."
         }
       },
@@ -1544,7 +1544,7 @@
       },
       "description": "Properties specific to the monitor resource."
     },
-    "ManagedIdentityProperties": {
+    "Azure.ARM.ManagedIdentityProperties": {
       "type": "object",
       "properties": {
         "tenantId": {
@@ -1558,13 +1558,13 @@
           "readOnly": true
         },
         "type": {
-          "$ref": "#/definitions/ManagedIdentityType",
+          "$ref": "#/definitions/Azure.ARM.ManagedIdentityType",
           "description": "The type of managed identity assigned to this resource."
         },
         "userAssignedIdentities": {
           "type": "object",
           "additionalProperties": {
-            "$ref": "#/definitions/UserAssignedIdentity"
+            "$ref": "#/definitions/Azure.ARM.UserAssignedIdentity"
           },
           "description": "The identities assigned to this resource by the user."
         }
@@ -1704,7 +1704,7 @@
           "items": {
             "$ref": "#/definitions/FilteringTag"
           },
-          "x-cadl-name": "FilteringTag[]",
+          "x-cadl-name": "Dynatrace.Observability.FilteringTag[]",
           "description": "List of filtering tags to be used for capturing logs. This only takes effect if SendActivityLogs flag is enabled. If empty, all resources will be captured.\nIf only Exclude action is specified, the rules will apply to the list of all available resources. If Include actions are specified, the rules will only include resources with the associated tags."
         }
       },
@@ -1804,7 +1804,7 @@
         "modelAsString": true
       }
     },
-    "ManagedIdentityType": {
+    "Azure.ARM.ManagedIdentityType": {
       "type": "string",
       "description": "The kind of managemed identity assigned to this resource.",
       "enum": [
@@ -1818,7 +1818,7 @@
         "modelAsString": true
       }
     },
-    "UserAssignedIdentity": {
+    "Azure.ARM.UserAssignedIdentity": {
       "type": "object",
       "properties": {
         "clientId": {

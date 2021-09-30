@@ -120,6 +120,7 @@ function prepareOperationInfo(
 
 function evalInNamespace(program: Program, namespace: string, cadlScript: string): void {
   program.evalCadlScript(`
+    using Azure.ARM;
     namespace ${namespace} {
       ${cadlScript}
     }
@@ -361,6 +362,7 @@ function armListByInternal(
   const finalPath = basePath + "/" + pathParts[pathParts.length - 1];
   armResourceInfo.operationNamespaces?.add(armResourceInfo.collectionName + "." + operationName);
   program.evalCadlScript(`
+    using Azure.ARM;
     namespace ${armResourceInfo.parentNamespace} {
       @tag("${armResourceInfo.collectionName}")
       @resource("${finalPath}")

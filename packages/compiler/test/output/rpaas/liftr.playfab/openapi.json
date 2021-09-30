@@ -781,7 +781,7 @@
           "description": "The set of titles belonging to this player database."
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
+          "$ref": "#/definitions/Azure.ARM.ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },
@@ -853,7 +853,7 @@
           ]
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
+          "$ref": "#/definitions/Azure.ARM.ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },
@@ -897,7 +897,7 @@
           "description": "The set of titles belonging to this player database."
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
+          "$ref": "#/definitions/Azure.ARM.ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },
@@ -912,7 +912,7 @@
       "pattern": "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/titles\\/[^\\/]+",
       "description": "A reference to a resource of type title."
     },
-    "ResourceProvisioningState": {
+    "Azure.ARM.ResourceProvisioningState": {
       "type": "string",
       "description": "The provisioning state of a resource type.",
       "enum": [
@@ -937,7 +937,7 @@
           ]
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
+          "$ref": "#/definitions/Azure.ARM.ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },

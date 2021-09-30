@@ -773,7 +773,7 @@
           "description": "The SKU (Stock Keeping Unit) assigned to this resource."
         },
         "identity": {
-          "$ref": "#/definitions/ManagedIdentityProperties",
+          "$ref": "#/definitions/Azure.ARM.ManagedIdentityProperties",
           "description": "The managed service identities assigned to this resource."
         }
       },
@@ -849,7 +849,7 @@
           "readOnly": true
         },
         "identity": {
-          "$ref": "#/definitions/ManagedSystemIdentityProperties",
+          "$ref": "#/definitions/Azure.ARM.ManagedSystemIdentityProperties",
           "description": "The managed service identities assigned to this resource."
         }
       },
@@ -919,7 +919,7 @@
         "provisioningState"
       ]
     },
-    "ManagedIdentityProperties": {
+    "Azure.ARM.ManagedIdentityProperties": {
       "type": "object",
       "properties": {
         "tenantId": {
@@ -933,13 +933,13 @@
           "readOnly": true
         },
         "type": {
-          "$ref": "#/definitions/ManagedIdentityType",
+          "$ref": "#/definitions/Azure.ARM.ManagedIdentityType",
           "description": "The type of managed identity assigned to this resource."
         },
         "userAssignedIdentities": {
           "type": "object",
           "additionalProperties": {
-            "$ref": "#/definitions/UserAssignedIdentity"
+            "$ref": "#/definitions/Azure.ARM.UserAssignedIdentity"
           },
           "description": "The identities assigned to this resource by the user."
         }
@@ -974,7 +974,7 @@
         "provisioningState"
       ]
     },
-    "ManagedSystemIdentityProperties": {
+    "Azure.ARM.ManagedSystemIdentityProperties": {
       "type": "object",
       "properties": {
         "tenantId": {
@@ -988,7 +988,7 @@
           "readOnly": true
         },
         "type": {
-          "$ref": "#/definitions/ManagedSystemIdentityType",
+          "$ref": "#/definitions/Azure.ARM.ManagedSystemIdentityType",
           "description": "The type of managed identity assigned to this resource."
         }
       },
@@ -997,7 +997,7 @@
         "type"
       ]
     },
-    "ManagedIdentityType": {
+    "Azure.ARM.ManagedIdentityType": {
       "type": "string",
       "description": "The kind of managemed identity assigned to this resource.",
       "enum": [
@@ -1011,7 +1011,7 @@
         "modelAsString": true
       }
     },
-    "UserAssignedIdentity": {
+    "Azure.ARM.UserAssignedIdentity": {
       "type": "object",
       "properties": {
         "clientId": {
@@ -1029,7 +1029,7 @@
         "principalId"
       ]
     },
-    "ManagedSystemIdentityType": {
+    "Azure.ARM.ManagedSystemIdentityType": {
       "type": "string",
       "description": "The kind of managemed identity assigned to this resource.",
       "enum": [
