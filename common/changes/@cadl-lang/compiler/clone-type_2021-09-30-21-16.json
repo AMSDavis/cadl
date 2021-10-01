@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/compiler",
+      "comment": "Add an API to clone a type",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@cadl-lang/compiler",
+  "email": "brian.terlson@microsoft.com"
+}

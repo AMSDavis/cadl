@@ -12,7 +12,6 @@ namespace Dynatrace.Observability;
 using Azure.ARM;
 
 @doc("Dynatrace Monitor Resource")
-@armListBy(SubscriptionIdParameter, "ListBySubscriptionId") // not needed
 @armResource({
   path: "monitors",
   collectionName: "Monitors",
