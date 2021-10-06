@@ -137,7 +137,7 @@ model Page<T> {
   value: T[];
 
   @doc("The link to the next page of items")
-  nextLink: string;
+  nextLink?: string;
 }
 
 model ApiVersionParameter {

@@ -44,7 +44,7 @@ model Error {
 
 model Page<T> {
   items: T[];
-  nextLink: string;
+  nextLink?: string;
 }
 
 alias KeyValuePage = Page<KeyValue>;
