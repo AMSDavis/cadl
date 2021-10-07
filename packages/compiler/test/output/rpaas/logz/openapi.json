@@ -1544,8 +1544,7 @@
       },
       "description": "A lit of monitored resources.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "LogzMonitorResource": {
@@ -1712,8 +1711,7 @@
       },
       "description": "The response of a LogzMonitorResource list operation.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "SubAccountResourceListResult": {
@@ -1734,8 +1732,7 @@
       },
       "description": "The response of a SubAccountResource list operation.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "TagRuleResource": {
@@ -1786,8 +1783,7 @@
       },
       "description": "The response of a TagRuleResource list operation.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "SingleSignOnConfigurationResource": {
@@ -1858,8 +1854,7 @@
       },
       "description": "The response of a SingleSignOnConfigurationResource list operation.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "SubAccountTagRuleResource": {
@@ -1910,8 +1905,7 @@
       },
       "description": "The response of a SubAccountTagRuleResource list operation.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "MonitoredResource": {

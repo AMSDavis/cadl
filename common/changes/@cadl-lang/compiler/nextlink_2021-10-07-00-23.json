@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/compiler",
+      "comment": "Make nextLink optional in pageable response",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@cadl-lang/compiler",
+  "email": "mikekistler@microsoft.com"
+}

@@ -195,8 +195,7 @@
         }
       },
       "required": [
-        "items",
-        "nextLink"
+        "items"
       ]
     },
     "Pet": {
@@ -235,8 +234,7 @@
         }
       },
       "required": [
-        "items",
-        "nextLink"
+        "items"
       ]
     },
     "Toy": {

@@ -620,8 +620,7 @@
       },
       "description": "The response of a CodeSignAccount list operation.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "CertificateProfile": {
@@ -692,8 +691,7 @@
       },
       "description": "The response of a CertificateProfile list operation.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "CodeSignAccountProperties": {

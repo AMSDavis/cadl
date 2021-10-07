@@ -827,8 +827,7 @@
       },
       "description": "The response of a AllPropertiesResource list operation.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "SystemOnlyResource": {
@@ -903,8 +902,7 @@
       },
       "description": "The response of a SystemOnlyResource list operation.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "AllPropertiesProperties": {

@@ -108,8 +108,7 @@
                 }
               },
               "required": [
-                "items",
-                "nextLink"
+                "items"
               ],
               "x-cadl-name": "(anonymous model)"
             }
@@ -444,8 +443,7 @@
                 }
               },
               "required": [
-                "items",
-                "nextLink"
+                "items"
               ],
               "x-cadl-name": "(anonymous model)"
             }
@@ -741,8 +739,7 @@
                 }
               },
               "required": [
-                "items",
-                "nextLink"
+                "items"
               ],
               "x-cadl-name": "(anonymous model)"
             }
@@ -841,8 +838,7 @@
                 }
               },
               "required": [
-                "items",
-                "nextLink"
+                "items"
               ],
               "x-cadl-name": "(anonymous model)"
             }
