@@ -541,8 +541,7 @@
       },
       "description": "The response of a ConfluentAgreementResource list operation.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "Organization": {
@@ -621,8 +620,7 @@
       },
       "description": "The response of a Organization list operation.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "ConfluentAgreementResourceProperties": {

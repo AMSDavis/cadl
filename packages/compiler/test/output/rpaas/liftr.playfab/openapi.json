@@ -805,8 +805,7 @@
       },
       "description": "The response of a PlayerDatabase list operation.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "Title": {
@@ -877,8 +876,7 @@
       },
       "description": "The response of a Title list operation.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "PlayerDatabaseProperties": {

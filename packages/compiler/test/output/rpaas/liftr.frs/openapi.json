@@ -606,8 +606,7 @@
       },
       "description": "The response of a FluidRelayServer list operation.",
       "required": [
-        "value",
-        "nextLink"
+        "value"
       ]
     },
     "KeyName": {

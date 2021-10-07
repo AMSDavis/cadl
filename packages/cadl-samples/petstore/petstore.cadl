@@ -36,7 +36,7 @@ model NotModified<T> {
 
 model ResponsePage<T> {
   items: T[];
-  nextLink: string;
+  nextLink?: string;
 }
 
 model PetId {
