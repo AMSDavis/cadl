@@ -1,6 +1,7 @@
 import { addSecurityDefinition, addSecurityRequirement } from "@azure-tools/cadl-autorest";
 import { NamespaceType, Program, Type } from "@cadl-lang/compiler";
 import { $consumes, $produces, setServiceNamespace } from "@cadl-lang/rest";
+import { reportDiagnostic } from "./lib.js";
 
 const armNamespacesKey = Symbol();
 
@@ -9,10 +10,11 @@ const armNamespacesKey = Symbol();
 
 export function $armNamespace(program: Program, entity: Type, armNamespace?: string) {
   if (entity.kind !== "Namespace") {
-    program.reportDiagnostic(
-      "The @armNamespace decorator can only be applied to namespaces.",
-      entity
-    );
+    reportDiagnostic(program, {
+      code: "decorator-wrong-type",
+      messageId: "armNamespace",
+      target: entity,
+    });
     return;
   }
 

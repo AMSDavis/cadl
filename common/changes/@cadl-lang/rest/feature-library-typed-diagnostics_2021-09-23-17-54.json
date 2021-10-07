@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/rest",
+      "comment": "Strongly defined diagnostics",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@cadl-lang/rest",
+  "email": "tiguerin@microsoft.com"
+}

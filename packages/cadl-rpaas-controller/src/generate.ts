@@ -38,6 +38,7 @@ import mkdirp from "mkdirp";
 import * as path from "path";
 import * as sqrl from "squirrelly";
 import { fileURLToPath } from "url";
+import { reportDiagnostic } from "./lib.js";
 
 export async function $onBuild(program: Program) {
   const rootPath = program.host.resolveAbsolutePath(
@@ -887,7 +888,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           return { name: "bool", nameSpace: "System", isBuiltIn: true };
         case "Union":
           // Need to figure out if we want to support unions, otherwise this will require a static analysis rule.
-          program.reportDiagnostic("RPaaS types may not use unions", cadlType.node);
+          reportDiagnostic(program, { code: "no-union", target: cadlType.node });
           return undefined;
         case "Array":
           const arrType = getCSharpType(cadlType.elementType);
@@ -1073,10 +1074,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
     async function generateResource(resource: any) {
       const resourcePath = genPath + "/" + resource.name + "ControllerBase.cs";
-      program.reportDiagnostic({
-        message: "Writing resource controller for " + resource.name,
-        severity: "info",
-      });
+      reportInfo("Writing resource controller for " + resource.name, undefined);
       await program.host.writeFile(
         resolvePath(resourcePath),
         await sqrl.renderFile(
@@ -1117,7 +1115,11 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       (await fs.readdir(singleTemplatePath)).forEach(async (file) => {
         const templatePath = resolvePath(path.join(singleTemplatePath, file));
         await generateSingleFile(templatePath, outPath).catch((err) =>
-          program.reportDiagnostic(`Error creating single file: ${file},  ${err}`, NoTarget)
+          reportDiagnostic(program, {
+            code: "creating-file",
+            format: { filename: file, error: err },
+            target: NoTarget,
+          })
         );
       });
 
@@ -1128,11 +1130,13 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         const outFile = path.join(outPath, baseName + ".cs");
         reportProgress(`    -- ${templateFile} => ${outFile}`);
         const content = await sqrl.renderFile(templatePath, outputModel);
-        await program.host
-          .writeFile(resolvePath(outFile), content)
-          .catch((err) =>
-            program.reportDiagnostic(`Error writing single file: ${outFile}, ${err}`, NoTarget)
-          );
+        await program.host.writeFile(resolvePath(outFile), content).catch((err) =>
+          reportDiagnostic(program, {
+            code: "writing-file",
+            format: { filename: outFile, error: err },
+            target: NoTarget,
+          })
+        );
       }
     }
 
@@ -1162,8 +1166,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         const targetFile = resolvePath(targetPath + path.sep + file);
         if (
           (
-            await fs.lstat(sourceFile).catch((err) => {
-              program.reportDiagnostic(`fstat error: ${err}`, NoTarget);
+            await fs.lstat(sourceFile).catch((error) => {
+              reportDiagnostic(program, { code: "fstat", format: { error }, target: NoTarget });
             })
           )?.isDirectory()
         ) {
@@ -1195,38 +1199,62 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     const modelsPath = path.join(genPath, "models");
     if (!program.compilerOptions.noEmit && !program.hasError()) {
       await ensureCleanDirectory(genPath).catch((err) =>
-        program.reportDiagnostic(`Error cleaning output directory: ${err}`, NoTarget)
+        reportDiagnostic(program, {
+          code: "cleaning-dir",
+          format: { error: err },
+          target: NoTarget,
+        })
       );
       await createDirIfNotExists(operationsPath).catch((err) =>
-        program.reportDiagnostic(`Error creating output directory: ${err}`, NoTarget)
+        reportDiagnostic(program, {
+          code: "creating-dir",
+          format: { error: err },
+          target: NoTarget,
+        })
       );
       await copyModelFiles(
         path.join(rootPath, "clientlib", options.controllerHost),
         modelsPath
-      ).catch((err) => program.reportDiagnostic(`Error copying model files: ${err}`, NoTarget));
+      ).catch((err) =>
+        reportDiagnostic(program, { code: "copy-files", format: { error: err }, target: NoTarget })
+      );
       await program.host.writeFile(
         routesPath,
         await sqrl.renderFile(path.join(templatePath, "serviceRoutingConstants.sq"), outputModel)
       );
       await generateSingleDirectory(rootPath, operationsPath).catch((err) =>
-        program.reportDiagnostic(`Error creating operations directory: ${err}`, NoTarget)
+        reportDiagnostic(program, {
+          code: "creating-dir",
+          format: { error: err },
+          target: NoTarget,
+        })
       );
       outputModel.resources.forEach(
         async (resource: Resource) =>
-          await generateResource(resource).catch((err) =>
-            program.reportDiagnostic(
-              `Error generating resource: ${resource?.nameSpace}.${resource?.name}, ${err}`,
-              resource.sourceNode || NoTarget
-            )
+          await generateResource(resource).catch((error) =>
+            reportDiagnostic(program, {
+              code: "generating-resource",
+              format: {
+                namespace: resource?.nameSpace ?? "",
+                resourceName: resource?.name ?? "",
+                error,
+              },
+              target: NoTarget,
+            })
           )
       );
       outputModel.models.forEach(async (model) => {
         reportInfo(`Rendering model ${model.nameSpace}.${model.name}`, model.sourceNode);
-        await generateModel(model).catch((err) =>
-          program.reportDiagnostic(
-            `Error generating model: ${model?.nameSpace}.${model?.name}, ${err}`,
-            model.sourceNode || NoTarget
-          )
+        await generateModel(model).catch((error) =>
+          reportDiagnostic(program, {
+            code: "generating-model",
+            format: {
+              namespace: model?.nameSpace ?? "",
+              modelName: model?.name ?? "",
+              error,
+            },
+            target: NoTarget,
+          })
         );
       });
 

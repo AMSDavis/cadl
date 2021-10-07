@@ -1,5 +1,6 @@
 import { NamespaceType, Program, Type } from "@cadl-lang/compiler";
 import { $resource } from "@cadl-lang/rest";
+import { reportDiagnostic } from "./lib.js";
 import { ArmResourceInfo, getArmResourceInfo, ParameterInfo } from "./resource.js";
 
 type StandardOperationGenerator = (program: Program, target: Type, documentation?: string) => void;
@@ -16,10 +17,11 @@ const resourceOperationNamespaces = new Map<NamespaceType, Type>();
 
 export function $armResourceOperations(program: Program, target: Type, resourceType: Type): void {
   if (target.kind !== "Namespace") {
-    program.reportDiagnostic(
-      `The @armResourceOperations decorator can only be applied to namespaces.`,
-      target
-    );
+    reportDiagnostic(program, {
+      code: "decorator-wrong-type",
+      messageId: "armResourceOperations",
+      target,
+    });
     return;
   }
 
@@ -30,10 +32,7 @@ export function $armResourceOperations(program: Program, target: Type, resourceT
   }
 
   if (!armResourceInfo.resourcePath) {
-    program.reportDiagnostic(
-      `The @armResourceOperations decorator can only be used for resource types that have an @armResourcePath configured.`,
-      target
-    );
+    reportDiagnostic(program, { code: "arm-resource-operations-with-resource-path", target });
     return;
   }
 
@@ -48,27 +47,29 @@ export function $armResourceOperations(program: Program, target: Type, resourceT
 
 export function armResourceParams(program: Program, operation: Type): void {
   if (operation.kind !== "Operation") {
-    program.reportDiagnostic(
-      `The @armOperation decorator can only be applied to operations.`,
-      operation
-    );
+    reportDiagnostic(program, {
+      code: "decorator-wrong-type",
+      messageId: "armOperation",
+      target: operation,
+    });
     return;
   }
 
   if (!operation.namespace) {
-    program.reportDiagnostic(
-      `The @armOperation decorator can only be applied to an operation that is defined inside of a namespace.`,
-      operation
-    );
+    reportDiagnostic(program, {
+      code: "decorator-in-namespace",
+      format: { decoratorName: "armOperation" },
+      target: operation,
+    });
     return;
   }
 
   const resourceType = resourceOperationNamespaces.get(operation.namespace);
   if (!resourceType) {
-    program.reportDiagnostic(
-      `The @armOperation decorator can only be applied to an operation that is defined inside of a namespace marked with @armResourceOperations.`,
-      operation
-    );
+    reportDiagnostic(program, {
+      code: "arm-operation-in-namespace-with-resource-operations",
+      target: operation,
+    });
     return;
   }
 
@@ -96,10 +97,13 @@ function prepareOperationInfo(
     return;
   }
   if (!armResourceInfo.resourcePath) {
-    program.reportDiagnostic(
-      `The @${decoratorName} decorator can only be applied to a resource type with a resource path.`,
-      resourceType
-    );
+    reportDiagnostic(program, {
+      code: "decorator-with-resource-path",
+      format: {
+        decoratorName,
+      },
+      target: resourceType,
+    });
     return;
   }
 
@@ -290,7 +294,11 @@ export function generateStandardOperations(
     if (generator) {
       generator(program, resourceType);
     } else {
-      program.reportDiagnostic(`The standard operation type '${op}' is unknown.`, resourceType);
+      reportDiagnostic(program, {
+        code: "unknown-std-operation",
+        target: resourceType,
+        format: { operation: op },
+      });
     }
   }
 }
@@ -305,10 +313,10 @@ function armListByInternal(
 ) {
   const resourcePath = armResourceInfo.resourcePath;
   if (!resourcePath) {
-    program.reportDiagnostic(
-      "List operations can only be created for a resource type with a resource path.",
-      target
-    );
+    reportDiagnostic(program, {
+      code: "list-operation-with-resource-path",
+      target,
+    });
     return;
   }
 
@@ -327,7 +335,10 @@ function armListByInternal(
       : pathParams.find((p) => p.typeName === paramTypeName);
 
   if (!paramInfo) {
-    program.reportDiagnostic("Parameter type not a part of the resource", target);
+    reportDiagnostic(program, {
+      code: "parameter-in-resource",
+      target,
+    });
     return;
   }
 
@@ -388,15 +399,20 @@ export function $armListBy(
     return;
   }
   if (!armResourceInfo.resourcePath) {
-    program.reportDiagnostic(
-      "The @armListBy decorator can only be applied to a resource type with a resource path.",
-      target
-    );
+    reportDiagnostic(program, {
+      code: "decorator-with-resource-path",
+      format: { decoratorName: "armListBy" },
+      target,
+    });
     return;
   }
 
   if (paramType.kind !== "Model") {
-    program.reportDiagnostic("Parameter type is not a model", target);
+    reportDiagnostic(program, {
+      code: "decorator-wrong-type",
+      messageId: "armListBy",
+      target,
+    });
     return;
   }
 

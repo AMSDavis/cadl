@@ -8,6 +8,7 @@ import {
   TupleType,
   Type,
 } from "@cadl-lang/compiler";
+import { reportDiagnostic } from "./lib.js";
 import { getArmNamespace } from "./namespace.js";
 import { generateStandardOperations } from "./operations.js";
 
@@ -151,26 +152,29 @@ function getPropertyValue<TValue extends Type>(
 
 export function $armResource(program: Program, resourceType: Type, resourceDetails: Type) {
   if (resourceDetails.kind !== "Model") {
-    program.reportDiagnostic(
-      "The parameter to @armResource must be a model expression.",
-      resourceType
-    );
+    reportDiagnostic(program, {
+      code: "decorator-param-wrong-type",
+      messageId: "armResource",
+      target: resourceType,
+    });
     return;
   }
 
   if (resourceType.kind !== "Model") {
-    program.reportDiagnostic(
-      "The @armResource decorator can only be applied to model types.",
-      resourceType
-    );
+    reportDiagnostic(program, {
+      code: "decorator-wrong-type",
+      messageId: "armResource",
+      target: resourceType,
+    });
     return;
   }
 
   if (!resourceType.namespace) {
-    program.reportDiagnostic(
-      "The @armResource can only be applied to a model type that is defined in a namespace",
-      resourceType
-    );
+    reportDiagnostic(program, {
+      code: "decorator-in-namespace",
+      format: { decoratorName: "armResource" },
+      target: resourceType,
+    });
     return;
   }
 
@@ -218,7 +222,11 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
   if (operationsValue) {
     standardOperations = operationsValue.values.map((v) => {
       if (v.kind !== "String") {
-        program.reportDiagnostic(`Standard operation value must be a string`, v);
+        reportDiagnostic(program, {
+          code: "decorator-param-wrong-type",
+          messageId: "armResourceStandardOperation",
+          target: resourceType,
+        });
         return "";
       }
       return v.value;
@@ -226,10 +234,11 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
   }
 
   if (resourceParamType && resourceParamType.kind !== "Model") {
-    program.reportDiagnostic(
-      "The @armResource decorator only accepts model types for the resource parameter type.",
-      resourceType
-    );
+    reportDiagnostic(program, {
+      code: "decorator-param-wrong-type",
+      messageId: "armResourceParameterType",
+      target: resourceType,
+    });
     return;
   }
 
@@ -243,10 +252,7 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
   // Locate the ARM namespace in the namespace hierarchy
   let armNamespace = getArmNamespace(program, resourceType.namespace);
   if (!armNamespace) {
-    program.reportDiagnostic(
-      "The @armNamespace decorator must be used to define the ARM namespace of the service.  This is best applied to the file-level namespace.",
-      resourceType
-    );
+    reportDiagnostic(program, { code: "arm-resource-missing-arm-namespace", target: resourceType });
     return;
   }
 
@@ -276,17 +282,22 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
       }
 
       if (!propertiesType || propertiesType.kind !== "Model") {
-        program.reportDiagnostic("Resource property type must be a model type.", resourceType);
+        reportDiagnostic(program, {
+          code: "decorator-param-wrong-type",
+          messageId: "armResourceResourceProperty",
+          target: resourceType,
+        });
       }
 
       // This will find either TrackedResource<T> or TrackedResourceBase
       if (coreType.name.startsWith("TrackedResource")) {
         const provisioningStateProperty = propertiesType.properties.get("provisioningState");
         if (!provisioningStateProperty || provisioningStateProperty.type.kind !== "Enum") {
-          program.reportDiagnostic(
-            "A TrackedResource must have a 'provisioningState' property of type 'enum' to track the provisioningState of the last operation. The enum must include values 'Failed', 'Succeeded', and 'Canceled'.",
-            resourceType
-          );
+          reportDiagnostic(program, {
+            code: "tracked-resource-provisioning-state",
+            messageId: "missing",
+            target: resourceType,
+          });
           return;
         }
 
@@ -294,10 +305,15 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
         const enumValues = new Set(provisioningStateProperty.type.members.map((m) => m.name));
         const missingStates = ExpectedProvisioningStates.filter((v) => !enumValues.has(v));
         if (missingStates.length > 0) {
-          program.reportDiagnostic(
-            `The enum type '${provisioningStateProperty.type.name}' must also contain the following provisioning states: ${missingStates}.`,
-            resourceType
-          );
+          reportDiagnostic(program, {
+            code: "tracked-resource-provisioning-state",
+            messageId: "wrongType",
+            format: {
+              name: provisioningStateProperty.type.name,
+              missingStates: missingStates.join(","),
+            },
+            target: resourceType,
+          });
           return;
         }
 
