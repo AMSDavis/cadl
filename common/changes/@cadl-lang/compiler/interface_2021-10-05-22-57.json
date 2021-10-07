@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/compiler",
+      "comment": "Implement `interface`",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@cadl-lang/compiler",
+  "email": "brian.terlson@microsoft.com"
+}
