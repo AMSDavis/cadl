@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "cadl-vscode",
+      "comment": "**Added** Language server support for directives",
+      "type": "minor"
+    }
+  ],
+  "packageName": "cadl-vscode",
+  "email": "tiguerin@microsoft.com"
+}

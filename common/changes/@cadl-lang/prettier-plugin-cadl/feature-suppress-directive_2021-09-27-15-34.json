@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@cadl-lang/prettier-plugin-cadl",
+      "comment": "**Added** Support for formatting directives",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@cadl-lang/prettier-plugin-cadl",
+  "email": "tiguerin@microsoft.com"
+}
