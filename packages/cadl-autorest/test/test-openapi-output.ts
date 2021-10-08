@@ -307,6 +307,21 @@ describe("autorest: definitions", () => {
     });
   });
 
+  it("defines models with default properties", async () => {
+    const res = await oapiForModel(
+      "Pet",
+      `
+      model Pet {
+        someString?: string = "withDefault"
+      }
+      `
+    );
+
+    ok(res.isRef);
+    ok(res.defs.Pet, "expected definition named Pet");
+    deepStrictEqual(res.defs.Pet.properties.someString.default, "withDefault");
+  });
+
   it("defines models extended from primitives with attrs", async () => {
     const res = await oapiForModel(
       "Pet",
@@ -411,6 +426,22 @@ describe("autorest: literals", () => {
       deepStrictEqual(schema, test[1]);
     });
   }
+});
+
+describe("autorest: operations", () => {
+  it("define operations with param with defaults", async () => {
+    const res = await openApiFor(
+      `
+      @resource("/")
+      namespace root {
+        @get()
+        op read(@query queryWithDefault?: string = "defaultValue"): string;
+      }
+      `
+    );
+
+    deepStrictEqual(res.paths["/"].get.parameters[0].default, "defaultValue");
+  });
 });
 
 async function oapiForModel(name: string, modelDef: string) {

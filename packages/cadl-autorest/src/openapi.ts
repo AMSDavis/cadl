@@ -786,6 +786,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     ph.in = kind;
     ph.required = !param.optional;
     ph.description = getDoc(program, param);
+    if (param.default) {
+      ph.default = getDefaultValue(param.default);
+    }
 
     // Apply decorators to a copy of the parameter definition.  We use
     // Object.assign here because applyIntrinsicDecorators returns a new object
@@ -1005,6 +1008,21 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     return type.kind === "Model" && type.name === "null" && isIntrinsic(program, type);
   }
 
+  function getDefaultValue(type: Type): any {
+    switch (type.kind) {
+      case "String":
+        return type.value;
+      case "Number":
+        return type.value;
+      case "Boolean":
+        return type.value;
+      case "Tuple":
+        return type.values.map(getDefaultValue);
+      default:
+        program.reportDiagnostic(`Invalid type '${type.kind}' for a default value`, type);
+    }
+  }
+
   function getSchemaForModel(model: ModelType) {
     let modelSchema: any = {
       type: "object",
@@ -1029,6 +1047,10 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       modelSchema.properties[name] = applyIntrinsicDecorators(prop, getSchemaOrRef(prop.type));
       if (description) {
         modelSchema.properties[name].description = description;
+      }
+
+      if (prop.default) {
+        modelSchema.properties[name].default = getDefaultValue(prop.default);
       }
 
       // Should the property be marked as readOnly?

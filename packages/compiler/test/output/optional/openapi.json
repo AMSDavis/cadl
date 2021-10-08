@@ -1,0 +1,87 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "(title)",
+    "version": "0000-00-00"
+  },
+  "host": "management.azure.com",
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "tags": [],
+  "paths": {
+    "/test": {
+      "get": {
+        "operationId": "OptionalMethods_read",
+        "parameters": [
+          {
+            "name": "queryString",
+            "in": "query",
+            "required": false,
+            "default": "defaultQueryString",
+            "type": "string"
+          },
+          {
+            "name": "queryNumber",
+            "in": "body",
+            "required": false,
+            "default": 123,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/HasOptional"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "HasOptional": {
+      "type": "object",
+      "properties": {
+        "optionalNoDefault": {
+          "type": "string"
+        },
+        "optionalString": {
+          "type": "string",
+          "default": "default string"
+        },
+        "optionalNumber": {
+          "type": "integer",
+          "format": "int32",
+          "default": 123
+        },
+        "optionalBoolean": {
+          "type": "boolean",
+          "default": true
+        },
+        "optionalArray": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-cadl-name": "Cadl.string[]",
+          "default": [
+            "foo",
+            "bar"
+          ]
+        }
+      }
+    }
+  },
+  "parameters": {}
+}
