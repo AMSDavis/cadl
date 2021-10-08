@@ -1,5 +1,5 @@
 import {
-  createDiagnostic,
+  createDiagnosticLegacy,
   Diagnostic,
   DiagnosticTarget,
   EventEmitter,
@@ -63,7 +63,7 @@ class Checker {
     target: DiagnosticTarget | typeof NoTarget,
     args?: (string | number)[]
   ) {
-    Checker.diagnostics.push(createDiagnostic(message, target, args));
+    Checker.diagnostics.push(createDiagnosticLegacy(message, target, args));
   }
   private eventEmitter = new EventEmitter<SemanticNodeListener>();
 
