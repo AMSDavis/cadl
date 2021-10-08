@@ -18,19 +18,22 @@ export const Messages = {
   NoInlineModel: {
     code: "no-inline-model",
     severity: "warning",
-    text: "Inline models cannot be represented in many languages. Using this pattern can result in bad auto naming. ",
+    text:
+      "Inline models cannot be represented in many languages. Using this pattern can result in bad auto naming. ",
   } as const,
 
   ModelDocumentation: {
     code: "model-requires-documentation",
     severity: "warning",
-    text: "The model must have a documentation or description , please use decarator @doc to add it.",
+    text:
+      "The model must have a documentation or description , please use decarator @doc to add it.",
   } as const,
 
   OperationDocumentation: {
     code: "operation-requires-documentation",
     severity: "warning",
-    text: "The operation must have a documentation or description , please use decarator @doc to add it.",
+    text:
+      "The operation must have a documentation or description , please use decarator @doc to add it.",
   } as const,
 };
 
