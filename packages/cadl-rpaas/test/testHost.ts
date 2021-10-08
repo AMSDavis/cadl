@@ -16,7 +16,7 @@ export async function createArmTestHost() {
     resolve(root, "lib/arm.cadl")
   );
   await host.addRealJsFile(
-    "./node_modules/cadl-rpaas/dist/arm.js",
+    "./node_modules/cadl-rpaas/dist/src/arm.js",
     resolve(root, "dist/src/arm.js")
   );
 
@@ -40,8 +40,8 @@ export async function createArmTestHost() {
     resolve(root, "../cadl-autorest/package.json")
   );
   await host.addRealJsFile(
-    "./node_modules/cadl-autorest/dist/openapi.js",
-    resolve(root, "../cadl-autorest/dist/openapi.js")
+    "./node_modules/cadl-autorest/dist/src/openapi.js",
+    resolve(root, "../cadl-autorest/dist/src/openapi.js")
   );
 
   return host;

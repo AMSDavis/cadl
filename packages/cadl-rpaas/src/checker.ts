@@ -17,29 +17,31 @@ import {
 export const Messages = {
   NoInlineModel: {
     code: "no-inline-model",
-    severity: "error",
-    text:
-      "Inline models cannot be represented in many languages. Using this pattern can result in bad auto naming. ",
+    severity: "warning",
+    text: "Inline models cannot be represented in many languages. Using this pattern can result in bad auto naming. ",
   } as const,
 
   ModelDocumentation: {
     code: "model-requires-documentation",
-    severity: "error",
-    text:
-      "The model must have a documentation or description , please use decarator @doc to add it.",
+    severity: "warning",
+    text: "The model must have a documentation or description , please use decarator @doc to add it.",
   } as const,
 
   OperationDocumentation: {
     code: "operation-requires-documentation",
-    severity: "error",
-    text:
-      "The operation must have a documentation or description , please use decarator @doc to add it.",
+    severity: "warning",
+    text: "The operation must have a documentation or description , please use decarator @doc to add it.",
   } as const,
 };
 
+function isInlineModel(target: ModelType) {
+  return !target.name;
+}
+
 const checkInlineModel: SemanticNodeListener = {
   model: (context: ModelType) => {
-    if (!context.name) {
+    // the empty model'{}' can be ignored.
+    if (isInlineModel(context) && context.properties.size > 0) {
       Checker.report(Messages.NoInlineModel, context);
     }
   },
@@ -91,7 +93,12 @@ export const runChecker = (p: Program) => {
     },
     model: (context: ModelType) => {
       // the `getDoc` function can't get the `doc` for template declaration type but it can get  doc from an instantiation template type, not sure if it's expected ?? here we just skip it.
-      if (!isIntrinsic(p, context) && !isTemplateDeclarationType(context) && !getDoc(p, context)) {
+      if (
+        !isIntrinsic(p, context) &&
+        !isTemplateDeclarationType(context) &&
+        !isInlineModel(context) &&
+        !getDoc(p, context)
+      ) {
         Checker.report(Messages.ModelDocumentation, context);
       }
     },

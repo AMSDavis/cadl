@@ -2,7 +2,7 @@ import { Diagnostic } from "@cadl-lang/compiler";
 import { strictEqual } from "assert";
 import { resolve } from "path";
 import { Messages } from "../src/checker.js";
-import { createOpenAPITestHost } from "./testHost.js";
+import { createArmTestHost } from "./testHost.js";
 
 describe("check rules", () => {
   it("no documentation", async () => {
@@ -46,9 +46,9 @@ describe("check rules", () => {
 });
 
 export async function CheckFor(code: string) {
-  const host = await createOpenAPITestHost();
+  const host = await createArmTestHost();
   const outPath = resolve("/openapi.json");
-  host.addCadlFile("./main.cadl", `import "rest"; import "cadl-autorest";${code}`);
+  host.addCadlFile("./main.cadl", `import "rest"; import "cadl-rpaas";${code}`);
   const result = await host.diagnose("./main.cadl", {
     noEmit: false,
     swaggerOutputFile: outPath,
