@@ -51,6 +51,7 @@ export async function $onBuild(p: Program) {
   const options: OpenAPIEmitterOptions = {
     outputFile: p.compilerOptions.swaggerOutputFile || path.resolve("./openapi.json"),
   };
+
   const emitter = createOAPIEmitter(p, options);
   await emitter.emitOpenAPI();
 }
