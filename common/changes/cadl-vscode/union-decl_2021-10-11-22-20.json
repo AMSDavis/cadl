@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "cadl-vscode",
+      "comment": "Add colorization of union declarations",
+      "type": "minor"
+    }
+  ],
+  "packageName": "cadl-vscode"
+}
