@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "cadl-vscode",
+      "comment": "Add colorization for interfaces",
+      "type": "minor"
+    }
+  ],
+  "packageName": "cadl-vscode"
+}
