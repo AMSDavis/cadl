@@ -91,43 +91,29 @@ model NameParameter {
   @path name: string;
 }
 
-@doc("Response envelope for ARM operations.")
-model ArmResponseBase {
-  @header("x-ms-client-request-id")
-  clientRequestId: string;
-
-  @header("x-ms-correlation-request-id")
-  correlationRequestId: string;
-}
-
 @doc("ARM operation completed successfully.")
 model ArmResponse<T> {
   ... OkResponse<T>;
-  ... ArmResponseBase;
 }
 
 @doc("ARM create operation completed successfully.")
 model ArmCreatedResponse<T> {
   ... CreatedResponse;
-  ... ArmResponseBase;
   @body body: T;
 }
 
 @doc("Resource deleted successfully.")
 model ArmDeletedResponse {
-  ... ArmResponseBase,
   @header statusCode: 200;
 }
 
 @doc("Resource deletion accepted.")
 model ArmDeleteAcceptedResponse {
-  ... ArmResponseBase,
   @header statusCode: 202;
 }
 
 @doc("Resource deleted successfully.")
 model ArmDeletedNoContentResponse {
-  ... ArmResponseBase,
   @header statusCode: 204;
 }
 

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas",
+      "comment": "Remove unneeded http headers from base response #815",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas"
+}

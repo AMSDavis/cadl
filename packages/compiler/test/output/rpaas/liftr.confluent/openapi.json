@@ -67,14 +67,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/ConfluentAgreementResource"
@@ -106,14 +98,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/ConfluentAgreementResourceListResult"
@@ -145,14 +129,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/OperationListResult"
@@ -193,14 +169,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/Organization"
@@ -249,28 +217,12 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/Organization"
             }
           },
           "201": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/Organization"
@@ -315,14 +267,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/Organization"
@@ -362,36 +306,12 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deleted successfully."
           },
           "202": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deletion accepted."
           },
           "204": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deleted successfully."
           },
           "default": {
@@ -420,14 +340,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/OrganizationListResult"
@@ -465,14 +377,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/OrganizationListResult"
