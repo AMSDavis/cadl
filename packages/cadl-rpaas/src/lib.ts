@@ -1,6 +1,6 @@
 import { createCadlLibrary, paramMessage } from "@cadl-lang/compiler";
 
-const libDef = {
+export const libDef = {
   name: "@azure-tools/cadl-rpaas",
   diagnostics: {
     "decorator-wrong-type": {

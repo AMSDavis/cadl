@@ -1,7 +1,7 @@
 import { Diagnostic } from "@cadl-lang/compiler";
 import { strictEqual } from "assert";
 import { resolve } from "path";
-import { Messages } from "../src/checker.js";
+import { libDef } from "../src/lib.js";
 import { createArmTestHost } from "./testHost.js";
 
 describe("check rules", () => {
@@ -19,8 +19,8 @@ describe("check rules", () => {
         op read(...FooParameter): OkResponse<Foo>;
       }
     `);
-    strictEqual(getDiagnostic(Messages.ModelDocumentation.code, [...result]).length, 2);
-    strictEqual(getDiagnostic(Messages.OperationDocumentation.code, [...result]).length, 1);
+    strictEqual(getDiagnostic("model-requires-documentation", [...result]).length, 2);
+    strictEqual(getDiagnostic("operation-requires-documentation", [...result]).length, 1);
   });
 
   it("inline model", async () => {
@@ -40,7 +40,7 @@ describe("check rules", () => {
         op read({...FooParameter}): OkResponse<{ ... Foo}>;
       }
     `);
-    const inlineModelErrors = getDiagnostic(Messages.NoInlineModel.code, [...result]);
+    const inlineModelErrors = getDiagnostic("no-inline-model", [...result]);
     strictEqual(inlineModelErrors.length, 2);
   });
 });
@@ -58,5 +58,5 @@ export async function CheckFor(code: string) {
 }
 
 function getDiagnostic(code: string, diagnostics: Diagnostic[]) {
-  return diagnostics.filter((diag) => diag.code === code);
+  return diagnostics.filter((diag) => diag.code === `${libDef.name}/${code}`);
 }
