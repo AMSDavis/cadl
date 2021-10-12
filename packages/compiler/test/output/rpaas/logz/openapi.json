@@ -123,14 +123,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountResource"
@@ -169,14 +161,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountResource"
@@ -228,28 +212,12 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountResource"
             }
           },
           "201": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountResource"
@@ -292,36 +260,12 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deleted successfully."
           },
           "202": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deletion accepted."
           },
           "204": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deleted successfully."
           },
           "default": {
@@ -347,14 +291,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/OperationListResult"
@@ -395,14 +331,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/LogzMonitorResource"
@@ -451,28 +379,12 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/LogzMonitorResource"
             }
           },
           "201": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/LogzMonitorResource"
@@ -517,14 +429,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/LogzMonitorResource"
@@ -564,36 +468,12 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deleted successfully."
           },
           "202": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deletion accepted."
           },
           "204": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deleted successfully."
           },
           "default": {
@@ -622,14 +502,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/LogzMonitorResourceListResult"
@@ -667,14 +539,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/LogzMonitorResourceListResult"
@@ -715,14 +579,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountResourceListResult"
@@ -766,14 +622,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/TagRuleResource"
@@ -825,28 +673,12 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/TagRuleResource"
             }
           },
           "201": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/TagRuleResource"
@@ -889,36 +721,12 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deleted successfully."
           },
           "202": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deletion accepted."
           },
           "204": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deleted successfully."
           },
           "default": {
@@ -953,14 +761,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/TagRuleResourceListResult"
@@ -1004,14 +804,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SingleSignOnConfigurationResource"
@@ -1063,28 +855,12 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SingleSignOnConfigurationResource"
             }
           },
           "201": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SingleSignOnConfigurationResource"
@@ -1132,14 +908,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SingleSignOnConfigurationResource"
@@ -1182,36 +950,12 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deleted successfully."
           },
           "202": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deletion accepted."
           },
           "204": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deleted successfully."
           },
           "default": {
@@ -1246,14 +990,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SingleSignOnConfigurationResourceListResult"
@@ -1300,14 +1036,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountTagRuleResource"
@@ -1362,28 +1090,12 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountTagRuleResource"
             }
           },
           "201": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM create operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountTagRuleResource"
@@ -1429,36 +1141,12 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deleted successfully."
           },
           "202": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deletion accepted."
           },
           "204": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "Resource deleted successfully."
           },
           "default": {
@@ -1496,14 +1184,6 @@
         ],
         "responses": {
           "200": {
-            "headers": {
-              "x-ms-client-request-id": {
-                "type": "string"
-              },
-              "x-ms-correlation-request-id": {
-                "type": "string"
-              }
-            },
             "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountTagRuleResourceListResult"
