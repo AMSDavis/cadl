@@ -11,6 +11,12 @@ import {
 } from "@cadl-lang/compiler";
 import { reportDiagnostic } from "./lib.js";
 
+export async function $onBuild(p: Program) {
+  if (p.compilerOptions.onBuildCheck) {
+    runChecker(p);
+  }
+}
+
 function isInlineModel(target: ModelType) {
   return !target.name;
 }
@@ -41,7 +47,7 @@ class Checker {
   }
 }
 
-export const runChecker = (p: Program) => {
+const runChecker = (p: Program) => {
   const checkDocumentation: SemanticNodeListener = {
     operation: (context: OperationType) => {
       if (!getDoc(p, context)) {
