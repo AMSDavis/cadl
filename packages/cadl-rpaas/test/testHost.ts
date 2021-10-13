@@ -1,6 +1,8 @@
+import { Diagnostic } from "@cadl-lang/compiler";
 import { createTestHost } from "@cadl-lang/compiler/dist/test/test-host.js";
 import { resolve } from "path";
 import { fileURLToPath } from "url";
+import { libDef } from "../src/lib.js";
 
 export async function createArmTestHost() {
   const host = await createTestHost();
@@ -19,7 +21,6 @@ export async function createArmTestHost() {
     "./node_modules/cadl-rpaas/dist/src/arm.js",
     resolve(root, "dist/src/arm.js")
   );
-
   // load rest
   await host.addRealCadlFile(
     "./node_modules/rest/package.json",
@@ -33,7 +34,6 @@ export async function createArmTestHost() {
     "./node_modules/rest/dist/rest.js",
     resolve(root, "../rest/dist/rest.js")
   );
-
   // load openapi
   await host.addRealCadlFile(
     "./node_modules/cadl-autorest/package.json",
@@ -56,4 +56,23 @@ export async function openApiFor(code: string) {
   );
   await host.compile("./main.cadl", { noEmit: false, swaggerOutputFile: outPath });
   return JSON.parse(host.fs.get(outPath)!);
+}
+
+export async function CheckFor(code: string) {
+  const host = await createArmTestHost();
+  const outPath = resolve("/openapi.json");
+  host.addCadlFile(
+    "./main.cadl",
+    `import "rest"; import "cadl-autorest"; import "cadl-rpaas";${code}`
+  );
+  const result = await host.diagnose("./main.cadl", {
+    noEmit: false,
+    swaggerOutputFile: outPath,
+    onBuildCheck: true,
+  });
+  return result;
+}
+
+export function getDiagnostic(code: string, diagnostics: Diagnostic[]) {
+  return diagnostics.filter((diag) => diag.code === `${libDef.name}/${code}`);
 }

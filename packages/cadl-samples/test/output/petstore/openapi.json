@@ -36,7 +36,7 @@
             }
           },
           "default": {
-            "description": "Error",
+            "description": "Error definition",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -66,7 +66,7 @@
             }
           },
           "default": {
-            "description": "Error",
+            "description": "Error definition",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -88,7 +88,7 @@
             "description": "A successful response"
           },
           "default": {
-            "description": "Error",
+            "description": "Error definition",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -117,7 +117,7 @@
             }
           },
           "default": {
-            "description": "Error",
+            "description": "Error definition",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -150,7 +150,7 @@
             }
           },
           "default": {
-            "description": "Error",
+            "description": "Error definition",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -174,7 +174,7 @@
           "type": "string"
         }
       },
-      "description": "Error",
+      "description": "Error definition",
       "required": [
         "code",
         "message"

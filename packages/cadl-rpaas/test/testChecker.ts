@@ -1,8 +1,5 @@
-import { Diagnostic } from "@cadl-lang/compiler";
 import { strictEqual } from "assert";
-import { resolve } from "path";
-import { libDef } from "../src/lib.js";
-import { createArmTestHost } from "./testHost.js";
+import { CheckFor, getDiagnostic } from "./testHost.js";
 
 describe("check rules", () => {
   it("no documentation", async () => {
@@ -29,34 +26,18 @@ describe("check rules", () => {
       model Foo {
         x:string
       }
-      @body
       model FooParameter {
         @doc("parameter")
+        @body
         name: string
       }
       @resource("/")
       namespace root {
         @doc("read foo")
-        op read({...FooParameter}): OkResponse<{ ... Foo}>;
+        op read(...FooParameter): OkResponse<{ ... Foo}>;
       }
     `);
     const inlineModelErrors = getDiagnostic("no-inline-model", [...result]);
-    strictEqual(inlineModelErrors.length, 2);
+    strictEqual(inlineModelErrors.length, 1);
   });
 });
-
-export async function CheckFor(code: string) {
-  const host = await createArmTestHost();
-  const outPath = resolve("/openapi.json");
-  host.addCadlFile("./main.cadl", `import "rest"; import "cadl-rpaas";${code}`);
-  const result = await host.diagnose("./main.cadl", {
-    noEmit: false,
-    swaggerOutputFile: outPath,
-    onBuildCheck: true,
-  });
-  return result;
-}
-
-function getDiagnostic(code: string, diagnostics: Diagnostic[]) {
-  return diagnostics.filter((diag) => diag.code === `${libDef.name}/${code}`);
-}
