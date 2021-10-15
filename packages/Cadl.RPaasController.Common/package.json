@@ -17,16 +17,8 @@
   ],
   "author": "Microsoft Corporation",
   "license": "MIT",
-  "type": "module",
-  "main": "dist/generate.js",
-  "cadlMain": "dist/generate.js",
-  "engines": {
-    "node": ">=14.0.0"
-  },
   "scripts": {
     "build": "dotnet build",
     "pack": "dotnet pack"
-  },
-  "dependencies": {},
-  "devDependencies": {}
+  }
 }
