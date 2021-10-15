@@ -13,8 +13,8 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build packages\Cadl.RPaasController.Common --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration) RPaasController.Common'
+- script: dotnet pack packages\Cadl.RPaasController.Common --configuration $(buildConfiguration)
+  displayName: 'Build and publish RPaasController.Common'
 - task: NuGetCommand@2
   inputs:
     command: 'push'
