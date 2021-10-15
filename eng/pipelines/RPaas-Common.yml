@@ -18,6 +18,6 @@ steps:
   - task: NuGetCommand@2
     inputs:
       command: "push"
-      packagesToPush: "$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg"
+      packagesToPush: "./packages/Cadl.RPaasController.Common/**/*.nupkg"
       nuGetFeedType: "internal"
       publishVstsFeed: "29ec6040-b234-4e31-b139-33dc4287b756/fa8c16a3-dbe0-4de2-a297-03065ec1ba3f"
