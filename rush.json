@@ -124,6 +124,12 @@
       "projectFolder": "packages/cadl-samples",
       "reviewCategory": "production",
       "shouldPublish": false
+    },
+    {
+      "packageName": "Cadl.RPaasController.Common",
+      "projectFolder": "packages/Cadl.RPaasController.Common",
+      "reviewCategory": "production",
+      "shouldPublish": false
     }
   ]
 }
