@@ -2,6 +2,41 @@
   "name": "@azure-tools/cadl-rpaas-controller",
   "entries": [
     {
+      "version": "0.4.1",
+      "tag": "@azure-tools/cadl-rpaas-controller_v0.4.1",
+      "date": "Fri, 15 Oct 2021 21:33:37 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Defensive code for partially evaluated programs"
+          },
+          {
+            "comment": "Fix formatting errors"
+          },
+          {
+            "comment": "Strongly defined diagnostics"
+          },
+          {
+            "comment": "Fix issues with language server"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@cadl-lang/compiler\" from `0.20.0` to `0.21.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `0.7.0` to `0.8.0`"
+          },
+          {
+            "comment": "Updating dependency \"@cadl-lang/rest\" from `0.6.1` to `0.6.2`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-rpaas\" from `0.8.0` to `0.9.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.0",
       "tag": "@azure-tools/cadl-rpaas-controller_v0.4.0",
       "date": "Fri, 17 Sep 2021 00:49:37 GMT",
