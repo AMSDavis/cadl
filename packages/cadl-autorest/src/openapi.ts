@@ -44,6 +44,7 @@ import {
   isHeader,
 } from "@cadl-lang/rest";
 import * as path from "path";
+import { reportDiagnostic } from "./lib.js";
 
 export async function $onBuild(p: Program) {
   const options: OpenAPIEmitterOptions = {
@@ -74,10 +75,12 @@ export function $useRef(program: Program, entity: Type, refUrl: string): void {
   if (entity.kind === "Model" || entity.kind === "ModelProperty") {
     program.stateMap(refTargetsKey).set(entity, refUrl);
   } else {
-    program.reportDiagnostic(
-      "@useRef decorator can only be applied to models and operation parameters.",
-      entity
-    );
+    reportDiagnostic(program, {
+      code: "decorator-wrong-type",
+      messageId: "modelsOperations",
+      format: { decoratorName: "useRef" },
+      target: entity,
+    });
   }
 }
 
@@ -119,10 +122,10 @@ export function addSecurityRequirement(
   scopes: string[]
 ): void {
   if (!checkIfServiceNamespace(program, namespace)) {
-    program.reportDiagnostic(
-      "Cannot add security details to a namespace other than the service namespace.",
-      namespace
-    );
+    reportDiagnostic(program, {
+      code: "security-service-namespace",
+      target: namespace,
+    });
   }
 
   const req: any = {};
@@ -139,10 +142,10 @@ export function addSecurityDefinition(
   details: any
 ): void {
   if (!checkIfServiceNamespace(program, namespace)) {
-    program.reportDiagnostic(
-      "Cannot add security details to a namespace other than the service namespace.",
-      namespace
-    );
+    reportDiagnostic(program, {
+      code: "security-service-namespace",
+      target: namespace,
+    });
     return;
   }
 
@@ -220,7 +223,10 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     try {
       for (let resource of getResources(program)) {
         if (resource.kind !== "Namespace") {
-          program.reportDiagnostic("Resource goes on namespace", resource);
+          reportDiagnostic(program, {
+            code: "resource-namespace",
+            target: resource,
+          });
           continue;
         }
 
@@ -321,10 +327,11 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     for (const declaredParam of declaredPathParamNames) {
       const param = paramByName.get(declaredParam);
       if (!param) {
-        program.reportDiagnostic(
-          `Path contains parameter ${declaredParam} but wasn't found in given parameters`,
-          op
-        );
+        reportDiagnostic(program, {
+          code: "missing-path-param",
+          format: { param: declaredParam },
+          target: op,
+        });
         continue;
       }
 
@@ -477,10 +484,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       for (const prop of responseModel.properties.values()) {
         if (isBody(program, prop)) {
           if (bodyModel !== responseModel) {
-            program.reportDiagnostic(
-              "Duplicate @body declarations on response type",
-              responseModel
-            );
+            reportDiagnostic(program, { code: "duplicate-body", target: responseModel });
             continue;
           }
 
@@ -710,7 +714,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         emitParameter(parent, param, "body");
       } else {
         if (emittedImplicitBodyParam) {
-          program.reportDiagnostic("request has multiple body types", op);
+          reportDiagnostic(program, { code: "duplicate-body-types", target: op });
           continue;
         }
         emittedImplicitBodyParam = true;
@@ -742,10 +746,11 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         if (option.kind === "String") {
           contentTypes.push(option.value);
         } else {
-          program.reportDiagnostic(
-            "The contentType property union must contain only string values",
-            param
-          );
+          reportDiagnostic(program, {
+            code: "content-type-string",
+            messageId: "unionOfString",
+            target: param,
+          });
           continue;
         }
       }
@@ -753,7 +758,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       return contentTypes;
     }
 
-    program.reportDiagnostic("contentType parameter must be a string or union of strings", param);
+    reportDiagnostic(program, { code: "content-type-string", target: param });
     return [];
   }
 
@@ -883,7 +888,11 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       return getSchemaForEnum(type);
     }
 
-    program.reportDiagnostic("Couldn't get schema for type " + type.kind, type);
+    reportDiagnostic(program, {
+      code: "invalid-schema",
+      format: { type: type.kind },
+      target: type,
+    });
     return undefined;
   }
 
@@ -912,10 +921,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     }
 
     function reportInvalidUnionForOpenAPIV2() {
-      program.reportDiagnostic(
-        "Unions cannot be emitted to OpenAPI v2 unless all options are literals of the same type.",
-        e
-      );
+      reportDiagnostic(program, { code: "union-unsupported", target: e });
     }
   }
 
@@ -924,7 +930,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     const nonNullOptions = union.options.filter((t) => !isNullType(t));
     const nullable = union.options.length != nonNullOptions.length;
     if (nonNullOptions.length === 0) {
-      program.reportDiagnostic("Cannot have a union containing only null types.", union);
+      reportDiagnostic(program, { code: "union-null", target: union });
       return {};
     }
 
@@ -959,10 +965,11 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
         return schema;
       } else {
-        program.reportDiagnostic(
-          "Unions containing multiple model types cannot be emitted to OpenAPI v2 unless the union is between one model type and 'null'.",
-          union
-        );
+        reportDiagnostic(program, {
+          code: "union-unsupported",
+          messageId: "null",
+          target: union,
+        });
         return {};
       }
     }
@@ -988,10 +995,10 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     return schema;
 
     function reportInvalidUnionForOpenAPIV2() {
-      program.reportDiagnostic(
-        "Unions cannot be emitted to OpenAPI v2 unless all options are literals of the same type.",
-        union
-      );
+      reportDiagnostic(program, {
+        code: "union-unsupported",
+        target: union,
+      });
     }
   }
 
@@ -1019,7 +1026,11 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       case "Tuple":
         return type.values.map(getDefaultValue);
       default:
-        program.reportDiagnostic(`Invalid type '${type.kind}' for a default value`, type);
+        reportDiagnostic(program, {
+          code: "invalid-default",
+          format: { type: type.kind },
+          target: type,
+        });
     }
   }
 

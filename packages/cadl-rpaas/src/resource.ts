@@ -27,19 +27,28 @@ function getPathParameterInfo(
   resourceType?: Type
 ): ParameterInfo | undefined {
   if (paramType.kind !== "Model") {
-    program.reportDiagnostic("Path parameter type must be a model.", paramType);
+    reportDiagnostic(program, { code: "path-parameter-type", target: paramType });
     return undefined;
   }
 
   if (paramType.properties.size !== 1) {
-    program.reportDiagnostic("Path parameter type must have exactly one property.", paramType);
+    reportDiagnostic(program, {
+      code: "path-parameter-type",
+      messageId: "singleProp",
+      target: paramType,
+    });
     return undefined;
   }
 
   const paramName: string = paramType.properties.keys().next().value;
   const propType = paramType.properties.get(paramName);
   if (getIntrinsicType(program, propType) !== "string") {
-    program.reportDiagnostic("Path parameter type must be a string.", propType!);
+    reportDiagnostic(program, {
+      code: "path-parameter-type",
+      messageId: "string",
+      target: propType!,
+    });
+
     return undefined;
   }
 
@@ -94,17 +103,18 @@ export function getArmResourceInfo(
   resourceType: Type
 ): ArmResourceInfo | undefined {
   if (resourceType.kind !== "Model") {
-    program.reportDiagnostic("Decorator can only be applied to model types.", resourceType);
+    reportDiagnostic(program, { code: "decorator-wrong-type", target: resourceType });
     return undefined;
   }
 
   const resourceInfo = program.stateMap(armResourceNamespacesKey).get(resourceType);
 
   if (!resourceInfo) {
-    program.reportDiagnostic(
-      `No @armResource registration found for type ${resourceType.name}`,
-      resourceType
-    );
+    reportDiagnostic(program, {
+      code: "arm-resource-missing",
+      format: { type: resourceType.name },
+      target: resourceType,
+    });
   }
 
   return resourceInfo;
@@ -119,10 +129,11 @@ function getRequiredPropertyValue<TValue extends Type>(
   const value = getPropertyValue<TValue>(program, model, propertyName, valueKind);
 
   if (!value) {
-    program.reportDiagnostic(
-      `Resource configuration is missing required '${propertyName}' property`,
-      model
-    );
+    reportDiagnostic(program, {
+      code: "missing-required-prop",
+      format: { propertyName },
+      target: model,
+    });
   }
 
   return value;
@@ -140,10 +151,11 @@ function getPropertyValue<TValue extends Type>(
     if (prop.type.kind === valueKind) {
       return prop.type as TValue;
     } else {
-      program.reportDiagnostic(
-        `Property value type ${prop.type.kind} is not the expected ${valueKind}`,
-        prop.type
-      );
+      reportDiagnostic(program, {
+        code: "invalid-type-prop",
+        format: { type: prop.type.kind, valueType: valueKind },
+        target: prop.type,
+      });
     }
   }
 
@@ -424,18 +436,20 @@ function getResourcePath(
       return undefined;
     }
     if (!parentResourceInfo.resourcePath) {
-      program.reportDiagnostic(
-        "Parent type has no resource path information specified",
-        resourceType
-      );
+      reportDiagnostic(program, {
+        code: "parent-type",
+        messageId: "missingResourcePath",
+        target: resourceType,
+      });
       return undefined;
     }
 
     if (!parentResourceInfo.resourceNameParam) {
-      program.reportDiagnostic(
-        "Parent type has no resource name parameter specified",
-        resourceType
-      );
+      reportDiagnostic(program, {
+        code: "parent-type",
+        messageId: "missingResourceName",
+        target: resourceType,
+      });
       return undefined;
     }
 

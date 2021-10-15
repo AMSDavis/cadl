@@ -200,34 +200,31 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
   return { generateServiceCode };
 
-  function reportInfo(info: string, target: Node | undefined) {
-    program.reportDiagnostic(
-      {
-        text: info,
-        severity: "info",
-      },
-      target ?? NoTarget
-    );
+  function reportInfo(message: string, target: Node | undefined) {
+    program.reportDiagnostic({
+      code: "",
+      message,
+      severity: "info" as any,
+      target: target ?? NoTarget,
+    });
   }
 
   function reportProgress(message: string) {
-    program.reportDiagnostic(
-      {
-        text: message,
-        severity: "info",
-      },
-      NoTarget
-    );
+    program.reportDiagnostic({
+      code: "",
+      message,
+      severity: "info" as any,
+      target: NoTarget,
+    });
   }
 
   function reportVerboseInfo(message: string) {
-    program.reportDiagnostic(
-      {
-        text: message,
-        severity: "info",
-      },
-      NoTarget
-    );
+    program.reportDiagnostic({
+      code: "",
+      message,
+      severity: "info" as any,
+      target: NoTarget,
+    });
   }
 
   function findServiceNamespace(

@@ -39,8 +39,8 @@ dependencies:
   node-watch: 0.7.1
   onigasm: 2.2.5
   plist: 3.0.2
-  prettier: 2.2.1
-  prettier-plugin-organize-imports: 1.1.1_prettier@2.2.1+typescript@4.3.5
+  prettier: 2.4.1
+  prettier-plugin-organize-imports: 1.1.1_prettier@2.4.1+typescript@4.3.5
   prompts: 2.4.1
   resolve: 1.20.0
   rollup: 2.41.5
@@ -2081,9 +2081,9 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
-  /prettier-plugin-organize-imports/1.1.1_prettier@2.2.1+typescript@4.3.5:
+  /prettier-plugin-organize-imports/1.1.1_prettier@2.4.1+typescript@4.3.5:
     dependencies:
-      prettier: 2.2.1
+      prettier: 2.4.1
       typescript: 4.3.5
     dev: false
     peerDependencies:
@@ -2098,6 +2098,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-PqyhM2yCjg/oKkFPtTGUojv7gnZAoG80ttl45O6x2Ug/rMJw4wcc9k6aaf2hibP7BGVCCM33gZoGjyvt9mm16Q==
+  /prettier/2.4.1:
+    dev: false
+    engines:
+      node: '>=10.13.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-9fbDAXSBcc6Bs1mZrDYb3XKzDLm4EXXL9sC1LqKP5rZkT6KRr/rf9amVUcODVXgguK/isJz0d0hP72WeaKWsvA==
   /prex/0.4.7:
     dependencies:
       '@esfx/cancelable': 1.0.0-pre.19
@@ -2962,7 +2969,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-autorest'
     resolution:
-      integrity: sha512-fcicwOQG0YJ4cYSlZ9/DJLL2k6U6FxxxEQOtFlafysnplG4P2mD+ql0HUWUKDIkFycLgo0YiRmh+9Rz6Rh9DYA==
+      integrity: sha512-5Ahmv6hYjKcxggPx7ijjqQRDzaforcCLn2ICTkI5iomt4AuOzE+5USP5ZvqSO2xuM1NjJXygl1ZVtxQQrOVgPA==
       tarball: file:projects/cadl-autorest.tgz
     version: 0.0.0
   file:projects/cadl-rpaas-controller.tgz:
@@ -2979,7 +2986,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-rpaas-controller'
     resolution:
-      integrity: sha512-+ZCEqvPgLVGZ5O9T1vIyvb1TArvecTw5kjqlCLdKvpUyhl6KsuDrZvmMe43AfdunBpAT9Th14LwPqhiRUPE5WQ==
+      integrity: sha512-1afSyK43Z4Ra0rG1tPyhH8qcu6peUGT+9MdJFZ5YOqNrxx5PV78zkxFhLxf6bn9uRllvFdZg+ymFeFPpidBSdw==
       tarball: file:projects/cadl-rpaas-controller.tgz
     version: 0.0.0
   file:projects/cadl-rpaas.tgz:
@@ -2991,7 +2998,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-rpaas'
     resolution:
-      integrity: sha512-D008Dl9VOenQLr4xAWJ/tMiJlSBCvxqfQOBj1eaNiBHhm1XvVrUgkmWqm9yQyEdTZj0mC4uBQVaX/MrYWz2eUw==
+      integrity: sha512-qQhPCiOSAaNWa9SbKXf0dIweKGYfkD7MaaYMRYfZqtTSf61pOc8rCm5vSceO1DBoGYPiVvMT0XO1BC5bu4BJNA==
       tarball: file:projects/cadl-rpaas.tgz
     version: 0.0.0
   file:projects/cadl-samples.tgz:
@@ -3000,7 +3007,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-samples'
     resolution:
-      integrity: sha512-Hc3byDqjSLLhnaTt4ibu4W1R3ZwhZf4eEsh6mkUv2LdOdQoTJzlN4jZc72lCts2urCXCiE3PksxPxhGvZxfDtQ==
+      integrity: sha512-GIR96GPkg1jDwKa6qwBWef4x/o/z081+Gka+/uEHcefEnibvQDUSB+32XcQzFVk5tArV7mHl9fy1CMYyOHhqTg==
       tarball: file:projects/cadl-samples.tgz
     version: 0.0.0
   file:projects/cadl-vs.tgz:
@@ -3051,8 +3058,8 @@ packages:
       mocha: 8.3.2
       node-fetch: 2.6.1
       node-watch: 0.7.1
-      prettier: 2.2.1
-      prettier-plugin-organize-imports: 1.1.1_prettier@2.2.1+typescript@4.3.5
+      prettier: 2.4.1
+      prettier-plugin-organize-imports: 1.1.1_prettier@2.4.1+typescript@4.3.5
       prompts: 2.4.1
       resolve: 1.20.0
       source-map-support: 0.5.19
@@ -3063,7 +3070,7 @@ packages:
     dev: false
     name: '@rush-temp/compiler'
     resolution:
-      integrity: sha512-C99OzpNjpQWlFKKAa4Ln613n9L7QaACARU8oselSf0hl9O+LMt1o+wDcG7ECc+mbmkTVvzOxliqJ7RAVc25lfQ==
+      integrity: sha512-fmO+nBTONglG1fWRA5k5cbS35AlN7nW195/F30SmJtO6Op3Y1WYVwiOGp/DpzBjZ4hFrCHRNRvO+U72jUKoAcQ==
       tarball: file:projects/compiler.tgz
     version: 0.0.0
   file:projects/openapi3.tgz:
@@ -3075,7 +3082,7 @@ packages:
     dev: false
     name: '@rush-temp/openapi3'
     resolution:
-      integrity: sha512-hqpFT9ZqCXHvefMYiHLKW+vqdeef0ttVK14RUBFIl1Y3vsX75zM15hpH3skwUj1dqGImmdOn4nUedpN0eGqUqA==
+      integrity: sha512-DW7ki/Phu2reWZFXkhzsaytCGVvTOkch1L79VQ185hK0O2gZX1+b8F8wbvRtBzhJvBDlILfyfFxcO2bmJPNqcA==
       tarball: file:projects/openapi3.tgz
     version: 0.0.0
   file:projects/prettier-plugin-cadl.tgz:
@@ -3085,12 +3092,12 @@ packages:
       '@rollup/plugin-node-resolve': 11.2.1_rollup@2.41.5
       '@rollup/plugin-replace': 2.4.2_rollup@2.41.5
       mocha: 8.3.2
-      prettier: 2.2.1
+      prettier: 2.4.1
       rollup: 2.41.5
     dev: false
     name: '@rush-temp/prettier-plugin-cadl'
     resolution:
-      integrity: sha512-bAFmh1nadT1IvmITTOxDwnUYX0LPq2Ho0wGYBDU3h/1zLYLcSXyt6MpCco41XpHV+ffTkyYv0/iCo6IQFK5QQw==
+      integrity: sha512-8LXjYHvqTL03gxtH5ErKD36Fu3Jrvb6oVViXaq5lts5N7wyLPIZ7BQeC+CH0Bek8q1RDSV9v+e0B9Giv++CQxw==
       tarball: file:projects/prettier-plugin-cadl.tgz
     version: 0.0.0
   file:projects/rest.tgz:
@@ -3100,7 +3107,7 @@ packages:
     dev: false
     name: '@rush-temp/rest'
     resolution:
-      integrity: sha512-NnGR0NrfUBtM+cLlnBaeWYH/RDTlb/oXUtwFuxtkMUmFdeE38NOKSIRdz6tZMtbBhbi1oApWWmWqSOOG7L5nSA==
+      integrity: sha512-EhH/j6R6d1W3e33yQmBsK2d3zZ9u9ngZxfkHTDObwpm3k6DJcRVKknJCABm4VERZQ8tFeiZfXxE5G5qfZdzLsA==
       tarball: file:projects/rest.tgz
     version: 0.0.0
   file:projects/spec.tgz:
@@ -3169,7 +3176,7 @@ specifiers:
   node-watch: ~0.7.1
   onigasm: ~2.2.5
   plist: ~3.0.2
-  prettier: ~2.2.1
+  prettier: ~2.4.1
   prettier-plugin-organize-imports: ~1.1.1
   prompts: ~2.4.1
   resolve: ~1.20.0

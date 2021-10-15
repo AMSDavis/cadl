@@ -6,6 +6,7 @@ const libDef = {
     "decorator-wrong-type": {
       severity: "error",
       messages: {
+        default: "Decorator can only be applied to model types.",
         armCommonDefinition: "The @armCommonDefinition decorator can only be applied to models.",
         armCommonParameter:
           "The @armCommonParameter decorator can only be applied to model properties and operation parameters.",
@@ -39,6 +40,12 @@ const libDef = {
       messages: {
         default:
           "The @armNamespace decorator must be used to define the ARM namespace of the service.  This is best applied to the file-level namespace.",
+      },
+    },
+    "arm-resource-missing": {
+      severity: "error",
+      messages: {
+        default: paramMessage`No @armResource registration found for type ${"type"}`,
       },
     },
     "decorator-in-namespace": {
@@ -84,6 +91,33 @@ const libDef = {
         missing:
           "A TrackedResource must have a 'provisioningState' property of type 'enum' to track the provisioningState of the last operation. The enum must include values 'Failed', 'Succeeded', and 'Canceled'.",
         wrongType: paramMessage`The enum type '${"name"}' must also contain the following provisioning states: ${"missingStates"}.`,
+      },
+    },
+    "path-parameter-type": {
+      severity: "error",
+      messages: {
+        default: "Path parameter type must be a model.",
+        singleProp: "Path parameter type must have exactly one property.",
+        string: "Path parameter type must be a string.",
+      },
+    },
+    "missing-required-prop": {
+      severity: "error",
+      messages: {
+        default: paramMessage`Resource configuration is missing required '${"propertyName"}' property`,
+      },
+    },
+    "invalid-type-prop": {
+      severity: "error",
+      messages: {
+        default: paramMessage`Property value type ${"type"} is not the expected ${"valueType"}`,
+      },
+    },
+    "parent-type": {
+      severity: "error",
+      messages: {
+        missingResourcePath: "Parent type has no resource path parameter specified",
+        missingResourceName: "Parent type has no resource name parameter specified",
       },
     },
   },
