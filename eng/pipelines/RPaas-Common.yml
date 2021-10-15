@@ -7,7 +7,7 @@ trigger:
   - main
 
 pool:
-  vmImage: MMS2019
+  vmImage: ubuntu-latest
 
 variables:
   buildConfiguration: "Release"
