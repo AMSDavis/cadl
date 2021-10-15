@@ -1,6 +1,16 @@
 # Change Log - @azure-tools/cadl-rpaas-controller
 
-This log was last generated on Fri, 17 Sep 2021 00:49:37 GMT and should not be manually modified.
+This log was last generated on Fri, 15 Oct 2021 21:33:37 GMT and should not be manually modified.
+
+## 0.4.1
+Fri, 15 Oct 2021 21:33:37 GMT
+
+### Patches
+
+- Defensive code for partially evaluated programs
+- Fix formatting errors
+- Strongly defined diagnostics
+- Fix issues with language server
 
 ## 0.4.0
 Fri, 17 Sep 2021 00:49:37 GMT

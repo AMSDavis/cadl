@@ -1,6 +1,13 @@
 # Change Log - @azure-tools/cadl-autorest
 
-This log was last generated on Fri, 17 Sep 2021 00:49:37 GMT and should not be manually modified.
+This log was last generated on Fri, 15 Oct 2021 21:33:37 GMT and should not be manually modified.
+
+## 0.8.0
+Fri, 15 Oct 2021 21:33:37 GMT
+
+### Minor changes
+
+- **Added** Support for server default
 
 ## 0.7.0
 Fri, 17 Sep 2021 00:49:37 GMT

@@ -1,6 +1,22 @@
 # Change Log - @azure-tools/cadl-rpaas
 
-This log was last generated on Fri, 17 Sep 2021 00:49:37 GMT and should not be manually modified.
+This log was last generated on Fri, 15 Oct 2021 21:33:37 GMT and should not be manually modified.
+
+## 0.9.0
+Fri, 15 Oct 2021 21:33:37 GMT
+
+### Minor changes
+
+- Move all types and decorators into Azure.ARM namespace
+- Add ARM envelope optional properties
+
+### Patches
+
+- Improve messages for provisioningState checks
+- Remove unneeded http headers from base response #815
+- Strongly defined diagnostics
+- Make nextLink optional in pageable response
+- Update scaffolding to include service code generator
 
 ## 0.8.0
 Fri, 17 Sep 2021 00:49:37 GMT
