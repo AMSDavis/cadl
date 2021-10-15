@@ -6,7 +6,7 @@
       <Version>1.0.0-beta.0</Version>
       <PackageTags>Microsoft Azure CADL RPaas</PackageTags>
       <Description>
-        This client library enables working with the Microsoft Azure Storage Blob service for storing binary and text data.
+        This common class library for RPaas controller extensions
         For this release see notes - TBA
         in addition to the breaking changes TBA
         CADL quickstarts and tutorials - https://github.com/Azure/adl

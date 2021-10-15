@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "Cadl.RPaasController.Common",
   "version": "0.1.0",
   "description": "Azure Cadl RPaaS service controller code generator",
