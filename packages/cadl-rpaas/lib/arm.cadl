@@ -59,7 +59,7 @@ model ProxyResourceBase {
 };
 
 // Note that ProxyResource is the base definition for both kinds of resources
-@doc("The base exetnsion resource.")
+@doc("The base extension resource.")
 @armCommonDefinition("ProxyResource")
 model ExtensionResourceBase {
   ...ArmResource,
