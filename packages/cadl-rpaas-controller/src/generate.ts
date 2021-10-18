@@ -201,30 +201,15 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
   return { generateServiceCode };
 
   function reportInfo(message: string, target: Node | undefined) {
-    program.reportDiagnostic({
-      code: "",
-      message,
-      severity: "info" as any,
-      target: target ?? NoTarget,
-    });
+    program.logger.log({ level: "info", message, target });
   }
 
   function reportProgress(message: string) {
-    program.reportDiagnostic({
-      code: "",
-      message,
-      severity: "info" as any,
-      target: NoTarget,
-    });
+    program.logger.info(message);
   }
 
   function reportVerboseInfo(message: string) {
-    program.reportDiagnostic({
-      code: "",
-      message,
-      severity: "info" as any,
-      target: NoTarget,
-    });
+    program.logger.verbose(message);
   }
 
   function findServiceNamespace(

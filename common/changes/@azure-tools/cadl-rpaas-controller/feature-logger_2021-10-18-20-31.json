@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas-controller",
+      "comment": "**Internal** Stop using diagnostics for logging information",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas-controller"
+}
