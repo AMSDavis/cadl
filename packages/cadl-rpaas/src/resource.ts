@@ -191,10 +191,7 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
   }
 
   if (resourceType.name.includes("_")) {
-    program.reportDiagnostic(
-      "The resource type should not include underscore, or it will produce invalid operationId in the generated swagger.",
-      resourceType
-    );
+    reportDiagnostic(program, { code: "no-underscore-in-operation-name", target: resourceType });
     return;
   }
 

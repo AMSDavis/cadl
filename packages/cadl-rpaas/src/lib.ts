@@ -120,6 +120,12 @@ export const libDef = {
         missingResourceName: "Parent type has no resource name parameter specified",
       },
     },
+    "documentation-different-with-node-name": {
+      severity: "warning",
+      messages: {
+        default: "The documentation should not be the same as the node name.",
+      },
+    },
   },
 } as const;
 export const { reportDiagnostic } = createCadlLibrary(libDef);
