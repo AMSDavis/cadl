@@ -3,18 +3,18 @@
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
-pool:
-  vmImage: ubuntu-latest
-
-variables:
-  buildConfiguration: "Release"
-
 resources:
   repositories:
     - repository: azure-sdk-build-tools
       type: git
       name: internal/azure-sdk-build-tools
       ref: refs/tags/azure-sdk-build-tools_20210603.1
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildConfiguration: "Release"
 
 steps:
   - script: dotnet pack ./packages/Cadl.ProviderHubController.Common --configuration $(buildConfiguration) /p:BuildId=$(Build.BuildNumber)
