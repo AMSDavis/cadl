@@ -10,15 +10,18 @@ resources:
       name: internal/azure-sdk-build-tools
       ref: refs/tags/azure-sdk-build-tools_20210603.1
 
-pool:
-  vmImage: ubuntu-latest
-
 variables:
   buildConfiguration: "Release"
 
-steps:
-  - script: dotnet pack ./packages/Cadl.ProviderHubController.Common --configuration $(buildConfiguration) /p:BuildId=$(Build.BuildNumber)
-    displayName: "Build and publish ProviderHubController.Common"
+stages:
+  - stage: "Build_and_Test"
+    jobs:
+      - job: Build
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - script: dotnet pack ./packages/Cadl.ProviderHubController.Common --configuration $(buildConfiguration) /p:BuildId=$(Build.BuildNumber)
+            displayName: "Build and publish ProviderHubController.Common"
   - template: pipelines/stages/net-release-to-feed.yml@azure-sdk-build-tools
     parameters:
       ShouldTag: false
