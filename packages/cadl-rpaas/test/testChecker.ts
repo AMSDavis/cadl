@@ -22,8 +22,7 @@ describe("check rules", () => {
     strictEqual(getDiagnostic("model-requires-documentation", [...result]).length, 1);
     strictEqual(getDiagnostic("documentation-different-with-node-name", [...result]).length, 2);
     strictEqual(getDiagnostic("operation-requires-documentation", [...result]).length, 1);
-    // there are 44 existing failure in the cadl-rpaas, cadl-rest, or compiler lib
-    strictEqual(getDiagnostic("property-requires-documentation", [...result]).length, 45);
+    strictEqual(getDiagnostic("property-requires-documentation", [...result]).length, 1);
   });
 
   it("inline model in return types", async () => {

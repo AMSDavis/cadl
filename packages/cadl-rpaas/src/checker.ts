@@ -14,7 +14,7 @@ import {
 import { reportDiagnostic } from "./lib.js";
 
 export async function $onBuild(p: Program) {
-  if (p.compilerOptions.onBuildCheck) {
+  if (!p.compilerOptions.skipBuildCheck) {
     runChecker(p);
   }
 }
@@ -97,6 +97,7 @@ const runChecker = (p: Program) => {
       }
     },
   };
+
   const isDocumentationSameAsNodeName = (target: Type) => {
     const docText = getDoc(p, target);
     const nodeName = (target as any).name;

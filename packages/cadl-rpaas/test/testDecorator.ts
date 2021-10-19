@@ -23,7 +23,6 @@ describe("check rules", () => {
       
       model FooParameter {
         @doc("foo name")
-        @body
         name: string
       }
       @doc("The status of the current operation.")

@@ -54,7 +54,10 @@ export async function openApiFor(code: string) {
     "./main.cadl",
     `import "rest"; import "cadl-autorest"; import "cadl-rpaas";${code}`
   );
-  await host.compile("./main.cadl", { noEmit: false, swaggerOutputFile: outPath });
+  await host.compile("./main.cadl", {
+    noEmit: false,
+    swaggerOutputFile: outPath,
+  });
   return JSON.parse(host.fs.get(outPath)!);
 }
 
@@ -68,7 +71,7 @@ export async function CheckFor(code: string) {
   const result = await host.diagnose("./main.cadl", {
     noEmit: false,
     swaggerOutputFile: outPath,
-    onBuildCheck: true,
+    skipBuildCheck: false,
   });
   return result;
 }

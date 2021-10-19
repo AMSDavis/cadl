@@ -4,12 +4,16 @@ namespace Azure.ARM;
 
 @doc("Common properties for all ARM resources.")
 model ArmResource {
+
+  @doc("Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}")
   @visibility("read")
   id: string;
 
+  @doc("The name of the resource.")
   @visibility("read")
   name: string; 
 
+  @doc("The type of the resource. E.g. \"Microsoft.Compute/virtualMachines\" or \"Microsoft.Storage/storageAccounts\"")
   @visibility("read")
   type: string;
 }
@@ -40,6 +44,7 @@ model DefaultProvisioningStateProperty {
   provisioningState: ResourceProvisioningState;
 }
 
+#suppress "@azure-tools/cadl-rpaas/property-requires-documentation" "there is a known issue that can't getDoc for template's property now."
 @doc("Concrete tracked resource types can be created by aliasing this type using a specific property type.")
 model TrackedResource<TProperties> extends TrackedResourceBase {
   @doc("The resource-specific properties for this resource.")
@@ -65,6 +70,7 @@ model ExtensionResourceBase {
   ...ArmResource,
 };
 
+#suppress "@azure-tools/cadl-rpaas/property-requires-documentation" "there is a known issue that can't getDoc for template's property now."
 @doc("Concrete proxy resource types can be created by aliasing this type using a specific property type.")
 model ProxyResource<TProperties> extends ProxyResourceBase {
   @doc("The resource-specific properties for this resource.")
@@ -77,6 +83,7 @@ model ProxyResource<TProperties> extends ProxyResourceBase {
   systemData?: SystemData;
 }
 
+#suppress "@azure-tools/cadl-rpaas/property-requires-documentation" "there is a known issue that can't getDoc for template's property now."
 @doc("Concrete extension resource types can be created by aliasing this type using a specific property type.")
 model ExtensionResource<TProperties> extends ExtensionResourceBase {
   @doc("The resource-specific properties for this resource.")
@@ -100,27 +107,33 @@ model ArmResponse<T> {
   ... OkResponse<T>;
 }
 
+#suppress "@azure-tools/cadl-rpaas/property-requires-documentation" "there is a known issue that can't getDoc for template's property now."
 @doc("ARM create operation completed successfully.")
 model ArmCreatedResponse<T> {
   ... CreatedResponse;
+  @doc("The reponse body.")
   @body body: T;
 }
 
 @doc("Resource deleted successfully.")
 model ArmDeletedResponse {
+  @doc("The status code.")
   @header statusCode: 200;
 }
 
 @doc("Resource deletion accepted.")
 model ArmDeleteAcceptedResponse {
+  @doc("The status code.")
   @header statusCode: 202;
 }
 
 @doc("Resource deleted successfully.")
 model ArmDeletedNoContentResponse {
+  @doc("The status code.")
   @header statusCode: 204;
 }
 
+#suppress "@azure-tools/cadl-rpaas/property-requires-documentation" "there is a known issue that can't getDoc for template's property now."
 @doc("Paged response")
 model Page<T> {
   @doc("The items on this page")
