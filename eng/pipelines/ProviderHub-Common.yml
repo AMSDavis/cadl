@@ -12,6 +12,7 @@ resources:
 
 variables:
   buildConfiguration: "Release"
+  Artifacts: $(System.DefaultWorkingDirectory)\_artifacts\packages
 
 stages:
   - stage: "Build_and_Test"
@@ -20,7 +21,7 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-          - script: dotnet pack ./packages/Cadl.ProviderHubController.Common --configuration $(buildConfiguration) /p:BuildId=$(Build.BuildNumber)
+          - script: dotnet pack ./packages/Cadl.ProviderHubController.Common --configuration $(buildConfiguration) --output $(Artifacts) /p:BuildId=$(Build.BuildNumber)
             displayName: "Build and publish ProviderHubController.Common"
   - template: pipelines/stages/net-release-to-feed.yml@azure-sdk-build-tools
     parameters:
