@@ -175,7 +175,6 @@ package-deps.json
 cadl-output/
 
 # Visual Studio / C#
-_artifacts/
 bin/
 obj/
 .vs/
