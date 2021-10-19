@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-namespace Cadl.RPaasController.Common
+namespace Cadl.ProviderHubController.Common
 {
     /// <summary>
     /// Interface for validation attribute classes

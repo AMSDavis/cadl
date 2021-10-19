@@ -3,7 +3,7 @@
 
 using Newtonsoft.Json;
 
-namespace Cadl.RPaasController.Common
+namespace Cadl.ProviderHubController.Common
 {
     /// <summary>
     /// ValidationResponse class

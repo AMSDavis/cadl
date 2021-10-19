@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Cadl.RPaasController.Common
+namespace Cadl.ProviderHubController.Common
 {
     /// <summary>
     /// Class for ARM tracked resource

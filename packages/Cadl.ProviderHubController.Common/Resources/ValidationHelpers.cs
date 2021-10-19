@@ -3,7 +3,7 @@
 
 using System.Linq;
 
-namespace Cadl.RPaasController.Common
+namespace Cadl.ProviderHubController.Common
 {
     /// <summary>
     /// Validation helper class

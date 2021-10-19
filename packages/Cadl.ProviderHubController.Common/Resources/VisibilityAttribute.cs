@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Cadl.RPaasController.Common
+namespace Cadl.ProviderHubController.Common
 {
     /// <summary>
     /// Attribute class that provides property visibility 
