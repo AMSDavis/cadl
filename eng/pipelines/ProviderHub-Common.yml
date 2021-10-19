@@ -12,7 +12,7 @@ resources:
 
 variables:
   buildConfiguration: "Release"
-  Artifacts: $(System.DefaultWorkingDirectory)\_artifacts\packages
+  Artifacts: $(System.DefaultWorkingDirectory)/_artifacts/packages
 
 stages:
   - stage: "Build_and_Test"
