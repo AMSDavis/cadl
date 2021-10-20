@@ -259,10 +259,13 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       }
 
       if (!program.compilerOptions.noEmit && !program.hasError()) {
+        // Sort the document
+        const sortedRoot = sortOpenAPIDocument(root);
+
         // Write out the OpenAPI document to the output path
         await program.host.writeFile(
           path.resolve(options.outputFile),
-          prettierOutput(JSON.stringify(root, null, 2))
+          prettierOutput(JSON.stringify(sortedRoot, null, 2))
         );
       }
     } catch (err) {
@@ -1315,4 +1318,56 @@ class ErrorTypeFoundError extends Error {
   constructor() {
     super("Error type found in evaluated Cadl output");
   }
+}
+
+function sortObjectByKeys(obj: any, compareFn: any = undefined): any {
+  return Object.keys(obj)
+    .sort(compareFn)
+    .reduce((sortedObj: any, key: string) => {
+      sortedObj[key] = obj[key];
+      return sortedObj;
+    }, {});
+}
+
+export function comparePaths(leftPath: string, rightPath: string) {
+  const leftParts = leftPath.split("/").slice(1);
+  const rightParts = rightPath.split("/").slice(1);
+
+  for (let i = 0; i < Math.max(leftParts.length, rightParts.length); i++) {
+    // Have we exhausted the path parts of one of them?
+    if (i === leftParts.length) return -1;
+    if (i === rightParts.length) return 1;
+
+    // Does this segment represent a path parameter (field) on either side?
+    const leftIsField = leftParts[i][0] === "{";
+    const rightIsField = rightParts[i][0] === "{";
+
+    // If both are fields, try the next part regardless of the field name
+    // since the field ordering is all that really matters
+    if (leftIsField && rightIsField) {
+      continue;
+    }
+
+    // If only one is a field, it automatically wins
+    if (leftIsField || rightIsField) {
+      return leftIsField ? -1 : 1;
+    }
+
+    // Sort lexicographically
+    const result = leftParts[i].localeCompare(rightParts[i]);
+    if (result !== 0) {
+      return result;
+    }
+  }
+
+  // Must be the same
+  return 0;
+}
+
+function sortOpenAPIDocument(doc: any): any {
+  doc.paths = sortObjectByKeys(doc.paths, comparePaths);
+  doc.definitions = sortObjectByKeys(doc.definitions);
+  doc.parameters = sortObjectByKeys(doc.parameters);
+
+  return doc;
 }

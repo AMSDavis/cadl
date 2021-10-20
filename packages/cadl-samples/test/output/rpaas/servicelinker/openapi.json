@@ -41,68 +41,6 @@
     }
   ],
   "paths": {
-    "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/validateLinker": {
-      "post": {
-        "operationId": "Linker_ValidateLinker",
-        "summary": "Validate a linker resource.",
-        "parameters": [
-          {
-            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/LinkerNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ValidateResult"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "Linker"
-        ]
-      }
-    },
-    "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/listConfigurations": {
-      "post": {
-        "operationId": "Linker_ListConfigurations",
-        "summary": "List linker resource configurations.",
-        "parameters": [
-          {
-            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/LinkerNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/SourceConfigurationResult"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "Linker"
-        ]
-      }
-    },
     "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}": {
       "get": {
         "operationId": "Linker_Get",
@@ -268,6 +206,68 @@
         ]
       }
     },
+    "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/listConfigurations": {
+      "post": {
+        "operationId": "Linker_ListConfigurations",
+        "summary": "List linker resource configurations.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
+          },
+          {
+            "$ref": "#/parameters/LinkerNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SourceConfigurationResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Linker"
+        ]
+      }
+    },
+    "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/validateLinker": {
+      "post": {
+        "operationId": "Linker_ValidateLinker",
+        "summary": "Validate a linker resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
+          },
+          {
+            "$ref": "#/parameters/LinkerNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidateResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Linker"
+        ]
+      }
+    },
     "/providers/Microsoft.ServiceLinker/operations": {
       "get": {
         "operationId": "Operations_List",
@@ -301,66 +301,52 @@
     }
   },
   "definitions": {
-    "ValidateResult": {
+    "AuthInfoBase": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string",
-          "description": "The linker name."
-        },
-        "linkerStatus": {
-          "$ref": "#/definitions/LinkerStatus",
-          "description": "Specifies if the linker is healthy."
-        },
-        "reason": {
-          "type": "string",
-          "description": "The reason of the error."
-        },
-        "reportStartTimeUtc": {
-          "type": "string",
-          "format": "date",
-          "description": "The start time of the validation report."
-        },
-        "reportEndTimeUtc": {
-          "type": "string",
-          "format": "date",
-          "description": "The end time of the validation report."
-        },
+        "authType": {
+          "$ref": "#/definitions/AuthType"
+        }
+      },
+      "description": "The abstract base model for all authentication types.",
+      "required": [
+        "authType"
+      ]
+    },
+    "AuthType": {
+      "type": "string",
+      "description": "The kmind of authentication used for this linker.",
+      "enum": [
+        "systemAssignedIdentity",
+        "userAssignedIdentity",
+        "servicePrincipal",
+        "secret"
+      ],
+      "x-ms-enum": {
+        "name": "AuthType",
+        "modelAsString": true
+      }
+    },
+    "LinkerProperties": {
+      "type": "object",
+      "properties": {
         "targetId": {
           "type": "string",
           "description": "The resource Id of the target service."
         },
-        "authType": {
-          "$ref": "#/definitions/AuthType",
+        "authInfo": {
+          "$ref": "#/definitions/AuthInfoBase",
           "description": "The authentication type."
+        },
+        "provisioningState": {
+          "type": "string",
+          "description": "The provisioning state.",
+          "readOnly": true
         }
       },
-      "description": "Details of validation.",
       "required": [
-        "name",
-        "linkerStatus",
-        "reason",
-        "reportStartTimeUtc",
-        "reportEndTimeUtc",
         "targetId",
-        "authType"
-      ]
-    },
-    "SourceConfigurationResult": {
-      "type": "object",
-      "properties": {
-        "sourceConfigurations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/SourceConfiguration"
-          },
-          "x-cadl-name": "Microsoft.ServiceLinker.SourceConfiguration[]",
-          "description": "Details of the source configurations."
-        }
-      },
-      "description": "Configurations for source resource, include appSettings, connectionString and serviceBindings",
-      "required": [
-        "sourceConfigurations"
+        "authInfo"
       ]
     },
     "LinkerResource": {
@@ -417,20 +403,6 @@
         "modelAsString": true
       }
     },
-    "AuthType": {
-      "type": "string",
-      "description": "The kmind of authentication used for this linker.",
-      "enum": [
-        "systemAssignedIdentity",
-        "userAssignedIdentity",
-        "servicePrincipal",
-        "secret"
-      ],
-      "x-ms-enum": {
-        "name": "AuthType",
-        "modelAsString": true
-      }
-    },
     "SourceConfiguration": {
       "type": "object",
       "properties": {
@@ -451,38 +423,21 @@
         "linkConfig"
       ]
     },
-    "LinkerProperties": {
+    "SourceConfigurationResult": {
       "type": "object",
       "properties": {
-        "targetId": {
-          "type": "string",
-          "description": "The resource Id of the target service."
-        },
-        "authInfo": {
-          "$ref": "#/definitions/AuthInfoBase",
-          "description": "The authentication type."
-        },
-        "provisioningState": {
-          "type": "string",
-          "description": "The provisioning state.",
-          "readOnly": true
+        "sourceConfigurations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SourceConfiguration"
+          },
+          "x-cadl-name": "Microsoft.ServiceLinker.SourceConfiguration[]",
+          "description": "Details of the source configurations."
         }
       },
+      "description": "Configurations for source resource, include appSettings, connectionString and serviceBindings",
       "required": [
-        "targetId",
-        "authInfo"
-      ]
-    },
-    "AuthInfoBase": {
-      "type": "object",
-      "properties": {
-        "authType": {
-          "$ref": "#/definitions/AuthType"
-        }
-      },
-      "description": "The abstract base model for all authentication types.",
-      "required": [
-        "authType"
+        "sourceConfigurations"
       ]
     },
     "SourceConfigurationType": {
@@ -497,6 +452,51 @@
         "name": "SourceConfigurationType",
         "modelAsString": true
       }
+    },
+    "ValidateResult": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The linker name."
+        },
+        "linkerStatus": {
+          "$ref": "#/definitions/LinkerStatus",
+          "description": "Specifies if the linker is healthy."
+        },
+        "reason": {
+          "type": "string",
+          "description": "The reason of the error."
+        },
+        "reportStartTimeUtc": {
+          "type": "string",
+          "format": "date",
+          "description": "The start time of the validation report."
+        },
+        "reportEndTimeUtc": {
+          "type": "string",
+          "format": "date",
+          "description": "The end time of the validation report."
+        },
+        "targetId": {
+          "type": "string",
+          "description": "The resource Id of the target service."
+        },
+        "authType": {
+          "$ref": "#/definitions/AuthType",
+          "description": "The authentication type."
+        }
+      },
+      "description": "Details of validation.",
+      "required": [
+        "name",
+        "linkerStatus",
+        "reason",
+        "reportStartTimeUtc",
+        "reportEndTimeUtc",
+        "targetId",
+        "authType"
+      ]
     }
   },
   "parameters": {

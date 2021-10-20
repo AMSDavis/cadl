@@ -13,58 +13,6 @@
   ],
   "tags": [],
   "paths": {
-    "/bool/true": {
-      "get": {
-        "operationId": "bool_getTrue",
-        "summary": "Get true Boolean value",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "A successful response",
-            "schema": {
-              "type": "boolean",
-              "enum": [
-                true
-              ]
-            }
-          },
-          "default": {
-            "description": "Error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      },
-      "put": {
-        "operationId": "bool_putTrue",
-        "summary": "Set Boolean value true",
-        "parameters": [
-          {
-            "name": "value",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "boolean",
-              "enum": [
-                true
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response"
-          },
-          "default": {
-            "description": "Error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
     "/bool/false": {
       "get": {
         "operationId": "bool_getFalse",
@@ -117,6 +65,24 @@
         }
       }
     },
+    "/bool/invalid": {
+      "get": {
+        "operationId": "bool_getInvalid",
+        "summary": "Get invalid Boolean value",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Null response"
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/bool/null": {
       "get": {
         "operationId": "bool_getNull",
@@ -135,14 +101,48 @@
         }
       }
     },
-    "/bool/invalid": {
+    "/bool/true": {
       "get": {
-        "operationId": "bool_getInvalid",
-        "summary": "Get invalid Boolean value",
+        "operationId": "bool_getTrue",
+        "summary": "Get true Boolean value",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Null response"
+            "description": "A successful response",
+            "schema": {
+              "type": "boolean",
+              "enum": [
+                true
+              ]
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "bool_putTrue",
+        "summary": "Set Boolean value true",
+        "parameters": [
+          {
+            "name": "value",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "boolean",
+              "enum": [
+                true
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response"
           },
           "default": {
             "description": "Error",

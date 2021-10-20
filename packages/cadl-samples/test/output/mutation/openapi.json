@@ -59,6 +59,18 @@
     }
   },
   "definitions": {
+    "OtherModel": {
+      "type": "object",
+      "properties": {
+        "num": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "num"
+      ]
+    },
     "SomeModel": {
       "type": "object",
       "properties": {
@@ -76,18 +88,6 @@
         "name",
         "foo",
         "other"
-      ]
-    },
-    "OtherModel": {
-      "type": "object",
-      "properties": {
-        "num": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "required": [
-        "num"
       ]
     }
   },

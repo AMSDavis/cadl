@@ -16,6 +16,26 @@
   ],
   "tags": [],
   "paths": {
+    "/sub/b/get": {
+      "get": {
+        "operationId": "SubB_DoSomething",
+        "parameters": [
+          {
+            "name": "thing",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Root.SubB.Thing"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Null response"
+          }
+        }
+      }
+    },
     "/sub/sub/a/get": {
       "get": {
         "operationId": "SubSubA_DoSomething",
@@ -35,26 +55,6 @@
             "schema": {
               "type": "string"
             }
-          }
-        }
-      }
-    },
-    "/sub/b/get": {
-      "get": {
-        "operationId": "SubB_DoSomething",
-        "parameters": [
-          {
-            "name": "thing",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Root.SubB.Thing"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Null response"
           }
         }
       }

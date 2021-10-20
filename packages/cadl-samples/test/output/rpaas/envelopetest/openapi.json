@@ -75,6 +75,111 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.EnvelopeTest/allProperties": {
+      "get": {
+        "operationId": "AllProperties_ListBySubscription",
+        "summary": "List AllPropertiesResource resources by subscription ID",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AllPropertiesResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AllProperties"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.EnvelopeTest/systems": {
+      "get": {
+        "operationId": "SystemsOnlyResources_ListBySubscription",
+        "summary": "List SystemOnlyResource resources by subscription ID",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SystemOnlyResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SystemsOnlyResources"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/allProperties": {
+      "get": {
+        "operationId": "AllProperties_ListByResourceGroup",
+        "summary": "List AllPropertiesResource resources by resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AllPropertiesResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AllProperties"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/allProperties/{allPropertiesName}": {
       "get": {
         "operationId": "AllProperties_Get",
@@ -252,44 +357,10 @@
         ]
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.EnvelopeTest/allProperties": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/systems": {
       "get": {
-        "operationId": "AllProperties_ListBySubscription",
-        "summary": "List AllPropertiesResource resources by subscription ID",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/AllPropertiesResourceListResult"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "AllProperties"
-        ],
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/allProperties": {
-      "get": {
-        "operationId": "AllProperties_ListByResourceGroup",
-        "summary": "List AllPropertiesResource resources by resource group",
+        "operationId": "SystemsOnlyResources_ListByResourceGroup",
+        "summary": "List SystemOnlyResource resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -305,7 +376,7 @@
           "200": {
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/AllPropertiesResourceListResult"
+              "$ref": "#/definitions/SystemOnlyResourceListResult"
             }
           },
           "default": {
@@ -316,7 +387,7 @@
           }
         },
         "tags": [
-          "AllProperties"
+          "SystemsOnlyResources"
         ],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -499,80 +570,21 @@
           "SystemsOnlyResources"
         ]
       }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.EnvelopeTest/systems": {
-      "get": {
-        "operationId": "SystemsOnlyResources_ListBySubscription",
-        "summary": "List SystemOnlyResource resources by subscription ID",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/SystemOnlyResourceListResult"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "SystemsOnlyResources"
-        ],
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/systems": {
-      "get": {
-        "operationId": "SystemsOnlyResources_ListByResourceGroup",
-        "summary": "List SystemOnlyResource resources by resource group",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/SystemOnlyResourceListResult"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "SystemsOnlyResources"
-        ],
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
     }
   },
   "definitions": {
+    "AllPropertiesProperties": {
+      "type": "object",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/EnvelopeProvisioningState",
+          "description": "The status of the last operation performed on this resource."
+        }
+      },
+      "required": [
+        "provisioningState"
+      ]
+    },
     "AllPropertiesResource": {
       "type": "object",
       "properties": {
@@ -635,6 +647,27 @@
         }
       ]
     },
+    "AllPropertiesResourceListResult": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AllPropertiesResource"
+          },
+          "x-cadl-name": "Microsoft.EnvelopeTest.AllPropertiesResource[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "The response of a AllPropertiesResource list operation.",
+      "required": [
+        "value"
+      ]
+    },
     "AllPropertiesResourceUpdate": {
       "type": "object",
       "properties": {
@@ -657,25 +690,126 @@
       },
       "description": "The updatable properties of the AllPropertiesResource."
     },
-    "AllPropertiesResourceListResult": {
+    "Azure.ARM.ManagedIdentityProperties": {
       "type": "object",
       "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AllPropertiesResource"
-          },
-          "x-cadl-name": "Microsoft.EnvelopeTest.AllPropertiesResource[]",
-          "description": "The items on this page"
-        },
-        "nextLink": {
+        "tenantId": {
           "type": "string",
-          "description": "The link to the next page of items"
+          "description": "The Active Directory tenant id of the principal.",
+          "readOnly": true
+        },
+        "principalId": {
+          "type": "string",
+          "description": "The active directory identifier of this principal.",
+          "readOnly": true
+        },
+        "type": {
+          "$ref": "#/definitions/Azure.ARM.ManagedIdentityType",
+          "description": "The type of managed identity assigned to this resource."
+        },
+        "userAssignedIdentities": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Azure.ARM.UserAssignedIdentity"
+          },
+          "description": "The identities assigned to this resource by the user."
         }
       },
-      "description": "The response of a AllPropertiesResource list operation.",
+      "description": "The properties of the managed service identities assigned to this resource.",
       "required": [
-        "value"
+        "type"
+      ]
+    },
+    "Azure.ARM.ManagedIdentityType": {
+      "type": "string",
+      "description": "The kind of managemed identity assigned to this resource.",
+      "enum": [
+        "None",
+        "SystemAssigned",
+        "UserAssigned",
+        "SystemAssigned,UserAssigned"
+      ],
+      "x-ms-enum": {
+        "name": "ManagedIdentityType",
+        "modelAsString": true
+      }
+    },
+    "Azure.ARM.ManagedSystemIdentityProperties": {
+      "type": "object",
+      "properties": {
+        "tenantId": {
+          "type": "string",
+          "description": "The Active Directory tenant id of the principal.",
+          "readOnly": true
+        },
+        "principalId": {
+          "type": "string",
+          "description": "The active directory identifier of this principal.",
+          "readOnly": true
+        },
+        "type": {
+          "$ref": "#/definitions/Azure.ARM.ManagedSystemIdentityType",
+          "description": "The type of managed identity assigned to this resource."
+        }
+      },
+      "description": "The properties of the service-assigned identity associated with this resource/",
+      "required": [
+        "type"
+      ]
+    },
+    "Azure.ARM.ManagedSystemIdentityType": {
+      "type": "string",
+      "description": "The kind of managemed identity assigned to this resource.",
+      "enum": [
+        "None",
+        "SystemAssigned"
+      ],
+      "x-ms-enum": {
+        "name": "ManagedSystemIdentityType",
+        "modelAsString": true
+      }
+    },
+    "Azure.ARM.UserAssignedIdentity": {
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "type": "string",
+          "description": "The active directory client identifier for this principal."
+        },
+        "principalId": {
+          "type": "string",
+          "description": "The active directory identifier for this principal."
+        }
+      },
+      "description": "A managed identity assigned by the user.",
+      "required": [
+        "clientId",
+        "principalId"
+      ]
+    },
+    "EnvelopeProvisioningState": {
+      "type": "string",
+      "enum": [
+        "Working",
+        "Succeeded",
+        "Canceled",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "EnvelopeProvisioningState",
+        "modelAsString": true
+      }
+    },
+    "SystemOnlyProperties": {
+      "type": "object",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/EnvelopeProvisioningState",
+          "description": "The status of the last operation performed on this resource."
+        }
+      },
+      "required": [
+        "provisioningState"
       ]
     },
     "SystemOnlyResource": {
@@ -710,28 +844,6 @@
         }
       ]
     },
-    "SystemOnlyResourceUpdate": {
-      "type": "object",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "description": "Resource tags.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/EnvelopeProvisioningState",
-          "description": "The status of the last operation performed on this resource."
-        }
-      },
-      "description": "The updatable properties of the SystemOnlyResource."
-    },
     "SystemOnlyResourceListResult": {
       "type": "object",
       "properties": {
@@ -753,139 +865,27 @@
         "value"
       ]
     },
-    "AllPropertiesProperties": {
+    "SystemOnlyResourceUpdate": {
       "type": "object",
       "properties": {
-        "provisioningState": {
-          "$ref": "#/definitions/EnvelopeProvisioningState",
-          "description": "The status of the last operation performed on this resource."
-        }
-      },
-      "required": [
-        "provisioningState"
-      ]
-    },
-    "Azure.ARM.ManagedIdentityProperties": {
-      "type": "object",
-      "properties": {
-        "tenantId": {
-          "type": "string",
-          "description": "The Active Directory tenant id of the principal.",
-          "readOnly": true
-        },
-        "principalId": {
-          "type": "string",
-          "description": "The active directory identifier of this principal.",
-          "readOnly": true
-        },
-        "type": {
-          "$ref": "#/definitions/Azure.ARM.ManagedIdentityType",
-          "description": "The type of managed identity assigned to this resource."
-        },
-        "userAssignedIdentities": {
+        "tags": {
           "type": "object",
           "additionalProperties": {
-            "$ref": "#/definitions/Azure.ARM.UserAssignedIdentity"
+            "type": "string"
           },
-          "description": "The identities assigned to this resource by the user."
-        }
-      },
-      "description": "The properties of the managed service identities assigned to this resource.",
-      "required": [
-        "type"
-      ]
-    },
-    "EnvelopeProvisioningState": {
-      "type": "string",
-      "enum": [
-        "Working",
-        "Succeeded",
-        "Canceled",
-        "Failed"
-      ],
-      "x-ms-enum": {
-        "name": "EnvelopeProvisioningState",
-        "modelAsString": true
-      }
-    },
-    "SystemOnlyProperties": {
-      "type": "object",
-      "properties": {
+          "description": "Resource tags.",
+          "x-ms-mutability": [
+            "read",
+            "update",
+            "create"
+          ]
+        },
         "provisioningState": {
           "$ref": "#/definitions/EnvelopeProvisioningState",
           "description": "The status of the last operation performed on this resource."
         }
       },
-      "required": [
-        "provisioningState"
-      ]
-    },
-    "Azure.ARM.ManagedSystemIdentityProperties": {
-      "type": "object",
-      "properties": {
-        "tenantId": {
-          "type": "string",
-          "description": "The Active Directory tenant id of the principal.",
-          "readOnly": true
-        },
-        "principalId": {
-          "type": "string",
-          "description": "The active directory identifier of this principal.",
-          "readOnly": true
-        },
-        "type": {
-          "$ref": "#/definitions/Azure.ARM.ManagedSystemIdentityType",
-          "description": "The type of managed identity assigned to this resource."
-        }
-      },
-      "description": "The properties of the service-assigned identity associated with this resource/",
-      "required": [
-        "type"
-      ]
-    },
-    "Azure.ARM.ManagedIdentityType": {
-      "type": "string",
-      "description": "The kind of managemed identity assigned to this resource.",
-      "enum": [
-        "None",
-        "SystemAssigned",
-        "UserAssigned",
-        "SystemAssigned,UserAssigned"
-      ],
-      "x-ms-enum": {
-        "name": "ManagedIdentityType",
-        "modelAsString": true
-      }
-    },
-    "Azure.ARM.UserAssignedIdentity": {
-      "type": "object",
-      "properties": {
-        "clientId": {
-          "type": "string",
-          "description": "The active directory client identifier for this principal."
-        },
-        "principalId": {
-          "type": "string",
-          "description": "The active directory identifier for this principal."
-        }
-      },
-      "description": "A managed identity assigned by the user.",
-      "required": [
-        "clientId",
-        "principalId"
-      ]
-    },
-    "Azure.ARM.ManagedSystemIdentityType": {
-      "type": "string",
-      "description": "The kind of managemed identity assigned to this resource.",
-      "enum": [
-        "None",
-        "SystemAssigned"
-      ],
-      "x-ms-enum": {
-        "name": "ManagedSystemIdentityType",
-        "modelAsString": true
-      }
+      "description": "The updatable properties of the SystemOnlyResource."
     }
   },
   "parameters": {

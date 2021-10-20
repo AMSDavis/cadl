@@ -53,32 +53,6 @@
         }
       }
     },
-    "/foo/NotFoundWithDocs": {
-      "get": {
-        "operationId": "foo_WithStatusCodeDocs",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/Resp"
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/NotFoundWithDocsResp"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
     "/foo/NotFoundDefaultDocs": {
       "get": {
         "operationId": "foo_WithDefaultDescNotFound",
@@ -104,21 +78,35 @@
           }
         }
       }
+    },
+    "/foo/NotFoundWithDocs": {
+      "get": {
+        "operationId": "foo_WithStatusCodeDocs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Resp"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/NotFoundWithDocsResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
-    "Resp": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "Error": {
       "type": "object",
       "properties": {
@@ -129,19 +117,6 @@
       },
       "required": [
         "code"
-      ]
-    },
-    "RespWithDocs": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "description": "Response from @doc",
-      "required": [
-        "value"
       ]
     },
     "ErrorWithDocs": {
@@ -157,6 +132,17 @@
         "code"
       ]
     },
+    "NotFoundResp": {
+      "type": "object",
+      "properties": {
+        "details": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "details"
+      ]
+    },
     "NotFoundWithDocsResp": {
       "type": "object",
       "properties": {
@@ -169,15 +155,29 @@
         "details"
       ]
     },
-    "NotFoundResp": {
+    "Resp": {
       "type": "object",
       "properties": {
-        "details": {
-          "type": "string"
+        "value": {
+          "type": "integer",
+          "format": "int32"
         }
       },
       "required": [
-        "details"
+        "value"
+      ]
+    },
+    "RespWithDocs": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "description": "Response from @doc",
+      "required": [
+        "value"
       ]
     }
   },
