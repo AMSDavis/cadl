@@ -1183,7 +1183,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         .join(", ")
     );
     sqrl.filters.define("initialCaps", (op) => transformCSharpIdentifier(op));
-    const operationsPath = resolvePath(path.join(genPath, "operations"));
+    const operationsPath = genPath;
     const routesPath = resolvePath(path.join(genPath, service + "ServiceRoutes.cs"));
     const templatePath = path.join(rootPath, "templates", options.controllerHost);
     const modelsPath = path.join(genPath, "models");
@@ -1202,11 +1202,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           target: NoTarget,
         })
       );
-      await copyModelFiles(
-        path.join(rootPath, "clientlib", options.controllerHost),
-        modelsPath
-      ).catch((err) =>
-        reportDiagnostic(program, { code: "copy-files", format: { error: err }, target: NoTarget })
+      await createDirIfNotExists(modelsPath).catch((err) =>
+        reportDiagnostic(program, {
+          code: "creating-dir",
+          format: { error: err },
+          target: NoTarget,
+        })
       );
       await program.host.writeFile(
         routesPath,
