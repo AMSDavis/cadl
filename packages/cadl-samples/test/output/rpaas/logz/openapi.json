@@ -53,10 +53,112 @@
     }
   ],
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/listMonitoredResources/{name}": {
-      "post": {
-        "operationId": "LogzMonitors_listMonitoredResources",
-        "summary": "List the resources currently being monitored by the Logz monitor resource.",
+    "/providers/Microsoft.Logz/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "summary": "List the operations for Microsoft.Logz",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Operations"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Logz/monitors": {
+      "get": {
+        "operationId": "Monitors_ListBySubscription",
+        "summary": "List LogzMonitorResource resources by subscription ID",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/LogzMonitorResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Monitors"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors": {
+      "get": {
+        "operationId": "Monitors_ListByResourceGroup",
+        "summary": "List LogzMonitorResource resources by resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/LogzMonitorResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Monitors"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}": {
+      "get": {
+        "operationId": "Monitors_Get",
+        "summary": "Get a LogzMonitorResource",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -68,18 +170,14 @@
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "description": "The name of the Logz Monitor resource.",
-            "type": "string"
+            "$ref": "#/parameters/MonitorNameParameter"
           }
         ],
         "responses": {
           "200": {
-            "description": "A lit of monitored resources.",
+            "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/MonitoredResourceListResponse"
+              "$ref": "#/definitions/LogzMonitorResource"
             }
           },
           "default": {
@@ -88,6 +186,189 @@
               "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
+        },
+        "tags": [
+          "Monitors"
+        ]
+      },
+      "put": {
+        "operationId": "Monitors_CreateOrUpdate",
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true,
+        "summary": "Create a LogzMonitorResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "description": "Resource create parameters.",
+            "schema": {
+              "$ref": "#/definitions/LogzMonitorResource"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/LogzMonitorResource"
+            }
+          },
+          "201": {
+            "description": "ARM create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/LogzMonitorResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Monitors"
+        ]
+      },
+      "patch": {
+        "operationId": "Monitors_Update",
+        "summary": "Update a LogzMonitorResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "description": "The resource properties to be updated.",
+            "schema": {
+              "$ref": "#/definitions/LogzMonitorResourceUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/LogzMonitorResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Monitors"
+        ]
+      },
+      "delete": {
+        "operationId": "Monitors_Delete",
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true,
+        "summary": "Delete a LogzMonitorResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "202": {
+            "description": "Resource deletion accepted."
+          },
+          "204": {
+            "description": "Resource deleted successfully."
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Monitors"
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts": {
+      "get": {
+        "operationId": "SubAccounts_List",
+        "summary": "List all SubAccountResource by monitorName",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SubAccountResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SubAccounts"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
         }
       }
     },
@@ -280,20 +561,32 @@
         ]
       }
     },
-    "/providers/Microsoft.Logz/operations": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts/{subAccountName}/tagRules": {
       "get": {
-        "operationId": "Operations_List",
-        "summary": "List the operations for Microsoft.Logz",
+        "operationId": "SubAccountTagRules_List",
+        "summary": "List all SubAccountTagRuleResource by subAccountName",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "$ref": "#/parameters/SubAccountNameParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/OperationListResult"
+              "$ref": "#/definitions/SubAccountTagRuleResourceListResult"
             }
           },
           "default": {
@@ -304,56 +597,17 @@
           }
         },
         "tags": [
-          "Operations"
+          "SubAccountTagRules"
         ],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts/{subAccountName}/tagRules/{tagName}": {
       "get": {
-        "operationId": "Monitors_Get",
-        "summary": "Get a LogzMonitorResource",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "#/parameters/MonitorNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/LogzMonitorResource"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "Monitors"
-        ]
-      },
-      "put": {
-        "operationId": "Monitors_CreateOrUpdate",
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        },
-        "x-ms-long-running-operation": true,
-        "summary": "Create a LogzMonitorResource",
+        "operationId": "SubAccountTagRules_Get",
+        "summary": "Get a SubAccountTagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -368,253 +622,7 @@
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "name": "resource",
-            "in": "body",
-            "required": true,
-            "description": "Resource create parameters.",
-            "schema": {
-              "$ref": "#/definitions/LogzMonitorResource"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/LogzMonitorResource"
-            }
-          },
-          "201": {
-            "description": "ARM create operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/LogzMonitorResource"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "Monitors"
-        ]
-      },
-      "patch": {
-        "operationId": "Monitors_Update",
-        "summary": "Update a LogzMonitorResource",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "#/parameters/MonitorNameParameter"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "required": true,
-            "description": "The resource properties to be updated.",
-            "schema": {
-              "$ref": "#/definitions/LogzMonitorResourceUpdate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/LogzMonitorResource"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "Monitors"
-        ]
-      },
-      "delete": {
-        "operationId": "Monitors_Delete",
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        },
-        "x-ms-long-running-operation": true,
-        "summary": "Delete a LogzMonitorResource",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "#/parameters/MonitorNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "202": {
-            "description": "Resource deletion accepted."
-          },
-          "204": {
-            "description": "Resource deleted successfully."
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "Monitors"
-        ]
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Logz/monitors": {
-      "get": {
-        "operationId": "Monitors_ListBySubscription",
-        "summary": "List LogzMonitorResource resources by subscription ID",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/LogzMonitorResourceListResult"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "Monitors"
-        ],
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors": {
-      "get": {
-        "operationId": "Monitors_ListByResourceGroup",
-        "summary": "List LogzMonitorResource resources by resource group",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/LogzMonitorResourceListResult"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "Monitors"
-        ],
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts": {
-      "get": {
-        "operationId": "SubAccounts_List",
-        "summary": "List all SubAccountResource by monitorName",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "#/parameters/MonitorNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/SubAccountResourceListResult"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "SubAccounts"
-        ],
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/tagRules/{tagName}": {
-      "get": {
-        "operationId": "TagRules_Get",
-        "summary": "Get a TagRuleResource",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "#/parameters/MonitorNameParameter"
+            "$ref": "#/parameters/SubAccountNameParameter"
           },
           {
             "$ref": "#/parameters/TagNameParameter"
@@ -624,7 +632,7 @@
           "200": {
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/TagRuleResource"
+              "$ref": "#/definitions/SubAccountTagRuleResource"
             }
           },
           "default": {
@@ -635,16 +643,16 @@
           }
         },
         "tags": [
-          "TagRules"
+          "SubAccountTagRules"
         ]
       },
       "put": {
-        "operationId": "TagRules_CreateOrUpdate",
+        "operationId": "SubAccountTagRules_CreateOrUpdate",
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a TagRuleResource",
+        "summary": "Create a SubAccountTagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -657,6 +665,9 @@
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "$ref": "#/parameters/SubAccountNameParameter"
           },
           {
             "$ref": "#/parameters/TagNameParameter"
@@ -667,7 +678,7 @@
             "required": true,
             "description": "Resource create parameters.",
             "schema": {
-              "$ref": "#/definitions/TagRuleResource"
+              "$ref": "#/definitions/SubAccountTagRuleResource"
             }
           }
         ],
@@ -675,13 +686,13 @@
           "200": {
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/TagRuleResource"
+              "$ref": "#/definitions/SubAccountTagRuleResource"
             }
           },
           "201": {
             "description": "ARM create operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/TagRuleResource"
+              "$ref": "#/definitions/SubAccountTagRuleResource"
             }
           },
           "default": {
@@ -692,16 +703,16 @@
           }
         },
         "tags": [
-          "TagRules"
+          "SubAccountTagRules"
         ]
       },
       "delete": {
-        "operationId": "TagRules_Delete",
+        "operationId": "SubAccountTagRules_Delete",
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a TagRuleResource",
+        "summary": "Delete a SubAccountTagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -714,6 +725,9 @@
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "$ref": "#/parameters/SubAccountNameParameter"
           },
           {
             "$ref": "#/parameters/TagNameParameter"
@@ -737,14 +751,14 @@
           }
         },
         "tags": [
-          "TagRules"
+          "SubAccountTagRules"
         ]
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/tagRules": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/singleSignOnConfigurations": {
       "get": {
-        "operationId": "TagRules_List",
-        "summary": "List all TagRuleResource by monitorName",
+        "operationId": "SingleSignOnConfigurations_List",
+        "summary": "List all SingleSignOnConfigurationResource by monitorName",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -763,7 +777,7 @@
           "200": {
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/TagRuleResourceListResult"
+              "$ref": "#/definitions/SingleSignOnConfigurationResourceListResult"
             }
           },
           "default": {
@@ -774,7 +788,7 @@
           }
         },
         "tags": [
-          "TagRules"
+          "SingleSignOnConfigurations"
         ],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -970,10 +984,10 @@
         ]
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/singleSignOnConfigurations": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/tagRules": {
       "get": {
-        "operationId": "SingleSignOnConfigurations_List",
-        "summary": "List all SingleSignOnConfigurationResource by monitorName",
+        "operationId": "TagRules_List",
+        "summary": "List all TagRuleResource by monitorName",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -992,7 +1006,7 @@
           "200": {
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SingleSignOnConfigurationResourceListResult"
+              "$ref": "#/definitions/TagRuleResourceListResult"
             }
           },
           "default": {
@@ -1003,17 +1017,17 @@
           }
         },
         "tags": [
-          "SingleSignOnConfigurations"
+          "TagRules"
         ],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts/{subAccountName}/tagRules/{tagName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/tagRules/{tagName}": {
       "get": {
-        "operationId": "SubAccountTagRules_Get",
-        "summary": "Get a SubAccountTagRuleResource",
+        "operationId": "TagRules_Get",
+        "summary": "Get a TagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1026,9 +1040,6 @@
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
-          },
-          {
-            "$ref": "#/parameters/SubAccountNameParameter"
           },
           {
             "$ref": "#/parameters/TagNameParameter"
@@ -1038,7 +1049,7 @@
           "200": {
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResource"
+              "$ref": "#/definitions/TagRuleResource"
             }
           },
           "default": {
@@ -1049,16 +1060,16 @@
           }
         },
         "tags": [
-          "SubAccountTagRules"
+          "TagRules"
         ]
       },
       "put": {
-        "operationId": "SubAccountTagRules_CreateOrUpdate",
+        "operationId": "TagRules_CreateOrUpdate",
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a SubAccountTagRuleResource",
+        "summary": "Create a TagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1071,9 +1082,6 @@
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
-          },
-          {
-            "$ref": "#/parameters/SubAccountNameParameter"
           },
           {
             "$ref": "#/parameters/TagNameParameter"
@@ -1084,7 +1092,7 @@
             "required": true,
             "description": "Resource create parameters.",
             "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResource"
+              "$ref": "#/definitions/TagRuleResource"
             }
           }
         ],
@@ -1092,13 +1100,13 @@
           "200": {
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResource"
+              "$ref": "#/definitions/TagRuleResource"
             }
           },
           "201": {
             "description": "ARM create operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResource"
+              "$ref": "#/definitions/TagRuleResource"
             }
           },
           "default": {
@@ -1109,16 +1117,16 @@
           }
         },
         "tags": [
-          "SubAccountTagRules"
+          "TagRules"
         ]
       },
       "delete": {
-        "operationId": "SubAccountTagRules_Delete",
+        "operationId": "TagRules_Delete",
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a SubAccountTagRuleResource",
+        "summary": "Delete a TagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1131,9 +1139,6 @@
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
-          },
-          {
-            "$ref": "#/parameters/SubAccountNameParameter"
           },
           {
             "$ref": "#/parameters/TagNameParameter"
@@ -1157,14 +1162,14 @@
           }
         },
         "tags": [
-          "SubAccountTagRules"
+          "TagRules"
         ]
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts/{subAccountName}/tagRules": {
-      "get": {
-        "operationId": "SubAccountTagRules_List",
-        "summary": "List all SubAccountTagRuleResource by subAccountName",
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/listMonitoredResources/{name}": {
+      "post": {
+        "operationId": "LogzMonitors_listMonitoredResources",
+        "summary": "List the resources currently being monitored by the Logz monitor resource.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
@@ -1176,17 +1181,18 @@
             "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "$ref": "#/parameters/MonitorNameParameter"
-          },
-          {
-            "$ref": "#/parameters/SubAccountNameParameter"
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "description": "The name of the Logz Monitor resource.",
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "ARM operation completed successfully.",
+            "description": "A lit of monitored resources.",
             "schema": {
-              "$ref": "#/definitions/SubAccountTagRuleResourceListResult"
+              "$ref": "#/definitions/MonitoredResourceListResponse"
             }
           },
           "default": {
@@ -1195,37 +1201,22 @@
               "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "SubAccountTagRules"
-        ],
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
         }
       }
     }
   },
   "definitions": {
-    "MonitoredResourceListResponse": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MonitoredResource"
-          },
-          "x-cadl-name": "Microsoft.Logz.MonitoredResource[]",
-          "description": "The items on this page"
-        },
-        "nextLink": {
-          "type": "string",
-          "description": "The link to the next page of items"
-        }
-      },
-      "description": "A lit of monitored resources.",
-      "required": [
-        "value"
-      ]
+    "LiftrResourceCategories": {
+      "type": "string",
+      "description": "Liftr resource category",
+      "enum": [
+        "Unknown",
+        "MonitorLogs"
+      ],
+      "x-ms-enum": {
+        "name": "LiftrResourceCategories",
+        "modelAsString": true
+      }
     },
     "LogzMonitorResource": {
       "type": "object",
@@ -1255,35 +1246,28 @@
         }
       ]
     },
-    "SubAccountResource": {
+    "LogzMonitorResourceListResult": {
       "type": "object",
       "properties": {
-        "properties": {
-          "$ref": "#/definitions/LogzMonitorResourceProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ],
-          "x-ms-client-flatten": true
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LogzMonitorResource"
+          },
+          "x-cadl-name": "Microsoft.Logz.LogzMonitorResource[]",
+          "description": "The items on this page"
         },
-        "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
-          "description": "System metadata for this resource.",
-          "readOnly": true
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
         }
       },
-      "description": "Details of a sub account.",
+      "description": "The response of a LogzMonitorResource list operation.",
       "required": [
-        "properties"
-      ],
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
-        }
+        "value"
       ]
     },
-    "SubAccountResourceUpdate": {
+    "LogzMonitorResourceProperties": {
       "type": "object",
       "properties": {
         "provisioningState": {
@@ -1320,7 +1304,17 @@
           "description": "The priority of the resource."
         }
       },
-      "description": "The updatable properties of the SubAccountResource."
+      "description": "The properties of a Logz Monitor Service resource.",
+      "required": [
+        "provisioningState",
+        "monitoringStatus",
+        "marketplaceSubscriptionStatus",
+        "logzOrganizationProperties",
+        "userInfo",
+        "planData",
+        "liftrResourceCategory",
+        "liftrResourcePreference"
+      ]
     },
     "LogzMonitorResourceUpdate": {
       "type": "object",
@@ -1373,15 +1367,117 @@
       },
       "description": "The updatable properties of the LogzMonitorResource."
     },
-    "LogzMonitorResourceListResult": {
+    "LogzOrganizationProperties": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Id of the Logz organization."
+        },
+        "companyName": {
+          "type": "string",
+          "description": "Name of the Logz organization."
+        },
+        "enterpriseAppId": {
+          "type": "string",
+          "description": "The Id of the Enterprise App used for Single sign on."
+        }
+      },
+      "description": "Details of the log organization.",
+      "required": [
+        "id",
+        "companyName",
+        "enterpriseAppId"
+      ]
+    },
+    "LogzSingleSignOnProperties": {
+      "type": "object",
+      "properties": {
+        "singleSignOnState": {
+          "$ref": "#/definitions/SingleSignOnStates",
+          "description": "Various states of the SSO resource"
+        },
+        "enterpriseAppId": {
+          "type": "string",
+          "description": "The Id of the Enterprise App used for Single sign-on."
+        },
+        "singleSignOnUrl": {
+          "type": "string",
+          "description": "The login URL specific to this Logz Organization."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the SSO resource"
+        }
+      },
+      "description": "Single sign-on properties for a LogZ resource.",
+      "required": [
+        "singleSignOnState",
+        "enterpriseAppId",
+        "singleSignOnUrl",
+        "provisioningState"
+      ]
+    },
+    "MarketplaceSubscriptionStatus": {
+      "type": "string",
+      "description": "Flag specifying the Marketplace Subscription Status of the resource. If payment is not made in time, the resource will go in Suspended state.",
+      "enum": [
+        "Active",
+        "Suspended"
+      ],
+      "x-ms-enum": {
+        "name": "MarketplaceSubscriptionStatus",
+        "modelAsString": true
+      }
+    },
+    "MediumString": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 50,
+      "description": "Shorthand for setting length limit."
+    },
+    "MonitoredResource": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The ARM id of the resource."
+        },
+        "sendingMetrics": {
+          "type": "boolean",
+          "description": "Flag indicating if resource is sending metrics to Logz."
+        },
+        "reasonForMetricsStatus": {
+          "type": "string",
+          "description": "Reason for why the resource is sending metrics (or why it is not sending)."
+        },
+        "sendingLogs": {
+          "type": "boolean",
+          "description": "Flag indicating if resource is sending logs to Logz."
+        },
+        "reasonForLogsStatus": {
+          "type": "string",
+          "description": "Reason for why the resource is sending logs (or why it is not sending)."
+        }
+      },
+      "description": "A resource that is monitored by a Logz monitor instance.",
+      "required": [
+        "id",
+        "sendingMetrics",
+        "reasonForMetricsStatus",
+        "sendingLogs",
+        "reasonForLogsStatus"
+      ]
+    },
+    "MonitoredResourceListResponse": {
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/LogzMonitorResource"
+            "$ref": "#/definitions/MonitoredResource"
           },
-          "x-cadl-name": "Microsoft.Logz.LogzMonitorResource[]",
+          "x-cadl-name": "Microsoft.Logz.MonitoredResource[]",
           "description": "The items on this page"
         },
         "nextLink": {
@@ -1389,9 +1485,182 @@
           "description": "The link to the next page of items"
         }
       },
-      "description": "The response of a LogzMonitorResource list operation.",
+      "description": "A lit of monitored resources.",
       "required": [
         "value"
+      ]
+    },
+    "MonitoringStatus": {
+      "type": "string",
+      "description": "Flag specifying if the resource monitoring is enabled or disabled.",
+      "enum": [
+        "Enabled",
+        "Disabled"
+      ],
+      "x-ms-enum": {
+        "name": "MonitoringStatus",
+        "modelAsString": true
+      }
+    },
+    "PlanData": {
+      "type": "object",
+      "properties": {
+        "usageType": {
+          "$ref": "#/definitions/MediumString",
+          "description": "different usage type like PAYG/COMMITTED. this could be enum"
+        },
+        "billingCycle": {
+          "$ref": "#/definitions/MediumString",
+          "description": "different billing cycles like MONTHLY/WEEKLY. this could be enum"
+        },
+        "planDetails": {
+          "$ref": "#/definitions/MediumString",
+          "description": "plan id as published by Logz"
+        },
+        "effectiveDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "date when plan was applied"
+        }
+      },
+      "description": "Billing plan information.",
+      "required": [
+        "usageType",
+        "billingCycle",
+        "planDetails",
+        "effectiveDate"
+      ]
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "Provisioning state of the monitoring resource",
+      "enum": [
+        "Accepted",
+        "Creating",
+        "Updating",
+        "Deleting",
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Deleted",
+        "NotSpecified"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true
+      }
+    },
+    "SingleSignOnConfigurationResource": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/LogzSingleSignOnProperties",
+          "description": "The resource-specific properties for this resource.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
+        }
+      },
+      "description": "Details of a single sign-on configuration.",
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "SingleSignOnConfigurationResourceListResult": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SingleSignOnConfigurationResource"
+          },
+          "x-cadl-name": "Microsoft.Logz.SingleSignOnConfigurationResource[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "The response of a SingleSignOnConfigurationResource list operation.",
+      "required": [
+        "value"
+      ]
+    },
+    "SingleSignOnConfigurationResourceUpdate": {
+      "type": "object",
+      "properties": {
+        "singleSignOnState": {
+          "$ref": "#/definitions/SingleSignOnStates",
+          "description": "Various states of the SSO resource"
+        },
+        "enterpriseAppId": {
+          "type": "string",
+          "description": "The Id of the Enterprise App used for Single sign-on."
+        },
+        "singleSignOnUrl": {
+          "type": "string",
+          "description": "The login URL specific to this Logz Organization."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the SSO resource"
+        }
+      },
+      "description": "The updatable properties of the SingleSignOnConfigurationResource."
+    },
+    "SingleSignOnStates": {
+      "type": "string",
+      "description": "Various states of the SSO resource",
+      "enum": [
+        "Initial",
+        "Enable",
+        "Disable",
+        "Existing"
+      ],
+      "x-ms-enum": {
+        "name": "SingleSignOnStates",
+        "modelAsString": true
+      }
+    },
+    "SubAccountResource": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/LogzMonitorResourceProperties",
+          "description": "The resource-specific properties for this resource.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
+        }
+      },
+      "description": "Details of a sub account.",
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
+        }
       ]
     },
     "SubAccountResourceListResult": {
@@ -1411,6 +1680,96 @@
         }
       },
       "description": "The response of a SubAccountResource list operation.",
+      "required": [
+        "value"
+      ]
+    },
+    "SubAccountResourceUpdate": {
+      "type": "object",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the resource."
+        },
+        "monitoringStatus": {
+          "$ref": "#/definitions/MonitoringStatus",
+          "description": "Status of the monitor."
+        },
+        "marketplaceSubscriptionStatus": {
+          "$ref": "#/definitions/MarketplaceSubscriptionStatus",
+          "description": "Marketplace subscription status."
+        },
+        "logzOrganizationProperties": {
+          "$ref": "#/definitions/LogzOrganizationProperties",
+          "description": "Properties of the Logz organization."
+        },
+        "userInfo": {
+          "$ref": "#/definitions/UserInfo",
+          "description": "User info."
+        },
+        "planData": {
+          "$ref": "#/definitions/PlanData",
+          "description": "Billing plan information."
+        },
+        "liftrResourceCategory": {
+          "$ref": "#/definitions/LiftrResourceCategories",
+          "description": "Liftr Resource category."
+        },
+        "liftrResourcePreference": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The priority of the resource."
+        }
+      },
+      "description": "The updatable properties of the SubAccountResource."
+    },
+    "SubAccountTagRuleResource": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "description": "The resource-specific properties for this resource.",
+          "x-cadl-name": "(anonymous model)",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
+        }
+      },
+      "description": "Details of a SubAccount TagRule.",
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "SubAccountTagRuleResourceListResult": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubAccountTagRuleResource"
+          },
+          "x-cadl-name": "Microsoft.Logz.SubAccountTagRuleResource[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "The response of a SubAccountTagRuleResource list operation.",
       "required": [
         "value"
       ]
@@ -1466,276 +1825,6 @@
         "value"
       ]
     },
-    "SingleSignOnConfigurationResource": {
-      "type": "object",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/LogzSingleSignOnProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ],
-          "x-ms-client-flatten": true
-        },
-        "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
-          "description": "System metadata for this resource.",
-          "readOnly": true
-        }
-      },
-      "description": "Details of a single sign-on configuration.",
-      "required": [
-        "properties"
-      ],
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "SingleSignOnConfigurationResourceUpdate": {
-      "type": "object",
-      "properties": {
-        "singleSignOnState": {
-          "$ref": "#/definitions/SingleSignOnStates",
-          "description": "Various states of the SSO resource"
-        },
-        "enterpriseAppId": {
-          "type": "string",
-          "description": "The Id of the Enterprise App used for Single sign-on."
-        },
-        "singleSignOnUrl": {
-          "type": "string",
-          "description": "The login URL specific to this Logz Organization."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "The provisioning state of the SSO resource"
-        }
-      },
-      "description": "The updatable properties of the SingleSignOnConfigurationResource."
-    },
-    "SingleSignOnConfigurationResourceListResult": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/SingleSignOnConfigurationResource"
-          },
-          "x-cadl-name": "Microsoft.Logz.SingleSignOnConfigurationResource[]",
-          "description": "The items on this page"
-        },
-        "nextLink": {
-          "type": "string",
-          "description": "The link to the next page of items"
-        }
-      },
-      "description": "The response of a SingleSignOnConfigurationResource list operation.",
-      "required": [
-        "value"
-      ]
-    },
-    "SubAccountTagRuleResource": {
-      "type": "object",
-      "properties": {
-        "properties": {
-          "type": "object",
-          "properties": {},
-          "description": "The resource-specific properties for this resource.",
-          "x-cadl-name": "(anonymous model)",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ],
-          "x-ms-client-flatten": true
-        },
-        "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
-          "description": "System metadata for this resource.",
-          "readOnly": true
-        }
-      },
-      "description": "Details of a SubAccount TagRule.",
-      "required": [
-        "properties"
-      ],
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "SubAccountTagRuleResourceListResult": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/SubAccountTagRuleResource"
-          },
-          "x-cadl-name": "Microsoft.Logz.SubAccountTagRuleResource[]",
-          "description": "The items on this page"
-        },
-        "nextLink": {
-          "type": "string",
-          "description": "The link to the next page of items"
-        }
-      },
-      "description": "The response of a SubAccountTagRuleResource list operation.",
-      "required": [
-        "value"
-      ]
-    },
-    "MonitoredResource": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The ARM id of the resource."
-        },
-        "sendingMetrics": {
-          "type": "boolean",
-          "description": "Flag indicating if resource is sending metrics to Logz."
-        },
-        "reasonForMetricsStatus": {
-          "type": "string",
-          "description": "Reason for why the resource is sending metrics (or why it is not sending)."
-        },
-        "sendingLogs": {
-          "type": "boolean",
-          "description": "Flag indicating if resource is sending logs to Logz."
-        },
-        "reasonForLogsStatus": {
-          "type": "string",
-          "description": "Reason for why the resource is sending logs (or why it is not sending)."
-        }
-      },
-      "description": "A resource that is monitored by a Logz monitor instance.",
-      "required": [
-        "id",
-        "sendingMetrics",
-        "reasonForMetricsStatus",
-        "sendingLogs",
-        "reasonForLogsStatus"
-      ]
-    },
-    "LogzMonitorResourceProperties": {
-      "type": "object",
-      "properties": {
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Provisioning state of the resource."
-        },
-        "monitoringStatus": {
-          "$ref": "#/definitions/MonitoringStatus",
-          "description": "Status of the monitor."
-        },
-        "marketplaceSubscriptionStatus": {
-          "$ref": "#/definitions/MarketplaceSubscriptionStatus",
-          "description": "Marketplace subscription status."
-        },
-        "logzOrganizationProperties": {
-          "$ref": "#/definitions/LogzOrganizationProperties",
-          "description": "Properties of the Logz organization."
-        },
-        "userInfo": {
-          "$ref": "#/definitions/UserInfo",
-          "description": "User info."
-        },
-        "planData": {
-          "$ref": "#/definitions/PlanData",
-          "description": "Billing plan information."
-        },
-        "liftrResourceCategory": {
-          "$ref": "#/definitions/LiftrResourceCategories",
-          "description": "Liftr Resource category."
-        },
-        "liftrResourcePreference": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The priority of the resource."
-        }
-      },
-      "description": "The properties of a Logz Monitor Service resource.",
-      "required": [
-        "provisioningState",
-        "monitoringStatus",
-        "marketplaceSubscriptionStatus",
-        "logzOrganizationProperties",
-        "userInfo",
-        "planData",
-        "liftrResourceCategory",
-        "liftrResourcePreference"
-      ]
-    },
-    "ProvisioningState": {
-      "type": "string",
-      "description": "Provisioning state of the monitoring resource",
-      "enum": [
-        "Accepted",
-        "Creating",
-        "Updating",
-        "Deleting",
-        "Succeeded",
-        "Failed",
-        "Canceled",
-        "Deleted",
-        "NotSpecified"
-      ],
-      "x-ms-enum": {
-        "name": "ProvisioningState",
-        "modelAsString": true
-      }
-    },
-    "MonitoringStatus": {
-      "type": "string",
-      "description": "Flag specifying if the resource monitoring is enabled or disabled.",
-      "enum": [
-        "Enabled",
-        "Disabled"
-      ],
-      "x-ms-enum": {
-        "name": "MonitoringStatus",
-        "modelAsString": true
-      }
-    },
-    "MarketplaceSubscriptionStatus": {
-      "type": "string",
-      "description": "Flag specifying the Marketplace Subscription Status of the resource. If payment is not made in time, the resource will go in Suspended state.",
-      "enum": [
-        "Active",
-        "Suspended"
-      ],
-      "x-ms-enum": {
-        "name": "MarketplaceSubscriptionStatus",
-        "modelAsString": true
-      }
-    },
-    "LogzOrganizationProperties": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Id of the Logz organization."
-        },
-        "companyName": {
-          "type": "string",
-          "description": "Name of the Logz organization."
-        },
-        "enterpriseAppId": {
-          "type": "string",
-          "description": "The Id of the Enterprise App used for Single sign on."
-        }
-      },
-      "description": "Details of the log organization.",
-      "required": [
-        "id",
-        "companyName",
-        "enterpriseAppId"
-      ]
-    },
     "UserInfo": {
       "type": "object",
       "properties": {
@@ -1765,95 +1854,6 @@
         "phoneNumber"
       ]
     },
-    "PlanData": {
-      "type": "object",
-      "properties": {
-        "usageType": {
-          "$ref": "#/definitions/MediumString",
-          "description": "different usage type like PAYG/COMMITTED. this could be enum"
-        },
-        "billingCycle": {
-          "$ref": "#/definitions/MediumString",
-          "description": "different billing cycles like MONTHLY/WEEKLY. this could be enum"
-        },
-        "planDetails": {
-          "$ref": "#/definitions/MediumString",
-          "description": "plan id as published by Logz"
-        },
-        "effectiveDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "date when plan was applied"
-        }
-      },
-      "description": "Billing plan information.",
-      "required": [
-        "usageType",
-        "billingCycle",
-        "planDetails",
-        "effectiveDate"
-      ]
-    },
-    "LiftrResourceCategories": {
-      "type": "string",
-      "description": "Liftr resource category",
-      "enum": [
-        "Unknown",
-        "MonitorLogs"
-      ],
-      "x-ms-enum": {
-        "name": "LiftrResourceCategories",
-        "modelAsString": true
-      }
-    },
-    "LogzSingleSignOnProperties": {
-      "type": "object",
-      "properties": {
-        "singleSignOnState": {
-          "$ref": "#/definitions/SingleSignOnStates",
-          "description": "Various states of the SSO resource"
-        },
-        "enterpriseAppId": {
-          "type": "string",
-          "description": "The Id of the Enterprise App used for Single sign-on."
-        },
-        "singleSignOnUrl": {
-          "type": "string",
-          "description": "The login URL specific to this Logz Organization."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "The provisioning state of the SSO resource"
-        }
-      },
-      "description": "Single sign-on properties for a LogZ resource.",
-      "required": [
-        "singleSignOnState",
-        "enterpriseAppId",
-        "singleSignOnUrl",
-        "provisioningState"
-      ]
-    },
-    "SingleSignOnStates": {
-      "type": "string",
-      "description": "Various states of the SSO resource",
-      "enum": [
-        "Initial",
-        "Enable",
-        "Disable",
-        "Existing"
-      ],
-      "x-ms-enum": {
-        "name": "SingleSignOnStates",
-        "modelAsString": true
-      }
-    },
-    "MediumString": {
-      "type": "string",
-      "minLength": 5,
-      "maxLength": 50,
-      "description": "Shorthand for setting length limit."
-    },
     "email": {
       "type": "string",
       "pattern": "^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$",
@@ -1867,6 +1867,14 @@
       "in": "path",
       "required": true,
       "description": "Monitor resource name",
+      "type": "string"
+    },
+    "SingleSignOnConfigurationsParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "configurationName",
+      "in": "path",
+      "required": true,
+      "description": "Configuration name",
       "type": "string"
     },
     "SubAccountNameParameter": {
@@ -1883,14 +1891,6 @@
       "in": "path",
       "required": true,
       "description": "Tag name",
-      "type": "string"
-    },
-    "SingleSignOnConfigurationsParameter": {
-      "x-ms-parameter-location": "method",
-      "name": "configurationName",
-      "in": "path",
-      "required": true,
-      "description": "Configuration name",
       "type": "string"
     }
   }

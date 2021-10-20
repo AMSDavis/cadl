@@ -278,69 +278,6 @@
     }
   },
   "definitions": {
-    "Shelf": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "$ref": "#/definitions/shelf_name",
-          "description": "The resource name of the shelf.\nShelf names have the form `shelves/{shelf_id}`.\nThe name is ignored when creating a shelf."
-        },
-        "theme": {
-          "type": "string",
-          "description": "The theme of the shelf"
-        }
-      },
-      "description": "A Shelf contains a collection of books with a theme.",
-      "required": [
-        "name"
-      ]
-    },
-    "RpcStatus": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        },
-        "details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/protobufAny"
-          },
-          "x-cadl-name": "protobufAny[]"
-        }
-      },
-      "description": "An unexpected error response."
-    },
-    "shelf_name": {
-      "type": "string",
-      "pattern": "shelves/\\w+",
-      "description": "The name of a shelf.\nShelf names have the form `shelves/{shelf_id}`."
-    },
-    "ListShelvesResponse": {
-      "type": "object",
-      "properties": {
-        "shelves": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Shelf"
-          },
-          "x-cadl-name": "Shelf[]",
-          "description": "The list of shelves."
-        },
-        "next_page_token": {
-          "type": "string",
-          "description": "A token to retrieve next page of results.\nPass this value in the\n[ListShelvesRequest.page_token][google.example.library.v1.ListShelvesRequest.page_token]\nfield in the subsequent call to `ListShelves` method to retrieve the next\npage of results."
-        }
-      },
-      "description": "Response message for LibraryService.ListShelves.",
-      "required": [
-        "shelves"
-      ]
-    },
     "Book": {
       "type": "object",
       "properties": {
@@ -366,11 +303,6 @@
         "name"
       ]
     },
-    "book_name": {
-      "type": "string",
-      "pattern": "shelves/\\w+/books/\\w+",
-      "description": "The name of a book.\nBook names have the form `shelves/{shelf_id}/books/{book_id}`"
-    },
     "ListBooksResponse": {
       "type": "object",
       "properties": {
@@ -392,6 +324,69 @@
         "books"
       ]
     },
+    "ListShelvesResponse": {
+      "type": "object",
+      "properties": {
+        "shelves": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Shelf"
+          },
+          "x-cadl-name": "Shelf[]",
+          "description": "The list of shelves."
+        },
+        "next_page_token": {
+          "type": "string",
+          "description": "A token to retrieve next page of results.\nPass this value in the\n[ListShelvesRequest.page_token][google.example.library.v1.ListShelvesRequest.page_token]\nfield in the subsequent call to `ListShelves` method to retrieve the next\npage of results."
+        }
+      },
+      "description": "Response message for LibraryService.ListShelves.",
+      "required": [
+        "shelves"
+      ]
+    },
+    "RpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "x-cadl-name": "protobufAny[]"
+        }
+      },
+      "description": "An unexpected error response."
+    },
+    "Shelf": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/shelf_name",
+          "description": "The resource name of the shelf.\nShelf names have the form `shelves/{shelf_id}`.\nThe name is ignored when creating a shelf."
+        },
+        "theme": {
+          "type": "string",
+          "description": "The theme of the shelf"
+        }
+      },
+      "description": "A Shelf contains a collection of books with a theme.",
+      "required": [
+        "name"
+      ]
+    },
+    "book_name": {
+      "type": "string",
+      "pattern": "shelves/\\w+/books/\\w+",
+      "description": "The name of a book.\nBook names have the form `shelves/{shelf_id}/books/{book_id}`"
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -402,9 +397,33 @@
           "type": "string"
         }
       }
+    },
+    "shelf_name": {
+      "type": "string",
+      "pattern": "shelves/\\w+",
+      "description": "The name of a shelf.\nShelf names have the form `shelves/{shelf_id}`."
     }
   },
   "parameters": {
+    "CreateBookRequest.book": {
+      "x-ms-parameter-location": "method",
+      "name": "book",
+      "in": "body",
+      "required": true,
+      "description": "The book to create.",
+      "schema": {
+        "$ref": "#/definitions/Book"
+      }
+    },
+    "CreateBookRequest.name": {
+      "x-ms-parameter-location": "method",
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "description": "The name of a shelf.\nShelf names have the form `shelves/{shelf_id}`.",
+      "type": "string",
+      "pattern": "shelves/\\w+"
+    },
     "CreateShelfRequest": {
       "x-ms-parameter-location": "method",
       "name": "body",
@@ -415,7 +434,43 @@
         "$ref": "#/definitions/Shelf"
       }
     },
+    "DeleteBookRequest": {
+      "x-ms-parameter-location": "method",
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "description": "The name of a book.\nBook names have the form `shelves/{shelf_id}/books/{book_id}`",
+      "type": "string",
+      "pattern": "shelves/\\w+/books/\\w+"
+    },
+    "DeleteShelfRequest": {
+      "x-ms-parameter-location": "method",
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "description": "The name of a shelf.\nShelf names have the form `shelves/{shelf_id}`.",
+      "type": "string",
+      "pattern": "shelves/\\w+"
+    },
+    "GetBookRequest": {
+      "x-ms-parameter-location": "method",
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "description": "The name of a book.\nBook names have the form `shelves/{shelf_id}/books/{book_id}`",
+      "type": "string",
+      "pattern": "shelves/\\w+/books/\\w+"
+    },
     "GetShelfRequest": {
+      "x-ms-parameter-location": "method",
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "description": "The name of a shelf.\nShelf names have the form `shelves/{shelf_id}`.",
+      "type": "string",
+      "pattern": "shelves/\\w+"
+    },
+    "ListBooksRequest.name": {
       "x-ms-parameter-location": "method",
       "name": "name",
       "in": "path",
@@ -441,15 +496,6 @@
       "description": "A token identifying a page of results the server should return.\nTypically, this is the value of\n[ListShelvesResponse.next_page_token][google.example.library.v1.ListShelvesResponse.next_page_token]\nreturned from the previous call to `ListShelves` method.",
       "type": "string"
     },
-    "DeleteShelfRequest": {
-      "x-ms-parameter-location": "method",
-      "name": "name",
-      "in": "path",
-      "required": true,
-      "description": "The name of a shelf.\nShelf names have the form `shelves/{shelf_id}`.",
-      "type": "string",
-      "pattern": "shelves/\\w+"
-    },
     "MergeShelvesRequest.name": {
       "x-ms-parameter-location": "method",
       "name": "name",
@@ -468,52 +514,6 @@
       "schema": {
         "$ref": "#/definitions/shelf_name"
       }
-    },
-    "CreateBookRequest.name": {
-      "x-ms-parameter-location": "method",
-      "name": "name",
-      "in": "path",
-      "required": true,
-      "description": "The name of a shelf.\nShelf names have the form `shelves/{shelf_id}`.",
-      "type": "string",
-      "pattern": "shelves/\\w+"
-    },
-    "CreateBookRequest.book": {
-      "x-ms-parameter-location": "method",
-      "name": "book",
-      "in": "body",
-      "required": true,
-      "description": "The book to create.",
-      "schema": {
-        "$ref": "#/definitions/Book"
-      }
-    },
-    "GetBookRequest": {
-      "x-ms-parameter-location": "method",
-      "name": "name",
-      "in": "path",
-      "required": true,
-      "description": "The name of a book.\nBook names have the form `shelves/{shelf_id}/books/{book_id}`",
-      "type": "string",
-      "pattern": "shelves/\\w+/books/\\w+"
-    },
-    "ListBooksRequest.name": {
-      "x-ms-parameter-location": "method",
-      "name": "name",
-      "in": "path",
-      "required": true,
-      "description": "The name of a shelf.\nShelf names have the form `shelves/{shelf_id}`.",
-      "type": "string",
-      "pattern": "shelves/\\w+"
-    },
-    "DeleteBookRequest": {
-      "x-ms-parameter-location": "method",
-      "name": "name",
-      "in": "path",
-      "required": true,
-      "description": "The name of a book.\nBook names have the form `shelves/{shelf_id}/books/{book_id}`",
-      "type": "string",
-      "pattern": "shelves/\\w+/books/\\w+"
     }
   }
 }

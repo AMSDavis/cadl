@@ -134,6 +134,38 @@
         ]
       }
     },
+    "/v1/kiosks/{kiosk_id}/sign": {
+      "get": {
+        "operationId": "Display_GetSignIdForKioskId",
+        "summary": "Get the sign that should be displayed on a kiosk.",
+        "parameters": [
+          {
+            "name": "kiosk_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSignIdResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/RpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Display"
+        ]
+      }
+    },
     "/v1/signs": {
       "post": {
         "operationId": "Display_CreateSign",
@@ -269,41 +301,19 @@
           "Display"
         ]
       }
-    },
-    "/v1/kiosks/{kiosk_id}/sign": {
-      "get": {
-        "operationId": "Display_GetSignIdForKioskId",
-        "summary": "Get the sign that should be displayed on a kiosk.",
-        "parameters": [
-          {
-            "name": "kiosk_id",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetSignIdResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/RpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "Display"
-        ]
-      }
     }
   },
   "definitions": {
+    "GetSignIdResponse": {
+      "type": "object",
+      "properties": {
+        "sign_id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "description": "A successful response."
+    },
     "Kiosk": {
       "type": "object",
       "properties": {
@@ -335,6 +345,50 @@
         "location"
       ]
     },
+    "LatLng": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "format": "double"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "description": "An object that represents a latitude/longitude pair. This is expressed as a\npair of doubles to represent degrees latitude and degrees longitude. Unless\nspecified otherwise, this must conform to the\n<a href=\"http://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf\">WGS84\nstandard</a>. Values must be within normalized ranges.",
+      "required": [
+        "latitude",
+        "longitude"
+      ]
+    },
+    "ListKiosksResponse": {
+      "type": "object",
+      "properties": {
+        "kiosks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Kiosk"
+          },
+          "x-cadl-name": "Kiosk[]"
+        }
+      },
+      "description": "A successful response."
+    },
+    "ListSignsResponse": {
+      "type": "object",
+      "properties": {
+        "signs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Sign"
+          },
+          "x-cadl-name": "Sign[]"
+        }
+      },
+      "description": "A successful response."
+    },
     "RpcStatus": {
       "type": "object",
       "properties": {
@@ -355,18 +409,23 @@
       },
       "description": "An unexpected error response."
     },
-    "ListKiosksResponse": {
+    "ScreenSize": {
       "type": "object",
       "properties": {
-        "kiosks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Kiosk"
-          },
-          "x-cadl-name": "Kiosk[]"
+        "width": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "height": {
+          "type": "integer",
+          "format": "int32"
         }
       },
-      "description": "A successful response."
+      "description": "Represents the size of a screen in pixels.",
+      "required": [
+        "width",
+        "height"
+      ]
     },
     "Sign": {
       "type": "object",
@@ -395,65 +454,6 @@
         "name",
         "text",
         "image"
-      ]
-    },
-    "ListSignsResponse": {
-      "type": "object",
-      "properties": {
-        "signs": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Sign"
-          },
-          "x-cadl-name": "Sign[]"
-        }
-      },
-      "description": "A successful response."
-    },
-    "GetSignIdResponse": {
-      "type": "object",
-      "properties": {
-        "sign_id": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "description": "A successful response."
-    },
-    "ScreenSize": {
-      "type": "object",
-      "properties": {
-        "width": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "height": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "description": "Represents the size of a screen in pixels.",
-      "required": [
-        "width",
-        "height"
-      ]
-    },
-    "LatLng": {
-      "type": "object",
-      "properties": {
-        "latitude": {
-          "type": "number",
-          "format": "double"
-        },
-        "longitude": {
-          "type": "number",
-          "format": "double"
-        }
-      },
-      "description": "An object that represents a latitude/longitude pair. This is expressed as a\npair of doubles to represent degrees latitude and degrees longitude. Unless\nspecified otherwise, this must conform to the\n<a href=\"http://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf\">WGS84\nstandard</a>. Values must be within normalized ranges.",
-      "required": [
-        "latitude",
-        "longitude"
       ]
     },
     "Timestamp": {

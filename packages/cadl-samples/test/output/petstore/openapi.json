@@ -16,57 +16,6 @@
   ],
   "tags": [],
   "paths": {
-    "/pets/{petId}": {
-      "delete": {
-        "operationId": "Pets_delete",
-        "summary": "Delete a pet.",
-        "parameters": [
-          {
-            "$ref": "#/parameters/PetId"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response"
-          },
-          "default": {
-            "description": "Error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      },
-      "get": {
-        "operationId": "Pets_read",
-        "summary": "Returns a pet. Supports eTags.",
-        "parameters": [
-          {
-            "$ref": "#/parameters/PetId"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/Pet"
-            }
-          },
-          "304": {
-            "description": "Not modified",
-            "schema": {
-              "$ref": "#/definitions/Pet"
-            }
-          },
-          "default": {
-            "description": "Error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
     "/pets": {
       "get": {
         "operationId": "Pets_list",
@@ -112,6 +61,57 @@
         "responses": {
           "200": {
             "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/pets/{petId}": {
+      "delete": {
+        "operationId": "Pets_delete",
+        "summary": "Delete a pet.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/PetId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response"
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "Pets_read",
+        "summary": "Returns a pet. Supports eTags.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/PetId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          },
+          "304": {
+            "description": "Not modified",
             "schema": {
               "$ref": "#/definitions/Pet"
             }
@@ -180,24 +180,6 @@
         "message"
       ]
     },
-    "ResponsePage_Pet": {
-      "type": "object",
-      "properties": {
-        "items": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Pet"
-          },
-          "x-cadl-name": "PetStore.Pet[]"
-        },
-        "nextLink": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "items"
-      ]
-    },
     "Pet": {
       "type": "object",
       "properties": {
@@ -217,6 +199,24 @@
       "required": [
         "name",
         "age"
+      ]
+    },
+    "ResponsePage_Pet": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Pet"
+          },
+          "x-cadl-name": "PetStore.Pet[]"
+        },
+        "nextLink": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "items"
       ]
     },
     "ResponsePage_Toy": {

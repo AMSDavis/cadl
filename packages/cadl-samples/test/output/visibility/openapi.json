@@ -16,36 +16,6 @@
   ],
   "tags": [],
   "paths": {
-    "/hello/{id}": {
-      "get": {
-        "operationId": "Hello_read",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "fieldMask",
-            "in": "query",
-            "required": true,
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response",
-            "schema": {
-              "$ref": "#/definitions/ReadablePerson"
-            }
-          }
-        }
-      }
-    },
     "/hello": {
       "post": {
         "operationId": "Hello_create",
@@ -77,6 +47,36 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/WriteableOptionalPerson"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ReadablePerson"
+            }
+          }
+        }
+      }
+    },
+    "/hello/{id}": {
+      "get": {
+        "operationId": "Hello_read",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fieldMask",
+            "in": "query",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
             }
           }
         ],
