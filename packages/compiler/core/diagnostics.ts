@@ -40,10 +40,15 @@ export function createDiagnosticLegacy(
     message = { text: message, severity: "error" };
   }
 
-  const [formattedMessage, formatError] = format(message.text, args);
-  if (formatError) {
-    const diagnosticError = new Error("Error(s) occurred trying to report diagnostic: " + message);
-    throw new AggregateError(diagnosticError, formatError);
+  let formattedMessage: string = message.text;
+  if (args) {
+    const [formattedMessage, formatError] = format(message.text, args);
+    if (formatError) {
+      const diagnosticError = new Error(
+        "Error(s) occurred trying to report diagnostic: " + message
+      );
+      throw new AggregateError(diagnosticError, formatError);
+    }
   }
   return {
     code: message.code!,
