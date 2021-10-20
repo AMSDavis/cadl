@@ -1055,12 +1055,20 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
 
     async function generateResource(resource: any) {
-      const resourcePath = genPath + "/" + resource.name + "ControllerBase.cs";
+      const resourceControllerPath = genPath + "/" + resource.name + "Controller.cs";
+      const resourceControllerBasePath = genPath + "/" + resource.name + "ControllerBase.cs";
       reportInfo("Writing resource controller for " + resource.name, undefined);
       await program.host.writeFile(
-        resolvePath(resourcePath),
+        resolvePath(resourceControllerBasePath),
         await sqrl.renderFile(
           resolvePath(path.join(templatePath, "resourceControllerBase.sq")),
+          resource
+        )
+      );
+      await program.host.writeFile(
+        resolvePath(resourceControllerPath),
+        await sqrl.renderFile(
+          resolvePath(path.join(templatePath, "resourceController.sq")),
           resource
         )
       );
@@ -1211,6 +1219,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           target: NoTarget,
         })
       );
+
       outputModel.resources.forEach(
         async (resource: Resource) =>
           await generateResource(resource).catch((error) =>

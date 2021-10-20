@@ -4,16 +4,16 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using {{it.nameSpace}}.Service.Models;
 using {{it.nameSpace}}.Service.Controllers;
-using Cadl.ProviderHubController.Common;
 using System.Net;
+using Cadl.ProviderHubController.Common;
 
 namespace {{it.nameSpace}}.Service
 {
-    public abstract class OperationControllerBase : Controller
+    public abstract class OperationControllerBase : ControllerBase
     {
         internal readonly ILogger<OperationControllerBase> _logger;
 
-        public OperationControllerBase(ILogger<OperationControllerBase> logger)
+        protected OperationControllerBase(ILogger<OperationControllerBase> logger)
         {
             _logger = logger;
         }

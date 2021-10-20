@@ -2,7 +2,7 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //-----------------------------------------------------------------------------
 
-using Microsoft.Cadl.RPaaS;
+using Cadl.ProviderHubController.Common;
 using System;
 using System.Security.Policy;
 using System.Collections.Generic; 
