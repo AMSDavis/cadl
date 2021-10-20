@@ -6,6 +6,44 @@
 npm install -g @microsoft/rush
 ```
 
+# Working with core submodule
+
+This repository uses a git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for the Cadl OSS core.
+
+
+## (Recommended) Configure git to recurse submodules automatically for most commands
+
+```
+git config --global submodule.recurse true
+```
+
+This will effectively pass `--recurse-submodules` for you to git commands that
+accept it. It should eliminate some of the common pain points around
+submodules.
+
+(NOTE: git clone and git ls-files are exceptional and will still require
+explicit `--recurse-submodules`).
+
+## Cloning recursively
+
+`git clone` does not recurse submodules automatically, even with submodule.recurse=true as configured above. 
+
+Clone recursively as follows:
+```
+git clone --recurse-submodules https://github.com/azure/cadl-azure
+```
+
+## Updating the submodule
+
+If you end up in a situation with an empty, unitialized core/ folder instead
+of a clone of [microsoft/cadl](https://github.com/microsoft/cadl), run the
+following command to initialize and update the submodule.
+
+```
+git submodule update --init
+```
+
+
 # Installing NPM dependencies
 ```
 rush update
@@ -52,7 +90,7 @@ rushx test
 
 Tests sometimes log extra info using `logVerboseTestOutput` To see
 this output on the command line, set environment variable
-ADL_VERBOSE_TEST_OUPUT=true.
+ADL_VERBOSE_TEST_OUPUT=true[].
 
 ## Reformat source code
 ```

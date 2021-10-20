@@ -1,13 +1,9 @@
 {
   "references": [
-    { "path": "packages/compiler/tsconfig.json" },
+    { "path": "core/packages/tsconfig.json" },
     { "path": "packages/cadl-autorest/tsconfig.json" },
-    { "path": "packages/openapi3/tsconfig.json" },
-    { "path": "packages/rest/tsconfig.json" },
     { "path": "packages/cadl-rpaas/tsconfig.json" },
-    { "path": "packages/cadl-rpaas-controller/tsconfig.json" },
-    { "path": "packages/cadl-vscode/tsconfig.json" },
-    { "path": "packages/tmlanguage-generator/tsconfig.json" }
+    { "path": "packages/cadl-rpaas-controller/tsconfig.json" }
   ],
   "files": []
 }

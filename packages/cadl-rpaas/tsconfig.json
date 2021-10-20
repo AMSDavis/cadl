@@ -1,10 +1,7 @@
 {
-  "extends": "../tsconfig.json",
-  "references": [
-    { "path": "../compiler/tsconfig.json" },
-    { "path": "../cadl-autorest/tsconfig.json" },
-    { "path": "../rest/tsconfig.json" }
-  ],
+  "extends": "../../core/packages/tsconfig.json",
+  "composite": true,
+  "references": [{ "path": "../cadl-autorest/tsconfig.json" }],
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": ".",

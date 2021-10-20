@@ -23,7 +23,8 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "build": "echo \"nothing to do for samples\""
+    "build": "echo \"nothing to do for samples\"",
+    "regen-samples": "node scripts/regen-samples.js"
   },
   "files": [
     "lib/*.cadl",
@@ -38,6 +39,8 @@
     "@azure-tools/cadl-rpaas-controller": "0.4.1"
   },
   "devDependencies": {
-    "autorest": "~3.3.2"
+    "@types/mkdirp": "~1.0.1",
+    "autorest": "~3.3.2",
+    "mkdirp": "~1.0.4"
   }
 }

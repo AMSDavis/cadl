@@ -4,6 +4,7 @@
 **/bin/
 **/obj/
 **/.vs/
+core/
 common/temp/
 common/scripts/
 common/changes/

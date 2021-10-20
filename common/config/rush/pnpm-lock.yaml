@@ -2969,7 +2969,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-autorest'
     resolution:
-      integrity: sha512-5Ahmv6hYjKcxggPx7ijjqQRDzaforcCLn2ICTkI5iomt4AuOzE+5USP5ZvqSO2xuM1NjJXygl1ZVtxQQrOVgPA==
+      integrity: sha512-hoUEJ6CxAuhrXHZIsfjpXjSP/lMolozIuyQbemtuPstcv7FMIMUq+6Mi/U/ZU6yPfcZ4ehcd2FJKcJcgDKlFQA==
       tarball: file:projects/cadl-autorest.tgz
     version: 0.0.0
   file:projects/cadl-rpaas-controller.tgz:
@@ -2986,7 +2986,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-rpaas-controller'
     resolution:
-      integrity: sha512-1afSyK43Z4Ra0rG1tPyhH8qcu6peUGT+9MdJFZ5YOqNrxx5PV78zkxFhLxf6bn9uRllvFdZg+ymFeFPpidBSdw==
+      integrity: sha512-z3EpDX+rIU6EscHR91zUtOr9mxJyJfvKmLtQzMN9VlFd+oyxjmiXm9r+H/ygSkiuUFOrPww0oaT294SR4q1qPQ==
       tarball: file:projects/cadl-rpaas-controller.tgz
     version: 0.0.0
   file:projects/cadl-rpaas.tgz:
@@ -2998,23 +2998,25 @@ packages:
     dev: false
     name: '@rush-temp/cadl-rpaas'
     resolution:
-      integrity: sha512-qQhPCiOSAaNWa9SbKXf0dIweKGYfkD7MaaYMRYfZqtTSf61pOc8rCm5vSceO1DBoGYPiVvMT0XO1BC5bu4BJNA==
+      integrity: sha512-/nvf5s6U1uAwC//ifMgcU0ebPhCJKUtOzL/0wJrP36+ndp6GrBl2F2eTekqspWFSi6H8DluH1I9EnuCHcZ3a4A==
       tarball: file:projects/cadl-rpaas.tgz
     version: 0.0.0
   file:projects/cadl-samples.tgz:
     dependencies:
+      '@types/mkdirp': 1.0.2
       autorest: 3.3.2
+      mkdirp: 1.0.4
     dev: false
     name: '@rush-temp/cadl-samples'
     resolution:
-      integrity: sha512-GIR96GPkg1jDwKa6qwBWef4x/o/z081+Gka+/uEHcefEnibvQDUSB+32XcQzFVk5tArV7mHl9fy1CMYyOHhqTg==
+      integrity: sha512-aMPft/lTtDiK2MO08q90fQg5hY9w5Ny6GwtkgbHBEEcGYfPUUHASyrZMOX4zQMm2Lyds/C5Iko1ASp96Vpjicw==
       tarball: file:projects/cadl-samples.tgz
     version: 0.0.0
   file:projects/cadl-vs.tgz:
     dev: false
     name: '@rush-temp/cadl-vs'
     resolution:
-      integrity: sha512-ums6G+VTzmjtUA52uN77gOJrnAyd4NLDS1dRhe3TT54IRBD0idhWJQ48xgGRRny41Bw1YTPke8+wzNSwYJykHg==
+      integrity: sha512-lSjfPF3Dly8vQO4NUXdpoyNPaR/DPME7kAPN2hVXc/wcFZFcVDY6RXUAMCJhAeXPWXHfKdaTbVYfD6WHhSY1NA==
       tarball: file:projects/cadl-vs.tgz
     version: 0.0.0
   file:projects/cadl-vscode.tgz:
@@ -3082,7 +3084,7 @@ packages:
     dev: false
     name: '@rush-temp/openapi3'
     resolution:
-      integrity: sha512-DW7ki/Phu2reWZFXkhzsaytCGVvTOkch1L79VQ185hK0O2gZX1+b8F8wbvRtBzhJvBDlILfyfFxcO2bmJPNqcA==
+      integrity: sha512-w5RQEXsCnyRjxqdnFSQSi1mP4QMpDZJrqDsQ+HxizpWSd/Az0Lh8RbWgLCVJ9zEUoOqDVjD068GHY2opG2mzGQ==
       tarball: file:projects/openapi3.tgz
     version: 0.0.0
   file:projects/prettier-plugin-cadl.tgz:
@@ -3097,7 +3099,7 @@ packages:
     dev: false
     name: '@rush-temp/prettier-plugin-cadl'
     resolution:
-      integrity: sha512-8LXjYHvqTL03gxtH5ErKD36Fu3Jrvb6oVViXaq5lts5N7wyLPIZ7BQeC+CH0Bek8q1RDSV9v+e0B9Giv++CQxw==
+      integrity: sha512-lFdLC1PQRp8rTNxEqkp/J/GdPO0aB2AwhCnRw0qpSX5HxHpXh5/QNRyk0HX8fLumRlpd7t4R6IOjWpWdpzAJhg==
       tarball: file:projects/prettier-plugin-cadl.tgz
     version: 0.0.0
   file:projects/rest.tgz:
@@ -3107,7 +3109,7 @@ packages:
     dev: false
     name: '@rush-temp/rest'
     resolution:
-      integrity: sha512-EhH/j6R6d1W3e33yQmBsK2d3zZ9u9ngZxfkHTDObwpm3k6DJcRVKknJCABm4VERZQ8tFeiZfXxE5G5qfZdzLsA==
+      integrity: sha512-aIh7CsVR+XgSHN93/A8HL3L0qxk4tKZHr3XMCDg7wce3tFNch7ut8+E40cuMnj1C4zNqKGMxVl/WVLQV1Tt0HA==
       tarball: file:projects/rest.tgz
     version: 0.0.0
   file:projects/spec.tgz:
