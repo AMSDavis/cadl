@@ -14,8 +14,8 @@ function read(filename) {
 }
 
 export const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-export const prettier = resolve(repoRoot, "packages/compiler/node_modules/.bin/prettier");
-export const tsc = resolve(repoRoot, "packages/compiler/node_modules/.bin/tsc");
+export const prettier = resolve(repoRoot, "core/packages/compiler/node_modules/.bin/prettier");
+export const tsc = resolve(repoRoot, "core/packages/compiler/node_modules/.bin/tsc");
 export const autorest = resolve(repoRoot, "eng/scripts/node_modules/.bin/autorest");
 
 const rush = read(`${repoRoot}/rush.json`);

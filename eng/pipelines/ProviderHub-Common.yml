@@ -1,0 +1,34 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+resources:
+  repositories:
+    - repository: azure-sdk-build-tools
+      type: git
+      name: internal/azure-sdk-build-tools
+      ref: refs/tags/azure-sdk-build-tools_20210603.1
+
+variables:
+  buildConfiguration: "Release"
+
+stages:
+  - stage: "Build_and_Test"
+    jobs:
+      - job: Build
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - script: dotnet pack ./packages/Cadl.ProviderHubController.Common --configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) /p:BuildId=$(Build.BuildNumber)
+            displayName: "Build and publish ProviderHubController.Common"
+          - task: PublishBuildArtifacts@1
+            condition: succeededOrFailed()
+            displayName: "Publish Artifacts"
+            inputs:
+              ArtifactName: packages
+  - template: pipelines/stages/net-release-to-feed.yml@azure-sdk-build-tools
+    parameters:
+      ShouldTag: false
+      ShouldSign: true
+      ShouldPublishSymbols: false

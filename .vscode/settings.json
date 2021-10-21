@@ -77,11 +77,19 @@
     "command-line.json": "jsonc",
     "version-policies.json": "jsonc"
   },
-  "typescript.tsdk": "./packages/compiler/node_modules/typescript/lib",
+  "typescript.tsdk": "./core/packages/compiler/node_modules/typescript/lib",
   "git.ignoreLimitWarning": true,
-  "mochaExplorer.files": ["./packages/*/dist/test/**/*.js", "./packages/*/test/**/*.js"],
-  "mochaExplorer.ignore": "./packages/*/dist/test/manual/**/*.js",
-  "mochaExplorer.mochaPath": "./packages/compiler/node_modules/mocha",
+  "mochaExplorer.files": [
+    "./core/packages/*/dist/test/**/*.js",
+    "./core/packages/*/test/**/*.js",
+    "./packages/*/dist/test/**/*.js",
+    "./packages/*/test/**/*.js"
+  ],
+  "mochaExplorer.ignore": [
+    "./core/packages/*/dist/test/manual/**/*.js",
+    "./packages/*/dist/test/manual/**/*.js"
+  ],
+  "mochaExplorer.mochaPath": "./core/packages/compiler/node_modules/mocha",
   "mochaExplorer.timeout": 500000,
   "mochaExplorer.require": "source-map-support/register",
   "mochaExplorer.debuggerConfig": "Tests",

@@ -1,0 +1,170 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "(title)",
+    "version": "0000-00-00"
+  },
+  "host": "management.azure.com",
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "tags": [],
+  "paths": {
+    "/hello": {
+      "post": {
+        "operationId": "Hello_create",
+        "parameters": [
+          {
+            "name": "person",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WritablePerson"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ReadablePerson"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "Hello_update",
+        "parameters": [
+          {
+            "name": "person",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WriteableOptionalPerson"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ReadablePerson"
+            }
+          }
+        }
+      }
+    },
+    "/hello/{id}": {
+      "get": {
+        "operationId": "Hello_read",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fieldMask",
+            "in": "query",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ReadablePerson"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ReadablePerson": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "test": {
+          "type": "string",
+          "x-ms-mutability": [
+            "read",
+            "update"
+          ]
+        },
+        "create": {
+          "type": "string",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "test",
+        "create"
+      ]
+    },
+    "WritablePerson": {
+      "type": "object",
+      "properties": {
+        "secret": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "test": {
+          "type": "string",
+          "x-ms-mutability": [
+            "read",
+            "update"
+          ]
+        }
+      },
+      "required": [
+        "secret",
+        "name",
+        "test"
+      ]
+    },
+    "WriteableOptionalPerson": {
+      "type": "object",
+      "properties": {
+        "secret": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "test": {
+          "type": "string",
+          "x-ms-mutability": [
+            "read",
+            "update"
+          ]
+        }
+      }
+    }
+  },
+  "parameters": {}
+}

@@ -3,12 +3,12 @@ steps:
     displayName: Install Dependencies
   - script: node eng/scripts/download-common-types.js
     displayName: Fetch common-types/v2/types.json
-  - script: node eng/scripts/lint-rpaas.js "packages/compiler/test/output/rpaas"
+  - script: node eng/scripts/lint-rpaas.js "packages/cadl-samples/test/output/rpaas"
     displayName: RPaaS Linting Swaggers
     condition: succeededOrFailed()
-  - script: node eng/scripts/gen-sdk.js python "packages/compiler/test/output/rpaas"
+  - script: node eng/scripts/gen-sdk.js python "packages/cadl-samples/test/output/rpaas"
     displayName: Generate Python SDK
     condition: succeededOrFailed()
-  - script: node eng/scripts/gen-sdk.js javascript "packages/compiler/test/output/rpaas"
+  - script: node eng/scripts/gen-sdk.js javascript "packages/cadl-samples/test/output/rpaas"
     displayName: Generate JavaScript SDK
     condition: succeededOrFailed()

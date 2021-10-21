@@ -1,5 +1,11 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../../core/packages/tsconfig.json",
+  "composite": true,
+  "references": [
+    { "path": "../../core/packages/compiler/tsconfig.json" },
+    { "path": "../../core/packages/rest/tsconfig.json" },
+    { "path": "../cadl-rpaas/tsconfig.json" }
+  ],
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src"

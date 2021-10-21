@@ -1,0 +1,520 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft.ServiceLinker provider",
+    "version": "2021-01-01-privatepreview"
+  },
+  "host": "management.azure.com",
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "flow": "implicit",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Linker"
+    },
+    {
+      "name": "Operations"
+    }
+  ],
+  "paths": {
+    "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}": {
+      "get": {
+        "operationId": "Linker_Get",
+        "summary": "Get a LinkerResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
+          },
+          {
+            "$ref": "#/parameters/LinkerNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/LinkerResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Linker"
+        ]
+      },
+      "put": {
+        "operationId": "Linker_CreateOrUpdate",
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true,
+        "summary": "Create a LinkerResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
+          },
+          {
+            "$ref": "#/parameters/LinkerNameParameter"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "description": "Resource create parameters.",
+            "schema": {
+              "$ref": "#/definitions/LinkerResource"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/LinkerResource"
+            }
+          },
+          "201": {
+            "description": "ARM create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/LinkerResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Linker"
+        ]
+      },
+      "patch": {
+        "operationId": "Linker_Update",
+        "summary": "Update a LinkerResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
+          },
+          {
+            "$ref": "#/parameters/LinkerNameParameter"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "description": "The resource properties to be updated.",
+            "schema": {
+              "$ref": "#/definitions/LinkerResourceUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/LinkerResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Linker"
+        ]
+      },
+      "delete": {
+        "operationId": "Linker_Delete",
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true,
+        "summary": "Delete a LinkerResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
+          },
+          {
+            "$ref": "#/parameters/LinkerNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "202": {
+            "description": "Resource deletion accepted."
+          },
+          "204": {
+            "description": "Resource deleted successfully."
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Linker"
+        ]
+      }
+    },
+    "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/listConfigurations": {
+      "post": {
+        "operationId": "Linker_ListConfigurations",
+        "summary": "List linker resource configurations.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
+          },
+          {
+            "$ref": "#/parameters/LinkerNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SourceConfigurationResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Linker"
+        ]
+      }
+    },
+    "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/validateLinker": {
+      "post": {
+        "operationId": "Linker_ValidateLinker",
+        "summary": "Validate a linker resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Azure.ARM.ResourceUriParameter"
+          },
+          {
+            "$ref": "#/parameters/LinkerNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidateResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Linker"
+        ]
+      }
+    },
+    "/providers/Microsoft.ServiceLinker/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "summary": "List the operations for Microsoft.ServiceLinker",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Operations"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AuthInfoBase": {
+      "type": "object",
+      "properties": {
+        "authType": {
+          "$ref": "#/definitions/AuthType"
+        }
+      },
+      "description": "The abstract base model for all authentication types.",
+      "required": [
+        "authType"
+      ]
+    },
+    "AuthType": {
+      "type": "string",
+      "description": "The kmind of authentication used for this linker.",
+      "enum": [
+        "systemAssignedIdentity",
+        "userAssignedIdentity",
+        "servicePrincipal",
+        "secret"
+      ],
+      "x-ms-enum": {
+        "name": "AuthType",
+        "modelAsString": true
+      }
+    },
+    "LinkerProperties": {
+      "type": "object",
+      "properties": {
+        "targetId": {
+          "type": "string",
+          "description": "The resource Id of the target service."
+        },
+        "authInfo": {
+          "$ref": "#/definitions/AuthInfoBase",
+          "description": "The authentication type."
+        },
+        "provisioningState": {
+          "type": "string",
+          "description": "The provisioning state.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "targetId",
+        "authInfo"
+      ]
+    },
+    "LinkerResource": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/LinkerProperties",
+          "description": "The resource-specific properties for this resource.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
+        }
+      },
+      "description": "The details of a service linker.",
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "LinkerResourceUpdate": {
+      "type": "object",
+      "properties": {
+        "targetId": {
+          "type": "string",
+          "description": "The resource Id of the target service."
+        },
+        "authInfo": {
+          "$ref": "#/definitions/AuthInfoBase",
+          "description": "The authentication type."
+        }
+      },
+      "description": "The updatable properties of the LinkerResource."
+    },
+    "LinkerStatus": {
+      "type": "string",
+      "description": "State of the linker resource.",
+      "enum": [
+        "Healthy",
+        "Not healthy"
+      ],
+      "x-ms-enum": {
+        "name": "LinkerStatus",
+        "modelAsString": true
+      }
+    },
+    "SourceConfiguration": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/SourceConfigurationType",
+          "description": "The kind of configuration used in this instance."
+        },
+        "linkConfig": {
+          "type": "object",
+          "properties": {},
+          "description": "The configuration of the linker for appSettings or connectionStrings or serviceBindings",
+          "x-cadl-name": "(anonymous model)"
+        }
+      },
+      "description": "Source configuration details.",
+      "required": [
+        "type",
+        "linkConfig"
+      ]
+    },
+    "SourceConfigurationResult": {
+      "type": "object",
+      "properties": {
+        "sourceConfigurations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SourceConfiguration"
+          },
+          "x-cadl-name": "Microsoft.ServiceLinker.SourceConfiguration[]",
+          "description": "Details of the source configurations."
+        }
+      },
+      "description": "Configurations for source resource, include appSettings, connectionString and serviceBindings",
+      "required": [
+        "sourceConfigurations"
+      ]
+    },
+    "SourceConfigurationType": {
+      "type": "string",
+      "description": "The kind of source configuration used in a particular instance.",
+      "enum": [
+        "appSettings",
+        "connectionSettings",
+        "serviceBindings"
+      ],
+      "x-ms-enum": {
+        "name": "SourceConfigurationType",
+        "modelAsString": true
+      }
+    },
+    "ValidateResult": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The linker name."
+        },
+        "linkerStatus": {
+          "$ref": "#/definitions/LinkerStatus",
+          "description": "Specifies if the linker is healthy."
+        },
+        "reason": {
+          "type": "string",
+          "description": "The reason of the error."
+        },
+        "reportStartTimeUtc": {
+          "type": "string",
+          "format": "date",
+          "description": "The start time of the validation report."
+        },
+        "reportEndTimeUtc": {
+          "type": "string",
+          "format": "date",
+          "description": "The end time of the validation report."
+        },
+        "targetId": {
+          "type": "string",
+          "description": "The resource Id of the target service."
+        },
+        "authType": {
+          "$ref": "#/definitions/AuthType",
+          "description": "The authentication type."
+        }
+      },
+      "description": "Details of validation.",
+      "required": [
+        "name",
+        "linkerStatus",
+        "reason",
+        "reportStartTimeUtc",
+        "reportEndTimeUtc",
+        "targetId",
+        "authType"
+      ]
+    }
+  },
+  "parameters": {
+    "Azure.ARM.ResourceUriParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "resourceUri",
+      "in": "path",
+      "required": true,
+      "description": "The fully qualified Azure Resource manager identifier of the resource.",
+      "type": "string"
+    },
+    "LinkerNameParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "linkerName",
+      "in": "path",
+      "required": true,
+      "description": "The name of the linker resource.",
+      "type": "string"
+    }
+  }
+}
