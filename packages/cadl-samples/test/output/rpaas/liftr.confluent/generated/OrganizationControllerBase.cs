@@ -1,19 +1,22 @@
-using Microsoft.Cadl.RPaaS;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
+using System;
+using System.Net;
+using System.Threading.Tasks;
+using Cadl.ProviderHubController.Common;
+using Microsoft.Confluent.Service.Models;
+using Microsoft.Confluent.Service.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
-using Microsoft.Confluent.Service.Models;
-using Microsoft.Confluent.Service.Controllers;
-using System.Net;
 
 namespace Microsoft.Confluent.Service
 {
     /// <summary>
     /// Controller for user RP operations on the Organization resource.
     /// </summary>
-    public abstract class OrganizationControllerBase : Controller
+    public abstract class OrganizationControllerBase : ControllerBase
     {
         internal readonly ILogger<OrganizationControllerBase> _logger;
 
@@ -39,7 +42,10 @@ namespace Microsoft.Confluent.Service
             return modelValidation;
         }
 
-        internal abstract Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request);
+        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request)
+        {
+            return Task.FromResult(ValidationResponse.Valid);
+        }
 
 
         /// <summary>
@@ -65,7 +71,10 @@ namespace Microsoft.Confluent.Service
 
         }
 
-        internal abstract Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request);
+        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request)
+        {
+            return Task.FromResult(Ok() as IActionResult);
+        }
 
         /// <summary>
         /// Validate the request to Create the Organization resource.
@@ -82,7 +91,7 @@ namespace Microsoft.Confluent.Service
         {
             _logger.LogInformation($"ValidateCreateAsync()");
             var modelValidation = ValidationHelpers.ValidateModel(body);
-            if (modelValidation.Valid)
+            if (modelValidation.IsValid)
             {
                 modelValidation = await OnValidateCreate(subscriptionId, resourceGroupName, organizationName, body, Request);
             }
@@ -90,7 +99,10 @@ namespace Microsoft.Confluent.Service
             return modelValidation;
         }
 
-        internal abstract Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string organizationName, Organization body, HttpRequest request);
+        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string organizationName, Organization body, HttpRequest request)
+        {
+            return Task.FromResult(ValidationResponse.Valid);
+        }
 
         /// <summary>
         /// Called after the end of the request to Create the Organization resource.
@@ -110,7 +122,10 @@ namespace Microsoft.Confluent.Service
             return;
         }
 
-        internal abstract Task OnEndCreate(string subscriptionId, string resourceGroupName, string organizationName, Organization body, HttpRequest request);
+        protected virtual Task OnEndCreate(string subscriptionId, string resourceGroupName, string organizationName, Organization body, HttpRequest request)
+        {
+            return Task.CompletedTask;
+        }
 
         /// <summary>
         /// Create the Organization resource.
@@ -139,7 +154,10 @@ namespace Microsoft.Confluent.Service
 
         }
 
-        internal abstract Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string organizationName, Organization body, HttpRequest request);
+        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string organizationName, Organization body, HttpRequest request)
+        {
+            return Task.FromResult(Ok() as IActionResult);
+        }
 
         /// <summary>
         /// Validate the request to Patch the Organization resource.
@@ -156,7 +174,7 @@ namespace Microsoft.Confluent.Service
         {
             _logger.LogInformation($"ValidatePatchAsync()");
             var modelValidation = ValidationHelpers.ValidateModel(body);
-            if (modelValidation.Valid)
+            if (modelValidation.IsValid)
             {
                 modelValidation = await OnValidatePatch(subscriptionId, resourceGroupName, organizationName, body, Request);
             }
@@ -164,7 +182,10 @@ namespace Microsoft.Confluent.Service
             return modelValidation;
         }
 
-        internal abstract Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body, HttpRequest request);
+        protected virtual Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body, HttpRequest request)
+        {
+            return Task.FromResult(ValidationResponse.Valid);
+        }
 
         /// <summary>
         /// Called after the end of the request to Patch the Organization resource.
@@ -184,7 +205,10 @@ namespace Microsoft.Confluent.Service
             return;
         }
 
-        internal abstract Task OnEndPatch(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body, HttpRequest request);
+        protected virtual Task OnEndPatch(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body, HttpRequest request)
+        {
+            return Task.CompletedTask;
+        }
 
         /// <summary>
         /// Patch the Organization resource.
@@ -213,7 +237,10 @@ namespace Microsoft.Confluent.Service
 
         }
 
-        internal abstract Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body, HttpRequest request);
+        protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body, HttpRequest request)
+        {
+            return Task.FromResult(Ok() as IActionResult);
+        }
 
         /// <summary>
         /// Validate the request to Delete the Organization resource.
@@ -232,7 +259,10 @@ namespace Microsoft.Confluent.Service
             return modelValidation;
         }
 
-        internal abstract Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request);
+        protected virtual Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request)
+        {
+            return Task.FromResult(ValidationResponse.Valid);
+        }
 
         /// <summary>
         /// Called after the end of the request to Delete the Organization resource.
@@ -251,7 +281,10 @@ namespace Microsoft.Confluent.Service
             return;
         }
 
-        internal abstract Task OnEndDelete(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request);
+        protected virtual Task OnEndDelete(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request)
+        {
+            return Task.CompletedTask;
+        }
 
         /// <summary>
         /// Delete the Organization resource.
@@ -277,6 +310,9 @@ namespace Microsoft.Confluent.Service
 
         }
 
-        internal abstract Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request);
+        protected virtual Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string organizationName, HttpRequest request)
+        {
+            return Task.FromResult(Ok() as IActionResult);
+        }
     }
 }
