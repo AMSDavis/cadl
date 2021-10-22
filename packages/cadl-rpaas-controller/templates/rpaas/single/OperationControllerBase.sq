@@ -1,9 +1,13 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using {{it.nameSpace}}.Service.Models;
 using {{it.nameSpace}}.Service.Controllers;
+using Cadl.ProviderHubController.Common;
 using System.Net;
 
 namespace {{it.nameSpace}}.Service

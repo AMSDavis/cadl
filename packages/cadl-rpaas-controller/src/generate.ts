@@ -1055,12 +1055,20 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
 
     async function generateResource(resource: any) {
-      const resourcePath = genPath + "/" + resource.name + "ControllerBase.cs";
+      const resourceControllerPath = genPath + "/" + resource.name + "Controller.cs";
+      const resourceControllerBasePath = genPath + "/" + resource.name + "ControllerBase.cs";
       reportInfo("Writing resource controller for " + resource.name, undefined);
       await program.host.writeFile(
-        resolvePath(resourcePath),
+        resolvePath(resourceControllerBasePath),
         await sqrl.renderFile(
           resolvePath(path.join(templatePath, "resourceControllerBase.sq")),
+          resource
+        )
+      );
+      await program.host.writeFile(
+        resolvePath(resourceControllerPath),
+        await sqrl.renderFile(
+          resolvePath(path.join(templatePath, "resourceController.sq")),
           resource
         )
       );
@@ -1141,26 +1149,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       await fs.mkdir(targetPath);
     }
 
-    async function copyModelFiles(sourcePath: string, targetPath: string) {
-      await createDirIfNotExists(targetPath);
-      (await fs.readdir(sourcePath)).forEach(async (file) => {
-        const sourceFile = resolvePath(sourcePath + path.sep + file);
-        const targetFile = resolvePath(targetPath + path.sep + file);
-        if (
-          (
-            await fs.lstat(sourceFile).catch((error) => {
-              reportDiagnostic(program, { code: "fstat", format: { error }, target: NoTarget });
-            })
-          )?.isDirectory()
-        ) {
-          await createDirIfNotExists(targetFile);
-          await copyModelFiles(sourceFile, targetFile);
-        } else {
-          await fs.copyFile(sourceFile, targetFile);
-        }
-      });
-    }
-
     const service = outputModel.serviceName;
     sqrl.filters.define("decl", (op) =>
       op.parameters.map((p: any) => p.type + " " + p.name).join(", ")
@@ -1175,7 +1163,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         .join(", ")
     );
     sqrl.filters.define("initialCaps", (op) => transformCSharpIdentifier(op));
-    const operationsPath = resolvePath(path.join(genPath, "operations"));
+    const operationsPath = genPath;
     const routesPath = resolvePath(path.join(genPath, service + "ServiceRoutes.cs"));
     const templatePath = path.join(rootPath, "templates", options.controllerHost);
     const modelsPath = path.join(genPath, "models");
@@ -1194,11 +1182,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           target: NoTarget,
         })
       );
-      await copyModelFiles(
-        path.join(rootPath, "clientlib", options.controllerHost),
-        modelsPath
-      ).catch((err) =>
-        reportDiagnostic(program, { code: "copy-files", format: { error: err }, target: NoTarget })
+      await createDirIfNotExists(modelsPath).catch((err) =>
+        reportDiagnostic(program, {
+          code: "creating-dir",
+          format: { error: err },
+          target: NoTarget,
+        })
       );
       await program.host.writeFile(
         routesPath,
@@ -1211,6 +1200,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           target: NoTarget,
         })
       );
+
       outputModel.resources.forEach(
         async (resource: Resource) =>
           await generateResource(resource).catch((error) =>
