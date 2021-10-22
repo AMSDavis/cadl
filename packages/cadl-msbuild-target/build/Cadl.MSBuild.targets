@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <ItemGroup Condition=" '$(Language)' == 'C#' ">
+    <!-- Extend property pages with Cadl properties. -->
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Cadl.CSharp.xml">
+      <Context>File;BrowseObject</Context>
+    </PropertyPageSchema>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <Cadl_PluginFileName Condition=" '$(Cadl_PluginFileName)' == '' and '$(Language)' == 'C#' ">cadl</Cadl_PluginFileName>
+    <_CadlTool_MsBuildAssembly Condition=" '$(MSBuildRuntimeType)' == 'Core' ">netcoreapp3.1\Cadl.MSBuild.dll</_CadlTool_MsBuildAssembly>
+    <_CadlTool_MsBuildAssembly Condition=" '$(MSBuildRuntimeType)' != 'Core' ">net472\Cadl.MSBuild.dll</_CadlTool_MsBuildAssembly>
+    <Cadl_folder Condition=" '$(Cadl_folder)' == '' ">cadl</Cadl_folder>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup Condition=" '$(Language)' == 'C#' ">
+    <CadlCompile>
+      <Access Condition="'%(CadlCompile.Access)' == '' ">Public</Access>
+      <Compile Condition="'%(CadlCompile.Compile)' == '' ">True</Compile>
+      <Root Condition="'%(CadlCompile.Root)' == '' ">cadl</Root>
+      <CommandPath Condition="'%(CadlCompile.CommandPath)' == '' ">%(CadlCompile.Root)\node_modules\.bin</CommandPath>
+      <OutputDir Condition="'%(CadlCompile.OutputDir)' == '' ">$(IntermediateOutputPath)</OutputDir>
+      <Generator Condition="'%(CadlCompile.Generator)' == '' and '$(DisableCadlCompileDesignTimeBuild)' != 'true' ">MSBuild:Compile</Generator>
+    </CadlCompile>
+  </ItemDefinitionGroup>
+
+  <UsingTask AssemblyFile="$(_CadlTool_MsBuildAssembly)"  TaskName="Cadl.Tools.CadlCompiler" />
+
+  <Target Name="CadlCompileCore">
+    <Message Text="$(Cadl_PluginFileName)" />
+
+    <ItemGroup>
+      <CadlCompile Remove="@(CadlCompile)" Condition=" '%(CadlCompile.Compile)' != 'true' " />
+    </ItemGroup>
+
+    <CadlCompiler Condition=" '$(Language)' == 'C#' and '@(CadlCompile)' != '' " CadlPath="@(CadlCompile)" ToolPath="%(CommandPath)" OutputDir="%(CadlCompile.OutputDir)" OS="$(OS)">
+      <Output TaskParameter="GeneratedFiles" ItemName="_Cadl_GeneratedFiles"/>
+    </CadlCompiler>
+    
+    <Message Text="cadl gernerated @(_Cadl_GeneratedFiles)" Importance="high"/>
+    <ItemGroup>
+      <Compile Remove="%(CadlCompile.Root)\node_modules\**" />
+      <EmbeddedResource Remove="%(CadlCompile.Root)\node_modules\**" />
+      <None Remove="%(CadlCompile.Root)\node_modules\**" />
+      <Compile Include="@(_Cadl_GeneratedFiles)" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Do cadl compilation by default in a C# project. In other types, the user invoke
+       CadlCompile directly where required. -->
+  <Target Name="_CadlCompile_BeforeCsCompile" AfterTargets="BeforeCompile" DependsOnTargets="CadlCompileCore" Condition=" '$(Language)' == 'C#' " />
+
+</Project>

@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
+    <AssemblyName>Cadl.MSBuild</AssemblyName>
+    <VersionPrefix>$(CadlMSBuildVersion)</VersionPrefix>
+  </PropertyGroup>
+
+  <ItemGroup Label="NuGet package assets">
+    <None Pack="true" PackagePath="build\" Include="build\**\*.xml; build\**\*.props; build\**\*.targets;" />
+   </ItemGroup>
+
+  <ItemGroup >
+    <PackageReference Include="Microsoft.Build.Framework; Microsoft.Build.Utilities.Core" Version="16.0.461" />
+    <!--  Set PrivateAssets="All" on all items, even those implicitly added,
+          so that they do not become dependencies of this package. -->
+    <PackageReference Update="@(PackageReference)" PrivateAssets="All" />
+  </ItemGroup>
+  
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <BuildOutputTargetFolder>build\</BuildOutputTargetFolder>
+    <Company>Microsoft</Company>
+    <Authors>Microsoft</Authors>
+    <PackageId>Cadl.MSBuild</PackageId>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+
+</Project>
