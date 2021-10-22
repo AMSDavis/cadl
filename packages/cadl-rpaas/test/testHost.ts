@@ -24,15 +24,15 @@ export async function createArmTestHost() {
   // load rest
   await host.addRealCadlFile(
     "./node_modules/rest/package.json",
-    resolve(root, "../rest/package.json")
+    resolve(root, "../../core/packages/rest/package.json")
   );
   await host.addRealCadlFile(
     "./node_modules/rest/lib/rest.cadl",
-    resolve(root, "../rest/lib/rest.cadl")
+    resolve(root, "../../core/packages/rest/lib/rest.cadl")
   );
   await host.addRealJsFile(
     "./node_modules/rest/dist/rest.js",
-    resolve(root, "../rest/dist/rest.js")
+    resolve(root, "../../core/packages/rest/dist/rest.js")
   );
   // load openapi
   await host.addRealCadlFile(
@@ -71,7 +71,6 @@ export async function CheckFor(code: string) {
   const result = await host.diagnose("./main.cadl", {
     noEmit: false,
     swaggerOutputFile: outPath,
-    skipBuildCheck: false,
   });
   return result;
 }

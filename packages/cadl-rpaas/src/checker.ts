@@ -3,7 +3,6 @@ import {
   getDoc,
   isIntrinsic,
   ModelType,
-  ModelTypeProperty,
   navigateProgram,
   OperationType,
   Program,
@@ -14,9 +13,7 @@ import {
 import { reportDiagnostic } from "./lib.js";
 
 export async function $onBuild(p: Program) {
-  if (!p.compilerOptions.skipBuildCheck) {
-    runChecker(p);
-  }
+  runChecker(p);
 }
 
 function isInlineModel(target: ModelType) {
@@ -81,19 +78,20 @@ const runChecker = (p: Program) => {
       }
     },
     model: (context: ModelType) => {
-      // the `getDoc` function can't get the `doc` for template declaration type but it can get doc from an instantiation template type, not sure if it's expected ?? here we just skip it.
+      // it's by design that the `getDoc` function can't get the `doc` for template declaration type.
       if (
         !isIntrinsic(p, context) &&
         !isTemplateDeclarationType(context) &&
-        !isInlineModel(context) &&
-        !getDoc(p, context)
+        !isInlineModel(context)
       ) {
-        reportDiagnostic(p, { code: "model-requires-documentation", target: context });
-      }
-    },
-    modelProperty: (context: ModelTypeProperty) => {
-      if (!getDoc(p, context)) {
-        reportDiagnostic(p, { code: "property-requires-documentation", target: context });
+        if (!getDoc(p, context)) {
+          reportDiagnostic(p, { code: "model-requires-documentation", target: context });
+        }
+        for (const prop of context.properties.values()) {
+          if (!getDoc(p, prop)) {
+            reportDiagnostic(p, { code: "property-requires-documentation", target: context });
+          }
+        }
       }
     },
   };
