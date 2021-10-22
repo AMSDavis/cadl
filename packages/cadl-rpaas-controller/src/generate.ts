@@ -1149,26 +1149,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       await fs.mkdir(targetPath);
     }
 
-    async function copyModelFiles(sourcePath: string, targetPath: string) {
-      await createDirIfNotExists(targetPath);
-      (await fs.readdir(sourcePath)).forEach(async (file) => {
-        const sourceFile = resolvePath(sourcePath + path.sep + file);
-        const targetFile = resolvePath(targetPath + path.sep + file);
-        if (
-          (
-            await fs.lstat(sourceFile).catch((error) => {
-              reportDiagnostic(program, { code: "fstat", format: { error }, target: NoTarget });
-            })
-          )?.isDirectory()
-        ) {
-          await createDirIfNotExists(targetFile);
-          await copyModelFiles(sourceFile, targetFile);
-        } else {
-          await fs.copyFile(sourceFile, targetFile);
-        }
-      });
-    }
-
     const service = outputModel.serviceName;
     sqrl.filters.define("decl", (op) =>
       op.parameters.map((p: any) => p.type + " " + p.name).join(", ")
