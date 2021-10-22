@@ -116,6 +116,12 @@
       "projectFolder": "packages/cadl-samples",
       "reviewCategory": "production",
       "shouldPublish": false
+    },
+    {
+      "packageName": "cadl-msbuild-target",
+      "projectFolder": "packages/cadl-msbuild-target",
+      "reviewCategory": "production",
+      "shouldPublish": true
     }
   ]
 }

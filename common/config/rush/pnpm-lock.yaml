@@ -4,6 +4,7 @@ dependencies:
   '@rollup/plugin-node-resolve': 11.2.1_rollup@2.41.5
   '@rollup/plugin-replace': 2.4.2_rollup@2.41.5
   '@rush-temp/cadl-autorest': file:projects/cadl-autorest.tgz
+  '@rush-temp/cadl-msbuild-target': file:projects/cadl-msbuild-target.tgz
   '@rush-temp/cadl-rpaas': file:projects/cadl-rpaas.tgz
   '@rush-temp/cadl-rpaas-controller': file:projects/cadl-rpaas-controller.tgz
   '@rush-temp/cadl-samples': file:projects/cadl-samples.tgz
@@ -2972,6 +2973,15 @@ packages:
       integrity: sha512-hoUEJ6CxAuhrXHZIsfjpXjSP/lMolozIuyQbemtuPstcv7FMIMUq+6Mi/U/ZU6yPfcZ4ehcd2FJKcJcgDKlFQA==
       tarball: file:projects/cadl-autorest.tgz
     version: 0.0.0
+  file:projects/cadl-msbuild-target.tgz:
+    dependencies:
+      watch: 1.0.2
+    dev: false
+    name: '@rush-temp/cadl-msbuild-target'
+    resolution:
+      integrity: sha512-L0Q5imTJQoHMUL+lwpzBsXEm56sFUteJC2smwOMZO4blPKf5IGCk5zYZlKKZU+Eyr3CRTqmyyD6Cb+SCXeiiDg==
+      tarball: file:projects/cadl-msbuild-target.tgz
+    version: 0.0.0
   file:projects/cadl-rpaas-controller.tgz:
     dependencies:
       '@azure-tools/adl': 0.14.0
@@ -3143,6 +3153,7 @@ specifiers:
   '@rollup/plugin-node-resolve': ~11.2.0
   '@rollup/plugin-replace': ~2.4.2
   '@rush-temp/cadl-autorest': file:./projects/cadl-autorest.tgz
+  '@rush-temp/cadl-msbuild-target': file:./projects/cadl-msbuild-target.tgz
   '@rush-temp/cadl-rpaas': file:./projects/cadl-rpaas.tgz
   '@rush-temp/cadl-rpaas-controller': file:./projects/cadl-rpaas-controller.tgz
   '@rush-temp/cadl-samples': file:./projects/cadl-samples.tgz

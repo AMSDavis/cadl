@@ -10,7 +10,7 @@ steps:
   - script: node common/scripts/install-run-rush.js install
     displayName: Install JavaScript Dependencies
 
-  - script: node core/packages/cadl-vs/scripts/build.js --restore
+  - script: node core/packages/cadl-vs/scripts/build.js --restore && node packages/cadl-msbuild-target/scripts/build.js --restore
     displayName: Restore .NET Dependencies
 
   - script: node common/scripts/install-run-rush.js change -v
