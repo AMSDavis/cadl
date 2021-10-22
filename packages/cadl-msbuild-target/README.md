@@ -1,6 +1,6 @@
 # Cadl MSBuild Target Library
 
-This package enables API First development of  RPaaS services using Cadl. It downloads Cadlcomponents and adds build targets to generate an ASP.Net MVC controller and OpenAPI definition from a Cadldescription for the service. The package includes msbuild target files and a custom Cadl build task, integrating API-First development using Cadl into the project simply.
+This package enables API First development of RPaaS services using Cadl. It adds build targets to generate an ASP.Net MVC controller and OpenAPI definition from a Cadldescription for the service. The package includes msbuild target files and a custom Cadl build task, integrating API-First development using Cadl into the project simply.
 
 ## Getting started
 
@@ -25,6 +25,16 @@ npm install @cadl-lang/rest @azure-tools/cadl-autorest @azure-tools/cadl-rpaas @
 6. then you can edit the cadl file to define models and ARM resources, the service code and swagger will be generated into the output directory automatically.
 
 ## Configuration
+
+### Cadl Root directory
+
+Specify the `Root` option if you want to put your .cadl files into other folder instead of the './cadl' , it must be a relative path . 
+
+```bash
+ <ItemGroup>
+    <CadlCompile Include="cadl\main.cadl" Root="<other dir>" />
+  </ItemGroup>
+```
 
 ### Output path
 
