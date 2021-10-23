@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-autorest",
+      "comment": "Fix logic for maxValue decorator",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-autorest"
+}

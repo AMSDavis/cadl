@@ -6,6 +6,7 @@ import {
   getDoc,
   getFormat,
   getMaxLength,
+  getMaxValue,
   getMinLength,
   getMinValue,
   getVisibility,
@@ -1201,7 +1202,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       };
     }
 
-    const maxValue = getMinValue(program, cadlType);
+    const maxValue = getMaxValue(program, cadlType);
     if (isNumericType(program, cadlType) && !target.maximum && maxValue !== undefined) {
       target = {
         ...target,
