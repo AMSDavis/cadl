@@ -29,7 +29,7 @@
             "in": "query",
             "required": true,
             "minimum": 0,
-            "maximum": 0,
+            "maximum": 10,
             "type": "integer",
             "format": "int32"
           }
