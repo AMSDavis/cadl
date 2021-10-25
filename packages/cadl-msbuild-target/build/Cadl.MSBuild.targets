@@ -29,11 +29,11 @@
 
   <ItemGroup>
     <Compile Remove="%(CadlCompile.Root)node_modules\**" />
+    <Compile Update="**/generated/**/*.cs" Watch="false" />
     <EmbeddedResource Remove="%(CadlCompile.Root)node_modules\**" />
     <None Remove="%(CadlCompile.Root)node_modules\**" />
     <!-- extends watching group to include *.cadl files -->
-    <Watch Include="**\*.cadl" Exclude="node_modules\**\*;obj\**\*;bin\**\*" />
-    <Watch Remove="generated\**\*.cs" />
+    <Watch Include="**\*.cadl" Exclude="node_modules\**\*;obj\**\*;bin\**\*;" />
   </ItemGroup>
 
   <Target Name="CadlCompileCore">
