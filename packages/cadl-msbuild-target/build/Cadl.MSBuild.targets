@@ -10,10 +10,8 @@
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-    <Cadl_PluginFileName Condition=" '$(Cadl_PluginFileName)' == '' and '$(Language)' == 'C#' ">cadl</Cadl_PluginFileName>
     <_CadlTool_MsBuildAssembly Condition=" '$(MSBuildRuntimeType)' == 'Core' ">netcoreapp3.1\Cadl.MSBuild.dll</_CadlTool_MsBuildAssembly>
     <_CadlTool_MsBuildAssembly Condition=" '$(MSBuildRuntimeType)' != 'Core' ">net472\Cadl.MSBuild.dll</_CadlTool_MsBuildAssembly>
-    <Cadl_folder Condition=" '$(Cadl_folder)' == '' ">cadl</Cadl_folder>
   </PropertyGroup>
 
   <ItemDefinitionGroup Condition=" '$(Language)' == 'C#' ">
@@ -29,9 +27,16 @@
 
   <UsingTask AssemblyFile="$(_CadlTool_MsBuildAssembly)"  TaskName="Cadl.Tools.CadlCompiler" />
 
-  <Target Name="CadlCompileCore">
-    <Message Text="$(Cadl_PluginFileName)" />
+  <ItemGroup>
+    <Compile Remove="%(CadlCompile.Root)node_modules\**" />
+    <EmbeddedResource Remove="%(CadlCompile.Root)node_modules\**" />
+    <None Remove="%(CadlCompile.Root)node_modules\**" />
+    <!-- extends watching group to include *.cadl files -->
+    <Watch Include="**\*.cadl" Exclude="node_modules\**\*;obj\**\*;bin\**\*" />
+    <Watch Remove="generated\**\*.cs" />
+  </ItemGroup>
 
+  <Target Name="CadlCompileCore">
     <ItemGroup>
       <CadlCompile Remove="@(CadlCompile)" Condition=" '%(CadlCompile.Compile)' != 'true' " />
     </ItemGroup>
@@ -42,15 +47,13 @@
     
     <Message Text="cadl gernerated @(_Cadl_GeneratedFiles)" Importance="high"/>
     <ItemGroup>
-      <Compile Remove="%(CadlCompile.Root)\node_modules\**" />
-      <EmbeddedResource Remove="%(CadlCompile.Root)\node_modules\**" />
-      <None Remove="%(CadlCompile.Root)\node_modules\**" />
-      <Compile Include="@(_Cadl_GeneratedFiles)" />
+      <Compile Remove="@(_Cadl_GeneratedFiles)" />
+      <Compile Include="@(_Cadl_GeneratedFiles)"  Watch="false" />
     </ItemGroup>
   </Target>
 
   <!-- Do cadl compilation by default in a C# project. In other types, the user invoke
        CadlCompile directly where required. -->
-  <Target Name="_CadlCompile_BeforeCsCompile" AfterTargets="BeforeCompile" DependsOnTargets="CadlCompileCore" Condition=" '$(Language)' == 'C#' " />
+  <Target Name="_CadlCompile_BeforeCsCompile" BeforeTargets="CoreCompile" DependsOnTargets="CadlCompileCore" Condition=" '$(Language)' == 'C#' " />
 
 </Project>

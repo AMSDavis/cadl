@@ -11,10 +11,7 @@
    </ItemGroup>
 
   <ItemGroup >
-    <PackageReference Include="Microsoft.Build.Framework; Microsoft.Build.Utilities.Core" Version="16.0.461" />
-    <!--  Set PrivateAssets="All" on all items, even those implicitly added,
-          so that they do not become dependencies of this package. -->
-    <PackageReference Update="@(PackageReference)" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Build.Framework; Microsoft.Build.Utilities.Core" Version="16.0.461"  PrivateAssets="All" />
   </ItemGroup>
   
   <PropertyGroup>
