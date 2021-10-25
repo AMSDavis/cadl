@@ -1,0 +1,41 @@
+{
+  "name": "$Provider$",
+  "private": true,
+  "version": "1.0.0",
+  "author": "Microsoft Corporation",
+  "description": "CADL for $Provider$",
+  "homepage": "https://github.com/Azure/adl",
+  "readme": "https://github.com/Azure/adl/blob/master/readme.md",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Azure/adl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Azure/adl/issues"
+  },
+  "keywords": [
+    "adl",
+    "cli"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "build": "echo \"nothing to do for samples\""
+  },
+  "files": [
+    "lib/*.adl",
+    "dist/**",
+    "!dist/test/**"
+  ],
+  "dependencies": {
+    "@cadl-lang/compiler": "0.20.0",
+    "@cadl-lang/rest": "0.6.1",
+    "@azure-tools/cadl-autorest": "0.7.0",
+    "@azure-tools/cadl-rpaas": "0.8.0",
+    "@azure-tools/cadl-rpaas-controller": "0.4.0"
+  },
+  "devDependencies": {}
+}

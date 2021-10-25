@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Andrea Chiarelli",
+  "classifications": ["RPaaS", "WebApi", "Cadl"],
+  "identity": "Cadl.RPaaS.WebApi",
+  "name": "ASP.NET Core App For RPaaS",
+  "shortName": "CadlRpaas",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "RPaasUserRP",
+  "symbols": {
+    "Provider": {
+      "type": "parameter",
+      "description": "Your provider name.",
+      "defaultValue": "Provider",
+      "replaces": "{Provider}"
+    },
+    "FirstResourceType": {
+      "type": "parameter",
+      "description": "Your provider name.",
+      "defaultValue": "Employee",
+      "replaces": "Employee"
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        "**/setup.*",
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        ".template.config/**/*",
+        "**/*.filelist",
+        "**/*.user",
+        "**/*.lock.json"
+      ]
+    },
+    {
+      "source": "./",
+      "include": ["setup.sh"],
+      "condition": "(OperatingSystemKind == \"Linux\")"
+    },
+    {
+      "source": "./",
+      "include": ["setup.cmd"],
+      "condition": "(OperatingSystemKind != \"Linux\")"
+    }
+  ],
+  "postActions": [
+    {
+      "condition": "(!skipRestore)",
+      "description": "Restore NuGet packages required by this project.",
+      "manualInstructions": [{ "text": "Run 'dotnet restore'" }],
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "continueOnError": true
+    },
+    {
+      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+      "condition": "(OperatingSystemKind != \"Linux\")",
+      "args": {
+        "executable": "setup.cmd",
+        "args": "install ./cadl",
+        "redirectStandardOutput": false
+      },
+      "manualInstructions": [
+        {
+          "text": ".\\setup.cmd"
+        }
+      ],
+      "continueOnError": false,
+      "description ": "install cadl tools by running npm install"
+    },
+    {
+      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+      "condition": "(OperatingSystemKind == \"Linux\")",
+      "args": {
+        "executable": "setup.sh",
+        "args": "",
+        "redirectStandardOutput": false
+      },
+      "manualInstructions": [
+        {
+          "text": "./setup.sh"
+        }
+      ],
+      "continueOnError": false,
+      "description ": "install cadl tools by running npm install"
+    }
+  ]
+}
