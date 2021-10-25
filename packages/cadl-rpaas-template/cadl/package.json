@@ -1,9 +1,9 @@
 {
-  "name": "$Provider$",
+  "name": "{Provider}",
   "private": true,
   "version": "1.0.0",
   "author": "Microsoft Corporation",
-  "description": "CADL for $Provider$",
+  "description": "CADL for {Provider}",
   "homepage": "https://github.com/Azure/adl",
   "readme": "https://github.com/Azure/adl/blob/master/readme.md",
   "license": "MIT",
