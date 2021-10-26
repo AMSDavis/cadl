@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas-controller",
+      "comment": "Fix bytes type, updated logic for response type determination",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas-controller"
+}
