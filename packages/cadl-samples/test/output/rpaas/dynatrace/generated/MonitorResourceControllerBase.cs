@@ -324,8 +324,8 @@ namespace Microsoft.Observability.Service
         /// <returns> The MonitorResource resource.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceItemGetAccountCredentials)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
-        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof(void))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(AccountInfoSecure))]
+        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof(AccountInfoSecure))]
         public async Task<IActionResult> BeginGetAccountCredentialsAsync(string subscriptionId, string resourceGroupName, string monitorName)
         {
             _logger.LogInformation("GetAccountCredentialsAsync()");

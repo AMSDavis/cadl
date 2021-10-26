@@ -51,6 +51,12 @@ const libDef = {
         default: paramMessage`Error generating model: ${"namespace"}.${"modelName"}, ${"error"}`,
       },
     },
+    "invalid-response": {
+      severity: "error",
+      messages: {
+        default: paramMessage`Invalid response for operation: ${"operationName"}`,
+      },
+    },
     fstat: {
       severity: "error",
       messages: {
