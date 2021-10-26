@@ -120,6 +120,47 @@ export const libDef = {
         missingResourceName: "Parent type has no resource name parameter specified",
       },
     },
+    "no-underscore-in-operation-name": {
+      severity: "warning",
+      messages: {
+        default:
+          "The operation name should not contain underscore, or it will produce invalid operationId in the generated swagger.",
+      },
+    },
+    "no-repeated-resource-in-operation": {
+      severity: "warning",
+      messages: {
+        default: paramMessage`The operation name should not repeat the resource name '${"resourceModelName"}'.`,
+      },
+    },
+    "no-inline-model": {
+      severity: "warning",
+      messages: {
+        default:
+          "Inline models cannot be represented in many languages. Using this pattern can result in bad auto naming. ",
+      },
+    },
+    "model-requires-documentation": {
+      severity: "warning",
+      messages: {
+        default:
+          "The model must have a documentation or description , please use decorator @doc to add it.",
+      },
+    },
+    "property-requires-documentation": {
+      severity: "warning",
+      messages: {
+        default:
+          "The property must have a documentation or description , please use decorator @doc to add it.",
+      },
+    },
+    "operation-requires-documentation": {
+      severity: "warning",
+      messages: {
+        default:
+          "The operation must have a documentation or description , please use decorator @doc to add it.",
+      },
+    },
     "documentation-different-with-node-name": {
       severity: "warning",
       messages: {
