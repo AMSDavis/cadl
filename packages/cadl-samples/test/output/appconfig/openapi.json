@@ -45,7 +45,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "The request has succeeded.",
             "schema": {
               "type": "object",
               "properties": {
@@ -104,7 +104,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response"
+            "description": "The request has succeeded."
           },
           "default": {
             "description": "Azure App Configuration error object.",
@@ -408,7 +408,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response"
+            "description": "The request has succeeded."
           },
           "default": {
             "description": "Azure App Configuration error object.",
