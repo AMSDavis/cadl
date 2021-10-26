@@ -908,7 +908,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           }
 
           switch (cadlType.name) {
-            case "byte":
+            case "bytes":
               return { name: "byte[]", nameSpace: "System", isBuiltIn: true };
             case "int32":
               return { name: "int", nameSpace: "System", isBuiltIn: true };
