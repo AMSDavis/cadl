@@ -324,8 +324,8 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <returns> The ZTSIResource resource.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceItemGetMAAURL)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
-        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof(void))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(MAAURL))]
+        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof(MAAURL))]
         public async Task<IActionResult> BeginGetMAAURLAsync(string subscriptionId, string resourceGroupName, string ztsiName)
         {
             _logger.LogInformation("GetMAAURLAsync()");
@@ -353,8 +353,8 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <returns> The ZTSIResource resource.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceItemGetZTSIURL)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
-        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof(void))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ZTSIURL))]
+        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof(ZTSIURL))]
         public async Task<IActionResult> BeginGetZTSIURLAsync(string subscriptionId, string resourceGroupName, string ztsiName)
         {
             _logger.LogInformation("GetZTSIURLAsync()");
@@ -383,8 +383,8 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <returns> The ZTSIResource resource.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceItemInitiateRequest)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
-        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof(void))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(InitiateResponse))]
+        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof(InitiateResponse))]
         public async Task<IActionResult> BeginInitiateRequestAsync(string subscriptionId, string resourceGroupName, string ztsiName, InitiateRequestInformation initiateRequest)
         {
             _logger.LogInformation("InitiateRequestAsync()");
@@ -415,8 +415,8 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <returns> The ZTSIResource resource.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceItemReportRequest)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
-        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof(void))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ZTSIReport))]
+        [ProducesResponseType((int)HttpStatusCode.Accepted, Type = typeof(ZTSIReport))]
         public async Task<IActionResult> BeginReportRequestAsync(string subscriptionId, string resourceGroupName, string ztsiName, ReportRequestInformation reportRequest)
         {
             _logger.LogInformation("ReportRequestAsync()");

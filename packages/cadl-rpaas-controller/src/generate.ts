@@ -370,6 +370,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 if (innerModel) {
                   outModel = innerModel;
                 }
+              } else if (optionModel && optionModel.name != "ErrorResponse") {
+                outModel = optionModel;
               }
             });
 
