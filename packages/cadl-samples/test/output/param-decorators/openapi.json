@@ -36,7 +36,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "The request has succeeded.",
             "schema": {
               "$ref": "#/definitions/Thing"
             }
@@ -52,7 +52,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "The request has succeeded.",
             "schema": {
               "$ref": "#/definitions/Thing"
             }
