@@ -355,7 +355,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           }
         }
 
-        function extractResponseType(model: Type): ModelType | undefined {
+        function extractResponseType(operation: OperationType): ModelType | undefined {
+          const model = operation.returnType;
           let union = model as UnionType;
           if (union) {
             let outModel: ModelType | undefined = undefined;
@@ -370,8 +371,18 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 if (innerModel) {
                   outModel = innerModel;
                 }
+              } else if (optionModel && optionModel.name !== "ErrorResponse") {
+                outModel = optionModel;
               }
             });
+
+            if (outModel === undefined) {
+              reportDiagnostic(program, {
+                code: "invalid-response",
+                format: { operationName: operation ? operation.name : "<unknown>" },
+                target: operation,
+              });
+            }
 
             return outModel;
           }
@@ -444,7 +455,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             let bodyProp: MethodParameter | undefined = undefined;
             if (!visitedOperations.has(operationKey)) {
               visitedOperations.set(operationKey, operation);
-              let returnType = extractResponseType(operation.returnType);
+              let returnType = extractResponseType(operation);
               if (returnType) {
                 visitType(returnType);
               }
@@ -908,7 +919,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           }
 
           switch (cadlType.name) {
-            case "byte":
+            case "bytes":
               return { name: "byte[]", nameSpace: "System", isBuiltIn: true };
             case "int32":
               return { name: "int", nameSpace: "System", isBuiltIn: true };
@@ -978,6 +989,13 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             isBuiltIn: true,
             name: "ArmResponse",
             nameSpace: "Microsoft.Cadl.RPaaS",
+          };
+        case "ArmDeleteAcceptedResponse":
+        case "ArmCreatedResponse":
+          return {
+            isBuiltIn: true,
+            name: "void",
+            nameSpace: "System",
           };
         case "Operation":
           return {
