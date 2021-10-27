@@ -1,6 +1,12 @@
 import { addSecurityDefinition, addSecurityRequirement } from "@azure-tools/cadl-autorest";
 import { NamespaceType, Program, Type } from "@cadl-lang/compiler";
-import { $consumes, $produces, setServiceNamespace } from "@cadl-lang/rest";
+import {
+  $consumes,
+  $produces,
+  getServiceHost,
+  setServiceHost,
+  setServiceNamespace,
+} from "@cadl-lang/rest";
 import { reportDiagnostic } from "./lib.js";
 
 const armNamespacesKey = Symbol();
@@ -20,6 +26,10 @@ export function $armNamespace(program: Program, entity: Type, armNamespace?: str
 
   // armNamespace will set the service namespace if it's not done already
   setServiceNamespace(program, entity);
+
+  if (!getServiceHost(program)) {
+    setServiceHost(program, "management.azure.com");
+  }
 
   // 'namespace' is optional, use the actual namespace string if omitted
   const cadlNamespace = program.checker!.getNamespaceString(entity);
