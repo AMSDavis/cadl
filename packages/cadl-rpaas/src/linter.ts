@@ -13,7 +13,7 @@ import {
 import { reportDiagnostic } from "./lib.js";
 
 export async function $onBuild(p: Program) {
-  runChecker(p);
+  runLinter(p);
 }
 
 function isInlineModel(target: ModelType) {
@@ -53,7 +53,7 @@ function createListenerOnGeneralType(fn: (target: Type) => void) {
   return listener;
 }
 
-class Checker {
+class Linter {
   private eventEmitter = new EventEmitter<SemanticNodeListener>();
 
   run(p: Program) {
@@ -70,7 +70,7 @@ class Checker {
   }
 }
 
-const runChecker = (p: Program) => {
+const runLinter = (p: Program) => {
   const checkDocumentation: SemanticNodeListener = {
     operation: (context: OperationType) => {
       if (!getDoc(p, context)) {
@@ -120,7 +120,7 @@ const runChecker = (p: Program) => {
       }
     },
   };
-  const checker = new Checker();
-  checker.register([checkInlineModel, checkDocumentation, checkDocumentationText]);
-  return checker.run(p);
+  const linter = new Linter();
+  linter.register([checkInlineModel, checkDocumentation, checkDocumentationText]);
+  return linter.run(p);
 };

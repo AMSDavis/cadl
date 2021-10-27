@@ -82,7 +82,6 @@ model ProxyResource<TProperties> extends ProxyResourceBase {
   systemData?: SystemData;
 }
 
-#suppress "@azure-tools/cadl-rpaas/property-requires-documentation" "there is a known issue that can't getDoc for template's property now."
 @doc("Concrete extension resource types can be created by aliasing this type using a specific property type.")
 model ExtensionResource<TProperties> extends ExtensionResourceBase {
   @doc("The resource-specific properties for this resource.")
