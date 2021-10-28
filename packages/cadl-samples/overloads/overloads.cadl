@@ -10,7 +10,12 @@ namespace Things {
   op postThing(thing: Thing): OkResponse<Thing>;
 
   @post("?overload=withParam")
-  op postThingWithParam(body: { thing: Thing, param: string}): OkResponse<Thing>;
+  op postThingWithParam(
+    body: {
+      thing: Thing,
+      param: string,
+    }
+  ): OkResponse<Thing>;
 
   @post("?overload=returnString")
   op postThingReturnString(thing: Thing): ThingStringResponse;
@@ -23,6 +28,5 @@ model Thing {
 model ThingStringResponse {
   @header
   contentType: "text/plain; charset=utf=8";
-
   ... OkResponse<string>;
 }

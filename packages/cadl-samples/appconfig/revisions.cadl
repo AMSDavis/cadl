@@ -1,4 +1,3 @@
-
 @resource("/revisions")
 namespace RevisionsResource {
   @doc("Gets a list of revisions.")
@@ -9,13 +8,16 @@ namespace RevisionsResource {
     ... AcceptDatetimeHeader,
 
     @doc("Used to select what fields are present in the returned resource(s).")
-    @query $Select?: KeyField[],
+    @query
+    $Select?: KeyField[],
 
     @doc("A filter used to match labels")
-    @query label: string,
+    @query
+    label: string,
 
     @doc("A filter used to match keys.")
-    @query key: string,
+    @query
+    key: string
   ): OkResponse<SyncTokenHeader & Page<KeyValue>> | Error;
 
   @doc("Requests the headers and status of the given resource.")
@@ -24,8 +26,7 @@ namespace RevisionsResource {
     ... ServiceParams,
     ... SyncTokenHeader,
     ... AcceptDatetimeHeader,
-
     @query name: string,
-    @query after: string,
+    @query after: string
   ): OkResponse<SyncTokenHeader> | Error;
 }

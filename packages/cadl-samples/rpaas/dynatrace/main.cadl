@@ -15,14 +15,15 @@ using Azure.ARM;
 @armResource({
   path: "monitors",
   collectionName: "Monitors",
-  parameterType: MonitorNameParameter
+  parameterType: MonitorNameParameter,
 })
 model MonitorResource is TrackedResource<MonitorProperties> {
-  ...ManagedServiceIdentity;  // change here to use the standard definition
- };
+  ...ManagedServiceIdentity; // change here to use the standard definition
+}
 model MonitorNameParameter {
   @doc("Monitor resource name")
-  @path monitorName: string;
+  @path
+  monitorName: string;
 }
 
 @doc("Tag rules for a monitor resource")
@@ -31,13 +32,14 @@ model MonitorNameParameter {
   path: "tagRules",
   parentResourceType: MonitorResource,
   collectionName: "TagRules",
-  parameterType: RuleSetNameParameter
+  parameterType: RuleSetNameParameter,
 })
-model TagRule is ProxyResource<MonitoringTagRulesProperties> { };
+model TagRule is ProxyResource<MonitoringTagRulesProperties> {}
 
 model RuleSetNameParameter {
   @doc("Monitor RuleSet resource name")
-  @path ruleSetName: string;
+  @path
+  ruleSetName: string;
 }
 
 @armResourceOperations(MonitorResource)
@@ -60,10 +62,13 @@ namespace Monitors {
     ...ResourceGroupNameParameter,
     ...MonitorNameParameter
   ): ArmResponse<MonitoredResourceListResponse> | ErrorResponse;
-  
+
   @post("vmHostPayload")
-  @doc("Returns the payload that needs to be passed in the request body for installing Dynatrace agent on a VM.")
-  op GetVMHostPayload(  // needed to change the name here to make it a verb.
+  @doc(
+    "Returns the payload that needs to be passed in the request body for installing Dynatrace agent on a VM."
+  )
+  op GetVMHostPayload(
+    // needed to change the name here to make it a verb.
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
     ...ResourceGroupNameParameter,
@@ -71,14 +76,16 @@ namespace Monitors {
   ): ArmResponse<VMExtensionPayload> | ErrorResponse;
 
   @post("vmHostUpdate")
-  @doc("Sending request to update the collection when Dynatrace agent has been installed on a VM for a given monitor.")
+  @doc(
+    "Sending request to update the collection when Dynatrace agent has been installed on a VM for a given monitor."
+  )
   @pageable("nextLink")
   op ListVmHostUpdate(
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
     ...ResourceGroupNameParameter,
     ...MonitorNameParameter,
-    ...VMHostUpdateParameter         // change here
+    ...VMHostUpdateParameter // change here
   ): ArmResponse<VMResourcesListResponse> | ErrorResponse;
 
   @post("listVMHosts")
@@ -94,14 +101,14 @@ namespace Monitors {
   @post("singleSignOnConfigurations")
   @doc("List the single sign-on configurations for a given monitor resource.")
   @pageable("nextLink")
-  op ListSingleSignOnConfigurations(  // changed for compliance
+  op ListSingleSignOnConfigurations(
+    // changed for compliance
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
     ...ResourceGroupNameParameter,
     ...MonitorNameParameter
   ): ArmResponse<VMResourcesListResponse> | ErrorResponse;
 }
-
 
 // note: I think you only need get.  It is odd to have PUT without DELETE, though.
 @doc("Single sign-on configurations for a given monitor resource.")
@@ -111,11 +118,12 @@ namespace Monitors {
   parentResourceType: MonitorResource,
   collectionName: "SingleSignOn",
   parameterType: ConfigurationNameParameter,
-  standardOperations: ["create", "read"]      // check if this is correct. We only need these 2 operations
+  standardOperations: ["create", "read"], // check if this is correct. We only need these 2 operations
 })
-model DynatraceSingleSignOnResource is ProxyResource<DynatraceSingleSignOnProperties> { };
+model DynatraceSingleSignOnResource is ProxyResource<DynatraceSingleSignOnProperties> {}
 
 model ConfigurationNameParameter {
   @doc("Single Sign On Configuration Name")
-  @path configurationName: string;
+  @path
+  configurationName: string;
 }

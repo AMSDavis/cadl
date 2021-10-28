@@ -7,49 +7,51 @@ namespace Dynatrace.Observability;
 using Azure.ARM;
 
 @doc("A virtual machine reference")
-@format("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.Compute\\/virtualMachines\\/[^\\/]+")
+@format(
+  "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.Compute\\/virtualMachines\\/[^\\/]+"
+)
 model virtualMachineId extends string {}
 
 @doc("Reusable representation of an email address")
 @format("^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$")
-model email extends string {};
+model email extends string {}
 
 @doc("Shorthand for setting length limit.")
 @maxLength(50)
 model MediumString extends string {}
 
 @doc("Credential string.")
-@secret()
+@secret
 model SecureString extends string {}
 
 @doc("Indicates whether metrics are being sent.")
 enum SendingMetricsStatus {
   "Enabled",
-  "Disabled"
+  "Disabled",
 }
 
 @doc("Indicates whether logs are being sent.")
 enum SendingLogsStatus {
   "Enabled",
-  "Disabled"
+  "Disabled",
 }
 
 @doc("Indicates whether AAD logs are being sent.")
 enum SendAadLogsStatus {
   "Enabled",
-  "Disabled"
+  "Disabled",
 }
 
 @doc("Indicates whether activity logs are being sent.")
 enum SendActivityLogsStatus {
   "Enabled",
-  "Disabled"
+  "Disabled",
 }
 
 @doc("Indicates whether subscription logs are being sent.")
 enum SendSubscriptionLogsStatus {
   "Enabled",
-  "Disabled"
+  "Disabled",
 }
 
 // Why is this not represented as a subResource? How are monitored resources added?
@@ -70,7 +72,7 @@ model MonitoredResource {
   sendingLogs?: SendingLogsStatus;
 
   @doc("Reason for why the resource is sending logs (or why it is not sending).")
-  reasonForLogsStatus?: string; 
+  reasonForLogsStatus?: string;
 }
 
 @doc("List of all the resources being monitored by Dynatrace monitor resource")
@@ -102,81 +104,98 @@ model MonitorProperties {
   liftrResourcePreference?: int32;
 
   @visibility("read")
-	@doc("Provisioning state of the resource.")
-	provisioningState?: ProvisioningState;
+  @doc("Provisioning state of the resource.")
+  provisioningState?: ProvisioningState;
 }
 
 @doc("Properties of the Dynatrace environment.")
 model DynatraceEnvironmentProperties {
-	@doc("User id")
-	@visibility("read")
-	userId?: string;
+  @doc("User id")
+  @visibility("read")
+  userId?: string;
 
-	@doc("Dynatrace Account Information")
-	@visibility("read")
-	accountInfo?: AccountInfo;
+  @doc("Dynatrace Account Information")
+  @visibility("read")
+  accountInfo?: AccountInfo;
 
-	@doc("Dynatrace Environment Information")
-	@visibility("read")
-	environmentInfo?: EnvironmentInfo;
+  @doc("Dynatrace Environment Information")
+  @visibility("read")
+  environmentInfo?: EnvironmentInfo;
 }
 
 @doc("Dynatrace Account Information")
 model AccountInfo {
-	@visibility("read")
-	@doc("Account Id of the account this environment is linked to")
-	accountId?: string;
+  @visibility("read")
+  @doc("Account Id of the account this environment is linked to")
+  accountId?: string;
 
-	@visibility("read")
-	@doc("Region in which the account is created")
-	regionId?: string;
+  @visibility("read")
+  @doc("Region in which the account is created")
+  regionId?: string;
 }
 
 @doc("Dynatrace account API Key")
 model AccountInfoSecure {
   @visibility("read")
-	@doc("Account Id of the account this environment is linked to")
-	accountId?: string;
+  @doc("Account Id of the account this environment is linked to")
+  accountId?: string;
 
-	@visibility("read")
-	@doc("API Key of the user account")
-	apiKey?: SecureString;
+  @visibility("read")
+  @doc("API Key of the user account")
+  apiKey?: SecureString;
 
-	@visibility("read")
-	@doc("Region in which the account is created")
-	regionId?: string;
+  @visibility("read")
+  @doc("Region in which the account is created")
+  regionId?: string;
 }
 
 @doc("Dynatrace Environment Information")
 model EnvironmentInfo {
-	@visibility("read")
-	@doc("Id of the environment created")
-	environmentId?: string;
+  @visibility("read")
+  @doc("Id of the environment created")
+  environmentId?: string;
 
-	@visibility("read")
-	@doc("Ingestion key of the environment")
-	ingestionKey?: string;
+  @visibility("read")
+  @doc("Ingestion key of the environment")
+  ingestionKey?: string;
 
-	@visibility("read")
-	@doc("Ingestion endpoint used for sending logs")
-	logsIngestionEndpoint?: string;
+  @visibility("read")
+  @doc("Ingestion endpoint used for sending logs")
+  logsIngestionEndpoint?: string;
 }
-
 
 @doc("Provisioning state of the monitoring resource")
 enum ProvisioningState {
-  "Accepted", "Creating", "Updating", "Deleting",
-  "Succeeded", "Failed", "Canceled", "Deleted", "NotSpecified"
+  "Accepted",
+  "Creating",
+  "Updating",
+  "Deleting",
+  "Succeeded",
+  "Failed",
+  "Canceled",
+  "Deleted",
+  "NotSpecified",
 }
 
 @doc("Flag specifying if the resource monitoring is enabled or disabled.")
-enum MonitoringStatus { "Enabled", "Disabled" }
+enum MonitoringStatus {
+  "Enabled",
+  "Disabled",
+}
 
-@doc("Flag specifying the Marketplace Subscription Status of the resource. If payment is not made in time, the resource will go in Suspended state.")
-enum MarketplaceSubscriptionStatus { "Active", "Suspended" }
+@doc(
+  "Flag specifying the Marketplace Subscription Status of the resource. If payment is not made in time, the resource will go in Suspended state."
+)
+enum MarketplaceSubscriptionStatus {
+  "Active",
+  "Suspended",
+}
 
 @doc("Liftr resource category")
-enum LiftrResourceCategories { "Unknown", "MonitorLogs" };
+enum LiftrResourceCategories {
+  "Unknown",
+  "MonitorLogs",
+}
 
 @doc("User info.")
 model UserInfo {
@@ -194,8 +213,7 @@ model UserInfo {
   phoneNumber?: string;
 
   @doc("Country of the user")
-  country?: string
-
+  country?: string;
 }
 
 @doc("Billing plan information.")
@@ -219,8 +237,8 @@ model MonitoringTagRulesProperties {
   logRules?: LogRules;
 
   @visibility("read")
-	@doc("Provisioning state of the resource.")
-	provisioningState?: ProvisioningState;
+  @doc("Provisioning state of the resource.")
+  provisioningState?: ProvisioningState;
 }
 
 @doc("Set of rules for sending logs for the Monitor resource.")
@@ -231,49 +249,63 @@ model LogRules {
   @doc("Flag specifying if subscription logs should be sent for the Monitor resource.")
   sendSubscriptionLogs?: SendSubscriptionLogsStatus; // Enabled, Disabled
 
-  @doc("Flag specifying if activity logs from Azure resources should be sent for the Monitor resource.")
+  @doc(
+    "Flag specifying if activity logs from Azure resources should be sent for the Monitor resource."
+  )
   sendActivityLogs?: SendActivityLogsStatus; // Enabled, Disabled
 
-  @doc("""
+  @doc(
+    """
   List of filtering tags to be used for capturing logs. This only takes effect if SendActivityLogs flag is enabled. If empty, all resources will be captured.
   If only Exclude action is specified, the rules will apply to the list of all available resources. If Include actions are specified, the rules will only include resources with the associated tags.
-  """)
+  """
+  )
   filteringTags?: FilteringTag[];
 }
 
-@doc("The definition of a filtering tag. Filtering tags are used for capturing resources and include/exclude them from being monitored.")
+@doc(
+  "The definition of a filtering tag. Filtering tags are used for capturing resources and include/exclude them from being monitored."
+)
 model FilteringTag {
   @doc("The name (also known as the key) of the tag.")
   name?: string;
+
   @doc("The value of the tag.")
   value?: string;
+
   @doc("Valid actions for a filtering tag. Exclusion takes priority over inclusion.")
   action?: TagAction;
 }
 
 @doc("Valid actions for a filtering tag. Exclusion takes priority over inclusion.")
-enum TagAction { "Include", "Exclude" }
+enum TagAction {
+  "Include",
+  "Exclude",
+}
 
 @doc("Response of payload to be passed while installing VM agent.")
 model VMExtensionPayload {
-	@doc("API Key of the user account")
-	apiKey?: SecureString;
+  @doc("API Key of the user account")
+  apiKey?: SecureString;
 
-	@doc("Id of the environment created")
-	environmentId?: string;
+  @doc("Id of the environment created")
+  environmentId?: string;
 }
 
 @doc("VM Resource Ids")
 model VMResources {
-	@doc("VM resource ID on which agent is installed")
-	id?: virtualMachineId; // made a chaneg here to inform about the kind of reference this must be.
+  @doc("VM resource ID on which agent is installed")
+  id?: virtualMachineId; // made a chaneg here to inform about the kind of reference this must be.
 
-	@doc("Version of the Dynatrace agent installed on the VM.")
-	agentVersion?: string;
+  @doc("Version of the Dynatrace agent installed on the VM.")
+  agentVersion?: string;
 }
 
 @doc("Various states of the updating vm extension on resource")
-enum VMHostUpdateState {"Install", "Delete"}
+enum VMHostUpdateState {
+  "Install",
+  "Delete",
+}
 
 @doc("Response of a list VM Host Update Operation.")
 model VMResourcesListResponse extends Page<VMResources> {}
@@ -281,35 +313,41 @@ model VMResourcesListResponse extends Page<VMResources> {}
 @doc("Host Update Parameter specification.")
 model VMHostUpdateParameter {
   @doc("The details of the VMHost update request.")
-  @body request: VMHostUpdateRequest;
+  @body
+  request: VMHostUpdateRequest;
 }
 
 @doc("Request of a list VM Host Update Operation.")
 model VMHostUpdateRequest {
-	@doc("VM resource ID on which agent is installed/deleted")
-	vmResourceIds?: VMResources[];    // [yes, it is] check if this is the correct way to make this an array
+  @doc("VM resource ID on which agent is installed/deleted")
+  vmResourceIds?: VMResources[]; // [yes, it is] check if this is the correct way to make this an array
 
-	@doc("Specifies the state of the operation - install/ delete.")
-	state?: VMHostUpdateState;
+  @doc("Specifies the state of the operation - install/ delete.")
+  state?: VMHostUpdateState;
 }
 
 @doc("Various states of the SSO resource")
-enum SingleSignOnStates {"Initial", "Enable", "Disable", "Existing"}
+enum SingleSignOnStates {
+  "Initial",
+  "Enable",
+  "Disable",
+  "Existing",
+}
 
 @doc("The details of a DynaTrace single sign-on.")
 model DynatraceSingleSignOnProperties {
-    @doc("State of Single Sign On")
-	singleSignOnState?: SingleSignOnStates;
+  @doc("State of Single Sign On")
+  singleSignOnState?: SingleSignOnStates;
 
-	@doc("Version of the Dynatrace agent installed on the VM.")
-	enterpriseAppId?: string;
+  @doc("Version of the Dynatrace agent installed on the VM.")
+  enterpriseAppId?: string;
 
-    @doc("The login URL specific to this Dynatrace Environment")
-    singleSignOnUrl: string;
+  @doc("The login URL specific to this Dynatrace Environment")
+  singleSignOnUrl: string;
 
-	@doc("array of Aad(azure active directory) domains")
-	aadDomains: string[];    // [yes, it is] check if this is the correct way to make this an array
+  @doc("array of Aad(azure active directory) domains")
+  aadDomains: string[]; // [yes, it is] check if this is the correct way to make this an array
 
-    @doc("Provisioning state of the resource.")
-	provisioningState?: ProvisioningState;
+  @doc("Provisioning state of the resource.")
+  provisioningState?: ProvisioningState;
 }

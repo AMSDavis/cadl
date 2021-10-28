@@ -17,11 +17,10 @@ using Azure.ARM;
   parameterType: AccountNameParameter,
   collectionName: "employees",
 })
-model Employee is TrackedResource<EmployeeProperties> {};
+model Employee is TrackedResource<EmployeeProperties> {}
 
 model EmployeeProperties {
   age?: int32;
-
   city?: string;
 
   @visibility("read")
@@ -31,9 +30,16 @@ model EmployeeProperties {
 
 model AccountNameParameter {
   @format("^[a-zA-Z0-9-]{3,24}$")
-  @path employeeName: string;
+  @path
+  employeeName: string;
 }
 
 enum ProvisioningState {
-  Succeeded, Failed, Canceled, Provisioning, Updating, Deleting, Accepted
+  Succeeded,
+  Failed,
+  Canceled,
+  Provisioning,
+  Updating,
+  Deleting,
+  Accepted,
 }

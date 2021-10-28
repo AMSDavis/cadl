@@ -20,14 +20,15 @@ model SecretKey extends string {}
 @armResource({
   path: "fluidRelayServers",
   collectionName: "FluidRelayServers",
-  parameterType: ResourceNameParameter
+  parameterType: ResourceNameParameter,
 })
 @doc("Details of the FluidRelay server.")
 model FluidRelayServer is TrackedResource<FluidRelayServerProperties> {}
 
 model ResourceNameParameter {
   @doc("The resource name.")
-  @path name: string;
+  @path
+  name: string;
 }
 
 @armResourceOperations(FluidRelayServer)
@@ -36,18 +37,24 @@ namespace FluidRelayServers {
   @post("regenerateKey")
   op regenerateKey(
     ...CommonResourceParameters,
+
     @doc("The resource name.")
-    @path name: string,
+    @path
+    name: string,
+
     @doc("The details of the key generation request.")
-    @body parameters: RegenerateKeyRequest
+    @body
+    parameters: RegenerateKeyRequest
   ): ArmResponse<FluidRelayServerKeys> | ErrorResponse;
 
   @doc("Retrieve the keys for this server.")
   @post("getKeys")
   op getKeys(
     ...CommonResourceParameters,
+
     @doc("The resource name.")
-    @path name: string
+    @path
+    name: string
   ): ArmResponse<FluidRelayServerKeys> | ErrorResponse;
 }
 
@@ -66,7 +73,11 @@ model FluidRelayServerProperties {
 }
 
 @doc("Provisioning states for FluidRelay RP")
-enum ProvisioningState { Succeeded, Failed, Canceled }
+enum ProvisioningState {
+  Succeeded,
+  Failed,
+  Canceled,
+}
 
 @doc("The Fluid Relay Service endpoints for this server.")
 model FluidRelayEndpoints {
@@ -91,7 +102,10 @@ model FluidRelayServerKeys {
 }
 
 @doc("The keys that are defined fro a FluidRelay Service.")
-enum KeyName { key1, key2 }
+enum KeyName {
+  key1,
+  key2,
+}
 
 @doc("Specifies which key should be generated.")
 model RegenerateKeyRequest {

@@ -1,19 +1,23 @@
 @doc("Used for /kv endpoints (key in query)")
 model KeyFilters {
   @doc("A filter for the name of the returned keys.")
-  @query key?: string;
+  @query
+  key?: string;
 
   @doc("A filter used to match labels")
-  @query label?: string;
+  @query
+  label?: string;
 }
 
 @doc("Used for /kv/{id} endpoints (key in path)")
 model KeyWithFilters {
   @doc("A filter for the name of the returned keys.")
-  @path key: string;
+  @path
+  key: string;
 
   @doc("A filter used to match labels")
-  @query label?: string;
+  @query
+  label?: string;
 }
 
 @resource("/kv")
@@ -25,13 +29,16 @@ namespace KeyValuesResource {
     ... SyncTokenHeader,
     ... AcceptDatetimeHeader,
     ... KeyFilters,
-    
-    @doc("Instructs the server to return elements that appear after the element referred to by the specified token.")
-    @query After: plainDate,
+
+    @doc(
+      "Instructs the server to return elements that appear after the element referred to by the specified token."
+    )
+    @query
+    After: plainDate,
 
     @doc("Used to select what fields are present in the returned resource(s).")
-    @query $Select?: KeyField[],
-
+    @query
+    $Select?: KeyField[]
   ): OkResponse<SyncTokenHeader & Page<KeyValue>> | Error;
 
   @doc("Gets a list of key-values.")
@@ -40,14 +47,16 @@ namespace KeyValuesResource {
     ... AcceptDatetimeHeader,
     ... KeyFilters,
 
-    @doc("Instructs the server to return elements that appear after the element referred to by the specified token.")
-    @query After: plainDate,
+    @doc(
+      "Instructs the server to return elements that appear after the element referred to by the specified token."
+    )
+    @query
+    After: plainDate,
 
     @doc("Used to select what fields are present in the returned resource(s).")
-    @query $Select?: KeyField[]
-
+    @query
+    $Select?: KeyField[]
   ): OkResponse<SyncTokenHeader> | Error;
-
 
   @doc("Gets a single key-value.")
   @operationId("GetKeyValue")
@@ -57,8 +66,8 @@ namespace KeyValuesResource {
     ... KeyWithFilters,
 
     @doc("Used to select what fields are present in the returned resource(s).")
-    @query $Select?: KeyField[]
-
+    @query
+    $Select?: KeyField[]
   ): OkResponse<KeyValueHeaders & KeyValue> | Error;
 
   @doc("Requests the headers and status of the given resource.")
@@ -74,9 +83,8 @@ namespace KeyValuesResource {
   op createOrUpdate(
     ... ETagHeaders,
     ... KeyWithFilters,
-
     @header contentType: "application/json",
-    @body entity: KeyValue,
+    @body entity: KeyValue
   ): OkResponse<KeyValueHeaders & KeyValue> | Error;
 
   @doc("Updates a key-value pair")
@@ -86,19 +94,14 @@ namespace KeyValuesResource {
     ... SyncTokenHeader,
     ... ETagHeaders,
     ... KeyWithFilters,
-
     @header contentType: "application/json-patch+json",
     @body jsonPatch: string[]
   ): OkResponse<KeyValueHeaders & KeyValue> | Error;
 
-
   @doc("Deletes a key-value.")
   @operationId("DeleteKeyValue")
-  op delete(
-    ... KeyWithFilters,
-    @header ifMatch: string,
-  ): OkResponse<KeyValueHeaders & KeyValue> | NoContent<{}> | Error;
-
+  op delete(... KeyWithFilters, @header ifMatch: string): OkResponse<KeyValueHeaders &
+    KeyValue> | NoContent<{}> | Error;
 }
 
 model NoContent<T> {

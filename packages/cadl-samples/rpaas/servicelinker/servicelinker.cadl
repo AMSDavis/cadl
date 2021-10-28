@@ -12,25 +12,32 @@ using Azure.ARM;
 @armResource({
   path: "linkers",
   collectionName: "Linker",
-  parameterType: LinkerNameParameter
+  parameterType: LinkerNameParameter,
 })
 @doc("The details of a service linker.")
 model LinkerResource is ExtensionResource<LinkerProperties> {}
 
 model LinkerNameParameter {
   @doc("The name of the linker resource.")
-  @path linkerName: string;
+  @path
+  linkerName: string;
 }
 
 @armResourceOperations(LinkerResource)
 namespace Linker {
   @doc("Validate a linker resource.")
   @post("validateLinker")
-  op ValidateLinker(...ResourceUriParameter, ...LinkerNameParameter): ArmResponse<ValidateResult> | ErrorResponse;
+  op ValidateLinker(
+    ...ResourceUriParameter,
+    ...LinkerNameParameter
+  ): ArmResponse<ValidateResult> | ErrorResponse;
 
   @doc("List linker resource configurations.")
   @post("listConfigurations")
-  op ListConfigurations(...ResourceUriParameter, ...LinkerNameParameter): ArmResponse<SourceConfigurationResult> | ErrorResponse;
+  op ListConfigurations(
+    ...ResourceUriParameter,
+    ...LinkerNameParameter
+  ): ArmResponse<SourceConfigurationResult> | ErrorResponse;
 }
 
 model LinkerProperties {
@@ -50,23 +57,22 @@ enum AuthType {
   systemAssignedIdentity,
   userAssignedIdentity,
   servicePrincipal,
-  secret
+  secret,
 }
 
-@doc("The abstract base model for all authentication types.")
-// discriminator: authType
+@doc("The abstract base model for all authentication types.") // discriminator: authType
 model AuthInfoBase {
   authType: AuthType;
 }
-
 
 // x-ms-discriminator-value: secret
 @doc("Authentication information for secret-based auth.")
 model SecretAuthInfo extends AuthInfoBase {
   @doc("username or account name for secret auth.")
   name: string;
-
   // @secret
+
+
   @doc("Password or account key for secret auth.")
   secret?: string;
 }
@@ -80,8 +86,7 @@ model UserAssignedIdentityAuthInfo extends AuthInfoBase {
 
 // x-ms-discriminator-value: systemAssignedIdentity
 @doc("Authentication information for system assigned identity based auth.")
-model SystemAssignedIdentityAuthInfo extends AuthInfoBase {
-}
+model SystemAssignedIdentityAuthInfo extends AuthInfoBase {}
 
 // x-ms-discriminator-value: systemPrincipal
 @doc("Authentication information for service principal based auth.")
@@ -103,9 +108,15 @@ model SourceConfiguration {
 }
 
 @doc("The kind of source configuration used in a particular instance.")
-enum SourceConfigurationType {"appSettings",  "connectionSettings",  "serviceBindings"}
+enum SourceConfigurationType {
+  "appSettings",
+  "connectionSettings",
+  "serviceBindings",
+}
 
-@doc("Configurations for source resource, include appSettings, connectionString and serviceBindings")
+@doc(
+  "Configurations for source resource, include appSettings, connectionString and serviceBindings"
+)
 model SourceConfigurationResult {
   @doc("Details of the source configurations.")
   sourceConfigurations: SourceConfiguration[];
@@ -113,7 +124,8 @@ model SourceConfigurationResult {
 
 @doc("State of the linker resource.")
 enum LinkerStatus {
-  Healthy, "Not healthy"
+  Healthy,
+  "Not healthy",
 }
 
 @doc("Details of validation.")

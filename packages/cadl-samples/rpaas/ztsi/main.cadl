@@ -14,14 +14,15 @@ using Azure.ARM;
 @armResource({
   path: "ztsi",
   collectionName: "ZTSI",
-  parameterType: ZTSINameParameter
+  parameterType: ZTSINameParameter,
 })
 model ZTSIResource is TrackedResource<ZTSIProperties> {
-  ...ManagedServiceIdentity;  // change here to use the standard definition
- };
+  ...ManagedServiceIdentity; // change here to use the standard definition
+}
 model ZTSINameParameter {
   @doc("ZTSI resource name")
-  @path ztsiName: string;
+  @path
+  ztsiName: string;
 }
 
 @armResourceOperations(ZTSIResource)
@@ -68,20 +69,19 @@ namespace ZTSI {
 @doc("Microsoft Azure Attestation Endpoint")
 model MAAURL {
   @visibility("read")
-	@doc("URL of the MAA instance that ztsi is using for attestation.")
-	url?: string;
+  @doc("URL of the MAA instance that ztsi is using for attestation.")
+  url?: string;
 }
 
 @doc("ZTSI URL")
 model ZTSIURL {
   @visibility("read")
-	@doc("URL of the ZTSI instance created as a part of the resource.")
-	url?: string;
+  @doc("URL of the ZTSI instance created as a part of the resource.")
+  url?: string;
 }
 
 @doc("Properties specific to the ztsi resource.")
 model ZTSIProperties {
-
   @doc("User info.")
   userInfo?: UserInfo;
 
@@ -89,8 +89,8 @@ model ZTSIProperties {
   planData?: PlanData;
 
   @visibility("read")
-	@doc("Provisioning state of the resource.")
-	provisioningState?: ProvisioningState;
+  @doc("Provisioning state of the resource.")
+  provisioningState?: ProvisioningState;
 }
 
 @doc("Shorthand for setting length limit.")
@@ -99,8 +99,15 @@ model MediumString extends string {}
 
 @doc("Provisioning state of the monitoring resource")
 enum ProvisioningState {
-  "Accepted", "Creating", "Updating", "Deleting",
-  "Succeeded", "Failed", "Canceled", "Deleted", "NotSpecified"
+  "Accepted",
+  "Creating",
+  "Updating",
+  "Deleting",
+  "Succeeded",
+  "Failed",
+  "Canceled",
+  "Deleted",
+  "NotSpecified",
 }
 
 @doc("Reusable representation of an email address")
@@ -123,7 +130,7 @@ model UserInfo {
   phoneNumber?: string;
 
   @doc("Country of the user")
-  country?: string
+  country?: string;
 }
 
 @doc("Billing plan information.")
@@ -179,7 +186,9 @@ model InitiateResponse {
   @doc("Challenge/Nonce")
   challenge: bytes;
 
-  @doc("List of attestations that the service requires the client to send, based on the last ZTSI report if one is available.")
+  @doc(
+    "List of attestations that the service requires the client to send, based on the last ZTSI report if one is available."
+  )
   requiredAttestations: AttestationInformation[];
 }
 
@@ -217,9 +226,8 @@ model Guid extends string {}
 @doc("Device identification in Guid format")
 model DeviceId is Guid {}
 
-
 @doc("The type of attestation.")
 enum AttestationType {
   "Boot",
-  "Runtime"
+  "Runtime",
 }
