@@ -190,6 +190,11 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
     return;
   }
 
+  if (resourceType.name.includes("_")) {
+    reportDiagnostic(program, { code: "no-underscore-in-operation-name", target: resourceType });
+    return;
+  }
+
   const resourcePathType = getRequiredPropertyValue<StringLiteralType>(
     program,
     resourceDetails,

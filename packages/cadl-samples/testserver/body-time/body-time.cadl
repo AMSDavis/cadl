@@ -1,7 +1,7 @@
 import "@cadl-lang/rest";
 import "@azure-tools/cadl-autorest";
 
-@doc("Error")
+@doc("Error definition")
 model Error {
   status: int32;
   message: string;

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas",
+      "comment": "add checks: no-underscore-in-operation-name,no-repeated-resource-in-operation,add no-inline-model,model-requires-documentation,property-requires-documentation,operation-requires-documentation,documentation-different-with-node-name.",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas",
+  "email": "jianyxi@microsoft.com"
+}

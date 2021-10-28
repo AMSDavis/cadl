@@ -29,7 +29,7 @@
             }
           },
           "default": {
-            "description": "Error",
+            "description": "Error definition",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -55,7 +55,7 @@
             "description": "The request has succeeded."
           },
           "default": {
-            "description": "Error",
+            "description": "Error definition",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -76,7 +76,7 @@
           "type": "string"
         }
       },
-      "description": "Error",
+      "description": "Error definition",
       "required": [
         "status",
         "message"

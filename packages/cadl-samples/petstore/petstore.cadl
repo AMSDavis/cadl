@@ -22,7 +22,7 @@ model Toy {
   name: string;
 }
 
-@doc("Error")
+@doc("Error definition")
 model Error {
   code: int32;
   message: string;

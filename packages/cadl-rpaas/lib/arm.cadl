@@ -4,12 +4,16 @@ namespace Azure.ARM;
 
 @doc("Common properties for all ARM resources.")
 model ArmResource {
+
+  @doc("Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}")
   @visibility("read")
   id: string;
 
+  @doc("The name of the resource.")
   @visibility("read")
   name: string; 
 
+  @doc("The type of the resource. E.g. \"Microsoft.Compute/virtualMachines\" or \"Microsoft.Storage/storageAccounts\"")
   @visibility("read")
   type: string;
 }
@@ -24,6 +28,7 @@ model TrackedResourceBase extends ArmResource {
   ...ArmTagsProperty
 }
 
+@doc("The ARM Resource tags.")
 model ArmTagsProperty {
   @doc("Resource tags.")
   @visibility("read", "write", "create")
@@ -51,16 +56,19 @@ model TrackedResource<TProperties> extends TrackedResourceBase {
   systemData?: SystemData;
 }
 
+@doc("The base proxy resource.")
 @armCommonDefinition("ProxyResource")
 model ProxyResourceBase {
   ...ArmResource,
 };
 
 // Note that ProxyResource is the base definition for both kinds of resources
+@doc("The base extension resource.")
 @armCommonDefinition("ProxyResource")
 model ExtensionResourceBase {
   ...ArmResource,
 };
+
 
 @doc("Concrete proxy resource types can be created by aliasing this type using a specific property type.")
 model ProxyResource<TProperties> extends ProxyResourceBase {
@@ -74,6 +82,7 @@ model ProxyResource<TProperties> extends ProxyResourceBase {
   systemData?: SystemData;
 }
 
+@doc("Concrete extension resource types can be created by aliasing this type using a specific property type.")
 model ExtensionResource<TProperties> extends ExtensionResourceBase {
   @doc("The resource-specific properties for this resource.")
   @visibility("read", "create")
@@ -99,21 +108,25 @@ model ArmResponse<T> {
 @doc("ARM create operation completed successfully.")
 model ArmCreatedResponse<T> {
   ... CreatedResponse;
+  @doc("The reponse body.")
   @body body: T;
 }
 
 @doc("Resource deleted successfully.")
 model ArmDeletedResponse {
+  @doc("The status code.")
   @header statusCode: 200;
 }
 
 @doc("Resource deletion accepted.")
 model ArmDeleteAcceptedResponse {
+  @doc("The status code.")
   @header statusCode: 202;
 }
 
 @doc("Resource deleted successfully.")
 model ArmDeletedNoContentResponse {
+  @doc("The status code.")
   @header statusCode: 204;
 }
 
@@ -126,6 +139,7 @@ model Page<T> {
   nextLink?: string;
 }
 
+@doc("The default api-version parameter type.")
 model ApiVersionParameter {
   @query
   @minLength(1)
@@ -134,6 +148,7 @@ model ApiVersionParameter {
   "api-version": string;
 }
 
+@doc("The default subscriptionId parameter type.")
 model SubscriptionIdParameter {
   @path
   @minLength(1)
@@ -142,6 +157,7 @@ model SubscriptionIdParameter {
   subscriptionId: string;
 }
 
+@doc("The default resource group parameter type.")
 model ResourceGroupNameParameter {
   @path
   @minLength(1)
@@ -152,12 +168,14 @@ model ResourceGroupNameParameter {
   resourceGroupName: string;
 }
 
+@doc("The default resourceUri parameter type.")
 model ResourceUriParameter {
   @doc("The fully qualified Azure Resource manager identifier of the resource.")
   @extension("x-ms-skip-url-encoding", true)
   @path resourceUri: string;
 }
 
+@doc("The default operationId parameter type.")
 model OperationIdParameter {
   @path
   @minLength(1)
@@ -166,6 +184,7 @@ model OperationIdParameter {
   operationId: string;
 }
 
+@doc("The common resource parameters type.")
 model CommonResourceParameters {
   ...ApiVersionParameter,
   ...SubscriptionIdParameter,
@@ -346,6 +365,7 @@ model SystemData {
 }
 
 // Arm optional envelope properties
+@doc("The managed service identities envelope.")
 model ManagedServiceIdentity {
   @doc("The managed service identities assigned to this resource.")
   identity?: ManagedIdentityProperties;
@@ -357,18 +377,21 @@ model ManagedSystemAssignedIdentity {
   identity?: ManagedSystemIdentityProperties
 }
 
+@doc("The eTag property envelope.")
 model EntityTag {
   @doc("If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields.")
   @visibility("read")
   eTag?: string;
 }
 
+@doc("The managedBy property envelope.")
 model ManagedBy {
   @doc("The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource.")
   @visibility("read", "create", "update")
   managedBy?: string;
 }
 
+@doc("The resource kind property envelope.")
 model ResourceKind {
   @doc("Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value.")
   @format("^[-\\w\\._,\\(\\\\\\)]+$")
@@ -395,6 +418,7 @@ model ResourcePlanType {
   version?: string;
 }
 
+@doc("The resource plan property envelope.")
 model ResourcePlan {
   @doc("Details of the resource plan.")
   plan?: ResourcePlanType;
