@@ -15,5 +15,10 @@ namespace Microsoft.EnvelopeTest.Service.Models
         /// </summary>
         public EnvelopeProvisioningState ProvisioningState { get; set; }
 
+        /// <summary>
+        ///  Name of the resource 
+        /// </summary>
+        public string DisplayName { get; set; } = "default";
+
     }
 }

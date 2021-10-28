@@ -31,6 +31,9 @@ model AllPropertiesNameParameter {
 model AllPropertiesProperties {
   @doc("The status of the last operation performed on this resource.")
   provisioningState: EnvelopeProvisioningState;
+
+  @doc("Name of the resource")
+  displayName?: string = "default";
 }
 
 model SystemOnlyPropertiesNameParameter {

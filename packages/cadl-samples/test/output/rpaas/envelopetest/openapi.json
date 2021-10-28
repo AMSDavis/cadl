@@ -579,6 +579,11 @@
         "provisioningState": {
           "$ref": "#/definitions/EnvelopeProvisioningState",
           "description": "The status of the last operation performed on this resource."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Name of the resource",
+          "default": "default"
         }
       },
       "required": [
@@ -686,6 +691,10 @@
         "provisioningState": {
           "$ref": "#/definitions/EnvelopeProvisioningState",
           "description": "The status of the last operation performed on this resource."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Name of the resource"
         }
       },
       "description": "The updatable properties of the AllPropertiesResource."

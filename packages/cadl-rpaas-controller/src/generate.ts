@@ -6,6 +6,8 @@ import {
   ParameterInfo,
 } from "@azure-tools/cadl-rpaas";
 import {
+  ArrayType,
+  BooleanLiteralType,
   EnumType,
   getDoc,
   getFormat,
@@ -17,8 +19,11 @@ import {
   NamespaceType,
   Node,
   NoTarget,
+  NumericLiteralType,
   OperationType,
   Program,
+  StringLiteralType,
+  TupleType,
   Type,
   UnionType,
 } from "@cadl-lang/compiler";
@@ -39,6 +44,9 @@ import * as path from "path";
 import * as sqrl from "squirrelly";
 import { fileURLToPath } from "url";
 import { reportDiagnostic } from "./lib.js";
+
+// Squirelly escape for xml which is not what we want here https://v7--squirrellyjs.netlify.app/docs/v7/auto-escaping/
+sqrl.defaultConfig.autoEscape = false;
 
 export async function $onBuild(program: Program) {
   const rootPath = program.host.resolveAbsolutePath(
@@ -128,6 +136,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     type: string;
     location?: string;
     description?: string;
+    default?: string;
   }
 
   interface Model extends TypeDeclaration, TraceableEntity {
@@ -141,6 +150,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     type: TypeReference;
     validations: ValidationAttribute[];
     description?: string;
+    default?: string;
   }
 
   interface TypeReference {
@@ -482,6 +492,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                       description: paramDescription,
                       location: propLoc,
                       sourceNode: prop.node,
+                      default: prop.default && formatDefaultValue(prop.type, prop.default),
                     });
                     if (propLoc === "Body") {
                       bodyProp = {
@@ -743,8 +754,43 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         type: outPropertyType,
         validations: getValidations(property),
         description: getDoc(program, property),
+        default: property.default && formatDefaultValue(property.type, property.default),
       };
       return outProperty;
+    }
+
+    function formatDefaultValue(propertyType: Type, defaultValue: Type): string {
+      switch (defaultValue.kind) {
+        case "String":
+        case "Number":
+        case "Boolean":
+          return formatPrimitiveType(defaultValue);
+        case "Tuple":
+          return formatTupleValue(propertyType, defaultValue);
+        default:
+          throw new Error(`Unsupported default value '${defaultValue.kind}'`);
+      }
+    }
+
+    function formatTupleValue(propertyType: Type, defaultValue: TupleType): string {
+      const items = defaultValue.values.map((x) =>
+        formatDefaultValue((propertyType as ArrayType).elementType, x)
+      );
+      const type = getCSharpType(propertyType)!;
+      return `new ${type.name} { ${items.join(", ")} }`;
+    }
+
+    function formatPrimitiveType(
+      type: StringLiteralType | BooleanLiteralType | NumericLiteralType
+    ): string {
+      switch (type.kind) {
+        case "String":
+          return `"${type.value}"`;
+        case "Number":
+          return `${type.value}`;
+        case "Boolean":
+          return `${type.value}`;
+      }
     }
 
     function transformCSharpIdentifier(identifier: string): string {
@@ -1169,7 +1215,9 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
     const service = outputModel.serviceName;
     sqrl.filters.define("decl", (op) =>
-      op.parameters.map((p: any) => p.type + " " + p.name).join(", ")
+      op.parameters
+        .map((p: any) => p.type + " " + p.name + (p.default ? ` = ${p.default}` : ""))
+        .join(", ")
     );
     sqrl.filters.define("call", (op) => op.parameters.map((p: any) => p.name).join(", "));
     sqrl.filters.define("typeParamList", (op) =>

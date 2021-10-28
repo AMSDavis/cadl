@@ -14,7 +14,7 @@ namespace Microsoft.EnvelopeTest.Service.Models
     public class ResourceSkuType 
     {
         /// <summary>
-        ///  The name of the SKU, usually a combination of letters and numbers, for example, &#39;P3&#39; 
+        ///  The name of the SKU, usually a combination of letters and numbers, for example, 'P3' 
         /// </summary>
         public string Name { get; set; }
 

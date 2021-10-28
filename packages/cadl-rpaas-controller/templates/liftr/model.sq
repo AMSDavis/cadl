@@ -27,7 +27,7 @@ namespace Microsoft.{{it.serviceName}}.Service.Models
         [{{attr.name}}({{attr | callByValue}})]
 {{/each}}
 {{/if}}
-        public {{prop.type.name}}{{@if(prop.type.typeParameters)}}<{{prop.type | typeParamList}}>{{/if}} {{prop.name}} { get; set; }
+        public {{prop.type.name}}{{@if(prop.type.typeParameters)}}<{{prop.type | typeParamList}}>{{/if}} {{prop.name}} { get; set; }{{@if(prop.default)}} = {{prop.default}};{{/if}}
 
 {{/each}}
     }

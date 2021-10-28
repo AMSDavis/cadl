@@ -200,7 +200,7 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
     const updatePropertiesDescription = `@doc("The updateable properties of ${armResourceInfo.propertiesType.name}")`;
     const propertiesModelString = `${updatePropertiesDescription}
         model ${updatePropertiesModel} {
-          ...OptionalProperties<UpdateableProperties<${armResourceInfo.propertiesType.name}>>
+          ...OmitDefaults<OptionalProperties<UpdateableProperties<${armResourceInfo.propertiesType.name}>>>
         }`;
 
     // Only TrackedResources have a tags property

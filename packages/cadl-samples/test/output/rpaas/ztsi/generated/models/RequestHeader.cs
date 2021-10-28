@@ -9,12 +9,12 @@ using System.Collections.Generic;
 namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
 {
     /// <summary>
-    /// Common information that&#39;s included in all ZTSI Agent requests. 
+    /// Common information that's included in all ZTSI Agent requests. 
     /// </summary>
     public class RequestHeader 
     {
         /// <summary>
-        ///  Version of the Api that&#39;s being used for the request. 
+        ///  Version of the Api that's being used for the request. 
         /// </summary>
         public string ApiVersion { get; set; }
 

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas-controller",
+      "comment": "Generate models and parameters defaults",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas-controller"
+}

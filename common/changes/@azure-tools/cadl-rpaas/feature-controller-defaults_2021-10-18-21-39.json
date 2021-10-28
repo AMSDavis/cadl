@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas",
+      "comment": "**Added** new `OmitDefaults` type to remove default values of a model",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas"
+}
