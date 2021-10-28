@@ -1,6 +1,18 @@
 # Change Log - @azure-tools/cadl-rpaas
 
-This log was last generated on Fri, 15 Oct 2021 21:33:37 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Oct 2021 21:20:34 GMT and should not be manually modified.
+
+## 0.10.0
+Thu, 28 Oct 2021 21:20:34 GMT
+
+### Minor changes
+
+- **Added** new `OmitDefaults` type to remove default values of a model
+
+### Patches
+
+- add checks: no-underscore-in-operation-name,no-repeated-resource-in-operation,add no-inline-model,model-requires-documentation,property-requires-documentation,operation-requires-documentation,documentation-different-with-node-name.
+- Move service host default to RPaaS layer
 
 ## 0.9.0
 Fri, 15 Oct 2021 21:33:37 GMT
