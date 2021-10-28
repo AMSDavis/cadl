@@ -4,6 +4,9 @@
     <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
     <AssemblyName>Cadl.MSBuild</AssemblyName>
     <VersionPrefix>$(CadlMSBuildVersion)</VersionPrefix>
+    <WarningLevel>9999</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>NU5128</NoWarn>
   </PropertyGroup>
 
   <ItemGroup Label="NuGet package assets">
@@ -11,12 +14,12 @@
    </ItemGroup>
 
   <ItemGroup >
-    <PackageReference Include="Microsoft.Build.Framework; Microsoft.Build.Utilities.Core" Version="16.0.461"  PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="16.0.461"  PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.0.461"  PrivateAssets="All" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="All" />
   </ItemGroup>
   
   <PropertyGroup>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <BuildOutputTargetFolder>build\</BuildOutputTargetFolder>
     <Company>Microsoft</Company>

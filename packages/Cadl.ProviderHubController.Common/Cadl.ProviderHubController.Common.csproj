@@ -12,6 +12,8 @@
         in addition to the breaking changes TBA
         CADL quickstarts and tutorials - https://github.com/Azure/adl
       </Description>
+      <WarningLevel>9999</WarningLevel>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
   <ItemGroup>
