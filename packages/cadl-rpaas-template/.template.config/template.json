@@ -46,7 +46,7 @@
     {
       "source": "./",
       "include": ["setup.cmd"],
-      "condition": "(OperatingSystemKind != \"Linux\")"
+      "condition": "(OperatingSystemKind == \"Windows\")"
     }
   ],
   "postActions": [
@@ -59,10 +59,10 @@
     },
     {
       "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
-      "condition": "(OperatingSystemKind != \"Linux\")",
+      "condition": "(OperatingSystemKind == \"Windows\")",
       "args": {
         "executable": "setup.cmd",
-        "args": "install ./cadl",
+        "args": "",
         "redirectStandardOutput": false
       },
       "manualInstructions": [
