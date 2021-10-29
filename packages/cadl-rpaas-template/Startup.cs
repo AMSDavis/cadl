@@ -11,8 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace {Provider}
-{
+namespace Microsoft.{Provider}.Service {
     public class Startup
     {
         public Startup(IConfiguration configuration)

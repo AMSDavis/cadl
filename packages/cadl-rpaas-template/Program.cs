@@ -9,8 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-namespace {Provider}
+namespace Microsoft.{Provider}.Service 
 {
     /// <summary>
     /// The entry point class.
