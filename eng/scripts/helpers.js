@@ -14,6 +14,7 @@ function read(filename) {
 }
 
 export const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+export const coreRepoRoot = resolve(repoRoot, "core");
 export const prettier = resolve(repoRoot, "core/packages/compiler/node_modules/.bin/prettier");
 export const tsc = resolve(repoRoot, "core/packages/compiler/node_modules/.bin/tsc");
 export const autorest = resolve(repoRoot, "eng/scripts/node_modules/.bin/autorest");
@@ -57,8 +58,10 @@ export class CommandFailedError extends Error {
 }
 
 export function run(command, args, options) {
-  console.log();
-  console.log(`> ${command} ${args.join(" ")}`);
+  if (!options?.silent) {
+    console.log();
+    console.log(`> ${command} ${args.join(" ")}`);
+  }
 
   options = {
     stdio: "inherit",
@@ -278,4 +281,28 @@ export function runMsBuild(packageName, solutionName) {
   msbuildArgs.push(join(dir, solutionName));
   proc = run(msbuild, msbuildArgs, { throwOnNonZeroExit: false });
   process.exit(proc.status ?? 1);
+}
+
+export function checkForChangedFiles(cwd, comment = undefined, options = {}) {
+  if (comment && !options.silent) {
+    console.log();
+    console.log(comment);
+  }
+
+  const proc = run("git", ["status", "--porcelain"], {
+    encoding: "utf-8",
+    stdio: [null, "pipe", "pipe"],
+    cwd,
+    ...options,
+  });
+
+  if (proc.stdout && !options.silent) {
+    console.log(proc.stdout);
+  }
+
+  if (proc.stderr && !options.silent) {
+    console.error(proc.stderr);
+  }
+
+  return proc.stdout || proc.stderr;
 }
