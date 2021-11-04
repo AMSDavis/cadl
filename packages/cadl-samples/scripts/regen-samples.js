@@ -18,19 +18,47 @@ const excludedSamples = [
   ".rush",
 ];
 
-const rootInputPath = resolvePath("../");
-const rootOutputPath = resolvePath("../test/output");
 main();
 
 function main() {
   // clear any previous output as otherwise failing to emit anything could
   // escape PR validation. Also ensures we delete output for samples that
   // no longer exist.
-  rmdirSync(rootOutputPath, { recursive: true });
+  rmdirSync(resolvePath("../test/output/"), { recursive: true });
 
-  for (const folderName of getSampleFolders()) {
-    const inputPath = join(rootInputPath, folderName);
-    const outputPath = join(rootOutputPath, folderName);
+  function outputPath(sampleSet, emitterName) {
+    return resolvePath(join("../test/output", sampleSet, emitterName));
+  }
+
+  const azureSamplesPath = resolvePath("../");
+  const coreSamplesPath = resolvePath("../../../core/packages/samples/");
+
+  // Generate output for core samples with the Swagger emitter (the core repo
+  // takes care of generating its samples with openapi3 emitter)
+  runCadlSamples(coreSamplesPath, outputPath("core", "autorest"), {
+    emitter: "@azure-tools/cadl-autorest",
+  });
+
+  // Generate output for Azure samples with both emitters
+  runCadlSamples(azureSamplesPath, outputPath("azure", "autorest"), {
+    emitter: "@azure-tools/cadl-autorest",
+  });
+  runCadlSamples(azureSamplesPath, outputPath("azure", "openapi"), {
+    emitter: "@cadl-lang/openapi3",
+    excludes: [
+      // An example for `x-ms-paths`, not supported by openapi3
+      "overloads",
+
+      // ARM specs depend on functionality in cadl-autorest
+      "rpaas",
+    ],
+  });
+}
+
+function runCadlSamples(samplesPath, baseOutputPath, options) {
+  for (const folderName of getSampleFolders(samplesPath, options.excludes)) {
+    const inputPath = join(samplesPath, folderName);
+    const outputPath = join(baseOutputPath, folderName);
     mkdirp(outputPath);
 
     run(process.execPath, [
@@ -38,14 +66,16 @@ function main() {
       "compile",
       inputPath,
       `--output-path=${outputPath}`,
+      `--import=${options.emitter}`,
       `--debug`,
     ]);
   }
 }
 
-function getSampleFolders() {
+function getSampleFolders(samplesPath, additionalExcludes) {
   const samples = new Set();
-  const excludes = new Set(excludedSamples.map(normalize));
+  const excludes = new Set([...excludedSamples, ...(additionalExcludes || [])].map(normalize));
+
   walk("");
   return samples;
 
@@ -53,7 +83,7 @@ function getSampleFolders() {
     if (samples.has(relativeDir) || excludes.has(relativeDir)) {
       return;
     }
-    const fullDir = join(rootInputPath, relativeDir);
+    const fullDir = join(samplesPath, relativeDir);
     for (const entry of readdirSync(fullDir, { withFileTypes: true })) {
       if (entry.isDirectory()) {
         walk(join(relativeDir, entry.name));
