@@ -22,7 +22,6 @@ namespace Microsoft.{Provider}.Service {
       return Task.FromResult(ValidationResponse.Valid);
     }
 
-
     protected override Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string EmployeeName, Employee body, HttpRequest request) {
       return Task.FromResult(Ok() as IActionResult);
     }
