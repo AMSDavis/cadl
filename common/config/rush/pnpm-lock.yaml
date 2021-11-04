@@ -14,6 +14,7 @@ dependencies:
   '@rush-temp/openapi3': file:projects/openapi3.tgz
   '@rush-temp/prettier-plugin-cadl': file:projects/prettier-plugin-cadl.tgz
   '@rush-temp/rest': file:projects/rest.tgz
+  '@rush-temp/samples': file:projects/samples.tgz
   '@rush-temp/spec': file:projects/spec.tgz
   '@rush-temp/tmlanguage-generator': file:projects/tmlanguage-generator.tgz
   '@types/glob': 7.1.4
@@ -2981,7 +2982,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-autorest'
     resolution:
-      integrity: sha512-Sv/2l8AxICjHOckNJzISQAPW+9ic6naBpA70Vsb9UNW8uCapxvaRnPaNHFoiWMWpKK41137k13aBenQD5jahQQ==
+      integrity: sha512-CM6TOVJbOtmkDE78UP6MwmCjh0Uv2ar+vaPUz4XpdG5wRWl2g5XNDh6cJ7ZirTasan3IN1cC0CzhgnIyC32Akg==
       tarball: file:projects/cadl-autorest.tgz
     version: 0.0.0
   file:projects/cadl-msbuild-target.tgz:
@@ -3007,7 +3008,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-rpaas-controller'
     resolution:
-      integrity: sha512-27VEeVxf05aN4rJW6LElNWcfHnYhVIhcWyD7286Kf7AvyEkFXmEipQq5LuUddaY0C7C2cph4hWYuDsdDMZCF6A==
+      integrity: sha512-yI9N8QfhWubncLj9c4eYzmNNgzek3JRfIaW6f+tD4WlvWFXSIDSLtqJVDcMBqEiiAgeCciPLlPsqo2LgHxhoYA==
       tarball: file:projects/cadl-rpaas-controller.tgz
     version: 0.0.0
   file:projects/cadl-rpaas.tgz:
@@ -3019,7 +3020,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-rpaas'
     resolution:
-      integrity: sha512-YpJqPoDBUtgxRtRnch5oFpbx+ym6LsF61jEb3B6czcjsJ/lP+04c+x1uy7v0xzFMeypa66IVPL5EZL/sxrOF9w==
+      integrity: sha512-CgIQI3gPFghmuqc5cSNPAjLVNxoeeKt04U/tYISmpT8+NNiP0LQ51A2Repv18GYWIPvWDdA3odx0ydVDo8Sbsg==
       tarball: file:projects/cadl-rpaas.tgz
     version: 0.0.0
   file:projects/cadl-samples.tgz:
@@ -3030,7 +3031,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-samples'
     resolution:
-      integrity: sha512-aMPft/lTtDiK2MO08q90fQg5hY9w5Ny6GwtkgbHBEEcGYfPUUHASyrZMOX4zQMm2Lyds/C5Iko1ASp96Vpjicw==
+      integrity: sha512-KSvJYa0UysATsBO+rMWH0JyP9MogAT+xBEQRevhDtoMSMOG1wS1P5KxkQsD2BtIRIAhqqLkAO6KvwXYktekTZQ==
       tarball: file:projects/cadl-samples.tgz
     version: 0.0.0
   file:projects/cadl-vs.tgz:
@@ -3107,7 +3108,7 @@ packages:
     dev: false
     name: '@rush-temp/openapi3'
     resolution:
-      integrity: sha512-tyqNE62Hssz4ditaM3rhaM5tiR/DFo46xVrTPdURooOIF7qpTm0FArc+a1PX6RrOWQrQz/WnluNsaDwTPI1UsQ==
+      integrity: sha512-iQ+d6uUPsy3WWFNxd7GCwLkqIqCjKxsuSp27g/DVRdsmw+nrM42YZXARjiSAZdXP6jRRMDu4lkoVCZ6Fp+gAGA==
       tarball: file:projects/openapi3.tgz
     version: 0.0.0
   file:projects/prettier-plugin-cadl.tgz:
@@ -3122,7 +3123,7 @@ packages:
     dev: false
     name: '@rush-temp/prettier-plugin-cadl'
     resolution:
-      integrity: sha512-lFdLC1PQRp8rTNxEqkp/J/GdPO0aB2AwhCnRw0qpSX5HxHpXh5/QNRyk0HX8fLumRlpd7t4R6IOjWpWdpzAJhg==
+      integrity: sha512-kOwiM0LOLxx1kaoWogHuyuukpDsB+losyhR2v4sJ4NKlsCWP6qdYNWUXrPCAFwroD0i2eF/SlhUtSKSQ9sx7sg==
       tarball: file:projects/prettier-plugin-cadl.tgz
     version: 0.0.0
   file:projects/rest.tgz:
@@ -3132,8 +3133,19 @@ packages:
     dev: false
     name: '@rush-temp/rest'
     resolution:
-      integrity: sha512-aPXlsop/m6NssqERYYIe7G6VhPMzHdi5VJnjjPs+zoQB6Cp2cKvbJoOtghBRfncxrHU4vW+j1H84NdSXaAvl1A==
+      integrity: sha512-SpwbjlrtAuO4QSyRyj2V6h9bP0lWeGBpVZzs9/d4EM6tiIZAQ+VScmf4NEe9D6fIkOwSTMMGxmRf/QRgV16Raw==
       tarball: file:projects/rest.tgz
+    version: 0.0.0
+  file:projects/samples.tgz:
+    dependencies:
+      '@types/mkdirp': 1.0.2
+      autorest: 3.3.2
+      mkdirp: 1.0.4
+    dev: false
+    name: '@rush-temp/samples'
+    resolution:
+      integrity: sha512-LXbwEirjWDMtVBplgV1hLVXMCOB7fjLrC004z7dv4JzQfi35ZQ7d1J8b14vlywU8QavmhKa2ZwUS3NNbOBoj7w==
+      tarball: file:projects/samples.tgz
     version: 0.0.0
   file:projects/spec.tgz:
     dependencies:
@@ -3176,6 +3188,7 @@ specifiers:
   '@rush-temp/openapi3': file:./projects/openapi3.tgz
   '@rush-temp/prettier-plugin-cadl': file:./projects/prettier-plugin-cadl.tgz
   '@rush-temp/rest': file:./projects/rest.tgz
+  '@rush-temp/samples': file:./projects/samples.tgz
   '@rush-temp/spec': file:./projects/spec.tgz
   '@rush-temp/tmlanguage-generator': file:./projects/tmlanguage-generator.tgz
   '@types/glob': ~7.1.3

@@ -36,7 +36,7 @@ steps:
   - script: node common/scripts/install-run-rush.js regen-samples
     displayName: Regenerate Samples
 
-  - script: cd packages/cadl-samples/rpaas/liftr.confluent && npx cadl compile . --option arm-types-path=../../types.json --import=@azure-tools/cadl-autorest && npx autorest --typescript --clear-output-folder=true --output-folder=cadl-output/client  --title=CadlClient --input-file=cadl-output/openapi.json
+  - script: cd packages/cadl-samples/rpaas/liftr.confluent && npx cadl compile . --option arm-types-path=../../types.json --import=@azure-tools/cadl-autorest && npx autorest --typescript --clear-output-folder=true --output-folder=cadl-output/client --title=CadlClient --input-file=cadl-output/openapi.json
     displayName: Sanity Check Client Generation
 
   - script: node eng/scripts/check-for-changed-files.js

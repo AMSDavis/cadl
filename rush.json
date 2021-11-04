@@ -94,6 +94,12 @@
       "shouldPublish": false
     },
     {
+      "packageName": "@cadl-lang/samples",
+      "projectFolder": "core/packages/samples",
+      "reviewCategory": "production",
+      "shouldPublish": false
+    },
+    {
       "packageName": "@azure-tools/cadl-rpaas",
       "projectFolder": "packages/cadl-rpaas",
       "reviewCategory": "production",

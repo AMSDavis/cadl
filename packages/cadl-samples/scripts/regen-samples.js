@@ -65,6 +65,7 @@ function runCadlSamples(samplesPath, baseOutputPath, options) {
       "../../core/packages/compiler/dist/core/cli.js",
       "compile",
       inputPath,
+      `--option=arm-types-path=../../../../../../rpaas/types.json`,
       `--output-path=${outputPath}`,
       `--import=${options.emitter}`,
       `--debug`,
