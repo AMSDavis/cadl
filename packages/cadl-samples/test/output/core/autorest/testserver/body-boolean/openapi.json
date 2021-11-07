@@ -53,7 +53,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Null response"
+            "description": "A successful response",
+            "schema": {
+              "type": "boolean"
+            }
           },
           "default": {
             "description": "Error",
@@ -71,7 +74,10 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Null response"
+            "description": "A successful response",
+            "schema": {
+              "type": "boolean"
+            }
           },
           "default": {
             "description": "Error",
@@ -89,7 +95,13 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Null response"
+            "description": "A successful response",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          "204": {
+            "description": "No content"
           },
           "default": {
             "description": "Error",

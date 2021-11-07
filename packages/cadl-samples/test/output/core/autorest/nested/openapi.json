@@ -30,7 +30,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Null response"
+            "description": "A successful response",
+            "schema": {
+              "type": "string"
+            }
           }
         }
       }

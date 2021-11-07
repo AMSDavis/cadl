@@ -473,6 +473,22 @@ describe("autorest: operations", () => {
   });
 });
 
+describe("openapi3: responses", () => {
+  it("defines responses with primitive types", async () => {
+    const res = await openApiFor(
+      `
+    @resource("/")
+    namespace root {
+      op read(): string;
+    }
+    `
+    );
+    ok(res.paths["/"].get.responses["200"]);
+    ok(res.paths["/"].get.responses["200"].schema);
+    strictEqual(res.paths["/"].get.responses["200"].schema.type, "string");
+  });
+});
+
 async function oapiForModel(name: string, modelDef: string) {
   const oapi = await openApiFor(`
     ${modelDef};

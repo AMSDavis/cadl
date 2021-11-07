@@ -58,8 +58,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Null response"
+          "204": {
+            "description": "No content"
           }
         },
         "tags": [
@@ -81,8 +81,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Null response"
+          "204": {
+            "description": "No content"
           }
         },
         "tags": [
@@ -103,8 +103,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Null response"
+          "204": {
+            "description": "No content"
           }
         },
         "tags": [
