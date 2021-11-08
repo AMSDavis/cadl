@@ -127,7 +127,7 @@
       "packageName": "cadl-msbuild-target",
       "projectFolder": "packages/cadl-msbuild-target",
       "reviewCategory": "production",
-      "shouldPublish": true
+      "shouldPublish": false
     }
   ]
 }
