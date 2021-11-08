@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Microsoft.{Provider}.Service {
+namespace Microsoft.Contoso.Service {
     public class Startup
     {
         public Startup(IConfiguration configuration)

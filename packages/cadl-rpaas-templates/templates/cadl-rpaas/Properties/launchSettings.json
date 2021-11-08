@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "{Provider}": {
+    "Contoso": {
       "commandName": "Project",
       "launchBrowser": false,
       "applicationUrl": "http://localhost:6020;",

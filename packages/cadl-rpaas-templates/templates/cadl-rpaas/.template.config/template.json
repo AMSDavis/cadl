@@ -14,12 +14,13 @@
     "Provider": {
       "type": "parameter",
       "description": "Your provider name.",
-      "defaultValue": "MyProvider",
-      "replaces": "{Provider}"
+      "defaultValue": "Contoso",
+      "replaces": "Contoso",
+      "fileRename": "Contoso"
     },
     "FirstResourceType": {
       "type": "parameter",
-      "description": "Your provider name.",
+      "description": "Your resource type.",
       "defaultValue": "Employee",
       "replaces": "Employee"
     }

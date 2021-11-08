@@ -1,9 +1,9 @@
 {
-  "name": "{Provider}",
+  "name": "Contoso",
   "private": true,
   "version": "1.0.0",
   "author": "Microsoft Corporation",
-  "description": "CADL for {Provider}",
+  "description": "CADL for Contoso",
   "homepage": "https://github.com/Azure/adl",
   "readme": "https://github.com/Azure/adl/blob/master/readme.md",
   "license": "MIT",

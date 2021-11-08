@@ -4,9 +4,9 @@ import "@azure-tools/cadl-rpaas";
 import "@azure-tools/cadl-rpaas-controller";
 
 @armNamespace
-@serviceTitle("Microsoft.{Provider}")
+@serviceTitle("Microsoft.Contoso")
 @serviceVersion("2021-08-01-preview")
-namespace Microsoft.{Provider};
+namespace Microsoft.Contoso;
 
 using Azure.ARM;
 
@@ -28,7 +28,7 @@ model EmployeeNameParameter {
   @path EmployeeName: string;
 }
 
-@doc("Details of the {Provider} Employee.")
+@doc("Details of the Contoso Employee.")
 model EmployeeProperties {
  @visibility("read")
   @doc("The status of the last operation.")

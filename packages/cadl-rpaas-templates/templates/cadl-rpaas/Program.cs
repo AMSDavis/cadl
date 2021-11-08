@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-namespace Microsoft.{Provider}.Service 
+namespace Microsoft.Contoso.Service 
 {
     /// <summary>
     /// The entry point class.

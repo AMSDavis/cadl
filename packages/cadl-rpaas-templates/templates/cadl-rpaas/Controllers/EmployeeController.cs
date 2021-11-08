@@ -5,13 +5,13 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using Cadl.ProviderHubController.Common;
-using Microsoft.{Provider}.Service.Models;
-using Microsoft.{Provider}.Service.Controllers;
+using Microsoft.Contoso.Service.Models;
+using Microsoft.Contoso.Service.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Microsoft.{Provider}.Service {
+namespace Microsoft.Contoso.Service {
 
   /// <summary>
   /// Controller for user RP operations on the Employee resource.
