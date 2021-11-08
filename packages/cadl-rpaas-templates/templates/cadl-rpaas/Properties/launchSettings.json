@@ -12,7 +12,7 @@
     "{Provider}": {
       "commandName": "Project",
       "launchBrowser": false,
-      "applicationUrl": "http://localhost:6020;https://localhost:6021;",
+      "applicationUrl": "http://localhost:6020;",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

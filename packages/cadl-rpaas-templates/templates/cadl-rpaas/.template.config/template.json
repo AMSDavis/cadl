@@ -14,7 +14,7 @@
     "Provider": {
       "type": "parameter",
       "description": "Your provider name.",
-      "defaultValue": "Provider",
+      "defaultValue": "MyProvider",
       "replaces": "{Provider}"
     },
     "FirstResourceType": {
