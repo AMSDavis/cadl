@@ -20,7 +20,7 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-          - script: dotnet build ./packages/cadl-msbuild-target --configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) /p:BuildId=$(Build.BuildNumber)
+          - script: dotnet pack ./packages/cadl-msbuild-target --configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) /p:BuildId=$(Build.BuildNumber)
             displayName: "Build and publish cadl msbuild target"
           - task: PublishBuildArtifacts@1
             condition: succeededOrFailed()
