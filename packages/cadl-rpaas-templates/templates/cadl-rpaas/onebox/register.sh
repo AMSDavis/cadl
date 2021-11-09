@@ -28,7 +28,14 @@ function getLocation
   echo $location?api-version=${SERVICERP_API_VERSION}
 }
 
-for file in `find ./registrations -type f -name "*.json" | sort`
+registrations=${1:-./registrations}
+
+if [ ! -d $registrations ]; then
+  echo "Directory $registrations does not exist"
+  exit 1
+fi
+
+for file in `find $registrations -type f -name "*.json" | sort`
 do
   echo "Registering $file"
   fileName=${file#*/registrations/}
@@ -36,7 +43,7 @@ do
 
   location=`getLocation $fqrt`
 
-  curl -v -X PUT -H "Content-Type: application/json" -d @$file $location
+  curl -v -m 1 -X PUT -H "Content-Type: application/json" -d @$file $location
 
   echo -e "\nSuccessfully registered: $fqrt\n"
 done

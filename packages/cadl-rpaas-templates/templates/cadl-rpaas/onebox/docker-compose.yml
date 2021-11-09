@@ -6,24 +6,22 @@ services:
     ports:
       - "6012:6012"
     volumes:
-      - "file-db:/root/.local/share/rpsaas/fileDBData"
+      - "filedb:/root/.local/share/rpsaas/fileDBData"
 
   metarp:
     image: rpaasoneboxacr.azurecr.io/rpaas-onebox/metarp
     ports:
       - "6010:6010"
     volumes:
-      - "file-db:/root/.local/share/rpsaas/fileDBData"
+      - "filedb:/root/.local/share/rpsaas/fileDBData"
 
   webserver:
-    image: nginx:alpine
+    image: rpaasoneboxacr.azurecr.io/rpaas-onebox/nginx
     ports:
       - "6000:80"
-    volumes:
-      - "./nginx.conf:/etc/nginx/nginx.conf"
     depends_on:
       - servicerp
       - metarp
 
 volumes:
-  file-db:
+  filedb:
