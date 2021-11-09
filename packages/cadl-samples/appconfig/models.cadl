@@ -17,7 +17,8 @@ model AcceptDatetimeHeader {
 
 model SyncTokenHeader {
   @doc("Used to guarantee real-time consistency between requests.")
-  @header syncToken?: string;
+  @header
+  syncToken?: string;
 }
 
 model ServiceParams {
@@ -55,11 +56,7 @@ model Label {
 }
 alias LabelPage = Page<Label>;
 
-
-alias KeyValueHeaders =
-  & SyncTokenHeader
-  & LastModifiedHeader
-  & ETagHeader;
+alias KeyValueHeaders = SyncTokenHeader & LastModifiedHeader & ETagHeader;
 
 alias KeyValue = Key & Value;
 
@@ -74,9 +71,14 @@ model Value {
 }
 
 enum KeyField {
-  key, label, content_type, value, last_modified, tags
+  key,
+  label,
+  content_type,
+  value,
+  last_modified,
+  tags,
 }
 
 enum LabelField {
-  name
+  name,
 }

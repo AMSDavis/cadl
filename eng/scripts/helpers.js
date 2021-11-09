@@ -14,6 +14,7 @@ function read(filename) {
 }
 
 export const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+export const coreRepoRoot = resolve(repoRoot, "core");
 export const prettier = resolve(repoRoot, "core/packages/compiler/node_modules/.bin/prettier");
 export const tsc = resolve(repoRoot, "core/packages/compiler/node_modules/.bin/tsc");
 export const autorest = resolve(repoRoot, "eng/scripts/node_modules/.bin/autorest");
@@ -57,8 +58,10 @@ export class CommandFailedError extends Error {
 }
 
 export function run(command, args, options) {
-  console.log();
-  console.log(`> ${command} ${args.join(" ")}`);
+  if (!options?.silent) {
+    console.log();
+    console.log(`> ${command} ${args.join(" ")}`);
+  }
 
   options = {
     stdio: "inherit",
@@ -97,7 +100,7 @@ export function runPrettier(...args) {
       ".prettierrc.json",
       "--ignore-path",
       ".prettierignore",
-      "**/*.{ts,js,cjs,mjs,json,yml,yaml}",
+      "**/*.{ts,js,cjs,mjs,json,yml,yaml,cadl}",
     ],
     {
       cwd: repoRoot,
@@ -210,4 +213,96 @@ export function scanSwaggers(root) {
     }
   }
   return files;
+}
+export function runMsBuild(packageName, solutionName) {
+  if (process.platform !== "win32") {
+    console.log("Skipping cadl-vs build: not on Windows.");
+    process.exit(0);
+  }
+
+  if (process.env.CADL_SKIP_VS_BUILD) {
+    console.log("Skipping cadl-vs build: CADL_SKIP_VS_BUILD is set.");
+    process.exit(0);
+  }
+
+  const vswhere = join(
+    process.env["ProgramFiles(x86)"],
+    "Microsoft Visual Studio/Installer/vswhere.exe"
+  );
+
+  const vsMinimumVersion = "16.9";
+  const vswhereArgs = [
+    "-latest",
+    "-prerelease",
+    "-version",
+    `[${vsMinimumVersion},`,
+    "-property",
+    "installationPath",
+  ];
+
+  let proc = run(vswhere, vswhereArgs, {
+    ignoreCommandNotFound: true,
+    throwOnNonZeroExit: false,
+    encoding: "utf-8",
+    stdio: [null, "pipe", "inherit"],
+  });
+
+  if (proc.status != 0 || proc.error || !proc.stdout) {
+    const message = `Visual Studio ${vsMinimumVersion} or later not found`;
+    if (process.env.CADL_VS_CI_BUILD) {
+      // In official build on Windows, it's an error if VS is not found.
+      console.error(`error: ${message}`);
+      process.exit(1);
+    } else {
+      console.log(`Skipping cadl-vs build: ${message}.`);
+      process.exit(0);
+    }
+  }
+
+  const dir = join(repoRoot, packageName);
+  const version = JSON.parse(readFileSync(join(dir, "package.json"))).version;
+  const msbuild = join(proc.stdout.trim(), "MSBuild/Current/Bin/MSBuild.exe");
+  const msbuildArgs = [
+    "/m",
+    "/v:m",
+    "/noAutoRsp",
+    "/p:Configuration=Release",
+    `/p:Version=${version}`,
+  ];
+
+  if (process.argv[2] === "--restore") {
+    // In official builds, restore is run in a separate invocation for better build telemetry.
+    msbuildArgs.push("/target:restore");
+  } else if (!process.env.CADL_VS_CI_BUILD) {
+    // In developer builds, restore on every build
+    msbuildArgs.push("/restore");
+  }
+
+  msbuildArgs.push(join(dir, solutionName));
+  proc = run(msbuild, msbuildArgs, { throwOnNonZeroExit: false });
+  process.exit(proc.status ?? 1);
+}
+
+export function checkForChangedFiles(cwd, comment = undefined, options = {}) {
+  if (comment && !options.silent) {
+    console.log();
+    console.log(comment);
+  }
+
+  const proc = run("git", ["status", "--porcelain"], {
+    encoding: "utf-8",
+    stdio: [null, "pipe", "pipe"],
+    cwd,
+    ...options,
+  });
+
+  if (proc.stdout && !options.silent) {
+    console.log(proc.stdout);
+  }
+
+  if (proc.stderr && !options.silent) {
+    console.error(proc.stderr);
+  }
+
+  return proc.stdout || proc.stderr;
 }

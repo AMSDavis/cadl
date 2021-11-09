@@ -1,19 +1,22 @@
-using Microsoft.Cadl.RPaaS;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
+using System;
+using System.Net;
+using System.Threading.Tasks;
+using Cadl.ProviderHubController.Common;
+using {{it.nameSpace}}.Service.Models;
+using {{it.nameSpace}}.Service.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
-using {{it.nameSpace}}.Service.Models;
-using {{it.nameSpace}}.Service.Controllers;
-using System.Net;
 
 namespace {{it.nameSpace}}.Service
 {
     /// <summary>
     /// Controller for user RP operations on the {{it.name}} resource.
     /// </summary>
-    public abstract class {{it.name}}ControllerBase : Controller
+    public abstract class {{it.name}}ControllerBase : ControllerBase
     {
         internal readonly ILogger<{{it.name}}ControllerBase> _logger;
 
@@ -50,7 +53,7 @@ namespace {{it.nameSpace}}.Service
             _logger.LogInformation($"Validate{{operation.action}}Async()");
 {{@if(operation.requestParameter !== undefined)}}
             var modelValidation = ValidationHelpers.ValidateModel({{operation.requestParameter.name}});
-            if (modelValidation.Valid)
+            if (modelValidation.IsValid)
             {
                 modelValidation = await OnValidate{{operation.action}}({{operation | call}}, Request);
             }
@@ -61,7 +64,10 @@ namespace {{it.nameSpace}}.Service
             return modelValidation;
         }
 
-        internal abstract Task<ValidationResponse> OnValidate{{operation.action}}({{operation | decl}}, HttpRequest request);
+        protected virtual Task<ValidationResponse> OnValidate{{operation.action}}({{operation | decl}}, HttpRequest request)
+        {
+            return Task.FromResult(ValidationResponse.Valid);
+        }
 
 {{@if(operation.action !== "Read")}}
         /// <summary>
@@ -81,7 +87,10 @@ namespace {{it.nameSpace}}.Service
             return;
         }
 
-        internal abstract Task OnEnd{{operation.action}}({{operation | decl}}, HttpRequest request);
+        protected virtual Task OnEnd{{operation.action}}({{operation | decl}}, HttpRequest request)
+        {
+            return Task.CompletedTask;
+        }
 {{/if}}
 {{/if}}
 
@@ -121,7 +130,10 @@ namespace {{it.nameSpace}}.Service
 
         }
 
-        internal abstract Task<IActionResult> On{{operation.action}}Async({{operation | decl}}, HttpRequest request);
+        protected virtual Task<IActionResult> On{{operation.action}}Async({{operation | decl}}, HttpRequest request)
+        {
+            return Task.FromResult(Ok() as IActionResult);
+        }
 {{/if}}
 {{/each}}
     }

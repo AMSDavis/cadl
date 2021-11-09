@@ -200,7 +200,7 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
     const updatePropertiesDescription = `@doc("The updateable properties of ${armResourceInfo.propertiesType.name}")`;
     const propertiesModelString = `${updatePropertiesDescription}
         model ${updatePropertiesModel} {
-          ...OptionalProperties<UpdateableProperties<${armResourceInfo.propertiesType.name}>>
+          ...OmitDefaults<OptionalProperties<UpdateableProperties<${armResourceInfo.propertiesType.name}>>>
         }`;
 
     // Only TrackedResources have a tags property
@@ -387,6 +387,28 @@ function armListByInternal(
     }`);
 }
 
+function checkOperationName(
+  program: Program,
+  target: Type,
+  operationName: string,
+  armResourceInfo: ArmResourceInfo
+) {
+  if (operationName.includes(armResourceInfo.resourceModelName)) {
+    reportDiagnostic(program, {
+      code: "no-repeated-resource-in-operation",
+      format: { resourceModelName: armResourceInfo.resourceModelName },
+      target,
+    });
+  }
+
+  if (operationName.includes("_")) {
+    reportDiagnostic(program, {
+      code: "no-underscore-in-operation-name",
+      target,
+    });
+  }
+}
+
 export function $armListBy(
   program: Program,
   target: Type,
@@ -415,6 +437,7 @@ export function $armListBy(
     });
     return;
   }
+  checkOperationName(program, target, operationName, armResourceInfo);
 
   armListByInternal(program, target, armResourceInfo, paramType.name, operationName, documentation);
 }

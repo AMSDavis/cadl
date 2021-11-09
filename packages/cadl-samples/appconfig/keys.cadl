@@ -6,9 +6,8 @@ namespace KeysResource {
     ... ServiceParams,
     ... SyncTokenHeader,
     ... AcceptDatetimeHeader,
-
     @query name: string,
-    @header after: string,
+    @header after: string
   ): OkResponse<SyncTokenHeader & KeyPage> | Error;
 
   @doc("Requests the headers and status of the given resource.")
@@ -17,8 +16,7 @@ namespace KeysResource {
     ... ServiceParams,
     ... SyncTokenHeader,
     ... AcceptDatetimeHeader,
-
     @query name: string,
-    @header after: string,
+    @header after: string
   ): OkResponse<SyncTokenHeader> | Error;
 }

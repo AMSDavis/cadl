@@ -442,6 +442,35 @@ describe("autorest: operations", () => {
 
     deepStrictEqual(res.paths["/"].get.parameters[0].default, "defaultValue");
   });
+
+  it("define operations with param with decorators", async () => {
+    const res = await openApiFor(
+      `
+      @resource("/thing")
+      namespace root {
+        @get("{name}")
+        op getThing(
+          @format("^[a-zA-Z0-9-]{3,24}$")
+          @path name: string,
+
+          @minValue(1)
+          @maxValue(10)
+          @query count: int32
+        ): string;
+      }
+      `
+    );
+
+    const getThing = res.paths["/thing/{name}"].get;
+    ok(getThing);
+    ok(getThing.parameters[0].pattern);
+    strictEqual(getThing.parameters[0].pattern, "^[a-zA-Z0-9-]{3,24}$");
+
+    ok(getThing.parameters[1].minimum);
+    ok(getThing.parameters[1].maximum);
+    strictEqual(getThing.parameters[1].minimum, 1);
+    strictEqual(getThing.parameters[1].maximum, 10);
+  });
 });
 
 async function oapiForModel(name: string, modelDef: string) {

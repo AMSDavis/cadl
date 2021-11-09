@@ -6,6 +6,8 @@ import {
   ParameterInfo,
 } from "@azure-tools/cadl-rpaas";
 import {
+  ArrayType,
+  BooleanLiteralType,
   EnumType,
   getDoc,
   getFormat,
@@ -17,8 +19,11 @@ import {
   NamespaceType,
   Node,
   NoTarget,
+  NumericLiteralType,
   OperationType,
   Program,
+  StringLiteralType,
+  TupleType,
   Type,
   UnionType,
 } from "@cadl-lang/compiler";
@@ -39,6 +44,9 @@ import * as path from "path";
 import * as sqrl from "squirrelly";
 import { fileURLToPath } from "url";
 import { reportDiagnostic } from "./lib.js";
+
+// Squirelly escape for xml which is not what we want here https://v7--squirrellyjs.netlify.app/docs/v7/auto-escaping/
+sqrl.defaultConfig.autoEscape = false;
 
 export async function $onBuild(program: Program) {
   const rootPath = program.host.resolveAbsolutePath(
@@ -128,6 +136,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     type: string;
     location?: string;
     description?: string;
+    default?: string;
   }
 
   interface Model extends TypeDeclaration, TraceableEntity {
@@ -141,6 +150,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     type: TypeReference;
     validations: ValidationAttribute[];
     description?: string;
+    default?: string;
   }
 
   interface TypeReference {
@@ -355,7 +365,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           }
         }
 
-        function extractResponseType(model: Type): ModelType | undefined {
+        function extractResponseType(operation: OperationType): ModelType | undefined {
+          const model = operation.returnType;
           let union = model as UnionType;
           if (union) {
             let outModel: ModelType | undefined = undefined;
@@ -370,8 +381,18 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 if (innerModel) {
                   outModel = innerModel;
                 }
+              } else if (optionModel && optionModel.name !== "ErrorResponse") {
+                outModel = optionModel;
               }
             });
+
+            if (outModel === undefined) {
+              reportDiagnostic(program, {
+                code: "invalid-response",
+                format: { operationName: operation ? operation.name : "<unknown>" },
+                target: operation,
+              });
+            }
 
             return outModel;
           }
@@ -444,7 +465,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             let bodyProp: MethodParameter | undefined = undefined;
             if (!visitedOperations.has(operationKey)) {
               visitedOperations.set(operationKey, operation);
-              let returnType = extractResponseType(operation.returnType);
+              let returnType = extractResponseType(operation);
               if (returnType) {
                 visitType(returnType);
               }
@@ -471,6 +492,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                       description: paramDescription,
                       location: propLoc,
                       sourceNode: prop.node,
+                      default: prop.default && formatDefaultValue(prop.type, prop.default),
                     });
                     if (propLoc === "Body") {
                       bodyProp = {
@@ -732,8 +754,43 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         type: outPropertyType,
         validations: getValidations(property),
         description: getDoc(program, property),
+        default: property.default && formatDefaultValue(property.type, property.default),
       };
       return outProperty;
+    }
+
+    function formatDefaultValue(propertyType: Type, defaultValue: Type): string {
+      switch (defaultValue.kind) {
+        case "String":
+        case "Number":
+        case "Boolean":
+          return formatPrimitiveType(defaultValue);
+        case "Tuple":
+          return formatTupleValue(propertyType, defaultValue);
+        default:
+          throw new Error(`Unsupported default value '${defaultValue.kind}'`);
+      }
+    }
+
+    function formatTupleValue(propertyType: Type, defaultValue: TupleType): string {
+      const items = defaultValue.values.map((x) =>
+        formatDefaultValue((propertyType as ArrayType).elementType, x)
+      );
+      const type = getCSharpType(propertyType)!;
+      return `new ${type.name} { ${items.join(", ")} }`;
+    }
+
+    function formatPrimitiveType(
+      type: StringLiteralType | BooleanLiteralType | NumericLiteralType
+    ): string {
+      switch (type.kind) {
+        case "String":
+          return `"${type.value}"`;
+        case "Number":
+          return `${type.value}`;
+        case "Boolean":
+          return `${type.value}`;
+      }
     }
 
     function transformCSharpIdentifier(identifier: string): string {
@@ -908,7 +965,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           }
 
           switch (cadlType.name) {
-            case "byte":
+            case "bytes":
               return { name: "byte[]", nameSpace: "System", isBuiltIn: true };
             case "int32":
               return { name: "int", nameSpace: "System", isBuiltIn: true };
@@ -978,6 +1035,13 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             isBuiltIn: true,
             name: "ArmResponse",
             nameSpace: "Microsoft.Cadl.RPaaS",
+          };
+        case "ArmDeleteAcceptedResponse":
+        case "ArmCreatedResponse":
+          return {
+            isBuiltIn: true,
+            name: "void",
+            nameSpace: "System",
           };
         case "Operation":
           return {
@@ -1055,12 +1119,20 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
 
     async function generateResource(resource: any) {
-      const resourcePath = genPath + "/" + resource.name + "ControllerBase.cs";
+      const resourceControllerPath = genPath + "/" + resource.name + "Controller.cs";
+      const resourceControllerBasePath = genPath + "/" + resource.name + "ControllerBase.cs";
       reportInfo("Writing resource controller for " + resource.name, undefined);
       await program.host.writeFile(
-        resolvePath(resourcePath),
+        resolvePath(resourceControllerBasePath),
         await sqrl.renderFile(
           resolvePath(path.join(templatePath, "resourceControllerBase.sq")),
+          resource
+        )
+      );
+      await program.host.writeFile(
+        resolvePath(resourceControllerPath),
+        await sqrl.renderFile(
+          resolvePath(path.join(templatePath, "resourceController.sq")),
           resource
         )
       );
@@ -1141,29 +1213,11 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       await fs.mkdir(targetPath);
     }
 
-    async function copyModelFiles(sourcePath: string, targetPath: string) {
-      await createDirIfNotExists(targetPath);
-      (await fs.readdir(sourcePath)).forEach(async (file) => {
-        const sourceFile = resolvePath(sourcePath + path.sep + file);
-        const targetFile = resolvePath(targetPath + path.sep + file);
-        if (
-          (
-            await fs.lstat(sourceFile).catch((error) => {
-              reportDiagnostic(program, { code: "fstat", format: { error }, target: NoTarget });
-            })
-          )?.isDirectory()
-        ) {
-          await createDirIfNotExists(targetFile);
-          await copyModelFiles(sourceFile, targetFile);
-        } else {
-          await fs.copyFile(sourceFile, targetFile);
-        }
-      });
-    }
-
     const service = outputModel.serviceName;
     sqrl.filters.define("decl", (op) =>
-      op.parameters.map((p: any) => p.type + " " + p.name).join(", ")
+      op.parameters
+        .map((p: any) => p.type + " " + p.name + (p.default ? ` = ${p.default}` : ""))
+        .join(", ")
     );
     sqrl.filters.define("call", (op) => op.parameters.map((p: any) => p.name).join(", "));
     sqrl.filters.define("typeParamList", (op) =>
@@ -1175,7 +1229,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         .join(", ")
     );
     sqrl.filters.define("initialCaps", (op) => transformCSharpIdentifier(op));
-    const operationsPath = resolvePath(path.join(genPath, "operations"));
+    const operationsPath = genPath;
     const routesPath = resolvePath(path.join(genPath, service + "ServiceRoutes.cs"));
     const templatePath = path.join(rootPath, "templates", options.controllerHost);
     const modelsPath = path.join(genPath, "models");
@@ -1194,11 +1248,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           target: NoTarget,
         })
       );
-      await copyModelFiles(
-        path.join(rootPath, "clientlib", options.controllerHost),
-        modelsPath
-      ).catch((err) =>
-        reportDiagnostic(program, { code: "copy-files", format: { error: err }, target: NoTarget })
+      await createDirIfNotExists(modelsPath).catch((err) =>
+        reportDiagnostic(program, {
+          code: "creating-dir",
+          format: { error: err },
+          target: NoTarget,
+        })
       );
       await program.host.writeFile(
         routesPath,
@@ -1211,6 +1266,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           target: NoTarget,
         })
       );
+
       outputModel.resources.forEach(
         async (resource: Resource) =>
           await generateResource(resource).catch((error) =>

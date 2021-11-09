@@ -10,14 +10,14 @@
    * Options that are only used when the PNPM package manager is selected
    */
   "pnpmOptions": {},
-  "nodeSupportedVersionRange": ">=14.0.0 <15.0.0",
+  "nodeSupportedVersionRange": ">=14.0.0",
   "suppressNodeLtsWarning": true,
   "projectFolderMinDepth": 1,
   "projectFolderMaxDepth": 5,
   "gitPolicy": {},
   "repository": {
     "defaultBranch": "main",
-    "url": "https://github.com/Azure/adl"
+    "url": "https://github.com/Azure/cadl-azure"
   },
   /**
    * Event hooks are customized script actions that Rush executes when specific events occur
@@ -94,6 +94,12 @@
       "shouldPublish": false
     },
     {
+      "packageName": "@cadl-lang/samples",
+      "projectFolder": "core/packages/samples",
+      "reviewCategory": "production",
+      "shouldPublish": false
+    },
+    {
       "packageName": "@azure-tools/cadl-rpaas",
       "projectFolder": "packages/cadl-rpaas",
       "reviewCategory": "production",
@@ -114,6 +120,12 @@
     {
       "packageName": "@azure-tools/cadl-samples",
       "projectFolder": "packages/cadl-samples",
+      "reviewCategory": "production",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "cadl-msbuild-target",
+      "projectFolder": "packages/cadl-msbuild-target",
       "reviewCategory": "production",
       "shouldPublish": false
     }

@@ -4,6 +4,7 @@ dependencies:
   '@rollup/plugin-node-resolve': 11.2.1_rollup@2.41.5
   '@rollup/plugin-replace': 2.4.2_rollup@2.41.5
   '@rush-temp/cadl-autorest': file:projects/cadl-autorest.tgz
+  '@rush-temp/cadl-msbuild-target': file:projects/cadl-msbuild-target.tgz
   '@rush-temp/cadl-rpaas': file:projects/cadl-rpaas.tgz
   '@rush-temp/cadl-rpaas-controller': file:projects/cadl-rpaas-controller.tgz
   '@rush-temp/cadl-samples': file:projects/cadl-samples.tgz
@@ -13,12 +14,14 @@ dependencies:
   '@rush-temp/openapi3': file:projects/openapi3.tgz
   '@rush-temp/prettier-plugin-cadl': file:projects/prettier-plugin-cadl.tgz
   '@rush-temp/rest': file:projects/rest.tgz
+  '@rush-temp/samples': file:projects/samples.tgz
   '@rush-temp/spec': file:projects/spec.tgz
   '@rush-temp/tmlanguage-generator': file:projects/tmlanguage-generator.tgz
   '@types/glob': 7.1.4
   '@types/js-yaml': 4.0.2
   '@types/mkdirp': 1.0.2
   '@types/mocha': 7.0.2
+  '@types/mustache': 4.1.2
   '@types/node': 14.0.27
   '@types/node-fetch': 2.5.12
   '@types/plist': 3.0.2
@@ -35,18 +38,19 @@ dependencies:
   js-yaml: 4.1.0
   mkdirp: 1.0.4
   mocha: 8.3.2
+  mustache: 4.2.0
   node-fetch: 2.6.1
   node-watch: 0.7.1
   onigasm: 2.2.5
   plist: 3.0.2
   prettier: 2.4.1
-  prettier-plugin-organize-imports: 1.1.1_prettier@2.4.1+typescript@4.3.5
+  prettier-plugin-organize-imports: 1.1.1_prettier@2.4.1+typescript@4.4.4
   prompts: 2.4.1
   resolve: 1.20.0
   rollup: 2.41.5
   source-map-support: 0.5.19
   squirrelly: 8.0.8
-  typescript: 4.3.5
+  typescript: 4.4.4
   vsce: 1.85.1
   vscode-languageclient: 7.0.0
   vscode-languageserver: 7.0.0
@@ -292,6 +296,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-ZvO2tAcjmMi8V/5Z3JsyofMe3hasRcaw88cto5etSVMwVQfeivGAlEYmaQgceUSVYFofVjT+ioHsATjdWcFt1w==
+  /@types/mustache/4.1.2:
+    dev: false
+    resolution:
+      integrity: sha512-c4OVMMcyodKQ9dpwBwh3ofK9P6U9ZktKU9S+p33UqwMNN1vlv2P0zJZUScTshnx7OEoIIRcCFNQ904sYxZz8kg==
   /@types/node-fetch/2.5.12:
     dependencies:
       '@types/node': 14.0.27
@@ -1866,6 +1874,11 @@ packages:
     dev: false
     resolution:
       integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
+  /mustache/4.2.0:
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==
   /mute-stream/0.0.8:
     dev: false
     resolution:
@@ -2081,10 +2094,10 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
-  /prettier-plugin-organize-imports/1.1.1_prettier@2.4.1+typescript@4.3.5:
+  /prettier-plugin-organize-imports/1.1.1_prettier@2.4.1+typescript@4.4.4:
     dependencies:
       prettier: 2.4.1
-      typescript: 4.3.5
+      typescript: 4.4.4
     dev: false
     peerDependencies:
       prettier: '>=1.10'
@@ -2632,13 +2645,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-FrUshzZ1yxH8YwGR29PWWnfksLEILbWJydU7zfIRkyH7kAEzB62uMAl2WY6EyolWpLpVHeJGgQm45/MaruaHpw==
-  /typescript/4.3.5:
+  /typescript/4.4.4:
     dev: false
     engines:
       node: '>=4.2.0'
     hasBin: true
     resolution:
-      integrity: sha512-DqQgihaQ9cUrskJo9kIyW/+g0Vxsk8cDtZ52a3NGh0YNTfpUSArXSohyUGnvbPazEPLu398C0UxmKSOrPumUzA==
+      integrity: sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==
   /uc.micro/1.0.6:
     dev: false
     resolution:
@@ -2965,12 +2978,21 @@ packages:
       '@types/mocha': 7.0.2
       '@types/node': 14.0.27
       mocha: 8.3.2
-      typescript: 4.3.5
+      typescript: 4.4.4
     dev: false
     name: '@rush-temp/cadl-autorest'
     resolution:
-      integrity: sha512-hoUEJ6CxAuhrXHZIsfjpXjSP/lMolozIuyQbemtuPstcv7FMIMUq+6Mi/U/ZU6yPfcZ4ehcd2FJKcJcgDKlFQA==
+      integrity: sha512-CM6TOVJbOtmkDE78UP6MwmCjh0Uv2ar+vaPUz4XpdG5wRWl2g5XNDh6cJ7ZirTasan3IN1cC0CzhgnIyC32Akg==
       tarball: file:projects/cadl-autorest.tgz
+    version: 0.0.0
+  file:projects/cadl-msbuild-target.tgz:
+    dependencies:
+      watch: 1.0.2
+    dev: false
+    name: '@rush-temp/cadl-msbuild-target'
+    resolution:
+      integrity: sha512-L0Q5imTJQoHMUL+lwpzBsXEm56sFUteJC2smwOMZO4blPKf5IGCk5zYZlKKZU+Eyr3CRTqmyyD6Cb+SCXeiiDg==
+      tarball: file:projects/cadl-msbuild-target.tgz
     version: 0.0.0
   file:projects/cadl-rpaas-controller.tgz:
     dependencies:
@@ -2982,11 +3004,11 @@ packages:
       '@types/node': 14.0.27
       mkdirp: 1.0.4
       squirrelly: 8.0.8
-      typescript: 4.3.5
+      typescript: 4.4.4
     dev: false
     name: '@rush-temp/cadl-rpaas-controller'
     resolution:
-      integrity: sha512-z3EpDX+rIU6EscHR91zUtOr9mxJyJfvKmLtQzMN9VlFd+oyxjmiXm9r+H/ygSkiuUFOrPww0oaT294SR4q1qPQ==
+      integrity: sha512-yI9N8QfhWubncLj9c4eYzmNNgzek3JRfIaW6f+tD4WlvWFXSIDSLtqJVDcMBqEiiAgeCciPLlPsqo2LgHxhoYA==
       tarball: file:projects/cadl-rpaas-controller.tgz
     version: 0.0.0
   file:projects/cadl-rpaas.tgz:
@@ -2994,11 +3016,11 @@ packages:
       '@types/mocha': 7.0.2
       '@types/node': 14.0.27
       mocha: 8.3.2
-      typescript: 4.3.5
+      typescript: 4.4.4
     dev: false
     name: '@rush-temp/cadl-rpaas'
     resolution:
-      integrity: sha512-/nvf5s6U1uAwC//ifMgcU0ebPhCJKUtOzL/0wJrP36+ndp6GrBl2F2eTekqspWFSi6H8DluH1I9EnuCHcZ3a4A==
+      integrity: sha512-CgIQI3gPFghmuqc5cSNPAjLVNxoeeKt04U/tYISmpT8+NNiP0LQ51A2Repv18GYWIPvWDdA3odx0ydVDo8Sbsg==
       tarball: file:projects/cadl-rpaas.tgz
     version: 0.0.0
   file:projects/cadl-samples.tgz:
@@ -3009,7 +3031,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-samples'
     resolution:
-      integrity: sha512-aMPft/lTtDiK2MO08q90fQg5hY9w5Ny6GwtkgbHBEEcGYfPUUHASyrZMOX4zQMm2Lyds/C5Iko1ASp96Vpjicw==
+      integrity: sha512-KSvJYa0UysATsBO+rMWH0JyP9MogAT+xBEQRevhDtoMSMOG1wS1P5KxkQsD2BtIRIAhqqLkAO6KvwXYktekTZQ==
       tarball: file:projects/cadl-samples.tgz
     version: 0.0.0
   file:projects/cadl-vs.tgz:
@@ -3029,14 +3051,14 @@ packages:
       '@types/vscode': 1.53.0
       mkdirp: 1.0.4
       rollup: 2.41.5
-      typescript: 4.3.5
+      typescript: 4.4.4
       vsce: 1.85.1
       vscode-languageclient: 7.0.0
       watch: 1.0.2
     dev: false
     name: '@rush-temp/cadl-vscode'
     resolution:
-      integrity: sha512-vsWFnqnxl0GD9DI+j1iYb1zMRVx4gSMEVuqwiN0k5GJWi7EnbUpcVdTNJYIBRnoNY/kcmkhq3jOd67shy968WA==
+      integrity: sha512-8A/WjJ/MnaGsQLWwbobQ95MxRNRul9dhCKdFplY8N4SwSV8FrRwrAKHF3LD2xlZcYA3yYRwdCKytrI5IjwtonQ==
       tarball: file:projects/cadl-vscode.tgz
     version: 0.0.0
   file:projects/compiler.tgz:
@@ -3045,6 +3067,7 @@ packages:
       '@types/js-yaml': 4.0.2
       '@types/mkdirp': 1.0.2
       '@types/mocha': 7.0.2
+      '@types/mustache': 4.1.2
       '@types/node': 14.0.27
       '@types/node-fetch': 2.5.12
       '@types/prettier': 2.3.2
@@ -3058,21 +3081,22 @@ packages:
       js-yaml: 4.1.0
       mkdirp: 1.0.4
       mocha: 8.3.2
+      mustache: 4.2.0
       node-fetch: 2.6.1
       node-watch: 0.7.1
       prettier: 2.4.1
-      prettier-plugin-organize-imports: 1.1.1_prettier@2.4.1+typescript@4.3.5
+      prettier-plugin-organize-imports: 1.1.1_prettier@2.4.1+typescript@4.4.4
       prompts: 2.4.1
       resolve: 1.20.0
       source-map-support: 0.5.19
-      typescript: 4.3.5
+      typescript: 4.4.4
       vscode-languageserver: 7.0.0
       vscode-languageserver-textdocument: 1.0.1
       yargs: 17.0.1
     dev: false
     name: '@rush-temp/compiler'
     resolution:
-      integrity: sha512-fmO+nBTONglG1fWRA5k5cbS35AlN7nW195/F30SmJtO6Op3Y1WYVwiOGp/DpzBjZ4hFrCHRNRvO+U72jUKoAcQ==
+      integrity: sha512-ZDVCIuRM2TbW3T6EKifr3a3SVFhdQFs1//aN986adkecR3TW9JG4YBBo2PLRCygY31EZ97EwrDfSt1Scq5h6cw==
       tarball: file:projects/compiler.tgz
     version: 0.0.0
   file:projects/openapi3.tgz:
@@ -3080,11 +3104,11 @@ packages:
       '@types/mocha': 7.0.2
       '@types/node': 14.0.27
       mocha: 8.3.2
-      typescript: 4.3.5
+      typescript: 4.4.4
     dev: false
     name: '@rush-temp/openapi3'
     resolution:
-      integrity: sha512-w5RQEXsCnyRjxqdnFSQSi1mP4QMpDZJrqDsQ+HxizpWSd/Az0Lh8RbWgLCVJ9zEUoOqDVjD068GHY2opG2mzGQ==
+      integrity: sha512-iQ+d6uUPsy3WWFNxd7GCwLkqIqCjKxsuSp27g/DVRdsmw+nrM42YZXARjiSAZdXP6jRRMDu4lkoVCZ6Fp+gAGA==
       tarball: file:projects/openapi3.tgz
     version: 0.0.0
   file:projects/prettier-plugin-cadl.tgz:
@@ -3099,18 +3123,29 @@ packages:
     dev: false
     name: '@rush-temp/prettier-plugin-cadl'
     resolution:
-      integrity: sha512-lFdLC1PQRp8rTNxEqkp/J/GdPO0aB2AwhCnRw0qpSX5HxHpXh5/QNRyk0HX8fLumRlpd7t4R6IOjWpWdpzAJhg==
+      integrity: sha512-kOwiM0LOLxx1kaoWogHuyuukpDsB+losyhR2v4sJ4NKlsCWP6qdYNWUXrPCAFwroD0i2eF/SlhUtSKSQ9sx7sg==
       tarball: file:projects/prettier-plugin-cadl.tgz
     version: 0.0.0
   file:projects/rest.tgz:
     dependencies:
       '@types/node': 14.0.27
-      typescript: 4.3.5
+      typescript: 4.4.4
     dev: false
     name: '@rush-temp/rest'
     resolution:
-      integrity: sha512-aIh7CsVR+XgSHN93/A8HL3L0qxk4tKZHr3XMCDg7wce3tFNch7ut8+E40cuMnj1C4zNqKGMxVl/WVLQV1Tt0HA==
+      integrity: sha512-SpwbjlrtAuO4QSyRyj2V6h9bP0lWeGBpVZzs9/d4EM6tiIZAQ+VScmf4NEe9D6fIkOwSTMMGxmRf/QRgV16Raw==
       tarball: file:projects/rest.tgz
+    version: 0.0.0
+  file:projects/samples.tgz:
+    dependencies:
+      '@types/mkdirp': 1.0.2
+      autorest: 3.3.2
+      mkdirp: 1.0.4
+    dev: false
+    name: '@rush-temp/samples'
+    resolution:
+      integrity: sha512-LXbwEirjWDMtVBplgV1hLVXMCOB7fjLrC004z7dv4JzQfi35ZQ7d1J8b14vlywU8QavmhKa2ZwUS3NNbOBoj7w==
+      tarball: file:projects/samples.tgz
     version: 0.0.0
   file:projects/spec.tgz:
     dependencies:
@@ -3143,6 +3178,7 @@ specifiers:
   '@rollup/plugin-node-resolve': ~11.2.0
   '@rollup/plugin-replace': ~2.4.2
   '@rush-temp/cadl-autorest': file:./projects/cadl-autorest.tgz
+  '@rush-temp/cadl-msbuild-target': file:./projects/cadl-msbuild-target.tgz
   '@rush-temp/cadl-rpaas': file:./projects/cadl-rpaas.tgz
   '@rush-temp/cadl-rpaas-controller': file:./projects/cadl-rpaas-controller.tgz
   '@rush-temp/cadl-samples': file:./projects/cadl-samples.tgz
@@ -3152,12 +3188,14 @@ specifiers:
   '@rush-temp/openapi3': file:./projects/openapi3.tgz
   '@rush-temp/prettier-plugin-cadl': file:./projects/prettier-plugin-cadl.tgz
   '@rush-temp/rest': file:./projects/rest.tgz
+  '@rush-temp/samples': file:./projects/samples.tgz
   '@rush-temp/spec': file:./projects/spec.tgz
   '@rush-temp/tmlanguage-generator': file:./projects/tmlanguage-generator.tgz
   '@types/glob': ~7.1.3
   '@types/js-yaml': ~4.0.1
   '@types/mkdirp': ~1.0.1
   '@types/mocha': ~7.0.2
+  '@types/mustache': ~4.1.2
   '@types/node': ~14.0.27
   '@types/node-fetch': ~2.5.12
   '@types/plist': ~3.0.2
@@ -3174,6 +3212,7 @@ specifiers:
   js-yaml: ~4.1.0
   mkdirp: ~1.0.4
   mocha: ~8.3.2
+  mustache: ~4.2.0
   node-fetch: ~2.6.1
   node-watch: ~0.7.1
   onigasm: ~2.2.5
@@ -3185,7 +3224,7 @@ specifiers:
   rollup: ~2.41.4
   source-map-support: ~0.5.19
   squirrelly: ^8.0.8
-  typescript: ~4.3.2
+  typescript: ~4.4.4
   vsce: ~1.85.1
   vscode-languageclient: ~7.0.0
   vscode-languageserver: ~7.0.0

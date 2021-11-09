@@ -6,7 +6,7 @@ namespace LocksResource {
     ... SyncTokenHeader,
     @path key: string,
     @query label: string,
-    ... ETagHeaders,
+    ... ETagHeaders
   ): OkResponse<SyncTokenHeader & KeyValue> | Error;
 
   @operationId("DeleteLock")
@@ -15,6 +15,6 @@ namespace LocksResource {
     ... SyncTokenHeader,
     @path key: string,
     @query label: string,
-    ... ETagHeaders,
+    ... ETagHeaders
   ): OkResponse<SyncTokenHeader & KeyValue> | Error;
 }

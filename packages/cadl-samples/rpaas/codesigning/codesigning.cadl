@@ -1,5 +1,4 @@
 import "@cadl-lang/rest";
-import "@azure-tools/cadl-autorest";
 import "@azure-tools/cadl-rpaas";
 
 @armNamespace
@@ -16,12 +15,14 @@ using Azure.ARM;
   parameterType: AccountNameParameter,
   collectionName: "CodeSignAccounts",
 })
-model CodeSignAccount is TrackedResource<CodeSignAccountProperties> {};
+model CodeSignAccount is TrackedResource<CodeSignAccountProperties> {}
 
 @doc("Properties of the code sign account")
 model CodeSignAccountProperties {
   @visibility("read")
-  @doc("The URI of the code sign account for performing operations on certificate profiles. This property is readonly")
+  @doc(
+    "The URI of the code sign account for performing operations on certificate profiles. This property is readonly"
+  )
   accountUri?: string;
 
   @visibility("read")
@@ -42,21 +43,39 @@ model CodeSignAccountPatch {
 model AccountNameParameter {
   @doc("Code Signing account name")
   @format("^[a-zA-Z0-9-]{3,24}$")
-  @path accountName: string;
+  @path
+  accountName: string;
 }
 
 @doc("Current verification information.")
-enum VerificationStatus { Completed, InProgress, NotCompleted }
+enum VerificationStatus {
+  Completed,
+  InProgress,
+  NotCompleted,
+}
 
 @doc("The rotation policy for the profile.")
-enum RotationPolicy { Monthly }
+enum RotationPolicy {
+  Monthly,
+}
 
 @doc("The type of the profile.")
-enum ProfileType { Test, Trial, PrivateTrust, PublicTrust }
+enum ProfileType {
+  Test,
+  Trial,
+  PrivateTrust,
+  PublicTrust,
+}
 
 @doc("The status of the current operation.")
 enum ProvisioningState {
-  Succeeded, Failed, Canceled, Provisioning, Updating, Deleting, Accepted
+  Succeeded,
+  Failed,
+  Canceled,
+  Provisioning,
+  Updating,
+  Deleting,
+  Accepted,
 }
 
 @armListBy(AccountNameParameter, "ListByCodeSignAccounts")
@@ -72,7 +91,8 @@ model CertificateProfile is ProxyResource<CertificateProfileProperties> {}
 model ProfileNameParameter {
   @doc("Certificate profile name")
   @format("^[a-zA-Z0-9-]{3,24}$")
-  @path profileName: string;
+  @path
+  profileName: string;
 }
 
 @doc("Properties of the certificate profile")
@@ -112,8 +132,9 @@ model CertificateProfileProperties {
   @visibility("read")
   @doc("The country of the entity the certificate was issued to.")
   country?: string;
-
   // TODO: Flatten?
+
+
   @visibility("read")
   @doc("The set of certificates associated with this profile.")
   certificates?: Certificate[];

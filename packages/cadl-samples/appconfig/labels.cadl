@@ -1,4 +1,3 @@
-
 @resource("/labels")
 namespace LabelsResource {
   @doc("Gets a list of labels.")
@@ -7,9 +6,8 @@ namespace LabelsResource {
     ... ServiceParams,
     ... SyncTokenHeader,
     ... AcceptDatetimeHeader,
-
     @query name?: string,
-    @query after?: string,
+    @query after?: string
   ): OkResponse<SyncTokenHeader & LabelPage> | Error;
 
   @doc("Requests the headers and status of the given resource.")
@@ -18,9 +16,8 @@ namespace LabelsResource {
     ... ServiceParams,
     ... SyncTokenHeader,
     ... AcceptDatetimeHeader,
-
     @query name?: string,
     @query after?: string,
-    @query $Select?: LabelField[],
+    @query $Select?: LabelField[]
   ): OkResponse<SyncTokenHeader> | Error;
 }

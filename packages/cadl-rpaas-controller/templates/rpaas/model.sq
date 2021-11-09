@@ -1,8 +1,7 @@
-//-----------------------------------------------------------------------------
-// Copyright (c) Microsoft Corporation.  All rights reserved.
-//-----------------------------------------------------------------------------
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
-using Microsoft.Cadl.RPaaS;
+using Cadl.ProviderHubController.Common;
 using System;
 using System.Security.Policy;
 using System.Collections.Generic; 
@@ -27,7 +26,8 @@ namespace Microsoft.{{it.serviceName}}.Service.Models
         [{{attr.name}}({{@each(attr.parameters) => param, paramIndex}}{{@if(param.type === "string")}}@"{{/if}}{{param.value}}{{@if(param.type === "string")}}"{{/if}}{{@if(paramIndex < attr.parameters.length - 1)}}, {{/if}}{{/each}})]
 {{/each}}
 {{/if}}
-        public {{prop.type.name}}{{@if(prop.type.typeParameters)}}<{{prop.type | typeParamList}}>{{/if}} {{prop.name}} { get; set; }
+        public {{prop.type.name}}{{@if(prop.type.typeParameters)}}<{{prop.type | typeParamList}}>{{/if}} {{prop.name}} { get; set; }{{@if(prop.default)}} = {{prop.default}};{{/if}}
+
 
 {{/each}}
     }

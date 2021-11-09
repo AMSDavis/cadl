@@ -1,5 +1,4 @@
 ﻿import "@cadl-lang/rest";
-import "@azure-tools/cadl-autorest";
 import "@azure-tools/cadl-rpaas";
 import "@azure-tools/cadl-rpaas-controller";
 
@@ -11,20 +10,20 @@ namespace Microsoft.Confluent;
 using Azure.ARM;
 
 @doc("A string that represents a URI.")
-model Uri extends string { };
+model Uri extends string {}
 
 @doc("Reusable representation of an email address")
 @format("\\w+@\\w+\\.\\w+")
-model email extends string { };
+model email extends string {}
 
 @doc("Shorthand for setting length limit.")
 @minLength(5)
 @maxLength(50)
-model MediumString extends string { };
+model MediumString extends string {}
 
 @doc("Shorthand for setting length limit.")
 @maxLength(25)
-model ShortString extends string { };
+model ShortString extends string {}
 
 @armResource({
   path: "organizations",
@@ -32,11 +31,12 @@ model ShortString extends string { };
   parameterType: OrganizationNameParameter,
 })
 @doc("Details of the Confluent organization.")
-model Organization is TrackedResource<OrganizationProperties> { };
+model Organization is TrackedResource<OrganizationProperties> {}
 
 model OrganizationNameParameter {
   @doc("Organization resource name")
-  @path organizationName: string;
+  @path
+  organizationName: string;
 }
 
 @doc("Details of the Confluent organization.")
@@ -58,15 +58,21 @@ model OrganizationProperties {
 
   @doc("Subscriber details.")
   userDetail: UserDetail;
-
   ...DefaultProvisioningStateProperty;
 }
 
 @doc("SaaS offer status.")
 enum OfferStatus {
-  Started, PendingFulfillmentStart, InProgress,
-  Subscribed, Suspended, Reinstated, Succeeded,
-  Failed, Unsubscribed, Updating
+  Started,
+  PendingFulfillmentStart,
+  InProgress,
+  Subscribed,
+  Suspended,
+  Reinstated,
+  Succeeded,
+  Failed,
+  Unsubscribed,
+  Updating,
 }
 
 @doc("Details of the product offering.")
@@ -108,14 +114,13 @@ model UserDetail {
   collectionName: "MarketplaceAgreements",
   parameterType: null,
   pathParameters: [SubscriptionIdParameter],
-  standardOperations: ["read"]
+  standardOperations: ["read"],
 })
 @doc("The details of a marketplace agreement.")
 model ConfluentAgreementResource is ProxyResource<ConfluentAgreementResourceProperties> {}
 
 @doc("The details of the agreement.")
-model ConfluentAgreementResourceProperties {
-}
+model ConfluentAgreementResourceProperties {}
 
 @armResourceOperations(ConfluentAgreementResource)
 namespace MarketplaceAgreements {
@@ -124,7 +129,9 @@ namespace MarketplaceAgreements {
   op Create(
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
+
     @doc("The agreement details.")
-    @body agreement: ConfluentAgreementResource
+    @body
+    agreement: ConfluentAgreementResource
   ): ArmResponse<ConfluentAgreementResource> | ErrorResponse;
 }

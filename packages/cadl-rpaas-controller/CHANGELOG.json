@@ -2,6 +2,37 @@
   "name": "@azure-tools/cadl-rpaas-controller",
   "entries": [
     {
+      "version": "0.5.0",
+      "tag": "@azure-tools/cadl-rpaas-controller_v0.5.0",
+      "date": "Thu, 28 Oct 2021 21:20:34 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Updating Provider hub service code to use common nuget and update to ASP.NET core 5.0"
+          },
+          {
+            "comment": "**Internal** Stop using diagnostics for logging information"
+          },
+          {
+            "comment": "Fix bytes type, updated logic for response type determination"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Generate models and parameters defaults"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `0.8.0` to `0.8.1`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-rpaas\" from `0.9.0` to `0.10.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.1",
       "tag": "@azure-tools/cadl-rpaas-controller_v0.4.1",
       "date": "Fri, 15 Oct 2021 21:33:37 GMT",

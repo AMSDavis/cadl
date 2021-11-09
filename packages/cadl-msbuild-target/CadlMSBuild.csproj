@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <BuildId Condition="'$(BuildId)' == ''">0</BuildId>
+    <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
+    <AssemblyName>Cadl.MSBuild</AssemblyName>
+    <VersionPrefix>$(CadlMSBuildVersion)</VersionPrefix>
+    <WarningLevel>9999</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>NU5128</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup Label="NuGet package assets">
+    <None Pack="true" PackagePath="build\" Include="build\**\*.xml; build\**\*.props; build\**\*.targets;" />
+    <None Include="README.md" Pack="true" PackagePath="\" />
+   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Framework" Version="16.0.461" PrivateAssets="All" ExcludeAssets="Runtime" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.0.461" PrivateAssets="All"  ExcludeAssets="Runtime" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="All" />
+  </ItemGroup>
+  
+  <PropertyGroup>
+    <BuildOutputTargetFolder>build\</BuildOutputTargetFolder>
+    <Company>Microsoft</Company>
+    <Authors>Microsoft</Authors>
+    <PackageId>Cadl.MSBuild</PackageId>
+    <Description> 
+    This package enables API First development of RPaaS services using Cadl. It adds build targets to generate an ASP.Net MVC controller and OpenAPI definition from a Cadl description for the service. The package includes msbuild target files and a custom Cadl build task, integrating API-First development using Cadl into the project simply.
+    </Description>
+    <Version>0.1.0-beta.$(BuildId)</Version>
+    <AssemblyOriginatorKeyFile>./sharedKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>true</DelaySign>
+    <AssemblyOriginatorKeyFile>../../eng/MSSharedLibKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,95 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "(title)",
+    "version": "0000-00-00"
+  },
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/pdf"
+  ],
+  "tags": [],
+  "paths": {
+    "/mediatypes/analyze": {
+      "post": {
+        "operationId": "AnalyzeBody",
+        "summary": "Analyze body, that could be different media types.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Input"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "consumes": [
+          "application/json",
+          "image/jpeg",
+          "image/png",
+          "image/tiff"
+        ]
+      }
+    },
+    "/mediatypes/contentTypeWithEncoding": {
+      "post": {
+        "operationId": "contentTypeWithEncoding",
+        "summary": "Pass in contentType 'text/plain; encoding=UTF-8' to pass test. Value for input does not matter",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Input"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "consumes": [
+          "text/plain"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "SourcePath": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 2048,
+          "description": "File source path."
+        }
+      },
+      "description": "Uri or local path to source data.",
+      "required": [
+        "source"
+      ]
+    }
+  },
+  "parameters": {
+    "Input": {
+      "x-ms-parameter-location": "method",
+      "name": "input",
+      "in": "body",
+      "required": true,
+      "description": "Input parameter.",
+      "schema": {
+        "$ref": "#/definitions/SourcePath"
+      }
+    }
+  }
+}

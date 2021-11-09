@@ -1,5 +1,7 @@
 import { run, scanSwaggers, autorest } from "./helpers.js";
 
+const AUTOREST_CORE_VERSION = "3.6.6";
+
 function generateSDK(lang, swagger) {
   try {
     switch (lang) {
@@ -7,7 +9,7 @@ function generateSDK(lang, swagger) {
         run(autorest, [
           "--debug",
           "--verbose",
-          "--version=3.4.5",
+          `--version=${AUTOREST_CORE_VERSION}`,
           "--python",
           "--track2",
           "--use=@autorest/python@5.8.1",
@@ -19,6 +21,7 @@ function generateSDK(lang, swagger) {
         break;
       case "javascript":
         run(autorest, [
+          `--version=${AUTOREST_CORE_VERSION}`,
           "--typescript",
           "--use=@autorest/typescript@6.0.0-beta.10",
           "--azure-arm",
@@ -61,4 +64,7 @@ async function main() {
   }
 }
 
-main();
+main().catch((error) => {
+  console.error("Error", error);
+  process.exit(1);
+});

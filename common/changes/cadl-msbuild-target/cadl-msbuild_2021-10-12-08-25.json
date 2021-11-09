@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "cadl-msbuild-target",
+      "comment": "",
+      "type": "none"
+    }
+  ],
+  "packageName": "cadl-msbuild-target",
+  "email": "jianyxi@microsoft.com"
+}

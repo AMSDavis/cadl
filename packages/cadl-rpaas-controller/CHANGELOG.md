@@ -1,6 +1,19 @@
 # Change Log - @azure-tools/cadl-rpaas-controller
 
-This log was last generated on Fri, 15 Oct 2021 21:33:37 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Oct 2021 21:20:34 GMT and should not be manually modified.
+
+## 0.5.0
+Thu, 28 Oct 2021 21:20:34 GMT
+
+### Minor changes
+
+- Generate models and parameters defaults
+
+### Patches
+
+- Updating Provider hub service code to use common nuget and update to ASP.NET core 5.0
+- **Internal** Stop using diagnostics for logging information
+- Fix bytes type, updated logic for response type determination
 
 ## 0.4.1
 Fri, 15 Oct 2021 21:33:37 GMT

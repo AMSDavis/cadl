@@ -1,5 +1,4 @@
 import "@cadl-lang/rest";
-import "@azure-tools/cadl-autorest";
 import "@azure-tools/cadl-rpaas";
 import "@azure-tools/cadl-rpaas-controller";
 
@@ -10,32 +9,38 @@ namespace Microsoft.EnvelopeTest;
 
 using Azure.ARM;
 
-@armResource(
-  {path: "allProperties",
+@armResource({
+  path: "allProperties",
   collectionName: "AllProperties",
-  parameterType: AllPropertiesNameParameter})
+  parameterType: AllPropertiesNameParameter,
+})
 model AllPropertiesResource is TrackedResource<AllPropertiesProperties> {
- ...EntityTag;
- ...ManagedBy;
- ...ResourceKind;
- ...ResourcePlan;
- ...ResourceSku;
- ...ManagedServiceIdentity;
+  ...EntityTag;
+  ...ManagedBy;
+  ...ResourceKind;
+  ...ResourcePlan;
+  ...ResourceSku;
+  ...ManagedServiceIdentity;
 }
 
 model AllPropertiesNameParameter {
   @doc("The name of the all properties resource.")
-  @path allPropertiesName: string;
+  @path
+  allPropertiesName: string;
 }
 
 model AllPropertiesProperties {
   @doc("The status of the last operation performed on this resource.")
   provisioningState: EnvelopeProvisioningState;
+
+  @doc("Name of the resource")
+  displayName?: string = "default";
 }
 
 model SystemOnlyPropertiesNameParameter {
   @doc("The name of the all properties resource.")
-  @path systemOnlyPropertiesName: string;
+  @path
+  systemOnlyPropertiesName: string;
 }
 
 model SystemOnlyProperties {
@@ -43,9 +48,11 @@ model SystemOnlyProperties {
   provisioningState: EnvelopeProvisioningState;
 }
 
-@armResource({path: "systems",
+@armResource({
+  path: "systems",
   collectionName: "SystemsOnlyResources",
-  parameterType: SystemOnlyPropertiesNameParameter})
+  parameterType: SystemOnlyPropertiesNameParameter,
+})
 model SystemOnlyResource is TrackedResource<SystemOnlyProperties> {
   ...ManagedSystemAssignedIdentity;
 }
@@ -54,5 +61,5 @@ enum EnvelopeProvisioningState {
   Working,
   Succeeded,
   Canceled,
-  Failed;
+  Failed,
 }

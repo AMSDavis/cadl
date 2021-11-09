@@ -1,0 +1,33 @@
+{
+  "name": "cadl-msbuild-target",
+  "author": "Microsoft Corporation",
+  "version": "0.1.0",
+  "description": "Cadl msbuild target",
+  "homepage": "https://github.com/Azure/adl",
+  "readme": "https://github.com/Azure/adl/blob/master/README.md",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Azure/adl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Azure/adl/issues"
+  },
+  "keywords": [
+    "cadl"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "bin/Release/*.nupkg"
+  ],
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "watch": "~1.0.2"
+  }
+}

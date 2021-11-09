@@ -1,16 +1,20 @@
+parameters:
+  - name: nodeVersion
+    type: string
+
 steps:
   - checkout: self
     submodules: true
 
   - task: NodeTool@0
     inputs:
-      versionSpec: 14.x
+      versionSpec: ${{ parameters.nodeVersion }}
     displayName: Install Node.js
 
   - script: node common/scripts/install-run-rush.js install
     displayName: Install JavaScript Dependencies
 
-  - script: node core/packages/cadl-vs/scripts/build.js --restore
+  - script: node core/packages/cadl-vs/scripts/build.js --restore && node packages/cadl-msbuild-target/scripts/build.js --restore
     displayName: Restore .NET Dependencies
 
   - script: node common/scripts/install-run-rush.js change -v
@@ -29,10 +33,10 @@ steps:
   - script: node common/scripts/install-run-rush.js check-format
     displayName: Check Formatting
 
-  - script: cd packages/cadl-samples && npm run regen-samples
+  - script: node common/scripts/install-run-rush.js regen-samples
     displayName: Regenerate Samples
 
-  - script: cd packages/cadl-samples/rpaas/liftr.confluent && npx cadl compile . --option arm-types-path=../../types.json && npx autorest --typescript --clear-output-folder=true --output-folder=cadl-output/client  --title=CadlClient --input-file=cadl-output/openapi.json
+  - script: cd packages/cadl-samples/rpaas/liftr.confluent && npx cadl compile . --option arm-types-path=../../types.json --import=@azure-tools/cadl-autorest && npx autorest --typescript --clear-output-folder=true --output-folder=cadl-output/client --title=CadlClient --input-file=cadl-output/openapi.json
     displayName: Sanity Check Client Generation
 
   - script: node eng/scripts/check-for-changed-files.js

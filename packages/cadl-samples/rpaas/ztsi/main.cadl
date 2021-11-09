@@ -1,0 +1,232 @@
+import "@cadl-lang/rest";
+import "@azure-tools/cadl-rpaas";
+import "@azure-tools/cadl-rpaas-controller";
+
+@armNamespace
+@serviceTitle("Microsoft.ZeroTrustSystemIntegrity")
+@serviceVersion("2021-10-18-preview")
+namespace Microsoft.ZeroTrustSystemIntegrity;
+
+using Azure.ARM;
+
+@doc("ZTSI Resource")
+@armResource({
+  path: "ztsi",
+  collectionName: "ZTSI",
+  parameterType: ZTSINameParameter,
+})
+model ZTSIResource is TrackedResource<ZTSIProperties> {
+  ...ManagedServiceIdentity; // change here to use the standard definition
+}
+model ZTSINameParameter {
+  @doc("ZTSI resource name")
+  @path
+  ztsiName: string;
+}
+
+@armResourceOperations(ZTSIResource)
+namespace ZTSI {
+  @post("getMAAURL")
+  @doc("Gets the MAA URL for this resource")
+  op GetMAAURL(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupNameParameter,
+    ...ZTSINameParameter
+  ): MAAURL | ErrorResponse;
+
+  @post("getZTSIURL")
+  @doc("Gets the ZTSI URL for this resource")
+  op GetZTSIURL(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupNameParameter,
+    ...ZTSINameParameter
+  ): ZTSIURL | ErrorResponse;
+
+  @post("initiateRequest")
+  @doc("Hello request to the ZTSI service")
+  op InitiateRequest(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupNameParameter,
+    ...ZTSINameParameter,
+    @body initiateRequest: InitiateRequestInformation
+  ): InitiateResponse | ErrorResponse;
+
+  @post("reportRequest")
+  @doc("ZTSI Report request")
+  op ReportRequest(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupNameParameter,
+    ...ZTSINameParameter,
+    @body reportRequest: ReportRequestInformation
+  ): ZTSIReport | ErrorResponse;
+}
+
+@doc("Microsoft Azure Attestation Endpoint")
+model MAAURL {
+  @visibility("read")
+  @doc("URL of the MAA instance that ztsi is using for attestation.")
+  url?: string;
+}
+
+@doc("ZTSI URL")
+model ZTSIURL {
+  @visibility("read")
+  @doc("URL of the ZTSI instance created as a part of the resource.")
+  url?: string;
+}
+
+@doc("Properties specific to the ztsi resource.")
+model ZTSIProperties {
+  @doc("User info.")
+  userInfo?: UserInfo;
+
+  @doc("Billing plan information.")
+  planData?: PlanData;
+
+  @visibility("read")
+  @doc("Provisioning state of the resource.")
+  provisioningState?: ProvisioningState;
+}
+
+@doc("Shorthand for setting length limit.")
+@maxLength(50)
+model MediumString extends string {}
+
+@doc("Provisioning state of the monitoring resource")
+enum ProvisioningState {
+  "Accepted",
+  "Creating",
+  "Updating",
+  "Deleting",
+  "Succeeded",
+  "Failed",
+  "Canceled",
+  "Deleted",
+  "NotSpecified",
+}
+
+@doc("Reusable representation of an email address")
+@format("^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$")
+model email extends string {}
+
+@doc("User info.")
+model UserInfo {
+  @doc("First Name of the user")
+  firstName?: MediumString;
+
+  @doc("Last Name of the user")
+  lastName?: MediumString;
+
+  @doc("Email of the user used by Dynatrace for contacting them if needed")
+  emailAddress?: email;
+
+  @maxLength(40)
+  @doc("Phone number of the user used by Dynatrace for contacting them if needed")
+  phoneNumber?: string;
+
+  @doc("Country of the user")
+  country?: string;
+}
+
+@doc("Billing plan information.")
+model PlanData {
+  @doc("different usage type like PAYG/COMMITTED. this could be enum")
+  usageType?: MediumString;
+
+  @doc("different billing cycles like MONTHLY/WEEKLY. this could be enum")
+  billingCycle?: MediumString;
+
+  @doc("plan id as published by Dynatrace")
+  planDetails?: MediumString;
+
+  @doc("date when plan was applied")
+  effectiveDate?: zonedDateTime;
+}
+
+@doc("Attestation information")
+model AttestationInformation {
+  @doc("Attestation type that this information object is refering to")
+  attestationType: AttestationType;
+
+  @doc("Base64 encoded attestation data.")
+  attestationData: bytes;
+}
+
+@doc("Common information that's included in all ZTSI Agent requests.")
+model RequestHeader {
+  @doc("Version of the Api that's being used for the request.")
+  apiVersion: string;
+
+  @doc("Unique identifier of the device")
+  deviceId: DeviceId;
+
+  @doc("Type of the message that follows this header")
+  messageType: string;
+}
+
+@doc("Request initiating the communication between ZTSI service and agent")
+model InitiateRequestInformation {
+  @doc("Request Header")
+  requestHeader: RequestHeader;
+
+  @doc("ZTSI report from last RequestReport call, if any")
+  lastZtsiReport?: bytes;
+}
+
+@doc("Expected response of the Initiate Request")
+model InitiateResponse {
+  @doc("Service Context")
+  serviceContext: bytes;
+
+  @doc("Challenge/Nonce")
+  challenge: bytes;
+
+  @doc(
+    "List of attestations that the service requires the client to send, based on the last ZTSI report if one is available."
+  )
+  requiredAttestations: AttestationInformation[];
+}
+
+@doc("ZTSI Report request information.")
+model ReportRequestInformation {
+  @doc("Request Header.")
+  requestHeader: RequestHeader;
+
+  @doc("Service Context")
+  serviceContext: bytes;
+
+  @doc("Challenge given by the service in InitiateRequest response")
+  challenge: bytes;
+
+  @doc("List of attestations the service had required from the client")
+  attestations: AttestationInformation[];
+
+  @doc("")
+  ephemeralKeyPub: bytes;
+
+  @doc("")
+  ephemeralKeySignature: bytes;
+}
+
+@doc("ZTSI report given after a successful Report Request.")
+model ZTSIReport {
+  @doc("Base64 encoded ZTSI report information")
+  ztsiReport: bytes;
+}
+
+@doc("A reusable Guid formatted string type.")
+@format("^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$")
+model Guid extends string {}
+
+@doc("Device identification in Guid format")
+model DeviceId is Guid {}
+
+@doc("The type of attestation.")
+enum AttestationType {
+  "Boot",
+  "Runtime",
+}

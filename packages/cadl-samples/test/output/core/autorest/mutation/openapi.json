@@ -1,0 +1,94 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "(title)",
+    "version": "0000-00-00"
+  },
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "tags": [],
+  "paths": {
+    "/ops/{subscriptionId}": {
+      "get": {
+        "operationId": "Ops_SomeOp",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "resourceGroup",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "input",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SomeModel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/OtherModel"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "OtherModel": {
+      "type": "object",
+      "properties": {
+        "num": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "num"
+      ]
+    },
+    "SomeModel": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "foo": {
+          "type": "string"
+        },
+        "other": {
+          "$ref": "#/definitions/OtherModel"
+        }
+      },
+      "required": [
+        "name",
+        "foo",
+        "other"
+      ]
+    }
+  },
+  "parameters": {}
+}

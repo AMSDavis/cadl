@@ -4,12 +4,19 @@ namespace Azure.ARM;
 
 @doc("Common properties for all ARM resources.")
 model ArmResource {
+  @doc(
+    "Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+  )
   @visibility("read")
   id: string;
 
+  @doc("The name of the resource.")
   @visibility("read")
-  name: string; 
+  name: string;
 
+  @doc(
+    "The type of the resource. E.g. \"Microsoft.Compute/virtualMachines\" or \"Microsoft.Storage/storageAccounts\""
+  )
   @visibility("read")
   type: string;
 }
@@ -20,10 +27,10 @@ model TrackedResourceBase extends ArmResource {
   @doc("The geo-location where the resource lives")
   @visibility("read", "create")
   location: string;
-
-  ...ArmTagsProperty
+  ...ArmTagsProperty;
 }
 
+@doc("The ARM Resource tags.")
 model ArmTagsProperty {
   @doc("Resource tags.")
   @visibility("read", "write", "create")
@@ -31,7 +38,11 @@ model ArmTagsProperty {
 }
 
 @doc("The provisioning state of a resource type.")
-enum ResourceProvisioningState { Succeeded, Failed, Canceled };
+enum ResourceProvisioningState {
+  Succeeded,
+  Failed,
+  Canceled,
+}
 
 @doc("Contains a default provisioningState property to be spread into resource property types")
 model DefaultProvisioningStateProperty {
@@ -39,7 +50,9 @@ model DefaultProvisioningStateProperty {
   provisioningState: ResourceProvisioningState;
 }
 
-@doc("Concrete tracked resource types can be created by aliasing this type using a specific property type.")
+@doc(
+  "Concrete tracked resource types can be created by aliasing this type using a specific property type."
+)
 model TrackedResource<TProperties> extends TrackedResourceBase {
   @doc("The resource-specific properties for this resource.")
   @visibility("read", "create")
@@ -51,18 +64,22 @@ model TrackedResource<TProperties> extends TrackedResourceBase {
   systemData?: SystemData;
 }
 
+@doc("The base proxy resource.")
 @armCommonDefinition("ProxyResource")
 model ProxyResourceBase {
-  ...ArmResource,
-};
+  ...ArmResource;
+}
 
 // Note that ProxyResource is the base definition for both kinds of resources
+@doc("The base extension resource.")
 @armCommonDefinition("ProxyResource")
 model ExtensionResourceBase {
-  ...ArmResource,
-};
+  ...ArmResource;
+}
 
-@doc("Concrete proxy resource types can be created by aliasing this type using a specific property type.")
+@doc(
+  "Concrete proxy resource types can be created by aliasing this type using a specific property type."
+)
 model ProxyResource<TProperties> extends ProxyResourceBase {
   @doc("The resource-specific properties for this resource.")
   @visibility("read", "create")
@@ -74,6 +91,9 @@ model ProxyResource<TProperties> extends ProxyResourceBase {
   systemData?: SystemData;
 }
 
+@doc(
+  "Concrete extension resource types can be created by aliasing this type using a specific property type."
+)
 model ExtensionResource<TProperties> extends ExtensionResourceBase {
   @doc("The resource-specific properties for this resource.")
   @visibility("read", "create")
@@ -88,7 +108,8 @@ model ExtensionResource<TProperties> extends ExtensionResourceBase {
 @doc("The default name parameter type")
 model NameParameter {
   @doc("The name of the resource")
-  @path name: string;
+  @path
+  name: string;
 }
 
 @doc("ARM operation completed successfully.")
@@ -99,22 +120,31 @@ model ArmResponse<T> {
 @doc("ARM create operation completed successfully.")
 model ArmCreatedResponse<T> {
   ... CreatedResponse;
-  @body body: T;
+
+  @doc("The reponse body.")
+  @body
+  body: T;
 }
 
 @doc("Resource deleted successfully.")
 model ArmDeletedResponse {
-  @header statusCode: 200;
+  @doc("The status code.")
+  @header
+  statusCode: 200;
 }
 
 @doc("Resource deletion accepted.")
 model ArmDeleteAcceptedResponse {
-  @header statusCode: 202;
+  @doc("The status code.")
+  @header
+  statusCode: 202;
 }
 
 @doc("Resource deleted successfully.")
 model ArmDeletedNoContentResponse {
-  @header statusCode: 204;
+  @doc("The status code.")
+  @header
+  statusCode: 204;
 }
 
 @doc("Paged response")
@@ -126,6 +156,7 @@ model Page<T> {
   nextLink?: string;
 }
 
+@doc("The default api-version parameter type.")
 model ApiVersionParameter {
   @query
   @minLength(1)
@@ -134,6 +165,7 @@ model ApiVersionParameter {
   "api-version": string;
 }
 
+@doc("The default subscriptionId parameter type.")
 model SubscriptionIdParameter {
   @path
   @minLength(1)
@@ -142,6 +174,7 @@ model SubscriptionIdParameter {
   subscriptionId: string;
 }
 
+@doc("The default resource group parameter type.")
 model ResourceGroupNameParameter {
   @path
   @minLength(1)
@@ -152,12 +185,15 @@ model ResourceGroupNameParameter {
   resourceGroupName: string;
 }
 
+@doc("The default resourceUri parameter type.")
 model ResourceUriParameter {
   @doc("The fully qualified Azure Resource manager identifier of the resource.")
   @extension("x-ms-skip-url-encoding", true)
-  @path resourceUri: string;
+  @path
+  resourceUri: string;
 }
 
+@doc("The default operationId parameter type.")
 model OperationIdParameter {
   @path
   @minLength(1)
@@ -166,77 +202,106 @@ model OperationIdParameter {
   operationId: string;
 }
 
+@doc("The common resource parameters type.")
 model CommonResourceParameters {
-  ...ApiVersionParameter,
-  ...SubscriptionIdParameter,
-  ...ResourceGroupNameParameter
+  ...ApiVersionParameter;
+  ...SubscriptionIdParameter;
+  ...ResourceGroupNameParameter;
 }
 
 @armCommonDefinition
 @doc("Details of a REST API operation, returned from the Resource Provider Operations API")
 model Operation {
-  @doc("""
+  @doc(
+    """
   The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write", "Microsoft.Compute/virtualMachines/capture/action"
-  """)
+  """
+  )
   @visibility("read")
   name?: string;
 
-  @doc("""
+  @doc(
+    """
   Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for ARM/control-plane operations.
-  """)
+  """
+  )
   @visibility("read")
   isDataAction?: boolean;
 
   @doc("Localized display information for this particular operation.")
   display?: OperationDisplay;
 
-  @doc("""
+  @doc(
+    """
   The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default value is "user,system"
-  """)
+  """
+  )
   @visibility("read")
   origin?: Origin;
 
-  @doc("""
+  @doc(
+    """
   Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
-  """)
+  """
+  )
   actionType?: ActionType;
 }
 
-@doc("""
+@doc(
+  """
 The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default value is "user,system"
-""")
-enum Origin { user, system, "user,system" };
+"""
+)
+enum Origin {
+  user,
+  system,
+  "user,system",
+}
 
-@doc("""
+@doc(
+  """
 Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
-""")
-enum ActionType { Internal }
+"""
+)
+enum ActionType {
+  Internal,
+}
 
 @armCommonDefinition
-@doc("""
+@doc(
+  """
 A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
-""")
-model OperationListResult extends Page<Operation> { }
+"""
+)
+model OperationListResult extends Page<Operation> {}
 
 @armCommonDefinition
 @doc("Localized display information for and operation.")
 model OperationDisplay {
-  @doc("""
+  @doc(
+    """
   The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft Compute".
-  """)
+  """
+  )
   provider?: string;
 
-  @doc("""
+  @doc(
+    """
   The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job Schedule Collections".
-  """)
+  """
+  )
   resource?: string;
 
-  @doc("""
+  @doc(
+    """
   The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual Machine", "Restart Virtual Machine".
-  """)
+  """
+  )
   operation?: string;
 
-  @doc("The short, localized friendly description of the operation; suitable for tool tips and detailed views.")
+  @doc(
+    "The short, localized friendly description of the operation; suitable for tool tips and detailed views."
+  )
   description?: string;
 }
 
@@ -271,7 +336,9 @@ model OperationStatusResult {
 }
 
 @armCommonDefinition
-@doc("Common error response for all Azure Resource Manager APIs to return error details for failed operations.")
+@doc(
+  "Common error response for all Azure Resource Manager APIs to return error details for failed operations."
+)
 model ErrorResponse {
   @doc("The error object.")
   error?: ErrorDetail;
@@ -315,7 +382,12 @@ model ErrorAdditionalInfo {
 
 // NOTE: This is how the enum is named in types.json
 @doc("The kind of entity that created the resource.")
-enum createdByType { User, Application, ManagedIdentity, Key };
+enum createdByType {
+  User,
+  Application,
+  ManagedIdentity,
+  Key,
+}
 
 @armCommonDefinition("systemData")
 @doc("Metadata pertaining to creation and last modification of the resource.")
@@ -346,6 +418,7 @@ model SystemData {
 }
 
 // Arm optional envelope properties
+@doc("The managed service identities envelope.")
 model ManagedServiceIdentity {
   @doc("The managed service identities assigned to this resource.")
   identity?: ManagedIdentityProperties;
@@ -354,23 +427,32 @@ model ManagedServiceIdentity {
 @doc("Managed identity for services that are constrained to system-assigned managed identities.")
 model ManagedSystemAssignedIdentity {
   @doc("The managed service identities assigned to this resource.")
-  identity?: ManagedSystemIdentityProperties
+  identity?: ManagedSystemIdentityProperties;
 }
 
+@doc("The eTag property envelope.")
 model EntityTag {
-  @doc("If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields.")
+  @doc(
+    "If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields."
+  )
   @visibility("read")
   eTag?: string;
 }
 
+@doc("The managedBy property envelope.")
 model ManagedBy {
-  @doc("The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource.")
+  @doc(
+    "The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource."
+  )
   @visibility("read", "create", "update")
   managedBy?: string;
 }
 
+@doc("The resource kind property envelope.")
 model ResourceKind {
-  @doc("Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value.")
+  @doc(
+    "Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value."
+  )
   @format("^[-\\w\\._,\\(\\\\\\)]+$")
   @visibility("read", "create")
   kind?: string;
@@ -381,27 +463,37 @@ model ResourceKind {
 model ResourcePlanType {
   @doc("A user defined name of the 3rd Party Artifact that is being procured.")
   name: string;
-  
+
   @doc("The publisher of the 3rd Party Artifact that is being bought. E.g. NewRelic")
   publisher: string;
-  
-  @doc("The 3rd Party artifact that is being procured. E.g. NewRelic. Product maps to the OfferID specified for the artifact at the time of Data Market onboarding. ")
+
+  @doc(
+    "The 3rd Party artifact that is being procured. E.g. NewRelic. Product maps to the OfferID specified for the artifact at the time of Data Market onboarding. "
+  )
   product: string;
-  
-  @doc("A publisher provided promotion code as provisioned in Data Market for the said product/artifact.")
+
+  @doc(
+    "A publisher provided promotion code as provisioned in Data Market for the said product/artifact."
+  )
   promotionCode?: string;
-          
+
   @doc("The version of the desired product/artifact.")
   version?: string;
 }
 
+@doc("The resource plan property envelope.")
 model ResourcePlan {
   @doc("Details of the resource plan.")
   plan?: ResourcePlanType;
 }
 
 @doc("Available service tiers for the SKU.")
-enum SkuTier { "Free", "Basic", "Standard", "Premium"}
+enum SkuTier {
+  "Free",
+  "Basic",
+  "Standard",
+  "Premium",
+}
 
 @doc("The SKU (Stock Keeping Unit) assigned to this resource.")
 @armCommonDefinition("Sku")
@@ -412,13 +504,19 @@ model ResourceSkuType {
   @doc("The service tier for this SKU.")
   tier?: SkuTier;
 
-  @doc("The SKU size. When the name field is the combination of tier and some other value, this would be the standalone code.")
+  @doc(
+    "The SKU size. When the name field is the combination of tier and some other value, this would be the standalone code."
+  )
   size?: int32;
 
-  @doc("If the service has different generations of hardware, for the same SKU, then that can be captured here.")
+  @doc(
+    "If the service has different generations of hardware, for the same SKU, then that can be captured here."
+  )
   family?: string;
 
-  @doc("If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the resource this may be omitted.")
+  @doc(
+    "If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the resource this may be omitted."
+  )
   capacity?: int32;
 }
 
@@ -433,11 +531,11 @@ model ManagedIdentityProperties {
   @doc("The Active Directory tenant id of the principal.")
   @visibility("read")
   tenantId?: string;
-  
+
   @doc("The active directory identifier of this principal.")
   @visibility("read")
   principalId?: string;
-  
+
   @doc("The type of managed identity assigned to this resource.")
   type: ManagedIdentityType;
 
@@ -450,11 +548,11 @@ model ManagedSystemIdentityProperties {
   @doc("The Active Directory tenant id of the principal.")
   @visibility("read")
   tenantId?: string;
-  
+
   @doc("The active directory identifier of this principal.")
   @visibility("read")
   principalId?: string;
-  
+
   @doc("The type of managed identity assigned to this resource.")
   type: ManagedSystemIdentityType;
 }
@@ -463,6 +561,7 @@ model ManagedSystemIdentityProperties {
 model UserAssignedIdentity {
   @doc("The active directory client identifier for this principal.")
   clientId: string;
+
   @doc("The active directory identifier for this principal.")
   principalId: string;
 }
@@ -472,17 +571,17 @@ enum ManagedIdentityType {
   None,
   SystemAssigned,
   UserAssigned,
-  "SystemAssigned,UserAssigned"
+  "SystemAssigned,UserAssigned",
 }
 
 @doc("The kind of managemed identity assigned to this resource.")
 enum ManagedSystemIdentityType {
   None,
-  SystemAssigned
+  SystemAssigned,
 }
 
 @doc("Update model for resource tags")
 model ResourceUpdate {
   @doc("ARM resource tags.")
-  tags?: Map<string, string>
+  tags?: Map<string, string>;
 }

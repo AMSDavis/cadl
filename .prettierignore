@@ -10,3 +10,6 @@ common/scripts/
 common/changes/
 common/config/rush/pnpm-lock.yaml
 packages/cadl-samples/rpaas/types.json
+
+# That is an example with error and can't be formatted
+packages/cadl-samples/local-cadl/test.cadl
