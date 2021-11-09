@@ -118,8 +118,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Null response"
+          "204": {
+            "description": "No content"
           },
           "default": {
             "description": "An unexpected error response.",
@@ -258,8 +258,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Null response"
+          "204": {
+            "description": "No content"
           },
           "default": {
             "description": "An unexpected error response.",
@@ -286,8 +286,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Null response"
+          "204": {
+            "description": "No content"
           },
           "default": {
             "description": "An unexpected error response.",
