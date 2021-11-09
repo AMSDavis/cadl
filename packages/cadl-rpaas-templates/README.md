@@ -5,13 +5,19 @@ This package provide a project template to help create your first RPaaS services
 ## Getting started
 
 1. install the template by following:
+
 via git clone locally：
 ```
 git clone <this repo>
 dotnet new -i  path-to-the-repo/packages/cadl-rpaas-templates/templates/cadl-rpaas
 dotnet new --list
 ```
-via nuget(TBD)：
+
+via nuget:
+
+```
+TBD
+```
 
 2. create cadl-rpaas prject using this template:
 ```
@@ -32,10 +38,23 @@ Options:
 
 
 ## Debug with onebox
-TBD
+
+### Prerequisites
+1. Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
+1. Install [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
+
+### Run the onebox
+```
+cd onebox
+docker-compose up
+```
+The OneBox will be running on port 6000.
+
+### Register resourceProvider and resourceTypes
+```
+./register.sh
+```
 
 ## Test with Api Test
 
-
-
-
+TBD
