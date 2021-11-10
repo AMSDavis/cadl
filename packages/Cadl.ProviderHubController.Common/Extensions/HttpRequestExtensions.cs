@@ -25,7 +25,7 @@ namespace Cadl.ProviderHubController.Common
             {
                 var headerValues = request.Headers[RPaasApiVersionHeader];
 
-                return headerValues[^1];
+                return headerValues[headerValues.Count - 1];
             }
             
             return string.Empty;

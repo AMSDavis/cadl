@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <BuildId Condition="'$(BuildId)' == ''">0</BuildId>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Cadl.ProviderHubController.Common</PackageId>
       <Version>1.0.0-beta.$(BuildId)</Version>
       <PackageTags>Microsoft Azure CADL RPaas</PackageTags>
