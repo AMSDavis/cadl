@@ -43,25 +43,51 @@ Options:
 1. Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
 1. Install [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 
-### Run OneBox
-* Option 1: with `docker-compose`
-```bash
-cd onebox
-docker-compose up
-```
-The OneBox will be running on http://localhost:6000. To stop OneBox, run `docker-compose down`.
-
-* Option 2: with [Porter](https://porter.sh/install/)
-```bash
-porter install rpaas-onebox --reference rpaasoneboxacr.azurecr.io/rpaas-onebox-installer:v0.1.0 --allow-docker-host-access
-```
-To stop, run `porter uninstall rpaas-onebox`.
-
-If no permission to pull image, you can use following command to log in to the registry:
+To authenticate with the RPaaS OneBox ACR, use following commands:
 ```bash
 az login
 az acr login --name rpaasoneboxacr
 ```
+### Run OneBox
+
+#### Option 1: Run OneBox with `docker-compose`
+```bash
+cd onebox
+docker-compose up
+```
+The OneBox will be running on http://localhost:6000.
+
+Available environement variables:
+* `RPAAS_ONEBOX_IMAGE_LABEL`: The label of the OneBox images to use. Default is `latest`.
+* `RPAAS_ONEBOX_REGISTRY`: The registry to use for OneBox images. Default is `rpaasoneboxacr.azurecr.io`.
+* `RPAAS_ONEBOX_PORT`: The port to expose the OneBox on. Default is `6000`.
+* `RPAAS_ONEBOX_SERVICERP_PORT`: The port to expose the OneBox ServiceRP on. Default is `6012`.
+* `RPAAS_ONEBOX_METARP_PORT`: The port to expose the OneBox MetaRP on. Default is `6010`.
+
+For example, to run the OneBox on another port:
+```bash
+RPAAS_ONEBOX_PORT=8080 docker-compose up
+```
+To stop OneBox, run `docker-compose down`.
+
+#### Option 2: Run OneBox with [Porter](https://porter.sh/install/)
+```bash
+porter install rpaas-onebox --reference rpaasoneboxacr.azurecr.io/rpaas-onebox-installer:v0.1.0 --allow-docker-host-access
+```
+
+Available parameters:
+* `label`: The label of the OneBox images to use. Default is `latest`.
+* `registry`: The registry to use for OneBox images. Default is `rpaasoneboxacr.azurecr.io`.
+* `port`: The port to expose the OneBox on. Default is `6000`.
+* `port_servicerp`: The port to expose the OneBox ServiceRP on. Default is `6012`.
+* `port_metarp`: The port to expose the OneBox MetaRP on. Default is `6010`.
+
+For example, to run the OneBox on another port:
+```bash
+porter install rpaas-onebox --param port=8080
+```
+
+To stop, run `porter uninstall rpaas-onebox`.
 
 ### Register resourceProvider and resourceTypes
 The resourceProvider and resourceTypes registration is kept in the `registrations` folder:
