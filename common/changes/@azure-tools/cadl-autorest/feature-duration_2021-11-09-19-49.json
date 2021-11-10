@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-autorest",
+      "comment": "**Added** Support for duration type",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-autorest"
+}

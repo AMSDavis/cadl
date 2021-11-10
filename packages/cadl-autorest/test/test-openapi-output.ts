@@ -387,6 +387,7 @@ describe("autorest: primitives", () => {
     ["plainDate", { type: "string", format: "date" }],
     ["zonedDateTime", { type: "string", format: "date-time" }],
     ["plainTime", { type: "string", format: "time" }],
+    ["duration", { type: "string", format: "duration" }],
     ["bytes", { type: "string", format: "byte" }],
   ];
 
