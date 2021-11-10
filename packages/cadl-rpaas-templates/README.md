@@ -58,7 +58,7 @@ docker-compose up
 The OneBox will be running on http://localhost:6000.
 
 Available environement variables:
-* `RPAAS_ONEBOX_IMAGE_LABEL`: The label of the OneBox images to use. Default is `latest`.
+* `RPAAS_ONEBOX_IMAGE_TAG`: The tag of the OneBox images to use. Default is `latest`.
 * `RPAAS_ONEBOX_REGISTRY`: The registry to use for OneBox images. Default is `rpaasoneboxacr.azurecr.io`.
 * `RPAAS_ONEBOX_PORT`: The port to expose the OneBox on. Default is `6000`.
 * `RPAAS_ONEBOX_SERVICERP_PORT`: The port to expose the OneBox ServiceRP on. Default is `6012`.
@@ -76,7 +76,7 @@ porter install rpaas-onebox --reference rpaasoneboxacr.azurecr.io/rpaas-onebox-i
 ```
 
 Available parameters:
-* `label`: The label of the OneBox images to use. Default is `latest`.
+* `tag`: The tag of the OneBox images to use. Default is `latest`.
 * `registry`: The registry to use for OneBox images. Default is `rpaasoneboxacr.azurecr.io`.
 * `port`: The port to expose the OneBox on. Default is `6000`.
 * `port_servicerp`: The port to expose the OneBox ServiceRP on. Default is `6012`.
