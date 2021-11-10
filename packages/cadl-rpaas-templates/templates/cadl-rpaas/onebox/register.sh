@@ -2,13 +2,13 @@
 
 set -e
 
-SERVICERP_ENDPOINT=${SERVICERP_ENDPOINT:-http://host.docker.internal:6000}
-SERVICERP_SUBSCRIPTION=${SERVICERP_SUBSCRIPTION:-6f53185c-ea09-4fc3-9075-318dec805303}
-SERVICERP_API_VERSION=${SERVICERP_API_VERSION:-2021-05-01-preview}
+ONEBOX_ENDPOINT=${ONEBOX_ENDPOINT:-http://host.docker.internal:6000}
+ONEBOX_SUBSCRIPTION=${ONEBOX_SUBSCRIPTION:-6f53185c-ea09-4fc3-9075-318dec805303}
+ONEBOX_API_VERSION=${ONEBOX_API_VERSION:-2021-05-01-preview}
 
 function getLocation
 {
-  local location=${SERVICERP_ENDPOINT}/subscriptions/${SERVICERP_SUBSCRIPTION}/providers/Microsoft.ProviderHub
+  local location=${ONEBOX_ENDPOINT}/subscriptions/${ONEBOX_SUBSCRIPTION}/providers/Microsoft.ProviderHub
   local isProvider=1
 
   IFS=/
@@ -25,7 +25,7 @@ function getLocation
 
   unset IFS
 
-  echo $location?api-version=${SERVICERP_API_VERSION}
+  echo $location?api-version=${ONEBOX_API_VERSION}
 }
 
 registrations=${1:-./registrations}

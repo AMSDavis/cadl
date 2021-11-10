@@ -90,7 +90,7 @@ porter install rpaas-onebox --param port=8080
 To stop, run `porter uninstall rpaas-onebox`.
 
 ### Register resourceProvider and resourceTypes
-The resourceProvider and resourceTypes registration is kept in the `registrations` folder:
+The resourceProvider and resourceTypes registration contents are put in the `registrations` folder:
 ```
 .
 ├── docker-compose.yml
@@ -100,7 +100,7 @@ The resourceProvider and resourceTypes registration is kept in the `registration
     │   └── employees.json
     └── Microsoft.Contoso.json
 ```
-With following command, you can register the resourceProvider and resourceTypes to OneBox ServiceRp:
+With following command, you can register the resourceProvider and resourceTypes to OneBox ServiceRP:
 ```bash
 ./register.sh
 ```
@@ -108,6 +108,7 @@ or with `docker`:
 ```bash
 docker run --rm -v $(pwd)/registrations:/app/registrations:ro rpaasoneboxacr.azurecr.io/rpaas-onebox/register
 ```
+or directly do the registration with Curl or other REST tools. See [RPaaS wiki](https://armwiki.azurewebsites.net/rpaas/onebox.html#as-rp-owner-userrp).
 
 ## API Test
 
