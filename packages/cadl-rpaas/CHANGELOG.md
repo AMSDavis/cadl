@@ -1,6 +1,11 @@
 # Change Log - @azure-tools/cadl-rpaas
 
-This log was last generated on Thu, 28 Oct 2021 21:20:34 GMT and should not be manually modified.
+This log was last generated on Thu, 11 Nov 2021 21:46:47 GMT and should not be manually modified.
+
+## 0.10.1
+Thu, 11 Nov 2021 21:46:47 GMT
+
+_Version update only_
 
 ## 0.10.0
 Thu, 28 Oct 2021 21:20:34 GMT

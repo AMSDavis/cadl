@@ -9,15 +9,16 @@ import {
   run,
 } from "./helpers.js";
 
+const branch = `publish/${Date.now().toString(36)}`;
+
 // Check that we have a clean slate before starting
 checkPrePublishState();
 
-// Determine project versions including any bumps from cadl publish above
-const versions = getProjectVersions();
-const branch = `publish/${Date.now().toString(36)}`;
-
 // Stage the cadl publish
 cadlRun("rush", "publish", "--apply");
+
+// Determine project versions including any bumps from cadl publish above
+const versions = getProjectVersions();
 
 // Bump cadl-azure -> cadl dependencies.
 bumpCrossSubmoduleDependencies();
@@ -110,14 +111,14 @@ function bumpDependencies(...dependencyGroups) {
 }
 
 function commitChanges() {
-  doubleRun("git", "add", "-A");
-
+  cadlRun("git", "add", "-A");
   if (checkForChangedFiles(coreRepoRoot, undefined, { silent: true })) {
     cadlRun("git", "commit", "-m", "Prepare cadl publish");
   } else {
     console.log("INFO: No changes to cadl.");
   }
 
+  cadlAzureRun("git", "add", "-A");
   if (checkForChangedFiles(repoRoot, undefined, { silent: true })) {
     cadlAzureRun("git", "commit", "-m", "Prepare cadl-azure publish");
   } else {

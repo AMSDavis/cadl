@@ -2,6 +2,23 @@
   "name": "@azure-tools/cadl-autorest",
   "entries": [
     {
+      "version": "0.9.0",
+      "tag": "@azure-tools/cadl-autorest_v0.9.0",
+      "date": "Thu, 11 Nov 2021 21:46:47 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "**Added** Support for duration type"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Define response body for primitive response type"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.8.1",
       "tag": "@azure-tools/cadl-autorest_v0.8.1",
       "date": "Thu, 28 Oct 2021 21:20:34 GMT",

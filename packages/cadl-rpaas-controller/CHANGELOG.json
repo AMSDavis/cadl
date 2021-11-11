@@ -2,6 +2,26 @@
   "name": "@azure-tools/cadl-rpaas-controller",
   "entries": [
     {
+      "version": "0.5.1",
+      "tag": "@azure-tools/cadl-rpaas-controller_v0.5.1",
+      "date": "Thu, 11 Nov 2021 21:46:47 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Let analyzers know that code is generated"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `0.8.1` to `0.9.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-rpaas\" from `0.10.0` to `0.10.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.0",
       "tag": "@azure-tools/cadl-rpaas-controller_v0.5.0",
       "date": "Thu, 28 Oct 2021 21:20:34 GMT",
