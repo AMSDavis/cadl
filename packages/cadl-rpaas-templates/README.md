@@ -6,17 +6,19 @@ This package provide a project template to help create your first RPaaS services
 
 1. install the template by following:
 
+
+via nuget:
+
+```bash
+dotnet new -i Cadl.RPaaS.Templates --nuget-source <the nuget source >
+
+```
+
 via git clone locally：
 ```bash
 git clone <this repo>
 dotnet new -i  path-to-the-repo/packages/cadl-rpaas-templates/templates/cadl-rpaas
 dotnet new --list
-```
-
-via nuget:
-
-```bash
-TBD
 ```
 
 2. create cadl-rpaas prject using this template:
@@ -31,6 +33,9 @@ Options:
   -F|--FirstResourceType  Your resource type.
                           string - Optional
                           Default: Employee
+
+Note:
+  a 'Yes' | 'Y' is needed by the prompt to allow the post script , the post script is to install cadl tools.
 
 ```
 
