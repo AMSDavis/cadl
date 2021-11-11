@@ -14,23 +14,28 @@ using Azure.ARM;
   path: "Employees",
   collectionName: "Employees",
   parameterType: EmployeeNameParameter,
-  standardOperations: ["create","delete"]
+  standardOperations: ["create","delete"],
 })
-model Employee is TrackedResource<EmployeeProperties> { };
+model Employee is TrackedResource<EmployeeProperties> {}
 
 @doc("The status of the current operation.")
 enum ProvisioningState {
-  Succeeded, Failed, Canceled, Provisioning, Updating, Deleting, Accepted
-} 
+  Succeeded,
+  Failed,
+  Canceled,
+  Provisioning,
+  Updating,
+  Deleting,
+  Accepted,
+}
 
 model EmployeeNameParameter {
-  @doc("Employee resource name")
-  @path EmployeeName: string;
+  @doc("Employee resource name") @path EmployeeName: string;
 }
 
 @doc("Details of the Contoso Employee.")
 model EmployeeProperties {
- @visibility("read")
+  @visibility("read")
   @doc("The status of the last operation.")
   provisioningState?: ProvisioningState;
 }

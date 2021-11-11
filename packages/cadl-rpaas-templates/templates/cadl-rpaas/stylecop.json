@@ -10,7 +10,21 @@
       }
     },
     "namingRules": {
-      "allowedHungarianPrefixes": [ "as", "do", "id", "if", "in", "ip", "is", "my", "no", "on", "to", "ui", "v" ]
+      "allowedHungarianPrefixes": [
+        "as",
+        "do",
+        "id",
+        "if",
+        "in",
+        "ip",
+        "is",
+        "my",
+        "no",
+        "on",
+        "to",
+        "ui",
+        "v"
+      ]
     },
     "indentation": {
       "indentationSize": 4,
@@ -26,12 +40,7 @@
       "allowConsecutiveUsings": true
     },
     "maintainabilityRules": {
-      "topLevelTypes": [
-        "class",
-        "enum",
-        "interface",
-        "struct"
-      ]
+      "topLevelTypes": ["class", "enum", "interface", "struct"]
     }
   }
 }
