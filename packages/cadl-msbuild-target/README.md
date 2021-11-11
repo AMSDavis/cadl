@@ -9,9 +9,9 @@ This package enables API First development of RPaaS services using Cadl. It adds
 3. init a cadl project into './cadl' by following the below instructions:
 ```sh
 cd path/to/your/project
-mkdir cadl
+mkdir cadl 
+cd cadl
 npm init -y
-npm install -g @cadl-lang/compiler
 npm install @cadl-lang/rest @azure-tools/cadl-autorest @azure-tools/cadl-rpaas @azure-tools/cadl-rpaas-controller
 ```
 4. add a .cadl file into the './cadl' folder.
