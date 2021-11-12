@@ -4,12 +4,15 @@
 **/bin/
 **/obj/
 **/.vs/
-core/
-common/temp/
-common/scripts/
-common/changes/
-common/config/rush/pnpm-lock.yaml
+**/common/temp/
+**/common/scripts/
+**/common/changes/
+**/common/config/rush/pnpm-lock.yaml
+
 packages/cadl-samples/rpaas/types.json
 
+# Don't format compiler test cadl files.
+core/packages/compiler/test/formatter/**/*.cadl
+
 # That is an example with error and can't be formatted
-packages/cadl-samples/local-cadl/test.cadl
+core/packages/samples/local-cadl/test.cadl
