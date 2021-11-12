@@ -1,11 +1,10 @@
 # Cadl RPaaS Template
 
-This package provide a project template to help create your first RPaaS services using Cadl. The generated project has integrated with cadl and rpaas onebox, so that it can be simply to use cadl & rpaas onebox .
+This package provides a project template to help create your first RPaaS services using Cadl. The generated project has integrated with cadl and rpaas onebox, so that it can be simply to use cadl & rpaas onebox .
 
 ## Getting started
 
 1. install the template by following:
-
 
 via nuget:
 
@@ -21,9 +20,9 @@ dotnet new -i  path-to-the-repo/packages/cadl-rpaas-templates/templates/cadl-rpa
 dotnet new --list
 ```
 
-2. create cadl-rpaas prject using this template:
+2. create cadl-rpaas project using this template:
 ```bash
-dotnet new cadl-rpaas -P <provider> -o <prject folder>
+dotnet new cadl-rpaas -P <provider> -o <project folder>
 
 Options:
   -P|--Provider           Your provider name.
@@ -62,7 +61,7 @@ docker-compose up
 ```
 The OneBox will be running on http://localhost:6000.
 
-Available environement variables:
+Available environment variables:
 * `RPAAS_ONEBOX_IMAGE_TAG`: The tag of the OneBox images to use. Default is `latest`.
 * `RPAAS_ONEBOX_REGISTRY`: The registry to use for OneBox images. Default is `rpaasoneboxacr.azurecr.io`.
 * `RPAAS_ONEBOX_PORT`: The port to expose the OneBox on. Default is `6000`.
