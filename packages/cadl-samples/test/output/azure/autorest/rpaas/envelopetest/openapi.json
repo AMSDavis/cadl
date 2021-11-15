@@ -50,20 +50,20 @@
         "summary": "List the operations for Microsoft.EnvelopeTest",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/OperationListResult"
+              "$ref": "../../../../../../rpaas/types.json#/definitions/OperationListResult"
             }
           },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -81,10 +81,10 @@
         "summary": "List AllPropertiesResource resources by subscription ID",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -97,7 +97,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -115,10 +115,10 @@
         "summary": "List SystemOnlyResource resources by subscription ID",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -131,7 +131,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -149,13 +149,13 @@
         "summary": "List AllPropertiesResource resources by resource group",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ResourceGroupNameParameter"
           }
         ],
         "responses": {
@@ -168,7 +168,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -186,13 +186,13 @@
         "summary": "Get a AllPropertiesResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AllPropertiesNameParameter"
@@ -208,7 +208,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -225,13 +225,13 @@
         "summary": "Create a AllPropertiesResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AllPropertiesNameParameter"
@@ -262,7 +262,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -275,13 +275,13 @@
         "summary": "Update a AllPropertiesResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AllPropertiesNameParameter"
@@ -306,7 +306,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -323,13 +323,13 @@
         "summary": "Delete a AllPropertiesResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AllPropertiesNameParameter"
@@ -348,7 +348,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -363,13 +363,13 @@
         "summary": "List SystemOnlyResource resources by resource group",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ResourceGroupNameParameter"
           }
         ],
         "responses": {
@@ -382,7 +382,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -400,13 +400,13 @@
         "summary": "Get a SystemOnlyResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/SystemOnlyPropertiesNameParameter"
@@ -422,7 +422,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -439,13 +439,13 @@
         "summary": "Create a SystemOnlyResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/SystemOnlyPropertiesNameParameter"
@@ -476,7 +476,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -489,13 +489,13 @@
         "summary": "Update a SystemOnlyResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/SystemOnlyPropertiesNameParameter"
@@ -520,7 +520,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -537,13 +537,13 @@
         "summary": "Delete a SystemOnlyResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/SystemOnlyPropertiesNameParameter"
@@ -562,7 +562,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -603,7 +603,7 @@
           "x-ms-client-flatten": true
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../rpaas/types.json#/definitions/systemData",
           "description": "System metadata for this resource.",
           "readOnly": true
         },
@@ -630,11 +630,11 @@
           ]
         },
         "plan": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/Plan",
+          "$ref": "../../../../../../rpaas/types.json#/definitions/Plan",
           "description": "Details of the resource plan."
         },
         "sku": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/Sku",
+          "$ref": "../../../../../../rpaas/types.json#/definitions/Sku",
           "description": "The SKU (Stock Keeping Unit) assigned to this resource."
         },
         "identity": {
@@ -648,7 +648,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../rpaas/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -834,7 +834,7 @@
           "x-ms-client-flatten": true
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../rpaas/types.json#/definitions/systemData",
           "description": "System metadata for this resource.",
           "readOnly": true
         },
@@ -849,7 +849,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../rpaas/types.json#/definitions/TrackedResource"
         }
       ]
     },
