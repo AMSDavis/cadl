@@ -2906,7 +2906,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-autorest'
     resolution:
-      integrity: sha512-CM6TOVJbOtmkDE78UP6MwmCjh0Uv2ar+vaPUz4XpdG5wRWl2g5XNDh6cJ7ZirTasan3IN1cC0CzhgnIyC32Akg==
+      integrity: sha512-EIo26wnGOMQpzXJK5IXbcyhEWzzhA5RdsOv5bmql8ZKFha6rCTG+bp560IMnfWE5lbGMs8+qCEt7j8zZHBJ8Yw==
       tarball: file:projects/cadl-autorest.tgz
     version: 0.0.0
   file:projects/cadl-msbuild-target.tgz:
@@ -2928,7 +2928,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-rpaas-controller'
     resolution:
-      integrity: sha512-yI9N8QfhWubncLj9c4eYzmNNgzek3JRfIaW6f+tD4WlvWFXSIDSLtqJVDcMBqEiiAgeCciPLlPsqo2LgHxhoYA==
+      integrity: sha512-ZF3qgQOReoo2Grfb141fRnnN9T/LKCyjiefOxSMWgM4wk1IiFg18s+FALNNcT+8E6C9FoZidsuux6hQTsTSTEA==
       tarball: file:projects/cadl-rpaas-controller.tgz
     version: 0.0.0
   file:projects/cadl-rpaas.tgz:
@@ -2940,7 +2940,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-rpaas'
     resolution:
-      integrity: sha512-CgIQI3gPFghmuqc5cSNPAjLVNxoeeKt04U/tYISmpT8+NNiP0LQ51A2Repv18GYWIPvWDdA3odx0ydVDo8Sbsg==
+      integrity: sha512-A7HrInVMxe4rYFCC3fjdlUu1N/cC5rnHYXmiSZ3yage9TxOMV273p559/FV04d5nHl/6x9ERJYSD3gyfSH9uaA==
       tarball: file:projects/cadl-rpaas.tgz
     version: 0.0.0
   file:projects/cadl-samples.tgz:
@@ -2951,14 +2951,14 @@ packages:
     dev: false
     name: '@rush-temp/cadl-samples'
     resolution:
-      integrity: sha512-KSvJYa0UysATsBO+rMWH0JyP9MogAT+xBEQRevhDtoMSMOG1wS1P5KxkQsD2BtIRIAhqqLkAO6KvwXYktekTZQ==
+      integrity: sha512-RfL1GoE9Yd6aEv+zaDP2nyT1TcVdDTG3kUZTd6Lvo2+1f+eqWv4xr915h2YPaFhsyAn/5d557URBoH+gmWtZEw==
       tarball: file:projects/cadl-samples.tgz
     version: 0.0.0
   file:projects/cadl-vs.tgz:
     dev: false
     name: '@rush-temp/cadl-vs'
     resolution:
-      integrity: sha512-lSjfPF3Dly8vQO4NUXdpoyNPaR/DPME7kAPN2hVXc/wcFZFcVDY6RXUAMCJhAeXPWXHfKdaTbVYfD6WHhSY1NA==
+      integrity: sha512-nH9sd2RHKXtO/8HPImqzGvkPKaKfPHpi7ZMsu2pmNLyw0hNe2AMznSzLDnwzWjVoMMHrhGN58yWSznn/+DWiBg==
       tarball: file:projects/cadl-vs.tgz
     version: 0.0.0
   file:projects/cadl-vscode.tgz:
@@ -3025,7 +3025,7 @@ packages:
     dev: false
     name: '@rush-temp/openapi3'
     resolution:
-      integrity: sha512-iQ+d6uUPsy3WWFNxd7GCwLkqIqCjKxsuSp27g/DVRdsmw+nrM42YZXARjiSAZdXP6jRRMDu4lkoVCZ6Fp+gAGA==
+      integrity: sha512-7WvsOIkXYhPqtPgCVvltPP+i4nWwZVeg3I97w1v7MPgqBhicdp1Y2allpKrpPW92TKZq7ugNDJfktV1jBGUlrA==
       tarball: file:projects/openapi3.tgz
     version: 0.0.0
   file:projects/prettier-plugin-cadl.tgz:
@@ -3040,7 +3040,7 @@ packages:
     dev: false
     name: '@rush-temp/prettier-plugin-cadl'
     resolution:
-      integrity: sha512-kOwiM0LOLxx1kaoWogHuyuukpDsB+losyhR2v4sJ4NKlsCWP6qdYNWUXrPCAFwroD0i2eF/SlhUtSKSQ9sx7sg==
+      integrity: sha512-V0U6xFkLMY+jtvnShTdfSzs9Jywd/y7isp522SO7RUKZn0xdt7H3RRxnBBxzjXwwryVTJ3toC+7gZn9vEwW7QQ==
       tarball: file:projects/prettier-plugin-cadl.tgz
     version: 0.0.0
   file:projects/rest.tgz:
@@ -3050,7 +3050,7 @@ packages:
     dev: false
     name: '@rush-temp/rest'
     resolution:
-      integrity: sha512-SpwbjlrtAuO4QSyRyj2V6h9bP0lWeGBpVZzs9/d4EM6tiIZAQ+VScmf4NEe9D6fIkOwSTMMGxmRf/QRgV16Raw==
+      integrity: sha512-ISbaiSuVbwZVF4g0HWKD/X+88PHX9lvUBu2VTAYnn58VIqm0Md1ygR4qmQs8erWJLp93/wfHDQWkj3JDjPhc9Q==
       tarball: file:projects/rest.tgz
     version: 0.0.0
   file:projects/samples.tgz:
@@ -3061,7 +3061,7 @@ packages:
     dev: false
     name: '@rush-temp/samples'
     resolution:
-      integrity: sha512-LXbwEirjWDMtVBplgV1hLVXMCOB7fjLrC004z7dv4JzQfi35ZQ7d1J8b14vlywU8QavmhKa2ZwUS3NNbOBoj7w==
+      integrity: sha512-SMR1pZHwWT+xfjCAP0QL4t6DvgYIRHLigOqGmTgROC/PL+rBaFhr6lHgdpKJ6c0G3AIU4jeJPBDGHEbZrmSGow==
       tarball: file:projects/samples.tgz
     version: 0.0.0
   file:projects/spec.tgz:
@@ -3073,7 +3073,7 @@ packages:
     dev: false
     name: '@rush-temp/spec'
     resolution:
-      integrity: sha512-njEpCjwH/7zFuJvi0VQIz25u7IKSPle1F7bkREtEtLiMaWYRebgLPsIz/DbjYggUac3CsAnjURChG1G7S6YMsg==
+      integrity: sha512-//Vmd0q1lh8GkX1H65KNxm9EKDPxBbpsre783M3o4A7BEczpMhZXED/lkPdf6vbisVui877dYfM7r/c8NRj0WA==
       tarball: file:projects/spec.tgz
     version: 0.0.0
   file:projects/tmlanguage-generator.tgz:
@@ -3082,10 +3082,11 @@ packages:
       '@types/plist': 3.0.2
       onigasm: 2.2.5
       plist: 3.0.4
+      typescript: 4.4.4
     dev: false
     name: '@rush-temp/tmlanguage-generator'
     resolution:
-      integrity: sha512-WM1WhCLQw/RzuttQrS7QutOHooQHzcxlNAI8Jv5FUgaPmH7OGl7G3m/dH8KcWE4vSQRteEKlCNqeHU8w1z152w==
+      integrity: sha512-knw/L+Bae0ugyw0PdTcsoHMPZIAuAz07xX0LuxYb3mcXklWfh3ubNBGuNnn94abkOXM5yd6fiWgwtgpwowPREg==
       tarball: file:projects/tmlanguage-generator.tgz
     version: 0.0.0
 specifiers:
@@ -3121,7 +3122,7 @@ specifiers:
   '@types/yargs': ~17.0.2
   ajv: ~8.4.0
   autorest: ~3.3.2
-  ecmarkup: 9.6.0
+  ecmarkup: ~9.6.0
   glob: ~7.1.6
   grammarkdown: ~3.1.2
   js-yaml: ~4.1.0
