@@ -22,7 +22,8 @@
       "type": "parameter",
       "description": "Your resource type.",
       "defaultValue": "Employee",
-      "replaces": "Employee"
+      "replaces": "Employee",
+      "fileRename": "employee"
     }
   },
   "sources": [
