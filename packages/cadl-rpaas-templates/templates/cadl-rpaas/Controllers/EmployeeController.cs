@@ -1,33 +1,34 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using System;
-using System.Net;
 using System.Threading.Tasks;
 using Cadl.ProviderHubController.Common;
-using Microsoft.Contoso.Service.Models;
-using Microsoft.Contoso.Service.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.Contoso.Service.Models;
 
-namespace Microsoft.Contoso.Service {
+namespace Microsoft.Contoso.Service
+{
+    /// <summary>
+    /// Controller for user RP operations on the Employee resource.
+    /// This is a sample code, you should override the abstract functions in the EmployeeControllerBase on demand to implement your own logic.
+    /// </summary>
+    [ApiController]
+    public partial class EmployeeController : EmployeeControllerBase {
 
-  /// <summary>
-  /// Controller for user RP operations on the Employee resource.
-  /// </summary>
-  [ApiController]
-  public partial class EmployeeController : EmployeeControllerBase {
-    protected override Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string EmployeeName, Employee body, HttpRequest request) {
-      return Task.FromResult(ValidationResponse.Valid);
+    protected override Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string EmployeeName, Employee body, HttpRequest request)
+    {
+        return Task.FromResult(ValidationResponse.Valid);
     }
 
-    protected override Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string EmployeeName, Employee body, HttpRequest request) {
-      return Task.FromResult(Ok() as IActionResult);
+    protected override Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string EmployeeName, Employee body, HttpRequest request)
+    {
+        return Task.FromResult(this.Ok() as IActionResult);
     }
 
-    protected override Task OnEndCreate(string subscriptionId, string resourceGroupName, string EmployeeName, Employee body, HttpRequest request) {
-      return Task.CompletedTask;
+    protected override Task OnEndCreate(string subscriptionId, string resourceGroupName, string EmployeeName, Employee body, HttpRequest request)
+    {
+        return Task.CompletedTask;
     }
-  }
+    }
 }
