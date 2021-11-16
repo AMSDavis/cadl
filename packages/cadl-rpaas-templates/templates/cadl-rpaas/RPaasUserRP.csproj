@@ -9,7 +9,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Cadl.ProviderHubController.Common" Version="1.0.0-beta.20211018.9" />
+    <PackageReference Include="Cadl.ProviderHubController.Common" Version="1.0.0-beta.20211111.1" />
     <PackageReference Include="Cadl.MSBuild" Version="0.1.0-beta.20211108.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.18" />
   </ItemGroup>
