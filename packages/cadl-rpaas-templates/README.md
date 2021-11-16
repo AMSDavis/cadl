@@ -115,7 +115,6 @@ The resourceProvider and resourceTypes registration contents are put in the `reg
 
 ```
 .
-├── docker-compose.yml
 ├── register.sh
 └── registrations
     ├── Microsoft.Contoso
@@ -135,8 +134,8 @@ or with `docker`:
 docker run --rm -v $(pwd)/registrations:/app/registrations:ro rpaasoneboxacr.azurecr.io/rpaas-onebox/register
 ```
 
-or directly do the registration with Curl or other REST tools. See [RPaaS wiki](https://armwiki.azurewebsites.net/rpaas/onebox.html#as-rp-owner-userrp).
+or directly do the registration with Curl or other REST tools. See [RPaaS wiki As RP owner section](https://armwiki.azurewebsites.net/rpaas/onebox.html#as-rp-owner-userrp).
 
 ## API Test
 
-TBD
+TBD. For now, please refer to [RPaaS wiki As an end user section](https://armwiki.azurewebsites.net/rpaas/onebox.html#as-an-end-user-uses-metarp).
