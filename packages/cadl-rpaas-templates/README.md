@@ -1,6 +1,6 @@
 # Cadl RPaaS Template
 
-This package provides a project template to help create your first RPaaS services using Cadl. The generated project has integrated with cadl and rpaas onebox, so that it can be simply to use cadl & rpaas onebox .
+This package provides a project template to help create your first RPaaS services using Cadl. The generated project has integrated with cadl and rpaas onebox, so that the cadl specs can be simply deployed with rpaas onebox.
 
 ## Getting started
 
