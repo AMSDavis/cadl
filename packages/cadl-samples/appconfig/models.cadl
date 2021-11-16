@@ -1,3 +1,5 @@
+using Cadl.Http;
+
 model ETagHeader {
   @header eTag: string;
 }

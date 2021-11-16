@@ -1,12 +1,13 @@
 import { addSecurityDefinition, addSecurityRequirement } from "@azure-tools/cadl-autorest";
-import { NamespaceType, Program, Type } from "@cadl-lang/compiler";
 import {
-  $consumes,
-  $produces,
   getServiceHost,
+  NamespaceType,
+  Program,
   setServiceHost,
   setServiceNamespace,
-} from "@cadl-lang/rest";
+  Type,
+} from "@cadl-lang/compiler";
+import { $consumes, $produces } from "@cadl-lang/rest";
 import { reportDiagnostic } from "./lib.js";
 
 const armNamespacesKey = Symbol();
@@ -42,12 +43,13 @@ export function $armNamespace(program: Program, entity: Type, armNamespace?: str
   // Add the /operations endpoint for the ARM namespace
   program.evalCadlScript(`
     using Azure.ARM;
+    using Cadl.Http;
     namespace ${cadlNamespace} {
       @tag("Operations")
-      @resource("/providers/${armNamespace}/operations")
+      @route("/providers/${armNamespace}/operations")
       namespace Operations {
         @doc("List the operations for ${armNamespace}")
-        @list @get op List(...ApiVersionParameter): ArmResponse<OperationListResult> | ErrorResponse;
+        @pageable @get op List(...ApiVersionParameter): ArmResponse<OperationListResult> | ErrorResponse;
       }
     }`);
 

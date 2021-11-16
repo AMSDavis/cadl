@@ -1,4 +1,6 @@
-@resource("/labels")
+using Cadl.Http;
+
+@route("/labels")
 namespace LabelsResource {
   @doc("Gets a list of labels.")
   @operationId("GetLabels")

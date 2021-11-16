@@ -131,7 +131,7 @@ function createAdlFromConfig(configuration: ProducesConsumesOperation[]): string
         : `@get op read() : ${config.modelName};`;
     let doc = `
     ${config.modelDef}
-    @resource("${config.path}")
+    @route("${config.path}")
     namespace ${config.namespace} {
       ${opString}
     }

@@ -8,6 +8,7 @@ import "@azure-tools/cadl-rpaas";
 namespace Microsoft.CodeSigning;
 
 using Azure.ARM;
+using Cadl.Http;
 
 @doc("A CodeSignAccount resource")
 @armResource({

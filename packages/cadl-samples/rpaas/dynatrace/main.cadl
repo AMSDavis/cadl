@@ -9,6 +9,7 @@ import "./models.cadl";
 namespace Dynatrace.Observability;
 
 using Azure.ARM;
+using Cadl.Http;
 
 @doc("Dynatrace Monitor Resource")
 @armResource({

@@ -8,6 +8,7 @@ import "@azure-tools/cadl-rpaas-controller";
 namespace Microsoft.PlayFab;
 
 using Azure.ARM;
+using Cadl.Http;
 
 @doc("A string that represents a URI.")
 model Uri extends string {}

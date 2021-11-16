@@ -1,4 +1,6 @@
-@resource("/revisions")
+using Cadl.Http;
+
+@route("/revisions")
 namespace RevisionsResource {
   @doc("Gets a list of revisions.")
   @operationId("GetRevisions")

@@ -29,6 +29,20 @@ function isTemplateDeclarationType(target: ModelType) {
   return target.node?.kind === SyntaxKind.ModelStatement && target.node.templateParameters.length;
 }
 
+/**
+ *
+ *@param target
+ *@returns true if the operation is defined on a templated interface which hasn't had args filled in
+ */
+function isTemplatedInterfaceOperation(target: OperationType) {
+  return (
+    target.node?.kind === SyntaxKind.OperationStatement &&
+    target.interface &&
+    target.interface.node.templateParameters.length &&
+    !target.interface.templateArguments?.length
+  );
+}
+
 function createListenerOnGeneralType(fn: (target: Type) => void) {
   // this type ensure that we can get noticed when there is new kind of type being added to the Type alias.
   type FullSemanticNodeListener = Required<
@@ -73,8 +87,12 @@ class Linter {
 const runLinter = (p: Program) => {
   const checkDocumentation: SemanticNodeListener = {
     operation: (context: OperationType) => {
-      if (!getDoc(p, context)) {
-        reportDiagnostic(p, { code: "operation-requires-documentation", target: context });
+      // Don't pay attention to operations on templated interfaces that
+      // haven't been filled in with parameters yet
+      if (!isTemplatedInterfaceOperation(context)) {
+        if (!getDoc(p, context)) {
+          reportDiagnostic(p, { code: "operation-requires-documentation", target: context });
+        }
       }
     },
     model: (context: ModelType) => {

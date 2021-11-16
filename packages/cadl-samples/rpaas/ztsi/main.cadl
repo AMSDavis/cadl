@@ -8,6 +8,7 @@ import "@azure-tools/cadl-rpaas-controller";
 namespace Microsoft.ZeroTrustSystemIntegrity;
 
 using Azure.ARM;
+using Cadl.Http;
 
 @doc("ZTSI Resource")
 @armResource({

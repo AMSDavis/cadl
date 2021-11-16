@@ -8,11 +8,13 @@ import {
 import {
   ArrayType,
   BooleanLiteralType,
+  checkIfServiceNamespace,
   EnumType,
   getDoc,
   getFormat,
   getMaxLength,
   getMinLength,
+  getServiceNamespaceString,
   ModelSpreadPropertyNode,
   ModelType,
   ModelTypeProperty,
@@ -27,23 +29,23 @@ import {
   Type,
   UnionType,
 } from "@cadl-lang/compiler";
-import {
-  checkIfServiceNamespace,
-  getHttpOperation,
-  getPathParamName,
-  getResources,
-  getServiceNamespaceString,
-  isBody,
-  isPathParam,
-  isQueryParam,
-  isResource,
-} from "@cadl-lang/rest";
+import { http } from "@cadl-lang/rest";
 import * as fs from "fs/promises";
 import mkdirp from "mkdirp";
 import * as path from "path";
 import * as sqrl from "squirrelly";
 import { fileURLToPath } from "url";
 import { reportDiagnostic } from "./lib.js";
+
+const {
+  getHttpOperation,
+  getPathParamName,
+  getRoutes,
+  isBody,
+  isPathParam,
+  isQueryParam,
+  isRoute,
+} = http;
 
 // Squirelly escape for xml which is not what we want here https://v7--squirrellyjs.netlify.app/docs/v7/auto-escaping/
 sqrl.defaultConfig.autoEscape = false;
@@ -352,7 +354,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       }
 
       function GetAdditionalOperations() {
-        const modelNameSpaces: NamespaceType[] = getResources(program).map(
+        const modelNameSpaces: NamespaceType[] = getRoutes(program).map(
           (res) => res as NamespaceType
         );
         const visitedNamespaces = new Map<string, NamespaceType>();
@@ -515,7 +517,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 returnType: returnType?.name ?? "void",
                 parameters: parameters,
                 subPath: httpOperation!.route?.subPath,
-                verb: httpOperation!.route.verb,
+                verb: httpOperation!.route?.verb,
                 sourceNode: operation.node,
               };
               if (bodyProp !== undefined) {
@@ -540,7 +542,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         }
         function visitNamespace(visited: NamespaceType, parent?: string) {
           let key: string = visited.name;
-          if (isResource(program, visited)) {
+          if (isRoute(program, visited)) {
           }
 
           let resource: Resource | undefined = undefined;

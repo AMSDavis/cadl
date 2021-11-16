@@ -30,9 +30,25 @@ export async function createArmTestHost() {
     "./node_modules/rest/lib/rest.cadl",
     resolve(root, "../../core/packages/rest/lib/rest.cadl")
   );
+  await host.addRealCadlFile(
+    "./node_modules/rest/lib/http.cadl",
+    resolve(root, "../../core/packages/rest/lib/http.cadl")
+  );
+  await host.addRealCadlFile(
+    "./node_modules/rest/lib/resource.cadl",
+    resolve(root, "../../core/packages/rest/lib/resource.cadl")
+  );
   await host.addRealJsFile(
     "./node_modules/rest/dist/rest.js",
     resolve(root, "../../core/packages/rest/dist/rest.js")
+  );
+  await host.addRealJsFile(
+    "./node_modules/rest/dist/http.js",
+    resolve(root, "../../core/packages/rest/dist/http.js")
+  );
+  await host.addRealJsFile(
+    "./node_modules/rest/dist/resource.js",
+    resolve(root, "../../core/packages/rest/dist/resource.js")
   );
   // load openapi
   await host.addRealCadlFile(

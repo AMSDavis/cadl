@@ -3,7 +3,9 @@ import "@cadl-lang/rest";
 @serviceTitle("Cadl Overloads Sample")
 namespace Cadl.Samples.Overloads;
 
-@resource("/cadl/things")
+using Cadl.Http;
+
+@route("/cadl/things")
 namespace Things {
   @post
   op postThing(thing: Thing): OkResponse<Thing>;

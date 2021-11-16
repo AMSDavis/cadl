@@ -433,7 +433,7 @@ describe("autorest: operations", () => {
   it("define operations with param with defaults", async () => {
     const res = await openApiFor(
       `
-      @resource("/")
+      @route("/")
       namespace root {
         @get()
         op read(@query queryWithDefault?: string = "defaultValue"): string;
@@ -447,7 +447,7 @@ describe("autorest: operations", () => {
   it("define operations with param with decorators", async () => {
     const res = await openApiFor(
       `
-      @resource("/thing")
+      @route("/thing")
       namespace root {
         @get("{name}")
         op getThing(
@@ -478,7 +478,7 @@ describe("openapi3: responses", () => {
   it("defines responses with primitive types", async () => {
     const res = await openApiFor(
       `
-    @resource("/")
+    @route("/")
     namespace root {
       op read(): string;
     }
@@ -493,7 +493,7 @@ describe("openapi3: responses", () => {
 async function oapiForModel(name: string, modelDef: string) {
   const oapi = await openApiFor(`
     ${modelDef};
-    @resource("/")
+    @route("/")
     namespace root {
       op read(): ${name};
     }

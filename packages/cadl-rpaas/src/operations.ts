@@ -1,5 +1,5 @@
 import { NamespaceType, Program, Type } from "@cadl-lang/compiler";
-import { $resource } from "@cadl-lang/rest";
+import { http } from "@cadl-lang/rest";
 import { reportDiagnostic } from "./lib.js";
 import { ArmResourceInfo, getArmResourceInfo, ParameterInfo } from "./resource.js";
 
@@ -39,7 +39,7 @@ export function $armResourceOperations(program: Program, target: Type, resourceT
   armResourceInfo.operationNamespaces.add(target.name);
 
   // Set the resource path
-  $resource(program, target, armResourceInfo.resourcePath.path);
+  http.$route(program, target, armResourceInfo.resourcePath.path);
 
   // Remember this namespace
   resourceOperationNamespaces.set(target, resourceType);
@@ -125,6 +125,7 @@ function prepareOperationInfo(
 function evalInNamespace(program: Program, namespace: string, cadlScript: string): void {
   program.evalCadlScript(`
     using Azure.ARM;
+    using Cadl.Http;
     namespace ${namespace} {
       ${cadlScript}
     }
@@ -374,13 +375,14 @@ function armListByInternal(
   armResourceInfo.operationNamespaces?.add(armResourceInfo.collectionName + "." + operationName);
   program.evalCadlScript(`
     using Azure.ARM;
+    using Cadl.Http;
     namespace ${armResourceInfo.parentNamespace} {
       @tag("${armResourceInfo.collectionName}")
-      @resource("${finalPath}")
+      @route("${finalPath}")
       namespace ${armResourceInfo.collectionName}${operationName} {
         @doc("${documentation}")
         @operationId("${armResourceInfo.collectionName}_${operationName}")
-        @list @get op ${operationName}(${getOperationPathArguments(pathParams)}): ArmResponse<${
+        @pageable @get op ${operationName}(${getOperationPathArguments(pathParams)}): ArmResponse<${
     armResourceInfo.resourceListModelName
   }> | ErrorResponse;
       }

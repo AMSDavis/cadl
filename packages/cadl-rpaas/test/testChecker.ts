@@ -4,7 +4,7 @@ import { CheckFor, getDiagnostic } from "./testHost.js";
 describe("check rules", () => {
   it("no documentation", async () => {
     const result = await CheckFor(`
-
+      using Cadl.Http;
       model Foo {
         x:string
       }
@@ -13,7 +13,7 @@ describe("check rules", () => {
         @doc("parameter")
         @path name: string
       }
-      @resource("/")
+      @route("/")
       @doc("root")
       namespace root {
         op read(...FooParameter): OkResponse<Foo>;
@@ -27,6 +27,7 @@ describe("check rules", () => {
 
   it("inline model in return types", async () => {
     const result = await CheckFor(`
+      using Cadl.Http;
       @doc("Foo ")
       model Foo {
         x:string
@@ -36,7 +37,7 @@ describe("check rules", () => {
         @body
         name: string
       }
-      @resource("/")
+      @route("/")
       namespace root {
         @doc("read foo")
         op read(...FooParameter): OkResponse<{ ... Foo}>;
@@ -59,7 +60,7 @@ describe("check rules", () => {
           x:string
         }
       }
-      @resource("/")
+      @route("/")
       namespace root {
         @doc("read foo")
         op read(...FooParameter): OkResponse<Foo>;

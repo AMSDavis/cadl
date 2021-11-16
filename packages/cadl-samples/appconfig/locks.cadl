@@ -1,4 +1,6 @@
-@resource("/locks")
+using Cadl.Http;
+
+@route("/locks")
 namespace LocksResource {
   @operationId("GetLock")
   op read(

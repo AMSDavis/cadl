@@ -1,4 +1,6 @@
-@resource("/keys")
+using Cadl.Http;
+
+@route("/keys")
 namespace KeysResource {
   @doc("Gets a list of keys.")
   @operationId("GetKeys")

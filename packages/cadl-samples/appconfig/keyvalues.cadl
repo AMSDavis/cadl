@@ -1,3 +1,5 @@
+using Cadl.Http;
+
 @doc("Used for /kv endpoints (key in query)")
 model KeyFilters {
   @doc("A filter for the name of the returned keys.")
@@ -20,7 +22,7 @@ model KeyWithFilters {
   label?: string;
 }
 
-@resource("/kv")
+@route("/kv")
 namespace KeyValuesResource {
   @doc("Gets a list of key-values.")
   @operationId("GetKeyValues")

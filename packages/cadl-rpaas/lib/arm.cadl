@@ -2,6 +2,8 @@ import "../dist/src/arm.js";
 
 namespace Azure.ARM;
 
+using Cadl.Http;
+
 @doc("Common properties for all ARM resources.")
 model ArmResource {
   @doc(

@@ -1,0 +1,360 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Pet Store Service",
+    "version": "2021-03-25"
+  },
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "tags": [],
+  "paths": {
+    "/pets": {
+      "get": {
+        "operationId": "Pets_List",
+        "summary": "Lists all instances of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Paged response",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_Pet"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/PetStoreError"
+            }
+          }
+        }
+      }
+    },
+    "/pets/{petId}": {
+      "get": {
+        "operationId": "Pets_Get",
+        "summary": "Gets an instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Pet.petId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/PetStoreError"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "Pets_Update",
+        "summary": "Updates an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Pet.petId"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "tag": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "integer",
+                  "format": "int32",
+                  "minimum": 0,
+                  "maximum": 20
+                }
+              },
+              "description": "The template for adding optional properties.",
+              "x-cadl-name": "Cadl.OptionalProperties<Cadl.UpdateableProperties_PetStore.Pet>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/PetStoreError"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "Pets_Delete",
+        "summary": "Deletes an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Pet.petId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/PetStoreError"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "Pets_Create",
+        "summary": "Creates a new instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Pet.petId"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          },
+          "201": {
+            "description": "Resource create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/PetStoreError"
+            }
+          }
+        }
+      }
+    },
+    "/pets/{petId}/toys": {
+      "get": {
+        "operationId": "Toys_List",
+        "parameters": [
+          {
+            "$ref": "#/parameters/PetStore.Pet.petId"
+          },
+          {
+            "name": "nameFilter",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paged response",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_Toy"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/PetStoreError"
+            }
+          }
+        }
+      }
+    },
+    "/pets/{petId}/toys/{toyId}": {
+      "get": {
+        "operationId": "Toys_Get",
+        "summary": "Gets an instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/PetStore.Pet.petId"
+          },
+          {
+            "$ref": "#/parameters/Toy.toyId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Toy"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/PetStoreError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Cadl.Rest.Resource.Page_Pet": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Pet"
+          },
+          "x-cadl-name": "PetStore.Pet[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Cadl.Rest.Resource.Page_Toy": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Toy"
+          },
+          "x-cadl-name": "PetStore.Toy[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Pet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 0,
+          "maximum": 20
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "age"
+      ]
+    },
+    "PetStoreError": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ]
+    },
+    "Toy": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "petId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "petId",
+        "name"
+      ]
+    }
+  },
+  "parameters": {
+    "Pet.petId": {
+      "x-ms-parameter-location": "method",
+      "name": "petId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+    },
+    "PetStore.Pet.petId": {
+      "x-ms-parameter-location": "method",
+      "name": "petId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+    },
+    "Toy.toyId": {
+      "x-ms-parameter-location": "method",
+      "name": "toyId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+    }
+  }
+}

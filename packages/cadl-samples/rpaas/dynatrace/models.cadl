@@ -5,6 +5,7 @@ import "@azure-tools/cadl-rpaas";
 namespace Dynatrace.Observability;
 
 using Azure.ARM;
+using Cadl.Http;
 
 @doc("A virtual machine reference")
 @format(

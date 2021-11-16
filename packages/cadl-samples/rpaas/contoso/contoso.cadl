@@ -9,6 +9,7 @@ import "@azure-tools/cadl-rpaas-controller";
 namespace Microsoft.ContosoRPaas;
 
 using Azure.ARM;
+using Cadl.Http;
 
 @doc("A ContosoRPaas resource")
 @armResource({
