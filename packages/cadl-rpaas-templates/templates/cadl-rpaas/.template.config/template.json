@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Microsoft",
+  "classifications": ["RPaaS", "Cadl"],
+  "identity": "Cadl.RPaaS.WebApi",
+  "name": "Cadl RPaaS ASP.NET project",
+  "shortName": "cadl-rpaas",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "RPaasUserRP",
+  "symbols": {
+    "Provider": {
+      "type": "parameter",
+      "description": "Your provider name.",
+      "defaultValue": "Contoso",
+      "replaces": "Contoso",
+      "fileRename": "Contoso"
+    },
+    "FirstResourceType": {
+      "type": "parameter",
+      "description": "Your resource type.",
+      "defaultValue": "Employee",
+      "replaces": "Employee",
+      "fileRename": "employee"
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        "**/setup.*",
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        ".template.config/**/*",
+        "**/*.filelist",
+        "**/*.user",
+        "**/*.lock.json"
+      ]
+    },
+    {
+      "source": "./",
+      "include": ["setup.sh"],
+      "condition": "(OS != \"Windows_NT\")"
+    },
+    {
+      "source": "./",
+      "include": ["setup.cmd"],
+      "condition": "(OS == \"Windows_NT\")"
+    }
+  ],
+  "postActions": [
+    {
+      "condition": "(!skipRestore)",
+      "description": "Restore NuGet packages required by this project.",
+      "manualInstructions": [{ "text": "Run 'dotnet restore'" }],
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "continueOnError": true
+    },
+    {
+      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+      "condition": "(OS == \"Windows_NT\")",
+      "args": {
+        "executable": "setup.cmd",
+        "args": "",
+        "redirectStandardOutput": false
+      },
+      "manualInstructions": [
+        {
+          "text": ".\\setup.cmd"
+        }
+      ],
+      "continueOnError": false,
+      "description ": "install cadl tools by running npm install"
+    },
+    {
+      "condition": "(OS != \"Windows_NT\")",
+      "description": "Make scripts executable",
+      "manualInstructions": [{ "text": "Run 'chmod +x *.sh'" }],
+      "actionId": "cb9a6cf3-4f5c-4860-b9d2-03a574959774",
+      "args": {
+        "+x": "*.sh"
+      },
+      "continueOnError": true
+    },
+    {
+      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+      "condition": "(OS != \"Windows_NT\")",
+      "args": {
+        "executable": "setup.sh",
+        "args": "",
+        "redirectStandardOutput": false
+      },
+      "manualInstructions": [
+        {
+          "text": "./setup.sh"
+        }
+      ],
+      "continueOnError": false,
+      "description ": "install cadl tools by running npm install"
+    }
+  ]
+}
