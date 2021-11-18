@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-autorest",
+      "comment": "Fix mapping of update method name to HTTP verb",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-autorest"
+}
