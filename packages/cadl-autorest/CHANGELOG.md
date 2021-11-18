@@ -1,6 +1,13 @@
 # Change Log - @azure-tools/cadl-autorest
 
-This log was last generated on Thu, 11 Nov 2021 21:46:47 GMT and should not be manually modified.
+This log was last generated on Thu, 18 Nov 2021 13:58:37 GMT and should not be manually modified.
+
+## 0.9.1
+Thu, 18 Nov 2021 13:58:37 GMT
+
+### Patches
+
+- Respond to new API changes in @cadl-lang/rest
 
 ## 0.9.0
 Thu, 11 Nov 2021 21:46:47 GMT
