@@ -18,6 +18,7 @@ namespace {{it.nameSpace}}.Service
     /// <summary>
     /// Controller for user RP operations on the {{it.name}} resource.
     /// </summary>
+    [ApiController]
     public abstract class {{it.name}}ControllerBase : ControllerBase
     {
         internal readonly ILogger<{{it.name}}ControllerBase> _logger;

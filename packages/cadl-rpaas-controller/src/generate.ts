@@ -67,6 +67,7 @@ export async function $onBuild(program: Program) {
     controllerHost: program.compilerOptions.miscOptions?.controllerHost || "rpaas",
     operationPollingLocation:
       program.compilerOptions.miscOptions?.operationPollingLocation || "tenant",
+    registrationOutputPath: program.getOption("generate-registration"),
   };
 
   const generator = CreateServiceCodeGenerator(program, options);
@@ -78,6 +79,7 @@ export interface ServiceGenerationOptions {
   controllerModulePath: string;
   controllerHost: "liftr" | "rpaas";
   operationPollingLocation: "tenant" | "subscription";
+  registrationOutputPath?: string;
 }
 
 export function CreateServiceCodeGenerator(program: Program, options: ServiceGenerationOptions) {
@@ -255,6 +257,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
   async function generateServiceCode() {
     const genPath = options.controllerOutputPath;
+    const registrationOutputPath = options.registrationOutputPath;
+
     // maps resource model name to arm Namespace
     const resourceNamespaceTable = new Map<string, string>();
 
@@ -1139,6 +1143,59 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         )
       );
     }
+    async function generateRegistrations(outputModels: any) {
+      async function generateResourceProviderReg(namespace: string) {
+        const path = registrationOutputPath + `/${namespace}.json`;
+        await program.host.writeFile(
+          path,
+          `{
+  "properties": {
+    "providerType": "Hidden",
+    "management": {
+      "incidentRoutingService": "Contoso Resource Provider",
+      "incidentRoutingTeam": "Contoso Triage",
+      "incidentContactEmail": "helpme@Contoso.com"
+    },
+    "enableTenantLinkedNotification": false
+  }
+}
+`
+        );
+      }
+      if (outputModels && outputModels.resources) {
+        generateResourceProviderReg(outputModels.namespace);
+        outputModels.resources.forEach(async (resource: any) => {
+          await generateResourceRegistration(resource);
+        });
+      }
+    }
+    async function generateResourceRegistration(resource: any) {
+      const resourceRegistrationPath =
+        registrationOutputPath + `/${resource.namespace}/` + resource.name + ".json";
+      reportInfo("Writing resource controller for " + resource.name, undefined);
+      const extensions = new Set<string>();
+      for (const operation of resource.operations) {
+        const extensionMap = {
+          put: ["ResourceCreationValidate", "ResourceCreationBegin", "ResourceCreationCompleted"],
+          patch: ["ResourcePatchValidate", "ResourcePatchBegin", "ResourcePatchCompleted"],
+          delete: ["ResourceDeleteValidate", "ResourceDeleteBegin", "ResourceDeleteCompleted"],
+          get: ["ResourceReadValidate", "ResourceReadBegin"],
+          post: ["ResourcePostAction"],
+        } as any;
+        if (operation.verb.toLowerCase() == "get") {
+          const _extensions = extensionMap[operation.verb.toLowerCase()] as string[];
+          if (_extensions) {
+            _extensions.forEach((element) => {
+              extensions.add(element as string);
+            });
+          }
+        }
+      }
+      await program.host.writeFile(
+        resolvePath(resourceRegistrationPath),
+        await sqrl.renderFile(resolvePath(path.join(templatePath, "registration.sq")), resource)
+      );
+    }
 
     async function generateModel(model: any) {
       const modelPath = path.join(genPath, "models", model.name + ".cs");
@@ -1302,6 +1359,10 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         reportInfo(`Rendering enum ${enumeration.name}`, enumeration.sourceNode);
         generateEnum(enumeration);
       });
+
+      if (options.registrationOutputPath) {
+        generateRegistrations(outputModel);
+      }
     }
   }
 }
