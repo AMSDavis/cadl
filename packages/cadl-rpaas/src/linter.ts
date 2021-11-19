@@ -107,7 +107,7 @@ const runLinter = (p: Program) => {
         }
         for (const prop of context.properties.values()) {
           if (!getDoc(p, prop)) {
-            reportDiagnostic(p, { code: "property-requires-documentation", target: context });
+            reportDiagnostic(p, { code: "property-requires-documentation", target: prop });
           }
         }
       }

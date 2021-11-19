@@ -2,6 +2,18 @@
   "name": "@azure-tools/cadl-autorest",
   "entries": [
     {
+      "version": "0.9.1",
+      "tag": "@azure-tools/cadl-autorest_v0.9.1",
+      "date": "Thu, 18 Nov 2021 13:58:37 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Respond to new API changes in @cadl-lang/rest"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.9.0",
       "tag": "@azure-tools/cadl-autorest_v0.9.0",
       "date": "Thu, 11 Nov 2021 21:46:47 GMT",

@@ -10,18 +10,18 @@ submodule.
 
 ## Packages
 
-| Name                                        | Changelog                    | Latest                                                     |
-| ------------------------------------------- | ---------------------------- | ---------------------------------------------------------- |
-| [@azure-tools/cadl-autorest][cadl-autorest_src] | [Changelog][cadl-autorest_chg] | ![](https://img.shields.io/npm/v/@azure-tools/cadl-autorest) |
-| [@azure-tools/cadl-rpaas][cadl-rpaas_src]     | [Changelog][cadl-rpaas_chg]   | ![](https://img.shields.io/npm/v/@azure-tools/cadl-rpaas)   |
-| [@azure-tools/cadl-rpaas-controller][cadl-rpaas-controller_src]     | [Changelog][cadl-rpaas-controller_chg]   | ![](https://img.shields.io/npm/v/@azure-tools/cadl-rpaas)   |
+| Name                                                             | Changelog                              | Latest                                                                                                                                    |
+| ---------------------------------------------------------------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| [@azure-tools/cadl-autorest][cadl-autorest_src]                  | [Changelog][cadl-autorest_chg]         | [![](https://img.shields.io/npm/v/@azure-tools/cadl-autorest)](https://www.npmjs.com/package/@azure-tools/cadl-autorest)                  |
+| [@azure-tools/cadl-rpaas][cadl-rpaas_src]                        | [Changelog][cadl-rpaas_chg]            | [![](https://img.shields.io/npm/v/@azure-tools/cadl-rpaas)](https://www.npmjs.com/package/@azure-tools/cadl-rpaas)                        |
+| [@azure-tools/cadl-rpaas-controller][cadl-rpaas-controller_src]  | [Changelog][cadl-rpaas-controller_chg] | [![](https://img.shields.io/npm/v/@azure-tools/cadl-rpaas-controller)](https://www.npmjs.com/package/@azure-tools/cadl-rpaas-controller)  |
 
+[cadl-autorest_src]: packages/cadl-autorest
+[cadl-autorest_chg]: packages/cadl-autorest/CHANGELOG.md
 [cadl-rpaas_src]: packages/cadl-rpaas
 [cadl-rpaas_chg]: packages/cadl-rpaas/CHANGELOG.md
 [cadl-rpaas-controller_src]: packages/cadl-rpaas-controller
 [cadl-rpaas-controller_chg]: packages/cadl-rpaas-controller/CHANGELOG.md
-[cadl-autorest_src]: packages/cadl-autorest
-[cadl-autorest_chg]: packages/cadl-autorest/CHANGELOG.md
 
 ## Getting Started
 

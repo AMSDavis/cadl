@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@azure-tools/cadl-autorest",
-      "comment": "Respond to new API changes in @cadl-lang/rest",
+      "comment": "Fix mapping of update method name to HTTP verb",
       "type": "patch"
     }
   ],

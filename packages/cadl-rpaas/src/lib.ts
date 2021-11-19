@@ -144,21 +144,21 @@ export const libDef = {
       severity: "warning",
       messages: {
         default:
-          "The model must have a documentation or description , please use decorator @doc to add it.",
+          "The model must have a documentation or description, please use decorator @doc to add it.",
       },
     },
     "property-requires-documentation": {
       severity: "warning",
       messages: {
         default:
-          "The property must have a documentation or description , please use decorator @doc to add it.",
+          "The property must have a documentation or description, please use decorator @doc to add it.",
       },
     },
     "operation-requires-documentation": {
       severity: "warning",
       messages: {
         default:
-          "The operation must have a documentation or description , please use decorator @doc to add it.",
+          "The operation must have a documentation or description, please use decorator @doc to add it.",
       },
     },
     "documentation-different-with-node-name": {

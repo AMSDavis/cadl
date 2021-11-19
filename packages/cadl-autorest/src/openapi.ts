@@ -436,7 +436,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       case "read":
         return "get";
       case "update":
-        return "get";
+        return "patch";
       case "delete":
         return "delete";
       case "deleteAll":
