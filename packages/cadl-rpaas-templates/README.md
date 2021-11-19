@@ -14,6 +14,7 @@ dotnet new -i Cadl.RPaaS.Templates --nuget-source <the nuget source >
 ```
 
 via git clone locally：
+
 ```bash
 git clone <this repo>
 dotnet new -i  path-to-the-repo/packages/cadl-rpaas-templates/templates/cadl-rpaas
@@ -21,6 +22,7 @@ dotnet new --list
 ```
 
 2. create cadl-rpaas project using this template:
+
 ```bash
 dotnet new cadl-rpaas -P <provider> -o <project folder>
 
@@ -39,7 +41,6 @@ Note:
 ```
 
 3. open the project either in visual studio or vscode , then you can modify the api description in the 'cadl/main.cadl' and the generated code will be auto-refreshed.
-
 
 ## Debug with OneBox
 
@@ -73,11 +74,11 @@ The OneBox will be running on http://localhost:6000.
 
 Available environment variables:
 
-* `RPAAS_ONEBOX_IMAGE_TAG`: The tag of the OneBox images to use. Default is `latest`.
-* `RPAAS_ONEBOX_REGISTRY`: The registry to use for OneBox images. Default is `rpaasoneboxacr.azurecr.io`.
-* `RPAAS_ONEBOX_PORT`: The port to expose the OneBox on. Default is `6000`.
-* `RPAAS_ONEBOX_SERVICERP_PORT`: The port to expose the OneBox ServiceRP on. Default is `6012`.
-* `RPAAS_ONEBOX_METARP_PORT`: The port to expose the OneBox MetaRP on. Default is `6010`.
+- `RPAAS_ONEBOX_IMAGE_TAG`: The tag of the OneBox images to use. Default is `latest`.
+- `RPAAS_ONEBOX_REGISTRY`: The registry to use for OneBox images. Default is `rpaasoneboxacr.azurecr.io`.
+- `RPAAS_ONEBOX_PORT`: The port to expose the OneBox on. Default is `6000`.
+- `RPAAS_ONEBOX_SERVICERP_PORT`: The port to expose the OneBox ServiceRP on. Default is `6012`.
+- `RPAAS_ONEBOX_METARP_PORT`: The port to expose the OneBox MetaRP on. Default is `6010`.
 
 For example, to run the OneBox on another port:
 
@@ -95,11 +96,11 @@ porter install rpaas-onebox --reference rpaasoneboxacr.azurecr.io/rpaas-onebox-i
 
 Available parameters:
 
-* `tag`: The tag of the OneBox images to use. Default is `latest`.
-* `registry`: The registry to use for OneBox images. Default is `rpaasoneboxacr.azurecr.io`.
-* `port`: The port to expose the OneBox on. Default is `6000`.
-* `port_servicerp`: The port to expose the OneBox ServiceRP on. Default is `6012`.
-* `port_metarp`: The port to expose the OneBox MetaRP on. Default is `6010`.
+- `tag`: The tag of the OneBox images to use. Default is `latest`.
+- `registry`: The registry to use for OneBox images. Default is `rpaasoneboxacr.azurecr.io`.
+- `port`: The port to expose the OneBox on. Default is `6000`.
+- `port_servicerp`: The port to expose the OneBox ServiceRP on. Default is `6012`.
+- `port_metarp`: The port to expose the OneBox MetaRP on. Default is `6010`.
 
 For example, to run the OneBox on another port:
 

@@ -1,7 +1,7 @@
 # Cadl AutoRest Library
 
 This is a Cadl library that will emit an enriched OpenAPI 2.0 specification that can be consumed by AutoRest.
-The generated OpenAPI spec will have custom `x-ms-` extensions properties and conform to standards required by  AutoRest to generate a more accurate SDK.
+The generated OpenAPI spec will have custom `x-ms-` extensions properties and conform to standards required by AutoRest to generate a more accurate SDK.
 
 ## Getting started
 
@@ -22,6 +22,7 @@ The generated OpenAPI spec will have custom `x-ms-` extensions properties and co
 
 ```cadl
 import "@azure-tools/cadl-autorest";
+
 ```
 
 4. Run `cadl compile`. This will result in a `swagger.json` file crated in `./cadl-output/swagger.json`
@@ -49,4 +50,3 @@ Specify the `--output-path` option, this changes the directory where the OpenAPI
 ```bash
 cadl compile --output-path=`./custom`
 ```
-
