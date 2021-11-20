@@ -91,7 +91,7 @@ To stop OneBox, run `docker-compose down`.
 #### Option 2: Run OneBox with [Porter](https://porter.sh/install/)
 
 ```bash
-porter install rpaas-onebox --reference rpaasoneboxacr.azurecr.io/rpaas-onebox-installer:v0.1.0 --allow-docker-host-access
+porter install --reference rpaasoneboxacr.azurecr.io/rpaas-onebox:v0.1.1 --allow-docker-host-access
 ```
 
 Available parameters:
@@ -105,7 +105,7 @@ Available parameters:
 For example, to run the OneBox on another port:
 
 ```bash
-porter install rpaas-onebox --param port=8080
+porter install --reference rpaasoneboxacr.azurecr.io/rpaas-onebox:v0.1.1 --allow-docker-host-access --param port=8080
 ```
 
 To stop, run `porter uninstall rpaas-onebox`.
