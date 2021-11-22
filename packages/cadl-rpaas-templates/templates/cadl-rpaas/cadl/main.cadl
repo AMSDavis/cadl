@@ -9,6 +9,7 @@ import "@azure-tools/cadl-rpaas-controller";
 namespace Microsoft.Contoso;
 
 using Azure.ARM;
+using Cadl.Http;
 
 @armResource({
   path: "Employees",
