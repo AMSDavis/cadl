@@ -1174,7 +1174,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     async function generateRegistration(resource: any) {
       const resourceRegistrationPath =
         registrationOutputPath + `/${resource.nameSpace}/` + resource.resourceTypeName + ".json";
-      reportInfo("Writing resource controller for " + resource.resourceTypeName, undefined);
+      reportInfo("Writing resource registrations for " + resource.resourceTypeName, undefined);
       const extensions = new Set<string>();
       for (const operation of resource.operations) {
         const extensionMap = {
@@ -1369,13 +1369,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           await ensureCleanDirectory(registrationOutputPath).catch((err) =>
             reportDiagnostic(program, {
               code: "cleaning-dir",
-              format: { error: err },
-              target: NoTarget,
-            })
-          );
-          await createDirIfNotExists(registrationOutputPath).catch((err) =>
-            reportDiagnostic(program, {
-              code: "creating-dir",
               format: { error: err },
               target: NoTarget,
             })
