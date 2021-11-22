@@ -108,7 +108,7 @@ namespace Cadl.Tools
             if (OutputDir != null)
             {
                 var generatedDir = Path.GetFullPath(Path.Combine(OutputDir, "generated"));
-                // format the relative path, './generate' to 'genearted'
+                // format the relative path, './generated' to 'generated'
                 if (generatedDir.StartsWith(Environment.CurrentDirectory)) {
                   generatedDir = generatedDir.Substring(Environment.CurrentDirectory.Length + 1);
                 }
