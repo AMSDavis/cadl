@@ -29,6 +29,11 @@ namespace Cadl.Tools
         [Required]
         public string OS { get; set; }
 
+        /// <summary>
+        /// The args that use --option to pass to the cadl, the value is following 'key=value' 
+        /// </summary>
+        public string[] Options { get; set; }
+
         class CadlCommandBuilder
         {
             StringBuilder _data = new System.Text.StringBuilder(1000);
@@ -59,7 +64,13 @@ namespace Cadl.Tools
             cmd.AddArg("compile");
             cmd.AddArg(Path.GetDirectoryName(CadlPath[0].ItemSpec));
             cmd.AddSwitchMaybe("output-path", OutputDir);
-
+            if (Options != null){
+              foreach (var option in Options) {
+                if (!option.Equals("")) {
+                  cmd.AddSwitchMaybe("option", option);
+                }
+              }
+            }
             Log.LogMessage(cmd.ToString());
             return cmd.ToString();
         }

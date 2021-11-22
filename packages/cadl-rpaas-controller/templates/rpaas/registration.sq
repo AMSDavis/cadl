@@ -15,8 +15,9 @@
           {
             "endpointUri": "http://host.docker.internal:6020/",
             "extensionCategories": [
-{{@each(it.values) => value, valueIndex}}
-       "{{value}}"{{_@if(valueIndex < (it.values.length - 1))}},{{_/if}}
+{{@each(it.extensions) => value, valueIndex}}
+              "{{value}}"{{@if(valueIndex < (it.extensions.length - 1))}},{{_/if}}
+
 {{/each}}
             ]
           }

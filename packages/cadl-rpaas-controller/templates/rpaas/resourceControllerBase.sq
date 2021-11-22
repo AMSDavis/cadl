@@ -135,7 +135,11 @@ namespace {{it.nameSpace}}.Service
 
         protected virtual Task<IActionResult> On{{operation.action}}Async({{operation | decl}}, HttpRequest request)
         {
+{{@if(operation.verb.toUpperCase() === "PATCH"}}
+            return Task.FromResult(Ok({{ operation | bodyParameter}}) as IActionResult);
+{{#else}}
             return Task.FromResult(Ok() as IActionResult);
+{{/if}}
         }
 {{/if}}
 {{/each}}

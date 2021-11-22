@@ -15,6 +15,7 @@ import {
   getMaxLength,
   getMinLength,
   getServiceNamespaceString,
+  getServiceVersion,
   ModelSpreadPropertyNode,
   ModelType,
   ModelTypeProperty,
@@ -67,7 +68,7 @@ export async function $onBuild(program: Program) {
     controllerHost: program.compilerOptions.miscOptions?.controllerHost || "rpaas",
     operationPollingLocation:
       program.compilerOptions.miscOptions?.operationPollingLocation || "tenant",
-    registrationOutputPath: program.getOption("generate-registration"),
+    registrationOutputPath: program.getOption("registrationOutputPath"),
   };
 
   const generator = CreateServiceCodeGenerator(program, options);
@@ -595,6 +596,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 ? "/{" + resourceInfo.resourceNameParam!.name + "}"
                 : ""),
             name: resourceInfo.resourceModelName,
+            resourceTypeName: resourceInfo.resourceTypeName,
             nameSpace: serviceNamespace,
             nameParameter: resourceInfo.resourceNameParam?.name ?? "name",
             serializedName: transformJsonIdentifier(resourceInfo.collectionName),
@@ -1163,16 +1165,16 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         );
       }
       if (outputModels && outputModels.resources) {
-        generateResourceProviderReg(outputModels.namespace);
+        generateResourceProviderReg(outputModels.nameSpace);
         outputModels.resources.forEach(async (resource: any) => {
-          await generateResourceRegistration(resource);
+          await generateRegistration(resource);
         });
       }
     }
-    async function generateResourceRegistration(resource: any) {
+    async function generateRegistration(resource: any) {
       const resourceRegistrationPath =
-        registrationOutputPath + `/${resource.namespace}/` + resource.name + ".json";
-      reportInfo("Writing resource controller for " + resource.name, undefined);
+        registrationOutputPath + `/${resource.nameSpace}/` + resource.resourceTypeName + ".json";
+      reportInfo("Writing resource controller for " + resource.resourceTypeName, undefined);
       const extensions = new Set<string>();
       for (const operation of resource.operations) {
         const extensionMap = {
@@ -1182,18 +1184,19 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           get: ["ResourceReadValidate", "ResourceReadBegin"],
           post: ["ResourcePostAction"],
         } as any;
-        if (operation.verb.toLowerCase() == "get") {
-          const _extensions = extensionMap[operation.verb.toLowerCase()] as string[];
-          if (_extensions) {
-            _extensions.forEach((element) => {
-              extensions.add(element as string);
-            });
-          }
+        const _extensions = extensionMap[operation.verb.toLowerCase()] as string[];
+        if (_extensions) {
+          _extensions.forEach((element) => {
+            extensions.add(element as string);
+          });
         }
       }
       await program.host.writeFile(
         resolvePath(resourceRegistrationPath),
-        await sqrl.renderFile(resolvePath(path.join(templatePath, "registration.sq")), resource)
+        await sqrl.renderFile(resolvePath(path.join(templatePath, "registration.sq")), {
+          apiVersion: getServiceVersion(program),
+          extensions: Array.from(extensions.values()),
+        })
       );
     }
 
@@ -1279,6 +1282,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         .join(", ")
     );
     sqrl.filters.define("call", (op) => op.parameters.map((p: any) => p.name).join(", "));
+    sqrl.filters.define("bodyParameter", (op) => op.parameters[op.parameters.length - 1].name);
     sqrl.filters.define("typeParamList", (op) =>
       op.typeParameters.map((p: TypeReference) => p.name).join(", ")
     );
@@ -1360,7 +1364,32 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         generateEnum(enumeration);
       });
 
-      if (options.registrationOutputPath) {
+      if (registrationOutputPath) {
+        if (path.resolve(registrationOutputPath) !== path.resolve(genPath)) {
+          await ensureCleanDirectory(registrationOutputPath).catch((err) =>
+            reportDiagnostic(program, {
+              code: "cleaning-dir",
+              format: { error: err },
+              target: NoTarget,
+            })
+          );
+          await createDirIfNotExists(registrationOutputPath).catch((err) =>
+            reportDiagnostic(program, {
+              code: "creating-dir",
+              format: { error: err },
+              target: NoTarget,
+            })
+          );
+          await createDirIfNotExists(
+            path.join(registrationOutputPath, outputModel.nameSpace)
+          ).catch((err) =>
+            reportDiagnostic(program, {
+              code: "creating-dir",
+              format: { error: err },
+              target: NoTarget,
+            })
+          );
+        }
         generateRegistrations(outputModel);
       }
     }
