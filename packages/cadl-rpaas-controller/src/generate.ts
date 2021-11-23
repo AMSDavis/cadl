@@ -1149,10 +1149,10 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       }
     }
 
-    async function generateResourceProviderReg(namespace: string) {
-      const outputPath = registrationOutputPath + `/${namespace}.json`;
+    async function generateResourceProviderReg(serviceModel:ServiceModel) {
+      const outputPath = registrationOutputPath + `/${serviceModel.nameSpace}.json`;
       const regTemplate = resolvePath(path.join(templatePath, "resourceProviderRegistration.sq"));
-      await program.host.writeFile(outputPath, await sqrl.renderFile(regTemplate, {}));
+      await program.host.writeFile(outputPath, await sqrl.renderFile(regTemplate, {serviceName:serviceModel.serviceName}));
     }
 
     async function generateRegistration(resource: any) {
@@ -1332,7 +1332,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             })
           );
         }
-        await generateResourceProviderReg(outputModel.nameSpace);
+        await generateResourceProviderReg(outputModel);
       }
       outputModel.resources.forEach(
         async (resource: Resource) =>

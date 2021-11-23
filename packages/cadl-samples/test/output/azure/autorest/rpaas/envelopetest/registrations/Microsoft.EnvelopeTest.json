@@ -2,9 +2,9 @@
   "properties": {
     "providerType": "Hidden",
     "management": {
-      "incidentRoutingService": "Contoso Resource Provider",
-      "incidentRoutingTeam": "Contoso Triage",
-      "incidentContactEmail": "helpme@Contoso.com"
+      "incidentRoutingService": "EnvelopeTest Resource Provider",
+      "incidentRoutingTeam": "EnvelopeTest Triage",
+      "incidentContactEmail": "helpme@EnvelopeTest.com"
     },
     "enableTenantLinkedNotification": false
   }

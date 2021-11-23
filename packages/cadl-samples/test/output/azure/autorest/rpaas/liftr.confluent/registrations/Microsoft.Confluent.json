@@ -2,9 +2,9 @@
   "properties": {
     "providerType": "Hidden",
     "management": {
-      "incidentRoutingService": "Contoso Resource Provider",
-      "incidentRoutingTeam": "Contoso Triage",
-      "incidentContactEmail": "helpme@Contoso.com"
+      "incidentRoutingService": "Confluent Resource Provider",
+      "incidentRoutingTeam": "Confluent Triage",
+      "incidentContactEmail": "helpme@Confluent.com"
     },
     "enableTenantLinkedNotification": false
   }

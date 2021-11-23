@@ -2,9 +2,9 @@
   "properties": {
     "providerType": "Hidden",
     "management": {
-      "incidentRoutingService": "Contoso Resource Provider",
-      "incidentRoutingTeam": "Contoso Triage",
-      "incidentContactEmail": "helpme@Contoso.com"
+      "incidentRoutingService": "FluidRelay Resource Provider",
+      "incidentRoutingTeam": "FluidRelay Triage",
+      "incidentContactEmail": "helpme@FluidRelay.com"
     },
     "enableTenantLinkedNotification": false
   }
