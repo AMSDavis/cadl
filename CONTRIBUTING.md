@@ -42,11 +42,12 @@ Fork the repo, then clone recursively as follows:
 git clone --recurse-submodules https://github.com/(your_username)/cadl-azure
 ```
 
-## Initializing the submodule
+## Updating and initializing the submodule
 
-In some situations, you may end up with the core/ folder being uninitialized
-and not having a good clone of microsoft/cadl. To initialize the submodule
-when that happens, run the following command:
+In some situations, even with the above setting, you may still end up with the core/ folder
+being uninitialized and not having a good clone of microsoft/cadl, or with the core/ folder
+initialized, but checked out to the wrong commit for the current branch. To fix this, run the
+following command to update and initialize the submodule:
 
 ```
 git submodule update --init
