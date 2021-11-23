@@ -13,8 +13,8 @@ namespace Things {
   @post("?overload=withParam")
   op postThingWithParam(
     body: {
-      thing: Thing,
-      param: string,
+      thing: Thing;
+      param: string;
     }
   ): OkResponse<Thing>;
 
