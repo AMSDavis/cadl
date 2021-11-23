@@ -59,6 +59,7 @@ function runCadlSamples(samplesPath, baseOutputPath, options) {
   for (const folderName of getSampleFolders(samplesPath, options.excludes)) {
     const inputPath = join(samplesPath, folderName);
     const outputPath = join(baseOutputPath, folderName);
+    const registrationOutput = join(outputPath, "registrations");
     mkdirp(outputPath);
 
     run(process.execPath, [
@@ -66,6 +67,7 @@ function runCadlSamples(samplesPath, baseOutputPath, options) {
       "compile",
       inputPath,
       `--option=arm-types-path=../../../../../../rpaas/types.json`,
+      `--option=registrationOutputPath=${registrationOutput}`,
       `--output-path=${outputPath}`,
       `--import=${options.emitter}`,
       `--debug`,

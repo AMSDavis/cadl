@@ -29,7 +29,7 @@
     <Description> 
     This package enables API First development of RPaaS services using Cadl. It adds build targets to generate an ASP.Net MVC controller and OpenAPI definition from a Cadl description for the service. The package includes msbuild target files and a custom Cadl build task, integrating API-First development using Cadl into the project simply.
     </Description>
-    <Version>0.1.0-beta.$(BuildId)</Version>
+    <Version>0.4.2-beta.$(BuildId)</Version>
   </PropertyGroup>
 
   <PropertyGroup>

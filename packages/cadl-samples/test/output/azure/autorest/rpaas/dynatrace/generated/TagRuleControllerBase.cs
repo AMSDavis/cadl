@@ -18,6 +18,7 @@ namespace Microsoft.Observability.Service
     /// <summary>
     /// Controller for user RP operations on the TagRule resource.
     /// </summary>
+    [ApiController]
     public abstract class TagRuleControllerBase : ControllerBase
     {
         internal readonly ILogger<TagRuleControllerBase> _logger;
@@ -249,7 +250,7 @@ namespace Microsoft.Observability.Service
 
         protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body, HttpRequest request)
         {
-            return Task.FromResult(Ok() as IActionResult);
+            return Task.FromResult(Ok(body) as IActionResult);
         }
 
         /// <summary>

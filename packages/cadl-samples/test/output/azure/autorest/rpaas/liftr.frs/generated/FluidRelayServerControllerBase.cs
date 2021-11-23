@@ -18,6 +18,7 @@ namespace Microsoft.FluidRelay.Service
     /// <summary>
     /// Controller for user RP operations on the FluidRelayServer resource.
     /// </summary>
+    [ApiController]
     public abstract class FluidRelayServerControllerBase : ControllerBase
     {
         internal readonly ILogger<FluidRelayServerControllerBase> _logger;
@@ -241,7 +242,7 @@ namespace Microsoft.FluidRelay.Service
 
         protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string name, FluidRelayServerUpdate body, HttpRequest request)
         {
-            return Task.FromResult(Ok() as IActionResult);
+            return Task.FromResult(Ok(body) as IActionResult);
         }
 
         /// <summary>

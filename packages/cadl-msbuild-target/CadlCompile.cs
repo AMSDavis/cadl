@@ -133,7 +133,7 @@ namespace Cadl.Tools
 
         protected override void LogEventsFromTextOutput(string singleLine, MessageImportance messageImportance) {
 
-          foreach (CadlMessageFilter filter in cadlMessageFilters) {
+          foreach (CadlLogFilter filter in cadlLogFilters) {
             Match match = filter.Pattern.Match(singleLine);
             if (match.Success) {
               filter.LogAction(Log, match);
@@ -159,11 +159,11 @@ namespace Cadl.Tools
 
         protected override bool ValidateParameters() => true;
 
-        static readonly List<CadlMessageFilter> cadlMessageFilters = new List<CadlMessageFilter>()
+        static readonly List<CadlLogFilter> cadlLogFilters = new List<CadlLogFilter>()
         {
             // Example of warning filter
             //C:\code\cadl\main.cadl:33:1 - warning @azure-tools/cadl-rpaas/model-requires-documentation: The model must have a documentation or description, please use decorator @doc to add it.
-            new CadlMessageFilter
+            new CadlLogFilter
             {
                 Pattern = new Regex(
                     pattern: "^(?'FILENAME'.+?):(?'LINE'\\d+):(?'COLUMN'\\d+) - warning (?'CODE'.+?): ?(?'TEXT'.*)",
@@ -188,7 +188,7 @@ namespace Cadl.Tools
 
             // Example of error filter
             //C:\code\cadl\main.cadl:33:1 - error @azure-tools/cadl-rpaas/missing-required-prop: Resource configuration is missing required 'parameterType' property
-            new CadlMessageFilter
+            new CadlLogFilter
             {
                 Pattern = new Regex(
                     pattern: "^(?'FILENAME'.+?):(?'LINE'\\d+):(?'COLUMN'\\d+) - error (?'CODE'.+?): ?(?'TEXT'.*)",
@@ -212,7 +212,7 @@ namespace Cadl.Tools
             }
         };
 
-        class CadlMessageFilter {
+        class CadlLogFilter {
           public Regex Pattern { get; set; }
           public Action<TaskLoggingHelper, Match> LogAction { get; set; }
         }

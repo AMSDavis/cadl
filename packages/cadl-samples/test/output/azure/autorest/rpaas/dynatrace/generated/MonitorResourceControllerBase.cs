@@ -18,6 +18,7 @@ namespace Microsoft.Observability.Service
     /// <summary>
     /// Controller for user RP operations on the MonitorResource resource.
     /// </summary>
+    [ApiController]
     public abstract class MonitorResourceControllerBase : ControllerBase
     {
         internal readonly ILogger<MonitorResourceControllerBase> _logger;
@@ -241,7 +242,7 @@ namespace Microsoft.Observability.Service
 
         protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string monitorName, MonitorResourceUpdate body, HttpRequest request)
         {
-            return Task.FromResult(Ok() as IActionResult);
+            return Task.FromResult(Ok(body) as IActionResult);
         }
 
         /// <summary>
