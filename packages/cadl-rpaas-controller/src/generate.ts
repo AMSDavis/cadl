@@ -1149,10 +1149,13 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       }
     }
 
-    async function generateResourceProviderReg(serviceModel:ServiceModel) {
+    async function generateResourceProviderReg(serviceModel: ServiceModel) {
       const outputPath = registrationOutputPath + `/${serviceModel.nameSpace}.json`;
       const regTemplate = resolvePath(path.join(templatePath, "resourceProviderRegistration.sq"));
-      await program.host.writeFile(outputPath, await sqrl.renderFile(regTemplate, {serviceName:serviceModel.serviceName}));
+      await program.host.writeFile(
+        outputPath,
+        await sqrl.renderFile(regTemplate, { serviceName: serviceModel.serviceName })
+      );
     }
 
     async function generateRegistration(resource: any) {
@@ -1367,31 +1370,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         reportInfo(`Rendering enum ${enumeration.name}`, enumeration.sourceNode);
         generateEnum(enumeration);
       });
-<<<<<<< HEAD
-
-      if (registrationOutputPath) {
-        if (path.resolve(registrationOutputPath) !== path.resolve(genPath)) {
-          await ensureCleanDirectory(registrationOutputPath).catch((err) =>
-            reportDiagnostic(program, {
-              code: "cleaning-dir",
-              format: { error: err },
-              target: NoTarget,
-            })
-          );
-          await createDirIfNotExists(
-            path.join(registrationOutputPath, outputModel.nameSpace)
-          ).catch((err) =>
-            reportDiagnostic(program, {
-              code: "creating-dir",
-              format: { error: err },
-              target: NoTarget,
-            })
-          );
-        }
-        generateRegistrations(outputModel);
-      }
-=======
->>>>>>> 1fb4f8b87dcd1bd25375ce71b23a38eac341fc00
     }
   }
 }
