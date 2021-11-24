@@ -1144,33 +1144,17 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           resource
         )
       );
-    }
-    async function generateRegistrations(outputModels: any) {
-      async function generateResourceProviderReg(namespace: string) {
-        const path = registrationOutputPath + `/${namespace}.json`;
-        await program.host.writeFile(
-          path,
-          `{
-  "properties": {
-    "providerType": "Hidden",
-    "management": {
-      "incidentRoutingService": "Contoso Resource Provider",
-      "incidentRoutingTeam": "Contoso Triage",
-      "incidentContactEmail": "helpme@Contoso.com"
-    },
-    "enableTenantLinkedNotification": false
-  }
-}
-`
-        );
-      }
-      if (outputModels && outputModels.resources) {
-        generateResourceProviderReg(outputModels.nameSpace);
-        outputModels.resources.forEach(async (resource: any) => {
-          await generateRegistration(resource);
-        });
+      if (registrationOutputPath) {
+        await generateRegistration(resource);
       }
     }
+
+    async function generateResourceProviderReg(serviceModel:ServiceModel) {
+      const outputPath = registrationOutputPath + `/${serviceModel.nameSpace}.json`;
+      const regTemplate = resolvePath(path.join(templatePath, "resourceProviderRegistration.sq"));
+      await program.host.writeFile(outputPath, await sqrl.renderFile(regTemplate, {serviceName:serviceModel.serviceName}));
+    }
+
     async function generateRegistration(resource: any) {
       const resourceRegistrationPath =
         registrationOutputPath + `/${resource.nameSpace}/` + resource.resourceTypeName + ".json";
@@ -1193,7 +1177,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       }
       await program.host.writeFile(
         resolvePath(resourceRegistrationPath),
-        await sqrl.renderFile(resolvePath(path.join(templatePath, "registration.sq")), {
+        await sqrl.renderFile(resolvePath(path.join(templatePath, "resourceRegistration.sq")), {
           apiVersion: getServiceVersion(program),
           extensions: Array.from(extensions.values()),
         })
@@ -1329,7 +1313,27 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           target: NoTarget,
         })
       );
-
+      if (registrationOutputPath) {
+        if (path.resolve(registrationOutputPath) !== path.resolve(genPath)) {
+          await ensureCleanDirectory(registrationOutputPath).catch((err) =>
+            reportDiagnostic(program, {
+              code: "cleaning-dir",
+              format: { error: err },
+              target: NoTarget,
+            })
+          );
+          await createDirIfNotExists(
+            path.join(registrationOutputPath, outputModel.nameSpace)
+          ).catch((err) =>
+            reportDiagnostic(program, {
+              code: "creating-dir",
+              format: { error: err },
+              target: NoTarget,
+            })
+          );
+        }
+        await generateResourceProviderReg(outputModel);
+      }
       outputModel.resources.forEach(
         async (resource: Resource) =>
           await generateResource(resource).catch((error) =>
@@ -1363,6 +1367,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         reportInfo(`Rendering enum ${enumeration.name}`, enumeration.sourceNode);
         generateEnum(enumeration);
       });
+<<<<<<< HEAD
 
       if (registrationOutputPath) {
         if (path.resolve(registrationOutputPath) !== path.resolve(genPath)) {
@@ -1385,6 +1390,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         }
         generateRegistrations(outputModel);
       }
+=======
+>>>>>>> 1fb4f8b87dcd1bd25375ce71b23a38eac341fc00
     }
   }
 }

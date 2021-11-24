@@ -18,6 +18,7 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
     /// <summary>
     /// Controller for user RP operations on the ZTSIResource resource.
     /// </summary>
+    [ApiController]
     public abstract class ZTSIResourceControllerBase : ControllerBase
     {
         internal readonly ILogger<ZTSIResourceControllerBase> _logger;
@@ -241,7 +242,7 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
 
         protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResourceUpdate body, HttpRequest request)
         {
-            return Task.FromResult(Ok() as IActionResult);
+            return Task.FromResult(Ok(body) as IActionResult);
         }
 
         /// <summary>

@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "providerType": "Hidden",
+    "management": {
+      "incidentRoutingService": "Confluent Resource Provider",
+      "incidentRoutingTeam": "Confluent Triage",
+      "incidentContactEmail": "helpme@Confluent.com"
+    },
+    "enableTenantLinkedNotification": false
+  }
+}

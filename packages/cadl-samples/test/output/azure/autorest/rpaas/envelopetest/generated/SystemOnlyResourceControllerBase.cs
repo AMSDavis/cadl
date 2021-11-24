@@ -18,6 +18,7 @@ namespace Microsoft.EnvelopeTest.Service
     /// <summary>
     /// Controller for user RP operations on the SystemOnlyResource resource.
     /// </summary>
+    [ApiController]
     public abstract class SystemOnlyResourceControllerBase : ControllerBase
     {
         internal readonly ILogger<SystemOnlyResourceControllerBase> _logger;
@@ -241,7 +242,7 @@ namespace Microsoft.EnvelopeTest.Service
 
         protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string systemOnlyPropertiesName, SystemOnlyResourceUpdate body, HttpRequest request)
         {
-            return Task.FromResult(Ok() as IActionResult);
+            return Task.FromResult(Ok(body) as IActionResult);
         }
 
         /// <summary>

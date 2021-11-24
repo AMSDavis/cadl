@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "providerType": "Hidden",
+    "management": {
+      "incidentRoutingService": "ZeroTrustSystemIntegrity Resource Provider",
+      "incidentRoutingTeam": "ZeroTrustSystemIntegrity Triage",
+      "incidentContactEmail": "helpme@ZeroTrustSystemIntegrity.com"
+    },
+    "enableTenantLinkedNotification": false
+  }
+}

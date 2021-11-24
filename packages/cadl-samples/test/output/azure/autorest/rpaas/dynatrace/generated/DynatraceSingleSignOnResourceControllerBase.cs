@@ -18,6 +18,7 @@ namespace Microsoft.Observability.Service
     /// <summary>
     /// Controller for user RP operations on the DynatraceSingleSignOnResource resource.
     /// </summary>
+    [ApiController]
     public abstract class DynatraceSingleSignOnResourceControllerBase : ControllerBase
     {
         internal readonly ILogger<DynatraceSingleSignOnResourceControllerBase> _logger;

@@ -18,6 +18,7 @@ namespace Microsoft.Confluent.Service
     /// <summary>
     /// Controller for user RP operations on the Organization resource.
     /// </summary>
+    [ApiController]
     public abstract class OrganizationControllerBase : ControllerBase
     {
         internal readonly ILogger<OrganizationControllerBase> _logger;
@@ -241,7 +242,7 @@ namespace Microsoft.Confluent.Service
 
         protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string organizationName, OrganizationUpdate body, HttpRequest request)
         {
-            return Task.FromResult(Ok() as IActionResult);
+            return Task.FromResult(Ok(body) as IActionResult);
         }
 
         /// <summary>

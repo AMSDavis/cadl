@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "providerType": "Hidden",
+    "management": {
+      "incidentRoutingService": "Observability Resource Provider",
+      "incidentRoutingTeam": "Observability Triage",
+      "incidentContactEmail": "helpme@Observability.com"
+    },
+    "enableTenantLinkedNotification": false
+  }
+}

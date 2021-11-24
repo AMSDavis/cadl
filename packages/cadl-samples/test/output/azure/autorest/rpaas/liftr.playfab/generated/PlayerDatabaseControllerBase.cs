@@ -18,6 +18,7 @@ namespace Microsoft.PlayFab.Service
     /// <summary>
     /// Controller for user RP operations on the PlayerDatabase resource.
     /// </summary>
+    [ApiController]
     public abstract class PlayerDatabaseControllerBase : ControllerBase
     {
         internal readonly ILogger<PlayerDatabaseControllerBase> _logger;
@@ -241,7 +242,7 @@ namespace Microsoft.PlayFab.Service
 
         protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string name, PlayerDatabaseUpdate body, HttpRequest request)
         {
-            return Task.FromResult(Ok() as IActionResult);
+            return Task.FromResult(Ok(body) as IActionResult);
         }
 
         /// <summary>

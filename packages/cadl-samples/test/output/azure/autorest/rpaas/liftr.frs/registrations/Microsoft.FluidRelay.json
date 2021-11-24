@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "providerType": "Hidden",
+    "management": {
+      "incidentRoutingService": "FluidRelay Resource Provider",
+      "incidentRoutingTeam": "FluidRelay Triage",
+      "incidentContactEmail": "helpme@FluidRelay.com"
+    },
+    "enableTenantLinkedNotification": false
+  }
+}

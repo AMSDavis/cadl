@@ -18,6 +18,7 @@ namespace Microsoft.Confluent.Service
     /// <summary>
     /// Controller for user RP operations on the ConfluentAgreementResource resource.
     /// </summary>
+    [ApiController]
     public abstract class ConfluentAgreementResourceControllerBase : ControllerBase
     {
         internal readonly ILogger<ConfluentAgreementResourceControllerBase> _logger;

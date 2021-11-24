@@ -18,6 +18,7 @@ namespace Microsoft.ContosoRPaas.Service
     /// <summary>
     /// Controller for user RP operations on the Employee resource.
     /// </summary>
+    [ApiController]
     public abstract class EmployeeControllerBase : ControllerBase
     {
         internal readonly ILogger<EmployeeControllerBase> _logger;
@@ -241,7 +242,7 @@ namespace Microsoft.ContosoRPaas.Service
 
         protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string employeeName, EmployeeUpdate body, HttpRequest request)
         {
-            return Task.FromResult(Ok() as IActionResult);
+            return Task.FromResult(Ok(body) as IActionResult);
         }
 
         /// <summary>

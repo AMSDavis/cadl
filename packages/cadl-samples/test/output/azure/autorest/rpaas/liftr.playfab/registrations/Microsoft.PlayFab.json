@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "providerType": "Hidden",
+    "management": {
+      "incidentRoutingService": "PlayFab Resource Provider",
+      "incidentRoutingTeam": "PlayFab Triage",
+      "incidentContactEmail": "helpme@PlayFab.com"
+    },
+    "enableTenantLinkedNotification": false
+  }
+}
