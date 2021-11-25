@@ -107,11 +107,7 @@ namespace Cadl.Tools
 
             if (OutputDir != null)
             {
-                var generatedDir = Path.GetFullPath(Path.Combine(OutputDir, "generated"));
-                // format the relative path, './generated' to 'generated'
-                if (generatedDir.StartsWith(Environment.CurrentDirectory)) {
-                  generatedDir = generatedDir.Substring(Environment.CurrentDirectory.Length + 1);
-                }
+                var generatedDir = Path.Combine(OutputDir, "generated");
                 var generateCsFiles = getCsFiles(generatedDir);
                 GeneratedFiles = new ITaskItem[generateCsFiles.Length];
                 for (int i = 0; i < generateCsFiles.Length; i++)

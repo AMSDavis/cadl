@@ -47,7 +47,7 @@
     
     <Message Text="cadl gernerated @(_Cadl_GeneratedFiles)" Importance="high"/>
     <ItemGroup>
-      <Compile Remove="@(_Cadl_GeneratedFiles)" />
+      <Compile Remove="@(_Cadl_GeneratedFiles)" MatchOnMetadata="Identity" MatchOnMetadataOptions="PathLike" />
       <Compile Include="@(_Cadl_GeneratedFiles)"  Watch="false" />
     </ItemGroup>
   </Target>
