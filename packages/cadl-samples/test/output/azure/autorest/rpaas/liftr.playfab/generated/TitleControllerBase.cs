@@ -18,6 +18,7 @@ namespace Microsoft.PlayFab.Service
     /// <summary>
     /// Controller for user RP operations on the Title resource.
     /// </summary>
+    [ApiController]
     public abstract class TitleControllerBase : ControllerBase
     {
         internal readonly ILogger<TitleControllerBase> _logger;
@@ -241,7 +242,7 @@ namespace Microsoft.PlayFab.Service
 
         protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string name, TitleUpdate body, HttpRequest request)
         {
-            return Task.FromResult(Ok() as IActionResult);
+            return Task.FromResult(Ok(body) as IActionResult);
         }
 
         /// <summary>

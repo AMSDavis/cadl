@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "providerType": "Hidden",
+    "management": {
+      "incidentRoutingService": "EnvelopeTest Resource Provider",
+      "incidentRoutingTeam": "EnvelopeTest Triage",
+      "incidentContactEmail": "helpme@EnvelopeTest.com"
+    },
+    "enableTenantLinkedNotification": false
+  }
+}

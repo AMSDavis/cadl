@@ -15,6 +15,7 @@ import {
   getMaxLength,
   getMinLength,
   getServiceNamespaceString,
+  getServiceVersion,
   ModelSpreadPropertyNode,
   ModelType,
   ModelTypeProperty,
@@ -67,6 +68,7 @@ export async function $onBuild(program: Program) {
     controllerHost: program.compilerOptions.miscOptions?.controllerHost || "rpaas",
     operationPollingLocation:
       program.compilerOptions.miscOptions?.operationPollingLocation || "tenant",
+    registrationOutputPath: program.getOption("registrationOutputPath"),
   };
 
   const generator = CreateServiceCodeGenerator(program, options);
@@ -78,6 +80,7 @@ export interface ServiceGenerationOptions {
   controllerModulePath: string;
   controllerHost: "liftr" | "rpaas";
   operationPollingLocation: "tenant" | "subscription";
+  registrationOutputPath?: string;
 }
 
 export function CreateServiceCodeGenerator(program: Program, options: ServiceGenerationOptions) {
@@ -255,6 +258,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
   async function generateServiceCode() {
     const genPath = options.controllerOutputPath;
+    const registrationOutputPath = options.registrationOutputPath;
+
     // maps resource model name to arm Namespace
     const resourceNamespaceTable = new Map<string, string>();
 
@@ -591,6 +596,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 ? "/{" + resourceInfo.resourceNameParam!.name + "}"
                 : ""),
             name: resourceInfo.resourceModelName,
+            resourceTypeName: resourceInfo.resourceTypeName,
             nameSpace: serviceNamespace,
             nameParameter: resourceInfo.resourceNameParam?.name ?? "name",
             serializedName: transformJsonIdentifier(resourceInfo.collectionName),
@@ -1138,6 +1144,47 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           resource
         )
       );
+      if (registrationOutputPath) {
+        await generateRegistration(resource);
+      }
+    }
+
+    async function generateResourceProviderReg(serviceModel: ServiceModel) {
+      const outputPath = registrationOutputPath + `/${serviceModel.nameSpace}.json`;
+      const regTemplate = resolvePath(path.join(templatePath, "resourceProviderRegistration.sq"));
+      await program.host.writeFile(
+        outputPath,
+        await sqrl.renderFile(regTemplate, { serviceName: serviceModel.serviceName })
+      );
+    }
+
+    async function generateRegistration(resource: any) {
+      const resourceRegistrationPath =
+        registrationOutputPath + `/${resource.nameSpace}/` + resource.resourceTypeName + ".json";
+      reportInfo("Writing resource registrations for " + resource.resourceTypeName, undefined);
+      const extensions = new Set<string>();
+      for (const operation of resource.operations) {
+        const extensionMap = {
+          put: ["ResourceCreationValidate", "ResourceCreationBegin", "ResourceCreationCompleted"],
+          patch: ["ResourcePatchValidate", "ResourcePatchBegin", "ResourcePatchCompleted"],
+          delete: ["ResourceDeleteValidate", "ResourceDeleteBegin", "ResourceDeleteCompleted"],
+          get: ["ResourceReadValidate", "ResourceReadBegin"],
+          post: ["ResourcePostAction"],
+        } as any;
+        const _extensions = extensionMap[operation.verb.toLowerCase()] as string[];
+        if (_extensions) {
+          _extensions.forEach((element) => {
+            extensions.add(element as string);
+          });
+        }
+      }
+      await program.host.writeFile(
+        resolvePath(resourceRegistrationPath),
+        await sqrl.renderFile(resolvePath(path.join(templatePath, "resourceRegistration.sq")), {
+          apiVersion: getServiceVersion(program),
+          extensions: Array.from(extensions.values()),
+        })
+      );
     }
 
     async function generateModel(model: any) {
@@ -1222,6 +1269,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         .join(", ")
     );
     sqrl.filters.define("call", (op) => op.parameters.map((p: any) => p.name).join(", "));
+    sqrl.filters.define("bodyParameter", (op) => op.parameters[op.parameters.length - 1].name);
     sqrl.filters.define("typeParamList", (op) =>
       op.typeParameters.map((p: TypeReference) => p.name).join(", ")
     );
@@ -1268,7 +1316,27 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           target: NoTarget,
         })
       );
-
+      if (registrationOutputPath) {
+        if (path.resolve(registrationOutputPath) !== path.resolve(genPath)) {
+          await ensureCleanDirectory(registrationOutputPath).catch((err) =>
+            reportDiagnostic(program, {
+              code: "cleaning-dir",
+              format: { error: err },
+              target: NoTarget,
+            })
+          );
+          await createDirIfNotExists(
+            path.join(registrationOutputPath, outputModel.nameSpace)
+          ).catch((err) =>
+            reportDiagnostic(program, {
+              code: "creating-dir",
+              format: { error: err },
+              target: NoTarget,
+            })
+          );
+        }
+        await generateResourceProviderReg(outputModel);
+      }
       outputModel.resources.forEach(
         async (resource: Resource) =>
           await generateResource(resource).catch((error) =>

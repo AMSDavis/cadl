@@ -18,6 +18,7 @@ namespace {{it.nameSpace}}.Service
     /// <summary>
     /// Controller for user RP operations on the {{it.name}} resource.
     /// </summary>
+    [ApiController]
     public abstract class {{it.name}}ControllerBase : ControllerBase
     {
         internal readonly ILogger<{{it.name}}ControllerBase> _logger;
@@ -134,7 +135,11 @@ namespace {{it.nameSpace}}.Service
 
         protected virtual Task<IActionResult> On{{operation.action}}Async({{operation | decl}}, HttpRequest request)
         {
+{{@if(operation.verb.toUpperCase() === "PATCH"}}
+            return Task.FromResult(Ok({{ operation | bodyParameter}}) as IActionResult);
+{{#else}}
             return Task.FromResult(Ok() as IActionResult);
+{{/if}}
         }
 {{/if}}
 {{/each}}

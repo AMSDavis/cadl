@@ -1,0 +1,36 @@
+{
+  "properties": {
+    "routingType": "Default",
+    "regionality": "Regional",
+    "management": {
+      "incidentRoutingService": "ICM ServiceName",
+      "incidentRoutingTeam": "ICM TeamName",
+      "incidentContactEmail": "incidentContactEmail@domain.com"
+    },
+    "endpoints": [
+      {
+        "apiVersions": ["2021-06-13-preview"],
+        "locations": ["West US"],
+        "extensions": [
+          {
+            "endpointUri": "http://host.docker.internal:6020/",
+            "extensionCategories": [
+              "ResourceReadValidate",
+              "ResourceReadBegin",
+              "ResourceCreationValidate",
+              "ResourceCreationBegin",
+              "ResourceCreationCompleted",
+              "ResourcePatchValidate",
+              "ResourcePatchBegin",
+              "ResourcePatchCompleted",
+              "ResourceDeleteValidate",
+              "ResourceDeleteBegin",
+              "ResourceDeleteCompleted",
+              "ResourcePostAction"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -21,6 +21,7 @@
       <Root Condition="'%(CadlCompile.Root)' == '' ">cadl</Root>
       <CommandPath Condition="'%(CadlCompile.CommandPath)' == '' ">%(CadlCompile.Root)\node_modules\.bin</CommandPath>
       <OutputDir Condition="'%(CadlCompile.OutputDir)' == '' ">$(IntermediateOutputPath)</OutputDir>
+      <Options Condition="'%(CadlCompile.Options)' == '' "></Options>
       <Generator Condition="'%(CadlCompile.Generator)' == '' and '$(DisableCadlCompileDesignTimeBuild)' != 'true' ">MSBuild:Compile</Generator>
     </CadlCompile>
   </ItemDefinitionGroup>
@@ -41,7 +42,7 @@
       <CadlCompile Remove="@(CadlCompile)" Condition=" '%(CadlCompile.Compile)' != 'true' " />
     </ItemGroup>
 
-    <CadlCompiler Condition=" '$(Language)' == 'C#' and '@(CadlCompile)' != '' " CadlPath="@(CadlCompile)" ToolPath="%(CommandPath)" OutputDir="%(CadlCompile.OutputDir)" OS="$(OS)">
+    <CadlCompiler Condition=" '$(Language)' == 'C#' and '@(CadlCompile)' != '' " CadlPath="@(CadlCompile)" ToolPath="%(CommandPath)" OutputDir="%(CadlCompile.OutputDir)" OS="$(OS)" Options="%(Options)" >
       <Output TaskParameter="GeneratedFiles" ItemName="_Cadl_GeneratedFiles"/>
     </CadlCompiler>
     

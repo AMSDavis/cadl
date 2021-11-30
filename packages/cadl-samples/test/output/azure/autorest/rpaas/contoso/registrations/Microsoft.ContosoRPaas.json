@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "providerType": "Hidden",
+    "management": {
+      "incidentRoutingService": "ContosoRPaas Resource Provider",
+      "incidentRoutingTeam": "ContosoRPaas Triage",
+      "incidentContactEmail": "helpme@ContosoRPaas.com"
+    },
+    "enableTenantLinkedNotification": false
+  }
+}

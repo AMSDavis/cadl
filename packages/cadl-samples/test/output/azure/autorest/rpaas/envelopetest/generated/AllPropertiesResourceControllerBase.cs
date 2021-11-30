@@ -18,6 +18,7 @@ namespace Microsoft.EnvelopeTest.Service
     /// <summary>
     /// Controller for user RP operations on the AllPropertiesResource resource.
     /// </summary>
+    [ApiController]
     public abstract class AllPropertiesResourceControllerBase : ControllerBase
     {
         internal readonly ILogger<AllPropertiesResourceControllerBase> _logger;
@@ -241,7 +242,7 @@ namespace Microsoft.EnvelopeTest.Service
 
         protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResourceUpdate body, HttpRequest request)
         {
-            return Task.FromResult(Ok() as IActionResult);
+            return Task.FromResult(Ok(body) as IActionResult);
         }
 
         /// <summary>

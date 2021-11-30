@@ -82,6 +82,7 @@ export interface ArmResourceInfo {
   armNamespace: string;
   parentNamespace: string;
   resourceModelName: string;
+  resourceTypeName: string;
   resourceListModelName: string;
   resourceKind: ResourceKind;
   collectionName: string;
@@ -351,6 +352,7 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
     collectionName: collectionNameType?.value ?? "",
     parentResourceType,
     standardOperations,
+    resourceTypeName: resourcePathType?.value ?? "",
     resourceNameParam,
     resourceModelName,
     resourceListModelName,
