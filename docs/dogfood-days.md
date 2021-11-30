@@ -21,7 +21,7 @@ There are three simple options for getting CADL up and running in yout environme
 ## What to do on Dogfood Day
 
 - Model a data plane service you are currently working on
-- Model an existing data plane service
+- Alternately, try to model an existing data plane service
 - Give feedback on CADL tooling, CADL installation, and the CADL language through [github issues](https://github.com/azure/cadl-azure/issues)
 
 ## How to Get Help
