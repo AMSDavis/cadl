@@ -15,6 +15,7 @@ There are three simple options for getting CADL up and running in yout environme
 - Documentation
   - [Getting started with CADL for REST APIs](https://github.com/microsoft/cadl/blob/main/README.md#getting-started)
   - [CADL language tutorial](https://github.com/microsoft/cadl/blob/main/docs/tutorial.md)
+  - [CADL Swagger Cheat Sheet](https://github.com/microsoft/cadl/blob/ba062e52cae04e9cb78a8969863c9b21a45ceed7/docs/cadl-for-openapi-dev.md)
 - Video Walkthroughs
   - [Getting Started with CADL](https://microsoft.sharepoint.com/:v:/t/AzureDeveloperExperience/EaWkjLRlTG1JuZCOZFajxZABYZHF1GR4nygOIn-uOnRrWQ?e=huFQVZ)
 
