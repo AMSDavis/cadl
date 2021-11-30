@@ -4,9 +4,22 @@ Thank you for participating in CADL Dogfood Days. In this doc, you'll find point
 
 ## Installing CADL
 
-There are three simple options for getting CADL up and running in yout environment:
+There are three simple options for getting CADL up and running in your environment:
 
 - Fork and clone the [cadl-dogfood repo](https://github.com/timotheeguerin/cadl-dogfood)
+  - use npm install at the top level to install cadl dependencies
+  - use npx cadl from this directory to install the cadl vs/vs code extensions
+    ``` bash
+    npx cadl code install
+    ```
+    or
+    ``` bash
+    npx cadl vs install
+    ```
+  - use npx cadl compile to compile the cadl specs in the local directory
+    ``` bash
+    npx cadl compile ./main.cadl
+    ```
 - Use the [cadl docker images](https://github.com/microsoft/cadl/blob/main/docs/docker.md)
 - [Install directly from npm](https://github.com/microsoft/cadl#using-node--npm)
 
