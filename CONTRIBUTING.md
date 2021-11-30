@@ -6,7 +6,6 @@ https://github.com/microsoft/cadl/blob/main/CONTRIBUTING.md for most common
 day-to-day operations. The rest of this document only covers the things that
 are unique to this repo.
 
-
 # Working with the core submodule
 
 This repository uses a git
@@ -21,6 +20,7 @@ fine too!
 ## Configuring git to recurse submodules automatically for most commands
 
 Run the following command:
+
 ```
 git config --global submodule.recurse true
 ```
@@ -34,18 +34,20 @@ NOTE: git clone is exceptional, see below.
 ## Cloning recursively
 
 `git clone` does not recurse submodules automatically, even with
-submodule.recurse=true as configured above. 
+submodule.recurse=true as configured above.
 
 Fork the repo, then clone recursively as follows:
+
 ```
 git clone --recurse-submodules https://github.com/(your_username)/cadl-azure
 ```
 
-## Initializing the submodule
+## Updating and initializing the submodule
 
-In some situations, you may end up with the core/ folder being uninitialized
-and not having a good clone of microsoft/cadl. To initialize the submodule
-when that happens, run the following command:
+In some situations, even with the above setting, you may still end up with the core/ folder
+being uninitialized and not having a good clone of microsoft/cadl, or with the core/ folder
+initialized, but checked out to the wrong commit for the current branch. To fix this, run the
+following command to update and initialize the submodule:
 
 ```
 git submodule update --init
@@ -54,7 +56,7 @@ git submodule update --init
 ## Point the submodule origin remote to your fork
 
 You can change the remotes of the submodule so that `origin` is your fork of
-microsoft/cadl rather than microsoft/cadl itself, and microsoft/cadl is 
+microsoft/cadl rather than microsoft/cadl itself, and microsoft/cadl is
 `upstream`:
 
 ```
@@ -67,6 +69,7 @@ git remote add upstream https://github.com/microsoft/cadl
 ## Making a cross-cutting change across both repos
 
 1. Make matching branches:
+
 ```
 cd core
 git checkout -b myfeature
@@ -78,6 +81,7 @@ git checkout -b myfeature
 2. Make your changes as needed to both repos.
 
 3. Commit changes to both repos:
+
 ```
 cd core
 git commit -a -m "Core part of my change"
@@ -87,6 +91,7 @@ git commit -a -m "Azure-specific part of my change"
 ```
 
 4. Push
+
 ```
 git push origin myfeature
 ```
@@ -137,8 +142,7 @@ If it works you'll get a message like this:
 Success! Push publish/kvd01q9v branches and send PRs.
 ```
 
-(NOTE: The branch name is uniquely generated for every run of `rush
-prepare-publish`.)
+(NOTE: The branch name is uniquely generated for every run of `rush prepare-publish`.)
 
 What's happened here is basically that steps 1-3 of cross-cutting change
 guidance above have basically been automated for you. Now proceed through

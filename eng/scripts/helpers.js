@@ -100,7 +100,7 @@ export function runPrettier(...args) {
       ".prettierrc.json",
       "--ignore-path",
       ".prettierignore",
-      "**/*.{ts,js,cjs,mjs,json,yml,yaml,cadl}",
+      "**/*.{ts,js,cjs,mjs,json,yml,yaml,cadl,md}",
     ],
     {
       cwd: repoRoot,

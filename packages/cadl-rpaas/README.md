@@ -49,6 +49,7 @@ This should have generated the initial files and included the necessary librarie
 import "@cadl-lang/rest";
 import "@azure-tools/cadl-autorest";
 import "@azure-tools/cadl-rpaas";
+
 ```
 
 ## Concepts
@@ -73,6 +74,7 @@ Example:
 @serviceTitle("Microsoft.MyService")
 @serviceVersion("2020-10-01-preview")
 namespace Microsoft.MyService;
+
 ```
 
 ### Models/Arm Resources
@@ -92,6 +94,7 @@ model UserResourceProperties {
   @doc("Details of my resource")
   details?: string;
 }
+
 ```
 
 2. Define a model representing the parameter that corresponds to the resource name. Other resource identity parameters, like `subscriptionId` and `resourceGroupName` will automatically be added.
@@ -99,8 +102,10 @@ model UserResourceProperties {
 ```cadl
 model UserResourceNameParameter {
   @doc("UserResource resource name")
-  @path userResourceName: string;
+  @path
+  userResourceName: string;
 }
+
 ```
 
 3. Define the resource model as an Arm Tracked Resource
@@ -112,7 +117,8 @@ model UserResourceNameParameter {
   parameterType: AccountNameParameter,
   collectionName: "UserResources",
 })
-model UserResource is TrackedResource<UserResourceProperties> {};
+model UserResource is TrackedResource<UserResourceProperties> {}
+
 ```
 
 This will now produce all the endpoints(`get`, `post`, `put`, `patch` and `delete`, listByResourceGroup, listBySubscription) for a resource called `UserResources` and the `operations` endpoint for the service:
@@ -151,9 +157,10 @@ For example to create a new `AddressResource` resource under the `UserResource` 
   path: "AddressResources",
   parameterType: SubResourceNameParameter,
   collectionName: "AddressResource",
-  parentResourceType: UserResource
+  parentResourceType: UserResource,
 })
-model UserResource is TrackedResource<UserResourceProperties> {};
+model UserResource is TrackedResource<UserResourceProperties> {}
+
 ```
 
 ### Additional endpoints/operations
@@ -168,10 +175,9 @@ Example: To add a `POST /notify` operation on the `UserResource`.
 namespace Users {
   @post("notify")
   @doc("Send a notification to the user")
-  op notifyUser(
-    ...CommonResourceParameters,
-  ): ArmResponse<bool> | ErrorResponse;
+  op notifyUser(...CommonResourceParameters): ArmResponse<bool> | ErrorResponse;
 }
+
 ```
 
 #### Response
