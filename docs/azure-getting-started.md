@@ -1,43 +1,43 @@
-# Getting Started with CADL for Azure Services
+# Getting Started with Cadl for Azure Services
 
-## CADL Features
+## Cadl Features
 
-CADL (Compact API Definition Language) is a typescript-like language for defining APIs. CADL is designed for code reuse,
-and for Azure services, there are Azure service extensions for CADL that provide high level building blocks you should use to build
+Cadl (Compact API Definition Language) is a typescript-like language for defining APIs. Cadl is designed for code reuse,
+and for Azure services, there are Azure service extensions for Cadl that provide high level building blocks you should use to build
 your service. These libraries also contain rules that encourage following established patterns for Azure APIs. Using these building blocks
 and guard rails, your service API will be easier to build, will have an easier time passing API reviews, will be consistent with other Azure
 services, and will produce good API documentation, good SDKs, and good CLIs.
-CADL can emit the following artifacts for your service:
+Cadl can emit the following artifacts for your service:
 
 - OpenAPI3 specs
 - OpenAPI2 specs, suitable for check-in in to the azure-rest-api-specs repo
-- _Management Plane_ CADL produces ASP.NET MVC controllers and supporting models for your UserRP. CADL tooling also helps produce manifests, and aids in hosting your service in the ProviderHub OneBox environment for local testing and debugging.
+- _Management Plane_ Cadl produces ASP.NET MVC controllers and supporting models for your UserRP. Cadl tooling also helps produce manifests, and aids in hosting your service in the ProviderHub OneBox environment for local testing and debugging.
 
-For more information on the CADL language and core libraries, see [Getting started with CADL](https://github.com/microsoft/cadl/blob/main/docs/tutorial.md)
+For more information on the Cadl language and core libraries, see [Getting started with Cadl](https://github.com/microsoft/cadl/blob/main/docs/tutorial.md)
 
 ## Getting Started for ProviderHub (RPaaS) Management Services
 
 - Documentation
   - [RPaaS Project Templates](https://github.com/Azure/cadl-azure/blob/main/packages/cadl-rpaas-templates/README.md)
   - [Getting Started with RPaaS](https://aka.ms/cadl/rpass-start)
-  - [Checking in CADL Generated Swagger](https://github.com/Azure/cadl-azure/blob/main/docs/checking-in-swagger-guide.md)
+  - [Checking in Cadl Generated Swagger](https://github.com/Azure/cadl-azure/blob/main/docs/checking-in-swagger-guide.md)
 - Video Walkthroughs
-  - [Getting Started with CADL for RPaaS](https://microsoft.sharepoint.com/:v:/t/AzureDeveloperExperience/EYTV39X351FAlHb8tIPHdCgB1zgVDUGfcCE2mOoQAlVAcw?e=0D1IIW)
+  - [Getting Started with Cadl for RPaaS](https://microsoft.sharepoint.com/:v:/t/AzureDeveloperExperience/EYTV39X351FAlHb8tIPHdCgB1zgVDUGfcCE2mOoQAlVAcw?e=0D1IIW)
   - [Service Code Generation](https://microsoft.sharepoint.com/:v:/t/AzureDeveloperExperience/EUqfqSySRipChjKAciFLHfMBXHnjti49ZTrLKvHW0UWL-Q?e=EDtBNk)
 
 ## Getting Started for Azure Data Plane Services
 
 - Documentation
-  - [Getting started with CADL for REST APIs](https://github.com/microsoft/cadl/blob/main/README.md#getting-started)
-  - [CADL language tutorial](https://github.com/microsoft/cadl/blob/main/docs/tutorial.md)
+  - [Getting started with Cadl for REST APIs](https://github.com/microsoft/cadl/blob/main/README.md#getting-started)
+  - [Cadl language tutorial](https://github.com/microsoft/cadl/blob/main/docs/tutorial.md)
 - Video Walkthroughs
   - [Getting Started with ADL](https://microsoft.sharepoint.com/:v:/t/AzureDeveloperExperience/EaWkjLRlTG1JuZCOZFajxZABYZHF1GR4nygOIn-uOnRrWQ?e=huFQVZ)
 
 ## More Information
 
 - Recordings
-  - [CADL Brownbag for ARM](https://microsoft-my.sharepoint.com/:v:/p/markcowl/EQcfmjJ4MXhDmwqfo_e5KNcBvayWd63KwK-WJNPykZC88Q)
-  - [CADL Brownbag for Azure SDK](https://microsoft-my.sharepoint.com/:v:/r/personal/scotk_microsoft_com/Documents/Recordings/Lunch%20Learning%20Series%20_%20Mark%20Cowlishaw%20-%20CADL%20Walkthrough-20211117_120334-Meeting%20Recording.mp4?csf=1&web=1&e=27IgaX)
+  - [Cadl Brownbag for ARM](https://microsoft-my.sharepoint.com/:v:/p/markcowl/EQcfmjJ4MXhDmwqfo_e5KNcBvayWd63KwK-WJNPykZC88Q)
+  - [Cadl Brownbag for Azure SDK](https://microsoft-my.sharepoint.com/:v:/r/personal/scotk_microsoft_com/Documents/Recordings/Lunch%20Learning%20Series%20_%20Mark%20Cowlishaw%20-%20CADL%20Walkthrough-20211117_120334-Meeting%20Recording.mp4?csf=1&web=1&e=27IgaX)
 
 ## Help and Questions
 

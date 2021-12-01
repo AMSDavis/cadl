@@ -5,12 +5,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Cadl.ProviderHubController.Common</PackageId>
       <Version>1.0.0-beta.$(BuildId)</Version>
-      <PackageTags>Microsoft Azure CADL RPaas</PackageTags>
+      <PackageTags>Microsoft Azure Cadl RPaas</PackageTags>
       <Description>
         This common class library for RPaas controller extensions
         For this release see notes - TBA
         in addition to the breaking changes TBA
-        CADL quickstarts and tutorials - https://github.com/Azure/adl
+        Cadl quickstarts and tutorials - https://github.com/Azure/adl
       </Description>
       <WarningLevel>9999</WarningLevel>
       <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

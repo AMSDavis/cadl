@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "author": "Microsoft Corporation",
-  "description": "CADL for Contoso",
+  "description": "Cadl for Contoso",
   "homepage": "https://github.com/Azure/cadl-azure",
   "readme": "https://github.com/Azure/cadl-azure/blob/master/readme.md",
   "license": "MIT",
