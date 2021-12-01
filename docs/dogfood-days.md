@@ -20,7 +20,7 @@ There are three simple options for getting Cadl up and running in your environme
     ```bash
     npx cadl compile ./main.cadl
     ```
-- Use the [cadl docker images](https://github.com/microsoft/cadl/blob/main/docs/docker.md)
+- Use the [Cadl docker images](https://github.com/microsoft/cadl/blob/main/docs/docker.md)
 - [Install directly from npm](https://github.com/microsoft/cadl#using-node--npm)
 
 Once Cadl is installed, the [Cadl language tutorial](https://github.com/microsoft/cadl/blob/main/docs/tutorial.md) provides a good overview of the basics of the language.
@@ -30,18 +30,23 @@ Once Cadl is installed, the [Cadl language tutorial](https://github.com/microsof
 - Documentation
   - [Getting started with Cadl for REST APIs](https://github.com/microsoft/cadl/blob/main/README.md#getting-started)
   - [Cadl language tutorial](https://github.com/microsoft/cadl/blob/main/docs/tutorial.md)
-  - [Cadl Swagger Cheat Sheet](https://github.com/microsoft/cadl/blob/ba062e52cae04e9cb78a8969863c9b21a45ceed7/docs/cadl-for-openapi-dev.md)
+  - [Cadl Swagger Cheat Sheet](https://github.com/microsoft/cadl/blob/main/docs/cadl-for-openapi-dev.md)
 - Samples
   - [Petstore Sample using Low-level Http APIs](https://github.com/microsoft/cadl/tree/main/packages/samples/petstore)
   - [Petstore Sample using High-level Resource APis](https://github.com/microsoft/cadl/tree/main/packages/samples/rest/petstore)
   - You can also browse the [Samples package](https://github.com/microsoft/cadl/tree/main/packages/samples)
 - Video Walkthroughs
-  - [Getting Started with Cadl](https://microsoft.sharepoint.com/:v:/t/AzureDeveloperExperience/EaWkjLRlTG1JuZCOZFajxZABYZHF1GR4nygOIn-uOnRrWQ?e=huFQVZ)
+  - [Getting Started with Cadl](https://microsoft.sharepoint.com/:v:/t/AzureDeveloperExperience/Ee5JOjqLOFFDstWe6yB0r20BXozakjHy7w2adGxQi5ztJg?e=QgqqhQ)
 
 ## What to do on Dogfood Day
 
-- Model a data plane service you are currently working on
-- Alternately, try to model an existing data plane service
+- Model a data plane service you were recently working on
+- Try to model part of one of these existing data plane services
+  - [App Config](https://github.com/Azure/azure-rest-api-specs/blob/main/specification/appconfiguration/data-plane/Microsoft.AppConfiguration/stable/1.0/appconfiguration.json)
+  - [Confidential Ledger](https://github.com/Azure/azure-rest-api-specs/blob/main/specification/confidentialledger/data-plane/Microsoft.ConfidentialLedger/preview/0.1-preview/confidentialledger.json)
+  - [Device Provisioning Services](https://github.com/Azure/azure-rest-api-specs/blob/main/specification/deviceprovisioningservices/data-plane/Microsoft.Devices/stable/2021-10-01/service.json)
+  - [KeyVault](https://github.com/Azure/azure-rest-api-specs/blob/main/specification/keyvault/data-plane/Microsoft.KeyVault/stable/7.2/secrets.json)
+  - [Operational Insights](https://github.com/Azure/azure-rest-api-specs/blob/main/specification/operationalinsights/data-plane/Microsoft.OperationalInsights/stable/v1/OperationalInsights.json)
 - Give feedback on Cadl tooling, Cadl installation, and the Cadl language through [github issues](https://github.com/azure/cadl-azure/issues)
 
 ## How to Get Help
@@ -53,7 +58,7 @@ Cadl Engineers will be online to help throughout the day.
 
 ### Troubleshooting VSCode Tooling and Filing Issues
 
-If you run into a problem with the Cadl-specific tooling in vscode, please try to capture the issue, and include any log information. If IntelliSense, syntax highlighting or other language features don't appear to be working:
+If you run into a problem with the Cadl-specific tooling in VS Code, please try to capture the issue, and include any log information. If IntelliSense, syntax highlighting or other language features don't appear to be working:
 
 - Ensure that 'Cadl' is the selected language format for your document (this should happen automatically if your file uses the .cadl suffix)
   ![image](https://user-images.githubusercontent.com/1054056/144310539-4e9bfbb9-1366-4b6f-a490-875e9bd68669.png)
