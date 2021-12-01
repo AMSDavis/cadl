@@ -2,6 +2,18 @@
   "name": "@azure-tools/cadl-autorest",
   "entries": [
     {
+      "version": "0.9.2",
+      "tag": "@azure-tools/cadl-autorest_v0.9.2",
+      "date": "Wed, 01 Dec 2021 22:56:37 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix mapping of update method name to HTTP verb"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.9.1",
       "tag": "@azure-tools/cadl-autorest_v0.9.1",
       "date": "Thu, 18 Nov 2021 13:58:37 GMT",

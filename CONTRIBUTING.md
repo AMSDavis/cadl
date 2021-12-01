@@ -108,8 +108,7 @@ branch. If you prefer not to use that, then `cd core` and push that too.
 
 7. Merge the microsoft/cadl PR first.
 
-8. If you squashed the microsoft/cadl PR, then update the submodule to point
-   to the actual commit you merged to microsoft/cadl main:
+8. Update the submodule to point to the actual commit you merged to microsoft/cadl main:
 
 ```
 cd core

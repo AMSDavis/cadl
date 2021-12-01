@@ -14,7 +14,11 @@ const branch = `publish/${Date.now().toString(36)}`;
 // Check that we have a clean slate before starting
 checkPrePublishState();
 
-// Stage the cadl publish
+// Update the cadl core submodule
+cadlRun("git", "fetch", "https://github.com/microsoft/cadl", "main");
+cadlRun("git", "checkout", "FETCH_HEAD");
+
+// Stage the cadl core publish
 cadlRun("rush", "publish", "--apply");
 
 // Determine project versions including any bumps from cadl publish above
