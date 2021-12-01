@@ -2,8 +2,8 @@
 name: Dogfood day template
 about: Issues to be opened for internal Dogfood day
 title: "[Dogfood day]"
-labels: ''
-assignees: ''
+labels: ""
+assignees: ""
 
 ---
 
