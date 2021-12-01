@@ -2,19 +2,34 @@
 name: Dogfood day template
 about: Issues to be opened for internal Dogfood day
 title: "[Dogfood day]"
-labels: ""
+labels: "DogfoodDays"
 assignees: ""
-
 ---
 
-- [ ] Bugs
-- [ ] Feature Request / Suggestion
-- [ ] Questions
-- [ ] Other
+body:
 
-Issue details:
+- type: markdown
+  attributes:
+  value: >
+  Thanks for reporting. Please pick an area first from the list below
 
+      - [ ] Bugs
+      - [ ] Feature Request / Suggestion
+      - [ ] Questions
+      - [ ] Other
 
-- Expected Behavior:
-
-- Actual Behavior:
+- type: textarea
+  attributes:
+  label: Issue details:
+  description: >
+  Please describe the issue and expected result.
+- type: textarea
+  attributes:
+  label: CADL examples
+  description: >
+  Please share any relevant CADL code.
+- type: textarea
+  attributes:
+  label: Swagger examples
+  description: >
+  Please share any relevant swaggers.
