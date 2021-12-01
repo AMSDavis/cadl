@@ -23,12 +23,18 @@ There are three simple options for getting CADL up and running in your environme
 - Use the [cadl docker images](https://github.com/microsoft/cadl/blob/main/docs/docker.md)
 - [Install directly from npm](https://github.com/microsoft/cadl#using-node--npm)
 
+Once CADL is installed, the [CADL language tutorial](https://github.com/microsoft/cadl/blob/main/docs/tutorial.md) provides a good overview of the basics of the language.
+
 ## Getting Started for Azure Data Plane Services
 
 - Documentation
   - [Getting started with CADL for REST APIs](https://github.com/microsoft/cadl/blob/main/README.md#getting-started)
   - [CADL language tutorial](https://github.com/microsoft/cadl/blob/main/docs/tutorial.md)
   - [CADL Swagger Cheat Sheet](https://github.com/microsoft/cadl/blob/ba062e52cae04e9cb78a8969863c9b21a45ceed7/docs/cadl-for-openapi-dev.md)
+- Samples
+  - [Petstore Sample using Low-level Http APIs](https://github.com/microsoft/cadl/tree/main/packages/samples/petstore)
+  - [Petstore Sample using High-level Resource APis](https://github.com/microsoft/cadl/tree/main/packages/samples/rest/petstore)
+  - You can also browse the [Samples package](https://github.com/microsoft/cadl/tree/main/packages/samples)
 - Video Walkthroughs
   - [Getting Started with CADL](https://microsoft.sharepoint.com/:v:/t/AzureDeveloperExperience/EaWkjLRlTG1JuZCOZFajxZABYZHF1GR4nygOIn-uOnRrWQ?e=huFQVZ)
 
@@ -44,6 +50,16 @@ CADL Engineers will be online to help throughout the day.
 
 - Ask questions in the [CADL Discussions Teams Channel](https://teams.microsoft.com/l/channel/19%3a906c1efbbec54dc8949ac736633e6bdf%40thread.skype/Cadl%2520Discussion?groupId=3e17dcb0-4257-4a30-b843-77f47f1d4121&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47)
 - File issues in the [cadl-azure github repo](https://github.com/azure/cadl-azure/issues)
+
+### Troubleshooting VSCode Tooling and Filing Issues
+If you run into a problem with the cadl specific tooling in vscode, please try to capture the  issue, and include any log information.  If intellisense or syntax highlighting or other language features don't appear to be working
+- Ensure that 'Cadl' is the selected language format for your document (this should happen automatically 
+  ![image](https://user-images.githubusercontent.com/1054056/144310539-4e9bfbb9-1366-4b6f-a490-875e9bd68669.png)
+- Choose Output from the View menu to see the output of the language server (View -> Output)
+  ![image](https://user-images.githubusercontent.com/1054056/144310719-4bca242f-f11c-484c-91c7-6914fcf7fe3a.png)
+- Capture any output, including stack traces, and include in your [github issue](https://github.com/azure/cadl-azure/issues).
+  ![image](https://user-images.githubusercontent.com/1054056/144310907-ec945f54-0fd8-40a4-936c-60669f4a052f.png)
+- Restart VSCode to restart the language server
 
 ## More Information About CADL
 
