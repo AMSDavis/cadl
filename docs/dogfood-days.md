@@ -54,7 +54,7 @@ Once Cadl is installed, the [Cadl language tutorial](https://github.com/microsof
 
 Cadl Engineers will be online to help throughout the day.
 
-- Ask questions in the [Cadl Discussions Teams Channel](https://teams.microsoft.com/l/channel/19%3a906c1efbbec54dc8949ac736633e6bdf%40thread.skype/Cadl%2520Discussion?groupId=3e17dcb0-4257-4a30-b843-77f47f1d4121&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47)
+- Ask questions in the [Cadl Dogfood Days Teams Channel](https://teams.microsoft.com/l/channel/19%3aeec55d4a1abe44d19d319166ba0444d5%40thread.skype/Cadl%2520dogfood%2520days?groupId=3e17dcb0-4257-4a30-b843-77f47f1d4121&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47)
 - File issues in the [cadl-azure github repo](https://github.com/azure/cadl-azure/issues)
   - Please add the [DogfoodDays label](https://github.com/Azure/cadl-azure/labels/DogfoodDays) to any issue you file
   - For bugs, please include:
