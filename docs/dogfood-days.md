@@ -41,6 +41,7 @@ Once Cadl is installed, the [Cadl language tutorial](https://github.com/microsof
 ## What to do on Dogfood Day
 
 - Model a data plane service you were recently working on
+- Help out with modeling the [QuestionAnswering service](https://github.com/Azure/azure-rest-api-specs/blob/main/specification/cognitiveservices/data-plane/Language/stable/2021-10-01/questionanswering-authoring.json) by signing up through our [wiki](https://teams.microsoft.com/l/entity/com.microsoft.teamspace.tab.wiki/tab::d349c02d-08a1-4b51-8ad8-68d123dd17e5?context=%7B%22subEntityId%22%3A%22%7B%5C%22pageId%5C%22%3A21%2C%5C%22sectionId%5C%22%3A22%2C%5C%22origin%5C%22%3A2%7D%22%2C%22channelId%22%3A%2219%3A16f8f1ed70d044139be153707bdaee0e%40thread.skype%22%7D&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47)
 - Try to model part of one of these existing data plane services
   - [App Config](https://github.com/Azure/azure-rest-api-specs/blob/main/specification/appconfiguration/data-plane/Microsoft.AppConfiguration/stable/1.0/appconfiguration.json)
   - [Confidential Ledger](https://github.com/Azure/azure-rest-api-specs/blob/main/specification/confidentialledger/data-plane/Microsoft.ConfidentialLedger/preview/0.1-preview/confidentialledger.json)
@@ -55,6 +56,12 @@ Cadl Engineers will be online to help throughout the day.
 
 - Ask questions in the [Cadl Discussions Teams Channel](https://teams.microsoft.com/l/channel/19%3a906c1efbbec54dc8949ac736633e6bdf%40thread.skype/Cadl%2520Discussion?groupId=3e17dcb0-4257-4a30-b843-77f47f1d4121&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47)
 - File issues in the [cadl-azure github repo](https://github.com/azure/cadl-azure/issues)
+  - Please add the [DogfoodDays label](https://github.com/Azure/cadl-azure/labels/DogfoodDays) to any issue you file
+  - For bugs, please include:
+    - A high-level description of the bug
+    - Expected and Actual Results
+    - Repro steps, including any Cadl code that you used
+    - Any error messages you saw, including stack traces. For issues with VS Code tooling see [Troubleshooting VSCode Tooling and Filing Issues](#troubleshooting-vscode-tooling-and-filing-issues)
 
 ### Troubleshooting VSCode Tooling and Filing Issues
 
