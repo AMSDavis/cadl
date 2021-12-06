@@ -1,6 +1,6 @@
 import { run, scanSwaggers, autorest } from "./helpers.js";
 
-const AUTOREST_CORE_VERSION = "3.6.6";
+const AUTOREST_CORE_VERSION = "3.7.2";
 
 function generateSDK(lang, swagger) {
   try {
@@ -12,7 +12,7 @@ function generateSDK(lang, swagger) {
           `--version=${AUTOREST_CORE_VERSION}`,
           "--python",
           "--track2",
-          "--use=@autorest/python@5.8.1",
+          "--use=@autorest/python@5.12.0",
           "--python-sdks-folder=sdk/python",
           "--python-mode=update",
           "--input-file=" + swagger,
@@ -23,7 +23,7 @@ function generateSDK(lang, swagger) {
         run(autorest, [
           `--version=${AUTOREST_CORE_VERSION}`,
           "--typescript",
-          "--use=@autorest/typescript@6.0.0-beta.10",
+          "--use=@autorest/typescript@6.0.0-beta.15",
           "--azure-arm",
           "--generate-metadata",
           "--output-folder=sdk/javascript",
