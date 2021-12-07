@@ -55,15 +55,12 @@ export async function $onBuild(program: Program) {
   const rootPath = program.host.resolveAbsolutePath(
     path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
   );
+  const serviceCodePath =
+    program.compilerOptions.miscOptions.serviceCodePath || program.compilerOptions.outputPath;
   const options: ServiceGenerationOptions = {
-    controllerOutputPath:
-      program.compilerOptions.serviceCodePath || program.compilerOptions.outputPath
-        ? path.join(program.compilerOptions.outputPath!, "generated")
-        : path.join(
-            program.host.resolveAbsolutePath(path.resolve(".")),
-            "cadl-output",
-            "generated"
-          ),
+    controllerOutputPath: serviceCodePath
+      ? path.join(serviceCodePath, "generated")
+      : path.join(program.host.resolveAbsolutePath(path.resolve(".")), "cadl-output", "generated"),
     controllerModulePath: rootPath,
     controllerHost: program.compilerOptions.miscOptions?.controllerHost || "rpaas",
     operationPollingLocation:
