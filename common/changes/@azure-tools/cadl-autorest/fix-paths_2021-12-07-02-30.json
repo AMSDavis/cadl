@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-autorest",
+      "comment": "generate resource provider subfolder",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-autorest"
+}
