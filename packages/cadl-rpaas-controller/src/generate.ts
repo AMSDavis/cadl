@@ -32,7 +32,6 @@ import {
 } from "@cadl-lang/compiler";
 import { http } from "@cadl-lang/rest";
 import * as fs from "fs/promises";
-import mkdirp from "mkdirp";
 import * as path from "path";
 import * as sqrl from "squirrelly";
 import { fileURLToPath } from "url";
@@ -1246,7 +1245,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           return false;
         }))
       ) {
-        await mkdirp(targetPath);
+        await program.host.mkdirp(targetPath);
       }
     }
 
