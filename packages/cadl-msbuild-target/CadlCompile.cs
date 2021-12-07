@@ -75,13 +75,13 @@ namespace Cadl.Tools
             if (Options != null){
               foreach (var option in Options) {
                 // ensure option is following: key=value
-                if (!option.Equals("") && option.Contains("=")) {
+                if (option.Contains("=")) {
                   cmd.AddSwitchMaybe("option", option);
-                  if (option.Split('=')[1] == "serviceCodePath") {
-                    this.serviceCodePath = option.Split('=')[1];
+                  var slices = option.Split('=');
+                  if (slices[0].Equals("serviceCodePath") && !slices[1].Equals("")) {
+                    this.serviceCodePath = slices[1];
                   }
                 }
-               
               }
             }
             Log.LogMessage(cmd.ToString());
