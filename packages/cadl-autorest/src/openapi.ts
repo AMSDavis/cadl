@@ -57,7 +57,7 @@ const {
 export async function $onBuild(p: Program) {
   const options: OpenAPIEmitterOptions = {
     outputFile:
-      checkAndGenResourceProviderSubfolder(p, getServiceVersion(p)) ||
+      (await checkAndGenResourceProviderSubfolder(p, getServiceVersion(p))) ||
       p.compilerOptions.swaggerOutputFile ||
       path.resolve("./openapi.json"),
   };
@@ -1462,7 +1462,7 @@ function sortOpenAPIDocument(doc: any): any {
   return doc;
 }
 
-function checkAndGenResourceProviderSubfolder(p: Program, version: string) {
+async function checkAndGenResourceProviderSubfolder(p: Program, version: string) {
   const resourceProviderFolder = p.getOption("azure-resource-provider-folder");
   const nameSpace = getServiceNamespaceString(p);
   let outputPath = p.compilerOptions.outputPath || ".";
@@ -1473,7 +1473,7 @@ function checkAndGenResourceProviderSubfolder(p: Program, version: string) {
       version.includes("preview") ? "preview" : "stable",
       version
     );
-    p.host.mkdirp(outputPath);
+    await p.host.mkdirp(outputPath);
     return path.join(outputPath, "openapi.json");
   }
   return undefined;
