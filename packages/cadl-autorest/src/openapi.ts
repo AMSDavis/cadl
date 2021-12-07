@@ -1470,6 +1470,7 @@ async function checkAndGenResourceProviderSubfolder(p: Program, version: string)
     outputPath = path.join(
       outputPath,
       resourceProviderFolder,
+      nameSpace,
       version.includes("preview") ? "preview" : "stable",
       version
     );
