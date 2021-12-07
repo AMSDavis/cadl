@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas-controller",
+      "comment": "fix service code path",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas-controller"
+}
