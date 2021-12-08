@@ -15,6 +15,42 @@
   ],
   "tags": [],
   "paths": {
+    "": {
+      "post": {
+        "operationId": "Pets_Create",
+        "summary": "Creates a new instance of the resource.",
+        "parameters": [
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          },
+          "201": {
+            "description": "Resource create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/PetStoreError"
+            }
+          }
+        }
+      }
+    },
     "/pets": {
       "get": {
         "operationId": "Pets_List",
@@ -126,20 +162,50 @@
             }
           }
         }
-      },
-      "post": {
-        "operationId": "Pets_Create",
-        "summary": "Creates a new instance of the resource.",
+      }
+    },
+    "/pets/{petId}/checkups": {
+      "get": {
+        "operationId": "Checkups_List",
+        "summary": "Lists all instances of the resource.",
         "parameters": [
           {
-            "$ref": "#/parameters/Pet.petId"
+            "$ref": "#/parameters/PetStore.Pet.petId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paged response",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_Checkup"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/PetStoreError"
+            }
+          }
+        }
+      }
+    },
+    "/pets/{petId}/checkups/{id}": {
+      "put": {
+        "operationId": "Checkups_Create",
+        "summary": "Creates or update a instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/PetStore.Pet.petId"
+          },
+          {
+            "$ref": "#/parameters/Checkup.id"
           },
           {
             "name": "resource",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Pet"
+              "$ref": "#/definitions/Checkup"
             }
           }
         ],
@@ -147,13 +213,13 @@
           "200": {
             "description": "A successful response",
             "schema": {
-              "$ref": "#/definitions/Pet"
+              "$ref": "#/definitions/Checkup"
             }
           },
           "201": {
             "description": "Resource create operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/Pet"
+              "$ref": "#/definitions/Checkup"
             }
           },
           "default": {
@@ -225,6 +291,27 @@
     }
   },
   "definitions": {
+    "Cadl.Rest.Resource.Page_Checkup": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Checkup"
+          },
+          "x-cadl-name": "PetStore.Checkup[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
     "Cadl.Rest.Resource.Page_Pet": {
       "type": "object",
       "properties": {
@@ -265,6 +352,26 @@
       "description": "Paged response",
       "required": [
         "value"
+      ]
+    },
+    "Checkup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "vetName": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "vetName",
+        "notes"
       ]
     },
     "Pet": {
@@ -332,6 +439,14 @@
     }
   },
   "parameters": {
+    "Checkup.id": {
+      "x-ms-parameter-location": "method",
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+    },
     "Pet.petId": {
       "x-ms-parameter-location": "method",
       "name": "petId",
