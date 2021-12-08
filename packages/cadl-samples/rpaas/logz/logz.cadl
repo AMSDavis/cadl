@@ -26,7 +26,8 @@ model MonitorNameParameter {
 
 @armResourceOperations(LogzMonitorResource)
 namespace LogzMonitors {
-  @post("listMonitoredResources")
+  @post
+  @route("listMonitoredResources")
   @doc("List the resources currently being monitored by the Logz monitor resource.")
   op listMonitoredResources(
     ...CommonResourceParameters,

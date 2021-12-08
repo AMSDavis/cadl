@@ -8,12 +8,12 @@ import {
 import {
   ArrayType,
   BooleanLiteralType,
-  checkIfServiceNamespace,
   EnumType,
   getDoc,
   getFormat,
   getMaxLength,
   getMinLength,
+  getServiceNamespace,
   getServiceNamespaceString,
   getServiceVersion,
   ModelSpreadPropertyNode,
@@ -30,22 +30,14 @@ import {
   Type,
   UnionType,
 } from "@cadl-lang/compiler";
-import { http } from "@cadl-lang/rest";
+import { getAllRoutes, http, OperationDetails } from "@cadl-lang/rest";
 import * as fs from "fs/promises";
 import * as path from "path";
 import * as sqrl from "squirrelly";
 import { fileURLToPath } from "url";
 import { reportDiagnostic } from "./lib.js";
 
-const {
-  getHttpOperation,
-  getPathParamName,
-  getRoutes,
-  isBody,
-  isPathParam,
-  isQueryParam,
-  isRoute,
-} = http;
+const { getPathParamName, isBody, isPathParam, isQueryParam } = http;
 
 // Squirelly escape for xml which is not what we want here https://v7--squirrellyjs.netlify.app/docs/v7/auto-escaping/
 sqrl.defaultConfig.autoEscape = false;
@@ -81,15 +73,12 @@ export interface ServiceGenerationOptions {
 
 export function CreateServiceCodeGenerator(program: Program, options: ServiceGenerationOptions) {
   const rootPath = options.controllerModulePath;
+  const serviceRootNamespace = getServiceNamespace(program);
   const serviceNamespaceName = getServiceNamespaceString(program);
-  const serviceRootNamespace = findServiceNamespace(
-    program,
-    program.checker!.getGlobalNamespaceType()
-  );
   if (!serviceNamespaceName) {
     return {
-      generateServiceCode(): void {
-        return;
+      generateServiceCode(): Promise<void> {
+        return Promise.resolve();
       },
     };
   }
@@ -223,26 +212,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     program.logger.verbose(message);
   }
 
-  function findServiceNamespace(
-    program: Program,
-    rootNamespace: NamespaceType
-  ): NamespaceType | undefined {
-    let current = rootNamespace;
-    if (checkIfServiceNamespace(program, current)) {
-      return current;
-    }
-
-    let result: NamespaceType | undefined = undefined;
-    current.namespaces.forEach((namespace) => {
-      let candidate = findServiceNamespace(program, namespace);
-      if (candidate && result === undefined) {
-        result = candidate;
-      }
-    });
-
-    return result;
-  }
-
   function resolvePath(fsPath: string): string {
     return program.host.resolveAbsolutePath(path.resolve(fsPath));
   }
@@ -355,9 +324,21 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       }
 
       function GetAdditionalOperations() {
-        const modelNameSpaces: NamespaceType[] = getRoutes(program).map(
-          (res) => res as NamespaceType
+        const allRouteOperations = getAllRoutes(program);
+
+        // Get a unique set of all namespaces where @route is used on an operation
+        const namespaceSet = new Set(
+          allRouteOperations
+            .map((route) => route.container)
+            .filter((c) => c.kind === "Namespace") as NamespaceType[]
         );
+
+        // Build a mapping of operations to their operation details
+        const operationMap = new Map<OperationType, OperationDetails>(
+          allRouteOperations.map((route) => [route.operation, route])
+        );
+
+        const modelNameSpaces: NamespaceType[] = Array.from(namespaceSet.keys());
         const visitedNamespaces = new Map<string, NamespaceType>();
         const visitedOperations = new Map<string, OperationType>();
         const outOperations = new Map<string, Operation[]>();
@@ -464,7 +445,11 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
           function visitOperation(operation: OperationType, namespaceKey: string) {
             const operationKey: string = namespaceKey + "." + operation.name;
-            let httpOperation = getHttpOperation(program, operation);
+            const operationDetails = operationMap.get(operation);
+            if (!operationDetails) {
+              throw new Error(`No route details found for operation '${operation.name}'`);
+            }
+
             let bodyProp: MethodParameter | undefined = undefined;
             if (!visitedOperations.has(operationKey)) {
               visitedOperations.set(operationKey, operation);
@@ -510,15 +495,13 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                 });
               }
 
-              let route = httpOperation?.route;
-
               getPathParamName(program, operation);
               const outOperation: Operation = {
                 name: transformCSharpIdentifier(operation.name),
                 returnType: returnType?.name ?? "void",
                 parameters: parameters,
-                subPath: httpOperation!.route?.subPath,
-                verb: httpOperation!.route?.verb,
+                subPath: operationDetails.pathFragment,
+                verb: operationDetails.verb,
                 sourceNode: operation.node,
               };
               if (bodyProp !== undefined) {
@@ -543,9 +526,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         }
         function visitNamespace(visited: NamespaceType, parent?: string) {
           let key: string = visited.name;
-          if (isRoute(program, visited)) {
-          }
-
           let resource: Resource | undefined = undefined;
           if (armResourceLookup.has(key)) {
             resource = armResourceLookup.get(key)!;

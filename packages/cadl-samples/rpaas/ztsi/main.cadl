@@ -27,7 +27,8 @@ model ZTSINameParameter {
 
 @armResourceOperations(ZTSIResource)
 namespace ZTSI {
-  @post("getMAAURL")
+  @post
+  @route("getMAAURL")
   @doc("Gets the MAA URL for this resource")
   op GetMAAURL(
     ...ApiVersionParameter,
@@ -36,7 +37,8 @@ namespace ZTSI {
     ...ZTSINameParameter
   ): MAAURL | ErrorResponse;
 
-  @post("getZTSIURL")
+  @post
+  @route("getZTSIURL")
   @doc("Gets the ZTSI URL for this resource")
   op GetZTSIURL(
     ...ApiVersionParameter,
@@ -45,7 +47,8 @@ namespace ZTSI {
     ...ZTSINameParameter
   ): ZTSIURL | ErrorResponse;
 
-  @post("initiateRequest")
+  @post
+  @route("initiateRequest")
   @doc("Hello request to the ZTSI service")
   op InitiateRequest(
     ...ApiVersionParameter,
@@ -55,7 +58,8 @@ namespace ZTSI {
     @body initiateRequest: InitiateRequestInformation
   ): InitiateResponse | ErrorResponse;
 
-  @post("reportRequest")
+  @post
+  @route("reportRequest")
   @doc("ZTSI Report request")
   op ReportRequest(
     ...ApiVersionParameter,

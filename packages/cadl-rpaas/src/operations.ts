@@ -1,5 +1,5 @@
 import { NamespaceType, Program, Type } from "@cadl-lang/compiler";
-import { http } from "@cadl-lang/rest";
+import { $route } from "@cadl-lang/rest";
 import { reportDiagnostic } from "./lib.js";
 import { ArmResourceInfo, getArmResourceInfo, ParameterInfo } from "./resource.js";
 
@@ -39,7 +39,7 @@ export function $armResourceOperations(program: Program, target: Type, resourceT
   armResourceInfo.operationNamespaces.add(target.name);
 
   // Set the resource path
-  http.$route(program, target, armResourceInfo.resourcePath.path);
+  $route(program, target, armResourceInfo.resourcePath.path);
 
   // Remember this namespace
   resourceOperationNamespaces.set(target, resourceType);

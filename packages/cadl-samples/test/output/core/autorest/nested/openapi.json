@@ -15,30 +15,7 @@
   ],
   "tags": [],
   "paths": {
-    "/sub/b/get": {
-      "get": {
-        "operationId": "SubB_DoSomething",
-        "parameters": [
-          {
-            "name": "thing",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Root.SubB.Thing"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response",
-            "schema": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "/sub/sub/a/get": {
+    "/sub/a/subsub": {
       "get": {
         "operationId": "SubSubA_DoSomething",
         "parameters": [
@@ -54,6 +31,29 @@
         "responses": {
           "200": {
             "description": "The request has succeeded.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/sub/b": {
+      "get": {
+        "operationId": "SubB_DoSomething",
+        "parameters": [
+          {
+            "name": "thing",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Root.SubB.Thing"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
             "schema": {
               "type": "string"
             }

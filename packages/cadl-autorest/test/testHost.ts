@@ -24,16 +24,20 @@ export async function createOpenAPITestHost() {
     resolve(root, "../../core/packages/rest/lib/http.cadl")
   );
   await host.addRealJsFile(
-    "./node_modules/rest/dist/rest.js",
-    resolve(root, "../../core/packages/rest/dist/rest.js")
+    "./node_modules/rest/dist/src/rest.js",
+    resolve(root, "../../core/packages/rest/dist/src/rest.js")
   );
   await host.addRealJsFile(
-    "./node_modules/rest/dist/http.js",
-    resolve(root, "../../core/packages/rest/dist/http.js")
+    "./node_modules/rest/dist/src/route.js",
+    resolve(root, "../../core/packages/rest/dist/src/route.js")
   );
   await host.addRealJsFile(
-    "./node_modules/rest/dist/resource.js",
-    resolve(root, "../../core/packages/rest/dist/resource.js")
+    "./node_modules/rest/dist/src/http.js",
+    resolve(root, "../../core/packages/rest/dist/src/http.js")
+  );
+  await host.addRealJsFile(
+    "./node_modules/rest/dist/src/resource.js",
+    resolve(root, "../../core/packages/rest/dist/src/resource.js")
   );
 
   // load openapi

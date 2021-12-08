@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-autorest",
+      "comment": "Adjust emitter to support new @route model",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-autorest"
+}
