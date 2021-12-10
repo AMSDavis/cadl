@@ -26,14 +26,16 @@ model LinkerNameParameter {
 @armResourceOperations(LinkerResource)
 namespace Linker {
   @doc("Validate a linker resource.")
-  @post("validateLinker")
+  @post
+  @route("validateLinker")
   op ValidateLinker(
     ...ResourceUriParameter,
     ...LinkerNameParameter
   ): ArmResponse<ValidateResult> | ErrorResponse;
 
   @doc("List linker resource configurations.")
-  @post("listConfigurations")
+  @post
+  @route("listConfigurations")
   op ListConfigurations(
     ...ResourceUriParameter,
     ...LinkerNameParameter

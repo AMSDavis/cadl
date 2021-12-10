@@ -125,7 +125,8 @@ model ConfluentAgreementResourceProperties {}
 
 @armResourceOperations(ConfluentAgreementResource)
 namespace MarketplaceAgreements {
-  @put("default")
+  @put
+  @route("default")
   @doc("Create a new marketplace agreement.")
   op Create(
     ...ApiVersionParameter,

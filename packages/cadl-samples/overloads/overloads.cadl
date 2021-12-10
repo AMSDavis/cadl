@@ -10,7 +10,8 @@ namespace Things {
   @post
   op postThing(thing: Thing): OkResponse<Thing>;
 
-  @post("?overload=withParam")
+  @route("?overload=withParam")
+  @post
   op postThingWithParam(
     body: {
       thing: Thing;
@@ -18,7 +19,8 @@ namespace Things {
     }
   ): OkResponse<Thing>;
 
-  @post("?overload=returnString")
+  @route("?overload=returnString")
+  @post
   op postThingReturnString(thing: Thing): ThingStringResponse;
 }
 
