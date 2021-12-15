@@ -18,7 +18,7 @@
       "name": "Management"
     },
     {
-      "name": "Analyzis"
+      "name": "Analysis"
     },
     {
       "name": "Creation"
@@ -89,7 +89,7 @@
           }
         },
         "tags": [
-          "Analyzis"
+          "Analysis"
         ],
         "consumes": [
           "application/octet-stream",
@@ -125,7 +125,7 @@
           }
         },
         "tags": [
-          "Analyzis"
+          "Analysis"
         ]
       }
     },
@@ -162,7 +162,10 @@
               "$ref": "#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Management"
+        ]
       },
       "get": {
         "operationId": "DocumentModels_List",
@@ -181,7 +184,10 @@
               "$ref": "#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Management"
+        ]
       }
     },
     "/documentModels/{modelId}": {
@@ -206,7 +212,10 @@
               "$ref": "#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Management"
+        ]
       },
       "delete": {
         "operationId": "DocumentModels_Delete",
@@ -226,7 +235,10 @@
               "$ref": "#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Management"
+        ]
       }
     },
     "/documentModels:{modelId}:copyTo": {

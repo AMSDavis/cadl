@@ -11,8 +11,8 @@ using Cadl.Http;
 using Cadl.Rest;
 using Cadl.Rest.Resource;
 
+@tag("Management")
 interface Management {
-  @tag("Management")
   @route("info")
   @get
   Info(): GetInfoResponse | ErrorResponse;
@@ -37,8 +37,8 @@ model AcceptedResponse {
   "Operation-Location": string;
 }
 
+@tag("Analysis")
 interface Analysis {
-  @tag("Analyzis")
   @route(":analyze")
   @post
   AnalyzeDocument(
@@ -52,7 +52,7 @@ interface Analysis {
     @query stringIndexType: StringIndexType,
     @body body: bytes
   ): AcceptedResponse;
-  @tag("Analyzis")
+
   @route("analyzeResults/{resultId}")
   @get
   GetAnalyzeResult(
@@ -64,42 +64,42 @@ interface Analysis {
   ): AnalyzeResultOperation;
 }
 
+@tag("Creation")
 interface Creation {
-  @tag("Creation")
   @doc("Builds a custom document analysis model.")
   @route("/documentModels:build")
   @post
   BuildModel(@body request: BuildDocumentModelRequest): AcceptedResponse | ErrorResponse;
-  @tag("Creation")
+
   @doc("Creates a new model from document types of existing models.")
   @route("/documentModels:compose")
   @post
   ComposeModel(@body request: ComposeDocumentModelRequest): AcceptedResponse | ErrorResponse;
-  @tag("Creation")
+
   @doc("Generates authorization to copy a model to this location with specified modelId and optional description.")
   @route("documentModels:authorizeCopy")
   @post
   AuthorizeCopy(@body request: AuthorizeCopyRequest): CopyAuthorization | ErrorResponse;
-  @tag("Creation")
+
   @doc("Copies model to the target resource, region, and modelId.")
   @route("documentModels:{modelId}:copyTo")
   @post
   CopyTo(@path modelId: string, @body request: CopyAuthorization): AcceptedResponse | ErrorResponse;
 }
 
+@tag("Operation")
 @route("/operations")
 interface Operations {
-  @tag("Operation")
   @doc("Lists all operations.")
   @get
   ListOperations(): GetOperationsResponse | ErrorResponse;
-  @tag("Operation")
+
   @doc("Gets operation info.")
   @get("{operationId}")
   GetOperation(@path operationId: string): GetOperationResponse | ErrorResponse;
 }
 
-// @tag("Management")
+@tag("Management")
 interface DocumentModels
   mixes ResourceCollectionOperations<ModelSummary, ErrorResponse>,
     ResourceRead<ModelSummary, ErrorResponse>,
