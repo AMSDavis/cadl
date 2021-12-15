@@ -22,6 +22,18 @@
     },
     {
       "name": "tag3"
+    },
+    {
+      "name": "outer"
+    },
+    {
+      "name": "inner"
+    },
+    {
+      "name": "moreInner"
+    },
+    {
+      "name": "innerOp"
     }
   ],
   "paths": {
@@ -109,8 +121,33 @@
         },
         "tags": [
           "foo",
-          "tag2",
-          "tag1"
+          "tag1",
+          "tag2"
+        ]
+      }
+    },
+    "/nested/{id}": {
+      "get": {
+        "operationId": "NestedMoreInner_createOther",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        },
+        "tags": [
+          "outer",
+          "inner",
+          "moreInner",
+          "innerOp"
         ]
       }
     }

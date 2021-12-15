@@ -9,7 +9,7 @@
       "name": "Management"
     },
     {
-      "name": "Analyzis"
+      "name": "Analysis"
     },
     {
       "name": "Creation"
@@ -102,7 +102,7 @@
           }
         },
         "tags": [
-          "Analyzis"
+          "Analysis"
         ],
         "requestBody": {
           "content": {
@@ -182,7 +182,7 @@
           }
         },
         "tags": [
-          "Analyzis"
+          "Analysis"
         ]
       }
     },
@@ -493,6 +493,9 @@
             }
           }
         },
+        "tags": [
+          "Management"
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -528,7 +531,10 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "Management"
+        ]
       }
     },
     "/documentModels/{modelId}": {
@@ -561,7 +567,10 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "Management"
+        ]
       },
       "delete": {
         "operationId": "DocumentModels_Delete",
@@ -592,7 +601,10 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "Management"
+        ]
       }
     }
   },
