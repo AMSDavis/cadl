@@ -1,0 +1,29 @@
+namespace TextAnalytics;
+
+using Cadl.Http;
+
+@route("/keyPhrases")
+interface KeyPhrases {
+  @doc("Identify key phrases.")
+  @post
+  identifyKeyPhrases(
+    ...KeyPhraseParameters,
+    ...ShowStatsParameter,
+    ...MultiLanguageInputParameter
+  ): Response<KeyPhraseResult>;
+}
+
+model KeyPhraseParameters {
+  ...CommonParameters;
+}
+
+model KeyPhraseResult is Result<DocumentKeyPhrases> {}
+
+model DocumentKeyPhrases is DocumentInfo {
+  @doc("""
+    A list of representative words or phrases.
+
+    The number of key phrases returned is proportional to the number of words in the input document.
+    """)
+  keyPhrases: string[];
+}

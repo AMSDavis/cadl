@@ -1,0 +1,61 @@
+namespace TextAnalytics;
+
+using Cadl.Http;
+
+@route("/languages")
+interface Languages {
+  @doc("Detect language.")
+  @post
+  detect(
+    ...LanguageParameters,
+    ...ShowStatsParameter,
+    ...LanguageInputParameter
+  ): Response<LanguageResult>;
+}
+
+model LanguageParameters {
+  ...CommonParameters;
+  ...StringIndexTypeParameter;
+}
+
+model LanguageResult is Result<DocumentLanguage> {}
+
+model LanguageBatchInput {
+  documents: LanguageInput[];
+}
+
+model LanguageInputParameter {
+  @doc("Collection of documents to analyze for language endpoint.")
+  @body
+  input: LanguageBatchInput;
+}
+
+model LanguageInput {
+  @doc("Unique, non-empty document identifier.")
+  id: string;
+  text: string;
+  countryHint?: string;
+}
+
+model DocumentLanguage is DocumentInfo {
+  @doc("Detected language.")
+  detectedLanguage: DetectedLanguage;
+}
+
+model DetectedLanguage {
+  @doc("Long name of a detected language (e.g. English, French).")
+  name: string;
+
+  @doc("""
+    A two letter representation of the detected language according to the ISO 639-1 
+    standard (e.g. en, fr).
+    """)
+  iso6391Name: string;
+
+  @doc("""
+    A confidence score between 0 and 1. 
+
+    Scores close to 1 indicate 100% certainty that the identified language is true.
+    """)
+  confidenceScore: float64;
+}

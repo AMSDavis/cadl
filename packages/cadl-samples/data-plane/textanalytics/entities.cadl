@@ -1,0 +1,52 @@
+namespace TextAnalytics;
+
+using Cadl.Http;
+
+@route("/entities/recognition/general")
+interface Entities {
+  @doc("Named entity recognition.")
+  @post
+  recognize(
+    ...EntitiesParameters,
+    ...ShowStatsParameter,
+    ...MultiLanguageInputParameter
+  ): Response<EntitiesResult>;
+}
+
+model EntitiesParameters {
+  ...CommonParameters;
+  ...StringIndexTypeParameter;
+}
+
+model EntitiesResult is Result<DocumentEntities> {}
+
+model Entity {
+  @doc("Entity text as appears in the request.")
+  text: string;
+
+  @doc("Entity type.")
+  category: string;
+
+  @doc("Entity sub type.")
+  subcategory?: string;
+
+  @doc("""
+    Start position for the entity text. 
+    Use of different 'stringIndexType' values can affect the offset returned.
+    """)
+  offset: int32;
+
+  @doc("""
+    Length for the entity text. 
+    Use of different 'stringIndexType' values can affect the length returned.
+    """)
+  length: int32;
+
+  @doc("Confidence score between 0 and 1 of the extracted entity.")
+  confidenceScore: float64;
+}
+
+model DocumentEntities is DocumentInfo {
+  @doc("Recognized entities in the document.")
+  entities: Entity[];
+}
