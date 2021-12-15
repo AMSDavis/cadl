@@ -328,7 +328,7 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/getAccountCredentials": {
       "post": {
-        "operationId": "Monitors_GetAccountCredentials",
+        "operationId": "Monitors_getAccountCredentials",
         "summary": "Gets the user account credentials for a Monitor",
         "parameters": [
           {
@@ -365,7 +365,7 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/listMonitoredResources": {
       "post": {
-        "operationId": "Monitors_ListMonitoredResources",
+        "operationId": "Monitors_listMonitoredResources",
         "summary": "List the resources currently being monitored by the Dynatrace monitor resource.",
         "parameters": [
           {
@@ -405,7 +405,7 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/listVMHosts": {
       "post": {
-        "operationId": "Monitors_ListVMHosts",
+        "operationId": "Monitors_listVMHosts",
         "summary": "List the compute resources currently being monitored by the Dynatrace resource.",
         "parameters": [
           {
@@ -445,7 +445,7 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/singleSignOnConfigurations": {
       "post": {
-        "operationId": "Monitors_ListSingleSignOnConfigurations",
+        "operationId": "Monitors_listSingleSignOnConfigurations",
         "summary": "List the single sign-on configurations for a given monitor resource.",
         "parameters": [
           {
@@ -849,7 +849,7 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/vmHostPayload": {
       "post": {
-        "operationId": "Monitors_GetVMHostPayload",
+        "operationId": "Monitors_getVMHostPayload",
         "summary": "Returns the payload that needs to be passed in the request body for installing Dynatrace agent on a VM.",
         "parameters": [
           {
@@ -886,7 +886,7 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/vmHostUpdate": {
       "post": {
-        "operationId": "Monitors_ListVmHostUpdate",
+        "operationId": "Monitors_listVMHostUpdate",
         "summary": "Sending request to update the collection when Dynatrace agent has been installed on a VM for a given monitor.",
         "parameters": [
           {

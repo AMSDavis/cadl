@@ -21,7 +21,7 @@
   "paths": {
     "/v1/shelves": {
       "post": {
-        "operationId": "LibraryService_CreateShelf",
+        "operationId": "LibraryService_createShelf",
         "summary": "Creates a shelf, and returns the new Shelf.",
         "parameters": [
           {
@@ -47,7 +47,7 @@
         ]
       },
       "get": {
-        "operationId": "LibraryService_ListShelves",
+        "operationId": "LibraryService_listShelves",
         "summary": "Lists shelves. The order is unspecified but deterministic. Newly created\nshelves will not necessarily be added to the end of this list.",
         "parameters": [
           {
@@ -81,7 +81,7 @@
     },
     "/v1/shelves/{name}": {
       "get": {
-        "operationId": "LibraryService_GetShelf",
+        "operationId": "LibraryService_getShelf",
         "summary": "Gets a shelf. Returns NOT_FOUND if the shelf does not exist.",
         "parameters": [
           {
@@ -107,7 +107,7 @@
         ]
       },
       "delete": {
-        "operationId": "LibraryService_DeleteShelf",
+        "operationId": "LibraryService_deleteShelf",
         "summary": "Deletes a shelf. Returns NOT_FOUND if the shelf does not exist.",
         "parameters": [
           {
@@ -132,7 +132,7 @@
     },
     "/v1/shelves/{name}:merge": {
       "post": {
-        "operationId": "LibraryService_MergeShelves",
+        "operationId": "LibraryService_mergeShelves",
         "summary": "Merges two shelves by adding all books from the shelf named\n`other_shelf_name` to shelf `name`, and deletes\n`other_shelf_name`. Returns the updated shelf.\nThe book ids of the moved books may not be the same as the original books.\nReturns NOT_FOUND if either shelf does not exist.\nThis call is a no-op if the specified shelves are the same.",
         "parameters": [
           {
@@ -163,7 +163,7 @@
     },
     "/v1/shelves/{name}/books": {
       "post": {
-        "operationId": "LibraryService_CreateBook",
+        "operationId": "LibraryService_createBook",
         "summary": "Creates a book, and returns the new Book.",
         "parameters": [
           {
@@ -192,7 +192,7 @@
         ]
       },
       "get": {
-        "operationId": "LibraryService_ListBooks",
+        "operationId": "LibraryService_listBooks",
         "summary": "Lists books in a shelf. The order is unspecified but deterministic. Newly\ncreated books will not necessarily be added to the end of this list.\nReturns NOT_FOUND if the shelf does not exist.",
         "parameters": [
           {
@@ -226,7 +226,7 @@
     },
     "/v1/shelves/shelf_name/books/{name}": {
       "get": {
-        "operationId": "LibraryService_GetBook",
+        "operationId": "LibraryService_getBook",
         "summary": "Gets a book. Returns NOT_FOUND if the book does not exist.",
         "parameters": [
           {
@@ -252,7 +252,7 @@
         ]
       },
       "delete": {
-        "operationId": "LibraryService_DeleteBook",
+        "operationId": "LibraryService_deleteBook",
         "summary": "Deletes a book. Returns NOT_FOUND if the book does not exist.",
         "parameters": [
           {
@@ -344,6 +344,17 @@
         "shelves"
       ]
     },
+    "ProtobufAny": {
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
     "RpcStatus": {
       "type": "object",
       "properties": {
@@ -357,9 +368,9 @@
         "details": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/protobufAny"
+            "$ref": "#/definitions/ProtobufAny"
           },
-          "x-cadl-name": "protobufAny[]"
+          "x-cadl-name": "ProtobufAny[]"
         }
       },
       "description": "An unexpected error response."
@@ -385,17 +396,6 @@
       "type": "string",
       "pattern": "shelves/\\w+/books/\\w+",
       "description": "The name of a book.\nBook names have the form `shelves/{shelf_id}/books/{book_id}`"
-    },
-    "protobufAny": {
-      "type": "object",
-      "properties": {
-        "typeUrl": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      }
     },
     "shelf_name": {
       "type": "string",

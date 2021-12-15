@@ -322,7 +322,7 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/getMAAURL": {
       "post": {
-        "operationId": "ZTSI_GetMAAURL",
+        "operationId": "ZTSI_getMAAURL",
         "summary": "Gets the MAA URL for this resource",
         "parameters": [
           {
@@ -359,7 +359,7 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/getZTSIURL": {
       "post": {
-        "operationId": "ZTSI_GetZTSIURL",
+        "operationId": "ZTSI_getZTSIURL",
         "summary": "Gets the ZTSI URL for this resource",
         "parameters": [
           {
@@ -396,7 +396,7 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/initiateRequest": {
       "post": {
-        "operationId": "ZTSI_InitiateRequest",
+        "operationId": "ZTSI_initiateRequest",
         "summary": "Hello request to the ZTSI service",
         "parameters": [
           {
@@ -441,7 +441,7 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/reportRequest": {
       "post": {
-        "operationId": "ZTSI_ReportRequest",
+        "operationId": "ZTSI_reportRequest",
         "summary": "ZTSI Report request",
         "parameters": [
           {

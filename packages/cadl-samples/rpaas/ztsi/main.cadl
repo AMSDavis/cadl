@@ -30,7 +30,7 @@ namespace ZTSI {
   @post
   @route("getMAAURL")
   @doc("Gets the MAA URL for this resource")
-  op GetMAAURL(
+  op getMAAURL(
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
     ...ResourceGroupNameParameter,
@@ -40,7 +40,7 @@ namespace ZTSI {
   @post
   @route("getZTSIURL")
   @doc("Gets the ZTSI URL for this resource")
-  op GetZTSIURL(
+  op getZTSIURL(
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
     ...ResourceGroupNameParameter,
@@ -50,7 +50,7 @@ namespace ZTSI {
   @post
   @route("initiateRequest")
   @doc("Hello request to the ZTSI service")
-  op InitiateRequest(
+  op initiateRequest(
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
     ...ResourceGroupNameParameter,
@@ -61,7 +61,7 @@ namespace ZTSI {
   @post
   @route("reportRequest")
   @doc("ZTSI Report request")
-  op ReportRequest(
+  op reportRequest(
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
     ...ResourceGroupNameParameter,

@@ -128,7 +128,7 @@ namespace MarketplaceAgreements {
   @put
   @route("default")
   @doc("Create a new marketplace agreement.")
-  op Create(
+  op create(
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
 

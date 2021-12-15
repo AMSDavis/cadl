@@ -39,7 +39,7 @@
   "paths": {
     "/bar": {
       "get": {
-        "operationId": "bar_list",
+        "operationId": "Bar_list",
         "summary": "no tags",
         "parameters": [],
         "responses": {
@@ -58,7 +58,7 @@
     },
     "/bar/{id}": {
       "post": {
-        "operationId": "bar_create",
+        "operationId": "Bar_create",
         "summary": "one operation tag",
         "parameters": [
           {
@@ -81,7 +81,7 @@
     },
     "/foo/{id}": {
       "get": {
-        "operationId": "foo_read",
+        "operationId": "Foo_read",
         "summary": "includes namespace tag",
         "parameters": [
           {
@@ -103,7 +103,7 @@
         ]
       },
       "post": {
-        "operationId": "foo_create",
+        "operationId": "Foo_create",
         "summary": "includes namespace tag and two operations tags",
         "parameters": [
           {

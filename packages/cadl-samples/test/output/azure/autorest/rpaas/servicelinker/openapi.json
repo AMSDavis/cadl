@@ -208,7 +208,7 @@
     },
     "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/listConfigurations": {
       "post": {
-        "operationId": "Linker_ListConfigurations",
+        "operationId": "Linker_listConfigurations",
         "summary": "List linker resource configurations.",
         "parameters": [
           {
@@ -239,7 +239,7 @@
     },
     "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/validateLinker": {
       "post": {
-        "operationId": "Linker_ValidateLinker",
+        "operationId": "Linker_validateLinker",
         "summary": "Validate a linker resource.",
         "parameters": [
           {

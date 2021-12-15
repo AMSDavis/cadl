@@ -28,7 +28,7 @@ namespace Linker {
   @doc("Validate a linker resource.")
   @post
   @route("validateLinker")
-  op ValidateLinker(
+  op validateLinker(
     ...ResourceUriParameter,
     ...LinkerNameParameter
   ): ArmResponse<ValidateResult> | ErrorResponse;
@@ -36,7 +36,7 @@ namespace Linker {
   @doc("List linker resource configurations.")
   @post
   @route("listConfigurations")
-  op ListConfigurations(
+  op listConfigurations(
     ...ResourceUriParameter,
     ...LinkerNameParameter
   ): ArmResponse<SourceConfigurationResult> | ErrorResponse;

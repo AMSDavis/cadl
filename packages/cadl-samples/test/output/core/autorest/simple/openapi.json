@@ -11,7 +11,7 @@
   "paths": {
     "/alpha/{id}": {
       "get": {
-        "operationId": "DoAlpha",
+        "operationId": "doAlpha",
         "parameters": [
           {
             "name": "id",
@@ -32,7 +32,7 @@
     },
     "/beta/{id}": {
       "get": {
-        "operationId": "DoBeta",
+        "operationId": "doBeta",
         "parameters": [
           {
             "name": "id",

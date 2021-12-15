@@ -111,7 +111,7 @@
     },
     "/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/agreements/default": {
       "put": {
-        "operationId": "MarketplaceAgreements_Create",
+        "operationId": "MarketplaceAgreements_create",
         "summary": "Create a new marketplace agreement.",
         "parameters": [
           {

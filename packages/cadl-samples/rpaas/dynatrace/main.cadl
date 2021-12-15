@@ -47,7 +47,7 @@ namespace Monitors {
   @post
   @route("getAccountCredentials")
   @doc("Gets the user account credentials for a Monitor")
-  op GetAccountCredentials(
+  op getAccountCredentials(
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
     ...ResourceGroupNameParameter,
@@ -58,7 +58,7 @@ namespace Monitors {
   @route("listMonitoredResources")
   @doc("List the resources currently being monitored by the Dynatrace monitor resource.")
   @pageable("nextLink")
-  op ListMonitoredResources(
+  op listMonitoredResources(
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
     ...ResourceGroupNameParameter,
@@ -68,7 +68,7 @@ namespace Monitors {
   @post
   @route("vmHostPayload")
   @doc("Returns the payload that needs to be passed in the request body for installing Dynatrace agent on a VM.")
-  op GetVMHostPayload(
+  op getVMHostPayload(
     // needed to change the name here to make it a verb.
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
@@ -80,7 +80,7 @@ namespace Monitors {
   @route("vmHostUpdate")
   @doc("Sending request to update the collection when Dynatrace agent has been installed on a VM for a given monitor.")
   @pageable("nextLink")
-  op ListVmHostUpdate(
+  op listVMHostUpdate(
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
     ...ResourceGroupNameParameter,
@@ -92,7 +92,7 @@ namespace Monitors {
   @route("listVMHosts")
   @doc("List the compute resources currently being monitored by the Dynatrace resource.")
   @pageable("nextLink")
-  op ListVMHosts(
+  op listVMHosts(
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
     ...ResourceGroupNameParameter,
@@ -103,7 +103,7 @@ namespace Monitors {
   @route("singleSignOnConfigurations")
   @doc("List the single sign-on configurations for a given monitor resource.")
   @pageable("nextLink")
-  op ListSingleSignOnConfigurations(
+  op listSingleSignOnConfigurations(
     // changed for compliance
     ...ApiVersionParameter,
     ...SubscriptionIdParameter,
