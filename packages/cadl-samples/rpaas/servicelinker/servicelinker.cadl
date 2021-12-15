@@ -116,9 +116,7 @@ enum SourceConfigurationType {
   "serviceBindings",
 }
 
-@doc(
-  "Configurations for source resource, include appSettings, connectionString and serviceBindings"
-)
+@doc("Configurations for source resource, include appSettings, connectionString and serviceBindings")
 model SourceConfigurationResult {
   @doc("Details of the source configurations.")
   sourceConfigurations: SourceConfiguration[];

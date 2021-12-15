@@ -5,9 +5,9 @@ namespace KeysResource {
   @doc("Gets a list of keys.")
   @operationId("GetKeys")
   op list(
-    ... ServiceParams,
-    ... SyncTokenHeader,
-    ... AcceptDatetimeHeader,
+    ...ServiceParams,
+    ...SyncTokenHeader,
+    ...AcceptDatetimeHeader,
     @query name: string,
     @header after: string
   ): OkResponse<SyncTokenHeader & KeyPage> | Error;
@@ -15,9 +15,9 @@ namespace KeysResource {
   @doc("Requests the headers and status of the given resource.")
   @operationId("CheckKeys")
   op listHead(
-    ... ServiceParams,
-    ... SyncTokenHeader,
-    ... AcceptDatetimeHeader,
+    ...ServiceParams,
+    ...SyncTokenHeader,
+    ...AcceptDatetimeHeader,
     @query name: string,
     @header after: string
   ): OkResponse<SyncTokenHeader> | Error;

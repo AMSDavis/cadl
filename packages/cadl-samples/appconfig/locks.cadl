@@ -4,19 +4,19 @@ using Cadl.Http;
 namespace LocksResource {
   @operationId("GetLock")
   op read(
-    ... ServiceParams,
-    ... SyncTokenHeader,
+    ...ServiceParams,
+    ...SyncTokenHeader,
     @path key: string,
     @query label: string,
-    ... ETagHeaders
+    ...ETagHeaders
   ): OkResponse<SyncTokenHeader & KeyValue> | Error;
 
   @operationId("DeleteLock")
   op delete(
-    ... ServiceParams,
-    ... SyncTokenHeader,
+    ...ServiceParams,
+    ...SyncTokenHeader,
     @path key: string,
     @query label: string,
-    ... ETagHeaders
+    ...ETagHeaders
   ): OkResponse<SyncTokenHeader & KeyValue> | Error;
 }

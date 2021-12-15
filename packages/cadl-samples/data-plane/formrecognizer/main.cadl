@@ -46,9 +46,7 @@ interface Analysis {
     @header contentType: AnalyzeContentType,
     @doc("List of 1-based page numbers to analyze. Ex. \"1-3,5,7-9\"") pages: string,
 
-    @doc(
-      "Locale hint for text recognition and document analysis. Value may contain only the language code (ex. \"en\", \"fr\") or BCP 47 language tag (ex. \"en-US\")."
-    )
+    @doc("Locale hint for text recognition and document analysis. Value may contain only the language code (ex. \"en\", \"fr\") or BCP 47 language tag (ex. \"en-US\").")
     @query
     locale: string,
     @query stringIndexType: StringIndexType,
@@ -78,9 +76,7 @@ interface Creation {
   @post
   ComposeModel(@body request: ComposeDocumentModelRequest): AcceptedResponse | ErrorResponse;
   @tag("Creation")
-  @doc(
-    "Generates authorization to copy a model to this location with specified modelId and optional description."
-  )
+  @doc("Generates authorization to copy a model to this location with specified modelId and optional description.")
   @route("documentModels:authorizeCopy")
   @post
   AuthorizeCopy(@body request: AuthorizeCopyRequest): CopyAuthorization | ErrorResponse;
@@ -104,7 +100,10 @@ interface Operations {
 }
 
 // @tag("Management")
-interface DocumentModels mixes ResourceCollectionOperations<ModelSummary, ErrorResponse>, ResourceRead<ModelSummary, ErrorResponse>, ResourceDelete<ModelSummary, ErrorResponse> {}
+interface DocumentModels
+  mixes ResourceCollectionOperations<ModelSummary, ErrorResponse>,
+    ResourceRead<ModelSummary, ErrorResponse>,
+    ResourceDelete<ModelSummary, ErrorResponse> {}
 
 @doc("Method used to compute string offset and length.")
 enum StringIndexType {
@@ -241,9 +240,7 @@ model DocumentPage {
   @minValue(1)
   pageNumber: int32;
 
-  @doc(
-    "The general orientation of the content in clockwise direction, measured in degrees between (-180, 180]."
-  )
+  @doc("The general orientation of the content in clockwise direction, measured in degrees between (-180, 180].")
   @minValue(-180)
   @maxValue(180)
   angle: int32;
@@ -272,9 +269,7 @@ model DocumentPage {
   lines: DocumentLine[];
 }
 
-@doc(
-  "The unit used by the width, height, and boundingBox properties. For images, the unit is \"pixel\". For PDF, the unit is \"inch\"."
-)
+@doc("The unit used by the width, height, and boundingBox properties. For images, the unit is \"pixel\". For PDF, the unit is \"inch\".")
 enum LengthUnit {
   pixel,
   inch,
@@ -291,9 +286,7 @@ model DocumentSpan {
   length: int32;
 }
 
-@doc(
-  "A word object consisting of a contiguous sequence of characters. For non-space delimited languages, such as Chinese, Japanese, and Korean, each character is represented as its own word."
-)
+@doc("A word object consisting of a contiguous sequence of characters. For non-space delimited languages, such as Chinese, Japanese, and Korean, each character is represented as its own word.")
 model DocumentWord {
   @doc("Text content of the word.")
   content: string;
@@ -315,9 +308,7 @@ model DocumentWord {
 // @minLength(8)
 alias BoundingBox = float64[];
 
-@doc(
-  "A selection mark object representing check boxes, radio buttons, and other elements indicating a selection."
-)
+@doc("A selection mark object representing check boxes, radio buttons, and other elements indicating a selection.")
 model DocumentSelectionMark {
   @doc("State of the selection mark.")
   state: SelectionMarkState;
@@ -406,9 +397,7 @@ model BoundingRegion {
   boundingBox: BoundingBox;
 }
 
-@doc(
-  "An object representing a form field with distinct field label (key) and field value (may be empty)."
-)
+@doc("An object representing a form field with distinct field label (key) and field value (may be empty).")
 model DocumentKeyValuePair {
   @doc("Field label of the key-value pair.")
   key: DocumentKeyValueElement;
@@ -560,9 +549,7 @@ enum DocumentSignatureType {
   unsigned,
 }
 
-@doc(
-  "A content line object consisting of an adjacent sequence of content elements, such as words and selection marks."
-)
+@doc("A content line object consisting of an adjacent sequence of content elements, such as words and selection marks.")
 model DocumentLine {
   @doc("Concatenated content of the contained elements in reading order.")
   content: string;

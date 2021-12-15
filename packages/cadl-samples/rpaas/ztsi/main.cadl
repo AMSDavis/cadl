@@ -190,9 +190,7 @@ model InitiateResponse {
   @doc("Challenge/Nonce")
   challenge: bytes;
 
-  @doc(
-    "List of attestations that the service requires the client to send, based on the last ZTSI report if one is available."
-  )
+  @doc("List of attestations that the service requires the client to send, based on the last ZTSI report if one is available.")
   requiredAttestations: AttestationInformation[];
 }
 

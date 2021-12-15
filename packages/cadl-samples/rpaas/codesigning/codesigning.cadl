@@ -21,9 +21,7 @@ model CodeSignAccount is TrackedResource<CodeSignAccountProperties> {}
 @doc("Properties of the code sign account")
 model CodeSignAccountProperties {
   @visibility("read")
-  @doc(
-    "The URI of the code sign account for performing operations on certificate profiles. This property is readonly"
-  )
+  @doc("The URI of the code sign account for performing operations on certificate profiles. This property is readonly")
   accountUri?: string;
 
   @visibility("read")

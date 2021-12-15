@@ -67,9 +67,7 @@ namespace Monitors {
 
   @post
   @route("vmHostPayload")
-  @doc(
-    "Returns the payload that needs to be passed in the request body for installing Dynatrace agent on a VM."
-  )
+  @doc("Returns the payload that needs to be passed in the request body for installing Dynatrace agent on a VM.")
   op GetVMHostPayload(
     // needed to change the name here to make it a verb.
     ...ApiVersionParameter,
@@ -80,9 +78,7 @@ namespace Monitors {
 
   @post
   @route("vmHostUpdate")
-  @doc(
-    "Sending request to update the collection when Dynatrace agent has been installed on a VM for a given monitor."
-  )
+  @doc("Sending request to update the collection when Dynatrace agent has been installed on a VM for a given monitor.")
   @pageable("nextLink")
   op ListVmHostUpdate(
     ...ApiVersionParameter,

@@ -8,9 +8,7 @@ using Azure.ARM;
 using Cadl.Http;
 
 @doc("A virtual machine reference")
-@format(
-  "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.Compute\\/virtualMachines\\/[^\\/]+"
-)
+@format("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.Compute\\/virtualMachines\\/[^\\/]+")
 model virtualMachineId extends string {}
 
 @doc("Reusable representation of an email address")
@@ -184,9 +182,7 @@ enum MonitoringStatus {
   "Disabled",
 }
 
-@doc(
-  "Flag specifying the Marketplace Subscription Status of the resource. If payment is not made in time, the resource will go in Suspended state."
-)
+@doc("Flag specifying the Marketplace Subscription Status of the resource. If payment is not made in time, the resource will go in Suspended state.")
 enum MarketplaceSubscriptionStatus {
   "Active",
   "Suspended",
@@ -250,23 +246,17 @@ model LogRules {
   @doc("Flag specifying if subscription logs should be sent for the Monitor resource.")
   sendSubscriptionLogs?: SendSubscriptionLogsStatus; // Enabled, Disabled
 
-  @doc(
-    "Flag specifying if activity logs from Azure resources should be sent for the Monitor resource."
-  )
+  @doc("Flag specifying if activity logs from Azure resources should be sent for the Monitor resource.")
   sendActivityLogs?: SendActivityLogsStatus; // Enabled, Disabled
 
-  @doc(
-    """
+  @doc("""
   List of filtering tags to be used for capturing logs. This only takes effect if SendActivityLogs flag is enabled. If empty, all resources will be captured.
   If only Exclude action is specified, the rules will apply to the list of all available resources. If Include actions are specified, the rules will only include resources with the associated tags.
-  """
-  )
+  """)
   filteringTags?: FilteringTag[];
 }
 
-@doc(
-  "The definition of a filtering tag. Filtering tags are used for capturing resources and include/exclude them from being monitored."
-)
+@doc("The definition of a filtering tag. Filtering tags are used for capturing resources and include/exclude them from being monitored.")
 model FilteringTag {
   @doc("The name (also known as the key) of the tag.")
   name?: string;

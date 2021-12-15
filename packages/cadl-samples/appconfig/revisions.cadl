@@ -5,9 +5,9 @@ namespace RevisionsResource {
   @doc("Gets a list of revisions.")
   @operationId("GetRevisions")
   op list(
-    ... ServiceParams,
-    ... SyncTokenHeader,
-    ... AcceptDatetimeHeader,
+    ...ServiceParams,
+    ...SyncTokenHeader,
+    ...AcceptDatetimeHeader,
 
     @doc("Used to select what fields are present in the returned resource(s).")
     @query
@@ -25,9 +25,9 @@ namespace RevisionsResource {
   @doc("Requests the headers and status of the given resource.")
   @operationId("CheckRevisions")
   op listHead(
-    ... ServiceParams,
-    ... SyncTokenHeader,
-    ... AcceptDatetimeHeader,
+    ...ServiceParams,
+    ...SyncTokenHeader,
+    ...AcceptDatetimeHeader,
     @query name: string,
     @query after: string
   ): OkResponse<SyncTokenHeader> | Error;

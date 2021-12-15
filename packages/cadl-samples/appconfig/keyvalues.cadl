@@ -27,14 +27,12 @@ namespace KeyValuesResource {
   @doc("Gets a list of key-values.")
   @operationId("GetKeyValues")
   op list(
-    ... ServiceParams,
-    ... SyncTokenHeader,
-    ... AcceptDatetimeHeader,
-    ... KeyFilters,
+    ...ServiceParams,
+    ...SyncTokenHeader,
+    ...AcceptDatetimeHeader,
+    ...KeyFilters,
 
-    @doc(
-      "Instructs the server to return elements that appear after the element referred to by the specified token."
-    )
+    @doc("Instructs the server to return elements that appear after the element referred to by the specified token.")
     @query
     After: plainDate,
 
@@ -46,12 +44,10 @@ namespace KeyValuesResource {
   @doc("Gets a list of key-values.")
   @operationId("CheckKeyValues")
   op listHead(
-    ... AcceptDatetimeHeader,
-    ... KeyFilters,
+    ...AcceptDatetimeHeader,
+    ...KeyFilters,
 
-    @doc(
-      "Instructs the server to return elements that appear after the element referred to by the specified token."
-    )
+    @doc("Instructs the server to return elements that appear after the element referred to by the specified token.")
     @query
     After: plainDate,
 
@@ -63,9 +59,9 @@ namespace KeyValuesResource {
   @doc("Gets a single key-value.")
   @operationId("GetKeyValue")
   op read(
-    ... ETagHeaders,
-    ... AcceptDatetimeHeader,
-    ... KeyWithFilters,
+    ...ETagHeaders,
+    ...AcceptDatetimeHeader,
+    ...KeyWithFilters,
 
     @doc("Used to select what fields are present in the returned resource(s).")
     @query
@@ -75,16 +71,16 @@ namespace KeyValuesResource {
   @doc("Requests the headers and status of the given resource.")
   @operationId("CheckKeyValue")
   op readHead(
-    ... ETagHeaders,
-    ... AcceptDatetimeHeader,
-    ... KeyWithFilters
+    ...ETagHeaders,
+    ...AcceptDatetimeHeader,
+    ...KeyWithFilters
   ): OkResponse<SyncTokenHeader & LastModifiedHeader> | Error;
 
   @doc("Creates a key-value.")
   @operationId("PutKeyValue")
   op createOrUpdate(
-    ... ETagHeaders,
-    ... KeyWithFilters,
+    ...ETagHeaders,
+    ...KeyWithFilters,
     @header contentType: "application/json",
     @body entity: KeyValue
   ): OkResponse<KeyValueHeaders & KeyValue> | Error;
@@ -92,21 +88,21 @@ namespace KeyValuesResource {
   @doc("Updates a key-value pair")
   @operationId("UpdateKeyValue")
   op createOrUpdate2(
-    ... ServiceParams,
-    ... SyncTokenHeader,
-    ... ETagHeaders,
-    ... KeyWithFilters,
+    ...ServiceParams,
+    ...SyncTokenHeader,
+    ...ETagHeaders,
+    ...KeyWithFilters,
     @header contentType: "application/json-patch+json",
     @body jsonPatch: string[]
   ): OkResponse<KeyValueHeaders & KeyValue> | Error;
 
   @doc("Deletes a key-value.")
   @operationId("DeleteKeyValue")
-  op delete(... KeyWithFilters, @header ifMatch: string): OkResponse<KeyValueHeaders &
+  op delete(...KeyWithFilters, @header ifMatch: string): OkResponse<KeyValueHeaders &
     KeyValue> | NoContent<{}> | Error;
 }
 
 model NoContent<T> {
   @header statusCode: 304;
-  ... T;
+  ...T;
 }
