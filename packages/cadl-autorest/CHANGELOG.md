@@ -1,6 +1,18 @@
 # Change Log - @azure-tools/cadl-autorest
 
-This log was last generated on Wed, 01 Dec 2021 22:56:37 GMT and should not be manually modified.
+This log was last generated on Thu, 16 Dec 2021 08:03:03 GMT and should not be manually modified.
+
+## 0.10.0
+Thu, 16 Dec 2021 08:03:03 GMT
+
+### Minor changes
+
+- generate resource provider subfolder
+
+### Patches
+
+- Update emitter to use simplified getAllTags arguments
+- Adjust emitter to support new @route model
 
 ## 0.9.2
 Wed, 01 Dec 2021 22:56:37 GMT

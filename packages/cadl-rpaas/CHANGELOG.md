@@ -1,6 +1,17 @@
 # Change Log - @azure-tools/cadl-rpaas
 
-This log was last generated on Wed, 01 Dec 2021 22:56:37 GMT and should not be manually modified.
+This log was last generated on Thu, 16 Dec 2021 08:03:03 GMT and should not be manually modified.
+
+## 0.11.0
+Thu, 16 Dec 2021 08:03:03 GMT
+
+### Minor changes
+
+- add linter rule for resource definitions
+
+### Patches
+
+- Use updated @route decorator in generated operations
 
 ## 0.10.3
 Wed, 01 Dec 2021 22:56:37 GMT

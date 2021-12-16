@@ -1,6 +1,17 @@
 # Change Log - @azure-tools/cadl-rpaas-controller
 
-This log was last generated on Wed, 01 Dec 2021 22:56:37 GMT and should not be manually modified.
+This log was last generated on Thu, 16 Dec 2021 08:03:03 GMT and should not be manually modified.
+
+## 0.7.0
+Thu, 16 Dec 2021 08:03:03 GMT
+
+### Minor changes
+
+- fix service code path
+
+### Patches
+
+- Adjust emitter to support new @route model
 
 ## 0.6.0
 Wed, 01 Dec 2021 22:56:37 GMT
