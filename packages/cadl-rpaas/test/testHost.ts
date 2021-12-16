@@ -95,6 +95,6 @@ export async function CheckFor(code: string) {
   return result;
 }
 
-export function getDiagnostic(code: string, diagnostics: Diagnostic[]) {
+export function getDiagnostic(code: keyof typeof libDef.diagnostics, diagnostics: Diagnostic[]) {
   return diagnostics.filter((diag) => diag.code === `${libDef.name}/${code}`);
 }

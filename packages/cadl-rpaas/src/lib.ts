@@ -167,6 +167,26 @@ export const libDef = {
         default: "The documentation should not be the same as the node name.",
       },
     },
+    "no-repeated-property-inside-the-properties": {
+      severity: "warning",
+      messages: {
+        default: "Top level properties should not be repeated inside the properties bag.",
+      },
+    },
+    "resource-top-level-properties": {
+      severity: "warning",
+      messages: {
+        default:
+          "Top level properties should be one of name, type, id, location, properties, tags, plan, sku, etag, managedBy, identity, systemData, extendedlocation.",
+      },
+    },
+    "resource-extends-base-models": {
+      severity: "warning",
+      messages: {
+        default:
+          "The resource model should either extends the TrackedResource,ProxyResource,ExtensionResource or extends one of the base models: TrackedResourceBase,ProxyResourceBase.",
+      },
+    },
   },
 } as const;
 export const { reportDiagnostic } = createCadlLibrary(libDef);

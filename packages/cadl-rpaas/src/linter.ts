@@ -3,6 +3,7 @@ import {
   getDoc,
   isIntrinsic,
   ModelType,
+  ModelTypeProperty,
   navigateProgram,
   OperationType,
   Program,
@@ -65,6 +66,97 @@ function createListenerOnGeneralType(fn: (target: Type) => void) {
     tuple: fn,
   };
   return listener;
+}
+
+function getProperties(model: ModelType) {
+  let properties: ModelTypeProperty[] = [];
+  if (model.baseModel) {
+    properties = getProperties(model.baseModel);
+  }
+  return Array.from(model.properties.values()).concat(properties);
+}
+
+function getPropertyByName(model: ModelType, name: string) {
+  const props = getProperties(model);
+  return props.find((prop) => prop.name === name);
+}
+
+function* getOverlappedProperty(inner: ModelType, topLevel: ModelType) {
+  const innerProperties = getProperties(inner);
+  const topLevelProperties = getProperties(topLevel);
+  for (const innerProp of innerProperties) {
+    if (
+      topLevelProperties.some(
+        (value) => innerProp.name === value.name && innerProp.type.kind === value.type.kind
+      )
+    ) {
+      yield innerProp;
+    }
+  }
+}
+
+function hasBaseModel(model: ModelType, baseModelName: string): boolean {
+  if (model.baseModel) {
+    if (model.baseModel.name === baseModelName && model.baseModel.namespace?.name === "ARM") {
+      return true;
+    }
+    return hasBaseModel(model.baseModel, baseModelName);
+  }
+  return false;
+}
+
+const armBaseResources = [
+  "TrackedResource",
+  "ProxyResource",
+  "ExtensionResource",
+  "TrackedResourceBase",
+  "ProxyResourceBase",
+];
+
+function ifExtendsBaseModel(model: ModelType) {
+  if (armBaseResources.some((base) => hasBaseModel(model, base))) {
+    return true;
+  }
+  return false;
+}
+
+function IfExtendsArmResource(model: ModelType) {
+  return hasBaseModel(model, "ArmResource");
+}
+
+/**
+ *
+ * @param model
+ * @returns true is the model is an Arm resource.
+ */
+function isConcreteArmResourceModel(model: ModelType) {
+  if (armBaseResources.includes(model.name)) {
+    return false;
+  }
+  if (ifExtendsBaseModel(model)) {
+    return true;
+  }
+  // if extends the ArmResource directly, consider it resource.
+  return IfExtendsArmResource(model);
+}
+
+function isArmAllowedTopLevelProperty(prop: ModelTypeProperty) {
+  const allowedTopLevelProperties = [
+    "name",
+    "type",
+    "id",
+    "location",
+    "properties",
+    "tags",
+    "plan",
+    "sku",
+    "etag",
+    "managedby",
+    "identity",
+    "systemdata",
+    "extendedlocation",
+  ];
+  return allowedTopLevelProperties.includes(prop.name.toLowerCase());
 }
 
 class Linter {
@@ -138,7 +230,32 @@ const runLinter = (p: Program) => {
       }
     },
   };
+
+  const checkResources: SemanticNodeListener = {
+    model: (context: ModelType) => {
+      if (isConcreteArmResourceModel(context)) {
+        const properties = getProperties(context);
+        properties.forEach((prop) => {
+          if (!isArmAllowedTopLevelProperty(prop)) {
+            reportDiagnostic(p, { code: "resource-top-level-properties", target: prop });
+          }
+        });
+        const propertiesBag = getPropertyByName(context, "properties");
+        if (propertiesBag && propertiesBag.type.kind === "Model") {
+          for (const overlappedProp of getOverlappedProperty(propertiesBag.type, context))
+            reportDiagnostic(p, {
+              code: "no-repeated-property-inside-the-properties",
+              target: overlappedProp,
+            });
+        }
+        if (!ifExtendsBaseModel(context)) {
+          reportDiagnostic(p, { code: "resource-extends-base-models", target: context });
+        }
+      }
+    },
+  };
+
   const linter = new Linter();
-  linter.register([checkInlineModel, checkDocumentation, checkDocumentationText]);
+  linter.register([checkInlineModel, checkDocumentation, checkDocumentationText, checkResources]);
   return linter.run(p);
 };

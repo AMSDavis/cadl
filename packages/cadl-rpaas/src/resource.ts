@@ -343,6 +343,9 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
       }
     }
   }
+  if (resourceKind === "Plain") {
+    reportDiagnostic(program, { code: "resource-extends-base-models", target: resourceType });
+  }
 
   const armResourceInfo: ArmResourceInfo = {
     armNamespace: armNamespace ?? "",

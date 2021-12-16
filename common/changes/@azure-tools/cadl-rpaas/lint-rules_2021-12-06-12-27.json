@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas",
+      "comment": "add linter rule for resource definitions",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas"
+}
