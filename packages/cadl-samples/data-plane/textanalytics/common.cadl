@@ -121,7 +121,7 @@ model ErrorTemplate<T> {
   code: T;
 
   @doc("Error details.")
-  details?: {}; // ISSUE: can't specify additional properties: https://github.com/Azure/cadl-azure/issues/997
+  details?: Map<string, string>;
 
   @doc("Error target.")
   target?: string;

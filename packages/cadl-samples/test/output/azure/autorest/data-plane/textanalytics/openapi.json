@@ -1111,9 +1111,10 @@
         },
         "details": {
           "type": "object",
-          "properties": {},
-          "description": "Error details.",
-          "x-cadl-name": "(anonymous model)_TextAnalytics.ErrorCode"
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Error details."
         },
         "target": {
           "type": "string",
@@ -1412,9 +1413,10 @@
         },
         "details": {
           "type": "object",
-          "properties": {},
-          "description": "Error details.",
-          "x-cadl-name": "(anonymous model)_TextAnalytics.InnerErrorCode"
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Error details."
         },
         "target": {
           "type": "string",
