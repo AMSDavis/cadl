@@ -254,9 +254,9 @@
         }
       }
     },
-    "/entitities/recognition/pii": {
+    "/entities/recognition/pii": {
       "post": {
-        "operationId": "TextAnalytics_recognizePersonalInformation",
+        "operationId": "Pii_recognize",
         "summary": "Recognize entities containing personal information.",
         "parameters": [
           {
@@ -370,7 +370,7 @@
     },
     "/sentiment": {
       "post": {
-        "operationId": "TextAnalytics_analyzeSentiment",
+        "operationId": "Sentiment_analyze",
         "summary": "Analyze sentiment.",
         "parameters": [
           {
@@ -1105,19 +1105,19 @@
           "type": "string",
           "description": "Error message."
         },
+        "code": {
+          "$ref": "#/definitions/ErrorCode",
+          "description": "Error code."
+        },
         "details": {
           "type": "object",
           "properties": {},
           "description": "Error details.",
-          "x-cadl-name": "(anonymous model)"
+          "x-cadl-name": "(anonymous model)_TextAnalytics.ErrorCode"
         },
         "target": {
           "type": "string",
-          "description": "Error target"
-        },
-        "code": {
-          "$ref": "#/definitions/ErrorCode",
-          "description": "Error code."
+          "description": "Error target."
         },
         "innererror": {
           "$ref": "#/definitions/InnerError",
@@ -1406,19 +1406,19 @@
           "type": "string",
           "description": "Error message."
         },
+        "code": {
+          "$ref": "#/definitions/InnerErrorCode",
+          "description": "Error code."
+        },
         "details": {
           "type": "object",
           "properties": {},
           "description": "Error details.",
-          "x-cadl-name": "(anonymous model)"
+          "x-cadl-name": "(anonymous model)_TextAnalytics.InnerErrorCode"
         },
         "target": {
           "type": "string",
-          "description": "Error target"
-        },
-        "code": {
-          "$ref": "#/definitions/InnerErrorCode",
-          "description": "Error code."
+          "description": "Error target."
         },
         "innererror": {
           "$ref": "#/definitions/InnerError",
@@ -1692,12 +1692,12 @@
         "offset": {
           "type": "integer",
           "format": "int32",
-          "description": "Entity text as appears in the request."
+          "description": "Start position for the entity match text"
         },
         "length": {
           "type": "integer",
           "format": "int32",
-          "description": "Entity text as appears in the request."
+          "description": "Length for the entity match text."
         }
       },
       "required": [
@@ -1930,7 +1930,24 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "description": "Unique, non-empty document identifier."
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Warning"
+          },
+          "x-cadl-name": "TextAnalytics.Warning[]",
+          "description": "Warnings encountered while processing document."
+        },
+        "statistics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DocumentStatistics"
+          },
+          "x-cadl-name": "TextAnalytics.DocumentStatistics[]",
+          "description": "If showStats=true was specified in the request this field will contain information about the document payload."
         },
         "redactedText": {
           "type": "string"
@@ -1941,23 +1958,14 @@
             "$ref": "#/definitions/Entity"
           },
           "x-cadl-name": "TextAnalytics.Entity[]"
-        },
-        "warnings": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Warning"
-          },
-          "x-cadl-name": "TextAnalytics.Warning[]"
-        },
-        "statistics": {
-          "$ref": "#/definitions/DocumentStatistics"
         }
       },
       "required": [
         "id",
+        "warnings",
+        "statistics",
         "redactedText",
-        "entities",
-        "warnings"
+        "entities"
       ]
     },
     "PiiResult": {

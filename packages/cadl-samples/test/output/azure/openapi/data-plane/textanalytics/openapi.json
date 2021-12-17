@@ -6,119 +6,6 @@
   },
   "tags": [],
   "paths": {
-    "/entitities/recognition/pii": {
-      "post": {
-        "operationId": "TextAnalytics_recognizePersonalInformation",
-        "summary": "Recognize entities containing personal information.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/ModelVersionParameter"
-          },
-          {
-            "$ref": "#/components/parameters/LoggingOptOutParameter"
-          },
-          {
-            "$ref": "#/components/parameters/StringIndexTypeParameter"
-          },
-          {
-            "$ref": "#/components/parameters/PiiParameters.domain"
-          },
-          {
-            "$ref": "#/components/parameters/PiiParameters.piiCategories"
-          },
-          {
-            "$ref": "#/components/parameters/ShowStatsParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request has succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PiiResult"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Unexpected error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "description": "Collection of documents to analyze.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MultiLanguageBatchInput"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sentiment": {
-      "post": {
-        "operationId": "TextAnalytics_analyzeSentiment",
-        "summary": "Analyze sentiment.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/ModelVersionParameter"
-          },
-          {
-            "$ref": "#/components/parameters/LoggingOptOutParameter"
-          },
-          {
-            "$ref": "#/components/parameters/StringIndexTypeParameter"
-          },
-          {
-            "$ref": "#/components/parameters/SentimentParameters.opinionMining"
-          },
-          {
-            "$ref": "#/components/parameters/ShowStatsParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request has succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SentimentResult"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Unexpected error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "description": "Collection of documents to analyze.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MultiLanguageBatchInput"
-              }
-            }
-          }
-        }
-      }
-    },
     "/entities/recognition/general": {
       "post": {
         "operationId": "Entities_recognize",
@@ -414,6 +301,64 @@
         }
       }
     },
+    "/entities/recognition/pii": {
+      "post": {
+        "operationId": "Pii_recognize",
+        "summary": "Recognize entities containing personal information.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelVersionParameter"
+          },
+          {
+            "$ref": "#/components/parameters/LoggingOptOutParameter"
+          },
+          {
+            "$ref": "#/components/parameters/StringIndexTypeParameter"
+          },
+          {
+            "$ref": "#/components/parameters/PiiParameters.domain"
+          },
+          {
+            "$ref": "#/components/parameters/PiiParameters.piiCategories"
+          },
+          {
+            "$ref": "#/components/parameters/ShowStatsParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PiiResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Collection of documents to analyze.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MultiLanguageBatchInput"
+              }
+            }
+          }
+        }
+      }
+    },
     "/keyPhrases": {
       "post": {
         "operationId": "KeyPhrases_identifyKeyPhrases",
@@ -436,6 +381,61 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/KeyPhraseResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Collection of documents to analyze.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MultiLanguageBatchInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sentiment": {
+      "post": {
+        "operationId": "Sentiment_analyze",
+        "summary": "Analyze sentiment.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelVersionParameter"
+          },
+          {
+            "$ref": "#/components/parameters/LoggingOptOutParameter"
+          },
+          {
+            "$ref": "#/components/parameters/StringIndexTypeParameter"
+          },
+          {
+            "$ref": "#/components/parameters/SentimentParameters.opinionMining"
+          },
+          {
+            "$ref": "#/components/parameters/ShowStatsParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SentimentResult"
                 }
               }
             }
@@ -585,6 +585,46 @@
             "UnicodeCodePoint",
             "Utf16CodeUnit"
           ]
+        }
+      },
+      "ShowStatsParameter": {
+        "name": "showStats",
+        "in": "query",
+        "required": false,
+        "description": "If set to true, response will contain request and document level statistics.",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      "JobIdParameter": {
+        "name": "jobId",
+        "in": "path",
+        "required": true,
+        "description": "Job ID.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "JobParameters.$top": {
+        "name": "$top",
+        "in": "query",
+        "required": false,
+        "description": "Set the maximum number of results per task.\nWhen both $top and $skip are specified, $skip is applied first.",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": 20
+        }
+      },
+      "JobParameters.$skip": {
+        "name": "$skip",
+        "in": "query",
+        "required": false,
+        "description": "Set the number of elements to offset in the response.\nWhen both $top and $skip are specified, $skip is applied first.",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": 0
         }
       },
       "PiiParameters.domain": {
@@ -787,15 +827,6 @@
           }
         }
       },
-      "ShowStatsParameter": {
-        "name": "showStats",
-        "in": "query",
-        "required": false,
-        "description": "If set to true, response will contain request and document level statistics.",
-        "schema": {
-          "type": "boolean"
-        }
-      },
       "SentimentParameters.opinionMining": {
         "name": "opinionMining",
         "in": "query",
@@ -805,40 +836,176 @@
           "type": "boolean",
           "default": false
         }
-      },
-      "JobIdParameter": {
-        "name": "jobId",
-        "in": "path",
-        "required": true,
-        "description": "Job ID.",
-        "schema": {
-          "type": "string"
-        }
-      },
-      "JobParameters.$top": {
-        "name": "$top",
-        "in": "query",
-        "required": false,
-        "description": "Set the maximum number of results per task.\nWhen both $top and $skip are specified, $skip is applied first.",
-        "schema": {
-          "type": "integer",
-          "format": "int32",
-          "default": 20
-        }
-      },
-      "JobParameters.$skip": {
-        "name": "$skip",
-        "in": "query",
-        "required": false,
-        "description": "Set the number of elements to offset in the response.\nWhen both $top and $skip are specified, $skip is applied first.",
-        "schema": {
-          "type": "integer",
-          "format": "int32",
-          "default": 0
-        }
       }
     },
     "schemas": {
+      "MultiLanguageBatchInput": {
+        "type": "object",
+        "properties": {
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MultiLanguageInput"
+            },
+            "x-cadl-name": "TextAnalytics.MultiLanguageInput[]",
+            "description": "The set of documents to process as part of this batch."
+          }
+        },
+        "required": [
+          "documents"
+        ]
+      },
+      "EntitiesResult": {
+        "type": "object",
+        "properties": {
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentEntities"
+            },
+            "x-cadl-name": "TextAnalytics.DocumentEntities[]",
+            "description": "Response by document."
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentError"
+            },
+            "x-cadl-name": "TextAnalytics.DocumentError[]",
+            "description": "Errors by document id."
+          },
+          "statistics": {
+            "$ref": "#/components/schemas/RequestStatistics",
+            "description": "If showStats=true was specified in the request this field will contain information about the request payload."
+          },
+          "modelVersion": {
+            "type": "string",
+            "description": "This field indicates which model is used for scoring."
+          }
+        },
+        "required": [
+          "documents",
+          "errors",
+          "modelVersion"
+        ]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/Error",
+            "description": "Document error."
+          }
+        },
+        "description": "Unexpected error.",
+        "required": [
+          "error"
+        ]
+      },
+      "EntityLinkingResult": {
+        "type": "object",
+        "properties": {
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentLinkedEntities"
+            },
+            "x-cadl-name": "TextAnalytics.DocumentLinkedEntities[]",
+            "description": "Response by document."
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentError"
+            },
+            "x-cadl-name": "TextAnalytics.DocumentError[]",
+            "description": "Errors by document id."
+          },
+          "statistics": {
+            "$ref": "#/components/schemas/RequestStatistics",
+            "description": "If showStats=true was specified in the request this field will contain information about the request payload."
+          },
+          "modelVersion": {
+            "type": "string",
+            "description": "This field indicates which model is used for scoring."
+          }
+        },
+        "required": [
+          "documents",
+          "errors",
+          "modelVersion"
+        ]
+      },
+      "LongRunningAcceptedResponse": {
+        "type": "object",
+        "properties": {},
+        "description": "A successful call results with an Operation-Location header used to check the status of the job."
+      },
+      "HealthcareJobState": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "$ref": "#/components/schemas/HealthcareResult"
+          }
+        },
+        "required": [
+          "results"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/JobState"
+          }
+        ]
+      },
+      "LanguageBatchInput": {
+        "type": "object",
+        "properties": {
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LanguageInput"
+            },
+            "x-cadl-name": "TextAnalytics.LanguageInput[]"
+          }
+        },
+        "required": [
+          "documents"
+        ]
+      },
+      "LanguageResult": {
+        "type": "object",
+        "properties": {
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentLanguage"
+            },
+            "x-cadl-name": "TextAnalytics.DocumentLanguage[]",
+            "description": "Response by document."
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentError"
+            },
+            "x-cadl-name": "TextAnalytics.DocumentError[]",
+            "description": "Errors by document id."
+          },
+          "statistics": {
+            "$ref": "#/components/schemas/RequestStatistics",
+            "description": "If showStats=true was specified in the request this field will contain information about the request payload."
+          },
+          "modelVersion": {
+            "type": "string",
+            "description": "This field indicates which model is used for scoring."
+          }
+        },
+        "required": [
+          "documents",
+          "errors",
+          "modelVersion"
+        ]
+      },
       "PiiCategory": {
         "type": "string",
         "enum": [
@@ -1017,22 +1184,6 @@
           "Default"
         ]
       },
-      "MultiLanguageBatchInput": {
-        "type": "object",
-        "properties": {
-          "documents": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MultiLanguageInput"
-            },
-            "x-cadl-name": "TextAnalytics.MultiLanguageInput[]",
-            "description": "The set of documents to process as part of this batch."
-          }
-        },
-        "required": [
-          "documents"
-        ]
-      },
       "PiiResult": {
         "type": "object",
         "properties": {
@@ -1067,17 +1218,38 @@
           "modelVersion"
         ]
       },
-      "ErrorResponse": {
+      "KeyPhraseResult": {
         "type": "object",
         "properties": {
-          "error": {
-            "$ref": "#/components/schemas/Error",
-            "description": "Document error."
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentKeyPhrases"
+            },
+            "x-cadl-name": "TextAnalytics.DocumentKeyPhrases[]",
+            "description": "Response by document."
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentError"
+            },
+            "x-cadl-name": "TextAnalytics.DocumentError[]",
+            "description": "Errors by document id."
+          },
+          "statistics": {
+            "$ref": "#/components/schemas/RequestStatistics",
+            "description": "If showStats=true was specified in the request this field will contain information about the request payload."
+          },
+          "modelVersion": {
+            "type": "string",
+            "description": "This field indicates which model is used for scoring."
           }
         },
-        "description": "Unexpected error.",
         "required": [
-          "error"
+          "documents",
+          "errors",
+          "modelVersion"
         ]
       },
       "SentimentResult": {
@@ -1089,178 +1261,6 @@
               "$ref": "#/components/schemas/DocumentSentiment"
             },
             "x-cadl-name": "TextAnalytics.DocumentSentiment[]",
-            "description": "Response by document."
-          },
-          "errors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DocumentError"
-            },
-            "x-cadl-name": "TextAnalytics.DocumentError[]",
-            "description": "Errors by document id."
-          },
-          "statistics": {
-            "$ref": "#/components/schemas/RequestStatistics",
-            "description": "If showStats=true was specified in the request this field will contain information about the request payload."
-          },
-          "modelVersion": {
-            "type": "string",
-            "description": "This field indicates which model is used for scoring."
-          }
-        },
-        "required": [
-          "documents",
-          "errors",
-          "modelVersion"
-        ]
-      },
-      "EntitiesResult": {
-        "type": "object",
-        "properties": {
-          "documents": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DocumentEntities"
-            },
-            "x-cadl-name": "TextAnalytics.DocumentEntities[]",
-            "description": "Response by document."
-          },
-          "errors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DocumentError"
-            },
-            "x-cadl-name": "TextAnalytics.DocumentError[]",
-            "description": "Errors by document id."
-          },
-          "statistics": {
-            "$ref": "#/components/schemas/RequestStatistics",
-            "description": "If showStats=true was specified in the request this field will contain information about the request payload."
-          },
-          "modelVersion": {
-            "type": "string",
-            "description": "This field indicates which model is used for scoring."
-          }
-        },
-        "required": [
-          "documents",
-          "errors",
-          "modelVersion"
-        ]
-      },
-      "EntityLinkingResult": {
-        "type": "object",
-        "properties": {
-          "documents": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DocumentLinkedEntities"
-            },
-            "x-cadl-name": "TextAnalytics.DocumentLinkedEntities[]",
-            "description": "Response by document."
-          },
-          "errors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DocumentError"
-            },
-            "x-cadl-name": "TextAnalytics.DocumentError[]",
-            "description": "Errors by document id."
-          },
-          "statistics": {
-            "$ref": "#/components/schemas/RequestStatistics",
-            "description": "If showStats=true was specified in the request this field will contain information about the request payload."
-          },
-          "modelVersion": {
-            "type": "string",
-            "description": "This field indicates which model is used for scoring."
-          }
-        },
-        "required": [
-          "documents",
-          "errors",
-          "modelVersion"
-        ]
-      },
-      "LongRunningAcceptedResponse": {
-        "type": "object",
-        "properties": {},
-        "description": "A successful call results with an Operation-Location header used to check the status of the job."
-      },
-      "HealthcareJobState": {
-        "type": "object",
-        "properties": {
-          "results": {
-            "$ref": "#/components/schemas/HealthcareResult"
-          }
-        },
-        "required": [
-          "results"
-        ],
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/JobState"
-          }
-        ]
-      },
-      "LanguageBatchInput": {
-        "type": "object",
-        "properties": {
-          "documents": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LanguageInput"
-            },
-            "x-cadl-name": "TextAnalytics.LanguageInput[]"
-          }
-        },
-        "required": [
-          "documents"
-        ]
-      },
-      "LanguageResult": {
-        "type": "object",
-        "properties": {
-          "documents": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DocumentLanguage"
-            },
-            "x-cadl-name": "TextAnalytics.DocumentLanguage[]",
-            "description": "Response by document."
-          },
-          "errors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DocumentError"
-            },
-            "x-cadl-name": "TextAnalytics.DocumentError[]",
-            "description": "Errors by document id."
-          },
-          "statistics": {
-            "$ref": "#/components/schemas/RequestStatistics",
-            "description": "If showStats=true was specified in the request this field will contain information about the request payload."
-          },
-          "modelVersion": {
-            "type": "string",
-            "description": "This field indicates which model is used for scoring."
-          }
-        },
-        "required": [
-          "documents",
-          "errors",
-          "modelVersion"
-        ]
-      },
-      "KeyPhraseResult": {
-        "type": "object",
-        "properties": {
-          "documents": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DocumentKeyPhrases"
-            },
-            "x-cadl-name": "TextAnalytics.DocumentKeyPhrases[]",
             "description": "Response by document."
           },
           "errors": {
@@ -1439,38 +1439,43 @@
           "text"
         ]
       },
-      "PiiDocumentEntities": {
+      "DocumentEntities": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "redactedText": {
-            "type": "string"
-          },
-          "entities": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Entity"
-            },
-            "x-cadl-name": "TextAnalytics.Entity[]"
+            "type": "string",
+            "description": "Unique, non-empty document identifier."
           },
           "warnings": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Warning"
             },
-            "x-cadl-name": "TextAnalytics.Warning[]"
+            "x-cadl-name": "TextAnalytics.Warning[]",
+            "description": "Warnings encountered while processing document."
           },
           "statistics": {
-            "$ref": "#/components/schemas/DocumentStatistics"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentStatistics"
+            },
+            "x-cadl-name": "TextAnalytics.DocumentStatistics[]",
+            "description": "If showStats=true was specified in the request this field will contain information about the document payload."
+          },
+          "entities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Entity"
+            },
+            "x-cadl-name": "TextAnalytics.Entity[]",
+            "description": "Recognized entities in the document."
           }
         },
         "required": [
           "id",
-          "redactedText",
-          "entities",
-          "warnings"
+          "warnings",
+          "statistics",
+          "entities"
         ]
       },
       "DocumentError": {
@@ -1528,19 +1533,19 @@
             "type": "string",
             "description": "Error message."
           },
+          "code": {
+            "$ref": "#/components/schemas/ErrorCode",
+            "description": "Error code."
+          },
           "details": {
             "type": "object",
             "properties": {},
             "description": "Error details.",
-            "x-cadl-name": "(anonymous model)"
+            "x-cadl-name": "(anonymous model)_TextAnalytics.ErrorCode"
           },
           "target": {
             "type": "string",
-            "description": "Error target"
-          },
-          "code": {
-            "$ref": "#/components/schemas/ErrorCode",
-            "description": "Error code."
+            "description": "Error target."
           },
           "innererror": {
             "$ref": "#/components/schemas/InnerError",
@@ -1550,94 +1555,6 @@
         "required": [
           "message",
           "code"
-        ]
-      },
-      "DocumentSentiment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique, non-empty document identifier."
-          },
-          "warnings": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Warning"
-            },
-            "x-cadl-name": "TextAnalytics.Warning[]",
-            "description": "Warnings encountered while processing document."
-          },
-          "statistics": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DocumentStatistics"
-            },
-            "x-cadl-name": "TextAnalytics.DocumentStatistics[]",
-            "description": "If showStats=true was specified in the request this field will contain information about the document payload."
-          },
-          "sentiment": {
-            "$ref": "#/components/schemas/DocumentSentimentValue",
-            "description": "Predicted sentiment for document."
-          },
-          "sentences": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SentenceSentiment"
-            },
-            "x-cadl-name": "TextAnalytics.SentenceSentiment[]",
-            "description": "Sentence level sentiment analysis."
-          },
-          "confidenceScores": {
-            "$ref": "#/components/schemas/SentimentConfidenceScorePerLabel",
-            "description": "Document level sentiment confidence scores between 0 and 1 for each sentiment class."
-          }
-        },
-        "required": [
-          "id",
-          "warnings",
-          "statistics",
-          "sentiment",
-          "sentences",
-          "confidenceScores"
-        ]
-      },
-      "DocumentEntities": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique, non-empty document identifier."
-          },
-          "warnings": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Warning"
-            },
-            "x-cadl-name": "TextAnalytics.Warning[]",
-            "description": "Warnings encountered while processing document."
-          },
-          "statistics": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DocumentStatistics"
-            },
-            "x-cadl-name": "TextAnalytics.DocumentStatistics[]",
-            "description": "If showStats=true was specified in the request this field will contain information about the document payload."
-          },
-          "entities": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Entity"
-            },
-            "x-cadl-name": "TextAnalytics.Entity[]",
-            "description": "Recognized entities in the document."
-          }
-        },
-        "required": [
-          "id",
-          "warnings",
-          "statistics",
-          "entities"
         ]
       },
       "DocumentLinkedEntities": {
@@ -1808,6 +1725,48 @@
           "detectedLanguage"
         ]
       },
+      "PiiDocumentEntities": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique, non-empty document identifier."
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Warning"
+            },
+            "x-cadl-name": "TextAnalytics.Warning[]",
+            "description": "Warnings encountered while processing document."
+          },
+          "statistics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentStatistics"
+            },
+            "x-cadl-name": "TextAnalytics.DocumentStatistics[]",
+            "description": "If showStats=true was specified in the request this field will contain information about the document payload."
+          },
+          "redactedText": {
+            "type": "string"
+          },
+          "entities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Entity"
+            },
+            "x-cadl-name": "TextAnalytics.Entity[]"
+          }
+        },
+        "required": [
+          "id",
+          "warnings",
+          "statistics",
+          "redactedText",
+          "entities"
+        ]
+      },
       "DocumentKeyPhrases": {
         "type": "object",
         "properties": {
@@ -1845,6 +1804,55 @@
           "warnings",
           "statistics",
           "keyPhrases"
+        ]
+      },
+      "DocumentSentiment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique, non-empty document identifier."
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Warning"
+            },
+            "x-cadl-name": "TextAnalytics.Warning[]",
+            "description": "Warnings encountered while processing document."
+          },
+          "statistics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentStatistics"
+            },
+            "x-cadl-name": "TextAnalytics.DocumentStatistics[]",
+            "description": "If showStats=true was specified in the request this field will contain information about the document payload."
+          },
+          "sentiment": {
+            "$ref": "#/components/schemas/DocumentSentimentValue",
+            "description": "Predicted sentiment for document."
+          },
+          "sentences": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SentenceSentiment"
+            },
+            "x-cadl-name": "TextAnalytics.SentenceSentiment[]",
+            "description": "Sentence level sentiment analysis."
+          },
+          "confidenceScores": {
+            "$ref": "#/components/schemas/SentimentConfidenceScorePerLabel",
+            "description": "Document level sentiment confidence scores between 0 and 1 for each sentiment class."
+          }
+        },
+        "required": [
+          "id",
+          "warnings",
+          "statistics",
+          "sentiment",
+          "sentences",
+          "confidenceScores"
         ]
       },
       "EntitiesTask": {
@@ -2097,45 +2105,6 @@
           }
         ]
       },
-      "Entity": {
-        "type": "object",
-        "properties": {
-          "text": {
-            "type": "string",
-            "description": "Entity text as appears in the request."
-          },
-          "category": {
-            "type": "string",
-            "description": "Entity type."
-          },
-          "subcategory": {
-            "type": "string",
-            "description": "Entity sub type."
-          },
-          "offset": {
-            "type": "integer",
-            "format": "int32",
-            "description": "Start position for the entity text. \nUse of different 'stringIndexType' values can affect the offset returned."
-          },
-          "length": {
-            "type": "integer",
-            "format": "int32",
-            "description": "Length for the entity text. \nUse of different 'stringIndexType' values can affect the length returned."
-          },
-          "confidenceScore": {
-            "type": "number",
-            "format": "double",
-            "description": "Confidence score between 0 and 1 of the extracted entity."
-          }
-        },
-        "required": [
-          "text",
-          "category",
-          "offset",
-          "length",
-          "confidenceScore"
-        ]
-      },
       "Warning": {
         "type": "object",
         "properties": {
@@ -2176,6 +2145,45 @@
           "transactionsCount"
         ]
       },
+      "Entity": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Entity text as appears in the request."
+          },
+          "category": {
+            "type": "string",
+            "description": "Entity type."
+          },
+          "subcategory": {
+            "type": "string",
+            "description": "Entity sub type."
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Start position for the entity text. \nUse of different 'stringIndexType' values can affect the offset returned."
+          },
+          "length": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Length for the entity text. \nUse of different 'stringIndexType' values can affect the length returned."
+          },
+          "confidenceScore": {
+            "type": "number",
+            "format": "double",
+            "description": "Confidence score between 0 and 1 of the extracted entity."
+          }
+        },
+        "required": [
+          "text",
+          "category",
+          "offset",
+          "length",
+          "confidenceScore"
+        ]
+      },
       "ErrorCode": {
         "type": "string",
         "enum": [
@@ -2193,19 +2201,19 @@
             "type": "string",
             "description": "Error message."
           },
+          "code": {
+            "$ref": "#/components/schemas/InnerErrorCode",
+            "description": "Error code."
+          },
           "details": {
             "type": "object",
             "properties": {},
             "description": "Error details.",
-            "x-cadl-name": "(anonymous model)"
+            "x-cadl-name": "(anonymous model)_TextAnalytics.InnerErrorCode"
           },
           "target": {
             "type": "string",
-            "description": "Error target"
-          },
-          "code": {
-            "$ref": "#/components/schemas/InnerErrorCode",
-            "description": "Error code."
+            "description": "Error target."
           },
           "innererror": {
             "$ref": "#/components/schemas/InnerError",
@@ -2215,79 +2223,6 @@
         "required": [
           "message",
           "code"
-        ]
-      },
-      "DocumentSentimentValue": {
-        "type": "string",
-        "enum": [
-          "positive",
-          "neutral",
-          "negative",
-          "mixed"
-        ]
-      },
-      "SentenceSentiment": {
-        "type": "object",
-        "properties": {
-          "text": {
-            "type": "string",
-            "description": "The sentence text."
-          },
-          "sentiment": {
-            "$ref": "#/components/schemas/SentenceSentimentValue",
-            "description": "The predicted sentiment for the sentence."
-          },
-          "confidenceScores": {
-            "$ref": "#/components/schemas/SentimentConfidenceScorePerLabel",
-            "description": "The sentiment confidence score between 0 and 1 for the sentence for all classes."
-          },
-          "offset": {
-            "type": "integer",
-            "format": "int32",
-            "description": "The sentence offset from the start of the document."
-          },
-          "length": {
-            "type": "integer",
-            "format": "int32",
-            "description": "The length of the sentence."
-          },
-          "targets": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SentenceTarget"
-            },
-            "x-cadl-name": "TextAnalytics.SentenceTarget[]",
-            "description": "The array of sentence targets for the sentence."
-          }
-        },
-        "required": [
-          "text",
-          "sentiment",
-          "confidenceScores",
-          "offset",
-          "length"
-        ]
-      },
-      "SentimentConfidenceScorePerLabel": {
-        "type": "object",
-        "properties": {
-          "positive": {
-            "type": "number",
-            "format": "double"
-          },
-          "negative": {
-            "type": "number",
-            "format": "double"
-          },
-          "neutral": {
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "required": [
-          "positive",
-          "negative",
-          "neutral"
         ]
       },
       "LinkedEntity": {
@@ -2417,6 +2352,79 @@
           "confidenceScore"
         ]
       },
+      "DocumentSentimentValue": {
+        "type": "string",
+        "enum": [
+          "positive",
+          "neutral",
+          "negative",
+          "mixed"
+        ]
+      },
+      "SentenceSentiment": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "The sentence text."
+          },
+          "sentiment": {
+            "$ref": "#/components/schemas/SentenceSentimentValue",
+            "description": "The predicted sentiment for the sentence."
+          },
+          "confidenceScores": {
+            "$ref": "#/components/schemas/SentimentConfidenceScorePerLabel",
+            "description": "The sentiment confidence score between 0 and 1 for the sentence for all classes."
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The sentence offset from the start of the document."
+          },
+          "length": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The length of the sentence."
+          },
+          "targets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SentenceTarget"
+            },
+            "x-cadl-name": "TextAnalytics.SentenceTarget[]",
+            "description": "The array of sentence targets for the sentence."
+          }
+        },
+        "required": [
+          "text",
+          "sentiment",
+          "confidenceScores",
+          "offset",
+          "length"
+        ]
+      },
+      "SentimentConfidenceScorePerLabel": {
+        "type": "object",
+        "properties": {
+          "positive": {
+            "type": "number",
+            "format": "double"
+          },
+          "negative": {
+            "type": "number",
+            "format": "double"
+          },
+          "neutral": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "positive",
+          "negative",
+          "neutral"
+        ]
+      },
       "StringIndexType": {
         "type": "string",
         "enum": [
@@ -2466,57 +2474,6 @@
           "InvalidCountryHint"
         ]
       },
-      "SentenceSentimentValue": {
-        "type": "string",
-        "enum": [
-          "positive",
-          "neutral",
-          "negative"
-        ]
-      },
-      "SentenceTarget": {
-        "type": "object",
-        "properties": {
-          "sentiment": {
-            "$ref": "#/components/schemas/TokenSentimentValue",
-            "description": "Targeted sentiment in the sentence."
-          },
-          "confidenceScores": {
-            "$ref": "#/components/schemas/TargetConfidenceScorePerLabel",
-            "description": "Target sentiment confidence scores for the target in the sentence."
-          },
-          "offset": {
-            "type": "integer",
-            "format": "int32",
-            "description": "The target offset from the start of the sentence."
-          },
-          "length": {
-            "type": "integer",
-            "format": "int32",
-            "description": "The length of the target."
-          },
-          "text": {
-            "type": "string",
-            "description": "The target text detected."
-          },
-          "relations": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TargetRelation"
-            },
-            "x-cadl-name": "TextAnalytics.TargetRelation[]",
-            "description": "The array of either assessment or target objects which is related to the target."
-          }
-        },
-        "required": [
-          "sentiment",
-          "confidenceScores",
-          "offset",
-          "length",
-          "text",
-          "relations"
-        ]
-      },
       "Match": {
         "type": "object",
         "properties": {
@@ -2532,12 +2489,12 @@
           "offset": {
             "type": "integer",
             "format": "int32",
-            "description": "Entity text as appears in the request."
+            "description": "Start position for the entity match text"
           },
           "length": {
             "type": "integer",
             "format": "int32",
-            "description": "Entity text as appears in the request."
+            "description": "Length for the entity match text."
           }
         },
         "required": [
@@ -2624,46 +2581,55 @@
           "relationType"
         ]
       },
-      "TokenSentimentValue": {
+      "SentenceSentimentValue": {
         "type": "string",
         "enum": [
           "positive",
           "neutral",
-          "mixed"
-        ]
-      },
-      "TargetConfidenceScorePerLabel": {
-        "type": "object",
-        "properties": {
-          "positive": {
-            "type": "number",
-            "format": "double"
-          },
-          "negative": {
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "required": [
-          "positive",
           "negative"
         ]
       },
-      "TargetRelation": {
+      "SentenceTarget": {
         "type": "object",
         "properties": {
-          "relationType": {
-            "$ref": "#/components/schemas/TargetRelationType",
-            "description": "The type related to the target."
+          "sentiment": {
+            "$ref": "#/components/schemas/TokenSentimentValue",
+            "description": "Targeted sentiment in the sentence."
           },
-          "ref": {
+          "confidenceScores": {
+            "$ref": "#/components/schemas/TargetConfidenceScorePerLabel",
+            "description": "Target sentiment confidence scores for the target in the sentence."
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The target offset from the start of the sentence."
+          },
+          "length": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The length of the target."
+          },
+          "text": {
             "type": "string",
-            "description": "The JSON pointer indicating the linked object."
+            "description": "The target text detected."
+          },
+          "relations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TargetRelation"
+            },
+            "x-cadl-name": "TextAnalytics.TargetRelation[]",
+            "description": "The array of either assessment or target objects which is related to the target."
           }
         },
         "required": [
-          "relationType",
-          "ref"
+          "sentiment",
+          "confidenceScores",
+          "offset",
+          "length",
+          "text",
+          "relations"
         ]
       },
       "HealthcareEntityCategory": {
@@ -2774,11 +2740,46 @@
           "ValueOfExamination"
         ]
       },
-      "TargetRelationType": {
+      "TokenSentimentValue": {
         "type": "string",
         "enum": [
-          "assessment",
-          "target"
+          "positive",
+          "neutral",
+          "mixed"
+        ]
+      },
+      "TargetConfidenceScorePerLabel": {
+        "type": "object",
+        "properties": {
+          "positive": {
+            "type": "number",
+            "format": "double"
+          },
+          "negative": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "positive",
+          "negative"
+        ]
+      },
+      "TargetRelation": {
+        "type": "object",
+        "properties": {
+          "relationType": {
+            "$ref": "#/components/schemas/TargetRelationType",
+            "description": "The type related to the target."
+          },
+          "ref": {
+            "type": "string",
+            "description": "The JSON pointer indicating the linked object."
+          }
+        },
+        "required": [
+          "relationType",
+          "ref"
         ]
       },
       "Conditionality": {
@@ -2803,6 +2804,13 @@
         "enum": [
           "subject",
           "other"
+        ]
+      },
+      "TargetRelationType": {
+        "type": "string",
+        "enum": [
+          "assessment",
+          "target"
         ]
       }
     }

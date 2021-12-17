@@ -3,13 +3,15 @@ namespace TextAnalytics;
 using Cadl.Http;
 
 @route("/sentiment")
-@doc("Analyze sentiment.")
-@post
-op analyzeSentiment(
-  ...SentimentParameters,
-  ...ShowStatsParameter,
-  ...MultiLanguageInputParameter
-): Response<SentimentResult>;
+interface Sentiment {
+  @doc("Analyze sentiment.")
+  @post
+  analyze(
+    ...SentimentParameters,
+    ...ShowStatsParameter,
+    ...MultiLanguageInputParameter
+  ): Response<SentimentResult>;
+}
 
 model SentimentParameters {
   ...CommonParameters;

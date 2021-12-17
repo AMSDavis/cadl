@@ -2,14 +2,16 @@ namespace TextAnalytics;
 
 using Cadl.Http;
 
-@route("/entitities/recognition/pii")
-@doc("Recognize entities containing personal information.")
-@post
-op recognizePersonalInformation(
-  ...PiiParameters,
-  ...ShowStatsParameter,
-  ...MultiLanguageInputParameter
-): Response<PiiResult>;
+@route("/entities/recognition/pii")
+interface Pii {
+  @doc("Recognize entities containing personal information.")
+  @post
+  recognize(
+    ...PiiParameters,
+    ...ShowStatsParameter,
+    ...MultiLanguageInputParameter
+  ): Response<PiiResult>;
+}
 
 model PiiParameters {
   ...CommonParameters;
@@ -26,12 +28,9 @@ model PiiParameters {
 
 model PiiResult is Result<PiiDocumentEntities> {}
 
-model PiiDocumentEntities {
-  id: string;
+model PiiDocumentEntities is DocumentInfo {
   redactedText: string;
   entities: Entity[];
-  warnings: Warning[];
-  statistics?: DocumentStatistics;
 }
 
 enum PiiCategory {

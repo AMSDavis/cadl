@@ -1,3 +1,5 @@
+// Original swagger for reference: https://github.com/Azure/azure-rest-api-specs/blob/main/specification/cognitiveservices/data-plane/TextAnalytics/stable/v3.1/TextAnalytics.json
+
 @serviceVersion("v3.1")
 @serviceTitle("Text Analytics")
 namespace TextAnalytics;
@@ -111,32 +113,25 @@ model MultiLanguageInput {
   language?: string;
 }
 
-model ErrorBase {
+model ErrorTemplate<T> {
   @doc("Error message.")
   message: string;
+
+  @doc("Error code.")
+  code: T;
 
   @doc("Error details.")
   details?: {}; // ISSUE: can't specify additional properties: https://github.com/Azure/cadl-azure/issues/997
 
-  @doc("Error target")
+  @doc("Error target.")
   target?: string;
-}
-
-model Error is ErrorBase {
-  @doc("Error code.")
-  code: ErrorCode; // ISSUE: can't move this to templated base --> crash: https://github.com/microsoft/cadl/issues/133
 
   @doc("Inner error contains more specific information.")
-  innererror?: InnerError; // ISSUE: can't move this to base --> properties disappear: https://github.com/microsoft/cadl/issues/134
+  innererror?: InnerError;
 }
 
-model InnerError is ErrorBase {
-  @doc("Error code.")
-  code: InnerErrorCode; // ISSUE: can't move this to templated base --> crash: https://github.com/microsoft/cadl/issues/133
-
-  @doc("Inner error contains more specific information.")
-  innererror?: InnerError; // ISSUE: can't move this to base --> properties disappear: https://github.com/microsoft/cadl/issues/134
-}
+model Error is ErrorTemplate<ErrorCode> {}
+model InnerError is ErrorTemplate<InnerErrorCode> {}
 
 model Warning {
   @doc("Warning code.")

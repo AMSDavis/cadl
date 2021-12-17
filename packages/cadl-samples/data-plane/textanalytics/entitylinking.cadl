@@ -55,9 +55,9 @@ model Match {
   @doc("Entity text as appears in the request.")
   text: string;
 
-  @doc("Entity text as appears in the request.")
+  @doc("Start position for the entity match text")
   offset: int32;
 
-  @doc("Entity text as appears in the request.")
+  @doc("Length for the entity match text.")
   length: int32;
 }
