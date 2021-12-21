@@ -3,6 +3,7 @@ import {
   checkIfServiceNamespace,
   EnumMemberType,
   EnumType,
+  findChildModels,
   getAllTags,
   getDoc,
   getFormat,
@@ -10,6 +11,7 @@ import {
   getMaxValue,
   getMinLength,
   getMinValue,
+  getProperty,
   getServiceHost,
   getServiceNamespaceString,
   getServiceTitle,
@@ -30,7 +32,7 @@ import {
   Type,
   UnionType,
 } from "@cadl-lang/compiler";
-import { getAllRoutes, http, OperationDetails } from "@cadl-lang/rest";
+import { getAllRoutes, getDiscriminator, http, OperationDetails } from "@cadl-lang/rest";
 import * as path from "path";
 import { reportDiagnostic } from "./lib.js";
 const { getHeaderFieldName, getPathParamName, getQueryParamName, isBody, isHeader } = http;
@@ -147,20 +149,21 @@ export function addSecurityDefinition(
 }
 
 const openApiExtensions = new Map<Type, Map<string, any>>();
+function getExtensions(entity: Type): Map<string, any> {
+  if (!openApiExtensions.has(entity)) {
+    openApiExtensions.set(entity, new Map<string, any>());
+  }
+  return openApiExtensions.get(entity)!;
+}
+
 export function $extension(program: Program, entity: Type, extensionName: string, value: any) {
-  let typeExtensions = openApiExtensions.get(entity) ?? new Map<string, any>();
-  typeExtensions.set(extensionName, value);
-  openApiExtensions.set(entity, typeExtensions);
+  const extensions = getExtensions(entity);
+  extensions.set(extensionName, value);
 }
 
 export function $asyncOperationOptions(program: Program, entity: Type, finalStateVia: string) {
-  let typeExtensions = openApiExtensions.get(entity) ?? new Map<string, any>();
+  let typeExtensions = getExtensions(entity);
   typeExtensions.set("x-ms-long-running-operation-options", { "final-state-via": finalStateVia });
-  openApiExtensions.set(entity, typeExtensions);
-}
-
-function getExtensions(entity: Type): Map<string, any> {
-  return openApiExtensions.get(entity) ?? new Map<string, any>();
 }
 
 export interface OpenAPIEmitterOptions {
@@ -450,6 +453,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
           for (let element of adlType.templateArguments) {
             if (!isEmptyResponse(element)) return false;
           }
+        }
+        if (getDiscriminator(program, adlType)) {
+          return false;
         }
 
         return true;
@@ -940,6 +946,42 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       description: getDoc(program, model),
     };
 
+    const discriminator = getDiscriminator(program, model);
+    if (discriminator) {
+      const childModels = findChildModels(program, model);
+
+      if (!validateDiscriminator(discriminator, childModels)) {
+        // appropriate diagnostic is generated in the validate function
+        return {};
+      }
+
+      const { propertyName } = discriminator;
+
+      for (let child of childModels) {
+        // getSchemaOrRef on all children to make sure these are pushed into definitions
+        getSchemaOrRef(child);
+
+        // Set x-ms-discriminator-value if only one value for the discriminator property
+        const prop = getProperty(child, propertyName);
+        if (prop) {
+          const vals = getStringValues(prop.type);
+          if (vals.length === 1) {
+            const extensions = getExtensions(child);
+            if (!extensions.has("x-ms-discriminator-value")) {
+              extensions.set("x-ms-discriminator-value", vals[0]);
+            }
+          }
+        }
+      }
+
+      modelSchema.discriminator = propertyName;
+      // Push discriminator into base type, but only if it is not already there
+      if (!model.properties?.get(propertyName)) {
+        modelSchema.properties[propertyName] = { type: "string" };
+        modelSchema.required = [propertyName];
+      }
+    }
+
     for (const [name, prop] of model.properties) {
       if (!isSchemaProperty(prop)) {
         continue;
@@ -953,8 +995,18 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         modelSchema.required.push(name);
       }
 
+      const propSchema = getSchemaOrRef(prop.type);
+
+      // if this property is a discriminator property, remove enum values to keep autorest happy
+      if (model.baseModel) {
+        const { propertyName } = getDiscriminator(program, model.baseModel) || {};
+        if (name === propertyName) {
+          delete propSchema["enum"];
+        }
+      }
+
       // Apply decorators on the property to the type's schema
-      modelSchema.properties[name] = applyIntrinsicDecorators(prop, getSchemaOrRef(prop.type));
+      modelSchema.properties[name] = applyIntrinsicDecorators(prop, propSchema);
       if (description) {
         modelSchema.properties[name].description = description;
       }
@@ -1025,6 +1077,90 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         emitObject[key] = extensions.get(key);
       }
     }
+  }
+
+  function validateDiscriminator(discriminator: any, childModels: ModelType[]): boolean {
+    const { propertyName } = discriminator;
+    var retVals = childModels.map((t) => {
+      const prop = getProperty(t, propertyName);
+      if (!prop) {
+        reportDiagnostic(program, { code: "discriminator", messageId: "missing", target: t });
+        return false;
+      }
+      var retval = true;
+      if (!isOasString(prop.type)) {
+        reportDiagnostic(program, { code: "discriminator", messageId: "type", target: prop });
+        retval = false;
+      }
+      if (prop.optional) {
+        reportDiagnostic(program, { code: "discriminator", messageId: "required", target: prop });
+        retval = false;
+      }
+      return retval;
+    });
+    // Map of discriminator value to the model in which it is declared
+    const discriminatorValues = new Map<string, string>();
+    for (let t of childModels) {
+      // Get the discriminator property directly in the child model
+      const prop = t.properties?.get(propertyName);
+      // Issue warning diagnostic if discriminator property missing or is not a string literal
+      if (!prop || !isStringLiteral(prop.type)) {
+        reportDiagnostic(program, {
+          code: "discriminator-value",
+          messageId: "literal",
+          target: prop || t,
+        });
+      }
+      if (prop) {
+        const vals = getStringValues(prop.type);
+        vals.forEach((val) => {
+          if (discriminatorValues.has(val)) {
+            reportDiagnostic(program, {
+              code: "discriminator",
+              messageId: "duplicate",
+              format: { val: val, model1: discriminatorValues.get(val)!, model2: t.name },
+              target: prop,
+            });
+            retVals.push(false);
+          } else {
+            discriminatorValues.set(val, t.name);
+          }
+        });
+      }
+    }
+    return retVals.every((v) => v);
+  }
+
+  // An openapi "string" can be defined in several different ways in Cadl
+  function isOasString(type: Type): boolean {
+    if (type.kind === "String") {
+      // A string literal
+      return true;
+    } else if (type.kind === "Model" && type.name === "string") {
+      // string type
+      return true;
+    } else if (type.kind === "Union") {
+      // A union where all variants are an OasString
+      return type.options.every((o) => isOasString(o));
+    }
+    return false;
+  }
+
+  function isStringLiteral(type: Type): boolean {
+    return (
+      type.kind === "String" ||
+      (type.kind === "Union" && type.options.every((o) => o.kind === "String"))
+    );
+  }
+
+  // Return any string literal values for type
+  function getStringValues(type: Type): string[] {
+    if (type.kind === "String") {
+      return [type.value];
+    } else if (type.kind === "Union") {
+      return type.options.flatMap(getStringValues).filter((v) => v);
+    }
+    return [];
   }
 
   /**
