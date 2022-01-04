@@ -490,6 +490,94 @@ describe("openapi3: responses", () => {
   });
 });
 
+describe("autorest: enums", () => {
+  const enumBase = Object.freeze({
+    type: "string",
+    enum: ["foo", "bar"],
+  });
+  it("create basic enum without values", async () => {
+    const res = await oapiForModel(
+      "Foo",
+      `
+        enum Foo {foo, bar}
+      `
+    );
+
+    const schema = res.defs.Foo;
+    deepStrictEqual(schema, {
+      ...enumBase,
+      "x-ms-enum": {
+        modelAsString: true,
+        name: "Foo",
+      },
+    });
+  });
+
+  it("create enum with doc on a member", async () => {
+    const res = await oapiForModel(
+      "Foo",
+      `
+        enum Foo {
+          @doc("Foo doc")
+          foo,
+          bar
+        }
+      `
+    );
+
+    const schema = res.defs.Foo;
+    deepStrictEqual(schema, {
+      ...enumBase,
+      "x-ms-enum": {
+        modelAsString: true,
+        name: "Foo",
+        values: [
+          {
+            description: "Foo doc",
+            name: "foo",
+            value: "foo",
+          },
+          {
+            name: "bar",
+            value: "bar",
+          },
+        ],
+      },
+    });
+  });
+
+  it("create enum with custom name/value on a member", async () => {
+    const res = await oapiForModel(
+      "Foo",
+      `
+        enum Foo {
+          FooCustom: "foo",
+          bar,
+        }
+      `
+    );
+
+    const schema = res.defs.Foo;
+    deepStrictEqual(schema, {
+      ...enumBase,
+      "x-ms-enum": {
+        modelAsString: true,
+        name: "Foo",
+        values: [
+          {
+            name: "FooCustom",
+            value: "foo",
+          },
+          {
+            name: "bar",
+            value: "bar",
+          },
+        ],
+      },
+    });
+  });
+});
+
 async function oapiForModel(name: string, modelDef: string) {
   const oapi = await openApiFor(`
     ${modelDef};

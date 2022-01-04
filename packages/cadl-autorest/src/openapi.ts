@@ -1265,6 +1265,24 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         name: type.name,
         modelAsString: true,
       };
+
+      const values = [];
+      let foundCustom = false;
+      for (const member of type.members) {
+        const description = getDoc(program, member);
+        values.push({
+          name: member.name,
+          value: member.value ?? member.name,
+          description,
+        });
+
+        if (description || member.value) {
+          foundCustom = true;
+        }
+      }
+      if (foundCustom) {
+        schema["x-ms-enum"].values = values;
+      }
     }
 
     return schema;

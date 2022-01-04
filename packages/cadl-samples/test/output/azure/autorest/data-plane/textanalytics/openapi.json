@@ -2329,7 +2329,24 @@
       ],
       "x-ms-enum": {
         "name": "StringIndexType",
-        "modelAsString": true
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "TextElement_v8",
+            "value": "TextElement_v8",
+            "description": "Returned offset and length values will correspond to grapheme clusters according to Unicode 8.0.0."
+          },
+          {
+            "name": "UnicodeCodePoint",
+            "value": "UnicodeCodePoint",
+            "description": "Returned offset and length values will correspond to Unicode code points."
+          },
+          {
+            "name": "Utf16CodeUnit",
+            "value": "Utf16CodeUnit",
+            "description": "Returned offset and length values will correspond to UTF-16 code units."
+          }
+        ]
       }
     },
     "TargetConfidenceScorePerLabel": {
@@ -2740,7 +2757,24 @@
       ],
       "x-ms-enum": {
         "name": "StringIndexType",
-        "modelAsString": true
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "TextElement_v8",
+            "value": "TextElement_v8",
+            "description": "Returned offset and length values will correspond to grapheme clusters according to Unicode 8.0.0."
+          },
+          {
+            "name": "UnicodeCodePoint",
+            "value": "UnicodeCodePoint",
+            "description": "Returned offset and length values will correspond to Unicode code points."
+          },
+          {
+            "name": "Utf16CodeUnit",
+            "value": "Utf16CodeUnit",
+            "description": "Returned offset and length values will correspond to UTF-16 code units."
+          }
+        ]
       }
     }
   }
