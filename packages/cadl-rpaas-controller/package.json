@@ -28,14 +28,20 @@
     "compile": "tsc -p .",
     "watch": "tsc -p . --watch"
   },
+  "peerDependencies": {
+    "@cadl-lang/compiler": "~0.25.0",
+    "@azure-tools/cadl-autorest": "~0.10.0",
+    "@cadl-lang/rest": "~0.8.0",
+    "@azure-tools/cadl-rpaas": "~0.11.0"
+  },
   "dependencies": {
-    "squirrelly": "^8.0.8",
-    "@cadl-lang/compiler": "0.25.0",
-    "@azure-tools/cadl-autorest": "0.10.0",
-    "@cadl-lang/rest": "0.8.0",
-    "@azure-tools/cadl-rpaas": "0.11.0"
+    "squirrelly": "^8.0.8"
   },
   "devDependencies": {
+    "@cadl-lang/compiler": "~0.25.0",
+    "@azure-tools/cadl-autorest": "~0.10.0",
+    "@cadl-lang/rest": "~0.8.0",
+    "@azure-tools/cadl-rpaas": "~0.11.0",
     "@types/node": "~14.0.27",
     "typescript": "~4.4.4"
   }

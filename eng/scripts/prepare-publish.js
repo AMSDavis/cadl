@@ -82,7 +82,7 @@ function getProjectVersions() {
 
 function bumpCrossSubmoduleDependencies() {
   forEachProject((_, projectFolder, project) => {
-    if (bumpDependencies(project.dependencies, project.devDependencies)) {
+    if (bumpDependencies(project.dependencies, project.peerDependencies, project.devDependencies)) {
       writeFileSync(
         join(projectFolder, "package.json"),
         JSON.stringify(project, undefined, 2) + "\n"
@@ -102,11 +102,11 @@ function bumpCrossSubmoduleDependencies() {
 
 function bumpDependencies(...dependencyGroups) {
   let changed = false;
-  for (const dependencies of dependencyGroups) {
+  for (const dependencies of dependencyGroups.filter((x) => x !== undefined)) {
     for (const [dependency, oldVersion] of Object.entries(dependencies)) {
       const newVersion = versions.get(dependency);
-      if (newVersion && newVersion !== oldVersion) {
-        dependencies[dependency] = newVersion;
+      if (newVersion && `~${newVersion}` !== oldVersion) {
+        dependencies[dependency] = `~${newVersion}`;
         changed = true;
       }
     }

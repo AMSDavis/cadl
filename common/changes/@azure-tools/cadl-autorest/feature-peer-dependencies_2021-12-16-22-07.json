@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-autorest",
+      "comment": "Update cadl depdendencies to peerDependencies",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-autorest"
+}

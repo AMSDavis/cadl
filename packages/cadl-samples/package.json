@@ -32,12 +32,12 @@
     "!dist/test/**"
   ],
   "dependencies": {
-    "@cadl-lang/compiler": "0.25.0",
-    "@azure-tools/cadl-autorest": "0.10.0",
-    "@cadl-lang/openapi3": "0.5.0",
-    "@cadl-lang/rest": "0.8.0",
-    "@azure-tools/cadl-rpaas": "0.11.0",
-    "@azure-tools/cadl-rpaas-controller": "0.7.0"
+    "@cadl-lang/compiler": "~0.25.0",
+    "@azure-tools/cadl-autorest": "~0.10.0",
+    "@cadl-lang/openapi3": "~0.5.0",
+    "@cadl-lang/rest": "~0.8.0",
+    "@azure-tools/cadl-rpaas": "~0.11.0",
+    "@azure-tools/cadl-rpaas-controller": "~0.7.0"
   },
   "devDependencies": {
     "@types/mkdirp": "~1.0.1",
