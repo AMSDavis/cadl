@@ -1,0 +1,68 @@
+import "@cadl-lang/rest";
+
+using Cadl.Rest;
+using Cadl.Rest.Resource;
+
+// BUGBUG Need discriminator
+//@discriminator("hookType")
+model HookInfo {
+  @segment("hooks")
+  @key
+  @format("UUID")
+  @visibility("read")
+  hookId: string;
+
+  @doc("hook type")
+  hookType: HookType;
+
+  @doc("hook name")
+  hookName: string;
+
+  @doc("hook discription")
+  description?: string = "";
+
+  @doc("hook externalLink")
+  externalLink?: string = "";
+
+  @doc("hook administrators")
+  admins: string[];
+}
+
+enum HookType {
+  Webhook,
+  Email,
+}
+
+model EmailHook extends HookInfo {
+  //  hookType: "Email";
+  ...EmailHookParameter;
+}
+
+model WebhookHookInfo extends HookInfo {
+  // hookType: "Webhook"
+  ...WebhookHookParameter;
+}
+
+model EmailHookParameter {
+  @doc("Email TO: list.")
+  toList?: string[];
+}
+model WebhookHookParameter {
+  @doc("API address, will be called when alert is triggered, only support POST method via SSL")
+  endpoint: string;
+
+  @doc("(Deprecated) The username, if using basic authentication")
+  username?: string;
+
+  @doc("(Deprecated) The password, if using basic authentication")
+  password?: string;
+
+  @doc("custom headers in api call")
+  headers?: Map<string, string>;
+
+  @doc("The certificate key/URL, if using client certificate, please read documents for more informations.")
+  certificateKey?: string;
+
+  @doc("The certificate password, if using client certificate, please read documents for more informations.")
+  certificatePassword?: string;
+}

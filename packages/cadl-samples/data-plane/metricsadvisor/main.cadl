@@ -1,0 +1,17 @@
+import "@cadl-lang/rest";
+
+// Bring in all of the API definitions.
+import "./common.cadl";
+import "./admin.cadl";
+import "./anomalyAlerting.cadl";
+import "./credential.cadl";
+import "./datafeed.cadl";
+import "./feedback.cadl";
+import "./hook.cadl";
+import "./anomalyDetection.cadl";
+import "./metric.cadl";
+
+@serviceTitle("Metrics Advisor")
+@doc("Microsoft Azure Metrics Advisor REST API (OpenAPI v2)")
+@serviceVersion("1.0")
+namespace Microsoft.Azure.MetricsAdvisor;

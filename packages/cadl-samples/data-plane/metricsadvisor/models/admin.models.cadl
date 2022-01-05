@@ -1,0 +1,21 @@
+model UsageStats {
+  @doc("The timestamp of the stats")
+  @visibility("read")
+  timestamp?: zonedDateTime;
+
+  @doc("The active series count")
+  @visibility("read")
+  activeSeriesCount?: int32;
+
+  @doc("All series count under non deleted data feed")
+  @visibility("read")
+  allSeriesCount?: int32;
+
+  @doc("The metrics count under non deleted data feed")
+  @visibility("read")
+  metricsCount?: int32;
+
+  @doc("The count of non deleted data feed")
+  @visibility("read")
+  dataFeedCount?: int32;
+}

@@ -1,0 +1,113 @@
+import "@cadl-lang/rest";
+
+using Cadl.Rest;
+using Cadl.Rest.Resource;
+
+//@discriminator  // BUGBUG
+model MetricFeedback {
+  @doc("Feedback Id")
+  @format("UUID")
+  @segment("metric")
+  @key
+  feedbackId?: string;
+
+  @doc("Feedback type")
+  feedbackType: FeedbackType;
+
+  @doc("Created time")
+  @visibility("read")
+  createdTime?: zonedDateTime;
+
+  @doc("user who gives this feedback")
+  @visibility("read")
+  userPrincipal?: string;
+
+  @doc("metric unique id")
+  @format("UUID")
+  metricId: string;
+
+  @doc("metric dimension filter")
+  dimensionFilter: FeedbackDimensionFilter;
+}
+
+enum FeedbackType {
+  Anomaly,
+  ChangePoint,
+  Period,
+  Comment,
+}
+
+model FeedbackDimensionFilter {
+  @doc("metric dimension filter")
+  dimension: Map<string, string>;
+}
+
+model MetricFeedbackFilter {
+  @doc("filter feedbacks by metric id")
+  @format("UUID")
+  metricId: string;
+  FeedbackDimensionFilter?: FeedbackDimensionFilter;
+  feedbackType?: FeedbackType;
+  startTime?: zonedDateTime;
+  endTime?: zonedDateTime;
+  timeMode?: FeedbackQueryTimeMode;
+}
+
+enum FeedbackQueryTimeMode {
+  MetricTimestamp,
+  FeedbackCreatedTime,
+}
+
+model AnomalyFeedback extends MetricFeedback {
+  // feedbackType: "Anomaly";
+  @doc("the start timestamp of feedback time range")
+  startTime: zonedDateTime;
+
+  @doc("the end timestamp of feedback time range, when equals to startTime means only one timestamp")
+  endTime: zonedDateTime;
+  value: AnomalyFeedbackValue;
+
+  @doc("the corresponding anomaly detection configuration of this feedback")
+  @format("UUID")
+  anomalyDetectionConfigurationId?: string;
+}
+
+enum AnomalyFeedbackValue {
+  AutoDetect,
+  Anomaly,
+  NotAnomaly,
+}
+
+enum ChangePointFeedbackValue {
+  AutoDetect,
+  ChangePoint,
+  NotChangePoint,
+}
+model ChangePointFeedback extends MetricFeedback {
+  // feedbackType: "ChangePoint";
+  @doc("the start timestamp of feedback time range")
+  startTime: string;
+
+  @doc("the end timestamp of feedback time range, when equals to startTime means only one timestamp")
+  endTime: string;
+  value: ChangePointFeedbackValue;
+}
+
+model CommentFeedback extends MetricFeedback {
+  // feedbackType: "Comment";
+  @doc("the start timestamp of feedback time range")
+  startTime?: string;
+
+  @doc("the end timestamp of feedback time range, when equals to startTime means only one timestamp")
+  endTime?: string;
+  commentValue: string;
+}
+
+model PeriodFeedback extends MetricFeedback {
+  // feedbackType: "Period";
+  @doc("the type of setting period")
+  periodType?: string;
+
+  @doc("the number of intervals a period contains, when no period set to 0")
+  periodValue?: int32;
+}

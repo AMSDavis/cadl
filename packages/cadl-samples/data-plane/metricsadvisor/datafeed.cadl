@@ -1,0 +1,39 @@
+import "@cadl-lang/rest";
+import "./common.cadl";
+import "./models/datafeed.models.cadl";
+import "./models/ingestionStatus.models.cadl";
+
+namespace Microsoft.Azure.MetricsAdvisor;
+
+using Cadl.Http;
+using Cadl.Rest;
+using Cadl.Rest.Resource;
+
+@tag("DataFeed")
+interface DataFeedApis mixes ResourceOperations<DataFeedDetail, ErrorResponse> {
+  @tag("IngestionStatus")
+  @route("/ingestionStatus/query") // BUGBUG switch to @segment
+  @post
+  queryIngestionStatus(
+    ...ResourceParameters<DataFeedDetail>,
+    ...SkipParameter,
+    ...MaxPageSizeParameter,
+    @body body: IngestionStatusQueryOptions
+  ): OkWithError<Page<IngestionStatus>>;
+
+  @tag("IngestionStatus")
+  @route("/ingestionProgress/reset")
+  @post
+  resetIngestion(
+    ...ResourceParameters<DataFeedDetail>,
+    ...SkipParameter,
+    ...MaxPageSizeParameter,
+    @body body: IngestionStatusQueryOptions
+  ): OkStatusCode<204, null> | ErrorResponse;
+
+  @tag("IngestionStatus") // BUGBUG
+  @get
+  getIngestionProgress(
+    ...ResourceParameters<DataFeedDetail>
+  ): OkResponse<DataFeedIngestionProgress> | ErrorResponse;
+}

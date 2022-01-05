@@ -1,0 +1,52 @@
+import "@cadl-lang/rest";
+import "./common.cadl";
+import "./models/metric.models.cadl";
+namespace Microsoft.Azure.MetricsAdvisor;
+
+using Cadl.Http;
+using Cadl.Rest;
+using Cadl.Rest.Resource;
+
+//@tag("Metric")
+interface MetricApis {
+  @doc("Get time series data from metric")
+  @route("/metrics/{metricId}/data/query")
+  @post
+  queryData(
+    ...MetricIdParameter,
+    @body body: MetricDataQueryOptions
+  ): OkWithError<Page<MetricDataItem>>;
+  @route("/metrics/{metricId}/series/query")
+  @post
+  querySeries(
+    ...MetricIdParameter,
+    ...SkipParameter,
+    ...MaxPageSizeParameter,
+    @body body: MetricSeriesQueryOptions
+  ): OkWithError<Page<MetricSeriesItem>>;
+  @route("/metrics/{metricId}/dimension/query")
+  @post
+  queryDimension(
+    ...MetricIdParameter,
+    ...SkipParameter,
+    ...MaxPageSizeParameter,
+    @body body: MetricDimensionQueryOptions
+  ): OkWithError<Page<MetricDimensionList>>;
+  @route("/metrics/{metricId}/enrichment/anomalyDetection/configurations")
+  @doc("List all anomaly detection configurations for specific metric")
+  @get
+  listAnomalyDetectionConfigurations(
+    ...MetricIdParameter,
+    ...SkipParameter,
+    ...MaxPageSizeParameter
+  ): OkWithError<Page<AnomalyDetectionConfiguration>>;
+  @route("/metrics/{metricId}/status/enrichment/anomalyDetection/query")
+  @doc("Query anomaly detection status")
+  @post
+  queryAnomalyDetectionStatus(
+    ...MetricIdParameter,
+    ...SkipParameter,
+    ...MaxPageSizeParameter,
+    @body body: EnrichmentStatusQueryOption
+  ): OkWithError<Page<AnomalyDetectionConfiguration>>;
+}

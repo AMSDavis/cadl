@@ -1,0 +1,222 @@
+import "@cadl-lang/rest";
+
+using Cadl.Http;
+using Cadl.Rest;
+using Cadl.Rest.Resource;
+
+model AnomalyDetectionConfiguration {
+  @segment("configurations")
+  @key
+  @visibility("read")
+  @format("UUID")
+  configurationId: string;
+}
+
+// TODO
+model DetectionSeriesQuery {
+  @doc("This is inclusive. The maximum number of data points (series number * time range) is 10000.")
+  startTime?: zonedDateTime;
+
+  @doc("This is exclusive. The maximum number of data points (series number * time range) is 10000.")
+  endTime?: zonedDateTime;
+
+  @doc("The series to be queried. The identity must be able to define one single time series instead of a group of time series. The maximum number of series is 100.")
+  series?: SeriesIdentity[];
+}
+
+model SeriesIdentity {
+  @doc("dimension specified for series")
+  dimension: Map<string, string>;
+}
+
+model SeriesResult {
+  series: SeriesIdentity;
+
+  @doc("timestamps of the series")
+  timestampList: zonedDateTime[];
+
+  @doc("values of the series")
+  valueList: float64[];
+
+  @doc("whether points of the series are anomalies")
+  isAnomalyList: boolean[];
+
+  @doc("period calculated on each point of the series")
+  periodList: int32[];
+
+  @doc("expected values of the series given by smart detector")
+  expectedValueList: float64[];
+
+  @doc("lower boundary list of the series given by smart detector")
+  lowerBoundaryList: float64[];
+
+  @doc("upper boundary list of the series given by smart detector")
+  upperBoundaryList?: float64[];
+}
+
+model DetectionAnomalyResultQuery {
+  @doc("start time")
+  startTime: zonedDateTime;
+
+  @doc("end time")
+  endTime: zonedDateTime;
+  filter?: DetectionAnomalyFilterCondition;
+}
+
+model DetectionAnomalyFilterCondition {
+  dimensionFilter: DimensionGroupIdentity;
+  severityFilter: SeverityFilterCondition;
+}
+
+model SeverityFilterCondition {
+  @doc("min severity")
+  min?: string;
+
+  @doc("max severity")
+  max?: string;
+}
+
+model AnomalyResult {
+  @doc("data feed unique id only return for alerting anomaly result")
+  @format("UUID")
+  dataFeedId?: string;
+
+  @doc("metric unique id only return for alerting anomaly result")
+  @format("UUID")
+  metricId?: string;
+
+  @doc("anomaly detection configuration unique id only return for alerting anomaly result")
+  @format("UUID")
+  anomalyDetectionConfigurationId?: string;
+
+  @doc("anomaly time")
+  timestamp: zonedDateTime;
+
+  @doc("created time only return for alerting result")
+  @visibility("read")
+  createdTime?: zonedDateTime;
+
+  @doc("modified time only return for alerting result")
+  @visibility("read")
+  modifiedTime?: zonedDateTime;
+
+  @doc("dimension specified for series")
+  dimension: Map<string, string>;
+  property: AnomalyProperty;
+}
+
+enum AnomalySeverity {
+  Low,
+  Medium,
+  High,
+}
+
+enum AnomalyStatus {
+  Active,
+  Resolved,
+}
+
+model AnomalyProperty {
+  @doc("anomaly severity")
+  anomalySeverity: AnomalySeverity;
+
+  @doc("anomaly status only return for alerting anomaly result")
+  anomalyStatus?: AnomalyStatus;
+
+  @doc("value of the anomaly")
+  value?: float64;
+
+  @doc("expected value of the anomaly given by smart detector")
+  expectedValue?: float64;
+}
+
+model AnomalyDimensionQuery {
+  @doc("start time")
+  startTime: zonedDateTime;
+
+  @doc("end time")
+  endTime: zonedDateTime;
+
+  @doc("dimension to query")
+  dimensionName: string;
+  dimensionFilter?: DimensionGroupIdentity;
+}
+
+model AnomalyDimension {
+  value: string[];
+}
+
+model DetectionIncidentResultQuery {
+  @doc("start time")
+  startTime: zonedDateTime;
+
+  @doc("end time")
+  endTime: zonedDateTime;
+
+  @doc("dimension filter")
+  filter?: DimensionGroupIdentity[];
+}
+
+model IncidentResult {
+  @doc("data feed unique id only return for alerting anomaly result")
+  @format("UUID")
+  dataFeedId?: string;
+
+  @doc("metric unique id only return for alerting incident result")
+  @format("UUID")
+  metricId?: string;
+
+  @doc("anomaly detection configuration unique id only return for alerting incident result")
+  @format("UUID")
+  anomalyDetectionConfigurationId?: string;
+
+  @doc("incident id")
+  incidentId: string;
+
+  @doc("incident start time")
+  startTime: zonedDateTime;
+
+  @doc("incident last time")
+  lastTime: zonedDateTime;
+  rootNode: SeriesIdentity;
+  property: IncidentProperty;
+}
+
+enum IncidentStatus {
+  Active,
+  Resolved,
+}
+
+model IncidentProperty {
+  @doc("max severity of latest anomalies in the incident")
+  maxSeverity?: Severity;
+
+  @doc("incident status only return for alerting incident result")
+  incidentStatus?: IncidentStatus;
+
+  @doc("value of the root node")
+  valueOfRootNode?: int32;
+
+  @doc("expected value of the root node given by smart detector")
+  expectedValueOfRootNode?: int32;
+}
+
+model IncidentIdParameter {
+  @doc("Incident Id Parameter")
+  @path
+  incidentId: string;
+}
+
+model RootCause {
+  @doc("Root cause dimensions")
+  rootCause: DimensionGroupIdentity;
+
+  @doc("drilling down path from query anomaly to root cause")
+  path: string[];
+
+  @doc("score of the root cause")
+  score: float64;
+
+  @doc("description of the root cause")
+  description: string;
+}

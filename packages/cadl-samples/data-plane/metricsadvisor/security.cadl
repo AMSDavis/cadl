@@ -1,0 +1,15 @@
+import "@cadl-lang/rest";
+
+using Cadl.Http;
+
+model Apim_ApiKey {
+  @doc("Service connection APIM key")
+  @header
+  "Ocp-Apim-Subscription-Key": string;
+}
+
+model ApiKey {
+  @doc("Service connection key")
+  @header
+  "x-api-key": string;
+}

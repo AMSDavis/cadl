@@ -1,0 +1,11 @@
+import "@cadl-lang/rest";
+import "./common.cadl";
+import "./models/hook.models.cadl";
+namespace Microsoft.Azure.MetricsAdvisor;
+
+using Cadl.Http;
+using Cadl.Rest;
+using Cadl.Rest.Resource;
+
+@tag("Hook")
+interface HookApis mixes ResourceOperations<HookInfo, ErrorResponse> {}

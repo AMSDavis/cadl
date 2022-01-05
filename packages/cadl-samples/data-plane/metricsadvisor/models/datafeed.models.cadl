@@ -1,0 +1,192 @@
+import "@cadl-lang/rest";
+
+using Cadl.Rest;
+using Cadl.Rest.Resource;
+
+model DataFeedDetail {
+  @doc("Datafeed details")
+  @format("UUID")
+  @visibility("read")
+  @segment("datafeeds")
+  @key
+  dataFeedId?: string;
+
+  @doc("Data source type")
+  dataSourceType: DataSourceType;
+
+  @doc("Data feed name")
+  dataFeedName: string;
+
+  @doc("Data feed description")
+  dataFeedDescription?: string = "";
+
+  @doc("granularity of the time series")
+  granularityName: Granularity;
+
+  @doc("if granularity is custom,it is required.")
+  granularityAmount?: int32;
+
+  @doc("measure list")
+  metrics: Metric[];
+
+  @doc("Dimensions list")
+  dimensions?: Dimension[];
+
+  @doc("user-defined timestamp column. if timestampColumn is null, start time of every time slice will be used as default value.")
+  timestampColumn?: string;
+
+  @doc("ingestion start time")
+  dataStartFrom: zonedDateTime;
+
+  @doc("the time that the beginning of data ingestion task will delay for every data slice according to this offset.")
+  startOffsetInSeconds?: int64 = 0;
+
+  @doc("the max concurrency of data ingestion queries against user data source. 0 means no limitation.")
+  maxConcurrency?: int32 = 1;
+
+  @doc("the min retry interval for failed data ingestion tasks.")
+  minRetryIntervalInSeconds?: int64;
+
+  @doc("stop retry data ingestion after the data slice first schedule time in seconds.")
+  stopRetryAfterInSeconds?: int64 = -1;
+
+  @doc("mark if the data feed need rollup")
+  needRollup?: NeedRollupType;
+
+  @doc("Roll up method")
+  rollUpMethod?: RollUpMethod;
+
+  @doc("Roll up columns")
+  rollUpColumns?: string[];
+
+  @doc("the identification value for the row of calculated all-up value.")
+  allUpIdentification?: string;
+
+  @doc("the type of fill missing point for anomaly detection")
+  fillMissingPointType?: FillMissingPointType;
+
+  @doc("the value of fill missing point for anomaly detection")
+  fillMissingPointValue?: float64;
+
+  @doc("data feed access mode, default is Private")
+  viewMode?: ViewMode;
+
+  @doc("data feed administrator")
+  admins?: string[];
+
+  @doc("data feed viewer")
+  viewers?: string[];
+
+  @doc("the query user is one of data feed administrator or not")
+  isAdmin?: boolean;
+
+  @doc("data feed creator")
+  creator?: string;
+
+  @doc("data feed status")
+  status?: DataFeedStatus;
+
+  @doc("data feed created time")
+  @visibility("read")
+  createdTime?: zonedDateTime;
+
+  @doc("action link for alert")
+  actionLinkTemplate?: string = "";
+
+  @doc("authentication type for corresponding data source")
+  authenticationType?: AuthenticationType;
+
+  @doc("The credential entity id")
+  credentialId?: string;
+}
+
+enum AuthenticationType {
+  Basic,
+  ManagedIdentity,
+  AzureSQLConnectionString,
+  DataLakeGen2SharedKey,
+  ServicePrincipal,
+  ServicePrincipalInKV,
+}
+
+enum DataFeedStatus {
+  Active,
+  Paused,
+}
+
+enum DataSourceType {
+  AzureApplicationInsights,
+  AzureBlob,
+  AzureCosmosDB,
+  AzureDataExplorer,
+  AzureDataLakeStorageGen2,
+  AzureEventHubs,
+  AzureLogAnalytics,
+  AzureTable,
+  InfluxDB,
+  MongoDB,
+  MySql,
+  PostgreSql,
+  SqlServer,
+}
+
+enum Granularity {
+  Yearly,
+  Monthly,
+  Weekly,
+  Daily,
+  Hourly,
+  Minutely,
+  Custom,
+}
+
+enum NeedRollupType {
+  NoRollup,
+  NeedRollup,
+  AlreadyRollup,
+}
+
+enum RollUpMethod {
+  None,
+  Sum,
+  Max,
+  Min,
+  Avg,
+  Count,
+}
+
+enum FillMissingPointType {
+  SmartFilling,
+  PreviousValue,
+  CustomValue,
+  NoFilling,
+}
+
+enum ViewMode {
+  Private,
+  Public,
+}
+
+model Metric {
+  @doc("metric id")
+  @format("UUID")
+  metricId?: string;
+
+  @doc("metric name")
+  metricName: string;
+
+  @doc("metric display name")
+  @format("[.a-zA-Z0-9_-]+")
+  metricDisplayName?: string;
+
+  @doc("metric description")
+  metricDescription?: string;
+}
+
+model Dimension {
+  @doc("dimension name")
+  dimensionName?: string;
+
+  @doc("dimension display name")
+  dimensionDisplayName: string;
+}

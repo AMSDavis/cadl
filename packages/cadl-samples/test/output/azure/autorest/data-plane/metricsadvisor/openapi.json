@@ -1,0 +1,3546 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Metrics Advisor",
+    "version": "1.0"
+  },
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "Admin"
+    },
+    {
+      "name": "AnomalyAlerting"
+    },
+    {
+      "name": "Credential"
+    },
+    {
+      "name": "DataFeed"
+    },
+    {
+      "name": "IngestionStatus"
+    },
+    {
+      "name": "Feedback"
+    },
+    {
+      "name": "Hook"
+    },
+    {
+      "name": "AnomalyDetection"
+    }
+  ],
+  "paths": {
+    "/{dataFeedId}": {
+      "get": {
+        "operationId": "DataFeedApis_getIngestionProgress",
+        "parameters": [
+          {
+            "$ref": "#/parameters/DataFeedDetail.dataFeedId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/DataFeedIngestionProgress"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "DataFeed",
+          "IngestionStatus"
+        ]
+      }
+    },
+    "/configurations": {
+      "post": {
+        "operationId": "AnomalyAlertingApis_create",
+        "summary": "Creates a new instance of the resource.",
+        "parameters": [
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AnomalyAlertingConfiguration"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/AnomalyAlertingConfiguration"
+            }
+          },
+          "201": {
+            "description": "Resource create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AnomalyAlertingConfiguration"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyAlerting"
+        ]
+      },
+      "get": {
+        "operationId": "AnomalyAlertingApis_list",
+        "summary": "Lists all instances of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Paged response",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_AnomalyAlertingConfiguration"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyAlerting"
+        ]
+      }
+    },
+    "/configurations/{anomalyAlertingConfigurationId}": {
+      "get": {
+        "operationId": "AnomalyAlertingApis_get",
+        "summary": "Gets an instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/AnomalyAlertingConfiguration.anomalyAlertingConfigurationId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/AnomalyAlertingConfiguration"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyAlerting"
+        ]
+      },
+      "patch": {
+        "operationId": "AnomalyAlertingApis_update",
+        "summary": "Updates an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/AnomalyAlertingConfiguration.anomalyAlertingConfigurationId"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "anomaly alerting configuration name"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "anomaly alerting configuration description"
+                },
+                "crossMetricsOperator": {
+                  "$ref": "#/definitions/AnomalyAlertingConfigurationLogicType",
+                  "description": "cross metrics operator should be specified when setting up multiple metric alerting configurations"
+                },
+                "splitAlertByDimensions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "x-cadl-name": "Cadl.string[]",
+                  "description": "dimensions used to split alert"
+                },
+                "hookIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "x-cadl-name": "Cadl.string[]",
+                  "description": "hook unique ids"
+                },
+                "metricAlertingConfigurations": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/MetricAlertingConfiguration"
+                  },
+                  "x-cadl-name": "MetricAlertingConfiguration[]",
+                  "description": "Anomaly alerting configurations"
+                }
+              },
+              "description": "The template for adding optional properties.",
+              "x-cadl-name": "Cadl.OptionalProperties<Cadl.UpdateableProperties_AnomalyAlertingConfiguration>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/AnomalyAlertingConfiguration"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyAlerting"
+        ]
+      },
+      "delete": {
+        "operationId": "AnomalyAlertingApis_delete",
+        "summary": "Deletes an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/AnomalyAlertingConfiguration.anomalyAlertingConfigurationId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyAlerting"
+        ]
+      }
+    },
+    "/credentials": {
+      "post": {
+        "operationId": "CredentialApis_create",
+        "summary": "Creates a new instance of the resource.",
+        "parameters": [
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Credential"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Credential"
+            }
+          },
+          "201": {
+            "description": "Resource create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Credential"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Credential"
+        ]
+      },
+      "get": {
+        "operationId": "CredentialApis_list",
+        "summary": "Lists all instances of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Paged response",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_Credential"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Credential"
+        ]
+      }
+    },
+    "/credentials/{credentialId}": {
+      "get": {
+        "operationId": "CredentialApis_get",
+        "summary": "Gets an instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Credential"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Credential"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Credential"
+        ]
+      },
+      "patch": {
+        "operationId": "CredentialApis_update",
+        "summary": "Updates an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Credential"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "description": "The template for adding optional properties.",
+              "x-cadl-name": "Cadl.OptionalProperties<Cadl.UpdateableProperties_Credential>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Credential"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Credential"
+        ]
+      },
+      "delete": {
+        "operationId": "CredentialApis_delete",
+        "summary": "Deletes an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Credential"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Credential"
+        ]
+      }
+    },
+    "/datafeeds": {
+      "post": {
+        "operationId": "DataFeedApis_create",
+        "summary": "Creates a new instance of the resource.",
+        "parameters": [
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DataFeedDetail"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/DataFeedDetail"
+            }
+          },
+          "201": {
+            "description": "Resource create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DataFeedDetail"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "DataFeed"
+        ]
+      },
+      "get": {
+        "operationId": "DataFeedApis_list",
+        "summary": "Lists all instances of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Paged response",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_DataFeedDetail"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "DataFeed"
+        ]
+      }
+    },
+    "/datafeeds/{dataFeedId}": {
+      "get": {
+        "operationId": "DataFeedApis_get",
+        "summary": "Gets an instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/DataFeedDetail.dataFeedId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/DataFeedDetail"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "DataFeed"
+        ]
+      },
+      "patch": {
+        "operationId": "DataFeedApis_update",
+        "summary": "Updates an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/DataFeedDetail.dataFeedId"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "dataSourceType": {
+                  "$ref": "#/definitions/DataSourceType",
+                  "description": "Data source type"
+                },
+                "dataFeedName": {
+                  "type": "string",
+                  "description": "Data feed name"
+                },
+                "dataFeedDescription": {
+                  "type": "string",
+                  "description": "Data feed description",
+                  "default": ""
+                },
+                "granularityName": {
+                  "$ref": "#/definitions/Granularity",
+                  "description": "granularity of the time series"
+                },
+                "granularityAmount": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "if granularity is custom,it is required."
+                },
+                "metrics": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Metric"
+                  },
+                  "x-cadl-name": "Metric[]",
+                  "description": "measure list"
+                },
+                "dimensions": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Dimension"
+                  },
+                  "x-cadl-name": "Dimension[]",
+                  "description": "Dimensions list"
+                },
+                "timestampColumn": {
+                  "type": "string",
+                  "description": "user-defined timestamp column. if timestampColumn is null, start time of every time slice will be used as default value."
+                },
+                "dataStartFrom": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "ingestion start time"
+                },
+                "startOffsetInSeconds": {
+                  "type": "integer",
+                  "format": "int64",
+                  "description": "the time that the beginning of data ingestion task will delay for every data slice according to this offset.",
+                  "default": 0
+                },
+                "maxConcurrency": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "the max concurrency of data ingestion queries against user data source. 0 means no limitation.",
+                  "default": 1
+                },
+                "minRetryIntervalInSeconds": {
+                  "type": "integer",
+                  "format": "int64",
+                  "description": "the min retry interval for failed data ingestion tasks."
+                },
+                "stopRetryAfterInSeconds": {
+                  "type": "integer",
+                  "format": "int64",
+                  "description": "stop retry data ingestion after the data slice first schedule time in seconds.",
+                  "default": -1
+                },
+                "needRollup": {
+                  "$ref": "#/definitions/NeedRollupType",
+                  "description": "mark if the data feed need rollup"
+                },
+                "rollUpMethod": {
+                  "$ref": "#/definitions/RollUpMethod",
+                  "description": "Roll up method"
+                },
+                "rollUpColumns": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "x-cadl-name": "Cadl.string[]",
+                  "description": "Roll up columns"
+                },
+                "allUpIdentification": {
+                  "type": "string",
+                  "description": "the identification value for the row of calculated all-up value."
+                },
+                "fillMissingPointType": {
+                  "$ref": "#/definitions/FillMissingPointType",
+                  "description": "the type of fill missing point for anomaly detection"
+                },
+                "fillMissingPointValue": {
+                  "type": "number",
+                  "format": "double",
+                  "description": "the value of fill missing point for anomaly detection"
+                },
+                "viewMode": {
+                  "$ref": "#/definitions/ViewMode",
+                  "description": "data feed access mode, default is Private"
+                },
+                "admins": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "x-cadl-name": "Cadl.string[]",
+                  "description": "data feed administrator"
+                },
+                "viewers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "x-cadl-name": "Cadl.string[]",
+                  "description": "data feed viewer"
+                },
+                "isAdmin": {
+                  "type": "boolean",
+                  "description": "the query user is one of data feed administrator or not"
+                },
+                "creator": {
+                  "type": "string",
+                  "description": "data feed creator"
+                },
+                "status": {
+                  "$ref": "#/definitions/DataFeedStatus",
+                  "description": "data feed status"
+                },
+                "actionLinkTemplate": {
+                  "type": "string",
+                  "description": "action link for alert",
+                  "default": ""
+                },
+                "authenticationType": {
+                  "$ref": "#/definitions/AuthenticationType",
+                  "description": "authentication type for corresponding data source"
+                },
+                "credentialId": {
+                  "type": "string",
+                  "description": "The credential entity id"
+                }
+              },
+              "description": "The template for adding optional properties.",
+              "x-cadl-name": "Cadl.OptionalProperties<Cadl.UpdateableProperties_DataFeedDetail>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/DataFeedDetail"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "DataFeed"
+        ]
+      },
+      "delete": {
+        "operationId": "DataFeedApis_delete",
+        "summary": "Deletes an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/DataFeedDetail.dataFeedId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "DataFeed"
+        ]
+      }
+    },
+    "/enrichment/anomalyDetection/configurations": {
+      "post": {
+        "operationId": "AnomalyDetectionApis_create",
+        "summary": "Creates a new instance of the resource.",
+        "parameters": [
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AnomalyDetectionConfiguration"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/AnomalyDetectionConfiguration"
+            }
+          },
+          "201": {
+            "description": "Resource create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AnomalyDetectionConfiguration"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      },
+      "get": {
+        "operationId": "AnomalyDetectionApis_list",
+        "summary": "Lists all instances of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Paged response",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_AnomalyDetectionConfiguration"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      }
+    },
+    "/enrichment/anomalyDetection/configurations/{configurationId}": {
+      "get": {
+        "operationId": "AnomalyDetectionApis_get",
+        "summary": "Gets an instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/AnomalyDetectionConfiguration"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/AnomalyDetectionConfiguration"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      },
+      "patch": {
+        "operationId": "AnomalyDetectionApis_update",
+        "summary": "Updates an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/AnomalyDetectionConfiguration"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "description": "The template for adding optional properties.",
+              "x-cadl-name": "Cadl.OptionalProperties<Cadl.UpdateableProperties_AnomalyDetectionConfiguration>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/AnomalyDetectionConfiguration"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      },
+      "delete": {
+        "operationId": "AnomalyDetectionApis_delete",
+        "summary": "Deletes an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/AnomalyDetectionConfiguration"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      }
+    },
+    "/enrichment/anomalyDetection/configurations/{configurationId}/alert/anomaly/configurations": {
+      "get": {
+        "operationId": "AnomalyDetectionApis_listAllAnomalyAlertingConfigurations",
+        "summary": "List all anomaly alerting configurations for specific anomaly detection configuration",
+        "parameters": [
+          {
+            "$ref": "#/parameters/AnomalyDetectionConfiguration"
+          },
+          {
+            "$ref": "#/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_AnomalyAlertingConfiguration"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      }
+    },
+    "/enrichment/anomalyDetection/configurations/{configurationId}/anomalies/dimension/query": {
+      "post": {
+        "operationId": "AnomalyDetectionApis_queryAnomalyDimensions",
+        "summary": "Query dimension values of anomalies",
+        "parameters": [
+          {
+            "$ref": "#/parameters/AnomalyDetectionConfiguration"
+          },
+          {
+            "$ref": "#/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AnomalyDimensionQuery"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_AnomalyDimension"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      }
+    },
+    "/enrichment/anomalyDetection/configurations/{configurationId}/anomalies/query": {
+      "post": {
+        "operationId": "AnomalyDetectionApis_queryAnomaly",
+        "summary": "Query anomalies under anomaly detection configuration",
+        "parameters": [
+          {
+            "$ref": "#/parameters/AnomalyDetectionConfiguration"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DetectionAnomalyResultQuery"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_AnomalyResult"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      }
+    },
+    "/enrichment/anomalyDetection/configurations/{configurationId}/incidents/{incidentId}/rootcause": {
+      "get": {
+        "operationId": "AnomalyDetectionApis_queryIncidentRootCause",
+        "summary": "Query rootcause for incidents",
+        "parameters": [
+          {
+            "$ref": "#/parameters/AnomalyDetectionConfiguration"
+          },
+          {
+            "$ref": "#/parameters/IncidentIdParameter"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_IncidentResult"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      }
+    },
+    "/enrichment/anomalyDetection/configurations/{configurationId}/incidents/query": {
+      "post": {
+        "operationId": "AnomalyDetectionApis_queryIncidents",
+        "summary": "Query incidents under anomaly detection configuration",
+        "parameters": [
+          {
+            "$ref": "#/parameters/AnomalyDetectionConfiguration"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DetectionIncidentResultQuery"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_IncidentResult"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      }
+    },
+    "/enrichment/anomalyDetection/configurations/{configurationId}/series/query": {
+      "post": {
+        "operationId": "AnomalyDetectionApis_querySeries",
+        "summary": "Query series enriched by anomaly detection",
+        "parameters": [
+          {
+            "$ref": "#/parameters/AnomalyDetectionConfiguration"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DetectionSeriesQuery"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_SeriesResult"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      }
+    },
+    "/feedback/metric": {
+      "post": {
+        "operationId": "FeedbackApis_create",
+        "summary": "Creates a new instance of the resource.",
+        "parameters": [
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MetricFeedback"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/MetricFeedback"
+            }
+          },
+          "201": {
+            "description": "Resource create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/MetricFeedback"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Feedback"
+        ]
+      }
+    },
+    "/feedback/metric/{feedbackId}": {
+      "get": {
+        "operationId": "FeedbackApis_get",
+        "summary": "Gets an instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/MetricFeedback.feedbackId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/MetricFeedback"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Feedback"
+        ]
+      }
+    },
+    "/feedback/metric/query": {
+      "post": {
+        "operationId": "FeedbackApis_query",
+        "parameters": [
+          {
+            "$ref": "#/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MetricFeedbackFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_MetricFeedback"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Feedback"
+        ]
+      }
+    },
+    "/hooks": {
+      "post": {
+        "operationId": "HookApis_create",
+        "summary": "Creates a new instance of the resource.",
+        "parameters": [
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HookInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/HookInfo"
+            }
+          },
+          "201": {
+            "description": "Resource create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/HookInfo"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Hook"
+        ]
+      },
+      "get": {
+        "operationId": "HookApis_list",
+        "summary": "Lists all instances of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Paged response",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_HookInfo"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Hook"
+        ]
+      }
+    },
+    "/hooks/{hookId}": {
+      "get": {
+        "operationId": "HookApis_get",
+        "summary": "Gets an instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/HookInfo.hookId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/HookInfo"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Hook"
+        ]
+      },
+      "patch": {
+        "operationId": "HookApis_update",
+        "summary": "Updates an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/HookInfo.hookId"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "hookType": {
+                  "$ref": "#/definitions/HookType",
+                  "description": "hook type"
+                },
+                "hookName": {
+                  "type": "string",
+                  "description": "hook name"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "hook discription",
+                  "default": ""
+                },
+                "externalLink": {
+                  "type": "string",
+                  "description": "hook externalLink",
+                  "default": ""
+                },
+                "admins": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "x-cadl-name": "Cadl.string[]",
+                  "description": "hook administrators"
+                }
+              },
+              "description": "The template for adding optional properties.",
+              "x-cadl-name": "Cadl.OptionalProperties<Cadl.UpdateableProperties_HookInfo>"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/HookInfo"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Hook"
+        ]
+      },
+      "delete": {
+        "operationId": "HookApis_delete",
+        "summary": "Deletes an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/HookInfo.hookId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Hook"
+        ]
+      }
+    },
+    "/ingestionProgress/reset/{dataFeedId}": {
+      "post": {
+        "operationId": "DataFeedApis_resetIngestion",
+        "parameters": [
+          {
+            "$ref": "#/parameters/DataFeedDetail.dataFeedId"
+          },
+          {
+            "$ref": "#/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IngestionStatusQueryOptions"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Cadl.null"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "DataFeed",
+          "IngestionStatus"
+        ]
+      }
+    },
+    "/ingestionStatus/query/{dataFeedId}": {
+      "post": {
+        "operationId": "DataFeedApis_queryIngestionStatus",
+        "parameters": [
+          {
+            "$ref": "#/parameters/DataFeedDetail.dataFeedId"
+          },
+          {
+            "$ref": "#/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IngestionStatusQueryOptions"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_IngestionStatus"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "DataFeed",
+          "IngestionStatus"
+        ]
+      }
+    },
+    "/metrics/{metricId}/data/query": {
+      "post": {
+        "operationId": "MetricApis_queryData",
+        "summary": "Get time series data from metric",
+        "parameters": [
+          {
+            "$ref": "#/parameters/MetricIdParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MetricDataQueryOptions"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_MetricDataItem"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/metrics/{metricId}/dimension/query": {
+      "post": {
+        "operationId": "MetricApis_queryDimension",
+        "parameters": [
+          {
+            "$ref": "#/parameters/MetricIdParameter"
+          },
+          {
+            "$ref": "#/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MetricDimensionQueryOptions"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "x-cadl-name": "Cadl.string[]"
+                  },
+                  "x-cadl-name": "Cadl.string[][]",
+                  "description": "The items on this page"
+                },
+                "nextLink": {
+                  "type": "string",
+                  "description": "The link to the next page of items"
+                }
+              },
+              "description": "Paged response",
+              "required": [
+                "value"
+              ],
+              "x-cadl-name": "Cadl.Rest.Resource.Page<Cadl.string[]>"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/metrics/{metricId}/enrichment/anomalyDetection/configurations": {
+      "get": {
+        "operationId": "MetricApis_listAnomalyDetectionConfigurations",
+        "summary": "List all anomaly detection configurations for specific metric",
+        "parameters": [
+          {
+            "$ref": "#/parameters/MetricIdParameter"
+          },
+          {
+            "$ref": "#/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_AnomalyDetectionConfiguration"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/metrics/{metricId}/series/query": {
+      "post": {
+        "operationId": "MetricApis_querySeries",
+        "parameters": [
+          {
+            "$ref": "#/parameters/MetricIdParameter"
+          },
+          {
+            "$ref": "#/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MetricSeriesQueryOptions"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_MetricSeriesItem"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/metrics/{metricId}/status/enrichment/anomalyDetection/query": {
+      "post": {
+        "operationId": "MetricApis_queryAnomalyDetectionStatus",
+        "summary": "Query anomaly detection status",
+        "parameters": [
+          {
+            "$ref": "#/parameters/MetricIdParameter"
+          },
+          {
+            "$ref": "#/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnrichmentStatusQueryOption"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Cadl.Rest.Resource.Page_AnomalyDetectionConfiguration"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/stats/latest": {
+      "get": {
+        "operationId": "AdminApis_getActiveSeriesCount",
+        "summary": "Get latest usage stats",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/UsageStats"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Admin"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AlertSnoozeCondition": {
+      "type": "object",
+      "properties": {
+        "autoSnooze": {
+          "type": "integer",
+          "format": "int32",
+          "description": "snooze point count, value range : [0, +∞)"
+        },
+        "snoozeScope": {
+          "$ref": "#/definitions/SnoozeScope",
+          "description": "snooze scope"
+        },
+        "onlyForSuccessive": {
+          "type": "boolean",
+          "description": "only snooze for successive anomalies"
+        }
+      },
+      "required": [
+        "autoSnooze",
+        "snoozeScope",
+        "onlyForSuccessive"
+      ]
+    },
+    "AnomalyAlertingConfiguration": {
+      "type": "object",
+      "properties": {
+        "anomalyAlertingConfigurationId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "anomaly alerting configuration unique id",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "anomaly alerting configuration name"
+        },
+        "description": {
+          "type": "string",
+          "description": "anomaly alerting configuration description"
+        },
+        "crossMetricsOperator": {
+          "$ref": "#/definitions/AnomalyAlertingConfigurationLogicType",
+          "description": "cross metrics operator should be specified when setting up multiple metric alerting configurations"
+        },
+        "splitAlertByDimensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-cadl-name": "Cadl.string[]",
+          "description": "dimensions used to split alert"
+        },
+        "hookIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-cadl-name": "Cadl.string[]",
+          "description": "hook unique ids"
+        },
+        "metricAlertingConfigurations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MetricAlertingConfiguration"
+          },
+          "x-cadl-name": "MetricAlertingConfiguration[]",
+          "description": "Anomaly alerting configurations"
+        }
+      },
+      "required": [
+        "name",
+        "hookIds",
+        "metricAlertingConfigurations"
+      ]
+    },
+    "AnomalyAlertingConfigurationLogicType": {
+      "type": "string",
+      "enum": [
+        "AND",
+        "OR",
+        "XOR"
+      ],
+      "x-ms-enum": {
+        "name": "AnomalyAlertingConfigurationLogicType",
+        "modelAsString": true
+      }
+    },
+    "AnomalyDetectionConfiguration": {
+      "type": "object",
+      "properties": {
+        "configurationId": {
+          "type": "string",
+          "pattern": "UUID",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "configurationId"
+      ]
+    },
+    "AnomalyDimension": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-cadl-name": "Cadl.string[]"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "AnomalyDimensionQuery": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "start time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "end time"
+        },
+        "dimensionName": {
+          "type": "string",
+          "description": "dimension to query"
+        },
+        "dimensionFilter": {
+          "$ref": "#/definitions/DimensionGroupIdentity"
+        }
+      },
+      "required": [
+        "startTime",
+        "endTime",
+        "dimensionName"
+      ]
+    },
+    "AnomalyProperty": {
+      "type": "object",
+      "properties": {
+        "anomalySeverity": {
+          "$ref": "#/definitions/AnomalySeverity",
+          "description": "anomaly severity"
+        },
+        "anomalyStatus": {
+          "$ref": "#/definitions/AnomalyStatus",
+          "description": "anomaly status only return for alerting anomaly result"
+        },
+        "value": {
+          "type": "number",
+          "format": "double",
+          "description": "value of the anomaly"
+        },
+        "expectedValue": {
+          "type": "number",
+          "format": "double",
+          "description": "expected value of the anomaly given by smart detector"
+        }
+      },
+      "required": [
+        "anomalySeverity"
+      ]
+    },
+    "AnomalyResult": {
+      "type": "object",
+      "properties": {
+        "dataFeedId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "data feed unique id only return for alerting anomaly result"
+        },
+        "metricId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "metric unique id only return for alerting anomaly result"
+        },
+        "anomalyDetectionConfigurationId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "anomaly detection configuration unique id only return for alerting anomaly result"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "anomaly time"
+        },
+        "createdTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "created time only return for alerting result",
+          "readOnly": true
+        },
+        "modifiedTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "modified time only return for alerting result",
+          "readOnly": true
+        },
+        "dimension": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "dimension specified for series"
+        },
+        "property": {
+          "$ref": "#/definitions/AnomalyProperty"
+        }
+      },
+      "required": [
+        "timestamp",
+        "dimension",
+        "property"
+      ]
+    },
+    "AnomalyScope": {
+      "type": "string",
+      "enum": [
+        "All",
+        "Dimension",
+        "TopN"
+      ],
+      "x-ms-enum": {
+        "name": "AnomalyScope",
+        "modelAsString": true
+      }
+    },
+    "AnomalySeverity": {
+      "type": "string",
+      "enum": [
+        "Low",
+        "Medium",
+        "High"
+      ],
+      "x-ms-enum": {
+        "name": "AnomalySeverity",
+        "modelAsString": true
+      }
+    },
+    "AnomalyStatus": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "Resolved"
+      ],
+      "x-ms-enum": {
+        "name": "AnomalyStatus",
+        "modelAsString": true
+      }
+    },
+    "AuthenticationType": {
+      "type": "string",
+      "enum": [
+        "Basic",
+        "ManagedIdentity",
+        "AzureSQLConnectionString",
+        "DataLakeGen2SharedKey",
+        "ServicePrincipal",
+        "ServicePrincipalInKV"
+      ],
+      "x-ms-enum": {
+        "name": "AuthenticationType",
+        "modelAsString": true
+      }
+    },
+    "Cadl.Rest.Resource.Page_AnomalyAlertingConfiguration": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AnomalyAlertingConfiguration"
+          },
+          "x-cadl-name": "AnomalyAlertingConfiguration[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Cadl.Rest.Resource.Page_AnomalyDetectionConfiguration": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AnomalyDetectionConfiguration"
+          },
+          "x-cadl-name": "AnomalyDetectionConfiguration[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Cadl.Rest.Resource.Page_AnomalyDimension": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AnomalyDimension"
+          },
+          "x-cadl-name": "AnomalyDimension[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Cadl.Rest.Resource.Page_AnomalyResult": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AnomalyResult"
+          },
+          "x-cadl-name": "AnomalyResult[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Cadl.Rest.Resource.Page_Credential": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Credential"
+          },
+          "x-cadl-name": "Credential[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Cadl.Rest.Resource.Page_DataFeedDetail": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataFeedDetail"
+          },
+          "x-cadl-name": "DataFeedDetail[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Cadl.Rest.Resource.Page_HookInfo": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HookInfo"
+          },
+          "x-cadl-name": "HookInfo[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Cadl.Rest.Resource.Page_IncidentResult": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IncidentResult"
+          },
+          "x-cadl-name": "IncidentResult[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Cadl.Rest.Resource.Page_IngestionStatus": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IngestionStatus"
+          },
+          "x-cadl-name": "IngestionStatus[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Cadl.Rest.Resource.Page_MetricDataItem": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MetricDataItem"
+          },
+          "x-cadl-name": "MetricDataItem[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Cadl.Rest.Resource.Page_MetricFeedback": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MetricFeedback"
+          },
+          "x-cadl-name": "MetricFeedback[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Cadl.Rest.Resource.Page_MetricSeriesItem": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MetricSeriesItem"
+          },
+          "x-cadl-name": "MetricSeriesItem[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Cadl.Rest.Resource.Page_SeriesResult": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SeriesResult"
+          },
+          "x-cadl-name": "SeriesResult[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "Paged response",
+      "required": [
+        "value"
+      ]
+    },
+    "Cadl.null": {
+      "type": "object",
+      "properties": {}
+    },
+    "Credential": {
+      "type": "object",
+      "properties": {
+        "credentialId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "Data source credential",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "credentialId"
+      ]
+    },
+    "DataFeedDetail": {
+      "type": "object",
+      "properties": {
+        "dataFeedId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "Datafeed details",
+          "readOnly": true
+        },
+        "dataSourceType": {
+          "$ref": "#/definitions/DataSourceType",
+          "description": "Data source type"
+        },
+        "dataFeedName": {
+          "type": "string",
+          "description": "Data feed name"
+        },
+        "dataFeedDescription": {
+          "type": "string",
+          "description": "Data feed description",
+          "default": ""
+        },
+        "granularityName": {
+          "$ref": "#/definitions/Granularity",
+          "description": "granularity of the time series"
+        },
+        "granularityAmount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "if granularity is custom,it is required."
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Metric"
+          },
+          "x-cadl-name": "Metric[]",
+          "description": "measure list"
+        },
+        "dimensions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Dimension"
+          },
+          "x-cadl-name": "Dimension[]",
+          "description": "Dimensions list"
+        },
+        "timestampColumn": {
+          "type": "string",
+          "description": "user-defined timestamp column. if timestampColumn is null, start time of every time slice will be used as default value."
+        },
+        "dataStartFrom": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ingestion start time"
+        },
+        "startOffsetInSeconds": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the time that the beginning of data ingestion task will delay for every data slice according to this offset.",
+          "default": 0
+        },
+        "maxConcurrency": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the max concurrency of data ingestion queries against user data source. 0 means no limitation.",
+          "default": 1
+        },
+        "minRetryIntervalInSeconds": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the min retry interval for failed data ingestion tasks."
+        },
+        "stopRetryAfterInSeconds": {
+          "type": "integer",
+          "format": "int64",
+          "description": "stop retry data ingestion after the data slice first schedule time in seconds.",
+          "default": -1
+        },
+        "needRollup": {
+          "$ref": "#/definitions/NeedRollupType",
+          "description": "mark if the data feed need rollup"
+        },
+        "rollUpMethod": {
+          "$ref": "#/definitions/RollUpMethod",
+          "description": "Roll up method"
+        },
+        "rollUpColumns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-cadl-name": "Cadl.string[]",
+          "description": "Roll up columns"
+        },
+        "allUpIdentification": {
+          "type": "string",
+          "description": "the identification value for the row of calculated all-up value."
+        },
+        "fillMissingPointType": {
+          "$ref": "#/definitions/FillMissingPointType",
+          "description": "the type of fill missing point for anomaly detection"
+        },
+        "fillMissingPointValue": {
+          "type": "number",
+          "format": "double",
+          "description": "the value of fill missing point for anomaly detection"
+        },
+        "viewMode": {
+          "$ref": "#/definitions/ViewMode",
+          "description": "data feed access mode, default is Private"
+        },
+        "admins": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-cadl-name": "Cadl.string[]",
+          "description": "data feed administrator"
+        },
+        "viewers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-cadl-name": "Cadl.string[]",
+          "description": "data feed viewer"
+        },
+        "isAdmin": {
+          "type": "boolean",
+          "description": "the query user is one of data feed administrator or not"
+        },
+        "creator": {
+          "type": "string",
+          "description": "data feed creator"
+        },
+        "status": {
+          "$ref": "#/definitions/DataFeedStatus",
+          "description": "data feed status"
+        },
+        "createdTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "data feed created time",
+          "readOnly": true
+        },
+        "actionLinkTemplate": {
+          "type": "string",
+          "description": "action link for alert",
+          "default": ""
+        },
+        "authenticationType": {
+          "$ref": "#/definitions/AuthenticationType",
+          "description": "authentication type for corresponding data source"
+        },
+        "credentialId": {
+          "type": "string",
+          "description": "The credential entity id"
+        }
+      },
+      "required": [
+        "dataSourceType",
+        "dataFeedName",
+        "granularityName",
+        "metrics",
+        "dataStartFrom"
+      ]
+    },
+    "DataFeedIngestionProgress": {
+      "type": "object",
+      "properties": {
+        "latestSuccessTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "the timestamp of latest success ingestion job.\r\nnull indicates not available",
+          "readOnly": true
+        },
+        "latestActiveTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "the timestamp of latest ingestion job with status update.\r\nnull indicates not available",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "latestSuccessTimestamp",
+        "latestActiveTimestamp"
+      ]
+    },
+    "DataFeedStatus": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "Paused"
+      ],
+      "x-ms-enum": {
+        "name": "DataFeedStatus",
+        "modelAsString": true
+      }
+    },
+    "DataSourceType": {
+      "type": "string",
+      "enum": [
+        "AzureApplicationInsights",
+        "AzureBlob",
+        "AzureCosmosDB",
+        "AzureDataExplorer",
+        "AzureDataLakeStorageGen2",
+        "AzureEventHubs",
+        "AzureLogAnalytics",
+        "AzureTable",
+        "InfluxDB",
+        "MongoDB",
+        "MySql",
+        "PostgreSql",
+        "SqlServer"
+      ],
+      "x-ms-enum": {
+        "name": "DataSourceType",
+        "modelAsString": true
+      }
+    },
+    "DetectionAnomalyFilterCondition": {
+      "type": "object",
+      "properties": {
+        "dimensionFilter": {
+          "$ref": "#/definitions/DimensionGroupIdentity"
+        },
+        "severityFilter": {
+          "$ref": "#/definitions/SeverityFilterCondition"
+        }
+      },
+      "required": [
+        "dimensionFilter",
+        "severityFilter"
+      ]
+    },
+    "DetectionAnomalyResultQuery": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "start time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "end time"
+        },
+        "filter": {
+          "$ref": "#/definitions/DetectionAnomalyFilterCondition"
+        }
+      },
+      "required": [
+        "startTime",
+        "endTime"
+      ]
+    },
+    "DetectionIncidentResultQuery": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "start time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "end time"
+        },
+        "filter": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DimensionGroupIdentity"
+          },
+          "x-cadl-name": "DimensionGroupIdentity[]",
+          "description": "dimension filter"
+        }
+      },
+      "required": [
+        "startTime",
+        "endTime"
+      ]
+    },
+    "DetectionSeriesQuery": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "This is inclusive. The maximum number of data points (series number * time range) is 10000."
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "This is exclusive. The maximum number of data points (series number * time range) is 10000."
+        },
+        "series": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SeriesIdentity"
+          },
+          "x-cadl-name": "SeriesIdentity[]",
+          "description": "The series to be queried. The identity must be able to define one single time series instead of a group of time series. The maximum number of series is 100."
+        }
+      }
+    },
+    "Dimension": {
+      "type": "object",
+      "properties": {
+        "dimensionName": {
+          "type": "string",
+          "description": "dimension name"
+        },
+        "dimensionDisplayName": {
+          "type": "string",
+          "description": "dimension display name"
+        }
+      },
+      "required": [
+        "dimensionDisplayName"
+      ]
+    },
+    "DimensionGroupIdentity": {
+      "type": "object",
+      "properties": {
+        "dimension": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "dimension specified for series group"
+        }
+      },
+      "required": [
+        "dimension"
+      ]
+    },
+    "Direction": {
+      "type": "string",
+      "enum": [
+        "Both",
+        "Down",
+        "Up"
+      ],
+      "x-ms-enum": {
+        "name": "Direction",
+        "modelAsString": true
+      }
+    },
+    "EnrichmentStatusQueryOption": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "the start point of time range to query anomaly detection status."
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "the end point of time range to query anomaly detection status."
+        }
+      },
+      "required": [
+        "startTime",
+        "endTime"
+      ]
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ErrorCode",
+          "description": "One of a server-defined set of error codes"
+        },
+        "message": {
+          "type": "string",
+          "description": "A human-readable representation of the error"
+        },
+        "target": {
+          "type": "string",
+          "description": "Error target"
+        }
+      },
+      "description": "The error object",
+      "required": [
+        "code",
+        "message"
+      ]
+    },
+    "ErrorCode": {
+      "type": "string",
+      "enum": [
+        "InvalidRequest",
+        "InvalidArgument",
+        "Unauthorized",
+        "Forbidden",
+        "NotFound",
+        "ProjectNotFound",
+        "OperationNotFound",
+        "AzureCognitiveSearchNotFound",
+        "AzureCognitiveSearchIndexNotFound",
+        "TooManyRequests",
+        "AzureCognitiveSearchThrottling",
+        "AzureCognitiveSearchIndexLimitReached",
+        "InternalServerError",
+        "ServiceUnavailable"
+      ],
+      "x-ms-enum": {
+        "name": "ErrorCode",
+        "modelAsString": true
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/Error",
+          "description": "The error object"
+        }
+      },
+      "description": "Error response",
+      "required": [
+        "error"
+      ]
+    },
+    "FeedbackDimensionFilter": {
+      "type": "object",
+      "properties": {
+        "dimension": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "metric dimension filter"
+        }
+      },
+      "required": [
+        "dimension"
+      ]
+    },
+    "FeedbackQueryTimeMode": {
+      "type": "string",
+      "enum": [
+        "MetricTimestamp",
+        "FeedbackCreatedTime"
+      ],
+      "x-ms-enum": {
+        "name": "FeedbackQueryTimeMode",
+        "modelAsString": true
+      }
+    },
+    "FeedbackType": {
+      "type": "string",
+      "enum": [
+        "Anomaly",
+        "ChangePoint",
+        "Period",
+        "Comment"
+      ],
+      "x-ms-enum": {
+        "name": "FeedbackType",
+        "modelAsString": true
+      }
+    },
+    "FillMissingPointType": {
+      "type": "string",
+      "enum": [
+        "SmartFilling",
+        "PreviousValue",
+        "CustomValue",
+        "NoFilling"
+      ],
+      "x-ms-enum": {
+        "name": "FillMissingPointType",
+        "modelAsString": true
+      }
+    },
+    "Granularity": {
+      "type": "string",
+      "enum": [
+        "Yearly",
+        "Monthly",
+        "Weekly",
+        "Daily",
+        "Hourly",
+        "Minutely",
+        "Custom"
+      ],
+      "x-ms-enum": {
+        "name": "Granularity",
+        "modelAsString": true
+      }
+    },
+    "HookInfo": {
+      "type": "object",
+      "properties": {
+        "hookId": {
+          "type": "string",
+          "pattern": "UUID",
+          "readOnly": true
+        },
+        "hookType": {
+          "$ref": "#/definitions/HookType",
+          "description": "hook type"
+        },
+        "hookName": {
+          "type": "string",
+          "description": "hook name"
+        },
+        "description": {
+          "type": "string",
+          "description": "hook discription",
+          "default": ""
+        },
+        "externalLink": {
+          "type": "string",
+          "description": "hook externalLink",
+          "default": ""
+        },
+        "admins": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-cadl-name": "Cadl.string[]",
+          "description": "hook administrators"
+        }
+      },
+      "required": [
+        "hookId",
+        "hookType",
+        "hookName",
+        "admins"
+      ]
+    },
+    "HookType": {
+      "type": "string",
+      "enum": [
+        "Webhook",
+        "Email"
+      ],
+      "x-ms-enum": {
+        "name": "HookType",
+        "modelAsString": true
+      }
+    },
+    "IncidentProperty": {
+      "type": "object",
+      "properties": {
+        "maxSeverity": {
+          "$ref": "#/definitions/Severity",
+          "description": "max severity of latest anomalies in the incident"
+        },
+        "incidentStatus": {
+          "$ref": "#/definitions/IncidentStatus",
+          "description": "incident status only return for alerting incident result"
+        },
+        "valueOfRootNode": {
+          "type": "integer",
+          "format": "int32",
+          "description": "value of the root node"
+        },
+        "expectedValueOfRootNode": {
+          "type": "integer",
+          "format": "int32",
+          "description": "expected value of the root node given by smart detector"
+        }
+      }
+    },
+    "IncidentResult": {
+      "type": "object",
+      "properties": {
+        "dataFeedId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "data feed unique id only return for alerting anomaly result"
+        },
+        "metricId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "metric unique id only return for alerting incident result"
+        },
+        "anomalyDetectionConfigurationId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "anomaly detection configuration unique id only return for alerting incident result"
+        },
+        "incidentId": {
+          "type": "string",
+          "description": "incident id"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "incident start time"
+        },
+        "lastTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "incident last time"
+        },
+        "rootNode": {
+          "$ref": "#/definitions/SeriesIdentity"
+        },
+        "property": {
+          "$ref": "#/definitions/IncidentProperty"
+        }
+      },
+      "required": [
+        "incidentId",
+        "startTime",
+        "lastTime",
+        "rootNode",
+        "property"
+      ]
+    },
+    "IncidentStatus": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "Resolved"
+      ],
+      "x-ms-enum": {
+        "name": "IncidentStatus",
+        "modelAsString": true
+      }
+    },
+    "IngestionStatus": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "data slice timestamp.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/IngestionStatusType",
+          "description": "latest ingestion task status for this data slice."
+        },
+        "message": {
+          "type": "string",
+          "description": "the trimmed message of last ingestion job."
+        }
+      }
+    },
+    "IngestionStatusQueryOptions": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "the start point of time range to query data ingestion status."
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "the end point of time range to query data ingestion status."
+        }
+      },
+      "required": [
+        "startTime",
+        "endTime"
+      ]
+    },
+    "IngestionStatusType": {
+      "type": "string",
+      "description": "latest ingestion task status for this data slice.",
+      "enum": [
+        "NotStarted",
+        "Scheduled",
+        "Running",
+        "Succeeded",
+        "Failed",
+        "NoData",
+        "Error",
+        "Paused"
+      ],
+      "x-ms-enum": {
+        "name": "IngestionStatusType",
+        "modelAsString": true
+      }
+    },
+    "Metric": {
+      "type": "object",
+      "properties": {
+        "metricId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "metric id"
+        },
+        "metricName": {
+          "type": "string",
+          "description": "metric name"
+        },
+        "metricDisplayName": {
+          "type": "string",
+          "pattern": "[.a-zA-Z0-9_-]+",
+          "description": "metric display name"
+        },
+        "metricDescription": {
+          "type": "string",
+          "description": "metric description"
+        }
+      },
+      "required": [
+        "metricName"
+      ]
+    },
+    "MetricAlertingConfiguration": {
+      "type": "object",
+      "properties": {
+        "anomalyDetectionConfigurationId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "Anomaly detection configuration unique id"
+        },
+        "anomalyScopeType": {
+          "$ref": "#/definitions/AnomalyScope",
+          "description": "Anomaly scope"
+        },
+        "negationOperation": {
+          "type": "boolean",
+          "description": "Negation operation"
+        },
+        "dimensionAnomalyScope": {
+          "$ref": "#/definitions/DimensionGroupIdentity"
+        },
+        "topNAnomalyScope": {
+          "$ref": "#/definitions/TopNGroupScope"
+        },
+        "severityFilter": {
+          "$ref": "#/definitions/SeverityCondition"
+        },
+        "snoozeFilter": {
+          "$ref": "#/definitions/AlertSnoozeCondition"
+        },
+        "valueFilter": {
+          "$ref": "#/definitions/ValueCondition"
+        }
+      },
+      "required": [
+        "anomalyDetectionConfigurationId"
+      ]
+    },
+    "MetricDataItem": {
+      "type": "object",
+      "properties": {
+        "metricId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "metric unique id",
+          "readOnly": true
+        },
+        "dimension": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "dimension name and value pair"
+        },
+        "timestampList": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "x-cadl-name": "Cadl.zonedDateTime[]",
+          "description": "timestamps of the data related to this time series",
+          "readOnly": true
+        },
+        "valueList": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          },
+          "x-cadl-name": "Cadl.float64[]",
+          "description": "values of the data related to this time series",
+          "readOnly": true
+        }
+      }
+    },
+    "MetricDataQueryOptions": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "start time of query a time series data, and format should be yyyy-MM-ddThh:mm:ssZ. The maximum number of data points (series number * time range) is 10000."
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "start time of query a time series data, and format should be yyyy-MM-ddThh:mm:ssZ. The maximum number of data points (series number * time range) is 10000."
+        },
+        "series": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "x-cadl-name": "Cadl.Map<Cadl.string, Cadl.string>[]",
+          "description": "query specific series. The maximum number of series is 100."
+        }
+      }
+    },
+    "MetricDimensionQueryOptions": {
+      "type": "object",
+      "properties": {
+        "dimensionName": {
+          "type": "string",
+          "description": "dimension name"
+        },
+        "dimensionValueFilter": {
+          "type": "string",
+          "description": "dimension value to be filtered"
+        }
+      },
+      "required": [
+        "dimensionName"
+      ]
+    },
+    "MetricFeedback": {
+      "type": "object",
+      "properties": {
+        "feedbackId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "Feedback Id"
+        },
+        "feedbackType": {
+          "$ref": "#/definitions/FeedbackType",
+          "description": "Feedback type"
+        },
+        "createdTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Created time",
+          "readOnly": true
+        },
+        "userPrincipal": {
+          "type": "string",
+          "description": "user who gives this feedback",
+          "readOnly": true
+        },
+        "metricId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "metric unique id"
+        },
+        "dimensionFilter": {
+          "$ref": "#/definitions/FeedbackDimensionFilter",
+          "description": "metric dimension filter"
+        }
+      },
+      "required": [
+        "feedbackType",
+        "metricId",
+        "dimensionFilter"
+      ]
+    },
+    "MetricFeedbackFilter": {
+      "type": "object",
+      "properties": {
+        "metricId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "filter feedbacks by metric id"
+        },
+        "FeedbackDimensionFilter": {
+          "$ref": "#/definitions/FeedbackDimensionFilter"
+        },
+        "feedbackType": {
+          "$ref": "#/definitions/FeedbackType"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "timeMode": {
+          "$ref": "#/definitions/FeedbackQueryTimeMode"
+        }
+      },
+      "required": [
+        "metricId"
+      ]
+    },
+    "MetricSeriesItem": {
+      "type": "object",
+      "properties": {
+        "metricId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "metric unique id",
+          "readOnly": true
+        },
+        "dimension": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "dimension name and value pair"
+        }
+      }
+    },
+    "MetricSeriesQueryOptions": {
+      "type": "object",
+      "properties": {
+        "activeSince": {
+          "type": "string",
+          "format": "date-time",
+          "description": "query series ingested after this time, the format should be yyyy-MM-ddTHH:mm:ssZ"
+        },
+        "dimensionFilter": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "filter specific dimension name and values"
+        }
+      },
+      "required": [
+        "activeSince"
+      ]
+    },
+    "NeedRollupType": {
+      "type": "string",
+      "enum": [
+        "NoRollup",
+        "NeedRollup",
+        "AlreadyRollup"
+      ],
+      "x-ms-enum": {
+        "name": "NeedRollupType",
+        "modelAsString": true
+      }
+    },
+    "RollUpMethod": {
+      "type": "string",
+      "enum": [
+        "None",
+        "Sum",
+        "Max",
+        "Min",
+        "Avg",
+        "Count"
+      ],
+      "x-ms-enum": {
+        "name": "RollUpMethod",
+        "modelAsString": true
+      }
+    },
+    "SeriesIdentity": {
+      "type": "object",
+      "properties": {
+        "dimension": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "dimension specified for series"
+        }
+      },
+      "required": [
+        "dimension"
+      ]
+    },
+    "SeriesResult": {
+      "type": "object",
+      "properties": {
+        "series": {
+          "$ref": "#/definitions/SeriesIdentity"
+        },
+        "timestampList": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "x-cadl-name": "Cadl.zonedDateTime[]",
+          "description": "timestamps of the series"
+        },
+        "valueList": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          },
+          "x-cadl-name": "Cadl.float64[]",
+          "description": "values of the series"
+        },
+        "isAnomalyList": {
+          "type": "array",
+          "items": {
+            "type": "boolean"
+          },
+          "x-cadl-name": "Cadl.boolean[]",
+          "description": "whether points of the series are anomalies"
+        },
+        "periodList": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "x-cadl-name": "Cadl.int32[]",
+          "description": "period calculated on each point of the series"
+        },
+        "expectedValueList": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          },
+          "x-cadl-name": "Cadl.float64[]",
+          "description": "expected values of the series given by smart detector"
+        },
+        "lowerBoundaryList": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          },
+          "x-cadl-name": "Cadl.float64[]",
+          "description": "lower boundary list of the series given by smart detector"
+        },
+        "upperBoundaryList": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          },
+          "x-cadl-name": "Cadl.float64[]",
+          "description": "upper boundary list of the series given by smart detector"
+        }
+      },
+      "required": [
+        "series",
+        "timestampList",
+        "valueList",
+        "isAnomalyList",
+        "periodList",
+        "expectedValueList",
+        "lowerBoundaryList"
+      ]
+    },
+    "Severity": {
+      "type": "string",
+      "enum": [
+        "Low",
+        "Medium",
+        "High"
+      ],
+      "x-ms-enum": {
+        "name": "Severity",
+        "modelAsString": true
+      }
+    },
+    "SeverityCondition": {
+      "type": "object",
+      "properties": {
+        "minAlertSeverity": {
+          "$ref": "#/definitions/Severity",
+          "description": "min alert severity"
+        },
+        "maxAlertSeverity": {
+          "$ref": "#/definitions/Severity",
+          "description": "max alert severity"
+        }
+      },
+      "required": [
+        "minAlertSeverity",
+        "maxAlertSeverity"
+      ]
+    },
+    "SeverityFilterCondition": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": "string",
+          "description": "min severity"
+        },
+        "max": {
+          "type": "string",
+          "description": "max severity"
+        }
+      }
+    },
+    "SnoozeScope": {
+      "type": "string",
+      "enum": [
+        "Metric",
+        "Series"
+      ],
+      "x-ms-enum": {
+        "name": "SnoozeScope",
+        "modelAsString": true
+      }
+    },
+    "TopNGroupScope": {
+      "type": "object",
+      "properties": {
+        "top": {
+          "type": "integer",
+          "format": "int32",
+          "description": "top N, value range : [1, +∞)"
+        },
+        "period": {
+          "type": "integer",
+          "format": "int32",
+          "description": "point count used to look back, value range : [1, +∞)"
+        },
+        "minTopCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "min count should be in top N, value range : [1, +∞)\r\n\r\nshould be less than or equal to period"
+        }
+      },
+      "required": [
+        "top",
+        "period",
+        "minTopCount"
+      ]
+    },
+    "UsageStats": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the stats",
+          "readOnly": true
+        },
+        "activeSeriesCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The active series count",
+          "readOnly": true
+        },
+        "allSeriesCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "All series count under non deleted data feed",
+          "readOnly": true
+        },
+        "metricsCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The metrics count under non deleted data feed",
+          "readOnly": true
+        },
+        "dataFeedCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The count of non deleted data feed",
+          "readOnly": true
+        }
+      }
+    },
+    "ValueCondition": {
+      "type": "object",
+      "properties": {
+        "lower": {
+          "type": "number",
+          "format": "double",
+          "description": "lower bound\r\n\r\nshould be specified when direction is Both or Down"
+        },
+        "upper": {
+          "type": "number",
+          "format": "float",
+          "description": "upper bound\r\n\r\nshould be specified when direction is Both or Up"
+        },
+        "direction": {
+          "$ref": "#/definitions/Direction",
+          "description": "value filter direction"
+        },
+        "valueType": {
+          "$ref": "#/definitions/ValueType",
+          "description": "data used to implement value filter"
+        },
+        "metricId": {
+          "type": "string",
+          "pattern": "UUID",
+          "description": "the other metric unique id used for value filter"
+        },
+        "triggerForMissing": {
+          "type": "boolean",
+          "description": "trigger alert when the corresponding point is missing in the other metric\r\n\r\nshould be specified only when using other metric to filter"
+        }
+      },
+      "required": [
+        "lower",
+        "upper",
+        "direction",
+        "valueType",
+        "metricId",
+        "triggerForMissing"
+      ]
+    },
+    "ValueType": {
+      "type": "string",
+      "enum": [
+        "Value",
+        "Mean"
+      ],
+      "x-ms-enum": {
+        "name": "ValueType",
+        "modelAsString": true
+      }
+    },
+    "ViewMode": {
+      "type": "string",
+      "enum": [
+        "Private",
+        "Public"
+      ],
+      "x-ms-enum": {
+        "name": "ViewMode",
+        "modelAsString": true
+      }
+    }
+  },
+  "parameters": {
+    "AnomalyAlertingConfiguration.anomalyAlertingConfigurationId": {
+      "x-ms-parameter-location": "method",
+      "name": "anomalyAlertingConfigurationId",
+      "in": "path",
+      "required": false,
+      "description": "anomaly alerting configuration unique id",
+      "pattern": "UUID",
+      "type": "string"
+    },
+    "AnomalyDetectionConfiguration": {
+      "x-ms-parameter-location": "method",
+      "name": "configurationId",
+      "in": "path",
+      "required": true,
+      "pattern": "UUID",
+      "type": "string"
+    },
+    "Credential": {
+      "x-ms-parameter-location": "method",
+      "name": "credentialId",
+      "in": "path",
+      "required": true,
+      "description": "Data source credential",
+      "pattern": "UUID",
+      "type": "string"
+    },
+    "DataFeedDetail.dataFeedId": {
+      "x-ms-parameter-location": "method",
+      "name": "dataFeedId",
+      "in": "path",
+      "required": false,
+      "description": "Datafeed details",
+      "pattern": "UUID",
+      "type": "string"
+    },
+    "HookInfo.hookId": {
+      "x-ms-parameter-location": "method",
+      "name": "hookId",
+      "in": "path",
+      "required": true,
+      "pattern": "UUID",
+      "type": "string"
+    },
+    "IncidentIdParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "incidentId",
+      "in": "path",
+      "required": true,
+      "description": "Incident Id Parameter",
+      "type": "string"
+    },
+    "MaxPageSizeParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "mazpagesize",
+      "in": "query",
+      "required": false,
+      "description": "The maximum number of resources to include in a single response",
+      "type": "integer",
+      "format": "int32"
+    },
+    "MetricFeedback.feedbackId": {
+      "x-ms-parameter-location": "method",
+      "name": "feedbackId",
+      "in": "path",
+      "required": false,
+      "description": "Feedback Id",
+      "pattern": "UUID",
+      "type": "string"
+    },
+    "MetricIdParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "metricId",
+      "in": "path",
+      "required": true,
+      "description": "Metric Id",
+      "pattern": "UUID",
+      "type": "string"
+    },
+    "SkipParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "skip",
+      "in": "query",
+      "required": false,
+      "description": "An offset into the collection of the first resource to be returned",
+      "type": "integer",
+      "format": "int32"
+    }
+  }
+}

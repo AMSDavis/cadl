@@ -1,0 +1,138 @@
+import "@cadl-lang/rest";
+
+using Cadl.Rest;
+using Cadl.Rest.Resource;
+
+model AnomalyAlertingConfiguration {
+  @doc("anomaly alerting configuration unique id")
+  @format("UUID")
+  @visibility("read")
+  @segment("configurations")
+  @key
+  anomalyAlertingConfigurationId?: string;
+
+  @doc("anomaly alerting configuration name")
+  name: string;
+
+  @doc("anomaly alerting configuration description")
+  description?: string;
+
+  @doc("cross metrics operator should be specified when setting up multiple metric alerting configurations")
+  crossMetricsOperator?: AnomalyAlertingConfigurationLogicType;
+
+  @doc("dimensions used to split alert")
+  splitAlertByDimensions?: string[];
+
+  @doc("hook unique ids")
+  hookIds: string[];
+
+  @doc("Anomaly alerting configurations")
+  metricAlertingConfigurations: MetricAlertingConfiguration[];
+}
+
+enum AnomalyAlertingConfigurationLogicType {
+  AND,
+  OR,
+  XOR,
+}
+
+enum AnomalyScope {
+  All,
+  Dimension,
+  TopN,
+}
+
+model MetricAlertingConfiguration {
+  @doc("Anomaly detection configuration unique id")
+  @format("UUID")
+  anomalyDetectionConfigurationId: string;
+
+  @doc("Anomaly scope")
+  anomalyScopeType?: AnomalyScope;
+
+  @doc("Negation operation")
+  negationOperation?: boolean;
+  dimensionAnomalyScope?: DimensionGroupIdentity;
+  topNAnomalyScope?: TopNGroupScope;
+  severityFilter?: SeverityCondition;
+  snoozeFilter?: AlertSnoozeCondition;
+  valueFilter?: ValueCondition;
+}
+
+model DimensionGroupIdentity {
+  @doc("dimension specified for series group")
+  dimension: Map<string, string>;
+}
+
+model TopNGroupScope {
+  @doc("top N, value range : [1, +∞)")
+  top: int32;
+
+  @doc("point count used to look back, value range : [1, +∞)")
+  period: int32;
+
+  @doc("min count should be in top N, value range : [1, +∞)\r\n\r\nshould be less than or equal to period")
+  minTopCount: int32;
+}
+
+enum Severity {
+  Low,
+  Medium,
+  High,
+}
+
+model SeverityCondition {
+  @doc("min alert severity")
+  minAlertSeverity: Severity;
+
+  @doc("max alert severity")
+  maxAlertSeverity: Severity;
+}
+
+enum SnoozeScope {
+  Metric,
+  Series,
+}
+
+model AlertSnoozeCondition {
+  @doc("snooze point count, value range : [0, +∞)")
+  autoSnooze: int32;
+
+  @doc("snooze scope")
+  snoozeScope: SnoozeScope;
+
+  @doc("only snooze for successive anomalies")
+  onlyForSuccessive: boolean;
+}
+
+enum Direction {
+  Both,
+  Down,
+  Up,
+}
+
+enum ValueType {
+  Value,
+  Mean,
+}
+
+model ValueCondition {
+  @doc("lower bound\r\n\r\nshould be specified when direction is Both or Down")
+  lower: float64;
+
+  @doc("upper bound\r\n\r\nshould be specified when direction is Both or Up")
+  upper: float32;
+
+  @doc("value filter direction")
+  direction: Direction;
+
+  @doc("data used to implement value filter")
+  valueType: ValueType;
+
+  @doc("the other metric unique id used for value filter")
+  @format("UUID")
+  metricId: string;
+
+  @doc("trigger alert when the corresponding point is missing in the other metric\r\n\r\nshould be specified only when using other metric to filter")
+  triggerForMissing: boolean;
+}

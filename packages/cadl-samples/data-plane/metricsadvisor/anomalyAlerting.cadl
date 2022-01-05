@@ -1,0 +1,12 @@
+import "@cadl-lang/rest";
+import "./common.cadl";
+import "./models/anomalyAlerting.models.cadl";
+namespace Microsoft.Azure.MetricsAdvisor;
+
+using Cadl.Http;
+using Cadl.Rest;
+using Cadl.Rest.Resource;
+
+@tag("AnomalyAlerting")
+interface AnomalyAlertingApis
+  mixes ResourceOperations<AnomalyAlertingConfiguration, ErrorResponse> {}

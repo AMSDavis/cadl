@@ -1,0 +1,3867 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Metrics Advisor",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "Admin"
+    },
+    {
+      "name": "AnomalyAlerting"
+    },
+    {
+      "name": "Credential"
+    },
+    {
+      "name": "DataFeed"
+    },
+    {
+      "name": "IngestionStatus"
+    },
+    {
+      "name": "Feedback"
+    },
+    {
+      "name": "Hook"
+    },
+    {
+      "name": "AnomalyDetection"
+    }
+  ],
+  "paths": {
+    "/stats/latest": {
+      "get": {
+        "operationId": "AdminApis_getActiveSeriesCount",
+        "summary": "Get latest usage stats",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsageStats"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/configurations/{anomalyAlertingConfigurationId}": {
+      "get": {
+        "operationId": "AnomalyAlertingApis_get",
+        "summary": "Gets an instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AnomalyAlertingConfiguration.anomalyAlertingConfigurationId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnomalyAlertingConfiguration"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyAlerting"
+        ]
+      },
+      "patch": {
+        "operationId": "AnomalyAlertingApis_update",
+        "summary": "Updates an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AnomalyAlertingConfiguration.anomalyAlertingConfigurationId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnomalyAlertingConfiguration"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyAlerting"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "anomaly alerting configuration name"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "anomaly alerting configuration description"
+                  },
+                  "crossMetricsOperator": {
+                    "$ref": "#/components/schemas/AnomalyAlertingConfigurationLogicType",
+                    "description": "cross metrics operator should be specified when setting up multiple metric alerting configurations"
+                  },
+                  "splitAlertByDimensions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "x-cadl-name": "Cadl.string[]",
+                    "description": "dimensions used to split alert"
+                  },
+                  "hookIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "x-cadl-name": "Cadl.string[]",
+                    "description": "hook unique ids"
+                  },
+                  "metricAlertingConfigurations": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/MetricAlertingConfiguration"
+                    },
+                    "x-cadl-name": "MetricAlertingConfiguration[]",
+                    "description": "Anomaly alerting configurations"
+                  }
+                },
+                "description": "The template for adding optional properties.",
+                "x-cadl-name": "Cadl.OptionalProperties<Cadl.UpdateableProperties_AnomalyAlertingConfiguration>"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "AnomalyAlertingApis_delete",
+        "summary": "Deletes an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AnomalyAlertingConfiguration.anomalyAlertingConfigurationId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.ResourceDeletedResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyAlerting"
+        ]
+      }
+    },
+    "/configurations": {
+      "post": {
+        "operationId": "AnomalyAlertingApis_create",
+        "summary": "Creates a new instance of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnomalyAlertingConfiguration"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Resource create operation completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnomalyAlertingConfiguration"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyAlerting"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnomalyAlertingConfiguration"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "AnomalyAlertingApis_list",
+        "summary": "Lists all instances of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Paged response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_AnomalyAlertingConfiguration"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyAlerting"
+        ]
+      }
+    },
+    "/credentials/{credentialId}": {
+      "get": {
+        "operationId": "CredentialApis_get",
+        "summary": "Gets an instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Credential"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Credential"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Credential"
+        ]
+      },
+      "patch": {
+        "operationId": "CredentialApis_update",
+        "summary": "Updates an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Credential"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Credential"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Credential"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "description": "The template for adding optional properties.",
+                "x-cadl-name": "Cadl.OptionalProperties<Cadl.UpdateableProperties_Credential>"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "CredentialApis_delete",
+        "summary": "Deletes an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Credential"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.ResourceDeletedResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Credential"
+        ]
+      }
+    },
+    "/credentials": {
+      "post": {
+        "operationId": "CredentialApis_create",
+        "summary": "Creates a new instance of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Credential"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Resource create operation completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Credential"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Credential"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Credential"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "CredentialApis_list",
+        "summary": "Lists all instances of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Paged response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_Credential"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Credential"
+        ]
+      }
+    },
+    "/datafeeds/{dataFeedId}": {
+      "get": {
+        "operationId": "DataFeedApis_get",
+        "summary": "Gets an instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/DataFeedDetail.dataFeedId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataFeedDetail"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "DataFeed"
+        ]
+      },
+      "patch": {
+        "operationId": "DataFeedApis_update",
+        "summary": "Updates an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/DataFeedDetail.dataFeedId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataFeedDetail"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "DataFeed"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "dataSourceType": {
+                    "$ref": "#/components/schemas/DataSourceType",
+                    "description": "Data source type"
+                  },
+                  "dataFeedName": {
+                    "type": "string",
+                    "description": "Data feed name"
+                  },
+                  "dataFeedDescription": {
+                    "type": "string",
+                    "description": "Data feed description",
+                    "default": ""
+                  },
+                  "granularityName": {
+                    "$ref": "#/components/schemas/Granularity",
+                    "description": "granularity of the time series"
+                  },
+                  "granularityAmount": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "if granularity is custom,it is required."
+                  },
+                  "metrics": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Metric"
+                    },
+                    "x-cadl-name": "Metric[]",
+                    "description": "measure list"
+                  },
+                  "dimensions": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Dimension"
+                    },
+                    "x-cadl-name": "Dimension[]",
+                    "description": "Dimensions list"
+                  },
+                  "timestampColumn": {
+                    "type": "string",
+                    "description": "user-defined timestamp column. if timestampColumn is null, start time of every time slice will be used as default value."
+                  },
+                  "dataStartFrom": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ingestion start time"
+                  },
+                  "startOffsetInSeconds": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "the time that the beginning of data ingestion task will delay for every data slice according to this offset.",
+                    "default": 0
+                  },
+                  "maxConcurrency": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "the max concurrency of data ingestion queries against user data source. 0 means no limitation.",
+                    "default": 1
+                  },
+                  "minRetryIntervalInSeconds": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "the min retry interval for failed data ingestion tasks."
+                  },
+                  "stopRetryAfterInSeconds": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "stop retry data ingestion after the data slice first schedule time in seconds.",
+                    "default": -1
+                  },
+                  "needRollup": {
+                    "$ref": "#/components/schemas/NeedRollupType",
+                    "description": "mark if the data feed need rollup"
+                  },
+                  "rollUpMethod": {
+                    "$ref": "#/components/schemas/RollUpMethod",
+                    "description": "Roll up method"
+                  },
+                  "rollUpColumns": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "x-cadl-name": "Cadl.string[]",
+                    "description": "Roll up columns"
+                  },
+                  "allUpIdentification": {
+                    "type": "string",
+                    "description": "the identification value for the row of calculated all-up value."
+                  },
+                  "fillMissingPointType": {
+                    "$ref": "#/components/schemas/FillMissingPointType",
+                    "description": "the type of fill missing point for anomaly detection"
+                  },
+                  "fillMissingPointValue": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "the value of fill missing point for anomaly detection"
+                  },
+                  "viewMode": {
+                    "$ref": "#/components/schemas/ViewMode",
+                    "description": "data feed access mode, default is Private"
+                  },
+                  "admins": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "x-cadl-name": "Cadl.string[]",
+                    "description": "data feed administrator"
+                  },
+                  "viewers": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "x-cadl-name": "Cadl.string[]",
+                    "description": "data feed viewer"
+                  },
+                  "isAdmin": {
+                    "type": "boolean",
+                    "description": "the query user is one of data feed administrator or not"
+                  },
+                  "creator": {
+                    "type": "string",
+                    "description": "data feed creator"
+                  },
+                  "status": {
+                    "$ref": "#/components/schemas/DataFeedStatus",
+                    "description": "data feed status"
+                  },
+                  "actionLinkTemplate": {
+                    "type": "string",
+                    "description": "action link for alert",
+                    "default": ""
+                  },
+                  "authenticationType": {
+                    "$ref": "#/components/schemas/AuthenticationType",
+                    "description": "authentication type for corresponding data source"
+                  },
+                  "credentialId": {
+                    "type": "string",
+                    "description": "The credential entity id"
+                  }
+                },
+                "description": "The template for adding optional properties.",
+                "x-cadl-name": "Cadl.OptionalProperties<Cadl.UpdateableProperties_DataFeedDetail>"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DataFeedApis_delete",
+        "summary": "Deletes an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/DataFeedDetail.dataFeedId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.ResourceDeletedResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "DataFeed"
+        ]
+      }
+    },
+    "/datafeeds": {
+      "post": {
+        "operationId": "DataFeedApis_create",
+        "summary": "Creates a new instance of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataFeedDetail"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Resource create operation completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataFeedDetail"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "DataFeed"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataFeedDetail"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "DataFeedApis_list",
+        "summary": "Lists all instances of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Paged response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_DataFeedDetail"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "DataFeed"
+        ]
+      }
+    },
+    "/ingestionStatus/query/{dataFeedId}": {
+      "post": {
+        "operationId": "DataFeedApis_queryIngestionStatus",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/DataFeedDetail.dataFeedId"
+          },
+          {
+            "$ref": "#/components/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/components/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_IngestionStatus"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "DataFeed",
+          "IngestionStatus"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IngestionStatusQueryOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ingestionProgress/reset/{dataFeedId}": {
+      "post": {
+        "operationId": "DataFeedApis_resetIngestion",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/DataFeedDetail.dataFeedId"
+          },
+          {
+            "$ref": "#/components/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/components/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.null"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "DataFeed",
+          "IngestionStatus"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IngestionStatusQueryOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{dataFeedId}": {
+      "get": {
+        "operationId": "DataFeedApis_getIngestionProgress",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/DataFeedDetail.dataFeedId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataFeedIngestionProgress"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "DataFeed",
+          "IngestionStatus"
+        ]
+      }
+    },
+    "/feedback/metric": {
+      "post": {
+        "operationId": "FeedbackApis_create",
+        "summary": "Creates a new instance of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricFeedback"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Resource create operation completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricFeedback"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Feedback"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MetricFeedback"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feedback/metric/{feedbackId}": {
+      "get": {
+        "operationId": "FeedbackApis_get",
+        "summary": "Gets an instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/MetricFeedback.feedbackId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricFeedback"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Feedback"
+        ]
+      }
+    },
+    "/feedback/metric/query": {
+      "post": {
+        "operationId": "FeedbackApis_query",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/components/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_MetricFeedback"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Feedback"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MetricFeedbackFilter"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/hooks/{hookId}": {
+      "get": {
+        "operationId": "HookApis_get",
+        "summary": "Gets an instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HookInfo.hookId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HookInfo"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Hook"
+        ]
+      },
+      "patch": {
+        "operationId": "HookApis_update",
+        "summary": "Updates an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HookInfo.hookId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HookInfo"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Hook"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "hookType": {
+                    "$ref": "#/components/schemas/HookType",
+                    "description": "hook type"
+                  },
+                  "hookName": {
+                    "type": "string",
+                    "description": "hook name"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "hook discription",
+                    "default": ""
+                  },
+                  "externalLink": {
+                    "type": "string",
+                    "description": "hook externalLink",
+                    "default": ""
+                  },
+                  "admins": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "x-cadl-name": "Cadl.string[]",
+                    "description": "hook administrators"
+                  }
+                },
+                "description": "The template for adding optional properties.",
+                "x-cadl-name": "Cadl.OptionalProperties<Cadl.UpdateableProperties_HookInfo>"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "HookApis_delete",
+        "summary": "Deletes an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HookInfo.hookId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.ResourceDeletedResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Hook"
+        ]
+      }
+    },
+    "/hooks": {
+      "post": {
+        "operationId": "HookApis_create",
+        "summary": "Creates a new instance of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HookInfo"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Resource create operation completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HookInfo"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Hook"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HookInfo"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "HookApis_list",
+        "summary": "Lists all instances of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Paged response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_HookInfo"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Hook"
+        ]
+      }
+    },
+    "/enrichment/anomalyDetection/configurations/{configurationId}": {
+      "get": {
+        "operationId": "AnomalyDetectionApis_get",
+        "summary": "Gets an instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AnomalyDetectionConfiguration"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnomalyDetectionConfiguration"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      },
+      "patch": {
+        "operationId": "AnomalyDetectionApis_update",
+        "summary": "Updates an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AnomalyDetectionConfiguration"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnomalyDetectionConfiguration"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "description": "The template for adding optional properties.",
+                "x-cadl-name": "Cadl.OptionalProperties<Cadl.UpdateableProperties_AnomalyDetectionConfiguration>"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "AnomalyDetectionApis_delete",
+        "summary": "Deletes an existing instance of the resource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AnomalyDetectionConfiguration"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.ResourceDeletedResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      }
+    },
+    "/enrichment/anomalyDetection/configurations": {
+      "post": {
+        "operationId": "AnomalyDetectionApis_create",
+        "summary": "Creates a new instance of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnomalyDetectionConfiguration"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Resource create operation completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnomalyDetectionConfiguration"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnomalyDetectionConfiguration"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "AnomalyDetectionApis_list",
+        "summary": "Lists all instances of the resource.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Paged response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_AnomalyDetectionConfiguration"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      }
+    },
+    "/enrichment/anomalyDetection/configurations/{configurationId}/alert/anomaly/configurations": {
+      "get": {
+        "operationId": "AnomalyDetectionApis_listAllAnomalyAlertingConfigurations",
+        "summary": "List all anomaly alerting configurations for specific anomaly detection configuration",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AnomalyDetectionConfiguration"
+          },
+          {
+            "$ref": "#/components/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/components/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_AnomalyAlertingConfiguration"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      }
+    },
+    "/enrichment/anomalyDetection/configurations/{configurationId}/series/query": {
+      "post": {
+        "operationId": "AnomalyDetectionApis_querySeries",
+        "summary": "Query series enriched by anomaly detection",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AnomalyDetectionConfiguration"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_SeriesResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DetectionSeriesQuery"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/enrichment/anomalyDetection/configurations/{configurationId}/anomalies/query": {
+      "post": {
+        "operationId": "AnomalyDetectionApis_queryAnomaly",
+        "summary": "Query anomalies under anomaly detection configuration",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AnomalyDetectionConfiguration"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_AnomalyResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DetectionAnomalyResultQuery"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/enrichment/anomalyDetection/configurations/{configurationId}/anomalies/dimension/query": {
+      "post": {
+        "operationId": "AnomalyDetectionApis_queryAnomalyDimensions",
+        "summary": "Query dimension values of anomalies",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AnomalyDetectionConfiguration"
+          },
+          {
+            "$ref": "#/components/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/components/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_AnomalyDimension"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnomalyDimensionQuery"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/enrichment/anomalyDetection/configurations/{configurationId}/incidents/query": {
+      "post": {
+        "operationId": "AnomalyDetectionApis_queryIncidents",
+        "summary": "Query incidents under anomaly detection configuration",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AnomalyDetectionConfiguration"
+          },
+          {
+            "$ref": "#/components/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_IncidentResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DetectionIncidentResultQuery"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/enrichment/anomalyDetection/configurations/{configurationId}/incidents/{incidentId}/rootcause": {
+      "get": {
+        "operationId": "AnomalyDetectionApis_queryIncidentRootCause",
+        "summary": "Query rootcause for incidents",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AnomalyDetectionConfiguration"
+          },
+          {
+            "$ref": "#/components/parameters/IncidentIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_IncidentResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "AnomalyDetection"
+        ]
+      }
+    },
+    "/metrics/{metricId}/data/query": {
+      "post": {
+        "operationId": "MetricApis_queryData",
+        "summary": "Get time series data from metric",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/MetricIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_MetricDataItem"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MetricDataQueryOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics/{metricId}/series/query": {
+      "post": {
+        "operationId": "MetricApis_querySeries",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/MetricIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/components/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_MetricSeriesItem"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MetricSeriesQueryOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics/{metricId}/dimension/query": {
+      "post": {
+        "operationId": "MetricApis_queryDimension",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/MetricIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/components/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "x-cadl-name": "Cadl.string[]"
+                      },
+                      "x-cadl-name": "Cadl.string[][]",
+                      "description": "The items on this page"
+                    },
+                    "nextLink": {
+                      "type": "string",
+                      "description": "The link to the next page of items"
+                    }
+                  },
+                  "description": "Paged response",
+                  "required": [
+                    "value"
+                  ],
+                  "x-cadl-name": "Cadl.Rest.Resource.Page<Cadl.string[]>"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MetricDimensionQueryOptions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics/{metricId}/enrichment/anomalyDetection/configurations": {
+      "get": {
+        "operationId": "MetricApis_listAnomalyDetectionConfigurations",
+        "summary": "List all anomaly detection configurations for specific metric",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/MetricIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/components/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_AnomalyDetectionConfiguration"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics/{metricId}/status/enrichment/anomalyDetection/query": {
+      "post": {
+        "operationId": "MetricApis_queryAnomalyDetectionStatus",
+        "summary": "Query anomaly detection status",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/MetricIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/components/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Rest.Resource.Page_AnomalyDetectionConfiguration"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnrichmentStatusQueryOption"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "AnomalyAlertingConfiguration.anomalyAlertingConfigurationId": {
+        "name": "anomalyAlertingConfigurationId",
+        "in": "path",
+        "required": false,
+        "description": "anomaly alerting configuration unique id",
+        "schema": {
+          "type": "string",
+          "pattern": "UUID"
+        }
+      },
+      "Credential": {
+        "name": "credentialId",
+        "in": "path",
+        "required": true,
+        "description": "Data source credential",
+        "schema": {
+          "type": "string",
+          "pattern": "UUID"
+        }
+      },
+      "DataFeedDetail.dataFeedId": {
+        "name": "dataFeedId",
+        "in": "path",
+        "required": false,
+        "description": "Datafeed details",
+        "schema": {
+          "type": "string",
+          "pattern": "UUID"
+        }
+      },
+      "SkipParameter": {
+        "name": "skip",
+        "in": "query",
+        "required": false,
+        "description": "An offset into the collection of the first resource to be returned",
+        "x-ms-parameter-location": "method",
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "MaxPageSizeParameter": {
+        "name": "mazpagesize",
+        "in": "query",
+        "required": false,
+        "description": "The maximum number of resources to include in a single response",
+        "x-ms-parameter-location": "method",
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "MetricFeedback.feedbackId": {
+        "name": "feedbackId",
+        "in": "path",
+        "required": false,
+        "description": "Feedback Id",
+        "schema": {
+          "type": "string",
+          "pattern": "UUID"
+        }
+      },
+      "HookInfo.hookId": {
+        "name": "hookId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "pattern": "UUID"
+        }
+      },
+      "AnomalyDetectionConfiguration": {
+        "name": "configurationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "pattern": "UUID"
+        }
+      },
+      "IncidentIdParameter": {
+        "name": "incidentId",
+        "in": "path",
+        "required": true,
+        "description": "Incident Id Parameter",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "MetricIdParameter": {
+        "name": "metricId",
+        "in": "path",
+        "required": true,
+        "description": "Metric Id",
+        "schema": {
+          "type": "string",
+          "pattern": "UUID"
+        }
+      }
+    },
+    "schemas": {
+      "UsageStats": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The timestamp of the stats",
+            "readOnly": true
+          },
+          "activeSeriesCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The active series count",
+            "readOnly": true
+          },
+          "allSeriesCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "All series count under non deleted data feed",
+            "readOnly": true
+          },
+          "metricsCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The metrics count under non deleted data feed",
+            "readOnly": true
+          },
+          "dataFeedCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The count of non deleted data feed",
+            "readOnly": true
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/Error",
+            "description": "The error object"
+          }
+        },
+        "description": "Error response",
+        "required": [
+          "error"
+        ]
+      },
+      "AnomalyAlertingConfiguration": {
+        "type": "object",
+        "properties": {
+          "anomalyAlertingConfigurationId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "anomaly alerting configuration unique id",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "anomaly alerting configuration name"
+          },
+          "description": {
+            "type": "string",
+            "description": "anomaly alerting configuration description"
+          },
+          "crossMetricsOperator": {
+            "$ref": "#/components/schemas/AnomalyAlertingConfigurationLogicType",
+            "description": "cross metrics operator should be specified when setting up multiple metric alerting configurations"
+          },
+          "splitAlertByDimensions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-cadl-name": "Cadl.string[]",
+            "description": "dimensions used to split alert"
+          },
+          "hookIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-cadl-name": "Cadl.string[]",
+            "description": "hook unique ids"
+          },
+          "metricAlertingConfigurations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetricAlertingConfiguration"
+            },
+            "x-cadl-name": "MetricAlertingConfiguration[]",
+            "description": "Anomaly alerting configurations"
+          }
+        },
+        "required": [
+          "name",
+          "hookIds",
+          "metricAlertingConfigurations"
+        ]
+      },
+      "AnomalyAlertingConfigurationLogicType": {
+        "type": "string",
+        "enum": [
+          "AND",
+          "OR",
+          "XOR"
+        ]
+      },
+      "MetricAlertingConfiguration": {
+        "type": "object",
+        "properties": {
+          "anomalyDetectionConfigurationId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "Anomaly detection configuration unique id"
+          },
+          "anomalyScopeType": {
+            "$ref": "#/components/schemas/AnomalyScope",
+            "description": "Anomaly scope"
+          },
+          "negationOperation": {
+            "type": "boolean",
+            "description": "Negation operation"
+          },
+          "dimensionAnomalyScope": {
+            "$ref": "#/components/schemas/DimensionGroupIdentity"
+          },
+          "topNAnomalyScope": {
+            "$ref": "#/components/schemas/TopNGroupScope"
+          },
+          "severityFilter": {
+            "$ref": "#/components/schemas/SeverityCondition"
+          },
+          "snoozeFilter": {
+            "$ref": "#/components/schemas/AlertSnoozeCondition"
+          },
+          "valueFilter": {
+            "$ref": "#/components/schemas/ValueCondition"
+          }
+        },
+        "required": [
+          "anomalyDetectionConfigurationId"
+        ]
+      },
+      "Cadl.Rest.Resource.ResourceDeletedResponse": {
+        "type": "object",
+        "properties": {},
+        "description": "Resource deleted successfully."
+      },
+      "Cadl.Rest.Resource.Page_AnomalyAlertingConfiguration": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnomalyAlertingConfiguration"
+            },
+            "x-cadl-name": "AnomalyAlertingConfiguration[]",
+            "description": "The items on this page"
+          },
+          "nextLink": {
+            "type": "string",
+            "description": "The link to the next page of items"
+          }
+        },
+        "description": "Paged response",
+        "required": [
+          "value"
+        ]
+      },
+      "Credential": {
+        "type": "object",
+        "properties": {
+          "credentialId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "Data source credential",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "credentialId"
+        ]
+      },
+      "Cadl.Rest.Resource.Page_Credential": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Credential"
+            },
+            "x-cadl-name": "Credential[]",
+            "description": "The items on this page"
+          },
+          "nextLink": {
+            "type": "string",
+            "description": "The link to the next page of items"
+          }
+        },
+        "description": "Paged response",
+        "required": [
+          "value"
+        ]
+      },
+      "DataFeedDetail": {
+        "type": "object",
+        "properties": {
+          "dataFeedId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "Datafeed details",
+            "readOnly": true
+          },
+          "dataSourceType": {
+            "$ref": "#/components/schemas/DataSourceType",
+            "description": "Data source type"
+          },
+          "dataFeedName": {
+            "type": "string",
+            "description": "Data feed name"
+          },
+          "dataFeedDescription": {
+            "type": "string",
+            "description": "Data feed description",
+            "default": ""
+          },
+          "granularityName": {
+            "$ref": "#/components/schemas/Granularity",
+            "description": "granularity of the time series"
+          },
+          "granularityAmount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "if granularity is custom,it is required."
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Metric"
+            },
+            "x-cadl-name": "Metric[]",
+            "description": "measure list"
+          },
+          "dimensions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Dimension"
+            },
+            "x-cadl-name": "Dimension[]",
+            "description": "Dimensions list"
+          },
+          "timestampColumn": {
+            "type": "string",
+            "description": "user-defined timestamp column. if timestampColumn is null, start time of every time slice will be used as default value."
+          },
+          "dataStartFrom": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ingestion start time"
+          },
+          "startOffsetInSeconds": {
+            "type": "integer",
+            "format": "int64",
+            "description": "the time that the beginning of data ingestion task will delay for every data slice according to this offset.",
+            "default": 0
+          },
+          "maxConcurrency": {
+            "type": "integer",
+            "format": "int32",
+            "description": "the max concurrency of data ingestion queries against user data source. 0 means no limitation.",
+            "default": 1
+          },
+          "minRetryIntervalInSeconds": {
+            "type": "integer",
+            "format": "int64",
+            "description": "the min retry interval for failed data ingestion tasks."
+          },
+          "stopRetryAfterInSeconds": {
+            "type": "integer",
+            "format": "int64",
+            "description": "stop retry data ingestion after the data slice first schedule time in seconds.",
+            "default": -1
+          },
+          "needRollup": {
+            "$ref": "#/components/schemas/NeedRollupType",
+            "description": "mark if the data feed need rollup"
+          },
+          "rollUpMethod": {
+            "$ref": "#/components/schemas/RollUpMethod",
+            "description": "Roll up method"
+          },
+          "rollUpColumns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-cadl-name": "Cadl.string[]",
+            "description": "Roll up columns"
+          },
+          "allUpIdentification": {
+            "type": "string",
+            "description": "the identification value for the row of calculated all-up value."
+          },
+          "fillMissingPointType": {
+            "$ref": "#/components/schemas/FillMissingPointType",
+            "description": "the type of fill missing point for anomaly detection"
+          },
+          "fillMissingPointValue": {
+            "type": "number",
+            "format": "double",
+            "description": "the value of fill missing point for anomaly detection"
+          },
+          "viewMode": {
+            "$ref": "#/components/schemas/ViewMode",
+            "description": "data feed access mode, default is Private"
+          },
+          "admins": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-cadl-name": "Cadl.string[]",
+            "description": "data feed administrator"
+          },
+          "viewers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-cadl-name": "Cadl.string[]",
+            "description": "data feed viewer"
+          },
+          "isAdmin": {
+            "type": "boolean",
+            "description": "the query user is one of data feed administrator or not"
+          },
+          "creator": {
+            "type": "string",
+            "description": "data feed creator"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DataFeedStatus",
+            "description": "data feed status"
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "data feed created time",
+            "readOnly": true
+          },
+          "actionLinkTemplate": {
+            "type": "string",
+            "description": "action link for alert",
+            "default": ""
+          },
+          "authenticationType": {
+            "$ref": "#/components/schemas/AuthenticationType",
+            "description": "authentication type for corresponding data source"
+          },
+          "credentialId": {
+            "type": "string",
+            "description": "The credential entity id"
+          }
+        },
+        "required": [
+          "dataSourceType",
+          "dataFeedName",
+          "granularityName",
+          "metrics",
+          "dataStartFrom"
+        ]
+      },
+      "DataSourceType": {
+        "type": "string",
+        "enum": [
+          "AzureApplicationInsights",
+          "AzureBlob",
+          "AzureCosmosDB",
+          "AzureDataExplorer",
+          "AzureDataLakeStorageGen2",
+          "AzureEventHubs",
+          "AzureLogAnalytics",
+          "AzureTable",
+          "InfluxDB",
+          "MongoDB",
+          "MySql",
+          "PostgreSql",
+          "SqlServer"
+        ]
+      },
+      "Granularity": {
+        "type": "string",
+        "enum": [
+          "Yearly",
+          "Monthly",
+          "Weekly",
+          "Daily",
+          "Hourly",
+          "Minutely",
+          "Custom"
+        ]
+      },
+      "Metric": {
+        "type": "object",
+        "properties": {
+          "metricId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "metric id"
+          },
+          "metricName": {
+            "type": "string",
+            "description": "metric name"
+          },
+          "metricDisplayName": {
+            "type": "string",
+            "pattern": "[.a-zA-Z0-9_-]+",
+            "description": "metric display name"
+          },
+          "metricDescription": {
+            "type": "string",
+            "description": "metric description"
+          }
+        },
+        "required": [
+          "metricName"
+        ]
+      },
+      "Dimension": {
+        "type": "object",
+        "properties": {
+          "dimensionName": {
+            "type": "string",
+            "description": "dimension name"
+          },
+          "dimensionDisplayName": {
+            "type": "string",
+            "description": "dimension display name"
+          }
+        },
+        "required": [
+          "dimensionDisplayName"
+        ]
+      },
+      "NeedRollupType": {
+        "type": "string",
+        "enum": [
+          "NoRollup",
+          "NeedRollup",
+          "AlreadyRollup"
+        ]
+      },
+      "RollUpMethod": {
+        "type": "string",
+        "enum": [
+          "None",
+          "Sum",
+          "Max",
+          "Min",
+          "Avg",
+          "Count"
+        ]
+      },
+      "FillMissingPointType": {
+        "type": "string",
+        "enum": [
+          "SmartFilling",
+          "PreviousValue",
+          "CustomValue",
+          "NoFilling"
+        ]
+      },
+      "ViewMode": {
+        "type": "string",
+        "enum": [
+          "Private",
+          "Public"
+        ]
+      },
+      "DataFeedStatus": {
+        "type": "string",
+        "enum": [
+          "Active",
+          "Paused"
+        ]
+      },
+      "AuthenticationType": {
+        "type": "string",
+        "enum": [
+          "Basic",
+          "ManagedIdentity",
+          "AzureSQLConnectionString",
+          "DataLakeGen2SharedKey",
+          "ServicePrincipal",
+          "ServicePrincipalInKV"
+        ]
+      },
+      "Cadl.Rest.Resource.Page_DataFeedDetail": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DataFeedDetail"
+            },
+            "x-cadl-name": "DataFeedDetail[]",
+            "description": "The items on this page"
+          },
+          "nextLink": {
+            "type": "string",
+            "description": "The link to the next page of items"
+          }
+        },
+        "description": "Paged response",
+        "required": [
+          "value"
+        ]
+      },
+      "IngestionStatusQueryOptions": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "the start point of time range to query data ingestion status."
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "the end point of time range to query data ingestion status."
+          }
+        },
+        "required": [
+          "startTime",
+          "endTime"
+        ]
+      },
+      "Cadl.Rest.Resource.Page_IngestionStatus": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IngestionStatus"
+            },
+            "x-cadl-name": "IngestionStatus[]",
+            "description": "The items on this page"
+          },
+          "nextLink": {
+            "type": "string",
+            "description": "The link to the next page of items"
+          }
+        },
+        "description": "Paged response",
+        "required": [
+          "value"
+        ]
+      },
+      "Cadl.null": {
+        "type": "object",
+        "properties": {}
+      },
+      "DataFeedIngestionProgress": {
+        "type": "object",
+        "properties": {
+          "latestSuccessTimestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "the timestamp of latest success ingestion job.\r\nnull indicates not available",
+            "readOnly": true
+          },
+          "latestActiveTimestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "the timestamp of latest ingestion job with status update.\r\nnull indicates not available",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "latestSuccessTimestamp",
+          "latestActiveTimestamp"
+        ]
+      },
+      "MetricFeedback": {
+        "type": "object",
+        "properties": {
+          "feedbackId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "Feedback Id"
+          },
+          "feedbackType": {
+            "$ref": "#/components/schemas/FeedbackType",
+            "description": "Feedback type"
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Created time",
+            "readOnly": true
+          },
+          "userPrincipal": {
+            "type": "string",
+            "description": "user who gives this feedback",
+            "readOnly": true
+          },
+          "metricId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "metric unique id"
+          },
+          "dimensionFilter": {
+            "$ref": "#/components/schemas/FeedbackDimensionFilter",
+            "description": "metric dimension filter"
+          }
+        },
+        "required": [
+          "feedbackType",
+          "metricId",
+          "dimensionFilter"
+        ]
+      },
+      "MetricFeedbackFilter": {
+        "type": "object",
+        "properties": {
+          "metricId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "filter feedbacks by metric id"
+          },
+          "FeedbackDimensionFilter": {
+            "$ref": "#/components/schemas/FeedbackDimensionFilter"
+          },
+          "feedbackType": {
+            "$ref": "#/components/schemas/FeedbackType"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "timeMode": {
+            "$ref": "#/components/schemas/FeedbackQueryTimeMode"
+          }
+        },
+        "required": [
+          "metricId"
+        ]
+      },
+      "Cadl.Rest.Resource.Page_MetricFeedback": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetricFeedback"
+            },
+            "x-cadl-name": "MetricFeedback[]",
+            "description": "The items on this page"
+          },
+          "nextLink": {
+            "type": "string",
+            "description": "The link to the next page of items"
+          }
+        },
+        "description": "Paged response",
+        "required": [
+          "value"
+        ]
+      },
+      "HookInfo": {
+        "type": "object",
+        "properties": {
+          "hookId": {
+            "type": "string",
+            "pattern": "UUID",
+            "readOnly": true
+          },
+          "hookType": {
+            "$ref": "#/components/schemas/HookType",
+            "description": "hook type"
+          },
+          "hookName": {
+            "type": "string",
+            "description": "hook name"
+          },
+          "description": {
+            "type": "string",
+            "description": "hook discription",
+            "default": ""
+          },
+          "externalLink": {
+            "type": "string",
+            "description": "hook externalLink",
+            "default": ""
+          },
+          "admins": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-cadl-name": "Cadl.string[]",
+            "description": "hook administrators"
+          }
+        },
+        "required": [
+          "hookId",
+          "hookType",
+          "hookName",
+          "admins"
+        ]
+      },
+      "HookType": {
+        "type": "string",
+        "enum": [
+          "Webhook",
+          "Email"
+        ]
+      },
+      "Cadl.Rest.Resource.Page_HookInfo": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HookInfo"
+            },
+            "x-cadl-name": "HookInfo[]",
+            "description": "The items on this page"
+          },
+          "nextLink": {
+            "type": "string",
+            "description": "The link to the next page of items"
+          }
+        },
+        "description": "Paged response",
+        "required": [
+          "value"
+        ]
+      },
+      "AnomalyDetectionConfiguration": {
+        "type": "object",
+        "properties": {
+          "configurationId": {
+            "type": "string",
+            "pattern": "UUID",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "configurationId"
+        ]
+      },
+      "Cadl.Rest.Resource.Page_AnomalyDetectionConfiguration": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnomalyDetectionConfiguration"
+            },
+            "x-cadl-name": "AnomalyDetectionConfiguration[]",
+            "description": "The items on this page"
+          },
+          "nextLink": {
+            "type": "string",
+            "description": "The link to the next page of items"
+          }
+        },
+        "description": "Paged response",
+        "required": [
+          "value"
+        ]
+      },
+      "DetectionSeriesQuery": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "This is inclusive. The maximum number of data points (series number * time range) is 10000."
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "This is exclusive. The maximum number of data points (series number * time range) is 10000."
+          },
+          "series": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeriesIdentity"
+            },
+            "x-cadl-name": "SeriesIdentity[]",
+            "description": "The series to be queried. The identity must be able to define one single time series instead of a group of time series. The maximum number of series is 100."
+          }
+        }
+      },
+      "Cadl.Rest.Resource.Page_SeriesResult": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeriesResult"
+            },
+            "x-cadl-name": "SeriesResult[]",
+            "description": "The items on this page"
+          },
+          "nextLink": {
+            "type": "string",
+            "description": "The link to the next page of items"
+          }
+        },
+        "description": "Paged response",
+        "required": [
+          "value"
+        ]
+      },
+      "DetectionAnomalyResultQuery": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "start time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "end time"
+          },
+          "filter": {
+            "$ref": "#/components/schemas/DetectionAnomalyFilterCondition"
+          }
+        },
+        "required": [
+          "startTime",
+          "endTime"
+        ]
+      },
+      "Cadl.Rest.Resource.Page_AnomalyResult": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnomalyResult"
+            },
+            "x-cadl-name": "AnomalyResult[]",
+            "description": "The items on this page"
+          },
+          "nextLink": {
+            "type": "string",
+            "description": "The link to the next page of items"
+          }
+        },
+        "description": "Paged response",
+        "required": [
+          "value"
+        ]
+      },
+      "AnomalyDimensionQuery": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "start time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "end time"
+          },
+          "dimensionName": {
+            "type": "string",
+            "description": "dimension to query"
+          },
+          "dimensionFilter": {
+            "$ref": "#/components/schemas/DimensionGroupIdentity"
+          }
+        },
+        "required": [
+          "startTime",
+          "endTime",
+          "dimensionName"
+        ]
+      },
+      "Cadl.Rest.Resource.Page_AnomalyDimension": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnomalyDimension"
+            },
+            "x-cadl-name": "AnomalyDimension[]",
+            "description": "The items on this page"
+          },
+          "nextLink": {
+            "type": "string",
+            "description": "The link to the next page of items"
+          }
+        },
+        "description": "Paged response",
+        "required": [
+          "value"
+        ]
+      },
+      "DetectionIncidentResultQuery": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "start time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "end time"
+          },
+          "filter": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DimensionGroupIdentity"
+            },
+            "x-cadl-name": "DimensionGroupIdentity[]",
+            "description": "dimension filter"
+          }
+        },
+        "required": [
+          "startTime",
+          "endTime"
+        ]
+      },
+      "Cadl.Rest.Resource.Page_IncidentResult": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IncidentResult"
+            },
+            "x-cadl-name": "IncidentResult[]",
+            "description": "The items on this page"
+          },
+          "nextLink": {
+            "type": "string",
+            "description": "The link to the next page of items"
+          }
+        },
+        "description": "Paged response",
+        "required": [
+          "value"
+        ]
+      },
+      "MetricDataQueryOptions": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "start time of query a time series data, and format should be yyyy-MM-ddThh:mm:ssZ. The maximum number of data points (series number * time range) is 10000."
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "start time of query a time series data, and format should be yyyy-MM-ddThh:mm:ssZ. The maximum number of data points (series number * time range) is 10000."
+          },
+          "series": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "x-cadl-name": "Cadl.Map<Cadl.string, Cadl.string>[]",
+            "description": "query specific series. The maximum number of series is 100."
+          }
+        }
+      },
+      "Cadl.Rest.Resource.Page_MetricDataItem": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetricDataItem"
+            },
+            "x-cadl-name": "MetricDataItem[]",
+            "description": "The items on this page"
+          },
+          "nextLink": {
+            "type": "string",
+            "description": "The link to the next page of items"
+          }
+        },
+        "description": "Paged response",
+        "required": [
+          "value"
+        ]
+      },
+      "MetricSeriesQueryOptions": {
+        "type": "object",
+        "properties": {
+          "activeSince": {
+            "type": "string",
+            "format": "date-time",
+            "description": "query series ingested after this time, the format should be yyyy-MM-ddTHH:mm:ssZ"
+          },
+          "dimensionFilter": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "filter specific dimension name and values"
+          }
+        },
+        "required": [
+          "activeSince"
+        ]
+      },
+      "Cadl.Rest.Resource.Page_MetricSeriesItem": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetricSeriesItem"
+            },
+            "x-cadl-name": "MetricSeriesItem[]",
+            "description": "The items on this page"
+          },
+          "nextLink": {
+            "type": "string",
+            "description": "The link to the next page of items"
+          }
+        },
+        "description": "Paged response",
+        "required": [
+          "value"
+        ]
+      },
+      "MetricDimensionQueryOptions": {
+        "type": "object",
+        "properties": {
+          "dimensionName": {
+            "type": "string",
+            "description": "dimension name"
+          },
+          "dimensionValueFilter": {
+            "type": "string",
+            "description": "dimension value to be filtered"
+          }
+        },
+        "required": [
+          "dimensionName"
+        ]
+      },
+      "EnrichmentStatusQueryOption": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "the start point of time range to query anomaly detection status."
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "the end point of time range to query anomaly detection status."
+          }
+        },
+        "required": [
+          "startTime",
+          "endTime"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorCode",
+            "description": "One of a server-defined set of error codes"
+          },
+          "message": {
+            "type": "string",
+            "description": "A human-readable representation of the error"
+          },
+          "target": {
+            "type": "string",
+            "description": "Error target"
+          }
+        },
+        "description": "The error object",
+        "required": [
+          "code",
+          "message"
+        ]
+      },
+      "AnomalyScope": {
+        "type": "string",
+        "enum": [
+          "All",
+          "Dimension",
+          "TopN"
+        ]
+      },
+      "DimensionGroupIdentity": {
+        "type": "object",
+        "properties": {
+          "dimension": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "dimension specified for series group"
+          }
+        },
+        "required": [
+          "dimension"
+        ]
+      },
+      "TopNGroupScope": {
+        "type": "object",
+        "properties": {
+          "top": {
+            "type": "integer",
+            "format": "int32",
+            "description": "top N, value range : [1, +∞)"
+          },
+          "period": {
+            "type": "integer",
+            "format": "int32",
+            "description": "point count used to look back, value range : [1, +∞)"
+          },
+          "minTopCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "min count should be in top N, value range : [1, +∞)\r\n\r\nshould be less than or equal to period"
+          }
+        },
+        "required": [
+          "top",
+          "period",
+          "minTopCount"
+        ]
+      },
+      "SeverityCondition": {
+        "type": "object",
+        "properties": {
+          "minAlertSeverity": {
+            "$ref": "#/components/schemas/Severity",
+            "description": "min alert severity"
+          },
+          "maxAlertSeverity": {
+            "$ref": "#/components/schemas/Severity",
+            "description": "max alert severity"
+          }
+        },
+        "required": [
+          "minAlertSeverity",
+          "maxAlertSeverity"
+        ]
+      },
+      "AlertSnoozeCondition": {
+        "type": "object",
+        "properties": {
+          "autoSnooze": {
+            "type": "integer",
+            "format": "int32",
+            "description": "snooze point count, value range : [0, +∞)"
+          },
+          "snoozeScope": {
+            "$ref": "#/components/schemas/SnoozeScope",
+            "description": "snooze scope"
+          },
+          "onlyForSuccessive": {
+            "type": "boolean",
+            "description": "only snooze for successive anomalies"
+          }
+        },
+        "required": [
+          "autoSnooze",
+          "snoozeScope",
+          "onlyForSuccessive"
+        ]
+      },
+      "ValueCondition": {
+        "type": "object",
+        "properties": {
+          "lower": {
+            "type": "number",
+            "format": "double",
+            "description": "lower bound\r\n\r\nshould be specified when direction is Both or Down"
+          },
+          "upper": {
+            "type": "number",
+            "format": "float",
+            "description": "upper bound\r\n\r\nshould be specified when direction is Both or Up"
+          },
+          "direction": {
+            "$ref": "#/components/schemas/Direction",
+            "description": "value filter direction"
+          },
+          "valueType": {
+            "$ref": "#/components/schemas/ValueType",
+            "description": "data used to implement value filter"
+          },
+          "metricId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "the other metric unique id used for value filter"
+          },
+          "triggerForMissing": {
+            "type": "boolean",
+            "description": "trigger alert when the corresponding point is missing in the other metric\r\n\r\nshould be specified only when using other metric to filter"
+          }
+        },
+        "required": [
+          "lower",
+          "upper",
+          "direction",
+          "valueType",
+          "metricId",
+          "triggerForMissing"
+        ]
+      },
+      "IngestionStatus": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "data slice timestamp.",
+            "readOnly": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/IngestionStatusType",
+            "description": "latest ingestion task status for this data slice."
+          },
+          "message": {
+            "type": "string",
+            "description": "the trimmed message of last ingestion job."
+          }
+        }
+      },
+      "FeedbackType": {
+        "type": "string",
+        "enum": [
+          "Anomaly",
+          "ChangePoint",
+          "Period",
+          "Comment"
+        ]
+      },
+      "FeedbackDimensionFilter": {
+        "type": "object",
+        "properties": {
+          "dimension": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "metric dimension filter"
+          }
+        },
+        "required": [
+          "dimension"
+        ]
+      },
+      "FeedbackQueryTimeMode": {
+        "type": "string",
+        "enum": [
+          "MetricTimestamp",
+          "FeedbackCreatedTime"
+        ]
+      },
+      "SeriesIdentity": {
+        "type": "object",
+        "properties": {
+          "dimension": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "dimension specified for series"
+          }
+        },
+        "required": [
+          "dimension"
+        ]
+      },
+      "SeriesResult": {
+        "type": "object",
+        "properties": {
+          "series": {
+            "$ref": "#/components/schemas/SeriesIdentity"
+          },
+          "timestampList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-cadl-name": "Cadl.zonedDateTime[]",
+            "description": "timestamps of the series"
+          },
+          "valueList": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "double"
+            },
+            "x-cadl-name": "Cadl.float64[]",
+            "description": "values of the series"
+          },
+          "isAnomalyList": {
+            "type": "array",
+            "items": {
+              "type": "boolean"
+            },
+            "x-cadl-name": "Cadl.boolean[]",
+            "description": "whether points of the series are anomalies"
+          },
+          "periodList": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-cadl-name": "Cadl.int32[]",
+            "description": "period calculated on each point of the series"
+          },
+          "expectedValueList": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "double"
+            },
+            "x-cadl-name": "Cadl.float64[]",
+            "description": "expected values of the series given by smart detector"
+          },
+          "lowerBoundaryList": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "double"
+            },
+            "x-cadl-name": "Cadl.float64[]",
+            "description": "lower boundary list of the series given by smart detector"
+          },
+          "upperBoundaryList": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "double"
+            },
+            "x-cadl-name": "Cadl.float64[]",
+            "description": "upper boundary list of the series given by smart detector"
+          }
+        },
+        "required": [
+          "series",
+          "timestampList",
+          "valueList",
+          "isAnomalyList",
+          "periodList",
+          "expectedValueList",
+          "lowerBoundaryList"
+        ]
+      },
+      "DetectionAnomalyFilterCondition": {
+        "type": "object",
+        "properties": {
+          "dimensionFilter": {
+            "$ref": "#/components/schemas/DimensionGroupIdentity"
+          },
+          "severityFilter": {
+            "$ref": "#/components/schemas/SeverityFilterCondition"
+          }
+        },
+        "required": [
+          "dimensionFilter",
+          "severityFilter"
+        ]
+      },
+      "AnomalyResult": {
+        "type": "object",
+        "properties": {
+          "dataFeedId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "data feed unique id only return for alerting anomaly result"
+          },
+          "metricId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "metric unique id only return for alerting anomaly result"
+          },
+          "anomalyDetectionConfigurationId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "anomaly detection configuration unique id only return for alerting anomaly result"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "anomaly time"
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "created time only return for alerting result",
+            "readOnly": true
+          },
+          "modifiedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "modified time only return for alerting result",
+            "readOnly": true
+          },
+          "dimension": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "dimension specified for series"
+          },
+          "property": {
+            "$ref": "#/components/schemas/AnomalyProperty"
+          }
+        },
+        "required": [
+          "timestamp",
+          "dimension",
+          "property"
+        ]
+      },
+      "AnomalyDimension": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-cadl-name": "Cadl.string[]"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "IncidentResult": {
+        "type": "object",
+        "properties": {
+          "dataFeedId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "data feed unique id only return for alerting anomaly result"
+          },
+          "metricId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "metric unique id only return for alerting incident result"
+          },
+          "anomalyDetectionConfigurationId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "anomaly detection configuration unique id only return for alerting incident result"
+          },
+          "incidentId": {
+            "type": "string",
+            "description": "incident id"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "incident start time"
+          },
+          "lastTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "incident last time"
+          },
+          "rootNode": {
+            "$ref": "#/components/schemas/SeriesIdentity"
+          },
+          "property": {
+            "$ref": "#/components/schemas/IncidentProperty"
+          }
+        },
+        "required": [
+          "incidentId",
+          "startTime",
+          "lastTime",
+          "rootNode",
+          "property"
+        ]
+      },
+      "MetricDataItem": {
+        "type": "object",
+        "properties": {
+          "metricId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "metric unique id",
+            "readOnly": true
+          },
+          "dimension": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "dimension name and value pair"
+          },
+          "timestampList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-cadl-name": "Cadl.zonedDateTime[]",
+            "description": "timestamps of the data related to this time series",
+            "readOnly": true
+          },
+          "valueList": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "double"
+            },
+            "x-cadl-name": "Cadl.float64[]",
+            "description": "values of the data related to this time series",
+            "readOnly": true
+          }
+        }
+      },
+      "MetricSeriesItem": {
+        "type": "object",
+        "properties": {
+          "metricId": {
+            "type": "string",
+            "pattern": "UUID",
+            "description": "metric unique id",
+            "readOnly": true
+          },
+          "dimension": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "dimension name and value pair"
+          }
+        }
+      },
+      "ErrorCode": {
+        "type": "string",
+        "enum": [
+          "InvalidRequest",
+          "InvalidArgument",
+          "Unauthorized",
+          "Forbidden",
+          "NotFound",
+          "ProjectNotFound",
+          "OperationNotFound",
+          "AzureCognitiveSearchNotFound",
+          "AzureCognitiveSearchIndexNotFound",
+          "TooManyRequests",
+          "AzureCognitiveSearchThrottling",
+          "AzureCognitiveSearchIndexLimitReached",
+          "InternalServerError",
+          "ServiceUnavailable"
+        ]
+      },
+      "Severity": {
+        "type": "string",
+        "enum": [
+          "Low",
+          "Medium",
+          "High"
+        ]
+      },
+      "SnoozeScope": {
+        "type": "string",
+        "enum": [
+          "Metric",
+          "Series"
+        ]
+      },
+      "Direction": {
+        "type": "string",
+        "enum": [
+          "Both",
+          "Down",
+          "Up"
+        ]
+      },
+      "ValueType": {
+        "type": "string",
+        "enum": [
+          "Value",
+          "Mean"
+        ]
+      },
+      "IngestionStatusType": {
+        "type": "string",
+        "description": "latest ingestion task status for this data slice.",
+        "enum": [
+          "NotStarted",
+          "Scheduled",
+          "Running",
+          "Succeeded",
+          "Failed",
+          "NoData",
+          "Error",
+          "Paused"
+        ]
+      },
+      "SeverityFilterCondition": {
+        "type": "object",
+        "properties": {
+          "min": {
+            "type": "string",
+            "description": "min severity"
+          },
+          "max": {
+            "type": "string",
+            "description": "max severity"
+          }
+        }
+      },
+      "AnomalyProperty": {
+        "type": "object",
+        "properties": {
+          "anomalySeverity": {
+            "$ref": "#/components/schemas/AnomalySeverity",
+            "description": "anomaly severity"
+          },
+          "anomalyStatus": {
+            "$ref": "#/components/schemas/AnomalyStatus",
+            "description": "anomaly status only return for alerting anomaly result"
+          },
+          "value": {
+            "type": "number",
+            "format": "double",
+            "description": "value of the anomaly"
+          },
+          "expectedValue": {
+            "type": "number",
+            "format": "double",
+            "description": "expected value of the anomaly given by smart detector"
+          }
+        },
+        "required": [
+          "anomalySeverity"
+        ]
+      },
+      "IncidentProperty": {
+        "type": "object",
+        "properties": {
+          "maxSeverity": {
+            "$ref": "#/components/schemas/Severity",
+            "description": "max severity of latest anomalies in the incident"
+          },
+          "incidentStatus": {
+            "$ref": "#/components/schemas/IncidentStatus",
+            "description": "incident status only return for alerting incident result"
+          },
+          "valueOfRootNode": {
+            "type": "integer",
+            "format": "int32",
+            "description": "value of the root node"
+          },
+          "expectedValueOfRootNode": {
+            "type": "integer",
+            "format": "int32",
+            "description": "expected value of the root node given by smart detector"
+          }
+        }
+      },
+      "AnomalySeverity": {
+        "type": "string",
+        "enum": [
+          "Low",
+          "Medium",
+          "High"
+        ]
+      },
+      "AnomalyStatus": {
+        "type": "string",
+        "enum": [
+          "Active",
+          "Resolved"
+        ]
+      },
+      "IncidentStatus": {
+        "type": "string",
+        "enum": [
+          "Active",
+          "Resolved"
+        ]
+      }
+    }
+  }
+}

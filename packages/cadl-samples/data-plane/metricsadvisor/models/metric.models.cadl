@@ -1,0 +1,69 @@
+import "@cadl-lang/rest";
+
+using Cadl.Http;
+
+model MetricIdParameter {
+  @doc("Metric Id")
+  @path
+  @format("UUID")
+  "metricId": string;
+}
+
+model MetricDataQueryOptions {
+  @doc("start time of query a time series data, and format should be yyyy-MM-ddThh:mm:ssZ. The maximum number of data points (series number * time range) is 10000.")
+  startTime?: zonedDateTime;
+
+  @doc("start time of query a time series data, and format should be yyyy-MM-ddThh:mm:ssZ. The maximum number of data points (series number * time range) is 10000.")
+  endTime?: zonedDateTime;
+
+  @doc("query specific series. The maximum number of series is 100.")
+  series?: Map<string, string>[];
+}
+
+model MetricDataItem {
+  ...MetricSeriesItem;
+
+  @doc("timestamps of the data related to this time series")
+  @visibility("read")
+  timestampList?: zonedDateTime[];
+
+  @doc("values of the data related to this time series")
+  @visibility("read")
+  valueList?: float64[];
+}
+
+model MetricSeriesQueryOptions {
+  @doc("query series ingested after this time, the format should be yyyy-MM-ddTHH:mm:ssZ")
+  activeSince: zonedDateTime;
+
+  @doc("filter specific dimension name and values")
+  dimensionFilter?: Map<string, string>;
+}
+
+model MetricSeriesItem {
+  @doc("metric unique id")
+  @visibility("read")
+  @format("UUID")
+  metricId?: string;
+
+  @doc("dimension name and value pair")
+  dimension?: Map<string, string>;
+}
+
+model MetricDimensionQueryOptions {
+  @doc("dimension name")
+  dimensionName: string;
+
+  @doc("dimension value to be filtered")
+  dimensionValueFilter?: string;
+}
+
+alias MetricDimensionList = string[];
+
+model EnrichmentStatusQueryOption {
+  @doc("the start point of time range to query anomaly detection status.")
+  startTime: zonedDateTime;
+
+  @doc("the end point of time range to query anomaly detection status.")
+  endTime: zonedDateTime;
+}

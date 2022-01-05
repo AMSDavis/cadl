@@ -1,0 +1,66 @@
+import "@cadl-lang/rest";
+import "./common.cadl";
+import "./models/anomalyDetection.models.cadl";
+namespace Microsoft.Azure.MetricsAdvisor;
+
+using Cadl.Http;
+using Cadl.Rest;
+using Cadl.Rest.Resource;
+
+@tag("AnomalyDetection")
+@route("/enrichment/anomalyDetection")
+interface AnomalyDetectionApis
+  mixes ResourceOperations<AnomalyDetectionConfiguration, ErrorResponse> {
+  @route("configurations/{configurationId}/alert/anomaly/configurations")
+  @doc("List all anomaly alerting configurations for specific anomaly detection configuration")
+  @get
+  listAllAnomalyAlertingConfigurations(
+    ...ResourceParameters<AnomalyDetectionConfiguration>,
+    ...SkipParameter,
+    ...MaxPageSizeParameter
+  ): OkWithError<Page<AnomalyAlertingConfiguration>>;
+
+  @route("configurations/{configurationId}/series/query")
+  @doc("Query series enriched by anomaly detection")
+  @post
+  querySeries(
+    ...ResourceParameters<AnomalyDetectionConfiguration>,
+    @body body: DetectionSeriesQuery
+  ): OkWithError<Page<SeriesResult>>;
+
+  @route("configurations/{configurationId}/anomalies/query")
+  @doc("Query anomalies under anomaly detection configuration")
+  @post
+  queryAnomaly(
+    ...ResourceParameters<AnomalyDetectionConfiguration>,
+    @body body: DetectionAnomalyResultQuery
+  ): OkWithError<Page<AnomalyResult>>;
+
+  @route("configurations/{configurationId}/anomalies/dimension/query")
+  @doc("Query dimension values of anomalies")
+  @post
+  queryAnomalyDimensions(
+    ...ResourceParameters<AnomalyDetectionConfiguration>,
+    ...SkipParameter,
+    ...MaxPageSizeParameter,
+    @body body: AnomalyDimensionQuery
+  ): OkWithError<Page<AnomalyDimension>>;
+
+  @route("configurations/{configurationId}/incidents/query")
+  @doc("Query incidents under anomaly detection configuration")
+  @post
+  queryIncidents(
+    ...ResourceParameters<AnomalyDetectionConfiguration>,
+    ...MaxPageSizeParameter,
+    @body body: DetectionIncidentResultQuery
+  ): OkWithError<Page<IncidentResult>>;
+
+  @route("configurations/{configurationId}/incidents/{incidentId}/rootcause")
+  @doc("Query rootcause for incidents")
+  @get
+  queryIncidentRootCause(
+    ...ResourceParameters<AnomalyDetectionConfiguration>,
+    ...IncidentIdParameter,
+    ...MaxPageSizeParameter
+  ): OkWithError<Page<IncidentResult>>;
+}

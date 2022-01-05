@@ -1,0 +1,22 @@
+import "@cadl-lang/rest";
+import "./common.cadl";
+import "./models/feedback.models.cadl";
+namespace Microsoft.Azure.MetricsAdvisor;
+
+using Cadl.Http;
+using Cadl.Rest;
+using Cadl.Rest.Resource;
+
+@tag("Feedback")
+@route("/feedback")
+interface FeedbackApis
+  mixes ResourceCreate<MetricFeedback, ErrorResponse>,
+    ResourceRead<MetricFeedback, ErrorResponse> {
+  @route("metric/query")
+  @post
+  query(
+    ...SkipParameter,
+    ...MaxPageSizeParameter,
+    @body body: MetricFeedbackFilter
+  ): OkWithError<Page<MetricFeedback>>;
+}

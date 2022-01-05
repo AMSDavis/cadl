@@ -1,0 +1,15 @@
+import "@cadl-lang/rest";
+import "./models/admin.models.cadl";
+namespace Microsoft.Azure.MetricsAdvisor;
+
+using Cadl.Http;
+using Cadl.Rest;
+using Cadl.Rest.Resource;
+
+interface AdminApis {
+  @tag("Admin")
+  @doc("Get latest usage stats")
+  @route("/stats/latest")
+  @get
+  getActiveSeriesCount(): Cadl.Http.OkResponse<UsageStats> | ErrorResponse;
+}

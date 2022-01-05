@@ -1,0 +1,54 @@
+import "@cadl-lang/rest";
+
+using Cadl.Rest;
+using Cadl.Rest.Resource;
+
+model IngestionStatusQueryOptions {
+  @doc("the start point of time range to query data ingestion status.")
+  startTime: zonedDateTime;
+
+  @doc("the end point of time range to query data ingestion status.")
+  endTime: zonedDateTime;
+}
+
+model IngestionStatus {
+  @doc("data slice timestamp.")
+  @visibility("read")
+  timestamp?: zonedDateTime;
+
+  @doc("latest ingestion task status for this data slice.")
+  status?: IngestionStatusType;
+
+  @doc("the trimmed message of last ingestion job.")
+  message?: string;
+}
+
+@doc("latest ingestion task status for this data slice.")
+enum IngestionStatusType {
+  NotStarted,
+  Scheduled,
+  Running,
+  Succeeded,
+  Failed,
+  NoData,
+  Error,
+  Paused,
+}
+
+model IngestionProgressResetOptions {
+  @doc("the start point of time range to reset data ingestion status.")
+  startTime: string;
+
+  @doc("the end point of time range to reset data ingestion status.")
+  endTime: string;
+}
+
+model DataFeedIngestionProgress {
+  @doc("the timestamp of latest success ingestion job.\r\nnull indicates not available")
+  @visibility("read")
+  latestSuccessTimestamp: zonedDateTime;
+
+  @doc("the timestamp of latest ingestion job with status update.\r\nnull indicates not available")
+  @visibility("read")
+  latestActiveTimestamp: zonedDateTime;
+}
