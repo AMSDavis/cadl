@@ -1,0 +1,1013 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft Cognitive Language Service - Question Answering - Authoring",
+    "version": "21-10-01"
+  },
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "tags": [],
+  "paths": {
+    "/query-knowledgebases/projects": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_ListProjects",
+        "summary": "Gets all projects for a user",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/TopParameter"
+          },
+          {
+            "$ref": "#/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Page_ProjectMetadata"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}": {
+      "delete": {
+        "operationId": "QuestionAnsweringProjects_DeleteProjectDetails",
+        "summary": "Delete project",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          }
+        ],
+        "responses": {
+          "202": {
+            "headers": {
+              "operation-location": {
+                "type": "string"
+              }
+            },
+            "description": "A successful response"
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "QuestionAnsweringProjects_ListQuestionAndAnswers",
+        "summary": "List all the sources of a project.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/TopParameter"
+          },
+          {
+            "$ref": "#/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Page_QnaSourceRecord"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "QuestionAnsweringProjects_UpdateQuestionAndAnswers",
+        "summary": "Updates the sources of a project.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateRecord_QnaRecord"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Page_QnaSourceRecord"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation": true
+      },
+      "post": {
+        "operationId": "QuestionAnsweringProjects_CreateFeedback",
+        "x-ms-long-running-operation": true,
+        "summary": "Update Active Learning feedback.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "type": "number",
+              "enum": [
+                204
+              ]
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "QuestionAnsweringProjects_CreateOrUpdateSynonyms",
+        "summary": "Create or update all the synonyms of a project.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SynonymAsset"
+              },
+              "x-cadl-name": "QnAMaker.SynonymAsset[]"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Page_SynonymAsset"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{jobId}": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_GetDeleteStatus",
+        "summary": "Gets the status of a Project delete job",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/JobIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/JobState"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/{jobId}": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_GetQuestionAndAnswersJobStatus",
+        "summary": "Gets the status of update sources job.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/JobIdParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/JobMetadata"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/{deploymentName}": {
+      "put": {
+        "operationId": "QuestionAnsweringProjects_CreateDeployment",
+        "summary": "Deploy project to production.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/DeploymentNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "202": {
+            "headers": {
+              "operation-location": {
+                "type": "string"
+              }
+            },
+            "description": "A successful response"
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/{deploymentName}/{jobId}": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_GetDeploymentsJobStatus",
+        "summary": "Gets the status of a Deploy job.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/DeploymentNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/JobIdParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/JobMetadata"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreateProjectOptions": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Description of the project"
+        },
+        "language": {
+          "type": "string",
+          "description": "Language of the text records. This is BCP-47 representation of a language. For example, use \"en\" for English; \"es\" for Spanish etc. If not set, use \"en\" for English as default."
+        },
+        "multilingualResource": {
+          "type": "boolean",
+          "description": "Resource enabled for multiple languages across projects or not"
+        },
+        "settings": {
+          "$ref": "#/definitions/ProjectSettings",
+          "description": "Configurable settings of the Project"
+        }
+      },
+      "description": "Parameters needed to create the project"
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ErrorCode",
+          "description": "One of a server-defined set of error codes"
+        },
+        "message": {
+          "type": "string",
+          "description": "A human-readable representation of the error"
+        },
+        "target": {
+          "type": "string",
+          "description": "Error target"
+        }
+      },
+      "description": "The error object",
+      "required": [
+        "code",
+        "message"
+      ]
+    },
+    "ErrorCode": {
+      "type": "string",
+      "enum": [
+        "InvalidRequest",
+        "InvalidArgument",
+        "Unauthorized",
+        "Forbidden",
+        "NotFound",
+        "ProjectNotFound",
+        "OperationNotFound",
+        "AzureCognitiveSearchNotFound",
+        "AzureCognitiveSearchIndexNotFound",
+        "TooManyRequests",
+        "AzureCognitiveSearchThrottling",
+        "AzureCognitiveSearchIndexLimitReached",
+        "InternalServerError",
+        "ServiceUnavailable"
+      ],
+      "x-ms-enum": {
+        "name": "ErrorCode",
+        "modelAsString": true
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/Error",
+          "description": "The error object"
+        }
+      },
+      "description": "Error response",
+      "required": [
+        "error"
+      ]
+    },
+    "ExportJobState": {
+      "type": "object",
+      "properties": {
+        "createdDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expirationDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "jobId": {
+          "type": "string"
+        },
+        "lastUpdatedDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "$ref": "#/definitions/JobStatus"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "x-cadl-name": "Error[]"
+        },
+        "resultUrl": {
+          "type": "string",
+          "description": "URL to download the result of the Export Job"
+        }
+      },
+      "description": "Export job status, project metadata, and assets.",
+      "required": [
+        "createdDateTime",
+        "jobId",
+        "lastUpdatedDateTime",
+        "status",
+        "errors",
+        "resultUrl"
+      ]
+    },
+    "ImportExportFormat": {
+      "type": "string",
+      "enum": [
+        "json",
+        "tsv",
+        "excel"
+      ],
+      "x-ms-enum": {
+        "name": "ImportExportFormat",
+        "modelAsString": true
+      }
+    },
+    "JobMetadata": {
+      "type": "object",
+      "properties": {
+        "createdDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expirationDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "jobId": {
+          "type": "string"
+        },
+        "lastUpdatedDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "$ref": "#/definitions/JobStatus"
+        }
+      },
+      "description": "Represents the job metadata",
+      "required": [
+        "createdDateTime",
+        "jobId",
+        "lastUpdatedDateTime",
+        "status"
+      ]
+    },
+    "JobState": {
+      "type": "object",
+      "properties": {
+        "createdDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expirationDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "jobId": {
+          "type": "string"
+        },
+        "lastUpdatedDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "$ref": "#/definitions/JobStatus"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "x-cadl-name": "Error[]"
+        }
+      },
+      "description": "Job state represents the job metadata and any errors",
+      "required": [
+        "createdDateTime",
+        "jobId",
+        "lastUpdatedDateTime",
+        "status",
+        "errors"
+      ]
+    },
+    "JobStatus": {
+      "type": "string",
+      "enum": [
+        "notStarted",
+        "running",
+        "succeeded",
+        "failed",
+        "cancelled",
+        "cancelling",
+        "partiallyCompleted"
+      ],
+      "x-ms-enum": {
+        "name": "JobStatus",
+        "modelAsString": true
+      }
+    },
+    "Page_ProjectDeployment": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProjectDeployment"
+          },
+          "x-cadl-name": "QnAMaker.ProjectDeployment[]"
+        },
+        "nextLink": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "Page_ProjectMetadata": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProjectMetadata"
+          },
+          "x-cadl-name": "QnAMaker.ProjectMetadata[]"
+        },
+        "nextLink": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "Page_QnaSourceRecord": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QnaSourceRecord"
+          },
+          "x-cadl-name": "QnAMaker.QnaSourceRecord[]"
+        },
+        "nextLink": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "Page_SynonymAsset": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SynonymAsset"
+          },
+          "x-cadl-name": "QnAMaker.SynonymAsset[]"
+        },
+        "nextLink": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ProjectDeployment": {
+      "type": "object",
+      "properties": {
+        "deploymentName": {
+          "type": "string",
+          "description": "Name of the deployment."
+        },
+        "lastDeployedDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Represents the project last deployment date-time."
+        }
+      },
+      "description": "Project deployment details."
+    },
+    "ProjectMetadata": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string",
+          "description": "Name of the project"
+        }
+      },
+      "description": "Represents the project",
+      "required": [
+        "projectName"
+      ]
+    },
+    "ProjectSettings": {
+      "type": "object",
+      "properties": {
+        "defaultAnswer": {
+          "type": "string",
+          "description": "Default Answer response when no good match is found in the knowledge base"
+        }
+      },
+      "description": "Configurable settings of the Project"
+    },
+    "QnaDialog": {
+      "type": "object",
+      "properties": {
+        "isContextOnly": {
+          "type": "boolean"
+        },
+        "prompts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QnaPrompt"
+          },
+          "x-cadl-name": "QnAMaker.QnaPrompt[]"
+        }
+      },
+      "required": [
+        "isContextOnly",
+        "prompts"
+      ]
+    },
+    "QnaPrompt": {
+      "type": "object",
+      "properties": {
+        "displayOrder": {
+          "type": "integer",
+          "format": "int16"
+        },
+        "qnaId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "qna": {
+          "$ref": "#/definitions/QnaRecord"
+        },
+        "displayText": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "displayOrder",
+        "qnaId",
+        "qna",
+        "displayText"
+      ]
+    },
+    "QnaRecord": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-cadl-name": "Cadl.string[]"
+        },
+        "metadata": {
+          "type": "string"
+        },
+        "dialog": {
+          "$ref": "#/definitions/QnaDialog"
+        },
+        "activeLearningSuggestions": {
+          "$ref": "#/definitions/SuggestedQuestionsCluster"
+        }
+      },
+      "description": "Question and answer record",
+      "required": [
+        "id",
+        "answer",
+        "source",
+        "questions",
+        "metadata",
+        "dialog",
+        "activeLearningSuggestions"
+      ]
+    },
+    "QnaSourceKind": {
+      "type": "string",
+      "description": "Supported source types.",
+      "enum": [
+        "file",
+        "url"
+      ],
+      "x-ms-enum": {
+        "name": "QnaSourceKind",
+        "modelAsString": true
+      }
+    },
+    "QnaSourceRecord": {
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "Friendly name of the Source."
+        },
+        "source": {
+          "type": "string",
+          "description": "Unique source identifier. Name of the file if it's a 'file' source; otherwise, the complete URL if it's a 'url' source."
+        },
+        "sourceUri": {
+          "type": "string",
+          "description": "URI location for the file or url."
+        },
+        "sourceKind": {
+          "$ref": "#/definitions/QnaSourceKind"
+        },
+        "contentStructureKind": {
+          "$ref": "#/definitions/SourceContentStructureKind"
+        },
+        "lastDeployedDateTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "Custom source record with last updated date-time.",
+      "required": [
+        "sourceUri",
+        "sourceKind",
+        "contentStructureKind"
+      ]
+    },
+    "SourceContentStructureKind": {
+      "type": "string",
+      "description": "Content structure type for sources.",
+      "enum": [
+        "unstructured"
+      ],
+      "x-ms-enum": {
+        "name": "SourceContentStructureKind",
+        "modelAsString": true
+      }
+    },
+    "SuggestedQuestion": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "description": "Question suggested by the Active Learning feature."
+        },
+        "userSuggestedCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of times the question was suggested explicitly by the user."
+        },
+        "autoSuggestedCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of times the question was suggested automatically by the Active Learning algorithm."
+        }
+      },
+      "description": "Question suggested by the Active Learning feature.",
+      "required": [
+        "question",
+        "userSuggestedCount",
+        "autoSuggestedCount"
+      ]
+    },
+    "SuggestedQuestionsCluster": {
+      "type": "object",
+      "properties": {
+        "clusterHead": {
+          "type": "string",
+          "description": "Active Learning suggested questions cluster details."
+        },
+        "suggestedQuestions": {
+          "$ref": "#/definitions/SuggestedQuestion",
+          "description": "List of all suggested questions for the QnA."
+        }
+      },
+      "required": [
+        "clusterHead",
+        "suggestedQuestions"
+      ]
+    },
+    "SynonymAsset": {
+      "type": "object",
+      "properties": {
+        "alterations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-cadl-name": "Cadl.string[]",
+          "description": "Collection of word alterations."
+        }
+      },
+      "description": "Collection of synonyms.",
+      "required": [
+        "alterations"
+      ]
+    },
+    "UpdateOperationKind": {
+      "type": "string",
+      "enum": [
+        "add",
+        "delete",
+        "replace"
+      ],
+      "x-ms-enum": {
+        "name": "UpdateOperationKind",
+        "modelAsString": true
+      }
+    },
+    "UpdateRecord_QnaRecord": {
+      "type": "object",
+      "properties": {
+        "updateOperation": {
+          "$ref": "#/definitions/UpdateOperationKind"
+        },
+        "value": {
+          "$ref": "#/definitions/QnaRecord"
+        }
+      },
+      "required": [
+        "updateOperation",
+        "value"
+      ]
+    },
+    "UpdateRecord_QnaSourceRecord": {
+      "type": "object",
+      "properties": {
+        "updateOperation": {
+          "$ref": "#/definitions/UpdateOperationKind"
+        },
+        "value": {
+          "$ref": "#/definitions/QnaSourceRecord"
+        }
+      },
+      "required": [
+        "updateOperation",
+        "value"
+      ]
+    }
+  },
+  "parameters": {
+    "ApiVersionParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "api-version",
+      "in": "query",
+      "required": true,
+      "description": "Client API version",
+      "type": "string"
+    },
+    "AssetKindParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "assetKind",
+      "in": "query",
+      "required": false,
+      "description": "Kind of the asset of the project",
+      "type": "string",
+      "enum": [
+        "qnas",
+        "synonyms"
+      ]
+    },
+    "DeploymentNamePathParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "deploymentName",
+      "in": "path",
+      "required": true,
+      "description": "The name of the specific deployment of the project to use.",
+      "type": "string"
+    },
+    "ImportExportFormatParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "format",
+      "in": "query",
+      "required": false,
+      "type": "string",
+      "enum": [
+        "json",
+        "tsv",
+        "excel"
+      ],
+      "x-ms-enum": {
+        "name": "ImportExportFormat",
+        "modelAsString": true
+      }
+    },
+    "JobIdParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "jobId",
+      "in": "path",
+      "required": true,
+      "description": "Job ID",
+      "type": "string"
+    },
+    "MaxPageSizeParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "mazpagesize",
+      "in": "query",
+      "required": false,
+      "description": "The maximum number of resources to include in a single response",
+      "type": "integer",
+      "format": "int32"
+    },
+    "ProjectNamePathParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "projectName",
+      "in": "path",
+      "required": true,
+      "description": "The name of the project to use",
+      "maxLength": 100,
+      "type": "string"
+    },
+    "SkipParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "skip",
+      "in": "query",
+      "required": false,
+      "description": "An offset into the collection of the first resource to be returned",
+      "type": "integer",
+      "format": "int32"
+    },
+    "TopParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "top",
+      "in": "query",
+      "required": false,
+      "description": "The maximum number of resources to return from the collection",
+      "type": "integer",
+      "format": "int32"
+    }
+  }
+}

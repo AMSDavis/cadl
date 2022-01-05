@@ -1,0 +1,394 @@
+import "@cadl-lang/rest";
+import "./common.cadl";
+
+@serviceTitle("Microsoft Cognitive Language Service - Question Answering - Authoring")
+@serviceVersion("21-10-01")
+namespace QnAMaker;
+
+using Cadl.Http;
+
+model ApiKey {
+  @doc("Service connection key")
+  @header
+  "Ocp-Apim-Subscription-Key": string;
+}
+
+alias OkWithError<T> = OkResponse<T> | ErrorResponse;
+
+alias OkStatusCode<T, U> = {
+  @header statusCode: T;
+  @body body: U;
+};
+
+@route("/query-knowledgebases/projects")
+namespace QuestionAnsweringProjects {
+  @doc("Gets all projects for a user")
+  @get
+  @pageable
+  op ListProjects(...ApiVersionParameter, ...ListParameters): OkWithError<Page<ProjectMetadata>>;
+
+  @doc("Delete project")
+  @delete
+  op DeleteProjectDetails(...ApiVersionParameter, ...ProjectNamePathParameter): LROResponse;
+
+  @doc("Get the requested project metadata")
+  @get
+  op GetProjectDetails(
+    ...ApiVersionParameter,
+    ...ProjectNamePathParameter
+  ): OkWithError<ProjectMetadata>;
+
+  @doc("Create or update a project")
+  @patch
+  op CreateProject(
+    ...ApiVersionParameter,
+    ...ProjectNamePathParameter,
+    @body body: CreateProjectOptions
+  ): OkStatusCode<200 | 201, ProjectMetadata> | ErrorResponse;
+
+  @doc("Delete the project")
+  @extension("x-ms-long-running-operation", true)
+  @patch
+  op DeleteProject(...ApiVersionParameter, ...ProjectNamePathParameter): {
+    @header statusCode: 202;
+    @header "Operation-Location": string;
+  } | ErrorResponse;
+
+  @doc("Gets the status of a Project delete job")
+  @get("deletion-jobs")
+  op GetDeleteStatus(...ApiVersionParameter, ...JobIdParameter): OkWithError<JobState>;
+
+  @doc("Export project metadata and assets")
+  @extension("x-ms-long-running-operation", true)
+  @post("{projectName}/:export")
+  op Export(
+    ...ApiVersionParameter,
+    ...ProjectNamePathParameter,
+    ...ImportExportFormatParameter,
+    ...AssetKindParameter
+  ): LROResponse;
+
+  @doc("Gets the status of an Export job, once job completes, returns the project metadata, and assets")
+  @get("{projectName}/export/jobs/{jobId}")
+  op GetExportStatus(
+    ...ApiVersionParameter,
+    ...ProjectNamePathParameter,
+    ...JobIdParameter
+  ): OkWithError<ExportJobState>;
+
+  @doc("Import project assets")
+  @extension("x-ms-long-running-operation", true)
+  @post("{projectName}/:import")
+  op Import(
+    ...ApiVersionParameter,
+    ...ProjectNamePathParameter,
+    ...ImportExportFormatParameter,
+    ...AssetKindParameter
+  ): LROResponse;
+
+  @doc("Gets the status of an Import job")
+  @get("{projectName}/import/jobs/{jobId}")
+  op GetImportStatus(
+    ...ApiVersionParameter,
+    ...ProjectNamePathParameter,
+    ...JobIdParameter
+  ): OkWithError<JobState>;
+
+  @doc("Deploy project to production.")
+  @put("{projectName}/deployments/{deploymentName}")
+  op CreateDeployment(
+    ...ProjectNamePathParameter,
+    ...DeploymentNamePathParameter,
+    ...ApiVersionParameter
+  ): LROResponse;
+
+  @doc("List all deployments of a project.")
+  @get("{projectName}/deployments")
+  op GetDeployments(
+    ...ProjectNamePathParameter,
+    ...ApiVersionParameter
+  ): OkWithError<Page<ProjectDeployment>>;
+
+  @doc("Gets the status of a Deploy job.")
+  @get("{projectName}/deployments/{deploymentName}/jobs/{jobId}")
+  op GetDeploymentsJobStatus(
+    ...ProjectNamePathParameter,
+    ...DeploymentNamePathParameter,
+    ...JobIdParameter,
+    ...ApiVersionParameter
+  ): OkWithError<JobMetadata>;
+
+  @doc("List all the synonyms of a project.")
+  @get("{projectName}/deployments/synonyms")
+  op ListSynonyms(
+    ...ProjectNamePathParameter,
+    ...TopParameter,
+    ...SkipParameter,
+    ...MaxPageSizeParameter,
+    ...ApiVersionParameter
+  ): OkWithError<Page<SynonymAsset>>;
+
+  @doc("Create or update all the synonyms of a project.")
+  @put("{projectName}/deployments/synonyms")
+  op CreateOrUpdateSynonyms(
+    ...ProjectNamePathParameter,
+    ...ApiVersionParameter,
+    @body body: SynonymAsset[]
+  ): OkWithError<Page<SynonymAsset>>;
+
+  @doc("List all the sources of a project.")
+  @get("{projectName}/sources")
+  op ListSources(
+    ...ProjectNamePathParameter,
+    ...TopParameter,
+    ...SkipParameter,
+    ...MaxPageSizeParameter,
+    ...ApiVersionParameter
+  ): OkWithError<Page<QnaSourceRecord>>;
+
+  @doc("Updates the sources of a project.")
+  @patch("{projectName}/sources")
+  op UpdateSources(
+    ...ProjectNamePathParameter,
+    ...ApiVersionParameter,
+    @body body: UpdateRecord<QnaSourceRecord>
+  ): OkWithError<Page<QnaSourceRecord>>;
+
+  @doc("Gets the status of update sources job.")
+  @get("{projectName}/sources/jobs/{jobId}")
+  op GetSourcesJobStatus(
+    ...ProjectNamePathParameter,
+    ...JobIdParameter,
+    ...ApiVersionParameter
+  ): OkWithError<JobMetadata>;
+
+  @doc("List all the sources of a project.")
+  @get("{projectName}/qnas")
+  op ListQuestionAndAnswers(
+    ...ProjectNamePathParameter,
+    ...TopParameter,
+    ...SkipParameter,
+    ...MaxPageSizeParameter,
+    ...ApiVersionParameter
+  ): OkWithError<Page<QnaSourceRecord>>;
+
+  @doc("Updates the sources of a project.")
+  @patch("{projectName}/qnas")
+  op UpdateQuestionAndAnswers(
+    ...ProjectNamePathParameter,
+    ...ApiVersionParameter,
+    @body body: UpdateRecord<QnaRecord>
+  ): OkWithError<Page<QnaSourceRecord>>;
+
+  @doc("Gets the status of update sources job.")
+  @get("{projectName}/qnas/jobs/{jobId}")
+  op GetQuestionAndAnswersJobStatus(
+    ...ProjectNamePathParameter,
+    ...JobIdParameter,
+    ...ApiVersionParameter
+  ): OkWithError<JobMetadata>;
+
+  // TODO: ok resonse code is incorrect
+  @doc("Update Active Learning feedback.")
+  @post("{projectName}/feedback")
+  op CreateFeedback(
+    ...ProjectNamePathParameter,
+    ...ApiVersionParameter
+  ): OkResponse<204> | ErrorResponse;
+}
+
+// Model definitions
+
+model Page<T> {
+  value: T[];
+  nextLink?: string;
+}
+
+@doc("Represents the project")
+model ProjectMetadata {
+  @doc("Name of the project")
+  projectName: string;
+}
+
+@doc("Parameters needed to create the project")
+model CreateProjectOptions {
+  @doc("Description of the project")
+  description?: string;
+  ...Language;
+
+  @doc("Resource enabled for multiple languages across projects or not")
+  multilingualResource?: boolean;
+
+  @doc("Configurable settings of the Project")
+  settings?: ProjectSettings;
+}
+
+@doc("Configurable settings of the Project")
+model ProjectSettings {
+  @doc("Default Answer response when no good match is found in the knowledge base")
+  defaultAnswer?: string;
+}
+
+@doc("Represents the job metadata")
+model JobMetadata {
+  createdDateTime: zonedDateTime;
+  expirationDateTime?: zonedDateTime;
+  jobId: string;
+  lastUpdatedDateTime: zonedDateTime;
+  status: JobStatus;
+}
+
+enum JobStatus {
+  "notStarted",
+  "running",
+  "succeeded",
+  "failed",
+  "cancelled",
+  "cancelling",
+  "partiallyCompleted",
+}
+
+@doc("Job state represents the job metadata and any errors")
+model JobState {
+  ...JobMetadata;
+  ...Errors;
+}
+
+@doc("URL to download the result of the Export Job")
+model ExportJobResultUrl {
+  @doc("URL to download the result of the Export Job")
+  resultUrl: string;
+}
+
+@doc("Export job status, project metadata, and assets.")
+model ExportJobState {
+  ...JobState;
+  ...ExportJobResultUrl;
+}
+
+@doc("Project deployment details.")
+model ProjectDeployment {
+  @doc("Name of the deployment.")
+  deploymentName?: string;
+
+  @doc("Represents the project last deployment date-time.")
+  lastDeployedDateTime?: zonedDateTime;
+}
+
+@doc("Collection of synonyms.")
+model SynonymAsset is WordAlterations {}
+
+@doc("Collection of word alterations.")
+model WordAlterations {
+  @doc("Collection of word alterations.")
+  alterations: string[];
+}
+
+@doc("Custom source record with last updated date-time.")
+model QnaSourceRecord {
+  ...QnaSourceMetadata;
+  lastDeployedDateTime?: zonedDateTime;
+}
+
+@doc("Input source file or url details.")
+model QnaSourceMetadata {
+  @doc("Friendly name of the Source.")
+  displayName?: string;
+
+  @doc("Unique source identifier. Name of the file if it's a 'file' source; otherwise, the complete URL if it's a 'url' source.")
+  source?: string;
+
+  @doc("URI location for the file or url.")
+  sourceUri: string;
+  sourceKind: QnaSourceKind;
+  contentStructureKind: SourceContentStructureKind;
+}
+
+@doc("Supported source types.")
+enum QnaSourceKind {
+  "file",
+  "url",
+}
+
+@doc("Content structure type for sources.")
+enum SourceContentStructureKind {
+  "unstructured",
+}
+
+model UpdateRecord<T> {
+  updateOperation: UpdateOperationKind;
+  value: T;
+}
+
+@doc("Update source record.")
+model UpdateQnaSourceRecord {
+  ...QnaSourceMetadata;
+
+  @doc("Boolean flag used to refresh data from the Source.")
+  refreshSourceOptions: boolean;
+}
+
+enum UpdateOperationKind {
+  "add",
+  "delete",
+  "replace",
+}
+
+@doc("Question and answer record")
+model QnaRecord {
+  id: int32;
+  answer: string;
+  source: string;
+  questions: string[];
+  metadata: string;
+  dialog: QnaDialog;
+  activeLearningSuggestions: SuggestedQuestionsCluster;
+}
+
+model SuggestedQuestionsCluster {
+  @doc("Active Learning suggested questions cluster details.")
+  clusterHead: string;
+
+  @doc("List of all suggested questions for the QnA.")
+  suggestedQuestions: SuggestedQuestion;
+}
+
+model QnaDialog {
+  isContextOnly: boolean;
+  prompts: QnaPrompt[];
+}
+
+model QnaPrompt {
+  displayOrder: int16;
+  qnaId: int32;
+  qna: QnaRecord;
+  displayText: string;
+}
+
+@doc("Question suggested by the Active Learning feature.")
+model SuggestedQuestion {
+  @doc("Question suggested by the Active Learning feature.")
+  question: string;
+
+  @doc("The number of times the question was suggested explicitly by the user.")
+  userSuggestedCount: int32;
+
+  @doc("The number of times the question was suggested automatically by the Active Learning algorithm.")
+  autoSuggestedCount: int32;
+}
+
+model ActiveLearningFeedback {
+  @doc("A list of Feedback Records for Active Learning.")
+  records?: FeedbackRecord[];
+}
+
+model FeedbackRecord {
+  @doc("Unique identifier of the user.")
+  userId?: string;
+
+  @doc("User suggested question for the QnA.")
+  userQuestion?: string;
+
+  @doc("Unique ID of the QnA.")
+  qnaId?: int32;
+}
