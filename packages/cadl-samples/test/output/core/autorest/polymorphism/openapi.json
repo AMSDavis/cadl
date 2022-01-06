@@ -1,0 +1,96 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "(title)",
+    "version": "0000-00-00"
+  },
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [],
+  "paths": {
+    "/Pets": {
+      "get": {
+        "operationId": "root_read",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Cat": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "meow": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "kind",
+        "meow"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/Pet"
+        }
+      ],
+      "x-ms-discriminator-value": "cat"
+    },
+    "Dog": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "bark": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "bark"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/Pet"
+        }
+      ],
+      "x-ms-discriminator-value": "dog"
+    },
+    "Pet": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "number",
+          "format": "float"
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind",
+        "name"
+      ]
+    }
+  },
+  "parameters": {}
+}

@@ -480,7 +480,24 @@
       ],
       "x-ms-enum": {
         "name": "ImportExportFormat",
-        "modelAsString": true
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "json",
+            "value": "json",
+            "description": "Export or Import QnA assets in JSON format"
+          },
+          {
+            "name": "tsv",
+            "value": "tsv",
+            "description": "Export or Import knowledge base replica including all assets and metadata in Excel format."
+          },
+          {
+            "name": "excel",
+            "value": "excel",
+            "description": "Export or Import knowledge base replica including all assets and metadata in Tsv format."
+          }
+        ]
       }
     },
     "JobMetadata": {
@@ -962,7 +979,24 @@
       ],
       "x-ms-enum": {
         "name": "ImportExportFormat",
-        "modelAsString": true
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "json",
+            "value": "json",
+            "description": "Export or Import QnA assets in JSON format"
+          },
+          {
+            "name": "tsv",
+            "value": "tsv",
+            "description": "Export or Import knowledge base replica including all assets and metadata in Excel format."
+          },
+          {
+            "name": "excel",
+            "value": "excel",
+            "description": "Export or Import knowledge base replica including all assets and metadata in Tsv format."
+          }
+        ]
       }
     },
     "JobIdParameter": {
