@@ -23,9 +23,9 @@
               "ResourcePatchValidate",
               "ResourcePatchBegin",
               "ResourcePatchCompleted",
-              "ResourceDeleteValidate",
-              "ResourceDeleteBegin",
-              "ResourceDeleteCompleted",
+              "ResourceDeletionValidate",
+              "ResourceDeletionBegin",
+              "ResourceDeletionCompleted",
               "ResourcePostAction"
             ]
           }

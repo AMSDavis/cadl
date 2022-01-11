@@ -13,6 +13,9 @@ dotnet new -i Cadl.RPaaS.Templates --nuget-source <the nuget source >
 
 ```
 
+note:
+Currently, the nuget source is not public and you can supply the nuget source with https://pkgs.dev.azure.com/azure-sdk/29ec6040-b234-4e31-b139-33dc4287b756/_packaging/f447d164-3bb4-7555-baa1-706f3a8d3704/nuget/v3/index.json which is a feed in azure artifact.You can install the [azure-artifacts-credential-provider](https://github.com/microsoft/artifacts-credprovider#azure-artifacts-credential-provider) to automate the acquisition of credentials needed to azure feed.
+
 via git clone locally：
 
 ```bash
@@ -36,7 +39,8 @@ Options:
                           Default: Employee
 
 Note:
-  a 'Yes' | 'Y' is needed by the prompt to allow the post script , the post script is to install cadl tools.
+  1. a 'Yes' | 'Y' is needed by the prompt to allow the post script , the post script is to install cadl tools.
+  2. the project name (by default is the project folder name, you can specify it through the '-n' option) should not contains special characters like '-', or it will be replaced by '_'.
 
 ```
 

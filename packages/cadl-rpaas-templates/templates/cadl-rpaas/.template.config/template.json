@@ -13,17 +13,34 @@
   "symbols": {
     "Provider": {
       "type": "parameter",
-      "description": "Your provider name.",
+      "description": "Your provider name without the 'Microsoft.'.",
       "defaultValue": "Contoso",
       "replaces": "Contoso",
-      "fileRename": "Contoso"
+      "fileRename": "Contoso",
+      "forms": {
+        "global": ["NormalizeProvider"]
+      }
     },
     "FirstResourceType": {
       "type": "parameter",
       "description": "Your resource type.",
       "defaultValue": "Employee",
       "replaces": "Employee",
-      "fileRename": "employee"
+      "fileRename": "employee",
+      "forms": {
+        "global": ["firstUpperCase"]
+      }
+    }
+  },
+  "forms": {
+    "noMicrosoft": {
+      "identifier": "replace",
+      "pattern": "^(?i)microsoft\\.(?=[^\\.]+$)",
+      "replacement": ""
+    },
+    "NormalizeProvider": {
+      "identifier": "chain",
+      "steps": ["noMicrosoft", "firstUpperCase"]
     }
   },
   "sources": [

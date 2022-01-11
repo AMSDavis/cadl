@@ -1143,7 +1143,11 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         const extensionMap = {
           put: ["ResourceCreationValidate", "ResourceCreationBegin", "ResourceCreationCompleted"],
           patch: ["ResourcePatchValidate", "ResourcePatchBegin", "ResourcePatchCompleted"],
-          delete: ["ResourceDeleteValidate", "ResourceDeleteBegin", "ResourceDeleteCompleted"],
+          delete: [
+            "ResourceDeletionValidate",
+            "ResourceDeletionBegin",
+            "ResourceDeletionCompleted",
+          ],
           get: ["ResourceReadValidate", "ResourceReadBegin"],
           post: ["ResourcePostAction"],
         } as any;

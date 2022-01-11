@@ -15,7 +15,7 @@ using Cadl.Http;
   path: "Employees",
   collectionName: "Employees",
   parameterType: EmployeeNameParameter,
-  standardOperations: ["create","delete"],
+  standardOperations: ["create","delete","list","update","read"],
 })
 model Employee is TrackedResource<EmployeeProperties> {}
 
@@ -30,6 +30,7 @@ enum ProvisioningState {
   Accepted,
 }
 
+@doc("Parameter of the employee name.")
 model EmployeeNameParameter {
   @doc("Employee resource name") @path EmployeeName: string;
 }

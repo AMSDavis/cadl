@@ -49,3 +49,13 @@ Specify the `OutputDir` option, this changes the directory where the OpenAPI spe
     <CadlCompile Include="cadl\main.cadl" OutputDir="<other dir>" />
   </ItemGroup>
 ```
+
+### Key Value Options
+
+Specify the `Options`, which is following `key=value` pattern and will passed to the cadl tool directly via '--option', you can specify multiple options and use ';' as the separator.
+
+```bash
+ <ItemGroup>
+    <CadlCompile Include="cadl\main.cadl" Options="key1=v1;key2=v2" />
+  </ItemGroup>
+```
