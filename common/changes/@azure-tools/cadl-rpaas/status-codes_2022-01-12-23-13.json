@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas",
+      "comment": "Adopt statusCode decorator for http status code",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas"
+}

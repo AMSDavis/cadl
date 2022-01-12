@@ -5,6 +5,8 @@ using Cadl.Http;
 
 @doc("Error response")
 model ErrorResponse {
+  @statusCode code: "default";
+
   @doc("The error object")
   error: Error;
 }
@@ -79,6 +81,6 @@ alias LROResponse = AcceptedResponse & {
 alias OkWithError<T> = OkResponse<T> | ErrorResponse;
 
 alias OkStatusCode<T, U> = {
-  @header statusCode: T;
+  @statusCode statusCode: T;
   @body body: U;
 };

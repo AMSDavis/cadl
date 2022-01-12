@@ -249,12 +249,14 @@ model Result<T> {
 
 @doc("A successful call results with an Operation-Location header used to check the status of the job.")
 model LongRunningAcceptedResponse {
-  @header statusCode: 202;
+  @statusCode statusCode: 202;
   @header("Operation-Location") operationLocation: string;
 }
 
 @doc("Unexpected error.")
 model ErrorResponse {
+  @statusCode statusCode: "default";
+
   @doc("Document error.")
   error: Error;
 }

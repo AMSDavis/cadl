@@ -269,7 +269,7 @@
               "x-cadl-name": "(anonymous model)"
             }
           },
-          "304": {
+          "204": {
             "description": "A successful response"
           },
           "default": {

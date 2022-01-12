@@ -917,7 +917,7 @@
             },
             "x-cadl-name": "Microsoft.Azure.FormRecognizer.Error[]"
           },
-          "innnerError": {
+          "innerError": {
             "$ref": "#/components/schemas/InnerError"
           }
         },
@@ -926,7 +926,7 @@
           "message",
           "target",
           "details",
-          "innnerError"
+          "innerError"
         ]
       },
       "AnalyzeResultOperationStatus": {
@@ -1121,7 +1121,7 @@
           "target": {
             "type": "string"
           },
-          "innnerError": {
+          "innerError": {
             "$ref": "#/components/schemas/InnerError"
           }
         },
@@ -1129,7 +1129,7 @@
           "code",
           "message",
           "target",
-          "innnerError"
+          "innerError"
         ]
       },
       "StringIndexType": {

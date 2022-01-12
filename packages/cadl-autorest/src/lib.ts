@@ -40,6 +40,12 @@ const libDef = {
         default: "Request has multiple body types",
       },
     },
+    "duplicate-status-code": {
+      severity: "error",
+      messages: {
+        default: "Duplicate @statusCode declarations on response type",
+      },
+    },
     "content-type-string": {
       severity: "error",
       messages: {

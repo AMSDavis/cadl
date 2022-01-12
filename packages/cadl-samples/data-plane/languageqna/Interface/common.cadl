@@ -6,11 +6,14 @@ using Cadl.Http;
 model Language is string {}
 
 model ODataError {
+  @statusCode code: "default";
   message: string;
 }
 
 @doc("Error response")
 model ErrorResponse {
+  @statusCode code: "default";
+
   @doc("The error object")
   error: Error;
 }

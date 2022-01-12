@@ -256,7 +256,7 @@
               }
             }
           },
-          "304": {
+          "204": {
             "description": "A successful response",
             "content": {
               "application/json": {

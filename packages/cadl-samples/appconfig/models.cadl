@@ -29,6 +29,8 @@ model ServiceParams {
 
 @doc("Azure App Configuration error object.")
 model Error {
+  @statusCode code: "default";
+
   @doc("The type of the error")
   type: string;
 

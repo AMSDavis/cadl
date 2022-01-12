@@ -4,6 +4,8 @@ using Cadl.Http;
 
 @doc("Error response")
 model ErrorResponse {
+  @statusCode code: "default";
+
   @doc("The error object")
   error: Error;
 }

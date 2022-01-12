@@ -16,7 +16,7 @@ model ApiKey {
 alias OkWithError<T> = OkResponse<T> | ErrorResponse;
 
 alias OkStatusCode<T, U> = {
-  @header statusCode: T;
+  @statusCode statusCode: T;
   @body body: U;
 };
 
@@ -50,7 +50,7 @@ namespace QuestionAnsweringProjects {
   @extension("x-ms-long-running-operation", true)
   @patch
   op DeleteProject(...ApiVersionParameter, ...ProjectNamePathParameter): {
-    @header statusCode: 202;
+    @statusCode statusCode: 202;
     @header "Operation-Location": string;
   } | ErrorResponse;
 

@@ -30,7 +30,7 @@ alias AnalyzeContentType =
   | "image/bmp";
 
 model AcceptedResponse {
-  @header statusCode: 202;
+  @statusCode statusCode: 202;
 
   @doc("Operation result URL.")
   @header
@@ -134,6 +134,7 @@ model ModelSummary {
 }
 
 model ErrorResponse {
+  @statusCode statusCode: "default";
   error: Error;
 }
 
@@ -142,14 +143,14 @@ model Error {
   message: string;
   target: string;
   details: Error[];
-  innnerError: InnerError;
+  innerError: InnerError;
 }
 
 model InnerError {
   code: string;
   message: string;
   target: string;
-  innnerError: InnerError;
+  innerError: InnerError;
 }
 
 @doc("Document analysis parameters.")

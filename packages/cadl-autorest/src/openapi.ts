@@ -35,7 +35,8 @@ import {
 import { getAllRoutes, getDiscriminator, http, OperationDetails } from "@cadl-lang/rest";
 import * as path from "path";
 import { reportDiagnostic } from "./lib.js";
-const { getHeaderFieldName, getPathParamName, getQueryParamName, isBody, isHeader } = http;
+const { getHeaderFieldName, getPathParamName, getQueryParamName, isBody, isHeader, isStatusCode } =
+  http;
 
 export async function $onBuild(p: Program) {
   const options: OpenAPIEmitterOptions = {
@@ -350,14 +351,15 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   function emitResponses(responseType: Type) {
     if (responseType.kind === "Union") {
       for (const [i, option] of responseType.options.entries()) {
-        emitResponseObject(option, i === 0 ? "200" : "default");
+        emitResponseObject(option);
       }
     } else {
       emitResponseObject(responseType);
     }
   }
 
-  function emitResponseObject(responseModel: Type, statusCode: string = "200") {
+  function emitResponseObject(responseModel: Type) {
+    let statusCode = undefined;
     let contentType = "application/json";
     if (
       responseModel.kind === "Model" &&
@@ -366,12 +368,12 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     ) {
       const schema = mapCadlTypeToOpenAPI(responseModel);
       if (schema) {
-        currentEndpoint.responses[statusCode] = {
-          description: getResponseDescription(responseModel, statusCode),
+        currentEndpoint.responses["200"] = {
+          description: getResponseDescription(responseModel, "200"),
           schema: schema,
         };
       } else {
-        currentEndpoint.responses[204] = {
+        currentEndpoint.responses["204"] = {
           description: "No content",
         };
       }
@@ -392,15 +394,24 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
           bodyModel = prop.type;
         }
+        if (isStatusCode(program, prop)) {
+          if (statusCode) {
+            reportDiagnostic(program, {
+              code: "duplicate-status-code",
+              target: responseModel,
+            });
+            continue;
+          }
+          if (prop.type.kind === "Number") {
+            statusCode = String(prop.type.value);
+          } else if (prop.type.kind === "String") {
+            statusCode = prop.type.value;
+          }
+        }
         const type = prop.type;
         const headerName = getHeaderFieldName(program, prop);
         switch (headerName) {
           case undefined:
-            break;
-          case "status-code":
-            if (type.kind === "Number") {
-              statusCode = String(type.value);
-            }
             break;
           case "content-type":
             if (type.kind === "String") {
@@ -415,6 +426,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         }
       }
     }
+
+    // If no status code was defined in the response model, use 200.
+    statusCode ??= "200";
 
     response.description = getResponseDescription(responseModel, statusCode);
     if (!isEmptyResponse(bodyModel)) {
@@ -443,7 +457,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         }
         if (adlType.properties) {
           for (let element of adlType.properties.values()) {
-            if (!isHeader(program, element)) return false;
+            const headerInfo = isHeader(program, element);
+            const statusCodeinfo = isStatusCode(program, element);
+            if (!(headerInfo || statusCodeinfo)) return false;
           }
         }
         if (adlType.baseModel) {
@@ -1173,7 +1189,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     const headerInfo = getHeaderFieldName(program, property);
     const queryInfo = getQueryParamName(program, property);
     const pathInfo = getPathParamName(program, property);
-    return !(headerInfo || queryInfo || pathInfo);
+    const statusCodeinfo = isStatusCode(program, property);
+    return !(headerInfo || queryInfo || pathInfo || statusCodeinfo);
   }
 
   function getTypeNameForSchemaProperties(type: Type) {

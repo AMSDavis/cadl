@@ -121,21 +121,21 @@ model ArmCreatedResponse<T> {
 @doc("Resource deleted successfully.")
 model ArmDeletedResponse {
   @doc("The status code.")
-  @header
+  @statusCode
   statusCode: 200;
 }
 
 @doc("Resource deletion accepted.")
 model ArmDeleteAcceptedResponse {
   @doc("The status code.")
-  @header
+  @statusCode
   statusCode: 202;
 }
 
 @doc("Resource deleted successfully.")
 model ArmDeletedNoContentResponse {
   @doc("The status code.")
-  @header
+  @statusCode
   statusCode: 204;
 }
 
@@ -308,6 +308,10 @@ model OperationStatusResult {
 @armCommonDefinition
 @doc("Common error response for all Azure Resource Manager APIs to return error details for failed operations.")
 model ErrorResponse {
+  @doc("Unexpected error")
+  @statusCode
+  statusCode: "default";
+
   @doc("The error object.")
   error?: ErrorDetail;
 }

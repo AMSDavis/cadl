@@ -103,6 +103,6 @@ namespace KeyValuesResource {
 }
 
 model NoContent<T> {
-  @header statusCode: 304;
+  @statusCode statusCode: 204;
   ...T;
 }
