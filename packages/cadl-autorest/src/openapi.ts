@@ -869,13 +869,16 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       case "Model":
         type = "model";
         break;
+      case "Array":
+        type = "array";
+        break;
       default:
         reportInvalidUnionForOpenAPIV2();
         return {};
     }
 
     const values = [];
-    if (type === "model") {
+    if (type === "model" || type === "array") {
       // Model unions can only ever be a model type with 'null'
       if (nonNullOptions.length === 1) {
         // Get the schema for the model type

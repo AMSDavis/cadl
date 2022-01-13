@@ -109,6 +109,14 @@
           ],
           "x-nullable": true,
           "x-cadl-name": "Cadl.null | 42 | Cadl.null | 100 | Cadl.null"
+        },
+        "arr": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": true,
+          "x-cadl-name": "Cadl.string[] | Cadl.null"
         }
       },
       "required": [
@@ -118,7 +126,8 @@
         "modelOrNull",
         "literalsOrNull",
         "manyNullsOneString",
-        "manyNullsSomeValues"
+        "manyNullsSomeValues",
+        "arr"
       ]
     }
   },

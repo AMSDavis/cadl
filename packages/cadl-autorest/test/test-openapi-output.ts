@@ -368,6 +368,58 @@ describe("autorest: definitions", () => {
       maxLength: 10,
     });
   });
+
+  describe("nullable", () => {
+    it("defines nullable properties", async () => {
+      const res = await oapiForModel(
+        "Pet",
+        `
+      model Pet {
+        name: string | null;
+      };
+      `
+      );
+      ok(res.isRef);
+      deepStrictEqual(res.defs.Pet, {
+        type: "object",
+        properties: {
+          name: {
+            type: "string",
+            "x-nullable": true,
+            "x-cadl-name": "Cadl.string | Cadl.null",
+          },
+        },
+        required: ["name"],
+      });
+    });
+
+    it("defines nullable array", async () => {
+      const res = await oapiForModel(
+        "Pet",
+        `
+      model Pet {
+        name: int32[] | null;
+      };
+      `
+      );
+      ok(res.isRef);
+      deepStrictEqual(res.defs.Pet, {
+        type: "object",
+        properties: {
+          name: {
+            type: "array",
+            items: {
+              type: "integer",
+              format: "int32",
+            },
+            "x-nullable": true,
+            "x-cadl-name": "Cadl.int32[] | Cadl.null",
+          },
+        },
+        required: ["name"],
+      });
+    });
+  });
 });
 
 describe("autorest: primitives", () => {
