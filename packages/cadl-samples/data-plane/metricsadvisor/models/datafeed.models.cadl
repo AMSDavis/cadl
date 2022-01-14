@@ -5,7 +5,7 @@ using Cadl.Rest.Resource;
 
 model DataFeedDetail {
   @doc("Datafeed details")
-  @format("UUID")
+  @pattern("UUID")
   @visibility("read")
   @segment("datafeeds")
   @key
@@ -169,14 +169,14 @@ enum ViewMode {
 
 model Metric {
   @doc("metric id")
-  @format("UUID")
+  @pattern("UUID")
   metricId?: string;
 
   @doc("metric name")
   metricName: string;
 
   @doc("metric display name")
-  @format("[.a-zA-Z0-9_-]+")
+  @pattern("[.a-zA-Z0-9_-]+")
   metricDisplayName?: string;
 
   @doc("metric description")

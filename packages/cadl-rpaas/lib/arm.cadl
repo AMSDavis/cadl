@@ -171,7 +171,7 @@ model ResourceGroupNameParameter {
   @path
   @minLength(1)
   @maxLength(90)
-  @format("^[-\\w\\._\\(\\)]+$")
+  @pattern("^[-\\w\\._\\(\\)]+$")
   @doc("The name of the resource group. The name is case insensitive.")
   @armCommonParameter("ResourceGroupNameParameter")
   resourceGroupName: string;
@@ -419,7 +419,7 @@ model ManagedBy {
 @doc("The resource kind property envelope.")
 model ResourceKind {
   @doc("Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value.")
-  @format("^[-\\w\\._,\\(\\\\\\)]+$")
+  @pattern("^[-\\w\\._,\\(\\\\\\)]+$")
   @visibility("read", "create")
   kind?: string;
 }

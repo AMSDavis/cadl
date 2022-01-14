@@ -41,7 +41,7 @@ model CodeSignAccountPatch {
 
 model AccountNameParameter {
   @doc("Code Signing account name")
-  @format("^[a-zA-Z0-9-]{3,24}$")
+  @pattern("^[a-zA-Z0-9-]{3,24}$")
   @path
   accountName: string;
 }
@@ -89,7 +89,7 @@ model CertificateProfile is ProxyResource<CertificateProfileProperties> {}
 
 model ProfileNameParameter {
   @doc("Certificate profile name")
-  @format("^[a-zA-Z0-9-]{3,24}$")
+  @pattern("^[a-zA-Z0-9-]{3,24}$")
   @path
   profileName: string;
 }

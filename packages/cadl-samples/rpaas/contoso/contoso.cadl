@@ -29,7 +29,7 @@ model EmployeeProperties {
 }
 
 model AccountNameParameter {
-  @format("^[a-zA-Z0-9-]{3,24}$")
+  @pattern("^[a-zA-Z0-9-]{3,24}$")
   @path
   employeeName: string;
 }

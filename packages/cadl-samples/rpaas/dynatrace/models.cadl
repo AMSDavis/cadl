@@ -8,11 +8,11 @@ using Azure.ARM;
 using Cadl.Http;
 
 @doc("A virtual machine reference")
-@format("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.Compute\\/virtualMachines\\/[^\\/]+")
+@pattern("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.Compute\\/virtualMachines\\/[^\\/]+")
 model virtualMachineId extends string {}
 
 @doc("Reusable representation of an email address")
-@format("^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$")
+@pattern("^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$")
 model email extends string {}
 
 @doc("Shorthand for setting length limit.")

@@ -124,8 +124,10 @@ model Language {
 enum ImportExportFormat {
   @doc("Export or Import QnA assets in JSON format")
   "json",
+
   @doc("Export or Import knowledge base replica including all assets and metadata in Excel format.")
   "tsv",
+
   @doc("Export or Import knowledge base replica including all assets and metadata in Tsv format.")
   "excel",
 }

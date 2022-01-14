@@ -10,9 +10,9 @@ import {
   BooleanLiteralType,
   EnumType,
   getDoc,
-  getFormat,
   getMaxLength,
   getMinLength,
+  getPattern,
   getServiceNamespace,
   getServiceNamespaceString,
   getServiceVersion,
@@ -849,7 +849,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
         const output: ValidationAttribute[] = [];
 
-        let format = getFormat(program, localType);
+        let format = getPattern(program, localType);
         if (format) {
           output.push(getPatternAttribute(format));
         }

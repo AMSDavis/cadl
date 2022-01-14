@@ -8,7 +8,7 @@ model AnomalyDetectionConfiguration {
   @segment("configurations")
   @key
   @visibility("read")
-  @format("UUID")
+  @pattern("UUID")
   configurationId: string;
 }
 
@@ -78,15 +78,15 @@ model SeverityFilterCondition {
 
 model AnomalyResult {
   @doc("data feed unique id only return for alerting anomaly result")
-  @format("UUID")
+  @pattern("UUID")
   dataFeedId?: string;
 
   @doc("metric unique id only return for alerting anomaly result")
-  @format("UUID")
+  @pattern("UUID")
   metricId?: string;
 
   @doc("anomaly detection configuration unique id only return for alerting anomaly result")
-  @format("UUID")
+  @pattern("UUID")
   anomalyDetectionConfigurationId?: string;
 
   @doc("anomaly time")
@@ -159,15 +159,15 @@ model DetectionIncidentResultQuery {
 
 model IncidentResult {
   @doc("data feed unique id only return for alerting anomaly result")
-  @format("UUID")
+  @pattern("UUID")
   dataFeedId?: string;
 
   @doc("metric unique id only return for alerting incident result")
-  @format("UUID")
+  @pattern("UUID")
   metricId?: string;
 
   @doc("anomaly detection configuration unique id only return for alerting incident result")
-  @format("UUID")
+  @pattern("UUID")
   anomalyDetectionConfigurationId?: string;
 
   @doc("incident id")

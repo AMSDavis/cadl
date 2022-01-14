@@ -14,7 +14,7 @@ using Cadl.Http;
 model Uri extends string {}
 
 @doc("Reusable representation of an email address")
-@format("\\w+@\\w+\\.\\w+")
+@pattern("\\w+@\\w+\\.\\w+")
 model email extends string {}
 
 @doc("Shorthand for setting length limit.")

@@ -44,8 +44,10 @@ model StringIndexTypeParameter {
 enum StringIndexType {
   @doc("Returned offset and length values will correspond to grapheme clusters according to Unicode 8.0.0.")
   TextElement_v8,
+
   @doc("Returned offset and length values will correspond to Unicode code points.")
   UnicodeCodePoint,
+
   @doc("Returned offset and length values will correspond to UTF-16 code units.")
   Utf16CodeUnit,
 }

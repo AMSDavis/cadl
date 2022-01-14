@@ -8,7 +8,7 @@ using Cadl.Rest.Resource;
 model HookInfo {
   @segment("hooks")
   @key
-  @format("UUID")
+  @pattern("UUID")
   @visibility("read")
   hookId: string;
 

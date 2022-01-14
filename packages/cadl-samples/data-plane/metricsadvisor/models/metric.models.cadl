@@ -5,7 +5,7 @@ using Cadl.Http;
 model MetricIdParameter {
   @doc("Metric Id")
   @path
-  @format("UUID")
+  @pattern("UUID")
   "metricId": string;
 }
 
@@ -43,7 +43,7 @@ model MetricSeriesQueryOptions {
 model MetricSeriesItem {
   @doc("metric unique id")
   @visibility("read")
-  @format("UUID")
+  @pattern("UUID")
   metricId?: string;
 
   @doc("dimension name and value pair")

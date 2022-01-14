@@ -153,7 +153,7 @@ model OrganizationKeys
 }
 
 @doc("Reusable representation of an email address")
-@format("\\w+@\\w+\\.\\w+")
+@pattern("\\w+@\\w+\\.\\w+")
 model email: string;
 
 @doc("Shorthand for setting length limit.")

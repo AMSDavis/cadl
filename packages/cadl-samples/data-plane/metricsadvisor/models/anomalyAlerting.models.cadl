@@ -5,7 +5,7 @@ using Cadl.Rest.Resource;
 
 model AnomalyAlertingConfiguration {
   @doc("anomaly alerting configuration unique id")
-  @format("UUID")
+  @pattern("UUID")
   @visibility("read")
   @segment("configurations")
   @key
@@ -44,7 +44,7 @@ enum AnomalyScope {
 
 model MetricAlertingConfiguration {
   @doc("Anomaly detection configuration unique id")
-  @format("UUID")
+  @pattern("UUID")
   anomalyDetectionConfigurationId: string;
 
   @doc("Anomaly scope")
@@ -130,7 +130,7 @@ model ValueCondition {
   valueType: ValueType;
 
   @doc("the other metric unique id used for value filter")
-  @format("UUID")
+  @pattern("UUID")
   metricId: string;
 
   @doc("trigger alert when the corresponding point is missing in the other metric\r\n\r\nshould be specified only when using other metric to filter")

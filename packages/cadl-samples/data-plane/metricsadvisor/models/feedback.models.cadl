@@ -6,7 +6,7 @@ using Cadl.Rest.Resource;
 //@discriminator  // BUGBUG
 model MetricFeedback {
   @doc("Feedback Id")
-  @format("UUID")
+  @pattern("UUID")
   @segment("metric")
   @key
   feedbackId?: string;
@@ -23,7 +23,7 @@ model MetricFeedback {
   userPrincipal?: string;
 
   @doc("metric unique id")
-  @format("UUID")
+  @pattern("UUID")
   metricId: string;
 
   @doc("metric dimension filter")
@@ -44,7 +44,7 @@ model FeedbackDimensionFilter {
 
 model MetricFeedbackFilter {
   @doc("filter feedbacks by metric id")
-  @format("UUID")
+  @pattern("UUID")
   metricId: string;
   FeedbackDimensionFilter?: FeedbackDimensionFilter;
   feedbackType?: FeedbackType;
@@ -68,7 +68,7 @@ model AnomalyFeedback extends MetricFeedback {
   value: AnomalyFeedbackValue;
 
   @doc("the corresponding anomaly detection configuration of this feedback")
-  @format("UUID")
+  @pattern("UUID")
   anomalyDetectionConfigurationId?: string;
 }
 

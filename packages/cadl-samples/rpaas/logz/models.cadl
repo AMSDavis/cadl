@@ -7,7 +7,7 @@ namespace Microsoft.Logz;
 using Azure.ARM;
 
 @doc("Reusable representation of an email address")
-@format("^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$")
+@pattern("^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$")
 model email extends string {}
 
 @doc("Shorthand for setting length limit.")
