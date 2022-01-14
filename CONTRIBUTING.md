@@ -66,6 +66,16 @@ git remote add origin https://github.com/(your_username)/cadl
 git remote add upstream https://github.com/microsoft/cadl
 ```
 
+## Forcing dependabot to send a submodule update PR
+
+Normally, the submodule is updated automatically once per day (except on
+weekends) by automated PRs from dependabot. If you would like dependabot to
+perform an update right away, you can:
+
+- Go here: https://github.com/Azure/cadl-azure/network/updates
+- Click on "Last updated X hours ago" link
+- Click on "Check for updates button"
+
 ## Making a cross-cutting change across both repos
 
 1. Make matching branches:
