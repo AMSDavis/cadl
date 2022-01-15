@@ -1,0 +1,1693 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Search Service",
+    "version": "2021-04-30-Preview"
+  },
+  "tags": [
+    {
+      "name": "DataSources"
+    },
+    {
+      "name": "Service"
+    },
+    {
+      "name": "Indexers"
+    }
+  ],
+  "paths": {
+    "/datasources": {
+      "get": {
+        "operationId": "DatasourcesApis_list",
+        "summary": "Lists all indexe data sources available for a search service.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/SelectParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "DataSources"
+        ]
+      },
+      "post": {
+        "operationId": "DatasourcesApis_create",
+        "summary": "Creates a new datasource.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchIndexerDataSource"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "DataSources"
+        ],
+        "requestBody": {
+          "description": "The definition of the data source to create.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchIndexerDataSource"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/datasources('{dataSourceName}')": {
+      "get": {
+        "operationId": "DatasourcesApis_get",
+        "summary": "Retrieves an index definition.",
+        "parameters": [
+          {
+            "name": "dataSourceName",
+            "in": "path",
+            "required": true,
+            "description": "The name of the data source to retrieve.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "DataSources"
+        ]
+      },
+      "put": {
+        "operationId": "DatasourcesApis_createOrUpdate",
+        "summary": "Creates a new search data source or updates an data source if it already exists.",
+        "parameters": [
+          {
+            "name": "dataSourceName",
+            "in": "path",
+            "required": true,
+            "description": "The name of the data source to create or update.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/IgnoreResetRequirementsParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/IfMatchParameter"
+          },
+          {
+            "$ref": "#/components/parameters/IfNoneMatchParameter"
+          },
+          {
+            "$ref": "#/components/parameters/PreferHeaderParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchIndexerDataSource"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "DataSources"
+        ],
+        "requestBody": {
+          "description": "The definition of the data source to create or update.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchIndexerDataSource"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DatasourcesApis_delete",
+        "summary": "Deletes a datasource.",
+        "parameters": [
+          {
+            "name": "dataSourceName",
+            "in": "path",
+            "required": true,
+            "description": "The name of the data source to delete.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/IfMatchParameter"
+          },
+          {
+            "$ref": "#/components/parameters/IfNoneMatchParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful. ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Http.NoContentResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server can not find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Http.NotFoundResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "DataSources"
+        ]
+      }
+    },
+    "/servicestats": {
+      "get": {
+        "operationId": "ServiceApis_GetServiceStatistics",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Service"
+        ]
+      }
+    },
+    "/indexers": {
+      "get": {
+        "operationId": "IndexersApis_list",
+        "summary": "Lists all indexers available for a search service.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/SelectParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Indexers"
+        ]
+      },
+      "post": {
+        "operationId": "IndexersApis_create",
+        "summary": "Creates a new search indexer.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchIndexer"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Indexers"
+        ],
+        "requestBody": {
+          "description": "The definition of the data source to create.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchIndexer"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/indexers('{indexerName}')": {
+      "get": {
+        "operationId": "IndexersApis_get",
+        "summary": "Retrieves an indexer definition.",
+        "parameters": [
+          {
+            "name": "indexerName",
+            "in": "path",
+            "required": true,
+            "description": "The name of the data source to retrieve.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Indexers"
+        ]
+      },
+      "put": {
+        "operationId": "IndexersApis_createOrUpdate",
+        "summary": "Creates a new indexer or updates an indexer if it already exists.",
+        "parameters": [
+          {
+            "name": "indexerName",
+            "in": "path",
+            "required": true,
+            "description": "The name of the indexer to create or update.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/IgnoreResetRequirementsParameter"
+          },
+          {
+            "$ref": "#/components/parameters/DisableCacheReprocessingChangeDetectionParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/IfMatchParameter"
+          },
+          {
+            "$ref": "#/components/parameters/IfNoneMatchParameter"
+          },
+          {
+            "$ref": "#/components/parameters/PreferHeaderParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchIndexer"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Indexers"
+        ],
+        "requestBody": {
+          "description": "The definition of the data source to create or update.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchIndexer"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "IndexersApis_delete",
+        "summary": "Deletes a indexer.",
+        "parameters": [
+          {
+            "name": "indexerName",
+            "in": "path",
+            "required": true,
+            "description": "The name of the indexer to delete.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/IfMatchParameter"
+          },
+          {
+            "$ref": "#/components/parameters/IfNoneMatchParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful. ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Http.NoContentResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server can not find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Http.NotFoundResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Indexers"
+        ]
+      }
+    },
+    "/indexers('{indexerName}')/search.reset": {
+      "post": {
+        "operationId": "IndexersApis_reset",
+        "summary": "Resets the change tracking state associated with an indexer.",
+        "parameters": [
+          {
+            "name": "indexerName",
+            "in": "path",
+            "required": true,
+            "description": "The name of the indexer to reset.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful. ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Http.NoContentResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Indexers"
+        ]
+      }
+    },
+    "/indexers('{indexerName}')/search.resetdocs": {
+      "post": {
+        "operationId": "IndexersApis_resetDocs",
+        "summary": "Resets specific documents in the datasource to be selectively re-ingested by the indexer.",
+        "parameters": [
+          {
+            "name": "indexerName",
+            "in": "path",
+            "required": true,
+            "description": "The name of the indexer to reset.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "overwrite",
+            "in": "query",
+            "required": false,
+            "description": "If false, keys or ids will be appended to existing ones. If true, only the keys or ids in this payload will be queued to be re-ingested.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful. ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Http.NoContentResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Indexers"
+        ],
+        "requestBody": {
+          "description": "datasource document identifiers to be reset",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "x-cadl-name": "Cadl.string[]"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/indexers('{indexerName}')/search.run": {
+      "post": {
+        "operationId": "IndexersApis_run",
+        "summary": "Runs an indexer on-demand.",
+        "parameters": [
+          {
+            "name": "indexerName",
+            "in": "path",
+            "required": true,
+            "description": "The name of the indexer to reset.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "The request has been received but not yet acted upon.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cadl.Http.AcceptedResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Indexers"
+        ]
+      }
+    },
+    "/indexers('{indexerName}')/search.status": {
+      "get": {
+        "operationId": "IndexersApis_getStatus",
+        "summary": "Returns the current status and execution history of an indexer.",
+        "parameters": [
+          {
+            "name": "indexerName",
+            "in": "path",
+            "required": true,
+            "description": "The name of the indexer for which to retrieve status.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/ClientRequestIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The error object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Indexers"
+        ]
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "SelectParameter": {
+        "name": "$select",
+        "in": "query",
+        "required": false,
+        "description": "Selects which top-level properties of the resource to retrieve. Specified as a comma-separated list of JSON property names, or '*' for all properties. The default is all properties.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "ClientRequestIdParameter": {
+        "name": "x-ms-client-request-id",
+        "in": "header",
+        "required": true,
+        "description": "The tracking ID sent with the request to help with debugging.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "ApiVersionParameter": {
+        "name": "api-version",
+        "in": "query",
+        "required": true,
+        "description": "Client API version",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "IgnoreResetRequirementsParameter": {
+        "name": "ignoreResetRequirements",
+        "in": "query",
+        "required": false,
+        "description": "Ignores cache reset requirements.",
+        "x-ms-client-name": "skipIndexerResetRequirementForCache",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      "IfMatchParameter": {
+        "name": "If-Match",
+        "in": "header",
+        "required": false,
+        "description": "The tracking ID sent with the request to help with debugging.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "IfNoneMatchParameter": {
+        "name": "If-None-Match",
+        "in": "header",
+        "required": false,
+        "description": "Defines the If-None-Match condition. The operation will be performed only if the ETag on the server does not match this value.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PreferHeaderParameter": {
+        "name": "Prefer",
+        "in": "header",
+        "required": true,
+        "description": "The tracking ID sent with the request to help with debugging.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "return=representation"
+          ]
+        }
+      },
+      "DisableCacheReprocessingChangeDetectionParameter": {
+        "name": "disableCacheReprocessingChangeDetection",
+        "in": "query",
+        "required": false,
+        "description": "Disables cache reprocessing change detection.",
+        "x-ms-client-name": "skipIndexerResetRequirementForCache",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    "schemas": {
+      "SearchIndexerDataSource": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the datasource.",
+            "readOnly": true
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the datasource."
+          },
+          "type": {
+            "$ref": "#/components/schemas/SearchIndexerDataSourceType",
+            "description": "The type of the datasource."
+          },
+          "credentials": {
+            "$ref": "#/components/schemas/DataSourceCredentials",
+            "description": "Credentials for the datasource."
+          },
+          "container": {
+            "$ref": "#/components/schemas/SearchIndexerDataContainer",
+            "description": "The data container for the datasource."
+          },
+          "identity": {
+            "$ref": "#/components/schemas/SearchIndexerDataIdentity",
+            "description": "An explicit managed identity to use for this datasource. If not specified and the connection string is a managed identity, the system-assigned managed identity is used. If not specified, the value remains unchanged. If ',none,' is specified, the value of this property is cleared."
+          },
+          "dataChangeDetectionPolicy": {
+            "$ref": "#/components/schemas/DataChangeDetectionPolicy",
+            "description": "The data change detection policy for the datasource."
+          },
+          "dataDeletionDetectionPolicy": {
+            "$ref": "#/components/schemas/DataDeletionDetectionPolicy",
+            "description": "The data deletion detection policy for the datasource."
+          },
+          "@odata.etag": {
+            "type": "string",
+            "description": "The ETag of the resource.",
+            "x-ms-client-name": "eTag"
+          },
+          "encryptionKey": {
+            "$ref": "#/components/schemas/SearchResourceEncryptionKey",
+            "description": "A description of an encryption key that you create in Azure Key Vault. This key is used to provide an additional level of encryption-at-rest for your datasource definition when you want full assurance that no one, not even Microsoft, can decrypt your data source definition in Azure Cognitive Search. Once you have encrypted your data source definition, it will always remain encrypted. Azure Cognitive Search will ignore attempts to set this property to null. You can change this property as needed if you want to rotate your encryption key; Your datasource definition will be unaffected. Encryption with customer-managed keys is not available for free search services, and is only available for paid services created on or after January 1, 2019."
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "credentials",
+          "container",
+          "@odata.etag"
+        ]
+      },
+      "SearchError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "One of a server-defined set of error codes",
+            "readOnly": true
+          },
+          "message": {
+            "type": "string",
+            "description": "A human-readable representation of the error",
+            "readOnly": true
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchError"
+            },
+            "x-cadl-name": "SearchError[]",
+            "description": "An array of details about specific errors that led to this reported error.",
+            "readOnly": true
+          }
+        },
+        "description": "The error object",
+        "required": [
+          "code",
+          "message"
+        ]
+      },
+      "Cadl.Http.NoContentResponse": {
+        "type": "object",
+        "properties": {},
+        "description": "There is no content to send for this request, but the headers may be useful. "
+      },
+      "Cadl.Http.NotFoundResponse": {
+        "type": "object",
+        "properties": {},
+        "description": "The server can not find the requested resource."
+      },
+      "ServiceStatistics": {
+        "type": "object",
+        "properties": {
+          "counters": {
+            "$ref": "#/components/schemas/ServiceCounters",
+            "description": "Service level resource counters."
+          },
+          "limits": {
+            "$ref": "#/components/schemas/ServiceLimits",
+            "description": "Service level general limits."
+          }
+        },
+        "description": "Response from a get service statistics request. If successful, it includes service level counters and limits."
+      },
+      "SearchIndexer": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the indexer."
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the indexer."
+          },
+          "dataSourceName": {
+            "type": "string",
+            "description": "The name of the datasource from which this indexer reads data."
+          },
+          "skillsetName": {
+            "type": "string",
+            "description": "The name of the skillset executing with this indexer."
+          },
+          "targetIndexName": {
+            "type": "string",
+            "description": "The name of the index to which this indexer writes data."
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/IndexingSchedule",
+            "description": "The schedule for this indexer."
+          },
+          "parameters": {
+            "$ref": "#/components/schemas/IndexingParameters",
+            "description": "Parameters for indexer execution."
+          },
+          "fieldMappings": {
+            "$ref": "#/components/schemas/FieldMapping",
+            "description": "Defines mappings between fields in the data source and corresponding target fields in the index."
+          },
+          "outputFieldMappings": {
+            "$ref": "#/components/schemas/FieldMapping",
+            "description": "Output field mappings are applied after enrichment and immediately before indexing."
+          },
+          "disabled": {
+            "type": "boolean",
+            "description": "A value indicating whether the indexer is disabled. Default is false.",
+            "default": false
+          },
+          "@odata.etag": {
+            "type": "string",
+            "description": "The ETag of the resource.",
+            "x-ms-client-name": "eTag"
+          },
+          "encryptionKey": {
+            "$ref": "#/components/schemas/SearchResourceEncryptionKey",
+            "description": "A description of an encryption key that you create in Azure Key Vault. This key is used to provide an additional level of encryption-at-rest for your indexer definition (as well as indexer execution status) when you want full assurance that no one, not even Microsoft, can decrypt them in Azure Cognitive Search. Once you have encrypted your indexer definition, it will always remain encrypted. Azure Cognitive Search will ignore attempts to set this property to null. You can change this property as needed if you want to rotate your encryption key; Your indexer definition (and indexer execution status) will be unaffected. Encryption with customer-managed keys is not available for free search services, and is only available for paid services created on or after January 1, 2019."
+          },
+          "cache": {
+            "$ref": "#/components/schemas/SearchIndexerCache",
+            "description": "Adds caching to an enrichment pipeline to allow for incremental modification steps without having to rebuild the index every time."
+          }
+        },
+        "required": [
+          "name",
+          "dataSourceName",
+          "targetIndexName",
+          "@odata.etag"
+        ]
+      },
+      "Cadl.Http.AcceptedResponse": {
+        "type": "object",
+        "properties": {},
+        "description": "The request has been received but not yet acted upon."
+      },
+      "SearchIndexerStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/IndexerStatus",
+            "description": "Overall indexer status."
+          },
+          "lastResult": {
+            "$ref": "#/components/schemas/IndexerExecutionResult",
+            "description": "The result of the most recent or an in-progress indexer execution."
+          },
+          "executionHistory": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IndexerExecutionResult"
+            },
+            "x-cadl-name": "IndexerExecutionResult[]",
+            "description": "History of the recent indexer executions, sorted in reverse chronological order."
+          },
+          "limits": {
+            "$ref": "#/components/schemas/SearchIndexerLimits",
+            "description": "The execution limits for the indexer."
+          }
+        },
+        "description": "Represents the current status and execution history of an indexer.",
+        "required": [
+          "status",
+          "executionHistory",
+          "limits"
+        ]
+      },
+      "SearchIndexerDataSourceType": {
+        "type": "string",
+        "enum": [
+          "azuresql",
+          "cosmosdb",
+          "azureblob",
+          "azuretable",
+          "mysql",
+          "adlsgen2"
+        ]
+      },
+      "DataSourceCredentials": {
+        "type": "object",
+        "properties": {
+          "connectionString": {
+            "type": "string",
+            "description": "The connection string for the datasource. Set to '<unchanged>' if you do not want the connection string updated."
+          }
+        },
+        "description": "Represents credentials that can be used to connect to a datasource."
+      },
+      "SearchIndexerDataContainer": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the table or view (for Azure SQL data source) or collection (for CosmosDB data source) that will be indexed."
+          },
+          "query": {
+            "type": "string",
+            "description": "A query that is applied to this data container. The syntax and meaning of this parameter is datasource-specific. Not supported by Azure SQL datasources."
+          }
+        },
+        "description": "Represents information about the entity (such as Azure SQL table or CosmosDB collection) that will be indexed.",
+        "required": [
+          "name"
+        ]
+      },
+      "SearchIndexerDataIdentity": {
+        "type": "object",
+        "properties": {
+          "@odata.type": {
+            "type": "string",
+            "description": "Identifies the concrete type of the identity."
+          }
+        },
+        "required": [
+          "@odata.type"
+        ]
+      },
+      "DataChangeDetectionPolicy": {
+        "type": "object",
+        "properties": {
+          "@odata.type": {
+            "type": "string",
+            "description": "Identifies the concrete type of the data change detection policy."
+          }
+        },
+        "description": "Base type for data change detection policies.",
+        "required": [
+          "@odata.type"
+        ]
+      },
+      "DataDeletionDetectionPolicy": {
+        "type": "object",
+        "properties": {
+          "@odata.type": {
+            "type": "string",
+            "description": "Identifies the concrete type of the data deletion detection policy."
+          }
+        },
+        "description": "Base type for data deletion detection policies.",
+        "required": [
+          "@odata.type"
+        ]
+      },
+      "SearchResourceEncryptionKey": {
+        "type": "object",
+        "properties": {
+          "keyVaultKeyName": {
+            "type": "string",
+            "description": "The name of your Azure Key Vault key to be used to encrypt your data at rest.",
+            "x-ms-client-name": "keyName"
+          },
+          "keyVaultKeyVersion": {
+            "type": "string",
+            "description": "The version of your Azure Key Vault key to be used to encrypt your data at rest.",
+            "x-ms-client-name": "keyVersion"
+          },
+          "keyVaultUri": {
+            "type": "string",
+            "description": "The URI of your Azure Key Vault, also referred to as DNS name, that contains the key to be used to encrypt your data at rest. An example URI might be https://my-keyvault-name.vault.azure.net.",
+            "x-ms-client-name": "vaultUri"
+          },
+          "accessCredentials": {
+            "$ref": "#/components/schemas/AzureActiveDirectoryApplicationCredentials",
+            "description": "Optional Azure Active Directory credentials used for accessing your Azure Key Vault. Not required if using managed identity instead."
+          },
+          "identity": {
+            "$ref": "#/components/schemas/SearchIndexerDataIdentity",
+            "description": "An explicit managed identity to use for this encryption key. If not specified and the access credentials property is null, the system-assigned managed identity is used. On update to the resource, if the explicit identity is unspecified, it remains unchanged. If none is specified, the value of this property is cleared."
+          }
+        },
+        "required": [
+          "keyVaultKeyName",
+          "keyVaultKeyVersion",
+          "keyVaultUri"
+        ]
+      },
+      "ServiceCounters": {
+        "type": "object",
+        "properties": {
+          "documentCount": {
+            "$ref": "#/components/schemas/ResourceCounter",
+            "description": "Total number of documents across all indexes in the service."
+          },
+          "indexesCount": {
+            "$ref": "#/components/schemas/ResourceCounter",
+            "description": "Total number of indexes."
+          },
+          "indexersCount": {
+            "$ref": "#/components/schemas/ResourceCounter",
+            "description": "Total number of indexers."
+          },
+          "dataSourcesCount": {
+            "$ref": "#/components/schemas/ResourceCounter",
+            "description": "Total number of data sources."
+          },
+          "storageSize": {
+            "$ref": "#/components/schemas/ResourceCounter",
+            "description": "Total size of used storage in bytes."
+          },
+          "synonymMaps": {
+            "$ref": "#/components/schemas/ResourceCounter",
+            "description": "Total number of synonym maps."
+          },
+          "skillsetCount": {
+            "$ref": "#/components/schemas/ResourceCounter",
+            "description": "Total number of skillsets."
+          }
+        }
+      },
+      "ServiceLimits": {
+        "type": "object",
+        "properties": {
+          "maxFieldsPerIndex": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The maximum allowed fields per index."
+          },
+          "maxFieldNestingDepthPerIndex": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The maximum depth which you can nest sub-fields in an index, including the top-level complex field. For example, a/b/c has a nesting depth of 3."
+          },
+          "maxComplexCollectionFieldsPerIndex": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The maximum number of fields of type Collection(Edm.ComplexType) allowed in an index."
+          },
+          "maxComplexObjectsInCollectionsPerDocument": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The maximum number of objects in complex collections allowed per document."
+          }
+        }
+      },
+      "IndexingSchedule": {
+        "type": "object",
+        "properties": {
+          "interval": {
+            "type": "string",
+            "description": "The interval of time between indexer executions."
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The time when an indexer should start running."
+          }
+        },
+        "description": "Represents a schedule for indexer execution.",
+        "required": [
+          "interval"
+        ]
+      },
+      "IndexingParameters": {
+        "type": "object",
+        "properties": {
+          "batchSize": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The number of items that are read from the data source and indexed as a single batch in order to improve performance. The default depends on the data source type."
+          },
+          "maxFailedItems": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The maximum number of items that can fail indexing for indexer execution to still be considered successful. -1 means no limit. Default is 0."
+          },
+          "maxFailedItemsPerBatch": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The maximum number of items in a single batch that can fail indexing for the batch to still be considered successful. -1 means no limit. Default is 0."
+          },
+          "configuration": {
+            "$ref": "#/components/schemas/IndexingParametersConfiguration"
+          }
+        },
+        "description": "Represents parameters for indexer execution."
+      },
+      "FieldMapping": {
+        "type": "object",
+        "properties": {
+          "sourceFieldName": {
+            "type": "string",
+            "description": "The name of the field in the data source."
+          },
+          "targetFieldName": {
+            "type": "string",
+            "description": "The name of the target field in the index. Same as the source field name by default."
+          },
+          "mappingFunction": {
+            "$ref": "#/components/schemas/FieldMappingFunction",
+            "description": "A function to apply to each source field value before indexing."
+          }
+        },
+        "description": "Defines a mapping between a field in a data source and a target field in an index.",
+        "required": [
+          "sourceFieldName"
+        ]
+      },
+      "SearchIndexerCache": {
+        "type": "object",
+        "properties": {
+          "storageConnectionString": {
+            "type": "string",
+            "description": "The connection string to the storage account where the cache data will be persisted."
+          },
+          "enableReprocessing": {
+            "type": "boolean",
+            "description": "Specifies whether incremental reprocessing is enabled."
+          }
+        }
+      },
+      "IndexerStatus": {
+        "type": "string",
+        "description": "Represents the overall indexer status.",
+        "enum": [
+          "unknown",
+          "error",
+          "running"
+        ]
+      },
+      "IndexerExecutionResult": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/IndexerExecutionStatus",
+            "description": "The outcome of this indexer execution."
+          },
+          "statusDetail": {
+            "$ref": "#/components/schemas/IndexerExecutionStatusDetail",
+            "description": "The outcome of this indexer execution."
+          },
+          "currentState": {
+            "$ref": "#/components/schemas/IndexerCurrentState",
+            "description": "All of the state that defines and dictates the indexer's current execution."
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": "The error message indicating the top-level error, if any."
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The start time of this indexer execution."
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The end time of this indexer execution, if the execution has already completed."
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchIndexerError"
+            },
+            "x-cadl-name": "SearchIndexerError[]",
+            "description": "The item-level indexing errors.",
+            "readOnly": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchIndexerWarning"
+            },
+            "x-cadl-name": "SearchIndexerWarning[]",
+            "description": "The item-level indexing warnings.",
+            "readOnly": true
+          },
+          "itemsProcessed": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The number of items that were processed during this indexer execution. This includes both successfully processed items and items where indexing was attempted but failed.",
+            "readOnly": true,
+            "x-ms-client-name": "ItemCount"
+          },
+          "itemsFailed": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The number of items that failed to be indexed during this indexer execution.",
+            "readOnly": true,
+            "x-ms-client-name": "FailedItemCount"
+          },
+          "initialTrackingState": {
+            "type": "string",
+            "description": "Change tracking state with which an indexer execution started.",
+            "readOnly": true
+          },
+          "finalTrackingState": {
+            "type": "string",
+            "description": "Change tracking state with which an indexer execution finished.",
+            "readOnly": true
+          }
+        },
+        "description": "Represents the result of an individual indexer execution.",
+        "required": [
+          "status",
+          "errors",
+          "warnings",
+          "itemsProcessed",
+          "itemsFailed"
+        ]
+      },
+      "SearchIndexerLimits": {
+        "type": "object",
+        "properties": {
+          "maxRunTime": {
+            "type": "string",
+            "description": "The maximum duration that the indexer is permitted to run for one execution."
+          },
+          "maxDocumentExtractionSize": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The maximum size of a document, in bytes, which will be considered valid for indexing."
+          },
+          "maxDocumentContentCharactersToExtract": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The maximum number of characters that will be extracted from a document picked up for indexing."
+          }
+        }
+      },
+      "AzureActiveDirectoryApplicationCredentials": {
+        "type": "object",
+        "properties": {
+          "applicationId": {
+            "type": "string",
+            "description": "An AAD Application ID that was granted the required access permissions to the Azure Key Vault that is to be used when encrypting your data at rest. The Application ID should not be confused with the Object ID for your AAD Application."
+          },
+          "applicationSecret": {
+            "type": "string",
+            "description": "The authentication key of the specified AAD application."
+          }
+        }
+      },
+      "ResourceCounter": {
+        "type": "object",
+        "properties": {
+          "usage": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The resource usage amount."
+          },
+          "quota": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The resource amount quota."
+          }
+        },
+        "required": [
+          "usage"
+        ]
+      },
+      "IndexingParametersConfiguration": {
+        "type": "object",
+        "properties": {
+          "parsingMode": {
+            "$ref": "#/components/schemas/BlobIndexerParsingMode"
+          },
+          "excludedFileNameExtensions": {
+            "type": "string",
+            "description": "Comma-delimited list of filename extensions to ignore when processing from Azure blob storage.  For example, you could exclude '.png, .mp4' to skip over those files during indexing."
+          },
+          "indexedFileNameExtensions": {
+            "type": "string",
+            "description": "Comma-delimited list of filename extensions to select when processing from Azure blob storage.  For example, you could focus indexing on specific application files '.docx, .pptx, .msg' to specifically include those file types."
+          },
+          "failOnUnsupportedContentType": {
+            "type": "boolean",
+            "description": "For Azure blobs, set to false if you want to continue indexing when an unsupported content type is encountered, and you don't know all the content types (file extensions) in advance.",
+            "default": false
+          },
+          "failOnUnprocessableDocument": {
+            "type": "boolean",
+            "description": "For Azure blobs, set to false if you want to continue indexing if a document fails indexing.",
+            "default": false
+          },
+          "indexStorageMetadataOnlyForOversizedDocuments": {
+            "type": "boolean",
+            "description": "For Azure blobs, set this property to true to still index storage metadata for blob content that is too large to process. Oversized blobs are treated as errors by default. For limits on blob size, see https://docs.microsoft.com/azure/search/search-limits-quotas-capacity.",
+            "default": false
+          },
+          "delimitedTextHeaders": {
+            "type": "string",
+            "description": "For CSV blobs, specifies a comma-delimited list of column headers, useful for mapping source fields to destination fields in an index."
+          },
+          "delimitedTextDelimiter": {
+            "type": "string",
+            "description": "For CSV blobs, specifies the end-of-line single-character delimiter for CSV files where each line starts a new document (for example, \" | \")."
+          },
+          "firstLineContainsHeaders": {
+            "type": "boolean",
+            "description": "For CSV blobs, indicates that the first (non-blank) line of each blob contains headers.",
+            "default": true
+          },
+          "documentRoot": {
+            "type": "string",
+            "description": "For JSON arrays, given a structured or semi-structured document, you can specify a path to the array using this property."
+          },
+          "dataToExtract": {
+            "$ref": "#/components/schemas/BlobIndexerDataToExtract"
+          },
+          "imageAction": {
+            "$ref": "#/components/schemas/BlobIndexerImageAction"
+          },
+          "allowSkillsetToReadFileData": {
+            "type": "boolean",
+            "description": "If true, will create a path //document//file_data that is an object representing the original file data downloaded from your blob data source.  This allows you to pass the original file data to a custom skill for processing within the enrichment pipeline, or to the Document Extraction skill.",
+            "default": false
+          },
+          "pdfTextRotationAlgorithm": {
+            "$ref": "#/components/schemas/BlobIndexerPDFTextRotationAlgorithm"
+          },
+          "executionEnvironment": {
+            "$ref": "#/components/schemas/IndexerExecutionEnvironment"
+          },
+          "queryTimeout": {
+            "type": "string",
+            "description": "Increases the timeout beyond the 5-minute default for Azure SQL database data sources, specified in the format 'hh:mm:ss'.",
+            "default": "00:05:00"
+          }
+        },
+        "description": "A dictionary of indexer-specific configuration properties. Each name is the name of a specific property. Each value must be of a primitive type."
+      },
+      "FieldMappingFunction": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the field mapping function."
+          },
+          "parameters": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "A dictionary of parameter name/value pairs to pass to the function. Each value must be of a primitive type."
+          }
+        },
+        "description": "Represents a function that transforms a value from a data source before indexing.",
+        "required": [
+          "name"
+        ]
+      },
+      "IndexerExecutionStatus": {
+        "type": "string",
+        "description": "Represents the status of an individual indexer execution.",
+        "enum": [
+          "transientFailure",
+          "success",
+          "inProgress",
+          "reset"
+        ]
+      },
+      "IndexerExecutionStatusDetail": {
+        "type": "string",
+        "description": "Details the status of an individual indexer execution.",
+        "enum": [
+          "resetDocs"
+        ]
+      },
+      "IndexerCurrentState": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "$ref": "#/components/schemas/IndexingMode",
+            "description": "The mode the indexer is running in."
+          },
+          "allDocsInitialChangeTrackingState": {
+            "type": "string",
+            "description": "Change tracking state used when indexing starts on all documents in the datasource."
+          },
+          "allDocsFinalChangeTrackingState": {
+            "type": "string",
+            "description": "Change tracking state value when indexing finishes on all documents in the datasource."
+          },
+          "resetDocsInitialChangeTrackingState": {
+            "type": "string",
+            "description": "Change tracking state used when indexing starts on select, reset documents in the datasource."
+          },
+          "resetDocsFinalChangeTrackingState": {
+            "type": "string",
+            "description": "Change tracking state value when indexing finishes on select, reset documents in the datasource."
+          },
+          "resetDocumentKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-cadl-name": "Cadl.string[]",
+            "description": "The list of document keys that have been reset. The document key is the document's unique identifier for the data in the search index. The indexer will prioritize selectively re-ingesting these keys."
+          },
+          "resetDatasourceDocumentIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-cadl-name": "Cadl.string[]",
+            "description": "The list of datasource document ids that have been reset. The datasource document id is the unique identifier for the data in the datasource. The indexer will prioritize selectively re-ingesting these ids."
+          }
+        },
+        "description": "Represents all of the state that defines and dictates the indexer's current execution."
+      },
+      "SearchIndexerError": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "The key of the item for which indexing failed."
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": "The message describing the error that occurred while processing the item."
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The status code indicating why the indexing operation failed. Possible values include: 400 for a malformed input document, 404 for document not found, 409 for a version conflict, 422 when the index is temporarily unavailable, or 503 for when the service is too busy."
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the source at which the error originated. For example, this could refer to a particular skill in the attached skillset. This may not be always available."
+          },
+          "details": {
+            "type": "string",
+            "description": "Additional, verbose details about the error to assist in debugging the indexer. This may not be always available."
+          },
+          "documentationLink": {
+            "type": "string",
+            "description": "A link to a troubleshooting guide for these classes of errors. This may not be always available."
+          }
+        },
+        "description": "Represents an item- or document-level indexing error.",
+        "required": [
+          "errorMessage",
+          "statusCode"
+        ]
+      },
+      "SearchIndexerWarning": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "The key of the item which generated a warning."
+          },
+          "message": {
+            "type": "string",
+            "description": "The message describing the warning that occurred while processing the item."
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the source at which the warning originated. For example, this could refer to a particular skill in the attached skillset. This may not be always available."
+          },
+          "details": {
+            "type": "string",
+            "description": "Additional, verbose details about the warning to assist in debugging the indexer. This may not be always available."
+          },
+          "documentationLink": {
+            "type": "string",
+            "description": "A link to a troubleshooting guide for these classes of warnings. This may not be always available."
+          }
+        },
+        "description": "Represents an item-level warning.",
+        "required": [
+          "message"
+        ]
+      },
+      "BlobIndexerParsingMode": {
+        "type": "string",
+        "description": "Represents the parsing mode for indexing from an Azure blob data source.",
+        "enum": [
+          "default",
+          "text",
+          "delimitedText",
+          "json",
+          "jsonArray",
+          "jsonLines"
+        ]
+      },
+      "BlobIndexerDataToExtract": {
+        "type": "string",
+        "description": "Specifies the data to extract from Azure blob storage and tells the indexer which data to extract from image content when \"imageAction\" is set to a value other than \"none\".  This applies to embedded image content in a .PDF or other application, or image files such as .jpg and .png, in Azure blobs.",
+        "enum": [
+          "storageMetadata",
+          "allMetadata",
+          "contentAndMetadata"
+        ]
+      },
+      "BlobIndexerImageAction": {
+        "type": "string",
+        "description": "Determines how to process embedded images and image files in Azure blob storage.  Setting the \"imageAction\" configuration to any value other than \"none\" requires that a skillset also be attached to that indexer.",
+        "enum": [
+          "none",
+          "generateNormalizedImages",
+          "generateNormalizedImagePerPage"
+        ]
+      },
+      "BlobIndexerPDFTextRotationAlgorithm": {
+        "type": "string",
+        "description": "Determines algorithm for text extraction from PDF files in Azure blob storage.",
+        "enum": [
+          "none",
+          "detectAngles"
+        ]
+      },
+      "IndexerExecutionEnvironment": {
+        "type": "string",
+        "description": "Specifies the environment in which the indexer should execute.",
+        "enum": [
+          "standard",
+          "private"
+        ]
+      },
+      "IndexingMode": {
+        "type": "string",
+        "description": "Represents the mode the indexer is executing in.",
+        "enum": [
+          "indexingAllDocs",
+          "indexingResetDocs"
+        ]
+      }
+    }
+  }
+}
