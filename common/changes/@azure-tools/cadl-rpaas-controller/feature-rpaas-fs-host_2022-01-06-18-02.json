@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas-controller",
+      "comment": "Updated to make use of compiler host for file system manipulation",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas-controller"
+}

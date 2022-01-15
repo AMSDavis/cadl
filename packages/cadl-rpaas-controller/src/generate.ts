@@ -8,7 +8,10 @@ import {
 import {
   ArrayType,
   BooleanLiteralType,
+  CompilerHost,
   EnumType,
+  getBaseFileName,
+  getDirectoryPath,
   getDoc,
   getMaxLength,
   getMinLength,
@@ -16,6 +19,7 @@ import {
   getServiceNamespace,
   getServiceNamespaceString,
   getServiceVersion,
+  joinPaths,
   ModelSpreadPropertyNode,
   ModelType,
   ModelTypeProperty,
@@ -25,14 +29,13 @@ import {
   NumericLiteralType,
   OperationType,
   Program,
+  resolvePath,
   StringLiteralType,
   TupleType,
   Type,
   UnionType,
 } from "@cadl-lang/compiler";
 import { getAllRoutes, http, OperationDetails } from "@cadl-lang/rest";
-import * as fs from "fs/promises";
-import * as path from "path";
 import * as sqrl from "squirrelly";
 import { fileURLToPath } from "url";
 import { reportDiagnostic } from "./lib.js";
@@ -43,15 +46,13 @@ const { getPathParamName, isBody, isPathParam, isQueryParam } = http;
 sqrl.defaultConfig.autoEscape = false;
 
 export async function $onBuild(program: Program) {
-  const rootPath = program.host.resolveAbsolutePath(
-    path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
-  );
+  const rootPath = resolvePath(getDirectoryPath(fileURLToPath(import.meta.url)), "..");
   const serviceCodePath =
     program.compilerOptions.miscOptions.serviceCodePath || program.compilerOptions.outputPath;
   const options: ServiceGenerationOptions = {
     controllerOutputPath: serviceCodePath
-      ? path.join(serviceCodePath, "generated")
-      : path.join(program.host.resolveAbsolutePath(path.resolve(".")), "cadl-output", "generated"),
+      ? joinPaths(serviceCodePath, "generated")
+      : joinPaths(resolvePath("."), "cadl-output", "generated"),
     controllerModulePath: rootPath,
     controllerHost: program.compilerOptions.miscOptions?.controllerHost || "rpaas",
     operationPollingLocation:
@@ -60,7 +61,7 @@ export async function $onBuild(program: Program) {
   };
 
   const generator = CreateServiceCodeGenerator(program, options);
-  await generator.generateServiceCode();
+  await generator.generateServiceCode(program.host);
 }
 
 export interface ServiceGenerationOptions {
@@ -212,16 +213,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     program.logger.verbose(message);
   }
 
-  function resolvePath(fsPath: string): string {
-    return program.host.resolveAbsolutePath(path.resolve(fsPath));
-  }
-
   function getServiceName(serviceNamespace: string): string {
     const dotPos = serviceNamespace.indexOf(".");
     return serviceNamespace.substring(dotPos + 1);
   }
 
-  async function generateServiceCode() {
+  async function generateServiceCode(host: CompilerHost) {
     const genPath = options.controllerOutputPath;
     const registrationOutputPath = options.registrationOutputPath;
 
@@ -1109,14 +1106,14 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       await program.host.writeFile(
         resolvePath(resourceControllerBasePath),
         await sqrl.renderFile(
-          resolvePath(path.join(templatePath, "resourceControllerBase.sq")),
+          resolvePath(joinPaths(templatePath, "resourceControllerBase.sq")),
           resource
         )
       );
       await program.host.writeFile(
         resolvePath(resourceControllerPath),
         await sqrl.renderFile(
-          resolvePath(path.join(templatePath, "resourceController.sq")),
+          resolvePath(joinPaths(templatePath, "resourceController.sq")),
           resource
         )
       );
@@ -1127,7 +1124,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
     async function generateResourceProviderReg(serviceModel: ServiceModel) {
       const outputPath = registrationOutputPath + `/${serviceModel.nameSpace}.json`;
-      const regTemplate = resolvePath(path.join(templatePath, "resourceProviderRegistration.sq"));
+      const regTemplate = resolvePath(joinPaths(templatePath, "resourceProviderRegistration.sq"));
       await program.host.writeFile(
         outputPath,
         await sqrl.renderFile(regTemplate, { serviceName: serviceModel.serviceName })
@@ -1160,7 +1157,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       }
       await program.host.writeFile(
         resolvePath(resourceRegistrationPath),
-        await sqrl.renderFile(resolvePath(path.join(templatePath, "resourceRegistration.sq")), {
+        await sqrl.renderFile(resolvePath(joinPaths(templatePath, "resourceRegistration.sq")), {
           apiVersion: getServiceVersion(program),
           extensions: Array.from(extensions.values()),
         })
@@ -1168,8 +1165,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
 
     async function generateModel(model: any) {
-      const modelPath = path.join(genPath, "models", model.name + ".cs");
-      const modelTemplate = resolvePath(path.join(templatePath, "model.sq"));
+      const modelPath = joinPaths(genPath, "models", model.name + ".cs");
+      const modelTemplate = resolvePath(joinPaths(templatePath, "model.sq"));
       await program.host.writeFile(
         resolvePath(modelPath),
         await sqrl.renderFile(modelTemplate, model)
@@ -1179,7 +1176,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     async function generateEnum(model: any) {
       const modelPath = genPath + "/models/" + model.name + ".cs";
       const templateFile = resolvePath(
-        path.join(templatePath, model.isClosed ? "closedEnum.sq" : "openEnum.sq")
+        joinPaths(templatePath, model.isClosed ? "closedEnum.sq" : "openEnum.sq")
       );
       await program.host.writeFile(
         resolvePath(modelPath),
@@ -1193,10 +1190,11 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       reportProgress("  basePath: " + basePath);
       reportProgress("  outPath: " + outPath);
 
-      const singleTemplatePath = path.join(templatePath, "single");
+      const singleTemplatePath = joinPaths(templatePath, "single");
 
-      (await fs.readdir(singleTemplatePath)).forEach(async (file) => {
-        const templatePath = resolvePath(path.join(singleTemplatePath, file));
+      const files = await host.readDir(singleTemplatePath);
+      for (const file of files) {
+        const templatePath = resolvePath(joinPaths(singleTemplatePath, file));
         await generateSingleFile(templatePath, outPath).catch((err) =>
           reportDiagnostic(program, {
             code: "creating-file",
@@ -1204,13 +1202,13 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             target: NoTarget,
           })
         );
-      });
+      }
 
       reportProgress("++++++");
       async function generateSingleFile(templatePath: string, outPath: string) {
-        const templateFile = path.basename(templatePath);
+        const templateFile = getBaseFileName(templatePath);
         const baseName = templateFile.substring(0, templateFile.lastIndexOf("."));
-        const outFile = path.join(outPath, baseName + ".cs");
+        const outFile = joinPaths(outPath, baseName + ".cs");
         reportProgress(`    -- ${templateFile} => ${outFile}`);
         const content = await sqrl.renderFile(templatePath, outputModel);
         await program.host.writeFile(resolvePath(outFile), content).catch((err) =>
@@ -1236,10 +1234,10 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     async function ensureCleanDirectory(targetPath: string) {
       try {
         await program.host.stat(targetPath);
-        await fs.rmdir(targetPath, { recursive: true });
+        await host.removeDir(targetPath, { recursive: true });
       } catch {}
 
-      await fs.mkdir(targetPath);
+      await host.mkdirp(targetPath);
     }
 
     const service = outputModel.serviceName;
@@ -1260,9 +1258,9 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     );
     sqrl.filters.define("initialCaps", (op) => transformCSharpIdentifier(op));
     const operationsPath = genPath;
-    const routesPath = resolvePath(path.join(genPath, service + "ServiceRoutes.cs"));
-    const templatePath = path.join(rootPath, "templates", options.controllerHost);
-    const modelsPath = path.join(genPath, "models");
+    const routesPath = resolvePath(joinPaths(genPath, service + "ServiceRoutes.cs"));
+    const templatePath = joinPaths(rootPath, "templates", options.controllerHost);
+    const modelsPath = joinPaths(genPath, "models");
     if (!program.compilerOptions.noEmit && !program.hasError()) {
       await ensureCleanDirectory(genPath).catch((err) =>
         reportDiagnostic(program, {
@@ -1287,7 +1285,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       );
       await program.host.writeFile(
         routesPath,
-        await sqrl.renderFile(path.join(templatePath, "serviceRoutingConstants.sq"), outputModel)
+        await sqrl.renderFile(joinPaths(templatePath, "serviceRoutingConstants.sq"), outputModel)
       );
       await generateSingleDirectory(rootPath, operationsPath).catch((err) =>
         reportDiagnostic(program, {
@@ -1297,7 +1295,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         })
       );
       if (registrationOutputPath) {
-        if (path.resolve(registrationOutputPath) !== path.resolve(genPath)) {
+        if (resolvePath(registrationOutputPath) !== resolvePath(genPath)) {
           await ensureCleanDirectory(registrationOutputPath).catch((err) =>
             reportDiagnostic(program, {
               code: "cleaning-dir",
@@ -1306,7 +1304,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             })
           );
           await createDirIfNotExists(
-            path.join(registrationOutputPath, outputModel.nameSpace)
+            joinPaths(registrationOutputPath, outputModel.nameSpace)
           ).catch((err) =>
             reportDiagnostic(program, {
               code: "creating-dir",

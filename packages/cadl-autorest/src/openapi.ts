@@ -22,18 +22,19 @@ import {
   isNumericType,
   isSecret,
   isStringType,
+  joinPaths,
   ModelType,
   ModelTypeProperty,
   NamespaceType,
   OperationType,
   Program,
+  resolvePath,
   StringLiteralType,
   SyntaxKind,
   Type,
   UnionType,
 } from "@cadl-lang/compiler";
 import { getAllRoutes, getDiscriminator, http, OperationDetails } from "@cadl-lang/rest";
-import * as path from "path";
 import { reportDiagnostic } from "./lib.js";
 const { getHeaderFieldName, getPathParamName, getQueryParamName, isBody, isHeader, isStatusCode } =
   http;
@@ -43,7 +44,7 @@ export async function $onBuild(p: Program) {
     outputFile:
       (await checkAndGenResourceProviderSubfolder(p, getServiceVersion(p))) ||
       p.compilerOptions.swaggerOutputFile ||
-      path.resolve("./openapi.json"),
+      resolvePath("./openapi.json"),
   };
 
   const emitter = createOAPIEmitter(p, options);
@@ -252,7 +253,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
         // Write out the OpenAPI document to the output path
         await program.host.writeFile(
-          path.resolve(options.outputFile),
+          resolvePath(options.outputFile),
           prettierOutput(JSON.stringify(sortedRoot, null, 2))
         );
       }
@@ -1483,7 +1484,7 @@ async function checkAndGenResourceProviderSubfolder(p: Program, version: string)
   const nameSpace = getServiceNamespaceString(p);
   let outputPath = p.compilerOptions.outputPath || ".";
   if (resourceProviderFolder && nameSpace) {
-    outputPath = path.join(
+    outputPath = joinPaths(
       outputPath,
       resourceProviderFolder,
       nameSpace,
@@ -1491,7 +1492,7 @@ async function checkAndGenResourceProviderSubfolder(p: Program, version: string)
       version
     );
     await p.host.mkdirp(outputPath);
-    return path.join(outputPath, "openapi.json");
+    return joinPaths(outputPath, "openapi.json");
   }
   return undefined;
 }

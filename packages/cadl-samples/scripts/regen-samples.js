@@ -36,7 +36,10 @@ function main() {
   // Generate output for core samples with the Swagger emitter (the core repo
   // takes care of generating its samples with openapi3 emitter)
   runCadlSamples(coreSamplesPath, outputPath("core", "autorest"), {
-    emitter: "@azure-tools/cadl-autorest",
+    emitter: resolvePath("../node_modules/@azure-tools/cadl-autorest/dist/src/openapi.js").replace(
+      /\\/g,
+      "/"
+    ),
   });
 
   // Generate output for Azure samples with both emitters
@@ -69,7 +72,7 @@ function runCadlSamples(samplesPath, baseOutputPath, options) {
       `--option=arm-types-path=../../../../../../rpaas/types.json`,
       `--option=registrationOutputPath=${registrationOutput}`,
       `--output-path=${outputPath}`,
-      `--import=${options.emitter}`,
+      `--import="${options.emitter}"`,
       `--debug`,
     ]);
   }
