@@ -506,7 +506,8 @@
       "in": "path",
       "required": true,
       "description": "The fully qualified Azure Resource manager identifier of the resource.",
-      "type": "string"
+      "type": "string",
+      "x-ms-skip-url-encoding": true
     },
     "LinkerNameParameter": {
       "x-ms-parameter-location": "method",

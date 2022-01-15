@@ -717,6 +717,68 @@ describe("autorest: enums", () => {
   });
 });
 
+describe("cadl-autorest: extension decorator", () => {
+  it("adds an arbitrary extension to a model", async () => {
+    const oapi = await openApiFor(
+      `
+      @extension("x-model-extension", "foobar")
+      model Pet {
+        name: string;
+      }
+      @route("/")
+      namespace root {
+        @get()
+        op read(): Pet;
+      }
+      `
+    );
+    ok(oapi.definitions.Pet);
+    strictEqual(oapi.definitions.Pet["x-model-extension"], "foobar");
+  });
+
+  it("adds an arbitrary extension to an operation", async () => {
+    const oapi = await openApiFor(
+      `
+      model Pet {
+        name: string;
+      }
+      @route("/")
+      namespace root {
+        @get()
+        @extension("x-operation-extension", "barbaz")
+        op list(): Pet[];
+      }
+      `
+    );
+    ok(oapi.paths["/"].get);
+    strictEqual(oapi.paths["/"].get["x-operation-extension"], "barbaz");
+  });
+
+  it("adds an arbitrary extension to a parameter", async () => {
+    const oapi = await openApiFor(
+      `
+      model Pet {
+        name: string;
+      }
+      model PetId {
+        @path
+        @extension("x-parameter-extension", "foobaz")
+        petId: string;
+      }
+      @route("/Pets")
+      namespace root {
+        @get()
+        op get(... PetId): Pet;
+      }
+      `
+    );
+    ok(oapi.paths["/Pets/{petId}"].get);
+    strictEqual(oapi.paths["/Pets/{petId}"].get.parameters[0]["$ref"], "#/parameters/PetId");
+    strictEqual(oapi.parameters.PetId.name, "petId");
+    strictEqual(oapi.parameters.PetId["x-parameter-extension"], "foobaz");
+  });
+});
+
 async function oapiForModel(name: string, modelDef: string) {
   const oapi = await openApiFor(`
     ${modelDef};

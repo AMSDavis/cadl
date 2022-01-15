@@ -769,6 +769,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         ph[property] = schema[property];
       }
     }
+    attachExtensions(param, ph);
   }
 
   function emitReferences() {

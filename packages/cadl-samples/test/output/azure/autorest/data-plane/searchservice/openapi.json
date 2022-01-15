@@ -494,7 +494,8 @@
                 "type": "string"
               },
               "x-cadl-name": "Cadl.string[]"
-            }
+            },
+            "x-ms-client-name": "DocumentKeysOrIds"
           }
         ],
         "responses": {
@@ -1694,7 +1695,8 @@
       "in": "query",
       "required": false,
       "description": "Disables cache reprocessing change detection.",
-      "type": "boolean"
+      "type": "boolean",
+      "x-ms-client-name": "skipIndexerResetRequirementForCache"
     },
     "IfMatchParameter": {
       "x-ms-parameter-location": "method",
@@ -1718,7 +1720,8 @@
       "in": "query",
       "required": false,
       "description": "Ignores cache reset requirements.",
-      "type": "boolean"
+      "type": "boolean",
+      "x-ms-client-name": "skipIndexerResetRequirementForCache"
     },
     "PreferHeaderParameter": {
       "x-ms-parameter-location": "method",
