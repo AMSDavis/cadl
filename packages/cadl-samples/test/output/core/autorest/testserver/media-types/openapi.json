@@ -11,7 +11,7 @@
     "application/json"
   ],
   "consumes": [
-    "application/pdf"
+    "application/json"
   ],
   "tags": [],
   "paths": {
@@ -33,6 +33,7 @@
           }
         },
         "consumes": [
+          "application/pdf",
           "application/json",
           "image/jpeg",
           "image/png",

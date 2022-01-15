@@ -197,6 +197,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   let currentBasePath: string | undefined = "";
   let currentPath: any = root.paths;
   let currentEndpoint: any;
+  let currentConsumes: Set<string>;
+  let currentProduces: Set<string>;
 
   // Keep a list of all Types encountered that need schema definitions
   const schemas = new Set<Type>();
@@ -210,8 +212,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   const tags = new Set<string>();
 
   // The set of produces/consumes values found in all operations
-  const globalProduces = new Set<string>();
-  const globalConsumes = new Set<string>();
+  const globalProduces = new Set<string>(["application/json"]);
+  const globalConsumes = new Set<string>(["application/json"]);
 
   return { emitOpenAPI };
 
@@ -265,38 +267,6 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     }
   }
 
-  function addProduces(producesValue: string) {
-    if (globalProduces.size < 1) {
-      globalProduces.add(producesValue);
-    }
-
-    if (!globalProduces.has(producesValue)) {
-      if (!currentEndpoint.produces) {
-        currentEndpoint.produces = [];
-      }
-
-      if (!currentEndpoint.produces.includes(producesValue)) {
-        currentEndpoint.produces.push(producesValue);
-      }
-    }
-  }
-
-  function addConsumes(consumesValue: string) {
-    if (globalConsumes.size < 1) {
-      globalConsumes.add(consumesValue);
-    }
-
-    if (!globalConsumes.has(consumesValue)) {
-      if (!currentEndpoint.consumes) {
-        currentEndpoint.consumes = [];
-      }
-
-      if (!currentEndpoint.consumes.includes(consumesValue)) {
-        currentEndpoint.consumes.push(consumesValue);
-      }
-    }
-  }
-
   function emitOperation(operation: OperationDetails) {
     const { path: fullPath, operation: op, groupName, container, verb, parameters } = operation;
 
@@ -312,6 +282,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       currentPath[verb] = {};
     }
     currentEndpoint = currentPath[verb];
+    currentConsumes = new Set<string>();
+    currentProduces = new Set<string>();
 
     if (program.stateMap(operationIdsKey).has(op)) {
       currentEndpoint.operationId = program.stateMap(operationIdsKey).get(op);
@@ -346,6 +318,42 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
     emitEndpointParameters(op, op.parameters, parameters);
     emitResponses(op.returnType);
+    applyEndpointConsumes();
+    applyEndpointProduces();
+  }
+
+  function applyEndpointProduces() {
+    if (currentProduces.size > 0 && !checkLocalAndGlobalEqual(globalProduces, currentProduces)) {
+      currentEndpoint.produces = [...currentProduces];
+    }
+  }
+
+  function applyEndpointConsumes() {
+    if (currentConsumes.size > 0 && !checkLocalAndGlobalEqual(globalConsumes, currentConsumes)) {
+      currentEndpoint.consumes = [...currentConsumes];
+    }
+  }
+
+  function checkLocalAndGlobalEqual(global: Set<string>, local: Set<string>) {
+    if (global.size !== local.size) {
+      return false;
+    }
+    for (const entry of local) {
+      if (!global.has(entry)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function isBinaryPayload(body: Type, contentType: string | string[]) {
+    const types = new Set(typeof contentType === "string" ? [contentType] : contentType);
+    return (
+      body.kind === "Model" &&
+      body.name === "bytes" &&
+      !types.has("application/json") &&
+      !types.has("text/plain")
+    );
   }
 
   function emitResponses(responseType: Type) {
@@ -366,7 +374,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       !responseModel.baseModel &&
       responseModel.properties.size === 0
     ) {
-      const schema = mapCadlTypeToOpenAPI(responseModel);
+      const isBinary = isBinaryPayload(responseModel, contentType);
+      const schema = isBinary ? { type: "file" } : mapCadlTypeToOpenAPI(responseModel);
+      currentProduces.add("application/json");
       if (schema) {
         currentEndpoint.responses["200"] = {
           description: getResponseDescription(responseModel, "200"),
@@ -431,12 +441,13 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     statusCode ??= "200";
 
     response.description = getResponseDescription(responseModel, statusCode);
+
     if (!isEmptyResponse(bodyModel)) {
-      let responseSchema = getSchemaOrRef(bodyModel);
-      response.schema = responseSchema;
+      const isBinary = isBinaryPayload(bodyModel, contentType);
+      response.schema = isBinary ? { type: "file" } : getSchemaOrRef(bodyModel);
     }
 
-    addProduces(contentType);
+    currentProduces.add(contentType);
     currentEndpoint.responses[statusCode] = response;
   }
 
@@ -608,8 +619,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   ) {
     const parameters = [...methodParams];
 
-    let bodyType: Type | undefined;
+    let bodyParam: ModelTypeProperty | undefined;
     let emittedImplicitBodyParam = false;
+    const consumes: string[] = [];
     for (const param of parameters) {
       if (params.has(param)) {
         currentEndpoint.parameters.push(params.get(param));
@@ -626,34 +638,46 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         emitParameter(parent, param, "query");
       } else if (headerInfo) {
         if (headerInfo === "content-type") {
-          getContentTypes(param).forEach((c) => addConsumes(c));
+          getContentTypes(param).forEach((c) => consumes.push(c));
         } else {
           emitParameter(parent, param, "header");
         }
       } else if (bodyInfo) {
-        bodyType = param.type;
-        emitParameter(parent, param, "body");
+        bodyParam = param;
       } else {
         if (emittedImplicitBodyParam) {
           reportDiagnostic(program, { code: "duplicate-body-types", target: op });
           continue;
         }
         emittedImplicitBodyParam = true;
-        bodyType = param.type;
-        emitParameter(parent, param, "body");
+        bodyParam = param;
       }
     }
 
-    if ((!currentEndpoint.consumes || currentEndpoint.consumes.length === 0) && bodyType) {
+    if (consumes.length === 0 && bodyParam) {
       // we didn't find an explicit content type anywhere, so infer from body.
-      const modelType = getModelTypeIfNullable(bodyType);
+      const modelType = getModelTypeIfNullable(bodyParam.type);
       if (modelType) {
         let contentTypeParam = modelType.properties.get("contentType");
         if (contentTypeParam) {
-          getContentTypes(contentTypeParam).forEach((c) => addConsumes(c));
+          getContentTypes(contentTypeParam).forEach((c) => consumes.push(c));
         } else {
-          addConsumes("application/json");
+          consumes.push("application/json");
         }
+      }
+    }
+
+    for (const consume of consumes) {
+      currentConsumes.add(consume);
+    }
+
+    if (bodyParam) {
+      const isBinary = isBinaryPayload(bodyParam.type, consumes);
+      if (isBinary) {
+        const binaryType = { type: "string", format: "binary" };
+        emitParameter(parent, bodyParam, "body", binaryType);
+      } else {
+        emitParameter(parent, bodyParam, "body");
       }
     }
   }
@@ -697,17 +721,27 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     return undefined;
   }
 
-  function emitParameter(parent: ModelType | undefined, param: ModelTypeProperty, kind: string) {
+  function emitParameter(
+    parent: ModelType | undefined,
+    param: ModelTypeProperty,
+    kind: string,
+    typeOverride?: any
+  ) {
     const ph = getParamPlaceholder(parent, param);
     currentEndpoint.parameters.push(ph);
 
     // If the parameter already has a $ref, don't bother populating it
     if (!("$ref" in ph)) {
-      populateParameter(ph, param, kind);
+      populateParameter(ph, param, kind, typeOverride);
     }
   }
 
-  function populateParameter(ph: any, param: ModelTypeProperty, kind: string | undefined) {
+  function populateParameter(
+    ph: any,
+    param: ModelTypeProperty,
+    kind: string | undefined,
+    typeOverride?: any
+  ) {
     ph.name = param.name;
     ph.in = kind;
     ph.required = !param.optional;
@@ -724,7 +758,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
     let schema = getSchemaOrRef(param.type);
     if (kind === "body") {
-      ph.schema = schema;
+      ph.schema = typeOverride ?? schema;
     } else {
       schema = getSchemaForType(param.type);
       if (param.type.kind === "Array") {

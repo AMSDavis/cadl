@@ -1,4 +1,4 @@
-import { strictEqual } from "assert";
+import { deepStrictEqual, strictEqual } from "assert";
 import { openApiFor } from "./testHost.js";
 
 interface ProducesConsumes {
@@ -38,8 +38,8 @@ describe("autorest: produces/consumes", () => {
     ]);
 
     strictEqual(result.globalProduces[0], "application/json");
-    strictEqual(result.operations.get("/")?.produces, undefined);
-    strictEqual(result.operations.get("/")?.consumes, undefined);
+    deepStrictEqual(result.operations.get("/")?.produces, undefined);
+    deepStrictEqual(result.operations.get("/")?.consumes, undefined);
   });
   it("produces global consumes for simple json", async () => {
     const result = await openApiForProducesConsumes([
@@ -57,8 +57,8 @@ describe("autorest: produces/consumes", () => {
     ]);
 
     strictEqual(result.globalConsumes[0], "application/json");
-    strictEqual(result.operations.get("/")?.produces, undefined);
-    strictEqual(result.operations.get("/")?.consumes, undefined);
+    deepStrictEqual(result.operations.get("/")?.produces, undefined);
+    deepStrictEqual(result.operations.get("/")?.consumes, undefined);
   });
   it("produces individual produces/consumes if differences in methods", async () => {
     const result = await openApiForProducesConsumes([
@@ -89,8 +89,8 @@ describe("autorest: produces/consumes", () => {
     ]);
 
     strictEqual(result.globalConsumes[0], "application/json");
-    strictEqual(result.operations.get("/in")?.produces, undefined);
-    strictEqual(result.operations.get("/in")?.consumes, undefined);
+    deepStrictEqual(result.operations.get("/in")?.produces, undefined);
+    deepStrictEqual(result.operations.get("/in")?.consumes, undefined);
     strictEqual(result.operations.get("/out")!.produces![0], "text/json");
     strictEqual(result.operations.get("/out")?.consumes, undefined);
   });

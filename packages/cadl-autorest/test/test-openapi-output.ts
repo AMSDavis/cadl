@@ -526,7 +526,7 @@ describe("autorest: operations", () => {
   });
 });
 
-describe("openapi3: responses", () => {
+describe("autorest: responses", () => {
   it("defines responses with primitive types", async () => {
     const res = await openApiFor(
       `
@@ -539,6 +539,93 @@ describe("openapi3: responses", () => {
     ok(res.paths["/"].get.responses["200"]);
     ok(res.paths["/"].get.responses["200"].schema);
     strictEqual(res.paths["/"].get.responses["200"].schema.type, "string");
+  });
+
+  describe("binary responses", () => {
+    it("bytes responses should produce to byte with application/json", async () => {
+      const res = await openApiFor(
+        `
+      @route("/")
+      namespace root {
+        @get op read(): bytes;
+      }
+      `
+      );
+      const operation = res.paths["/"].get;
+      deepStrictEqual(operation.produces, undefined);
+      strictEqual(operation.responses["200"].schema.type, "string");
+      strictEqual(operation.responses["200"].schema.format, "byte");
+    });
+
+    it("@body body: bytes responses should produce to byte with application/json", async () => {
+      const res = await openApiFor(
+        `
+      @route("/")
+      namespace root {
+        @get op read(): {@body body: bytes};
+      }
+      `
+      );
+
+      const operation = res.paths["/"].get;
+      deepStrictEqual(operation.produces, undefined);
+      strictEqual(operation.responses["200"].schema.type, "string");
+      strictEqual(operation.responses["200"].schema.format, "byte");
+    });
+
+    it("@header contentType should override content type and set type to file", async () => {
+      const res = await openApiFor(
+        `
+      @route("/")
+      namespace root {
+        @get op read(): {@header contentType: "image/png", @body body: bytes};
+      }
+      `
+      );
+
+      const operation = res.paths["/"].get;
+      deepStrictEqual(operation.produces, ["image/png"]);
+      strictEqual(operation.responses["200"].schema.type, "file");
+    });
+  });
+});
+
+describe("autorest: request", () => {
+  describe("binary request", () => {
+    it("bytes request should produce byte format with application/json", async () => {
+      const res = await openApiFor(
+        `
+      @route("/")
+      namespace root {
+        @post op read(@body body: bytes): {};
+      }
+      `
+      );
+      const operation = res.paths["/"].post;
+      deepStrictEqual(operation.consumes, undefined);
+      const requestBody = operation.parameters[0];
+      ok(requestBody);
+      strictEqual(requestBody.schema.type, "string");
+      strictEqual(requestBody.schema.format, "byte");
+    });
+
+    it("bytes request should respect @header contentType", async () => {
+      const res = await openApiFor(
+        `
+      @route("/")
+      namespace root {
+        @post op read(@header contentType: "image/png", @body body: bytes): {};
+      }
+      `
+      );
+
+      const operation = res.paths["/"].post;
+      deepStrictEqual(operation.consumes, ["image/png"]);
+      const requestBody = operation.parameters[0];
+      ok(requestBody);
+      strictEqual(requestBody.schema.type, "string");
+      strictEqual(requestBody.schema.format, "binary");
+    });
   });
 });
 

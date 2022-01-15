@@ -279,10 +279,10 @@
         "summary": "Set a sign for display on one or more kiosks.",
         "parameters": [
           {
-            "$ref": "#/parameters/SetSignIdForKioskIdsRequest.kiosk_ids"
+            "$ref": "#/parameters/SetSignIdForKioskIdsRequest.sign_id"
           },
           {
-            "$ref": "#/parameters/SetSignIdForKioskIdsRequest.sign_id"
+            "$ref": "#/parameters/SetSignIdForKioskIdsRequest.kiosk_ids"
           }
         ],
         "responses": {
