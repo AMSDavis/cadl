@@ -29,14 +29,16 @@
             "in": "query",
             "required": false,
             "description": "A full-text search query expression; Use \"*\" or omit this parameter to match all documents.",
-            "type": "string"
+            "type": "string",
+            "x-ms-client-name": "SearchText"
           },
           {
             "name": "$count",
             "in": "query",
             "required": false,
             "description": "A value that specifies whether to fetch the total count of results. Default is false. Setting this value to true may have a performance impact. Note that the count returned is an approximation.",
-            "type": "boolean"
+            "type": "boolean",
+            "x-ms-client-name": "IncludeTotalResultCount"
           },
           {
             "name": "facet",
@@ -46,7 +48,8 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "x-ms-client-name": "Facets"
           },
           {
             "name": "$filter",
@@ -63,7 +66,8 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "x-ms-client-name": "HighlightFields"
           },
           {
             "name": "highlightPostTag",
@@ -95,7 +99,8 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "x-ms-client-name": "OrderBy"
           },
           {
             "name": "queryType",
@@ -138,7 +143,8 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "x-ms-client-name": "ScoringParameters"
           },
           {
             "name": "scoringProfile",
@@ -985,6 +991,12 @@
         "summary": "Sends a batch of document write actions to the index.",
         "parameters": [
           {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/ClientRequestIdParameter"
+          },
+          {
             "name": "batch",
             "in": "body",
             "required": true,
@@ -992,12 +1004,6 @@
             "schema": {
               "$ref": "#/definitions/IndexBatch"
             }
-          },
-          {
-            "$ref": "#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/ClientRequestIdParameter"
           }
         ],
         "responses": {
@@ -1031,6 +1037,12 @@
         "summary": "Autocompletes incomplete query terms based on input text and matching terms in the index.",
         "parameters": [
           {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/ClientRequestIdParameter"
+          },
+          {
             "name": "autocompleteRequest",
             "in": "body",
             "required": true,
@@ -1038,12 +1050,6 @@
             "schema": {
               "$ref": "#/definitions/AutocompleteRequest"
             }
-          },
-          {
-            "$ref": "#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/ClientRequestIdParameter"
           }
         ],
         "responses": {
@@ -1071,6 +1077,12 @@
         "summary": "Autocompletes incomplete query terms based on input text and matching terms in the index.",
         "parameters": [
           {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/ClientRequestIdParameter"
+          },
+          {
             "name": "searchRequest",
             "in": "body",
             "required": true,
@@ -1078,12 +1090,6 @@
             "schema": {
               "$ref": "#/definitions/SearchRequest"
             }
-          },
-          {
-            "$ref": "#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/ClientRequestIdParameter"
           }
         ],
         "responses": {
@@ -1110,6 +1116,12 @@
         "operationId": "Documents_suggestPost",
         "parameters": [
           {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/ClientRequestIdParameter"
+          },
+          {
             "name": "suggestRequest",
             "in": "body",
             "required": true,
@@ -1117,12 +1129,6 @@
             "schema": {
               "$ref": "#/definitions/SuggestRequest"
             }
-          },
-          {
-            "$ref": "#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/ClientRequestIdParameter"
           }
         ],
         "responses": {
@@ -1154,7 +1160,8 @@
             "in": "query",
             "required": true,
             "description": "The search text to use to suggest documents. Must be at least 1 character, and no more than 100 characters.",
-            "type": "string"
+            "type": "string",
+            "x-ms-client-name": "SearchText"
           },
           {
             "name": "suggesterName",
@@ -1175,7 +1182,8 @@
             "in": "query",
             "required": false,
             "description": "A value indicating whether to use fuzzy matching for the suggestions query. Default is false. When set to true, the query will find terms even if there's a substituted or missing character in the search text. While this provides a better experience in some scenarios, it comes at a performance cost as fuzzy suggestions queries are slower and consume more resources.",
-            "type": "boolean"
+            "type": "boolean",
+            "x-ms-client-name": "UseFuzzyMatching"
           },
           {
             "name": "highlightPostTag",
@@ -1207,7 +1215,8 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "x-ms-client-name": "OrderBy"
           },
           {
             "name": "searchFields",
@@ -1278,7 +1287,8 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "x-ms-client-name": "SelectedFields"
           },
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -2585,7 +2595,8 @@
       "in": "header",
       "required": false,
       "description": "The tracking ID sent with the request to help with debugging.",
-      "type": "string"
+      "type": "string",
+      "x-ms-client-id": true
     }
   }
 }
