@@ -131,13 +131,6 @@
         "responses": {
           "202": {
             "description": "A successful call results with an Operation-Location header used to check the status of the job.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LongRunningAcceptedResponse"
-                }
-              }
-            },
             "headers": {
               "Operation-Location": {
                 "schema": {
@@ -221,13 +214,6 @@
         "responses": {
           "202": {
             "description": "A successful call results with an Operation-Location header used to check the status of the job.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LongRunningAcceptedResponse"
-                }
-              }
-            },
             "headers": {
               "Operation-Location": {
                 "schema": {
@@ -471,13 +457,6 @@
         "responses": {
           "202": {
             "description": "A successful call results with an Operation-Location header used to check the status of the job.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LongRunningAcceptedResponse"
-                }
-              }
-            },
             "headers": {
               "Operation-Location": {
                 "schema": {
@@ -935,11 +914,6 @@
           "errors",
           "modelVersion"
         ]
-      },
-      "LongRunningAcceptedResponse": {
-        "type": "object",
-        "properties": {},
-        "description": "A successful call results with an Operation-Location header used to check the status of the job."
       },
       "HealthcareJobState": {
         "type": "object",

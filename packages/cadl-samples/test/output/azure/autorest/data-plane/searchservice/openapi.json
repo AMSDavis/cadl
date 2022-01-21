@@ -42,6 +42,22 @@
         ],
         "responses": {
           "200": {
+            "description": "A successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "$ref": "#/definitions/SearchIndexerDataSource",
+                  "x-ms-client-name": "DataSources"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "x-cadl-name": "CollectionResult<SearchIndexerDataSource, DataSources>"
+            }
+          },
+          "default": {
             "description": "The error object",
             "schema": {
               "$ref": "#/definitions/SearchError"
@@ -73,16 +89,16 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "The error object",
-            "schema": {
-              "$ref": "#/definitions/SearchError"
-            }
-          },
           "201": {
             "description": "A successful response",
             "schema": {
               "$ref": "#/definitions/SearchIndexerDataSource"
+            }
+          },
+          "default": {
+            "description": "The error object",
+            "schema": {
+              "$ref": "#/definitions/SearchError"
             }
           }
         },
@@ -112,6 +128,12 @@
         ],
         "responses": {
           "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/SearchIndexerDataSource"
+            }
+          },
+          "default": {
             "description": "The error object",
             "schema": {
               "$ref": "#/definitions/SearchError"
@@ -163,15 +185,21 @@
         ],
         "responses": {
           "200": {
-            "description": "The error object",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/SearchError"
+              "$ref": "#/definitions/SearchIndexerDataSource"
             }
           },
           "201": {
             "description": "A successful response",
             "schema": {
               "$ref": "#/definitions/SearchIndexerDataSource"
+            }
+          },
+          "default": {
+            "description": "The error object",
+            "schema": {
+              "$ref": "#/definitions/SearchError"
             }
           }
         },
@@ -204,17 +232,17 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "The error object",
-            "schema": {
-              "$ref": "#/definitions/SearchError"
-            }
-          },
           "204": {
             "description": "There is no content to send for this request, but the headers may be useful. "
           },
           "404": {
             "description": "The server can not find the requested resource."
+          },
+          "default": {
+            "description": "The error object",
+            "schema": {
+              "$ref": "#/definitions/SearchError"
+            }
           }
         },
         "tags": [
@@ -239,6 +267,22 @@
         ],
         "responses": {
           "200": {
+            "description": "A successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "$ref": "#/definitions/SearchIndexer",
+                  "x-ms-client-name": "Indexers"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "x-cadl-name": "CollectionResult<SearchIndexer, Indexers>"
+            }
+          },
+          "default": {
             "description": "The error object",
             "schema": {
               "$ref": "#/definitions/SearchError"
@@ -270,16 +314,16 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "The error object",
-            "schema": {
-              "$ref": "#/definitions/SearchError"
-            }
-          },
           "201": {
             "description": "A successful response",
             "schema": {
               "$ref": "#/definitions/SearchIndexer"
+            }
+          },
+          "default": {
+            "description": "The error object",
+            "schema": {
+              "$ref": "#/definitions/SearchError"
             }
           }
         },
@@ -309,6 +353,12 @@
         ],
         "responses": {
           "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/SearchIndexer"
+            }
+          },
+          "default": {
             "description": "The error object",
             "schema": {
               "$ref": "#/definitions/SearchError"
@@ -363,15 +413,21 @@
         ],
         "responses": {
           "200": {
-            "description": "The error object",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/SearchError"
+              "$ref": "#/definitions/SearchIndexer"
             }
           },
           "201": {
             "description": "A successful response",
             "schema": {
               "$ref": "#/definitions/SearchIndexer"
+            }
+          },
+          "default": {
+            "description": "The error object",
+            "schema": {
+              "$ref": "#/definitions/SearchError"
             }
           }
         },
@@ -404,17 +460,17 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "The error object",
-            "schema": {
-              "$ref": "#/definitions/SearchError"
-            }
-          },
           "204": {
             "description": "There is no content to send for this request, but the headers may be useful. "
           },
           "404": {
             "description": "The server can not find the requested resource."
+          },
+          "default": {
+            "description": "The error object",
+            "schema": {
+              "$ref": "#/definitions/SearchError"
+            }
           }
         },
         "tags": [
@@ -442,14 +498,14 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful. "
+          },
+          "default": {
             "description": "The error object",
             "schema": {
               "$ref": "#/definitions/SearchError"
             }
-          },
-          "204": {
-            "description": "There is no content to send for this request, but the headers may be useful. "
           }
         },
         "tags": [
@@ -499,14 +555,14 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful. "
+          },
+          "default": {
             "description": "The error object",
             "schema": {
               "$ref": "#/definitions/SearchError"
             }
-          },
-          "204": {
-            "description": "There is no content to send for this request, but the headers may be useful. "
           }
         },
         "tags": [
@@ -534,14 +590,14 @@
           }
         ],
         "responses": {
-          "200": {
+          "202": {
+            "description": "The request has been received but not yet acted upon."
+          },
+          "default": {
             "description": "The error object",
             "schema": {
               "$ref": "#/definitions/SearchError"
             }
-          },
-          "202": {
-            "description": "The request has been received but not yet acted upon."
           }
         },
         "tags": [
@@ -570,6 +626,12 @@
         ],
         "responses": {
           "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/SearchIndexerStatus"
+            }
+          },
+          "default": {
             "description": "The error object",
             "schema": {
               "$ref": "#/definitions/SearchError"
@@ -594,6 +656,12 @@
         ],
         "responses": {
           "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/ServiceStatistics"
+            }
+          },
+          "default": {
             "description": "The error object",
             "schema": {
               "$ref": "#/definitions/SearchError"

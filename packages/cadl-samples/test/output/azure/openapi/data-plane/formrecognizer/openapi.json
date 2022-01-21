@@ -83,14 +83,7 @@
         ],
         "responses": {
           "202": {
-            "description": "A successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AcceptedResponse"
-                }
-              }
-            },
+            "description": "Accepted",
             "headers": {
               "operation-location": {
                 "description": "Operation result URL.",
@@ -193,14 +186,7 @@
         "parameters": [],
         "responses": {
           "202": {
-            "description": "A successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AcceptedResponse"
-                }
-              }
-            },
+            "description": "Accepted",
             "headers": {
               "operation-location": {
                 "description": "Operation result URL.",
@@ -242,14 +228,7 @@
         "parameters": [],
         "responses": {
           "202": {
-            "description": "A successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AcceptedResponse"
-                }
-              }
-            },
+            "description": "Accepted",
             "headers": {
               "operation-location": {
                 "description": "Operation result URL.",
@@ -341,14 +320,7 @@
         ],
         "responses": {
           "202": {
-            "description": "A successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AcceptedResponse"
-                }
-              }
-            },
+            "description": "Accepted",
             "headers": {
               "operation-location": {
                 "description": "Operation result URL.",
@@ -431,7 +403,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
@@ -463,7 +435,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
@@ -548,7 +520,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
@@ -582,14 +554,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Resource deleted successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Cadl.Rest.Resource.ResourceDeletedResponse"
-                }
-              }
-            }
+            "description": "Resource deleted successfully."
           },
           "default": {
             "description": "An unexpected error response",
@@ -645,10 +610,6 @@
         "required": [
           "error"
         ]
-      },
-      "AcceptedResponse": {
-        "type": "object",
-        "properties": {}
       },
       "AnalyzeResultOperation": {
         "type": "object",
@@ -872,11 +833,6 @@
         "required": [
           "value"
         ]
-      },
-      "Cadl.Rest.Resource.ResourceDeletedResponse": {
-        "type": "object",
-        "properties": {},
-        "description": "Resource deleted successfully."
       },
       "CustomDocumentModelsInfo": {
         "type": "object",

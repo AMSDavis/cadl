@@ -257,16 +257,7 @@
             }
           },
           "204": {
-            "description": "A successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {},
-                  "x-cadl-name": "NoContent<(anonymous model)>"
-                }
-              }
-            }
+            "description": "No Content"
           },
           "default": {
             "description": "Azure App Configuration error object.",

@@ -37,7 +37,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
@@ -68,14 +68,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Resource deleted successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Cadl.Rest.Resource.ResourceDeletedResponse"
-                }
-              }
-            }
+            "description": "Resource deleted successfully."
           },
           "default": {
             "description": "An unexpected error response",
@@ -99,7 +92,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
@@ -242,7 +235,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
@@ -363,7 +356,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
@@ -542,7 +535,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
@@ -824,11 +817,6 @@
             "description": "Represents the project last deployment date-time."
           }
         }
-      },
-      "Cadl.Rest.Resource.ResourceDeletedResponse": {
-        "type": "object",
-        "properties": {},
-        "description": "Resource deleted successfully."
       },
       "Language": {
         "type": "object",

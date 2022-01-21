@@ -62,16 +62,7 @@
         ],
         "responses": {
           "202": {
-            "description": "A successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {},
-                  "x-cadl-name": "(anonymous model)"
-                }
-              }
-            },
+            "description": "Accepted",
             "headers": {
               "operation-location": {
                 "schema": {
@@ -357,16 +348,7 @@
         ],
         "responses": {
           "202": {
-            "description": "A successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {},
-                  "x-cadl-name": "(anonymous model)"
-                }
-              }
-            },
+            "description": "Accepted",
             "headers": {
               "operation-location": {
                 "schema": {
