@@ -505,6 +505,7 @@ describe("autorest: operations", () => {
         @get("{name}")
         op getThing(
           @pattern("^[a-zA-Z0-9-]{3,24}$")
+          @format("UUID")
           @path name: string,
 
           @minValue(1)
@@ -519,6 +520,7 @@ describe("autorest: operations", () => {
     ok(getThing);
     ok(getThing.parameters[0].pattern);
     strictEqual(getThing.parameters[0].pattern, "^[a-zA-Z0-9-]{3,24}$");
+    strictEqual(getThing.parameters[0].format, "UUID");
 
     ok(getThing.parameters[1].minimum);
     ok(getThing.parameters[1].maximum);

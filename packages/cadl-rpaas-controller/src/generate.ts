@@ -13,6 +13,7 @@ import {
   getBaseFileName,
   getDirectoryPath,
   getDoc,
+  getFormat,
   getMaxLength,
   getMinLength,
   getPattern,
@@ -779,6 +780,18 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       return identifier[0].toLocaleLowerCase() + identifier.substring(1);
     }
 
+    function getFormatAttribute(parameter: string): ValidationAttribute {
+      return {
+        name: "Format",
+        parameters: [
+          {
+            value: parameter,
+            type: "string",
+          },
+        ],
+      };
+    }
+
     function getPatternAttribute(parameter: string): ValidationAttribute {
       return {
         name: "Pattern",
@@ -843,9 +856,14 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
         const output: ValidationAttribute[] = [];
 
-        let format = getPattern(program, localType);
+        let format = getFormat(program, localType);
         if (format) {
-          output.push(getPatternAttribute(format));
+          output.push(getFormatAttribute(format));
+        }
+
+        let pattern = getPattern(program, localType);
+        if (pattern) {
+          output.push(getPatternAttribute(pattern));
         }
 
         let minLength = getMinLength(program, localType);

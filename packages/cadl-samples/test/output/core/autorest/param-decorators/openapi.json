@@ -23,6 +23,7 @@
             "name": "name",
             "in": "path",
             "required": true,
+            "format": "UUID",
             "pattern": "^[a-zA-Z0-9-]{3,24}$",
             "type": "string"
           },
@@ -50,6 +51,14 @@
         "parameters": [
           {
             "$ref": "#/parameters/NameParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Thing"
+            }
           }
         ],
         "responses": {
@@ -69,10 +78,15 @@
       "properties": {
         "name": {
           "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "format": "UUID"
         }
       },
       "required": [
-        "name"
+        "name",
+        "id"
       ]
     }
   },
@@ -83,6 +97,7 @@
       "in": "path",
       "required": true,
       "description": "Name parameter",
+      "format": "UUID",
       "pattern": "^[a-zA-Z0-9-]{3,24}$",
       "type": "string"
     }
