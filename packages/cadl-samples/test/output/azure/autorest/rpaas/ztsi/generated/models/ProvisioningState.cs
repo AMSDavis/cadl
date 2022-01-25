@@ -11,6 +11,7 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
         string _value;
 
         public static readonly ProvisioningState Accepted = "Accepted", Creating = "Creating", Updating = "Updating", Deleting = "Deleting", Succeeded = "Succeeded", Failed = "Failed", Canceled = "Canceled", Deleted = "Deleted", NotSpecified = "NotSpecified"; 
+
         public ProvisioningState( string value)
         {
             _value = value;

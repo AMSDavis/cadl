@@ -11,17 +11,17 @@ using System.Collections.Generic;
 namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
 {
     /// <summary>
-    /// A managed identity assigned by the user. 
+    /// A managed identity assigned by the user.
     /// </summary>
     public class UserAssignedIdentity 
     {
         /// <summary>
-        ///  The active directory client identifier for this principal. 
+        /// The active directory client identifier for this principal.
         /// </summary>
         public string ClientId { get; set; }
 
         /// <summary>
-        ///  The active directory identifier for this principal. 
+        /// The active directory identifier for this principal.
         /// </summary>
         public string PrincipalId { get; set; }
 

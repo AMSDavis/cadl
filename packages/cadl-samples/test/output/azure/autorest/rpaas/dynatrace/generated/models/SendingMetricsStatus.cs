@@ -11,6 +11,7 @@ namespace Microsoft.Observability.Service.Models
         string _value;
 
         public static readonly SendingMetricsStatus Enabled = "Enabled", Disabled = "Disabled"; 
+
         public SendingMetricsStatus( string value)
         {
             _value = value;

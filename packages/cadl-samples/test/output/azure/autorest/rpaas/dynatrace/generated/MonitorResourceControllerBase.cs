@@ -31,9 +31,15 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Read the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceValidateRead)]
@@ -41,11 +47,11 @@ namespace Microsoft.Observability.Service
         public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId, string resourceGroupName, string monitorName)
         {
             _logger.LogInformation($"ValidateReadAsync()");
-            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, monitorName, Request);
+            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, monitorName);
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string monitorName)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -54,9 +60,15 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Read the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpGet]
         [Route(ObservabilityServiceRoutes.MonitorResourceItem)]
@@ -70,11 +82,11 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnReadAsync(subscriptionId, resourceGroupName, monitorName, Request);
+            return await OnReadAsync(subscriptionId, resourceGroupName, monitorName);
 
         }
 
-        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request)
+        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string monitorName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
@@ -82,10 +94,18 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Create the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceValidateCreate)]
@@ -96,13 +116,13 @@ namespace Microsoft.Observability.Service
             var modelValidation = ValidationHelpers.ValidateModel(body);
             if (modelValidation.IsValid)
             {
-                modelValidation = await OnValidateCreate(subscriptionId, resourceGroupName, monitorName, body, Request);
+                modelValidation = await OnValidateCreate(subscriptionId, resourceGroupName, monitorName, body);
             }
 
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string monitorName, MonitorResource body, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string monitorName, MonitorResource body)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -110,10 +130,18 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Called after the end of the request to Create the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceEndCreate)]
@@ -121,11 +149,11 @@ namespace Microsoft.Observability.Service
         public async Task EndCreateAsync(string subscriptionId, string resourceGroupName, string monitorName, MonitorResource body)
         {
             _logger.LogInformation($"EndCreateAsync()");
-            await OnEndCreate(subscriptionId, resourceGroupName, monitorName, body, Request);
+            await OnEndCreate(subscriptionId, resourceGroupName, monitorName, body);
             return;
         }
 
-        protected virtual Task OnEndCreate(string subscriptionId, string resourceGroupName, string monitorName, MonitorResource body, HttpRequest request)
+        protected virtual Task OnEndCreate(string subscriptionId, string resourceGroupName, string monitorName, MonitorResource body)
         {
             return Task.CompletedTask;
         }
@@ -133,10 +161,18 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Create the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPut]
         [Route(ObservabilityServiceRoutes.MonitorResourceItem)]
@@ -153,11 +189,11 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnCreateAsync(subscriptionId, resourceGroupName, monitorName, body, Request);
+            return await OnCreateAsync(subscriptionId, resourceGroupName, monitorName, body);
 
         }
 
-        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string monitorName, MonitorResource body, HttpRequest request)
+        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string monitorName, MonitorResource body)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
@@ -165,10 +201,18 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Patch the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceValidatePatch)]
@@ -179,13 +223,13 @@ namespace Microsoft.Observability.Service
             var modelValidation = ValidationHelpers.ValidateModel(body);
             if (modelValidation.IsValid)
             {
-                modelValidation = await OnValidatePatch(subscriptionId, resourceGroupName, monitorName, body, Request);
+                modelValidation = await OnValidatePatch(subscriptionId, resourceGroupName, monitorName, body);
             }
 
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string monitorName, MonitorResourceUpdate body, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string monitorName, MonitorResourceUpdate body)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -193,10 +237,18 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Called after the end of the request to Patch the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceEndPatch)]
@@ -204,11 +256,11 @@ namespace Microsoft.Observability.Service
         public async Task EndPatchAsync(string subscriptionId, string resourceGroupName, string monitorName, MonitorResourceUpdate body)
         {
             _logger.LogInformation($"EndPatchAsync()");
-            await OnEndPatch(subscriptionId, resourceGroupName, monitorName, body, Request);
+            await OnEndPatch(subscriptionId, resourceGroupName, monitorName, body);
             return;
         }
 
-        protected virtual Task OnEndPatch(string subscriptionId, string resourceGroupName, string monitorName, MonitorResourceUpdate body, HttpRequest request)
+        protected virtual Task OnEndPatch(string subscriptionId, string resourceGroupName, string monitorName, MonitorResourceUpdate body)
         {
             return Task.CompletedTask;
         }
@@ -216,10 +268,18 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Patch the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPatch]
         [Route(ObservabilityServiceRoutes.MonitorResourceItem)]
@@ -236,11 +296,11 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnPatchAsync(subscriptionId, resourceGroupName, monitorName, body, Request);
+            return await OnPatchAsync(subscriptionId, resourceGroupName, monitorName, body);
 
         }
 
-        protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string monitorName, MonitorResourceUpdate body, HttpRequest request)
+        protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string monitorName, MonitorResourceUpdate body)
         {
             return Task.FromResult(Ok(body) as IActionResult);
         }
@@ -248,9 +308,15 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Delete the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceValidateDelete)]
@@ -258,11 +324,11 @@ namespace Microsoft.Observability.Service
         public async Task<ValidationResponse> ValidateDeleteAsync(string subscriptionId, string resourceGroupName, string monitorName)
         {
             _logger.LogInformation($"ValidateDeleteAsync()");
-            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, monitorName, Request);
+            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, monitorName);
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string monitorName)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -270,9 +336,15 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Called after the end of the request to Delete the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceEndDelete)]
@@ -280,11 +352,11 @@ namespace Microsoft.Observability.Service
         public async Task EndDeleteAsync(string subscriptionId, string resourceGroupName, string monitorName)
         {
             _logger.LogInformation($"EndDeleteAsync()");
-            await OnEndDelete(subscriptionId, resourceGroupName, monitorName, Request);
+            await OnEndDelete(subscriptionId, resourceGroupName, monitorName);
             return;
         }
 
-        protected virtual Task OnEndDelete(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request)
+        protected virtual Task OnEndDelete(string subscriptionId, string resourceGroupName, string monitorName)
         {
             return Task.CompletedTask;
         }
@@ -292,9 +364,15 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Delete the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpDelete]
         [Route(ObservabilityServiceRoutes.MonitorResourceItem)]
@@ -309,21 +387,28 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnDeleteAsync(subscriptionId, resourceGroupName, monitorName, Request);
+            return await OnDeleteAsync(subscriptionId, resourceGroupName, monitorName);
 
         }
 
-        protected virtual Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request)
+        protected virtual Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string monitorName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
 
+
         /// <summary>
         /// GetAccountCredentials the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceItemGetAccountCredentials)]
@@ -338,21 +423,28 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnGetAccountCredentialsAsync(subscriptionId, resourceGroupName, monitorName, Request);
+            return await OnGetAccountCredentialsAsync(subscriptionId, resourceGroupName, monitorName);
 
         }
 
-        protected virtual Task<IActionResult> OnGetAccountCredentialsAsync(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request)
+        protected virtual Task<IActionResult> OnGetAccountCredentialsAsync(string subscriptionId, string resourceGroupName, string monitorName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
 
+
         /// <summary>
         /// ListMonitoredResources the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceItemListMonitoredResources)]
@@ -367,21 +459,28 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnListMonitoredResourcesAsync(subscriptionId, resourceGroupName, monitorName, Request);
+            return await OnListMonitoredResourcesAsync(subscriptionId, resourceGroupName, monitorName);
 
         }
 
-        protected virtual Task<IActionResult> OnListMonitoredResourcesAsync(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request)
+        protected virtual Task<IActionResult> OnListMonitoredResourcesAsync(string subscriptionId, string resourceGroupName, string monitorName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
 
+
         /// <summary>
         /// VmHostPayload the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceItemVmHostPayload)]
@@ -396,22 +495,31 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnVmHostPayloadAsync(subscriptionId, resourceGroupName, monitorName, Request);
+            return await OnVmHostPayloadAsync(subscriptionId, resourceGroupName, monitorName);
 
         }
 
-        protected virtual Task<IActionResult> OnVmHostPayloadAsync(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request)
+        protected virtual Task<IActionResult> OnVmHostPayloadAsync(string subscriptionId, string resourceGroupName, string monitorName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
 
+
         /// <summary>
         /// VmHostUpdate the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="request"> The details of the VMHost update request.</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="request">
+        /// The details of the VMHost update request.
+        /// </param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceItemVmHostUpdate)]
@@ -428,21 +536,28 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnVmHostUpdateAsync(subscriptionId, resourceGroupName, monitorName, request, Request);
+            return await OnVmHostUpdateAsync(subscriptionId, resourceGroupName, monitorName, request);
 
         }
 
-        protected virtual Task<IActionResult> OnVmHostUpdateAsync(string subscriptionId, string resourceGroupName, string monitorName, VMHostUpdateRequest request, HttpRequest request)
+        protected virtual Task<IActionResult> OnVmHostUpdateAsync(string subscriptionId, string resourceGroupName, string monitorName, VMHostUpdateRequest request)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
 
+
         /// <summary>
         /// ListVMHosts the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceItemListVMHosts)]
@@ -457,21 +572,28 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnListVMHostsAsync(subscriptionId, resourceGroupName, monitorName, Request);
+            return await OnListVMHostsAsync(subscriptionId, resourceGroupName, monitorName);
 
         }
 
-        protected virtual Task<IActionResult> OnListVMHostsAsync(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request)
+        protected virtual Task<IActionResult> OnListVMHostsAsync(string subscriptionId, string resourceGroupName, string monitorName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
 
+
         /// <summary>
         /// SingleSignOnConfigurations the MonitorResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
         /// <returns> The MonitorResource resource.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.MonitorResourceItemSingleSignOnConfigurations)]
@@ -486,11 +608,11 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnSingleSignOnConfigurationsAsync(subscriptionId, resourceGroupName, monitorName, Request);
+            return await OnSingleSignOnConfigurationsAsync(subscriptionId, resourceGroupName, monitorName);
 
         }
 
-        protected virtual Task<IActionResult> OnSingleSignOnConfigurationsAsync(string subscriptionId, string resourceGroupName, string monitorName, HttpRequest request)
+        protected virtual Task<IActionResult> OnSingleSignOnConfigurationsAsync(string subscriptionId, string resourceGroupName, string monitorName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }

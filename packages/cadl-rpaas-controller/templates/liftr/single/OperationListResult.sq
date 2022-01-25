@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Microsoft.{{it.serviceName}}.Service.Models
+namespace Microsoft.{{serviceName}}.Service.Models
 {
     /// <summary>
     /// Paged list of RP operations.

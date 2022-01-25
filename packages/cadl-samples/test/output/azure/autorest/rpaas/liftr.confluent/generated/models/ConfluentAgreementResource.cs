@@ -11,12 +11,12 @@ using System.Collections.Generic;
 namespace Microsoft.Confluent.Service.Models
 {
     /// <summary>
-    /// The details of a marketplace agreement. 
+    /// The details of a marketplace agreement.
     /// </summary>
     public class ConfluentAgreementResource : ProxyResource 
     {
         /// <summary>
-        ///  The resource-specific properties for this resource. 
+        /// The resource-specific properties for this resource.
         /// </summary>
         public ConfluentAgreementResourceProperties Properties { get; set; }
 

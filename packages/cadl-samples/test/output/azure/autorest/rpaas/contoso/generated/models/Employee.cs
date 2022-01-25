@@ -11,12 +11,12 @@ using System.Collections.Generic;
 namespace Microsoft.ContosoRPaas.Service.Models
 {
     /// <summary>
-    /// A ContosoRPaas resource 
+    /// A ContosoRPaas resource
     /// </summary>
     public class Employee : TrackedResource 
     {
         /// <summary>
-        ///  The resource-specific properties for this resource. 
+        /// The resource-specific properties for this resource.
         /// </summary>
         public EmployeeProperties Properties { get; set; }
 

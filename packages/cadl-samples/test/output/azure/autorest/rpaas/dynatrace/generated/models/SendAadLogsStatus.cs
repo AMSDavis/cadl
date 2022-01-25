@@ -11,6 +11,7 @@ namespace Microsoft.Observability.Service.Models
         string _value;
 
         public static readonly SendAadLogsStatus Enabled = "Enabled", Disabled = "Disabled"; 
+
         public SendAadLogsStatus( string value)
         {
             _value = value;

@@ -11,17 +11,17 @@ using System.Collections.Generic;
 namespace Microsoft.PlayFab.Service.Models
 {
     /// <summary>
-    /// The updatable properties of the Title. 
+    /// The updatable properties of the Title.
     /// </summary>
     public class TitleUpdate 
     {
         /// <summary>
-        ///  Resource tags. 
+        /// Resource tags.
         /// </summary>
         public IDictionary<string, string> Tags { get; set; }
 
         /// <summary>
-        ///  The provisioning state of the resource. 
+        /// The provisioning state of the resource.
         /// </summary>
         public ResourceProvisioningState ProvisioningState { get; set; }
 

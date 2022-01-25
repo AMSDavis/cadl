@@ -11,6 +11,7 @@ namespace Microsoft.EnvelopeTest.Service.Models
         string _value;
 
         public static readonly ManagedSystemIdentityType None = "None", SystemAssigned = "SystemAssigned"; 
+
         public ManagedSystemIdentityType( string value)
         {
             _value = value;

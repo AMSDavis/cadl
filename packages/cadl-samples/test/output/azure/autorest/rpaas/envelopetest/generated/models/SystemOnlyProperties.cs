@@ -13,7 +13,7 @@ namespace Microsoft.EnvelopeTest.Service.Models
     public class SystemOnlyProperties 
     {
         /// <summary>
-        ///  The status of the last operation performed on this resource. 
+        /// The status of the last operation performed on this resource.
         /// </summary>
         public EnvelopeProvisioningState ProvisioningState { get; set; }
 

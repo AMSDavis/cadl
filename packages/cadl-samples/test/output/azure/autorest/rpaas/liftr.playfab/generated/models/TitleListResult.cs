@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Microsoft.PlayFab.Service.Models
 {
     /// <summary>
-    /// The response of a Title list operation. 
+    /// The response of a Title list operation.
     /// </summary>
     public class TitleListResult : Pageable<Title> 
     {

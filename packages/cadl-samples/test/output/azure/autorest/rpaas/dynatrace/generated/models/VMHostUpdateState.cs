@@ -11,6 +11,7 @@ namespace Microsoft.Observability.Service.Models
         string _value;
 
         public static readonly VMHostUpdateState Install = "Install", Delete = "Delete"; 
+
         public VMHostUpdateState( string value)
         {
             _value = value;

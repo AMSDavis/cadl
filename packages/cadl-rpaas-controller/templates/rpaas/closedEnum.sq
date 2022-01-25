@@ -5,22 +5,22 @@
 
 using System;
 
-namespace Microsoft.{{it.serviceName}}.Service.Models
+namespace Microsoft.{{serviceName}}.Service.Models
 {
-{{@if(it.description)}}
+{{#if isDefined(description) }}
     /// <summary>
-    /// {{it.description}}
+    {{> renderComment content=description}}
     /// </summary>
 {{/if}}
-    public enum {{it.name}} 
+    public enum {{name}} 
     {
-{{@each(it.values) => value, valueIndex}}
-{{@if(value.description)}}
+{{#each values}}
+{{#if isDefined(description)}}
         /// <summary>
-        /// {{value.description}}
+        {{> renderComment content=description}}
         /// </summary>
 {{/if}}
-        {{value.name}} = "{{value.value? value.value : value.name}}"{{_@if(valueIndex < (it.values.length - 1))}},{{_/if}}
+        {{name}} = "{{#if isDefined(value)}}{{value}}{{else}}{{name}}"{{#unless @last }},{{/unless}}
 {{/each}}
     }
 }

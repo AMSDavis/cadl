@@ -11,6 +11,7 @@ namespace Microsoft.Observability.Service.Models
         string _value;
 
         public static readonly TagAction Include = "Include", Exclude = "Exclude"; 
+
         public TagAction( string value)
         {
             _value = value;

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Microsoft.Observability.Service.Models
 {
     /// <summary>
-    /// The response of a TagRule list operation. 
+    /// The response of a TagRule list operation.
     /// </summary>
     public class TagRuleListResult : Pageable<TagRule> 
     {

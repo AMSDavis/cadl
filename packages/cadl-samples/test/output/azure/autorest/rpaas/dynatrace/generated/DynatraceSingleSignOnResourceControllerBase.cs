@@ -31,11 +31,21 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Create the DynatraceSingleSignOnResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="configurationName"> Single Sign On Configuration Name</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="configurationName">
+        /// Single Sign On Configuration Name
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.DynatraceSingleSignOnResourceValidateCreate)]
@@ -46,13 +56,13 @@ namespace Microsoft.Observability.Service
             var modelValidation = ValidationHelpers.ValidateModel(body);
             if (modelValidation.IsValid)
             {
-                modelValidation = await OnValidateCreate(subscriptionId, resourceGroupName, monitorName, configurationName, body, Request);
+                modelValidation = await OnValidateCreate(subscriptionId, resourceGroupName, monitorName, configurationName, body);
             }
 
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string monitorName, string configurationName, DynatraceSingleSignOnResource body, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string monitorName, string configurationName, DynatraceSingleSignOnResource body)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -60,11 +70,21 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Called after the end of the request to Create the DynatraceSingleSignOnResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="configurationName"> Single Sign On Configuration Name</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="configurationName">
+        /// Single Sign On Configuration Name
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.DynatraceSingleSignOnResourceEndCreate)]
@@ -72,11 +92,11 @@ namespace Microsoft.Observability.Service
         public async Task EndCreateAsync(string subscriptionId, string resourceGroupName, string monitorName, string configurationName, DynatraceSingleSignOnResource body)
         {
             _logger.LogInformation($"EndCreateAsync()");
-            await OnEndCreate(subscriptionId, resourceGroupName, monitorName, configurationName, body, Request);
+            await OnEndCreate(subscriptionId, resourceGroupName, monitorName, configurationName, body);
             return;
         }
 
-        protected virtual Task OnEndCreate(string subscriptionId, string resourceGroupName, string monitorName, string configurationName, DynatraceSingleSignOnResource body, HttpRequest request)
+        protected virtual Task OnEndCreate(string subscriptionId, string resourceGroupName, string monitorName, string configurationName, DynatraceSingleSignOnResource body)
         {
             return Task.CompletedTask;
         }
@@ -84,11 +104,21 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Create the DynatraceSingleSignOnResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="configurationName"> Single Sign On Configuration Name</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="configurationName">
+        /// Single Sign On Configuration Name
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> The DynatraceSingleSignOnResource resource.</returns>
         [HttpPut]
         [Route(ObservabilityServiceRoutes.DynatraceSingleSignOnResourceItem)]
@@ -105,11 +135,11 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnCreateAsync(subscriptionId, resourceGroupName, monitorName, configurationName, body, Request);
+            return await OnCreateAsync(subscriptionId, resourceGroupName, monitorName, configurationName, body);
 
         }
 
-        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string monitorName, string configurationName, DynatraceSingleSignOnResource body, HttpRequest request)
+        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string monitorName, string configurationName, DynatraceSingleSignOnResource body)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
@@ -117,10 +147,18 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Read the DynatraceSingleSignOnResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="configurationName"> Single Sign On Configuration Name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="configurationName">
+        /// Single Sign On Configuration Name
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.DynatraceSingleSignOnResourceValidateRead)]
@@ -128,11 +166,11 @@ namespace Microsoft.Observability.Service
         public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId, string resourceGroupName, string monitorName, string configurationName)
         {
             _logger.LogInformation($"ValidateReadAsync()");
-            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, monitorName, configurationName, Request);
+            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, monitorName, configurationName);
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string monitorName, string configurationName, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string monitorName, string configurationName)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -141,10 +179,18 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Read the DynatraceSingleSignOnResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="configurationName"> Single Sign On Configuration Name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="configurationName">
+        /// Single Sign On Configuration Name
+        /// </param>
         /// <returns> The DynatraceSingleSignOnResource resource.</returns>
         [HttpGet]
         [Route(ObservabilityServiceRoutes.DynatraceSingleSignOnResourceItem)]
@@ -158,11 +204,11 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnReadAsync(subscriptionId, resourceGroupName, monitorName, configurationName, Request);
+            return await OnReadAsync(subscriptionId, resourceGroupName, monitorName, configurationName);
 
         }
 
-        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string monitorName, string configurationName, HttpRequest request)
+        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string monitorName, string configurationName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }

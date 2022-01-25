@@ -11,6 +11,7 @@ namespace Microsoft.Observability.Service.Models
         string _value;
 
         public static readonly SingleSignOnStates Initial = "Initial", Enable = "Enable", Disable = "Disable", Existing = "Existing"; 
+
         public SingleSignOnStates( string value)
         {
             _value = value;

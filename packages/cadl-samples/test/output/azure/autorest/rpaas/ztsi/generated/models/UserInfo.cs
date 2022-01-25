@@ -11,36 +11,36 @@ using System.Collections.Generic;
 namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
 {
     /// <summary>
-    /// User info. 
+    /// User info.
     /// </summary>
     public class UserInfo 
     {
         /// <summary>
-        ///  First Name of the user 
+        /// First Name of the user
         /// </summary>
         [Length(50)]
         public string FirstName { get; set; }
 
         /// <summary>
-        ///  Last Name of the user 
+        /// Last Name of the user
         /// </summary>
         [Length(50)]
         public string LastName { get; set; }
 
         /// <summary>
-        ///  Email of the user used by Dynatrace for contacting them if needed 
+        /// Email of the user used by Dynatrace for contacting them if needed
         /// </summary>
         [Pattern(@"^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}$")]
         public string EmailAddress { get; set; }
 
         /// <summary>
-        ///  Phone number of the user used by Dynatrace for contacting them if needed 
+        /// Phone number of the user used by Dynatrace for contacting them if needed
         /// </summary>
         [Length(40)]
         public string PhoneNumber { get; set; }
 
         /// <summary>
-        ///  Country of the user 
+        /// Country of the user
         /// </summary>
         public string Country { get; set; }
 

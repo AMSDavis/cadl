@@ -13,12 +13,12 @@ namespace Microsoft.EnvelopeTest.Service.Models
     public class AllPropertiesProperties 
     {
         /// <summary>
-        ///  The status of the last operation performed on this resource. 
+        /// The status of the last operation performed on this resource.
         /// </summary>
         public EnvelopeProvisioningState ProvisioningState { get; set; }
 
         /// <summary>
-        ///  Name of the resource 
+        /// Name of the resource
         /// </summary>
         public string DisplayName { get; set; } = "default";
 

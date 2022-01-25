@@ -2,9 +2,9 @@
   "properties": {
     "providerType": "Hidden",
     "management": {
-      "incidentRoutingService": "{{it.serviceName}} Resource Provider",
-      "incidentRoutingTeam": "{{it.serviceName}} Triage",
-      "incidentContactEmail": "helpme@{{it.serviceName}}.com"
+      "incidentRoutingService": "{{serviceName}} Resource Provider",
+      "incidentRoutingTeam": "{{serviceName}} Triage",
+      "incidentContactEmail": "helpme@{{serviceName}}.com"
     },
     "enableTenantLinkedNotification": false
   }

@@ -35,7 +35,7 @@
     "@azure-tools/cadl-rpaas": "~0.11.0"
   },
   "dependencies": {
-    "squirrelly": "^8.0.8"
+    "handlebars": "^4.7.7"
   },
   "devDependencies": {
     "@cadl-lang/compiler": "~0.25.0",

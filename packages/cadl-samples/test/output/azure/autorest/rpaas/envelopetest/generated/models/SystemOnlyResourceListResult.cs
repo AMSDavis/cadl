@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Microsoft.EnvelopeTest.Service.Models
 {
     /// <summary>
-    /// The response of a SystemOnlyResource list operation. 
+    /// The response of a SystemOnlyResource list operation.
     /// </summary>
     public class SystemOnlyResourceListResult : Pageable<SystemOnlyResource> 
     {

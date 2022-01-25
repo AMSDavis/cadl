@@ -11,22 +11,22 @@ using System.Collections.Generic;
 namespace Microsoft.EnvelopeTest.Service.Models
 {
     /// <summary>
-    /// The updatable properties of the AllPropertiesResource. 
+    /// The updatable properties of the AllPropertiesResource.
     /// </summary>
     public class AllPropertiesResourceUpdate 
     {
         /// <summary>
-        ///  Resource tags. 
+        /// Resource tags.
         /// </summary>
         public IDictionary<string, string> Tags { get; set; }
 
         /// <summary>
-        ///  The status of the last operation performed on this resource. 
+        /// The status of the last operation performed on this resource.
         /// </summary>
         public EnvelopeProvisioningState ProvisioningState { get; set; }
 
         /// <summary>
-        ///  Name of the resource 
+        /// Name of the resource
         /// </summary>
         public string DisplayName { get; set; }
 

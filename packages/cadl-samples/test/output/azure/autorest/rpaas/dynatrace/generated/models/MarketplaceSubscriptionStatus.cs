@@ -11,6 +11,7 @@ namespace Microsoft.Observability.Service.Models
         string _value;
 
         public static readonly MarketplaceSubscriptionStatus Active = "Active", Suspended = "Suspended"; 
+
         public MarketplaceSubscriptionStatus( string value)
         {
             _value = value;

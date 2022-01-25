@@ -8,30 +8,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace {{it.nameSpace}}.Service.Controllers
+namespace {{nameSpace}}.Service.Controllers
 {
-    public static class {{it.serviceName}}ServiceRoutes
+    public static class {{serviceName}}ServiceRoutes
     {
-        public const string ListOperations = "providers/{{it.nameSpace}}/operations";
-{{@each(it.resources) => resource, index}}
+        public const string ListOperations = "providers/{{nameSpace}}/operations";
+{{#each resources as |resource index |}}
         public const string {{resource.name}}Item = "{{resource.itemPath}}";
-{{@each(resource.operations) => operation, opIndex}}
-{{@if(operation.verb.toUpperCase() === "PUT")}}
+{{#each resource.operations as | operation opIndex |}}
+{{#if (eqi operation.verb "PUT")}}
         public const string {{resource.name}}ValidateCreate = "{{resource.itemPath}}/resourceCreationValidate";
         public const string {{resource.name}}EndCreate = "{{resource.itemPath}}/resourceCreationCompleted";
 {{/if}}
-{{@if(operation.verb.toUpperCase() === "GET")}}
+{{#if (eqi operation.verb "GET")}}
         public const string {{resource.name}}ValidateRead = "{{resource.itemPath}}/resourceReadValidate";
 {{/if}}
-{{@if(operation.verb.toUpperCase() === "PATCH")}}
+{{#if (eqi operation.verb "PATCH")}}
         public const string {{resource.name}}ValidatePatch = "{{resource.itemPath}}/resourcePatchValidate";
         public const string {{resource.name}}EndPatch = "{{resource.itemPath}}/resourcePatchCompleted";
 {{/if}}
-{{@if(operation.verb.toUpperCase() === "DELETE")}}
+{{#if (eqi operation.verb "DELETE")}}
         public const string {{resource.name}}ValidateDelete = "{{resource.itemPath}}/resourceDeletionValidate";
         public const string {{resource.name}}EndDelete = "{{resource.itemPath}}/resourceDeletionCompleted";
 {{/if}}
-{{@if(operation.verb.toUpperCase() === "POST")}}
+{{#if (eqi operation.verb "POST")}}
         public const string {{resource.name}}Item{{operation.name}} = "{{resource.itemPath}}/{{operation.subPath}}";
 {{/if}}
 {{/each}}

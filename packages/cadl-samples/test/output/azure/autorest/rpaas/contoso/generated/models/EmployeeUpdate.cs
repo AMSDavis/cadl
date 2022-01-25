@@ -11,12 +11,12 @@ using System.Collections.Generic;
 namespace Microsoft.ContosoRPaas.Service.Models
 {
     /// <summary>
-    /// The updatable properties of the Employee. 
+    /// The updatable properties of the Employee.
     /// </summary>
     public class EmployeeUpdate 
     {
         /// <summary>
-        ///  Resource tags. 
+        /// Resource tags.
         /// </summary>
         public IDictionary<string, string> Tags { get; set; }
 

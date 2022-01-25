@@ -11,6 +11,7 @@ namespace Microsoft.Observability.Service.Models
         string _value;
 
         public static readonly LiftrResourceCategories Unknown = "Unknown", MonitorLogs = "MonitorLogs"; 
+
         public LiftrResourceCategories( string value)
         {
             _value = value;

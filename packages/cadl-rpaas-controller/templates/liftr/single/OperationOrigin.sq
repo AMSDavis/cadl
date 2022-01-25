@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Microsoft.{{it.serviceName}}.Service.Models
+namespace Microsoft.{{serviceName}}.Service.Models
 {
     /// <summary>
     /// The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default value is \"user,system\".

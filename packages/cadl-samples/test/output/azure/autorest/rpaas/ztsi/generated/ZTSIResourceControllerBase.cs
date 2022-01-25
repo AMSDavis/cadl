@@ -31,9 +31,15 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <summary>
         /// Validate the request to Read the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceValidateRead)]
@@ -41,11 +47,11 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId, string resourceGroupName, string ztsiName)
         {
             _logger.LogInformation($"ValidateReadAsync()");
-            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, ztsiName, Request);
+            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, ztsiName);
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string ztsiName, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string ztsiName)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -54,9 +60,15 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <summary>
         /// Read the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
         /// <returns> The ZTSIResource resource.</returns>
         [HttpGet]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceItem)]
@@ -70,11 +82,11 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnReadAsync(subscriptionId, resourceGroupName, ztsiName, Request);
+            return await OnReadAsync(subscriptionId, resourceGroupName, ztsiName);
 
         }
 
-        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string ztsiName, HttpRequest request)
+        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string ztsiName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
@@ -82,10 +94,18 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <summary>
         /// Validate the request to Create the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceValidateCreate)]
@@ -96,13 +116,13 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
             var modelValidation = ValidationHelpers.ValidateModel(body);
             if (modelValidation.IsValid)
             {
-                modelValidation = await OnValidateCreate(subscriptionId, resourceGroupName, ztsiName, body, Request);
+                modelValidation = await OnValidateCreate(subscriptionId, resourceGroupName, ztsiName, body);
             }
 
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResource body, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResource body)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -110,10 +130,18 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <summary>
         /// Called after the end of the request to Create the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceEndCreate)]
@@ -121,11 +149,11 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         public async Task EndCreateAsync(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResource body)
         {
             _logger.LogInformation($"EndCreateAsync()");
-            await OnEndCreate(subscriptionId, resourceGroupName, ztsiName, body, Request);
+            await OnEndCreate(subscriptionId, resourceGroupName, ztsiName, body);
             return;
         }
 
-        protected virtual Task OnEndCreate(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResource body, HttpRequest request)
+        protected virtual Task OnEndCreate(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResource body)
         {
             return Task.CompletedTask;
         }
@@ -133,10 +161,18 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <summary>
         /// Create the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> The ZTSIResource resource.</returns>
         [HttpPut]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceItem)]
@@ -153,11 +189,11 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnCreateAsync(subscriptionId, resourceGroupName, ztsiName, body, Request);
+            return await OnCreateAsync(subscriptionId, resourceGroupName, ztsiName, body);
 
         }
 
-        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResource body, HttpRequest request)
+        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResource body)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
@@ -165,10 +201,18 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <summary>
         /// Validate the request to Patch the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceValidatePatch)]
@@ -179,13 +223,13 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
             var modelValidation = ValidationHelpers.ValidateModel(body);
             if (modelValidation.IsValid)
             {
-                modelValidation = await OnValidatePatch(subscriptionId, resourceGroupName, ztsiName, body, Request);
+                modelValidation = await OnValidatePatch(subscriptionId, resourceGroupName, ztsiName, body);
             }
 
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResourceUpdate body, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResourceUpdate body)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -193,10 +237,18 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <summary>
         /// Called after the end of the request to Patch the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceEndPatch)]
@@ -204,11 +256,11 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         public async Task EndPatchAsync(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResourceUpdate body)
         {
             _logger.LogInformation($"EndPatchAsync()");
-            await OnEndPatch(subscriptionId, resourceGroupName, ztsiName, body, Request);
+            await OnEndPatch(subscriptionId, resourceGroupName, ztsiName, body);
             return;
         }
 
-        protected virtual Task OnEndPatch(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResourceUpdate body, HttpRequest request)
+        protected virtual Task OnEndPatch(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResourceUpdate body)
         {
             return Task.CompletedTask;
         }
@@ -216,10 +268,18 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <summary>
         /// Patch the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> The ZTSIResource resource.</returns>
         [HttpPatch]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceItem)]
@@ -236,11 +296,11 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnPatchAsync(subscriptionId, resourceGroupName, ztsiName, body, Request);
+            return await OnPatchAsync(subscriptionId, resourceGroupName, ztsiName, body);
 
         }
 
-        protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResourceUpdate body, HttpRequest request)
+        protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string ztsiName, ZTSIResourceUpdate body)
         {
             return Task.FromResult(Ok(body) as IActionResult);
         }
@@ -248,9 +308,15 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <summary>
         /// Validate the request to Delete the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceValidateDelete)]
@@ -258,11 +324,11 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         public async Task<ValidationResponse> ValidateDeleteAsync(string subscriptionId, string resourceGroupName, string ztsiName)
         {
             _logger.LogInformation($"ValidateDeleteAsync()");
-            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, ztsiName, Request);
+            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, ztsiName);
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string ztsiName, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string ztsiName)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -270,9 +336,15 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <summary>
         /// Called after the end of the request to Delete the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceEndDelete)]
@@ -280,11 +352,11 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         public async Task EndDeleteAsync(string subscriptionId, string resourceGroupName, string ztsiName)
         {
             _logger.LogInformation($"EndDeleteAsync()");
-            await OnEndDelete(subscriptionId, resourceGroupName, ztsiName, Request);
+            await OnEndDelete(subscriptionId, resourceGroupName, ztsiName);
             return;
         }
 
-        protected virtual Task OnEndDelete(string subscriptionId, string resourceGroupName, string ztsiName, HttpRequest request)
+        protected virtual Task OnEndDelete(string subscriptionId, string resourceGroupName, string ztsiName)
         {
             return Task.CompletedTask;
         }
@@ -292,9 +364,15 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// <summary>
         /// Delete the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
         /// <returns> The ZTSIResource resource.</returns>
         [HttpDelete]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceItem)]
@@ -309,21 +387,28 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnDeleteAsync(subscriptionId, resourceGroupName, ztsiName, Request);
+            return await OnDeleteAsync(subscriptionId, resourceGroupName, ztsiName);
 
         }
 
-        protected virtual Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string ztsiName, HttpRequest request)
+        protected virtual Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string ztsiName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
 
+
         /// <summary>
         /// GetMAAURL the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
         /// <returns> The ZTSIResource resource.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceItemGetMAAURL)]
@@ -338,21 +423,28 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnGetMAAURLAsync(subscriptionId, resourceGroupName, ztsiName, Request);
+            return await OnGetMAAURLAsync(subscriptionId, resourceGroupName, ztsiName);
 
         }
 
-        protected virtual Task<IActionResult> OnGetMAAURLAsync(string subscriptionId, string resourceGroupName, string ztsiName, HttpRequest request)
+        protected virtual Task<IActionResult> OnGetMAAURLAsync(string subscriptionId, string resourceGroupName, string ztsiName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
 
+
         /// <summary>
         /// GetZTSIURL the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
         /// <returns> The ZTSIResource resource.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceItemGetZTSIURL)]
@@ -367,22 +459,30 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnGetZTSIURLAsync(subscriptionId, resourceGroupName, ztsiName, Request);
+            return await OnGetZTSIURLAsync(subscriptionId, resourceGroupName, ztsiName);
 
         }
 
-        protected virtual Task<IActionResult> OnGetZTSIURLAsync(string subscriptionId, string resourceGroupName, string ztsiName, HttpRequest request)
+        protected virtual Task<IActionResult> OnGetZTSIURLAsync(string subscriptionId, string resourceGroupName, string ztsiName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
 
+
         /// <summary>
         /// InitiateRequest the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
-        /// <param name="initiateRequest"> undefined</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
+        /// <param name="initiateRequest">
+        /// </param>
         /// <returns> The ZTSIResource resource.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceItemInitiateRequest)]
@@ -399,22 +499,30 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnInitiateRequestAsync(subscriptionId, resourceGroupName, ztsiName, initiateRequest, Request);
+            return await OnInitiateRequestAsync(subscriptionId, resourceGroupName, ztsiName, initiateRequest);
 
         }
 
-        protected virtual Task<IActionResult> OnInitiateRequestAsync(string subscriptionId, string resourceGroupName, string ztsiName, InitiateRequestInformation initiateRequest, HttpRequest request)
+        protected virtual Task<IActionResult> OnInitiateRequestAsync(string subscriptionId, string resourceGroupName, string ztsiName, InitiateRequestInformation initiateRequest)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
 
+
         /// <summary>
         /// ReportRequest the ZTSIResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive.</param>
-        /// <param name="ztsiName"> ZTSI resource name</param>
-        /// <param name="reportRequest"> undefined</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name="ztsiName">
+        /// ZTSI resource name
+        /// </param>
+        /// <param name="reportRequest">
+        /// </param>
         /// <returns> The ZTSIResource resource.</returns>
         [HttpPost]
         [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceItemReportRequest)]
@@ -431,11 +539,11 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnReportRequestAsync(subscriptionId, resourceGroupName, ztsiName, reportRequest, Request);
+            return await OnReportRequestAsync(subscriptionId, resourceGroupName, ztsiName, reportRequest);
 
         }
 
-        protected virtual Task<IActionResult> OnReportRequestAsync(string subscriptionId, string resourceGroupName, string ztsiName, ReportRequestInformation reportRequest, HttpRequest request)
+        protected virtual Task<IActionResult> OnReportRequestAsync(string subscriptionId, string resourceGroupName, string ztsiName, ReportRequestInformation reportRequest)
         {
             return Task.FromResult(Ok() as IActionResult);
         }

@@ -5,14 +5,14 @@
 
 using Microsoft.Extensions.Logging;
 
-namespace {{it.nameSpace}}.Service
+namespace {{nameSpace}}.Service
 {
     /// <summary>
-    /// Controller for user RP operations on the {{it.name}} resource.
+    /// Controller for user RP operations on the {{name}} resource.
     /// </summary>
-    public partial class {{it.name}}Controller : {{it.name}}ControllerBase
+    public partial class {{name}}Controller : {{name}}ControllerBase
     {
-        public {{it.name}}Controller(ILogger<{{it.name}}Controller> logger) : base(logger)
+        public {{name}}Controller(ILogger<{{name}}Controller> logger) : base(logger)
         {
         }
     }

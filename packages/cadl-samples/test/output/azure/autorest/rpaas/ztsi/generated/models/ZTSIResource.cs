@@ -11,17 +11,17 @@ using System.Collections.Generic;
 namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
 {
     /// <summary>
-    /// ZTSI Resource 
+    /// ZTSI Resource
     /// </summary>
     public class ZTSIResource : TrackedResource 
     {
         /// <summary>
-        ///  The resource-specific properties for this resource. 
+        /// The resource-specific properties for this resource.
         /// </summary>
         public ZTSIProperties Properties { get; set; }
 
         /// <summary>
-        ///  The managed service identities assigned to this resource. 
+        /// The managed service identities assigned to this resource.
         /// </summary>
         public ManagedIdentityProperties Identity { get; set; }
 

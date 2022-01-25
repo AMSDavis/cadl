@@ -11,24 +11,24 @@ using System.Collections.Generic;
 namespace Microsoft.Confluent.Service.Models
 {
     /// <summary>
-    /// Details of the subscriber 
+    /// Details of the subscriber
     /// </summary>
     public class UserDetail 
     {
         /// <summary>
-        ///  Subscriber first name. 
+        /// Subscriber first name.
         /// </summary>
         [Length(5, 50)]
         public string FirstName { get; set; }
 
         /// <summary>
-        ///  Subscriber last name. 
+        /// Subscriber last name.
         /// </summary>
         [Length(5, 50)]
         public string LastName { get; set; }
 
         /// <summary>
-        ///  Subscriber email address. 
+        /// Subscriber email address.
         /// </summary>
         [Pattern(@"\w+@\w+\.\w+")]
         public string EmailAddress { get; set; }

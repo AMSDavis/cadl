@@ -31,9 +31,14 @@ namespace Microsoft.ContosoRPaas.Service
         /// <summary>
         /// Validate the request to Read the Employee resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="employeeName"> undefined</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="employeeName">
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(ContosoRPaasServiceRoutes.EmployeeValidateRead)]
@@ -41,11 +46,11 @@ namespace Microsoft.ContosoRPaas.Service
         public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId, string resourceGroupName, string employeeName)
         {
             _logger.LogInformation($"ValidateReadAsync()");
-            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, employeeName, Request);
+            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, employeeName);
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string employeeName, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string employeeName)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -54,9 +59,14 @@ namespace Microsoft.ContosoRPaas.Service
         /// <summary>
         /// Read the Employee resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="employeeName"> undefined</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="employeeName">
+        /// </param>
         /// <returns> The Employee resource.</returns>
         [HttpGet]
         [Route(ContosoRPaasServiceRoutes.EmployeeItem)]
@@ -70,11 +80,11 @@ namespace Microsoft.ContosoRPaas.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnReadAsync(subscriptionId, resourceGroupName, employeeName, Request);
+            return await OnReadAsync(subscriptionId, resourceGroupName, employeeName);
 
         }
 
-        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string employeeName, HttpRequest request)
+        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string employeeName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
@@ -82,10 +92,17 @@ namespace Microsoft.ContosoRPaas.Service
         /// <summary>
         /// Validate the request to Create the Employee resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="employeeName"> undefined</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="employeeName">
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
         [Route(ContosoRPaasServiceRoutes.EmployeeValidateCreate)]
@@ -96,13 +113,13 @@ namespace Microsoft.ContosoRPaas.Service
             var modelValidation = ValidationHelpers.ValidateModel(body);
             if (modelValidation.IsValid)
             {
-                modelValidation = await OnValidateCreate(subscriptionId, resourceGroupName, employeeName, body, Request);
+                modelValidation = await OnValidateCreate(subscriptionId, resourceGroupName, employeeName, body);
             }
 
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string employeeName, Employee body, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string employeeName, Employee body)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -110,10 +127,17 @@ namespace Microsoft.ContosoRPaas.Service
         /// <summary>
         /// Called after the end of the request to Create the Employee resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="employeeName"> undefined</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="employeeName">
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ContosoRPaasServiceRoutes.EmployeeEndCreate)]
@@ -121,11 +145,11 @@ namespace Microsoft.ContosoRPaas.Service
         public async Task EndCreateAsync(string subscriptionId, string resourceGroupName, string employeeName, Employee body)
         {
             _logger.LogInformation($"EndCreateAsync()");
-            await OnEndCreate(subscriptionId, resourceGroupName, employeeName, body, Request);
+            await OnEndCreate(subscriptionId, resourceGroupName, employeeName, body);
             return;
         }
 
-        protected virtual Task OnEndCreate(string subscriptionId, string resourceGroupName, string employeeName, Employee body, HttpRequest request)
+        protected virtual Task OnEndCreate(string subscriptionId, string resourceGroupName, string employeeName, Employee body)
         {
             return Task.CompletedTask;
         }
@@ -133,10 +157,17 @@ namespace Microsoft.ContosoRPaas.Service
         /// <summary>
         /// Create the Employee resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="employeeName"> undefined</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="employeeName">
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> The Employee resource.</returns>
         [HttpPut]
         [Route(ContosoRPaasServiceRoutes.EmployeeItem)]
@@ -153,11 +184,11 @@ namespace Microsoft.ContosoRPaas.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnCreateAsync(subscriptionId, resourceGroupName, employeeName, body, Request);
+            return await OnCreateAsync(subscriptionId, resourceGroupName, employeeName, body);
 
         }
 
-        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string employeeName, Employee body, HttpRequest request)
+        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string employeeName, Employee body)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
@@ -165,10 +196,17 @@ namespace Microsoft.ContosoRPaas.Service
         /// <summary>
         /// Validate the request to Patch the Employee resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="employeeName"> undefined</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="employeeName">
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
         [HttpPost]
         [Route(ContosoRPaasServiceRoutes.EmployeeValidatePatch)]
@@ -179,13 +217,13 @@ namespace Microsoft.ContosoRPaas.Service
             var modelValidation = ValidationHelpers.ValidateModel(body);
             if (modelValidation.IsValid)
             {
-                modelValidation = await OnValidatePatch(subscriptionId, resourceGroupName, employeeName, body, Request);
+                modelValidation = await OnValidatePatch(subscriptionId, resourceGroupName, employeeName, body);
             }
 
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string employeeName, EmployeeUpdate body, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string employeeName, EmployeeUpdate body)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -193,10 +231,17 @@ namespace Microsoft.ContosoRPaas.Service
         /// <summary>
         /// Called after the end of the request to Patch the Employee resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="employeeName"> undefined</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="employeeName">
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ContosoRPaasServiceRoutes.EmployeeEndPatch)]
@@ -204,11 +249,11 @@ namespace Microsoft.ContosoRPaas.Service
         public async Task EndPatchAsync(string subscriptionId, string resourceGroupName, string employeeName, EmployeeUpdate body)
         {
             _logger.LogInformation($"EndPatchAsync()");
-            await OnEndPatch(subscriptionId, resourceGroupName, employeeName, body, Request);
+            await OnEndPatch(subscriptionId, resourceGroupName, employeeName, body);
             return;
         }
 
-        protected virtual Task OnEndPatch(string subscriptionId, string resourceGroupName, string employeeName, EmployeeUpdate body, HttpRequest request)
+        protected virtual Task OnEndPatch(string subscriptionId, string resourceGroupName, string employeeName, EmployeeUpdate body)
         {
             return Task.CompletedTask;
         }
@@ -216,10 +261,17 @@ namespace Microsoft.ContosoRPaas.Service
         /// <summary>
         /// Patch the Employee resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="employeeName"> undefined</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="employeeName">
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> The Employee resource.</returns>
         [HttpPatch]
         [Route(ContosoRPaasServiceRoutes.EmployeeItem)]
@@ -236,11 +288,11 @@ namespace Microsoft.ContosoRPaas.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnPatchAsync(subscriptionId, resourceGroupName, employeeName, body, Request);
+            return await OnPatchAsync(subscriptionId, resourceGroupName, employeeName, body);
 
         }
 
-        protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string employeeName, EmployeeUpdate body, HttpRequest request)
+        protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string employeeName, EmployeeUpdate body)
         {
             return Task.FromResult(Ok(body) as IActionResult);
         }
@@ -248,9 +300,14 @@ namespace Microsoft.ContosoRPaas.Service
         /// <summary>
         /// Validate the request to Delete the Employee resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="employeeName"> undefined</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="employeeName">
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
         [HttpPost]
         [Route(ContosoRPaasServiceRoutes.EmployeeValidateDelete)]
@@ -258,11 +315,11 @@ namespace Microsoft.ContosoRPaas.Service
         public async Task<ValidationResponse> ValidateDeleteAsync(string subscriptionId, string resourceGroupName, string employeeName)
         {
             _logger.LogInformation($"ValidateDeleteAsync()");
-            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, employeeName, Request);
+            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, employeeName);
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string employeeName, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string employeeName)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -270,9 +327,14 @@ namespace Microsoft.ContosoRPaas.Service
         /// <summary>
         /// Called after the end of the request to Delete the Employee resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="employeeName"> undefined</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="employeeName">
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ContosoRPaasServiceRoutes.EmployeeEndDelete)]
@@ -280,11 +342,11 @@ namespace Microsoft.ContosoRPaas.Service
         public async Task EndDeleteAsync(string subscriptionId, string resourceGroupName, string employeeName)
         {
             _logger.LogInformation($"EndDeleteAsync()");
-            await OnEndDelete(subscriptionId, resourceGroupName, employeeName, Request);
+            await OnEndDelete(subscriptionId, resourceGroupName, employeeName);
             return;
         }
 
-        protected virtual Task OnEndDelete(string subscriptionId, string resourceGroupName, string employeeName, HttpRequest request)
+        protected virtual Task OnEndDelete(string subscriptionId, string resourceGroupName, string employeeName)
         {
             return Task.CompletedTask;
         }
@@ -292,9 +354,14 @@ namespace Microsoft.ContosoRPaas.Service
         /// <summary>
         /// Delete the Employee resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="employeeName"> undefined</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="employeeName">
+        /// </param>
         /// <returns> The Employee resource.</returns>
         [HttpDelete]
         [Route(ContosoRPaasServiceRoutes.EmployeeItem)]
@@ -309,11 +376,11 @@ namespace Microsoft.ContosoRPaas.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnDeleteAsync(subscriptionId, resourceGroupName, employeeName, Request);
+            return await OnDeleteAsync(subscriptionId, resourceGroupName, employeeName);
 
         }
 
-        protected virtual Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string employeeName, HttpRequest request)
+        protected virtual Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string employeeName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }

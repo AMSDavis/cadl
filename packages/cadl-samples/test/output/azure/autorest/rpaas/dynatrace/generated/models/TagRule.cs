@@ -11,12 +11,12 @@ using System.Collections.Generic;
 namespace Microsoft.Observability.Service.Models
 {
     /// <summary>
-    /// Tag rules for a monitor resource 
+    /// Tag rules for a monitor resource
     /// </summary>
     public class TagRule : ProxyResource 
     {
         /// <summary>
-        ///  The resource-specific properties for this resource. 
+        /// The resource-specific properties for this resource.
         /// </summary>
         public MonitoringTagRulesProperties Properties { get; set; }
 

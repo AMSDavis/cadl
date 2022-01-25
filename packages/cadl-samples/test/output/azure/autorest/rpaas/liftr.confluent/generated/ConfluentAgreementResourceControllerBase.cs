@@ -31,7 +31,9 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Validate the request to Read the ConfluentAgreementResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(ConfluentServiceRoutes.ConfluentAgreementResourceValidateRead)]
@@ -39,11 +41,11 @@ namespace Microsoft.Confluent.Service
         public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId)
         {
             _logger.LogInformation($"ValidateReadAsync()");
-            var modelValidation = await OnValidateRead(subscriptionId, Request);
+            var modelValidation = await OnValidateRead(subscriptionId);
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -52,7 +54,9 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Read the ConfluentAgreementResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
         /// <returns> The ConfluentAgreementResource resource.</returns>
         [HttpGet]
         [Route(ConfluentServiceRoutes.ConfluentAgreementResourceItem)]
@@ -66,11 +70,11 @@ namespace Microsoft.Confluent.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnReadAsync(subscriptionId, Request);
+            return await OnReadAsync(subscriptionId);
 
         }
 
-        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, HttpRequest request)
+        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
@@ -78,8 +82,12 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Validate the request to Create the ConfluentAgreementResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
-        /// <param name="agreement"> The agreement details.</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="agreement">
+        /// The agreement details.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
         [Route(ConfluentServiceRoutes.ConfluentAgreementResourceValidateCreate)]
@@ -90,13 +98,13 @@ namespace Microsoft.Confluent.Service
             var modelValidation = ValidationHelpers.ValidateModel(agreement);
             if (modelValidation.IsValid)
             {
-                modelValidation = await OnValidateCreate(subscriptionId, agreement, Request);
+                modelValidation = await OnValidateCreate(subscriptionId, agreement);
             }
 
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, ConfluentAgreementResource agreement, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, ConfluentAgreementResource agreement)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -104,8 +112,12 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Called after the end of the request to Create the ConfluentAgreementResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
-        /// <param name="agreement"> The agreement details.</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="agreement">
+        /// The agreement details.
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ConfluentServiceRoutes.ConfluentAgreementResourceEndCreate)]
@@ -113,11 +125,11 @@ namespace Microsoft.Confluent.Service
         public async Task EndCreateAsync(string subscriptionId, ConfluentAgreementResource agreement)
         {
             _logger.LogInformation($"EndCreateAsync()");
-            await OnEndCreate(subscriptionId, agreement, Request);
+            await OnEndCreate(subscriptionId, agreement);
             return;
         }
 
-        protected virtual Task OnEndCreate(string subscriptionId, ConfluentAgreementResource agreement, HttpRequest request)
+        protected virtual Task OnEndCreate(string subscriptionId, ConfluentAgreementResource agreement)
         {
             return Task.CompletedTask;
         }
@@ -125,8 +137,12 @@ namespace Microsoft.Confluent.Service
         /// <summary>
         /// Create the ConfluentAgreementResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription.</param>
-        /// <param name="agreement"> The agreement details.</param>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="agreement">
+        /// The agreement details.
+        /// </param>
         /// <returns> The ConfluentAgreementResource resource.</returns>
         [HttpPut]
         [Route(ConfluentServiceRoutes.ConfluentAgreementResourceItem)]
@@ -143,11 +159,11 @@ namespace Microsoft.Confluent.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnCreateAsync(subscriptionId, agreement, Request);
+            return await OnCreateAsync(subscriptionId, agreement);
 
         }
 
-        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, ConfluentAgreementResource agreement, HttpRequest request)
+        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, ConfluentAgreementResource agreement)
         {
             return Task.FromResult(Ok() as IActionResult);
         }

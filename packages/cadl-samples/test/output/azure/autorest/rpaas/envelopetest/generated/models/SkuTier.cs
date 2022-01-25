@@ -11,6 +11,7 @@ namespace Microsoft.EnvelopeTest.Service.Models
         string _value;
 
         public static readonly SkuTier Free = "Free", Basic = "Basic", Standard = "Standard", Premium = "Premium"; 
+
         public SkuTier( string value)
         {
             _value = value;

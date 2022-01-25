@@ -11,12 +11,12 @@ using System.Collections.Generic;
 namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
 {
     /// <summary>
-    /// Microsoft Azure Attestation Endpoint 
+    /// Microsoft Azure Attestation Endpoint
     /// </summary>
     public class MAAURL 
     {
         /// <summary>
-        ///  URL of the MAA instance that ztsi is using for attestation. 
+        /// URL of the MAA instance that ztsi is using for attestation.
         /// </summary>
         public string Url { get; set; }
 

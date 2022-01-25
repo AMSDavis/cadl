@@ -11,18 +11,18 @@ using System.Collections.Generic;
 namespace Microsoft.Observability.Service.Models
 {
     /// <summary>
-    /// VM Resource Ids 
+    /// VM Resource Ids
     /// </summary>
     public class VMResources 
     {
         /// <summary>
-        ///  VM resource ID on which agent is installed 
+        /// VM resource ID on which agent is installed
         /// </summary>
         [Pattern(@"\/subscriptions\/[a-z0-9\-]+\/resourceGroups\/[^\/]+\/providers\/Microsoft\.Compute\/virtualMachines\/[^\/]+")]
         public string Id { get; set; }
 
         /// <summary>
-        ///  Version of the Dynatrace agent installed on the VM. 
+        /// Version of the Dynatrace agent installed on the VM.
         /// </summary>
         public string AgentVersion { get; set; }
 

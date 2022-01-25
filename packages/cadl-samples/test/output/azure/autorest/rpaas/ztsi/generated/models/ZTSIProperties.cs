@@ -11,22 +11,22 @@ using System.Collections.Generic;
 namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
 {
     /// <summary>
-    /// Properties specific to the ztsi resource. 
+    /// Properties specific to the ztsi resource.
     /// </summary>
     public class ZTSIProperties 
     {
         /// <summary>
-        ///  User info. 
+        /// User info.
         /// </summary>
         public UserInfo UserInfo { get; set; }
 
         /// <summary>
-        ///  Billing plan information. 
+        /// Billing plan information.
         /// </summary>
         public PlanData PlanData { get; set; }
 
         /// <summary>
-        ///  Provisioning state of the resource. 
+        /// Provisioning state of the resource.
         /// </summary>
         public ProvisioningState ProvisioningState { get; set; }
 

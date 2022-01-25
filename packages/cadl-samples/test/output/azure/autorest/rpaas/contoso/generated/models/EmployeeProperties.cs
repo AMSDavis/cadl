@@ -17,7 +17,7 @@ namespace Microsoft.ContosoRPaas.Service.Models
         public string City { get; set; }
 
         /// <summary>
-        ///  The status of the last operation. 
+        /// The status of the last operation.
         /// </summary>
         public ProvisioningState ProvisioningState { get; set; }
 

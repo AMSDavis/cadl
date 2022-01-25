@@ -31,9 +31,15 @@ namespace Microsoft.EnvelopeTest.Service
         /// <summary>
         /// Validate the request to Read the AllPropertiesResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="allPropertiesName"> The name of the all properties resource.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="allPropertiesName">
+        /// The name of the all properties resource.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(EnvelopeTestServiceRoutes.AllPropertiesResourceValidateRead)]
@@ -41,11 +47,11 @@ namespace Microsoft.EnvelopeTest.Service
         public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId, string resourceGroupName, string allPropertiesName)
         {
             _logger.LogInformation($"ValidateReadAsync()");
-            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, allPropertiesName, Request);
+            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, allPropertiesName);
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string allPropertiesName, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string allPropertiesName)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -54,9 +60,15 @@ namespace Microsoft.EnvelopeTest.Service
         /// <summary>
         /// Read the AllPropertiesResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="allPropertiesName"> The name of the all properties resource.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="allPropertiesName">
+        /// The name of the all properties resource.
+        /// </param>
         /// <returns> The AllPropertiesResource resource.</returns>
         [HttpGet]
         [Route(EnvelopeTestServiceRoutes.AllPropertiesResourceItem)]
@@ -70,11 +82,11 @@ namespace Microsoft.EnvelopeTest.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnReadAsync(subscriptionId, resourceGroupName, allPropertiesName, Request);
+            return await OnReadAsync(subscriptionId, resourceGroupName, allPropertiesName);
 
         }
 
-        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string allPropertiesName, HttpRequest request)
+        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string allPropertiesName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
@@ -82,10 +94,18 @@ namespace Microsoft.EnvelopeTest.Service
         /// <summary>
         /// Validate the request to Create the AllPropertiesResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="allPropertiesName"> The name of the all properties resource.</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="allPropertiesName">
+        /// The name of the all properties resource.
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
         [Route(EnvelopeTestServiceRoutes.AllPropertiesResourceValidateCreate)]
@@ -96,13 +116,13 @@ namespace Microsoft.EnvelopeTest.Service
             var modelValidation = ValidationHelpers.ValidateModel(body);
             if (modelValidation.IsValid)
             {
-                modelValidation = await OnValidateCreate(subscriptionId, resourceGroupName, allPropertiesName, body, Request);
+                modelValidation = await OnValidateCreate(subscriptionId, resourceGroupName, allPropertiesName, body);
             }
 
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResource body, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResource body)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -110,10 +130,18 @@ namespace Microsoft.EnvelopeTest.Service
         /// <summary>
         /// Called after the end of the request to Create the AllPropertiesResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="allPropertiesName"> The name of the all properties resource.</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="allPropertiesName">
+        /// The name of the all properties resource.
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(EnvelopeTestServiceRoutes.AllPropertiesResourceEndCreate)]
@@ -121,11 +149,11 @@ namespace Microsoft.EnvelopeTest.Service
         public async Task EndCreateAsync(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResource body)
         {
             _logger.LogInformation($"EndCreateAsync()");
-            await OnEndCreate(subscriptionId, resourceGroupName, allPropertiesName, body, Request);
+            await OnEndCreate(subscriptionId, resourceGroupName, allPropertiesName, body);
             return;
         }
 
-        protected virtual Task OnEndCreate(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResource body, HttpRequest request)
+        protected virtual Task OnEndCreate(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResource body)
         {
             return Task.CompletedTask;
         }
@@ -133,10 +161,18 @@ namespace Microsoft.EnvelopeTest.Service
         /// <summary>
         /// Create the AllPropertiesResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="allPropertiesName"> The name of the all properties resource.</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="allPropertiesName">
+        /// The name of the all properties resource.
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> The AllPropertiesResource resource.</returns>
         [HttpPut]
         [Route(EnvelopeTestServiceRoutes.AllPropertiesResourceItem)]
@@ -153,11 +189,11 @@ namespace Microsoft.EnvelopeTest.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnCreateAsync(subscriptionId, resourceGroupName, allPropertiesName, body, Request);
+            return await OnCreateAsync(subscriptionId, resourceGroupName, allPropertiesName, body);
 
         }
 
-        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResource body, HttpRequest request)
+        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResource body)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
@@ -165,10 +201,18 @@ namespace Microsoft.EnvelopeTest.Service
         /// <summary>
         /// Validate the request to Patch the AllPropertiesResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="allPropertiesName"> The name of the all properties resource.</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="allPropertiesName">
+        /// The name of the all properties resource.
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
         [HttpPost]
         [Route(EnvelopeTestServiceRoutes.AllPropertiesResourceValidatePatch)]
@@ -179,13 +223,13 @@ namespace Microsoft.EnvelopeTest.Service
             var modelValidation = ValidationHelpers.ValidateModel(body);
             if (modelValidation.IsValid)
             {
-                modelValidation = await OnValidatePatch(subscriptionId, resourceGroupName, allPropertiesName, body, Request);
+                modelValidation = await OnValidatePatch(subscriptionId, resourceGroupName, allPropertiesName, body);
             }
 
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResourceUpdate body, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResourceUpdate body)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -193,10 +237,18 @@ namespace Microsoft.EnvelopeTest.Service
         /// <summary>
         /// Called after the end of the request to Patch the AllPropertiesResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="allPropertiesName"> The name of the all properties resource.</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="allPropertiesName">
+        /// The name of the all properties resource.
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(EnvelopeTestServiceRoutes.AllPropertiesResourceEndPatch)]
@@ -204,11 +256,11 @@ namespace Microsoft.EnvelopeTest.Service
         public async Task EndPatchAsync(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResourceUpdate body)
         {
             _logger.LogInformation($"EndPatchAsync()");
-            await OnEndPatch(subscriptionId, resourceGroupName, allPropertiesName, body, Request);
+            await OnEndPatch(subscriptionId, resourceGroupName, allPropertiesName, body);
             return;
         }
 
-        protected virtual Task OnEndPatch(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResourceUpdate body, HttpRequest request)
+        protected virtual Task OnEndPatch(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResourceUpdate body)
         {
             return Task.CompletedTask;
         }
@@ -216,10 +268,18 @@ namespace Microsoft.EnvelopeTest.Service
         /// <summary>
         /// Patch the AllPropertiesResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="allPropertiesName"> The name of the all properties resource.</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="allPropertiesName">
+        /// The name of the all properties resource.
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> The AllPropertiesResource resource.</returns>
         [HttpPatch]
         [Route(EnvelopeTestServiceRoutes.AllPropertiesResourceItem)]
@@ -236,11 +296,11 @@ namespace Microsoft.EnvelopeTest.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnPatchAsync(subscriptionId, resourceGroupName, allPropertiesName, body, Request);
+            return await OnPatchAsync(subscriptionId, resourceGroupName, allPropertiesName, body);
 
         }
 
-        protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResourceUpdate body, HttpRequest request)
+        protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string allPropertiesName, AllPropertiesResourceUpdate body)
         {
             return Task.FromResult(Ok(body) as IActionResult);
         }
@@ -248,9 +308,15 @@ namespace Microsoft.EnvelopeTest.Service
         /// <summary>
         /// Validate the request to Delete the AllPropertiesResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="allPropertiesName"> The name of the all properties resource.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="allPropertiesName">
+        /// The name of the all properties resource.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
         [HttpPost]
         [Route(EnvelopeTestServiceRoutes.AllPropertiesResourceValidateDelete)]
@@ -258,11 +324,11 @@ namespace Microsoft.EnvelopeTest.Service
         public async Task<ValidationResponse> ValidateDeleteAsync(string subscriptionId, string resourceGroupName, string allPropertiesName)
         {
             _logger.LogInformation($"ValidateDeleteAsync()");
-            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, allPropertiesName, Request);
+            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, allPropertiesName);
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string allPropertiesName, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string allPropertiesName)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -270,9 +336,15 @@ namespace Microsoft.EnvelopeTest.Service
         /// <summary>
         /// Called after the end of the request to Delete the AllPropertiesResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="allPropertiesName"> The name of the all properties resource.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="allPropertiesName">
+        /// The name of the all properties resource.
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(EnvelopeTestServiceRoutes.AllPropertiesResourceEndDelete)]
@@ -280,11 +352,11 @@ namespace Microsoft.EnvelopeTest.Service
         public async Task EndDeleteAsync(string subscriptionId, string resourceGroupName, string allPropertiesName)
         {
             _logger.LogInformation($"EndDeleteAsync()");
-            await OnEndDelete(subscriptionId, resourceGroupName, allPropertiesName, Request);
+            await OnEndDelete(subscriptionId, resourceGroupName, allPropertiesName);
             return;
         }
 
-        protected virtual Task OnEndDelete(string subscriptionId, string resourceGroupName, string allPropertiesName, HttpRequest request)
+        protected virtual Task OnEndDelete(string subscriptionId, string resourceGroupName, string allPropertiesName)
         {
             return Task.CompletedTask;
         }
@@ -292,9 +364,15 @@ namespace Microsoft.EnvelopeTest.Service
         /// <summary>
         /// Delete the AllPropertiesResource resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="allPropertiesName"> The name of the all properties resource.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="allPropertiesName">
+        /// The name of the all properties resource.
+        /// </param>
         /// <returns> The AllPropertiesResource resource.</returns>
         [HttpDelete]
         [Route(EnvelopeTestServiceRoutes.AllPropertiesResourceItem)]
@@ -309,11 +387,11 @@ namespace Microsoft.EnvelopeTest.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnDeleteAsync(subscriptionId, resourceGroupName, allPropertiesName, Request);
+            return await OnDeleteAsync(subscriptionId, resourceGroupName, allPropertiesName);
 
         }
 
-        protected virtual Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string allPropertiesName, HttpRequest request)
+        protected virtual Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string allPropertiesName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }

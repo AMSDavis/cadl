@@ -11,6 +11,7 @@ namespace Microsoft.PlayFab.Service.Models
         string _value;
 
         public static readonly ResourceProvisioningState Succeeded = "Succeeded", Failed = "Failed", Canceled = "Canceled"; 
+
         public ResourceProvisioningState( string value)
         {
             _value = value;

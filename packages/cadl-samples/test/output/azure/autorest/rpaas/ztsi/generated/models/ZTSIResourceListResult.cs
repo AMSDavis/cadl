@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
 {
     /// <summary>
-    /// The response of a ZTSIResource list operation. 
+    /// The response of a ZTSIResource list operation.
     /// </summary>
     public class ZTSIResourceListResult : Pageable<ZTSIResource> 
     {

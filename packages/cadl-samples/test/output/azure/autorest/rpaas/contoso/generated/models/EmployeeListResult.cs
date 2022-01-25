@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Microsoft.ContosoRPaas.Service.Models
 {
     /// <summary>
-    /// The response of a Employee list operation. 
+    /// The response of a Employee list operation.
     /// </summary>
     public class EmployeeListResult : Pageable<Employee> 
     {

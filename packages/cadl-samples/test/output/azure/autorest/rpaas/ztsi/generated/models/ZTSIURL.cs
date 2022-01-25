@@ -11,12 +11,12 @@ using System.Collections.Generic;
 namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
 {
     /// <summary>
-    /// ZTSI URL 
+    /// ZTSI URL
     /// </summary>
     public class ZTSIURL 
     {
         /// <summary>
-        ///  URL of the ZTSI instance created as a part of the resource. 
+        /// URL of the ZTSI instance created as a part of the resource.
         /// </summary>
         public string Url { get; set; }
 

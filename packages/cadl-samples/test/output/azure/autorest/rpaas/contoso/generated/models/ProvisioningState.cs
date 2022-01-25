@@ -11,6 +11,7 @@ namespace Microsoft.ContosoRPaas.Service.Models
         string _value;
 
         public static readonly ProvisioningState Succeeded = "Succeeded", Failed = "Failed", Canceled = "Canceled", Provisioning = "Provisioning", Updating = "Updating", Deleting = "Deleting", Accepted = "Accepted"; 
+
         public ProvisioningState( string value)
         {
             _value = value;

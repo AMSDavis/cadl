@@ -11,12 +11,12 @@ using System.Collections.Generic;
 namespace Microsoft.FluidRelay.Service.Models
 {
     /// <summary>
-    /// Specifies which key should be generated. 
+    /// Specifies which key should be generated.
     /// </summary>
     public class RegenerateKeyRequest 
     {
         /// <summary>
-        ///  The key to regenerate. 
+        /// The key to regenerate.
         /// </summary>
         public KeyName KeyName { get; set; }
 

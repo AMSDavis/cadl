@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Microsoft.PlayFab.Service.Models
 {
     /// <summary>
-    /// The response of a PlayerDatabase list operation. 
+    /// The response of a PlayerDatabase list operation.
     /// </summary>
     public class PlayerDatabaseListResult : Pageable<PlayerDatabase> 
     {

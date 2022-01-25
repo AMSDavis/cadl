@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Microsoft.Confluent.Service.Models
 {
     /// <summary>
-    /// The response of a ConfluentAgreementResource list operation. 
+    /// The response of a ConfluentAgreementResource list operation.
     /// </summary>
     public class ConfluentAgreementResourceListResult : Pageable<ConfluentAgreementResource> 
     {

@@ -11,12 +11,12 @@ using System.Collections.Generic;
 namespace Microsoft.Observability.Service.Models
 {
     /// <summary>
-    /// Single sign-on configurations for a given monitor resource. 
+    /// Single sign-on configurations for a given monitor resource.
     /// </summary>
     public class DynatraceSingleSignOnResource : ProxyResource 
     {
         /// <summary>
-        ///  The resource-specific properties for this resource. 
+        /// The resource-specific properties for this resource.
         /// </summary>
         public DynatraceSingleSignOnProperties Properties { get; set; }
 

@@ -11,17 +11,17 @@ using System.Collections.Generic;
 namespace Microsoft.Observability.Service.Models
 {
     /// <summary>
-    /// Dynatrace Account Information 
+    /// Dynatrace Account Information
     /// </summary>
     public class AccountInfo 
     {
         /// <summary>
-        ///  Account Id of the account this environment is linked to 
+        /// Account Id of the account this environment is linked to
         /// </summary>
         public string AccountId { get; set; }
 
         /// <summary>
-        ///  Region in which the account is created 
+        /// Region in which the account is created
         /// </summary>
         public string RegionId { get; set; }
 

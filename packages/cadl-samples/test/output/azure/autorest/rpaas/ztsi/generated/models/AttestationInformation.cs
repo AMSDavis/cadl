@@ -11,17 +11,17 @@ using System.Collections.Generic;
 namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
 {
     /// <summary>
-    /// Attestation information 
+    /// Attestation information
     /// </summary>
     public class AttestationInformation 
     {
         /// <summary>
-        ///  Attestation type that this information object is refering to 
+        /// Attestation type that this information object is refering to
         /// </summary>
         public AttestationType AttestationType { get; set; }
 
         /// <summary>
-        ///  Base64 encoded attestation data. 
+        /// Base64 encoded attestation data.
         /// </summary>
         public byte[] AttestationData { get; set; }
 

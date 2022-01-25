@@ -11,17 +11,17 @@ using System.Collections.Generic;
 namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
 {
     /// <summary>
-    /// Request initiating the communication between ZTSI service and agent 
+    /// Request initiating the communication between ZTSI service and agent
     /// </summary>
     public class InitiateRequestInformation 
     {
         /// <summary>
-        ///  Request Header 
+        /// Request Header
         /// </summary>
         public RequestHeader RequestHeader { get; set; }
 
         /// <summary>
-        ///  ZTSI report from last RequestReport call, if any 
+        /// ZTSI report from last RequestReport call, if any
         /// </summary>
         public byte[] LastZtsiReport { get; set; }
 

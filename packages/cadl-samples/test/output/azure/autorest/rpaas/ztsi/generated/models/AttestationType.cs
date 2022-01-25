@@ -11,6 +11,7 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
         string _value;
 
         public static readonly AttestationType Boot = "Boot", Runtime = "Runtime"; 
+
         public AttestationType( string value)
         {
             _value = value;

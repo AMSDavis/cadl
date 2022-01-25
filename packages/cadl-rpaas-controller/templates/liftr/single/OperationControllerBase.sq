@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using {{it.nameSpace}}.Service.Models;
-using {{it.nameSpace}}.Service.Controllers;
+using {{nameSpace}}.Service.Models;
+using {{nameSpace}}.Service.Controllers;
 using System.Net;
 
-namespace {{it.nameSpace}}.Service
+namespace {{nameSpace}}.Service
 {
     public abstract class OperationControllerBase : Controller
     {
@@ -20,11 +20,11 @@ namespace {{it.nameSpace}}.Service
         }
 
         /// <summary>
-        /// List all operations provided by {{it.nameSpace}}.
+        /// List all operations provided by {{nameSpace}}.
         /// </summary>
-        /// <returns> The list of {{it.nameSpace}} operations.</returns>
+        /// <returns> The list of {{nameSpace}} operations.</returns>
         [HttpGet]
-        [Route({{it.serviceName}}ServiceRoutes.ListOperations)]
+        [Route({{serviceName}}ServiceRoutes.ListOperations)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(OperationListResult))]
         public async Task<OperationListResult> ListOperationsAsync()
         {

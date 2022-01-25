@@ -31,10 +31,18 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Read the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="ruleSetName">
+        /// Monitor RuleSet resource name
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.TagRuleValidateRead)]
@@ -42,11 +50,11 @@ namespace Microsoft.Observability.Service
         public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
         {
             _logger.LogInformation($"ValidateReadAsync()");
-            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, monitorName, ruleSetName, Request);
+            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, monitorName, ruleSetName);
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -55,10 +63,18 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Read the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="ruleSetName">
+        /// Monitor RuleSet resource name
+        /// </param>
         /// <returns> The TagRule resource.</returns>
         [HttpGet]
         [Route(ObservabilityServiceRoutes.TagRuleItem)]
@@ -72,11 +88,11 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnReadAsync(subscriptionId, resourceGroupName, monitorName, ruleSetName, Request);
+            return await OnReadAsync(subscriptionId, resourceGroupName, monitorName, ruleSetName);
 
         }
 
-        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, HttpRequest request)
+        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
@@ -84,11 +100,21 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Create the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="ruleSetName">
+        /// Monitor RuleSet resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Create request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.TagRuleValidateCreate)]
@@ -99,13 +125,13 @@ namespace Microsoft.Observability.Service
             var modelValidation = ValidationHelpers.ValidateModel(body);
             if (modelValidation.IsValid)
             {
-                modelValidation = await OnValidateCreate(subscriptionId, resourceGroupName, monitorName, ruleSetName, body, Request);
+                modelValidation = await OnValidateCreate(subscriptionId, resourceGroupName, monitorName, ruleSetName, body);
             }
 
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -113,11 +139,21 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Called after the end of the request to Create the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="ruleSetName">
+        /// Monitor RuleSet resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.TagRuleEndCreate)]
@@ -125,11 +161,11 @@ namespace Microsoft.Observability.Service
         public async Task EndCreateAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body)
         {
             _logger.LogInformation($"EndCreateAsync()");
-            await OnEndCreate(subscriptionId, resourceGroupName, monitorName, ruleSetName, body, Request);
+            await OnEndCreate(subscriptionId, resourceGroupName, monitorName, ruleSetName, body);
             return;
         }
 
-        protected virtual Task OnEndCreate(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body, HttpRequest request)
+        protected virtual Task OnEndCreate(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body)
         {
             return Task.CompletedTask;
         }
@@ -137,11 +173,21 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Create the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
-        /// <param name="body"> The resource data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="ruleSetName">
+        /// Monitor RuleSet resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource data.
+        /// </param>
         /// <returns> The TagRule resource.</returns>
         [HttpPut]
         [Route(ObservabilityServiceRoutes.TagRuleItem)]
@@ -158,11 +204,11 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnCreateAsync(subscriptionId, resourceGroupName, monitorName, ruleSetName, body, Request);
+            return await OnCreateAsync(subscriptionId, resourceGroupName, monitorName, ruleSetName, body);
 
         }
 
-        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body, HttpRequest request)
+        protected virtual Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRule body)
         {
             return Task.FromResult(Ok() as IActionResult);
         }
@@ -170,11 +216,21 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Patch the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="ruleSetName">
+        /// Monitor RuleSet resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Patch request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.TagRuleValidatePatch)]
@@ -185,13 +241,13 @@ namespace Microsoft.Observability.Service
             var modelValidation = ValidationHelpers.ValidateModel(body);
             if (modelValidation.IsValid)
             {
-                modelValidation = await OnValidatePatch(subscriptionId, resourceGroupName, monitorName, ruleSetName, body, Request);
+                modelValidation = await OnValidatePatch(subscriptionId, resourceGroupName, monitorName, ruleSetName, body);
             }
 
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidatePatch(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -199,11 +255,21 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Called after the end of the request to Patch the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="ruleSetName">
+        /// Monitor RuleSet resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.TagRuleEndPatch)]
@@ -211,11 +277,11 @@ namespace Microsoft.Observability.Service
         public async Task EndPatchAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body)
         {
             _logger.LogInformation($"EndPatchAsync()");
-            await OnEndPatch(subscriptionId, resourceGroupName, monitorName, ruleSetName, body, Request);
+            await OnEndPatch(subscriptionId, resourceGroupName, monitorName, ruleSetName, body);
             return;
         }
 
-        protected virtual Task OnEndPatch(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body, HttpRequest request)
+        protected virtual Task OnEndPatch(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body)
         {
             return Task.CompletedTask;
         }
@@ -223,11 +289,21 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Patch the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
-        /// <param name="body"> The resource patch data.</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="ruleSetName">
+        /// Monitor RuleSet resource name
+        /// </param>
+        /// <param name="body">
+        /// The resource patch data.
+        /// </param>
         /// <returns> The TagRule resource.</returns>
         [HttpPatch]
         [Route(ObservabilityServiceRoutes.TagRuleItem)]
@@ -244,11 +320,11 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnPatchAsync(subscriptionId, resourceGroupName, monitorName, ruleSetName, body, Request);
+            return await OnPatchAsync(subscriptionId, resourceGroupName, monitorName, ruleSetName, body);
 
         }
 
-        protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body, HttpRequest request)
+        protected virtual Task<IActionResult> OnPatchAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, TagRuleUpdate body)
         {
             return Task.FromResult(Ok(body) as IActionResult);
         }
@@ -256,10 +332,18 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Validate the request to Delete the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="ruleSetName">
+        /// Monitor RuleSet resource name
+        /// </param>
         /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.TagRuleValidateDelete)]
@@ -267,11 +351,11 @@ namespace Microsoft.Observability.Service
         public async Task<ValidationResponse> ValidateDeleteAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
         {
             _logger.LogInformation($"ValidateDeleteAsync()");
-            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, monitorName, ruleSetName, Request);
+            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, monitorName, ruleSetName);
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, HttpRequest request)
+        protected virtual Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
@@ -279,10 +363,18 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Called after the end of the request to Delete the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="ruleSetName">
+        /// Monitor RuleSet resource name
+        /// </param>
         /// <returns> Nothing.</returns>
         [HttpPost]
         [Route(ObservabilityServiceRoutes.TagRuleEndDelete)]
@@ -290,11 +382,11 @@ namespace Microsoft.Observability.Service
         public async Task EndDeleteAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
         {
             _logger.LogInformation($"EndDeleteAsync()");
-            await OnEndDelete(subscriptionId, resourceGroupName, monitorName, ruleSetName, Request);
+            await OnEndDelete(subscriptionId, resourceGroupName, monitorName, ruleSetName);
             return;
         }
 
-        protected virtual Task OnEndDelete(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, HttpRequest request)
+        protected virtual Task OnEndDelete(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
         {
             return Task.CompletedTask;
         }
@@ -302,10 +394,18 @@ namespace Microsoft.Observability.Service
         /// <summary>
         /// Delete the TagRule resource.
         /// </summary>
-        /// <param name="subscriptionId"> The subscription containing the resource.</param>
-        /// <param name="resourceGroupName"> The resource group containing the resource.</param>
-        /// <param name="monitorName"> Monitor resource name</param>
-        /// <param name="ruleSetName"> Monitor RuleSet resource name</param>
+        /// <param name="subscriptionId">
+        /// The subscription containing the resource.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The resource group containing the resource.
+        /// </param>
+        /// <param name="monitorName">
+        /// Monitor resource name
+        /// </param>
+        /// <param name="ruleSetName">
+        /// Monitor RuleSet resource name
+        /// </param>
         /// <returns> The TagRule resource.</returns>
         [HttpDelete]
         [Route(ObservabilityServiceRoutes.TagRuleItem)]
@@ -320,11 +420,11 @@ namespace Microsoft.Observability.Service
                 return BadRequest("Http request is null");
             }
 
-            return await OnDeleteAsync(subscriptionId, resourceGroupName, monitorName, ruleSetName, Request);
+            return await OnDeleteAsync(subscriptionId, resourceGroupName, monitorName, ruleSetName);
 
         }
 
-        protected virtual Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName, HttpRequest request)
+        protected virtual Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }

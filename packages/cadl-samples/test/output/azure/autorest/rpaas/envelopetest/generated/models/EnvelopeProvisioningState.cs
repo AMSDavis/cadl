@@ -11,6 +11,7 @@ namespace Microsoft.EnvelopeTest.Service.Models
         string _value;
 
         public static readonly EnvelopeProvisioningState Working = "Working", Succeeded = "Succeeded", Canceled = "Canceled", Failed = "Failed"; 
+
         public EnvelopeProvisioningState( string value)
         {
             _value = value;

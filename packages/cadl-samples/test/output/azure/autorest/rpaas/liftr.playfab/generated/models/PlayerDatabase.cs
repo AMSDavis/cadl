@@ -11,12 +11,12 @@ using System.Collections.Generic;
 namespace Microsoft.PlayFab.Service.Models
 {
     /// <summary>
-    /// Details of the player database. 
+    /// Details of the player database.
     /// </summary>
     public class PlayerDatabase : TrackedResource 
     {
         /// <summary>
-        ///  The resource-specific properties for this resource. 
+        /// The resource-specific properties for this resource.
         /// </summary>
         public PlayerDatabaseProperties Properties { get; set; }
 

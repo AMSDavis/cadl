@@ -36,14 +36,10 @@ import {
   UnionType,
 } from "@cadl-lang/compiler";
 import { getAllRoutes, http, OperationDetails } from "@cadl-lang/rest";
-import * as sqrl from "squirrelly";
+import Handlebars from "handlebars";
 import { fileURLToPath } from "url";
 import { reportDiagnostic } from "./lib.js";
-
 const { getPathParamName, isBody, isPathParam, isQueryParam } = http;
-
-// Squirelly escape for xml which is not what we want here https://v7--squirrellyjs.netlify.app/docs/v7/auto-escaping/
-sqrl.defaultConfig.autoEscape = false;
 
 export async function $onBuild(program: Program) {
   const rootPath = resolvePath(getDirectoryPath(fileURLToPath(import.meta.url)), "..");
@@ -521,6 +517,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             }
           }
         }
+
         function visitNamespace(visited: NamespaceType, parent?: string) {
           let key: string = visited.name;
           let resource: Resource | undefined = undefined;
@@ -1105,14 +1102,14 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       reportInfo("Writing resource controller for " + resource.name, undefined);
       await program.host.writeFile(
         resolvePath(resourceControllerBasePath),
-        await sqrl.renderFile(
+        await compileHandlebarsTemplate(
           resolvePath(joinPaths(templatePath, "resourceControllerBase.sq")),
           resource
         )
       );
       await program.host.writeFile(
         resolvePath(resourceControllerPath),
-        await sqrl.renderFile(
+        await compileHandlebarsTemplate(
           resolvePath(joinPaths(templatePath, "resourceController.sq")),
           resource
         )
@@ -1127,7 +1124,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       const regTemplate = resolvePath(joinPaths(templatePath, "resourceProviderRegistration.sq"));
       await program.host.writeFile(
         outputPath,
-        await sqrl.renderFile(regTemplate, { serviceName: serviceModel.serviceName })
+        await compileHandlebarsTemplate(regTemplate, { serviceName: serviceModel.serviceName })
       );
     }
 
@@ -1157,10 +1154,13 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       }
       await program.host.writeFile(
         resolvePath(resourceRegistrationPath),
-        await sqrl.renderFile(resolvePath(joinPaths(templatePath, "resourceRegistration.sq")), {
-          apiVersion: getServiceVersion(program),
-          extensions: Array.from(extensions.values()),
-        })
+        await compileHandlebarsTemplate(
+          resolvePath(joinPaths(templatePath, "resourceRegistration.sq")),
+          {
+            apiVersion: getServiceVersion(program),
+            extensions: Array.from(extensions.values()),
+          }
+        )
       );
     }
 
@@ -1169,7 +1169,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       const modelTemplate = resolvePath(joinPaths(templatePath, "model.sq"));
       await program.host.writeFile(
         resolvePath(modelPath),
-        await sqrl.renderFile(modelTemplate, model)
+        await compileHandlebarsTemplate(modelTemplate, model)
       );
     }
 
@@ -1180,7 +1180,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       );
       await program.host.writeFile(
         resolvePath(modelPath),
-        await sqrl.renderFile(templateFile, model)
+        await compileHandlebarsTemplate(templateFile, model)
       );
     }
 
@@ -1210,7 +1210,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         const baseName = templateFile.substring(0, templateFile.lastIndexOf("."));
         const outFile = joinPaths(outPath, baseName + ".cs");
         reportProgress(`    -- ${templateFile} => ${outFile}`);
-        const content = await sqrl.renderFile(templatePath, outputModel);
+        const content = await compileHandlebarsTemplate(templatePath, outputModel);
         await program.host.writeFile(resolvePath(outFile), content).catch((err) =>
           reportDiagnostic(program, {
             code: "writing-file",
@@ -1241,22 +1241,57 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
 
     const service = outputModel.serviceName;
-    sqrl.filters.define("decl", (op) =>
-      op.parameters
-        .map((p: any) => p.type + " " + p.name + (p.default ? ` = ${p.default}` : ""))
-        .join(", ")
+    const templates = new Map<string, any>();
+    Handlebars.registerPartial(
+      "renderComment",
+      '{{#each (split description "\n") as |line|}}/// {{trim line}}\n{{/each}}'
     );
-    sqrl.filters.define("call", (op) => op.parameters.map((p: any) => p.name).join(", "));
-    sqrl.filters.define("bodyParameter", (op) => op.parameters[op.parameters.length - 1].name);
-    sqrl.filters.define("typeParamList", (op) =>
-      op.typeParameters.map((p: TypeReference) => p.name).join(", ")
-    );
-    sqrl.filters.define("callByValue", (op) =>
-      op.parameters
-        .map((p: ValueParameter) => (p.type === "string" ? `@"${p.value}"` : p.value))
-        .join(", ")
-    );
-    sqrl.filters.define("initialCaps", (op) => transformCSharpIdentifier(op));
+    const compileHandlebarsTemplate = async (fileName: string, data: any) => {
+      let templateDelegate = templates.get(fileName);
+      if (!templateDelegate) {
+        const generationViewTemplate = (await program.host.readFile(fileName)).text;
+        templateDelegate = Handlebars.compile<any>(generationViewTemplate, {
+          noEscape: true,
+        });
+        templates.set(fileName, templateDelegate);
+      }
+      return templateDelegate(data, { helpers: commonHelper });
+    };
+    const commonHelper = {
+      decl: (op: any) =>
+        op.parameters
+          .map((p: any) => p.type + " " + p.name + (p.default ? ` = ${p.default}` : ""))
+          .join(", "),
+      call: (op: any) => op.parameters.map((p: any) => p.name).join(", "),
+      bodyParameter: (op: any) => op.parameters[op.parameters.length - 1].name,
+      typeParamList: (op: any) => op.typeParameters.map((p: TypeReference) => p.name).join(", "),
+      callByValue: (op: any) =>
+        op.parameters
+          .map((p: ValueParameter) => (p.type === "string" ? `@"${p.value}"` : p.value))
+          .join(", "),
+      initialCaps: (str: string) =>
+        str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : "",
+      isDefined: (value: any) => value !== undefined,
+      eq: (a: string | number, b: string | number) => a === b,
+      eqi: (a: string, b: string) => a.toLowerCase() === b.toLowerCase(),
+      ne: (a: string | number, b: string | number) => a !== b,
+      or: (a: boolean, b: boolean) => a || b,
+      notCustomOp: (op: any) => op.verb.toLowerCase() !== "post",
+      getOperationAction: (operation: Operation) => {
+        const subPath = operation.subPath || "";
+        const mapping = {
+          get: "Read",
+          put: "Create",
+          delete: "Delete",
+          patch: "Patch",
+          post: subPath.length ? subPath[0].toUpperCase() + subPath.substring(1) : "",
+        } as any;
+        return mapping[operation.verb.toLowerCase()];
+      },
+      join: (arr: string[], separator: string) => arr.join(separator),
+      split: (str: string, separator: string) => (str ? str.split(separator) : ""),
+      trim: (str: string) => (str ? str.trim() : ""),
+    };
     const operationsPath = genPath;
     const routesPath = resolvePath(joinPaths(genPath, service + "ServiceRoutes.cs"));
     const templatePath = joinPaths(rootPath, "templates", options.controllerHost);
@@ -1285,7 +1320,10 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       );
       await program.host.writeFile(
         routesPath,
-        await sqrl.renderFile(joinPaths(templatePath, "serviceRoutingConstants.sq"), outputModel)
+        await compileHandlebarsTemplate(
+          joinPaths(templatePath, "serviceRoutingConstants.sq"),
+          outputModel
+        )
       );
       await generateSingleDirectory(rootPath, operationsPath).catch((err) =>
         reportDiagnostic(program, {
