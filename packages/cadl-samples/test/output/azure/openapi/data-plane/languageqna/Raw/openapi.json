@@ -84,6 +84,622 @@
         }
       },
       "get": {
+        "operationId": "QuestionAnsweringProjects_GetProjectDetails",
+        "summary": "Get the requested project metadata",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectMetadata"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "QuestionAnsweringProjects_DeleteProject",
+        "summary": "Delete the project",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "operation-location": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProjectOptions"
+              }
+            }
+          }
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/query-knowledgebases/projects/deletion-jobs/{jobId}": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_GetDeleteStatus",
+        "summary": "Gets the status of a Project delete job",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/components/parameters/JobIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobState"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/:export": {
+      "post": {
+        "operationId": "QuestionAnsweringProjects_Export",
+        "x-ms-long-running-operation": true,
+        "summary": "Export project metadata and assets",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ImportExportFormatParameter"
+          },
+          {
+            "$ref": "#/components/parameters/AssetKindParameter"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "operation-location": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/export/jobs/{jobId}": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_GetExportStatus",
+        "summary": "Gets the status of an Export job, once job completes, returns the project metadata, and assets",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/components/parameters/JobIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportJobState"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/:import": {
+      "post": {
+        "operationId": "QuestionAnsweringProjects_Import",
+        "x-ms-long-running-operation": true,
+        "summary": "Import project assets",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ImportExportFormatParameter"
+          },
+          {
+            "$ref": "#/components/parameters/AssetKindParameter"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "operation-location": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/import/jobs/{jobId}": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_GetImportStatus",
+        "summary": "Gets the status of an Import job",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/components/parameters/JobIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobState"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/deployments/{deploymentName}": {
+      "put": {
+        "operationId": "QuestionAnsweringProjects_CreateDeployment",
+        "summary": "Deploy project to production.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/components/parameters/DeploymentNamePathParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "operation-location": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/deployments": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_GetDeployments",
+        "summary": "List all deployments of a project.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_ProjectDeployment"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/deployments/{deploymentName}/jobs/{jobId}": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_GetDeploymentsJobStatus",
+        "summary": "Gets the status of a Deploy job.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/components/parameters/DeploymentNamePathParameter"
+          },
+          {
+            "$ref": "#/components/parameters/JobIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobMetadata"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/deployments/synonyms": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_ListSynonyms",
+        "summary": "List all the synonyms of a project.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/components/parameters/TopParameter"
+          },
+          {
+            "$ref": "#/components/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/components/parameters/MaxPageSizeParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_SynonymAsset"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "QuestionAnsweringProjects_CreateOrUpdateSynonyms",
+        "summary": "Create or update all the synonyms of a project.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_SynonymAsset"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SynonymAsset"
+                },
+                "x-cadl-name": "QnAMaker.SynonymAsset[]"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/sources": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_ListSources",
+        "summary": "List all the sources of a project.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/components/parameters/TopParameter"
+          },
+          {
+            "$ref": "#/components/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/components/parameters/MaxPageSizeParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_QnaSourceRecord"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "QuestionAnsweringProjects_UpdateSources",
+        "summary": "Updates the sources of a project.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_QnaSourceRecord"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRecord_QnaSourceRecord"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/sources/jobs/{jobId}": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_GetSourcesJobStatus",
+        "summary": "Gets the status of update sources job.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/components/parameters/JobIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobMetadata"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/qnas": {
+      "get": {
         "operationId": "QuestionAnsweringProjects_ListQuestionAndAnswers",
         "summary": "List all the sources of a project.",
         "parameters": [
@@ -167,132 +783,10 @@
               }
             }
           }
-        },
-        "x-ms-long-running-operation": true
-      },
-      "post": {
-        "operationId": "QuestionAnsweringProjects_CreateFeedback",
-        "x-ms-long-running-operation": true,
-        "summary": "Update Active Learning feedback.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/ProjectNamePathParameter"
-          },
-          {
-            "$ref": "#/components/parameters/ApiVersionParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request has succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "number",
-                  "enum": [
-                    204
-                  ]
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "operationId": "QuestionAnsweringProjects_CreateOrUpdateSynonyms",
-        "summary": "Create or update all the synonyms of a project.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/ProjectNamePathParameter"
-          },
-          {
-            "$ref": "#/components/parameters/ApiVersionParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request has succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Page_SynonymAsset"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/SynonymAsset"
-                },
-                "x-cadl-name": "QnAMaker.SynonymAsset[]"
-              }
-            }
-          }
         }
       }
     },
-    "/query-knowledgebases/projects/{jobId}": {
-      "get": {
-        "operationId": "QuestionAnsweringProjects_GetDeleteStatus",
-        "summary": "Gets the status of a Project delete job",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/components/parameters/JobIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request has succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JobState"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/query-knowledgebases/projects/{projectName}/{jobId}": {
+    "/query-knowledgebases/projects/{projectName}/qnas/jobs/{jobId}": {
       "get": {
         "operationId": "QuestionAnsweringProjects_GetQuestionAndAnswersJobStatus",
         "summary": "Gets the status of update sources job.",
@@ -331,58 +825,13 @@
         }
       }
     },
-    "/query-knowledgebases/projects/{projectName}/{deploymentName}": {
-      "put": {
-        "operationId": "QuestionAnsweringProjects_CreateDeployment",
-        "summary": "Deploy project to production.",
+    "/query-knowledgebases/projects/{projectName}/feedback": {
+      "post": {
+        "operationId": "QuestionAnsweringProjects_CreateFeedback",
+        "summary": "Update Active Learning feedback.",
         "parameters": [
           {
             "$ref": "#/components/parameters/ProjectNamePathParameter"
-          },
-          {
-            "$ref": "#/components/parameters/DeploymentNamePathParameter"
-          },
-          {
-            "$ref": "#/components/parameters/ApiVersionParameter"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Accepted",
-            "headers": {
-              "operation-location": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/query-knowledgebases/projects/{projectName}/{deploymentName}/{jobId}": {
-      "get": {
-        "operationId": "QuestionAnsweringProjects_GetDeploymentsJobStatus",
-        "summary": "Gets the status of a Deploy job.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/ProjectNamePathParameter"
-          },
-          {
-            "$ref": "#/components/parameters/DeploymentNamePathParameter"
-          },
-          {
-            "$ref": "#/components/parameters/JobIdParameter"
           },
           {
             "$ref": "#/components/parameters/ApiVersionParameter"
@@ -394,7 +843,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/JobMetadata"
+                  "type": "number",
+                  "enum": [
+                    204
+                  ]
                 }
               }
             }

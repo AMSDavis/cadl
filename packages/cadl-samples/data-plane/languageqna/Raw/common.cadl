@@ -62,7 +62,6 @@ model DeploymentNamePathParameter {
   @extension("x-ms-parameter-location", "method")
   @doc("The name of the specific deployment of the project to use.")
   @path
-  @query
   deploymentName: string;
 }
 

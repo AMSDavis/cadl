@@ -3,6 +3,7 @@ using Cadl.Http;
 @route("/locks")
 namespace LocksResource {
   @operationId("GetLock")
+  @get
   op read(
     ...ServiceParams,
     ...SyncTokenHeader,
@@ -12,6 +13,7 @@ namespace LocksResource {
   ): OkResponse<SyncTokenHeader & KeyValue> | Error;
 
   @operationId("DeleteLock")
+  @delete
   op delete(
     ...ServiceParams,
     ...SyncTokenHeader,

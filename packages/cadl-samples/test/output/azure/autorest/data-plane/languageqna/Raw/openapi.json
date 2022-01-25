@@ -82,6 +82,400 @@
         }
       },
       "get": {
+        "operationId": "QuestionAnsweringProjects_GetProjectDetails",
+        "summary": "Get the requested project metadata",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/ProjectMetadata"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "QuestionAnsweringProjects_DeleteProject",
+        "summary": "Delete the project",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          }
+        ],
+        "responses": {
+          "202": {
+            "headers": {
+              "operation-location": {
+                "type": "string"
+              }
+            },
+            "description": "A successful response"
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/:export": {
+      "post": {
+        "operationId": "QuestionAnsweringProjects_Export",
+        "x-ms-long-running-operation": true,
+        "summary": "Export project metadata and assets",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/ImportExportFormatParameter"
+          },
+          {
+            "$ref": "#/parameters/AssetKindParameter"
+          }
+        ],
+        "responses": {
+          "202": {
+            "headers": {
+              "operation-location": {
+                "type": "string"
+              }
+            },
+            "description": "A successful response"
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/:import": {
+      "post": {
+        "operationId": "QuestionAnsweringProjects_Import",
+        "x-ms-long-running-operation": true,
+        "summary": "Import project assets",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/ImportExportFormatParameter"
+          },
+          {
+            "$ref": "#/parameters/AssetKindParameter"
+          }
+        ],
+        "responses": {
+          "202": {
+            "headers": {
+              "operation-location": {
+                "type": "string"
+              }
+            },
+            "description": "A successful response"
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/deployments": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_GetDeployments",
+        "summary": "List all deployments of a project.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Page_ProjectDeployment"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/deployments/{deploymentName}": {
+      "put": {
+        "operationId": "QuestionAnsweringProjects_CreateDeployment",
+        "summary": "Deploy project to production.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/DeploymentNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "202": {
+            "headers": {
+              "operation-location": {
+                "type": "string"
+              }
+            },
+            "description": "A successful response"
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/deployments/{deploymentName}/jobs/{jobId}": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_GetDeploymentsJobStatus",
+        "summary": "Gets the status of a Deploy job.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/DeploymentNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/JobIdParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/JobMetadata"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/deployments/synonyms": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_ListSynonyms",
+        "summary": "List all the synonyms of a project.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/TopParameter"
+          },
+          {
+            "$ref": "#/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Page_SynonymAsset"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "QuestionAnsweringProjects_CreateOrUpdateSynonyms",
+        "summary": "Create or update all the synonyms of a project.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SynonymAsset"
+              },
+              "x-cadl-name": "QnAMaker.SynonymAsset[]"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Page_SynonymAsset"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/export/jobs/{jobId}": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_GetExportStatus",
+        "summary": "Gets the status of an Export job, once job completes, returns the project metadata, and assets",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/JobIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/ExportJobState"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/feedback": {
+      "post": {
+        "operationId": "QuestionAnsweringProjects_CreateFeedback",
+        "summary": "Update Active Learning feedback.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "type": "number",
+              "enum": [
+                204
+              ]
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/import/jobs/{jobId}": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_GetImportStatus",
+        "summary": "Gets the status of an Import job",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/JobIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/JobState"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/{projectName}/qnas": {
+      "get": {
         "operationId": "QuestionAnsweringProjects_ListQuestionAndAnswers",
         "summary": "List all the sources of a project.",
         "parameters": [
@@ -148,107 +542,10 @@
               "$ref": "#/definitions/ErrorResponse"
             }
           }
-        },
-        "x-ms-long-running-operation": true
-      },
-      "post": {
-        "operationId": "QuestionAnsweringProjects_CreateFeedback",
-        "x-ms-long-running-operation": true,
-        "summary": "Update Active Learning feedback.",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ProjectNamePathParameter"
-          },
-          {
-            "$ref": "#/parameters/ApiVersionParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request has succeeded.",
-            "schema": {
-              "type": "number",
-              "enum": [
-                204
-              ]
-            }
-          },
-          "default": {
-            "description": "Error response",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "put": {
-        "operationId": "QuestionAnsweringProjects_CreateOrUpdateSynonyms",
-        "summary": "Create or update all the synonyms of a project.",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ProjectNamePathParameter"
-          },
-          {
-            "$ref": "#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/SynonymAsset"
-              },
-              "x-cadl-name": "QnAMaker.SynonymAsset[]"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request has succeeded.",
-            "schema": {
-              "$ref": "#/definitions/Page_SynonymAsset"
-            }
-          },
-          "default": {
-            "description": "Error response",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
         }
       }
     },
-    "/query-knowledgebases/projects/{jobId}": {
-      "get": {
-        "operationId": "QuestionAnsweringProjects_GetDeleteStatus",
-        "summary": "Gets the status of a Project delete job",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/JobIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request has succeeded.",
-            "schema": {
-              "$ref": "#/definitions/JobState"
-            }
-          },
-          "default": {
-            "description": "Error response",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/query-knowledgebases/projects/{projectName}/{jobId}": {
+    "/query-knowledgebases/projects/{projectName}/qnas/jobs/{jobId}": {
       "get": {
         "operationId": "QuestionAnsweringProjects_GetQuestionAndAnswersJobStatus",
         "summary": "Gets the status of update sources job.",
@@ -279,29 +576,67 @@
         }
       }
     },
-    "/query-knowledgebases/projects/{projectName}/{deploymentName}": {
-      "put": {
-        "operationId": "QuestionAnsweringProjects_CreateDeployment",
-        "summary": "Deploy project to production.",
+    "/query-knowledgebases/projects/{projectName}/sources": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_ListSources",
+        "summary": "List all the sources of a project.",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectNamePathParameter"
           },
           {
-            "$ref": "#/parameters/DeploymentNamePathParameter"
+            "$ref": "#/parameters/TopParameter"
+          },
+          {
+            "$ref": "#/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/parameters/MaxPageSizeParameter"
           },
           {
             "$ref": "#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
-          "202": {
-            "headers": {
-              "operation-location": {
-                "type": "string"
-              }
-            },
-            "description": "A successful response"
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Page_QnaSourceRecord"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "QuestionAnsweringProjects_UpdateSources",
+        "summary": "Updates the sources of a project.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateRecord_QnaSourceRecord"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/Page_QnaSourceRecord"
+            }
           },
           "default": {
             "description": "Error response",
@@ -312,16 +647,13 @@
         }
       }
     },
-    "/query-knowledgebases/projects/{projectName}/{deploymentName}/{jobId}": {
+    "/query-knowledgebases/projects/{projectName}/sources/jobs/{jobId}": {
       "get": {
-        "operationId": "QuestionAnsweringProjects_GetDeploymentsJobStatus",
-        "summary": "Gets the status of a Deploy job.",
+        "operationId": "QuestionAnsweringProjects_GetSourcesJobStatus",
+        "summary": "Gets the status of update sources job.",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectNamePathParameter"
-          },
-          {
-            "$ref": "#/parameters/DeploymentNamePathParameter"
           },
           {
             "$ref": "#/parameters/JobIdParameter"
@@ -335,6 +667,34 @@
             "description": "The request has succeeded.",
             "schema": {
               "$ref": "#/definitions/JobMetadata"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/query-knowledgebases/projects/deletion-jobs/{jobId}": {
+      "get": {
+        "operationId": "QuestionAnsweringProjects_GetDeleteStatus",
+        "summary": "Gets the status of a Project delete job",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/JobIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/JobState"
             }
           },
           "default": {

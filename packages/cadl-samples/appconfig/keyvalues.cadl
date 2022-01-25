@@ -26,6 +26,7 @@ model KeyWithFilters {
 namespace KeyValuesResource {
   @doc("Gets a list of key-values.")
   @operationId("GetKeyValues")
+  @get
   op list(
     ...ServiceParams,
     ...SyncTokenHeader,
@@ -43,6 +44,7 @@ namespace KeyValuesResource {
 
   @doc("Gets a list of key-values.")
   @operationId("CheckKeyValues")
+  @head
   op listHead(
     ...AcceptDatetimeHeader,
     ...KeyFilters,
@@ -58,6 +60,7 @@ namespace KeyValuesResource {
 
   @doc("Gets a single key-value.")
   @operationId("GetKeyValue")
+  @get
   op read(
     ...ETagHeaders,
     ...AcceptDatetimeHeader,
@@ -70,6 +73,7 @@ namespace KeyValuesResource {
 
   @doc("Requests the headers and status of the given resource.")
   @operationId("CheckKeyValue")
+  @head
   op readHead(
     ...ETagHeaders,
     ...AcceptDatetimeHeader,
@@ -78,6 +82,7 @@ namespace KeyValuesResource {
 
   @doc("Creates a key-value.")
   @operationId("PutKeyValue")
+  @put
   op createOrUpdate(
     ...ETagHeaders,
     ...KeyWithFilters,
@@ -87,6 +92,7 @@ namespace KeyValuesResource {
 
   @doc("Updates a key-value pair")
   @operationId("UpdateKeyValue")
+  @post
   op createOrUpdate2(
     ...ServiceParams,
     ...SyncTokenHeader,
@@ -98,6 +104,7 @@ namespace KeyValuesResource {
 
   @doc("Deletes a key-value.")
   @operationId("DeleteKeyValue")
+  @delete
   op delete(...KeyWithFilters, @header ifMatch: string): OkResponse<KeyValueHeaders &
     KeyValue> | NoContent<{}> | Error;
 }

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-autorest",
+      "comment": "Uptake changes in @cadl-lang/rest library improving operation parameter handling",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-autorest"
+}

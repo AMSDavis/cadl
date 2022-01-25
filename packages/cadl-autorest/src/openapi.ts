@@ -34,7 +34,13 @@ import {
   Type,
   UnionType,
 } from "@cadl-lang/compiler";
-import { getAllRoutes, getDiscriminator, http, OperationDetails } from "@cadl-lang/rest";
+import {
+  getAllRoutes,
+  getDiscriminator,
+  http,
+  HttpOperationParameters,
+  OperationDetails,
+} from "@cadl-lang/rest";
 import { reportDiagnostic } from "./lib.js";
 const { getHeaderFieldName, getPathParamName, getQueryParamName, isBody, isHeader, isStatusCode } =
   http;
@@ -616,48 +622,34 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   function emitEndpointParameters(
     op: OperationType,
     parent: ModelType | undefined,
-    methodParams: ModelTypeProperty[]
+    methodParams: HttpOperationParameters
   ) {
-    const parameters = [...methodParams];
-
-    let bodyParam: ModelTypeProperty | undefined;
-    let emittedImplicitBodyParam = false;
     const consumes: string[] = [];
-    for (const param of parameters) {
+    for (const { type, name, param } of methodParams.parameters) {
       if (params.has(param)) {
         currentEndpoint.parameters.push(params.get(param));
         continue;
       }
-      const queryInfo = getQueryParamName(program, param);
-      const pathInfo = getPathParamName(program, param);
-      const headerInfo = getHeaderFieldName(program, param);
-      const bodyInfo = isBody(program, param);
-
-      if (pathInfo) {
-        emitParameter(parent, param, "path");
-      } else if (queryInfo) {
-        emitParameter(parent, param, "query");
-      } else if (headerInfo) {
-        if (headerInfo === "content-type") {
-          getContentTypes(param).forEach((c) => consumes.push(c));
-        } else {
-          emitParameter(parent, param, "header");
-        }
-      } else if (bodyInfo) {
-        bodyParam = param;
-      } else {
-        if (emittedImplicitBodyParam) {
-          reportDiagnostic(program, { code: "duplicate-body-types", target: op });
-          continue;
-        }
-        emittedImplicitBodyParam = true;
-        bodyParam = param;
+      switch (type) {
+        case "path":
+          emitParameter(parent, param, "path");
+          break;
+        case "query":
+          emitParameter(parent, param, "query");
+          break;
+        case "header":
+          if (name === "content-type") {
+            getContentTypes(param).forEach((c) => consumes.push(c));
+          } else {
+            emitParameter(parent, param, "header");
+          }
+          break;
       }
     }
 
-    if (consumes.length === 0 && bodyParam) {
+    if (consumes.length === 0 && methodParams.body) {
       // we didn't find an explicit content type anywhere, so infer from body.
-      const modelType = getModelTypeIfNullable(bodyParam.type);
+      const modelType = getModelTypeIfNullable(methodParams.body.type);
       if (modelType) {
         let contentTypeParam = modelType.properties.get("contentType");
         if (contentTypeParam) {
@@ -672,13 +664,13 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       currentConsumes.add(consume);
     }
 
-    if (bodyParam) {
-      const isBinary = isBinaryPayload(bodyParam.type, consumes);
+    if (methodParams.body) {
+      const isBinary = isBinaryPayload(methodParams.body.type, consumes);
       if (isBinary) {
         const binaryType = { type: "string", format: "binary" };
-        emitParameter(parent, bodyParam, "body", binaryType);
+        emitParameter(parent, methodParams.body, "body", binaryType);
       } else {
-        emitParameter(parent, bodyParam, "body");
+        emitParameter(parent, methodParams.body, "body");
       }
     }
   }

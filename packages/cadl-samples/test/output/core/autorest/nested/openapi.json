@@ -16,7 +16,7 @@
   "tags": [],
   "paths": {
     "/sub/a/subsub": {
-      "get": {
+      "post": {
         "operationId": "SubSubA_doSomething",
         "parameters": [
           {
@@ -39,7 +39,7 @@
       }
     },
     "/sub/b": {
-      "get": {
+      "post": {
         "operationId": "SubB_doSomething",
         "parameters": [
           {

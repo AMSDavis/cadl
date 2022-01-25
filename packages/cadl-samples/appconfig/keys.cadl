@@ -4,6 +4,7 @@ using Cadl.Http;
 namespace KeysResource {
   @doc("Gets a list of keys.")
   @operationId("GetKeys")
+  @get
   op list(
     ...ServiceParams,
     ...SyncTokenHeader,
@@ -14,6 +15,7 @@ namespace KeysResource {
 
   @doc("Requests the headers and status of the given resource.")
   @operationId("CheckKeys")
+  @head
   op listHead(
     ...ServiceParams,
     ...SyncTokenHeader,

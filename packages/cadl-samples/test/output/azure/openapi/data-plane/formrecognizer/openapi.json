@@ -58,6 +58,15 @@
             "$ref": "#/components/parameters/ModelSummary.modelId"
           },
           {
+            "name": "pages",
+            "in": "query",
+            "required": true,
+            "description": "List of 1-based page numbers to analyze. Ex. \"1-3,5,7-9\"",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "locale",
             "in": "query",
             "required": true,

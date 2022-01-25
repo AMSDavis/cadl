@@ -55,12 +55,14 @@ namespace QuestionAnsweringProjects {
   } | ErrorResponse;
 
   @doc("Gets the status of a Project delete job")
-  @get("deletion-jobs")
+  @get
+  @route("deletion-jobs")
   op GetDeleteStatus(...ApiVersionParameter, ...JobIdParameter): OkWithError<JobState>;
 
   @doc("Export project metadata and assets")
   @extension("x-ms-long-running-operation", true)
-  @post("{projectName}/:export")
+  @post
+  @route("{projectName}/:export")
   op Export(
     ...ApiVersionParameter,
     ...ProjectNamePathParameter,
@@ -69,7 +71,8 @@ namespace QuestionAnsweringProjects {
   ): LROResponse;
 
   @doc("Gets the status of an Export job, once job completes, returns the project metadata, and assets")
-  @get("{projectName}/export/jobs/{jobId}")
+  @get
+  @route("{projectName}/export/jobs/{jobId}")
   op GetExportStatus(
     ...ApiVersionParameter,
     ...ProjectNamePathParameter,
@@ -78,7 +81,8 @@ namespace QuestionAnsweringProjects {
 
   @doc("Import project assets")
   @extension("x-ms-long-running-operation", true)
-  @post("{projectName}/:import")
+  @post
+  @route("{projectName}/:import")
   op Import(
     ...ApiVersionParameter,
     ...ProjectNamePathParameter,
@@ -87,7 +91,8 @@ namespace QuestionAnsweringProjects {
   ): LROResponse;
 
   @doc("Gets the status of an Import job")
-  @get("{projectName}/import/jobs/{jobId}")
+  @get
+  @route("{projectName}/import/jobs/{jobId}")
   op GetImportStatus(
     ...ApiVersionParameter,
     ...ProjectNamePathParameter,
@@ -95,7 +100,8 @@ namespace QuestionAnsweringProjects {
   ): OkWithError<JobState>;
 
   @doc("Deploy project to production.")
-  @put("{projectName}/deployments/{deploymentName}")
+  @put
+  @route("{projectName}/deployments/{deploymentName}")
   op CreateDeployment(
     ...ProjectNamePathParameter,
     ...DeploymentNamePathParameter,
@@ -103,14 +109,16 @@ namespace QuestionAnsweringProjects {
   ): LROResponse;
 
   @doc("List all deployments of a project.")
-  @get("{projectName}/deployments")
+  @get
+  @route("{projectName}/deployments")
   op GetDeployments(
     ...ProjectNamePathParameter,
     ...ApiVersionParameter
   ): OkWithError<Page<ProjectDeployment>>;
 
   @doc("Gets the status of a Deploy job.")
-  @get("{projectName}/deployments/{deploymentName}/jobs/{jobId}")
+  @get
+  @route("{projectName}/deployments/{deploymentName}/jobs/{jobId}")
   op GetDeploymentsJobStatus(
     ...ProjectNamePathParameter,
     ...DeploymentNamePathParameter,
@@ -119,7 +127,8 @@ namespace QuestionAnsweringProjects {
   ): OkWithError<JobMetadata>;
 
   @doc("List all the synonyms of a project.")
-  @get("{projectName}/deployments/synonyms")
+  @get
+  @route("{projectName}/deployments/synonyms")
   op ListSynonyms(
     ...ProjectNamePathParameter,
     ...TopParameter,
@@ -129,7 +138,8 @@ namespace QuestionAnsweringProjects {
   ): OkWithError<Page<SynonymAsset>>;
 
   @doc("Create or update all the synonyms of a project.")
-  @put("{projectName}/deployments/synonyms")
+  @put
+  @route("{projectName}/deployments/synonyms")
   op CreateOrUpdateSynonyms(
     ...ProjectNamePathParameter,
     ...ApiVersionParameter,
@@ -137,7 +147,8 @@ namespace QuestionAnsweringProjects {
   ): OkWithError<Page<SynonymAsset>>;
 
   @doc("List all the sources of a project.")
-  @get("{projectName}/sources")
+  @get
+  @route("{projectName}/sources")
   op ListSources(
     ...ProjectNamePathParameter,
     ...TopParameter,
@@ -147,7 +158,8 @@ namespace QuestionAnsweringProjects {
   ): OkWithError<Page<QnaSourceRecord>>;
 
   @doc("Updates the sources of a project.")
-  @patch("{projectName}/sources")
+  @patch
+  @route("{projectName}/sources")
   op UpdateSources(
     ...ProjectNamePathParameter,
     ...ApiVersionParameter,
@@ -155,7 +167,8 @@ namespace QuestionAnsweringProjects {
   ): OkWithError<Page<QnaSourceRecord>>;
 
   @doc("Gets the status of update sources job.")
-  @get("{projectName}/sources/jobs/{jobId}")
+  @get
+  @route("{projectName}/sources/jobs/{jobId}")
   op GetSourcesJobStatus(
     ...ProjectNamePathParameter,
     ...JobIdParameter,
@@ -163,7 +176,8 @@ namespace QuestionAnsweringProjects {
   ): OkWithError<JobMetadata>;
 
   @doc("List all the sources of a project.")
-  @get("{projectName}/qnas")
+  @get
+  @route("{projectName}/qnas")
   op ListQuestionAndAnswers(
     ...ProjectNamePathParameter,
     ...TopParameter,
@@ -173,7 +187,8 @@ namespace QuestionAnsweringProjects {
   ): OkWithError<Page<QnaSourceRecord>>;
 
   @doc("Updates the sources of a project.")
-  @patch("{projectName}/qnas")
+  @patch
+  @route("{projectName}/qnas")
   op UpdateQuestionAndAnswers(
     ...ProjectNamePathParameter,
     ...ApiVersionParameter,
@@ -181,7 +196,8 @@ namespace QuestionAnsweringProjects {
   ): OkWithError<Page<QnaSourceRecord>>;
 
   @doc("Gets the status of update sources job.")
-  @get("{projectName}/qnas/jobs/{jobId}")
+  @get
+  @route("{projectName}/qnas/jobs/{jobId}")
   op GetQuestionAndAnswersJobStatus(
     ...ProjectNamePathParameter,
     ...JobIdParameter,
@@ -190,7 +206,8 @@ namespace QuestionAnsweringProjects {
 
   // TODO: ok resonse code is incorrect
   @doc("Update Active Learning feedback.")
-  @post("{projectName}/feedback")
+  @post
+  @route("{projectName}/feedback")
   op CreateFeedback(
     ...ProjectNamePathParameter,
     ...ApiVersionParameter

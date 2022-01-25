@@ -4,6 +4,7 @@ using Cadl.Http;
 namespace RevisionsResource {
   @doc("Gets a list of revisions.")
   @operationId("GetRevisions")
+  @get
   op list(
     ...ServiceParams,
     ...SyncTokenHeader,
@@ -24,6 +25,7 @@ namespace RevisionsResource {
 
   @doc("Requests the headers and status of the given resource.")
   @operationId("CheckRevisions")
+  @head
   op listHead(
     ...ServiceParams,
     ...SyncTokenHeader,
