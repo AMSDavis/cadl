@@ -68,8 +68,8 @@ namespace Microsoft.ContosoRPaas.Service
         /// <param name="employeeName">
         /// </param>
         /// <returns> The Employee resource.</returns>
-        [HttpGet]
-        [Route(ContosoRPaasServiceRoutes.EmployeeItem)]
+        [HttpPost]
+        [Route(ContosoRPaasServiceRoutes.EmployeeBeginRead)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Employee))]
         public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string employeeName)
         {

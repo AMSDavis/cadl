@@ -192,8 +192,8 @@ namespace Microsoft.Observability.Service
         /// Single Sign On Configuration Name
         /// </param>
         /// <returns> The DynatraceSingleSignOnResource resource.</returns>
-        [HttpGet]
-        [Route(ObservabilityServiceRoutes.DynatraceSingleSignOnResourceItem)]
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.DynatraceSingleSignOnResourceBeginRead)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(DynatraceSingleSignOnResource))]
         public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string monitorName, string configurationName)
         {

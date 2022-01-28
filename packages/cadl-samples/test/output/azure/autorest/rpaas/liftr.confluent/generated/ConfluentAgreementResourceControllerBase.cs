@@ -58,8 +58,8 @@ namespace Microsoft.Confluent.Service
         /// The ID of the target subscription.
         /// </param>
         /// <returns> The ConfluentAgreementResource resource.</returns>
-        [HttpGet]
-        [Route(ConfluentServiceRoutes.ConfluentAgreementResourceItem)]
+        [HttpPost]
+        [Route(ConfluentServiceRoutes.ConfluentAgreementResourceBeginRead)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ConfluentAgreementResource))]
         public async Task<IActionResult> BeginReadAsync(string subscriptionId)
         {

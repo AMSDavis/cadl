@@ -70,8 +70,8 @@ namespace Microsoft.PlayFab.Service
         /// The name of the player database resource.
         /// </param>
         /// <returns> The PlayerDatabase resource.</returns>
-        [HttpGet]
-        [Route(PlayFabServiceRoutes.PlayerDatabaseItem)]
+        [HttpPost]
+        [Route(PlayFabServiceRoutes.PlayerDatabaseBeginRead)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PlayerDatabase))]
         public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string name)
         {

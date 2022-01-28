@@ -76,8 +76,8 @@ namespace Microsoft.Observability.Service
         /// Monitor RuleSet resource name
         /// </param>
         /// <returns> The TagRule resource.</returns>
-        [HttpGet]
-        [Route(ObservabilityServiceRoutes.TagRuleItem)]
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.TagRuleBeginRead)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(TagRule))]
         public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string monitorName, string ruleSetName)
         {

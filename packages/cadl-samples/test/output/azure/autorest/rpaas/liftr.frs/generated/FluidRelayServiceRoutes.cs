@@ -15,6 +15,7 @@ namespace Microsoft.FluidRelay.Service.Controllers
         public const string ListOperations = "providers/Microsoft.FluidRelay/operations";
         public const string FluidRelayServerItem = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FluidRelay/fluidRelayServers/{name}";
         public const string FluidRelayServerValidateRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FluidRelay/fluidRelayServers/{name}/resourceReadValidate";
+        public const string FluidRelayServerBeginRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FluidRelay/fluidRelayServers/{name}/resourceReadBegin";
         public const string FluidRelayServerValidateCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FluidRelay/fluidRelayServers/{name}/resourceCreationValidate";
         public const string FluidRelayServerEndCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FluidRelay/fluidRelayServers/{name}/resourceCreationCompleted";
         public const string FluidRelayServerValidatePatch = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FluidRelay/fluidRelayServers/{name}/resourcePatchValidate";

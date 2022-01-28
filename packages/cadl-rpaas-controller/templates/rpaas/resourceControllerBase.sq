@@ -101,8 +101,8 @@ namespace {{nameSpace}}.Service
         /// </param>
 {{/each}}
         /// <returns> The {{res.name}} resource.</returns>
-        [Http{{initialCaps operation.verb }}]
-        [Route({{res.serviceName}}ServiceRoutes.{{res.name}}Item{{#unless (notCustomOp operation)}}{{getOperationAction operation}}{{/unless}})]
+        [Http{{#if (eqi operation.verb "GET")}}Post{{else}}{{initialCaps operation.verb}}{{/if}}]
+        [Route({{res.serviceName}}ServiceRoutes.{{res.name}}{{#if (eqi operation.verb "GET")}}BeginRead{{else}}Item{{/if}}{{#unless (notCustomOp operation)}}{{getOperationAction operation}}{{/unless}})]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof({{operation.returnType}}))]
 {{#if (or (eq (getOperationAction operation) "Create") (eq (getOperationAction operation) "Patch"))}}
         [ProducesResponseType((int)HttpStatusCode.Created, Type = typeof({{operation.returnType}}))]

@@ -22,6 +22,7 @@ namespace {{nameSpace}}.Service.Controllers
 {{/if}}
 {{#if (eqi operation.verb "GET")}}
         public const string {{resource.name}}ValidateRead = "{{resource.itemPath}}/resourceReadValidate";
+        public const string {{resource.name}}BeginRead = "{{resource.itemPath}}/resourceReadBegin";
 {{/if}}
 {{#if (eqi operation.verb "PATCH")}}
         public const string {{resource.name}}ValidatePatch = "{{resource.itemPath}}/resourcePatchValidate";

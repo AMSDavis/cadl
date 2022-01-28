@@ -70,8 +70,8 @@ namespace Microsoft.FluidRelay.Service
         /// The resource name.
         /// </param>
         /// <returns> The FluidRelayServer resource.</returns>
-        [HttpGet]
-        [Route(FluidRelayServiceRoutes.FluidRelayServerItem)]
+        [HttpPost]
+        [Route(FluidRelayServiceRoutes.FluidRelayServerBeginRead)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(FluidRelayServer))]
         public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string name)
         {

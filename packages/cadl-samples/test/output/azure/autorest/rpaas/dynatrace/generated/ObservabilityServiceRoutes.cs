@@ -15,6 +15,7 @@ namespace Microsoft.Observability.Service.Controllers
         public const string ListOperations = "providers/Microsoft.Observability/operations";
         public const string MonitorResourceItem = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}";
         public const string MonitorResourceValidateRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/resourceReadValidate";
+        public const string MonitorResourceBeginRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/resourceReadBegin";
         public const string MonitorResourceValidateCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/resourceCreationValidate";
         public const string MonitorResourceEndCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/resourceCreationCompleted";
         public const string MonitorResourceValidatePatch = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/resourcePatchValidate";
@@ -29,6 +30,7 @@ namespace Microsoft.Observability.Service.Controllers
         public const string MonitorResourceItemListSingleSignOnConfigurations = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/singleSignOnConfigurations";
         public const string TagRuleItem = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/tagRules/{ruleSetName}";
         public const string TagRuleValidateRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/tagRules/{ruleSetName}/resourceReadValidate";
+        public const string TagRuleBeginRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/tagRules/{ruleSetName}/resourceReadBegin";
         public const string TagRuleValidateCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/tagRules/{ruleSetName}/resourceCreationValidate";
         public const string TagRuleEndCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/tagRules/{ruleSetName}/resourceCreationCompleted";
         public const string TagRuleValidatePatch = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/tagRules/{ruleSetName}/resourcePatchValidate";
@@ -39,5 +41,6 @@ namespace Microsoft.Observability.Service.Controllers
         public const string DynatraceSingleSignOnResourceValidateCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/singleSignOnConfigurations/{configurationName}/resourceCreationValidate";
         public const string DynatraceSingleSignOnResourceEndCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/singleSignOnConfigurations/{configurationName}/resourceCreationCompleted";
         public const string DynatraceSingleSignOnResourceValidateRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/singleSignOnConfigurations/{configurationName}/resourceReadValidate";
+        public const string DynatraceSingleSignOnResourceBeginRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/singleSignOnConfigurations/{configurationName}/resourceReadBegin";
     }
 }

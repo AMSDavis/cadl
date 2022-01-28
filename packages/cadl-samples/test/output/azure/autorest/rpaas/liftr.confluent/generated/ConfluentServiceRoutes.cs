@@ -15,10 +15,12 @@ namespace Microsoft.Confluent.Service.Controllers
         public const string ListOperations = "providers/Microsoft.Confluent/operations";
         public const string ConfluentAgreementResourceItem = "/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/agreements";
         public const string ConfluentAgreementResourceValidateRead = "/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/agreements/resourceReadValidate";
+        public const string ConfluentAgreementResourceBeginRead = "/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/agreements/resourceReadBegin";
         public const string ConfluentAgreementResourceValidateCreate = "/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/agreements/resourceCreationValidate";
         public const string ConfluentAgreementResourceEndCreate = "/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/agreements/resourceCreationCompleted";
         public const string OrganizationItem = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}";
         public const string OrganizationValidateRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/resourceReadValidate";
+        public const string OrganizationBeginRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/resourceReadBegin";
         public const string OrganizationValidateCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/resourceCreationValidate";
         public const string OrganizationEndCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/resourceCreationCompleted";
         public const string OrganizationValidatePatch = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/resourcePatchValidate";

@@ -70,8 +70,8 @@ namespace Microsoft.PlayFab.Service
         /// Name of the title resource.
         /// </param>
         /// <returns> The Title resource.</returns>
-        [HttpGet]
-        [Route(PlayFabServiceRoutes.TitleItem)]
+        [HttpPost]
+        [Route(PlayFabServiceRoutes.TitleBeginRead)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Title))]
         public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string name)
         {

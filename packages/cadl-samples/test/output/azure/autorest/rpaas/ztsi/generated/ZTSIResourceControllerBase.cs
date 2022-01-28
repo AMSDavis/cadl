@@ -70,8 +70,8 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service
         /// ZTSI resource name
         /// </param>
         /// <returns> The ZTSIResource resource.</returns>
-        [HttpGet]
-        [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceItem)]
+        [HttpPost]
+        [Route(ZeroTrustSystemIntegrityServiceRoutes.ZTSIResourceBeginRead)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ZTSIResource))]
         public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string ztsiName)
         {

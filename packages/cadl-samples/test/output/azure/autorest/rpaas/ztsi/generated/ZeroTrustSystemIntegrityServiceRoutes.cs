@@ -15,6 +15,7 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Controllers
         public const string ListOperations = "providers/Microsoft.ZeroTrustSystemIntegrity/operations";
         public const string ZTSIResourceItem = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}";
         public const string ZTSIResourceValidateRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/resourceReadValidate";
+        public const string ZTSIResourceBeginRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/resourceReadBegin";
         public const string ZTSIResourceValidateCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/resourceCreationValidate";
         public const string ZTSIResourceEndCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/resourceCreationCompleted";
         public const string ZTSIResourceValidatePatch = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/resourcePatchValidate";

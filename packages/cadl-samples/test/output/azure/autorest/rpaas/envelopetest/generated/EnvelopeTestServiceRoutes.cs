@@ -15,6 +15,7 @@ namespace Microsoft.EnvelopeTest.Service.Controllers
         public const string ListOperations = "providers/Microsoft.EnvelopeTest/operations";
         public const string AllPropertiesResourceItem = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/allProperties/{allPropertiesName}";
         public const string AllPropertiesResourceValidateRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/allProperties/{allPropertiesName}/resourceReadValidate";
+        public const string AllPropertiesResourceBeginRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/allProperties/{allPropertiesName}/resourceReadBegin";
         public const string AllPropertiesResourceValidateCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/allProperties/{allPropertiesName}/resourceCreationValidate";
         public const string AllPropertiesResourceEndCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/allProperties/{allPropertiesName}/resourceCreationCompleted";
         public const string AllPropertiesResourceValidatePatch = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/allProperties/{allPropertiesName}/resourcePatchValidate";
@@ -23,6 +24,7 @@ namespace Microsoft.EnvelopeTest.Service.Controllers
         public const string AllPropertiesResourceEndDelete = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/allProperties/{allPropertiesName}/resourceDeletionCompleted";
         public const string SystemOnlyResourceItem = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/systems/{systemOnlyPropertiesName}";
         public const string SystemOnlyResourceValidateRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/systems/{systemOnlyPropertiesName}/resourceReadValidate";
+        public const string SystemOnlyResourceBeginRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/systems/{systemOnlyPropertiesName}/resourceReadBegin";
         public const string SystemOnlyResourceValidateCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/systems/{systemOnlyPropertiesName}/resourceCreationValidate";
         public const string SystemOnlyResourceEndCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/systems/{systemOnlyPropertiesName}/resourceCreationCompleted";
         public const string SystemOnlyResourceValidatePatch = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/systems/{systemOnlyPropertiesName}/resourcePatchValidate";

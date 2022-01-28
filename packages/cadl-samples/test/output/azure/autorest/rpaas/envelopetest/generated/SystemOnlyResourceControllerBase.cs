@@ -70,8 +70,8 @@ namespace Microsoft.EnvelopeTest.Service
         /// The name of the all properties resource.
         /// </param>
         /// <returns> The SystemOnlyResource resource.</returns>
-        [HttpGet]
-        [Route(EnvelopeTestServiceRoutes.SystemOnlyResourceItem)]
+        [HttpPost]
+        [Route(EnvelopeTestServiceRoutes.SystemOnlyResourceBeginRead)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(SystemOnlyResource))]
         public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string systemOnlyPropertiesName)
         {

@@ -70,8 +70,8 @@ namespace Microsoft.Confluent.Service
         /// Organization resource name
         /// </param>
         /// <returns> The Organization resource.</returns>
-        [HttpGet]
-        [Route(ConfluentServiceRoutes.OrganizationItem)]
+        [HttpPost]
+        [Route(ConfluentServiceRoutes.OrganizationBeginRead)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Organization))]
         public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string organizationName)
         {

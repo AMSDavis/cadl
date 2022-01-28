@@ -15,6 +15,7 @@ namespace Microsoft.ContosoRPaas.Service.Controllers
         public const string ListOperations = "providers/Microsoft.ContosoRPaas/operations";
         public const string EmployeeItem = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContosoRPaas/employees/{employeeName}";
         public const string EmployeeValidateRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContosoRPaas/employees/{employeeName}/resourceReadValidate";
+        public const string EmployeeBeginRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContosoRPaas/employees/{employeeName}/resourceReadBegin";
         public const string EmployeeValidateCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContosoRPaas/employees/{employeeName}/resourceCreationValidate";
         public const string EmployeeEndCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContosoRPaas/employees/{employeeName}/resourceCreationCompleted";
         public const string EmployeeValidatePatch = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContosoRPaas/employees/{employeeName}/resourcePatchValidate";

@@ -15,6 +15,7 @@ namespace Microsoft.PlayFab.Service.Controllers
         public const string ListOperations = "providers/Microsoft.PlayFab/operations";
         public const string PlayerDatabaseItem = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/playerDatabases/{name}";
         public const string PlayerDatabaseValidateRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/playerDatabases/{name}/resourceReadValidate";
+        public const string PlayerDatabaseBeginRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/playerDatabases/{name}/resourceReadBegin";
         public const string PlayerDatabaseValidateCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/playerDatabases/{name}/resourceCreationValidate";
         public const string PlayerDatabaseEndCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/playerDatabases/{name}/resourceCreationCompleted";
         public const string PlayerDatabaseValidatePatch = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/playerDatabases/{name}/resourcePatchValidate";
@@ -23,6 +24,7 @@ namespace Microsoft.PlayFab.Service.Controllers
         public const string PlayerDatabaseEndDelete = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/playerDatabases/{name}/resourceDeletionCompleted";
         public const string TitleItem = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/titles/{name}";
         public const string TitleValidateRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/titles/{name}/resourceReadValidate";
+        public const string TitleBeginRead = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/titles/{name}/resourceReadBegin";
         public const string TitleValidateCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/titles/{name}/resourceCreationValidate";
         public const string TitleEndCreate = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/titles/{name}/resourceCreationCompleted";
         public const string TitleValidatePatch = "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/titles/{name}/resourcePatchValidate";

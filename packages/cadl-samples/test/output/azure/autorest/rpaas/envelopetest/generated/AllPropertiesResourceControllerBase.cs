@@ -70,8 +70,8 @@ namespace Microsoft.EnvelopeTest.Service
         /// The name of the all properties resource.
         /// </param>
         /// <returns> The AllPropertiesResource resource.</returns>
-        [HttpGet]
-        [Route(EnvelopeTestServiceRoutes.AllPropertiesResourceItem)]
+        [HttpPost]
+        [Route(EnvelopeTestServiceRoutes.AllPropertiesResourceBeginRead)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(AllPropertiesResource))]
         public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string allPropertiesName)
         {

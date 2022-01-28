@@ -70,8 +70,8 @@ namespace Microsoft.Observability.Service
         /// Monitor resource name
         /// </param>
         /// <returns> The MonitorResource resource.</returns>
-        [HttpGet]
-        [Route(ObservabilityServiceRoutes.MonitorResourceItem)]
+        [HttpPost]
+        [Route(ObservabilityServiceRoutes.MonitorResourceBeginRead)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(MonitorResource))]
         public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string monitorName)
         {
