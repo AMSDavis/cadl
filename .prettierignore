@@ -9,6 +9,9 @@
 **/common/changes/
 **/common/config/rush/pnpm-lock.yaml
 
+# Coverage report directory
+**/coverage/
+
 packages/cadl-samples/rpaas/types.json
 # These are standard and should not be edited
 SECURITY.md
