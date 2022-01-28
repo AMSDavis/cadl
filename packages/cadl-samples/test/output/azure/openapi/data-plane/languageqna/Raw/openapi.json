@@ -49,40 +49,6 @@
       }
     },
     "/query-knowledgebases/projects/{projectName}": {
-      "delete": {
-        "operationId": "QuestionAnsweringProjects_DeleteProjectDetails",
-        "summary": "Delete project",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/components/parameters/ProjectNamePathParameter"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Accepted",
-            "headers": {
-              "operation-location": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      },
       "get": {
         "operationId": "QuestionAnsweringProjects_GetProjectDetails",
         "summary": "Get the requested project metadata",
@@ -118,7 +84,61 @@
         }
       },
       "patch": {
+        "operationId": "QuestionAnsweringProjects_CreateProject",
+        "summary": "Create or update a project",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ProjectNamePathParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectMetadata"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectMetadata"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProjectOptions"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
         "operationId": "QuestionAnsweringProjects_DeleteProject",
+        "x-ms-long-running-operation": true,
         "summary": "Delete the project",
         "parameters": [
           {
@@ -149,17 +169,7 @@
               }
             }
           }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateProjectOptions"
-              }
-            }
-          }
-        },
-        "x-ms-long-running-operation": true
+        }
       }
     },
     "/query-knowledgebases/projects/deletion-jobs/{jobId}": {

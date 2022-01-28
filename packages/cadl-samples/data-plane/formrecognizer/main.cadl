@@ -95,7 +95,8 @@ interface Operations {
   listOperations(): GetOperationsResponse | ErrorResponse;
 
   @doc("Gets operation info.")
-  @get("{operationId}")
+  @get
+  @route("{operationId}")
   getOperation(@path operationId: string): GetOperationResponse | ErrorResponse;
 }
 

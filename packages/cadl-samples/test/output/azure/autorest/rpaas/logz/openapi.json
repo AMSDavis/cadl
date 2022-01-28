@@ -373,53 +373,6 @@
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts/{subAccountName}": {
-      "patch": {
-        "operationId": "SubAccounts_Update",
-        "summary": "Update a SubAccountResource",
-        "parameters": [
-          {
-            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../rpaas/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "#/parameters/MonitorNameParameter"
-          },
-          {
-            "$ref": "#/parameters/SubAccountNameParameter"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "required": true,
-            "description": "The resource properties to be updated.",
-            "schema": {
-              "$ref": "#/definitions/SubAccountResourceUpdate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/SubAccountResource"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "SubAccounts"
-        ]
-      },
       "get": {
         "operationId": "SubAccounts_Get",
         "summary": "Get a SubAccountResource",
@@ -500,6 +453,53 @@
           },
           "201": {
             "description": "ARM create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SubAccountResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SubAccounts"
+        ]
+      },
+      "patch": {
+        "operationId": "SubAccounts_Update",
+        "summary": "Update a SubAccountResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "$ref": "#/parameters/SubAccountNameParameter"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "description": "The resource properties to be updated.",
+            "schema": {
+              "$ref": "#/definitions/SubAccountResourceUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SubAccountResource"
             }
@@ -753,6 +753,40 @@
         "tags": [
           "SubAccountTagRules"
         ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/listMonitoredResources": {
+      "post": {
+        "operationId": "LogzMonitors_listMonitoredResources",
+        "summary": "List the resources currently being monitored by the Logz monitor resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../rpaas/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A lit of monitored resources.",
+            "schema": {
+              "$ref": "#/definitions/MonitoredResourceListResponse"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/singleSignOnConfigurations": {
@@ -1164,44 +1198,6 @@
         "tags": [
           "TagRules"
         ]
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/listMonitoredResources/{name}": {
-      "post": {
-        "operationId": "LogzMonitors_listMonitoredResources",
-        "summary": "List the resources currently being monitored by the Logz monitor resource.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../rpaas/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../rpaas/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../rpaas/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "description": "The name of the Logz Monitor resource.",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A lit of monitored resources.",
-            "schema": {
-              "$ref": "#/definitions/MonitoredResourceListResponse"
-            }
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
-            }
-          }
-        }
       }
     }
   },

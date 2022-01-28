@@ -29,57 +29,6 @@ namespace Microsoft.Confluent.Service
         }
 
         /// <summary>
-        /// Validate the request to Read the ConfluentAgreementResource resource.
-        /// </summary>
-        /// <param name="subscriptionId">
-        /// The ID of the target subscription.
-        /// </param>
-        /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
-        [HttpPost]
-        [Route(ConfluentServiceRoutes.ConfluentAgreementResourceValidateRead)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ValidationResponse))]
-        public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId)
-        {
-            _logger.LogInformation($"ValidateReadAsync()");
-            var modelValidation = await OnValidateRead(subscriptionId);
-            return modelValidation;
-        }
-
-        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId)
-        {
-            return Task.FromResult(ValidationResponse.Valid);
-        }
-
-
-        /// <summary>
-        /// Read the ConfluentAgreementResource resource.
-        /// </summary>
-        /// <param name="subscriptionId">
-        /// The ID of the target subscription.
-        /// </param>
-        /// <returns> The ConfluentAgreementResource resource.</returns>
-        [HttpPost]
-        [Route(ConfluentServiceRoutes.ConfluentAgreementResourceBeginRead)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ConfluentAgreementResource))]
-        public async Task<IActionResult> BeginReadAsync(string subscriptionId)
-        {
-            _logger.LogInformation("ReadAsync()");
-            if (Request == null)
-            {
-                _logger.LogError($"Http request is null");
-                return BadRequest("Http request is null");
-            }
-
-            return await OnReadAsync(subscriptionId);
-
-        }
-
-        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId)
-        {
-            return Task.FromResult(Ok() as IActionResult);
-        }
-
-        /// <summary>
         /// Validate the request to Create the ConfluentAgreementResource resource.
         /// </summary>
         /// <param name="subscriptionId">

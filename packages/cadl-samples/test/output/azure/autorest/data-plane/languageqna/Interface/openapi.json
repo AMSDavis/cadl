@@ -17,26 +17,24 @@
   "paths": {
     "/{projectName}": {
       "post": {
-        "operationId": "Projects_feedback",
+        "operationId": "Projects_CreateExport",
         "x-ms-long-running-operation": true,
         "parameters": [
           {
             "$ref": "#/parameters/ProjectMetadata.projectName"
           },
           {
-            "name": "feedback",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ActiveLearningFeedback"
-            }
+            "$ref": "#/parameters/AssetKindParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/ActiveLearningFeedback"
+              "type": "string",
+              "enum": [
+                ""
+              ]
             }
           },
           "default": {
@@ -48,7 +46,67 @@
         }
       }
     },
-    "/{projectName}/{source}/{jobId}": {
+    "/{projectName}/jobs/{jobId}/{source}": {
+      "get": {
+        "operationId": "Deployments_GetJob",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectMetadata.projectName"
+          },
+          {
+            "$ref": "#/parameters/QnaSourceMetadata.source"
+          },
+          {
+            "$ref": "#/parameters/JobIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job state represents the job metadata and any errors.",
+            "schema": {
+              "$ref": "#/definitions/JobState"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/ODataError"
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/qnas/jobs/{jobId}/{id}": {
+      "get": {
+        "operationId": "Qnas_GetJob",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ProjectMetadata.projectName"
+          },
+          {
+            "$ref": "#/parameters/QnaRecord.id"
+          },
+          {
+            "$ref": "#/parameters/JobIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job state represents the job metadata and any errors.",
+            "schema": {
+              "$ref": "#/definitions/JobState"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/ODataError"
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/sources/jobs/{jobId}/{source}": {
       "get": {
         "operationId": "Sources_GetJob",
         "parameters": [
@@ -78,25 +136,27 @@
         }
       }
     },
-    "/{projectName}/{id}/{jobId}": {
-      "get": {
-        "operationId": "Qnas_GetJob",
+    "/feedback/{projectName}": {
+      "post": {
+        "operationId": "Projects_feedback",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectMetadata.projectName"
           },
           {
-            "$ref": "#/parameters/QnaRecord.id"
-          },
-          {
-            "$ref": "#/parameters/JobIdParameter"
+            "name": "feedback",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ActiveLearningFeedback"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Job state represents the job metadata and any errors.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/JobState"
+              "$ref": "#/definitions/ActiveLearningFeedback"
             }
           },
           "default": {

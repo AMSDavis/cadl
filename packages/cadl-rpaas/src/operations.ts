@@ -38,8 +38,12 @@ export function $armResourceOperations(program: Program, target: Type, resourceT
 
   armResourceInfo.operationNamespaces.add(target.name);
 
+  const finalPath = armResourceInfo.resourceNameParam
+    ? `${armResourceInfo.resourcePath?.path}/{${armResourceInfo.resourceNameParam.name}}`
+    : armResourceInfo.resourcePath?.path;
+
   // Set the resource path
-  $route(program, target, armResourceInfo.resourcePath.path);
+  $route(program, target, finalPath);
 
   // Remember this namespace
   resourceOperationNamespaces.set(target, resourceType);

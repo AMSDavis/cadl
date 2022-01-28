@@ -53,34 +53,6 @@
       }
     },
     "/query-knowledgebases/projects/{projectName}": {
-      "delete": {
-        "operationId": "QuestionAnsweringProjects_DeleteProjectDetails",
-        "summary": "Delete project",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/ProjectNamePathParameter"
-          }
-        ],
-        "responses": {
-          "202": {
-            "headers": {
-              "operation-location": {
-                "type": "string"
-              }
-            },
-            "description": "A successful response"
-          },
-          "default": {
-            "description": "Error response",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
       "get": {
         "operationId": "QuestionAnsweringProjects_GetProjectDetails",
         "summary": "Get the requested project metadata",
@@ -108,7 +80,42 @@
         }
       },
       "patch": {
+        "operationId": "QuestionAnsweringProjects_CreateProject",
+        "summary": "Create or update a project",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/ProjectNamePathParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateProjectOptions"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ProjectMetadata"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
         "operationId": "QuestionAnsweringProjects_DeleteProject",
+        "x-ms-long-running-operation": true,
         "summary": "Delete the project",
         "parameters": [
           {
@@ -133,8 +140,7 @@
               "$ref": "#/definitions/ErrorResponse"
             }
           }
-        },
-        "x-ms-long-running-operation": true
+        }
       }
     },
     "/query-knowledgebases/projects/{projectName}/:export": {

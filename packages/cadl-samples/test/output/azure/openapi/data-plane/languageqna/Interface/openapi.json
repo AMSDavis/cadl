@@ -184,8 +184,46 @@
     },
     "/{projectName}": {
       "post": {
-        "operationId": "Projects_feedback",
+        "operationId": "Projects_CreateExport",
         "x-ms-long-running-operation": true,
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectMetadata.projectName"
+          },
+          {
+            "$ref": "#/components/parameters/AssetKindParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    ""
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ODataError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feedback/{projectName}": {
+      "post": {
+        "operationId": "Projects_feedback",
         "parameters": [
           {
             "$ref": "#/components/parameters/ProjectMetadata.projectName"
@@ -307,9 +345,9 @@
         }
       }
     },
-    "/{projectName}/{source}/{jobId}": {
+    "/{projectName}/jobs/{jobId}/{source}": {
       "get": {
-        "operationId": "Sources_GetJob",
+        "operationId": "Deployments_GetJob",
         "parameters": [
           {
             "$ref": "#/components/parameters/ProjectMetadata.projectName"
@@ -524,6 +562,44 @@
         }
       }
     },
+    "/{projectName}/sources/jobs/{jobId}/{source}": {
+      "get": {
+        "operationId": "Sources_GetJob",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ProjectMetadata.projectName"
+          },
+          {
+            "$ref": "#/components/parameters/QnaSourceMetadata.source"
+          },
+          {
+            "$ref": "#/components/parameters/JobIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job state represents the job metadata and any errors.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobState"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ODataError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/projects/{projectName}/qnas": {
       "post": {
         "operationId": "Qnas_create",
@@ -607,7 +683,7 @@
         }
       }
     },
-    "/{projectName}/{id}/{jobId}": {
+    "/{projectName}/qnas/jobs/{jobId}/{id}": {
       "get": {
         "operationId": "Qnas_GetJob",
         "parameters": [

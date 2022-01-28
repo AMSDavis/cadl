@@ -502,7 +502,8 @@ describe("autorest: operations", () => {
       `
       @route("/thing")
       namespace root {
-        @get("{name}")
+        @get
+        @route("{name}")
         op getThing(
           @pattern("^[a-zA-Z0-9-]{3,24}$")
           @format("UUID")

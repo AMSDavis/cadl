@@ -27,10 +27,6 @@ namespace QuestionAnsweringProjects {
   @pageable
   op ListProjects(...ApiVersionParameter, ...ListParameters): OkWithError<Page<ProjectMetadata>>;
 
-  @doc("Delete project")
-  @delete
-  op DeleteProjectDetails(...ApiVersionParameter, ...ProjectNamePathParameter): LROResponse;
-
   @doc("Get the requested project metadata")
   @get
   op GetProjectDetails(
@@ -48,11 +44,8 @@ namespace QuestionAnsweringProjects {
 
   @doc("Delete the project")
   @extension("x-ms-long-running-operation", true)
-  @patch
-  op DeleteProject(...ApiVersionParameter, ...ProjectNamePathParameter): {
-    @statusCode statusCode: 202;
-    @header "Operation-Location": string;
-  } | ErrorResponse;
+  @delete
+  op DeleteProject(...ApiVersionParameter, ...ProjectNamePathParameter): LROResponse;
 
   @doc("Gets the status of a Project delete job")
   @get

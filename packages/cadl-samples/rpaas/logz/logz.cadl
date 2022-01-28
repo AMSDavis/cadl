@@ -31,10 +31,7 @@ namespace LogzMonitors {
   @doc("List the resources currently being monitored by the Logz monitor resource.")
   op listMonitoredResources(
     ...CommonResourceParameters,
-
-    @doc("The name of the Logz Monitor resource.")
-    @path
-    name: string
+    ...MonitorNameParameter
   ): MonitoredResourceListResponse | ErrorResponse;
 }
 
@@ -89,23 +86,25 @@ model SubAccountNameParameter {
 
 @armResourceOperations(SubAccountResource)
 namespace SubAccounts {
-  @patch
-  @doc("Update a monitor resource.")
-  op patch(
-    ...CommonResourceParameters,
+// BUG ProxyResource `SubAccountResource` has patch endpoint auto generated https://github.com/Azure/cadl-azure/issues/1163
+// @patch
+// @doc("Update a monitor resource.")
+// op patch(
+//   ...CommonResourceParameters,
 
-    @doc("The name of the monitor resource.")
-    @path
-    monitorName: string,
+//   @doc("The name of the monitor resource.")
+//   @path
+//   monitorName: string,
 
-    @doc("The name of the subAccount resource.")
-    @path
-    subAccountName: string,
+//   @doc("The name of the subAccount resource.")
+//   @path
+//   subAccountName: string,
 
-    @doc("Details of the updates to the monitor resource.")
-    @body
-    rule: LogzMonitorResource
-  ): ArmResponse<LogzMonitorResource> | ArmCreatedResponse<LogzMonitorResource> | ErrorResponse;
+//   @doc("Details of the updates to the monitor resource.")
+//   @body
+//   rule: LogzMonitorResource
+// ): ArmResponse<LogzMonitorResource> | ArmCreatedResponse<LogzMonitorResource> | ErrorResponse;
+
 }
 
 @armListBy(SubAccountNameParameter, "List")

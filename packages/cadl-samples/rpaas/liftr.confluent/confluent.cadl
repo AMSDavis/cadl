@@ -115,7 +115,7 @@ model UserDetail {
   collectionName: "MarketplaceAgreements",
   parameterType: null,
   pathParameters: [SubscriptionIdParameter],
-  standardOperations: ["read"],
+  standardOperations: ["list"],
 })
 @doc("The details of a marketplace agreement.")
 model ConfluentAgreementResource is ProxyResource<ConfluentAgreementResourceProperties> {}
