@@ -31,6 +31,13 @@ steps:
   - script: node common/scripts/install-run-rush.js test-official
     displayName: Test
 
+  - template: ./upload-coverage.yml
+
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: "Cobertura"
+      summaryFileLocation: $(Build.SourcesDirectory)/coverage/cobertura-coverage.xml
+    displayName: Publish code coverage
   - script: |
       set NPM_AUTH_TOKEN=$(azure-sdk-npm-token)
       node common/scripts/install-run-rush.js publish --publish --include-all --set-access-level public
