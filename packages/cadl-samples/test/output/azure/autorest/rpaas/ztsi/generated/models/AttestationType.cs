@@ -10,7 +10,7 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
     {
         string _value;
 
-        public static readonly AttestationType Boot = "Boot", Runtime = "Runtime"; 
+        public static readonly AttestationType Boot = "Boot", Runtime = "Runtime", BootAndRuntime = "Boot,Runtime"; 
 
         public AttestationType( string value)
         {

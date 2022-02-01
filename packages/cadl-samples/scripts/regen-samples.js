@@ -56,6 +56,9 @@ function main() {
 
       // ARM specs depend on functionality in cadl-autorest
       "rpaas",
+
+      // Spec that uses RPaaS, incompatible with OpenAPI3
+      "operations",
     ],
   });
 }

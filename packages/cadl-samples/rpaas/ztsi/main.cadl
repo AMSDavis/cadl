@@ -26,7 +26,7 @@ model ZTSINameParameter {
 }
 
 @armResourceOperations(ZTSIResource)
-namespace ZTSI {
+namespace ZTSIOperations {
   @post
   @route("getMAAURL")
   @doc("Gets the MAA URL for this resource")
@@ -232,4 +232,5 @@ model DeviceId is Guid {}
 enum AttestationType {
   "Boot",
   "Runtime",
+  BootAndRuntime: "Boot,Runtime",
 }

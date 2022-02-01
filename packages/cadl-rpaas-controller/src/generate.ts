@@ -45,7 +45,7 @@ const { getPathParamName, isBody, isPathParam, isQueryParam } = http;
 export async function $onBuild(program: Program) {
   const rootPath = resolvePath(getDirectoryPath(fileURLToPath(import.meta.url)), "..");
   const serviceCodePath =
-    program.compilerOptions.miscOptions.serviceCodePath || program.compilerOptions.outputPath;
+    program.compilerOptions.miscOptions?.serviceCodePath || program.compilerOptions.outputPath;
   const options: ServiceGenerationOptions = {
     controllerOutputPath: serviceCodePath
       ? joinPaths(serviceCodePath, "generated")
@@ -468,6 +468,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
                       ? "Body"
                       : "????";
                     const paramDescription = getDoc(program, prop);
+                    ensureCSharpIdentifier(prop, prop.name);
                     parameters.push({
                       name: prop.name,
                       type: propType.name,
@@ -490,6 +491,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               }
 
               getPathParamName(program, operation);
+              ensureCSharpIdentifier(operation, operation.name);
               const outOperation: Operation = {
                 name: transformCSharpIdentifier(operation.name),
                 returnType: returnType?.name ?? "void",
@@ -728,6 +730,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         }
       }
       const outPropertyType = getCSharpType(property.type)!;
+      ensureCSharpIdentifier(property, property.name);
       const outProperty: Property = {
         name: transformCSharpIdentifier(property.name),
         type: outPropertyType,
@@ -792,6 +795,77 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       };
     }
 
+    function isValidCSharpIdentifier(identifier: string): boolean {
+      return identifier.match(/^[A-Za-z_][\w-]+$/) !== null;
+    }
+
+    function ensureCSharpIdentifier(target: Type, name: string): void {
+      let location = "";
+      switch (target.kind) {
+        case "Enum":
+          location = `enum ${target.name}`;
+          break;
+        case "EnumMember":
+          location = `enum ${target.enum.name}`;
+          break;
+        case "Interface":
+          location = `interface ${target.name}`;
+          break;
+        case "Model":
+          location = `model ${target.name}`;
+          break;
+        case "ModelProperty": {
+          const model = program.checker?.getTypeForNode(target.node.parent!) as ModelType;
+          if (!model) {
+            reportDiagnostic(program, {
+              code: "missing-type-parent",
+              format: { type: "ModelProperty", name: target.name },
+              target: target,
+            });
+          }
+          location = `property '${target.name}' in model ${model?.name}`;
+          if (model?.node?.parent && !model.name) {
+            const operationModel = program.checker?.getTypeForNode(
+              model!.node.parent
+            ) as OperationType;
+            if (operationModel) {
+              const parent = operationModel.interface
+                ? `interface ${operationModel.interface.name}`
+                : `namespace ${operationModel.namespace?.name}`;
+              location = `parameter '${target.name}' in operation ${operationModel?.name} in ${parent}`;
+            }
+          }
+          break;
+        }
+        case "Namespace":
+          location = `namespace ${target.name}`;
+          break;
+        case "Operation": {
+          const parent = target.interface
+            ? `interface ${target.interface.name}`
+            : `namespace ${target.namespace?.name}`;
+          location = `operation ${target.name} in ${parent}`;
+          break;
+        }
+        case "Union":
+          location = `union ${target.name}`;
+          break;
+        case "UnionVariant": {
+          const parent = program.checker?.getTypeForNode(target.node.parent!) as UnionType;
+          location = `variant ${target.name} in union ${parent?.name}`;
+          break;
+        }
+      }
+
+      if (!isValidCSharpIdentifier(name)) {
+        reportDiagnostic(program, {
+          code: "invalid-identifier",
+          format: { identifier: name, location: location },
+          target: target.node ?? NoTarget,
+        });
+      }
+    }
+
     function getPatternAttribute(parameter: string): ValidationAttribute {
       return {
         name: "Pattern",
@@ -822,14 +896,16 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
 
     function createInlineEnum(cadlType: EnumType): TypeReference {
+      ensureCSharpIdentifier(cadlType, cadlType.name);
       const outEnum: Enumeration = {
         isClosed: false,
-        name: cadlType.name,
+        name: transformCSharpIdentifier(cadlType.name),
         serviceName: serviceName,
         values: [],
         sourceNode: cadlType.node,
       };
       cadlType.members.forEach((option) => {
+        ensureCSharpIdentifier(option, option.name);
         outEnum.values.push({
           name: option.name,
           value: option.value,
@@ -1001,6 +1077,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               if (known) {
                 return known;
               }
+              ensureCSharpIdentifier(cadlType, cadlType.name);
               return {
                 name: transformCSharpIdentifier(cadlType.name),
                 nameSpace: modelNamespace,
@@ -1312,7 +1389,9 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     };
     const operationsPath = genPath;
     const routesPath = resolvePath(joinPaths(genPath, service + "ServiceRoutes.cs"));
-    const templatePath = joinPaths(rootPath, "templates", options.controllerHost);
+    const templatePath = resolvePath(
+      joinPaths(rootPath, "..", "templates", options.controllerHost)
+    );
     const modelsPath = joinPaths(genPath, "models");
     if (!program.compilerOptions.noEmit && !program.hasError()) {
       await ensureCleanDirectory(genPath).catch((err) =>

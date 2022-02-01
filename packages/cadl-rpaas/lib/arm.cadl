@@ -1,4 +1,6 @@
 import "../dist/src/arm.js";
+import "@cadl-lang/rest";
+import "@azure-tools/cadl-autorest";
 
 namespace Azure.ARM;
 
@@ -522,12 +524,12 @@ model UserAssignedIdentity {
   principalId: string;
 }
 
-@doc("The kind of managemed identity assigned to this resource.")
+@doc("The kind of managed identity assigned to this resource.")
 enum ManagedIdentityType {
   None,
   SystemAssigned,
   UserAssigned,
-  "SystemAssigned,UserAssigned",
+  SystemAndUserAssigned: "SystemAssigned,UserAssigned",
 }
 
 @doc("The kind of managemed identity assigned to this resource.")

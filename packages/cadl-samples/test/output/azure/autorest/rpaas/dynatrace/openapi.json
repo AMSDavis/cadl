@@ -998,7 +998,7 @@
     },
     "Azure.ARM.ManagedIdentityType": {
       "type": "string",
-      "description": "The kind of managemed identity assigned to this resource.",
+      "description": "The kind of managed identity assigned to this resource.",
       "enum": [
         "None",
         "SystemAssigned",
@@ -1007,7 +1007,25 @@
       ],
       "x-ms-enum": {
         "name": "ManagedIdentityType",
-        "modelAsString": true
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None"
+          },
+          {
+            "name": "SystemAssigned",
+            "value": "SystemAssigned"
+          },
+          {
+            "name": "UserAssigned",
+            "value": "UserAssigned"
+          },
+          {
+            "name": "SystemAndUserAssigned",
+            "value": "SystemAssigned,UserAssigned"
+          }
+        ]
       }
     },
     "Azure.ARM.UserAssignedIdentity": {

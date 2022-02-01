@@ -34,10 +34,10 @@
   },
   "tags": [
     {
-      "name": "ZTSI"
+      "name": "Operations"
     },
     {
-      "name": "Operations"
+      "name": "ZTSI"
     }
   ],
   "paths": {
@@ -322,7 +322,7 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/getMAAURL": {
       "post": {
-        "operationId": "ZTSI_getMAAURL",
+        "operationId": "ZTSIOperations_getMAAURL",
         "summary": "Gets the MAA URL for this resource",
         "parameters": [
           {
@@ -351,15 +351,12 @@
               "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "ZTSI"
-        ]
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/getZTSIURL": {
       "post": {
-        "operationId": "ZTSI_getZTSIURL",
+        "operationId": "ZTSIOperations_getZTSIURL",
         "summary": "Gets the ZTSI URL for this resource",
         "parameters": [
           {
@@ -388,15 +385,12 @@
               "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "ZTSI"
-        ]
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/initiateRequest": {
       "post": {
-        "operationId": "ZTSI_initiateRequest",
+        "operationId": "ZTSIOperations_initiateRequest",
         "summary": "Hello request to the ZTSI service",
         "parameters": [
           {
@@ -433,15 +427,12 @@
               "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "ZTSI"
-        ]
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/reportRequest": {
       "post": {
-        "operationId": "ZTSI_reportRequest",
+        "operationId": "ZTSIOperations_reportRequest",
         "summary": "ZTSI Report request",
         "parameters": [
           {
@@ -478,10 +469,7 @@
               "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "ZTSI"
-        ]
+        }
       }
     }
   },
@@ -510,11 +498,26 @@
       "description": "The type of attestation.",
       "enum": [
         "Boot",
-        "Runtime"
+        "Runtime",
+        "Boot,Runtime"
       ],
       "x-ms-enum": {
         "name": "AttestationType",
-        "modelAsString": true
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Boot",
+            "value": "Boot"
+          },
+          {
+            "name": "Runtime",
+            "value": "Runtime"
+          },
+          {
+            "name": "BootAndRuntime",
+            "value": "Boot,Runtime"
+          }
+        ]
       }
     },
     "Azure.ARM.ManagedIdentityProperties": {
@@ -549,7 +552,7 @@
     },
     "Azure.ARM.ManagedIdentityType": {
       "type": "string",
-      "description": "The kind of managemed identity assigned to this resource.",
+      "description": "The kind of managed identity assigned to this resource.",
       "enum": [
         "None",
         "SystemAssigned",
@@ -558,7 +561,25 @@
       ],
       "x-ms-enum": {
         "name": "ManagedIdentityType",
-        "modelAsString": true
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None"
+          },
+          {
+            "name": "SystemAssigned",
+            "value": "SystemAssigned"
+          },
+          {
+            "name": "UserAssigned",
+            "value": "UserAssigned"
+          },
+          {
+            "name": "SystemAndUserAssigned",
+            "value": "SystemAssigned,UserAssigned"
+          }
+        ]
       }
     },
     "Azure.ARM.UserAssignedIdentity": {

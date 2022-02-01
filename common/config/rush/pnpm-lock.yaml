@@ -3040,15 +3040,18 @@ packages:
   file:projects/cadl-rpaas-controller.tgz:
     dependencies:
       '@types/mkdirp': 1.0.2
+      '@types/mocha': 9.1.0
       '@types/node': 14.0.27
+      c8: 7.11.0
       handlebars: 4.7.7
       mkdirp: 1.0.4
+      mocha: 9.1.4
       squirrelly: 8.0.8
       typescript: 4.5.5
     dev: false
     name: '@rush-temp/cadl-rpaas-controller'
     resolution:
-      integrity: sha512-JdF616UJKDITa7lWJMBYDbY8uUo51mnXKjGXYe1Sq9r3Sc9OYaV3AveAVszd0ioC/jW4fuh+Geqmz4rpOI/26g==
+      integrity: sha512-TsqSAIU6Z98tOXaU7RmUhi2K4ZF4dZCu8ESGhPU9NvjQGBt5BdXddWKLtlxCLrnIGG2aM80039LsWmtdNo/NEQ==
       tarball: file:projects/cadl-rpaas-controller.tgz
     version: 0.0.0
   file:projects/cadl-rpaas.tgz:

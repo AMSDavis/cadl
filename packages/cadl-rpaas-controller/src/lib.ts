@@ -1,6 +1,6 @@
 import { createCadlLibrary, paramMessage } from "@cadl-lang/compiler";
 
-const libDef = {
+export const libDef = {
   name: "@azure-tools/cadl-rpaas-controller",
   diagnostics: {
     "no-union": {
@@ -55,6 +55,18 @@ const libDef = {
       severity: "error",
       messages: {
         default: paramMessage`Invalid response for operation: ${"operationName"}`,
+      },
+    },
+    "invalid-identifier": {
+      severity: "error",
+      messages: {
+        default: paramMessage`Invalid identifier '${"identifier"}' in ${"location"}`,
+      },
+    },
+    "missing-type-parent": {
+      severity: "error",
+      messages: {
+        default: paramMessage`No parent found for ${"type"} ${"name"} `,
       },
     },
     fstat: {

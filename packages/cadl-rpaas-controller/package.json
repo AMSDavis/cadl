@@ -18,16 +18,24 @@
   "author": "Microsoft Corporation",
   "license": "MIT",
   "type": "module",
-  "main": "dist/generate.js",
-  "cadlMain": "dist/generate.js",
+  "main": "dist/src/generate.js",
+  "cadlMain": "dist/src/generate.js",
   "engines": {
     "node": ">=14.0.0"
   },
   "scripts": {
     "build": "npm run compile",
     "compile": "tsc -p .",
-    "watch": "tsc -p . --watch"
+    "watch": "tsc -p . --watch",
+    "test": "mocha",
+    "test-official": "c8 mocha --forbid-only"
   },
+  "files": [
+    "clientlib/**",
+    "dist/**",
+    "!dist/test/**",
+    "templates/**"
+  ],
   "peerDependencies": {
     "@cadl-lang/compiler": "~0.25.0",
     "@azure-tools/cadl-autorest": "~0.10.0",
@@ -42,7 +50,10 @@
     "@azure-tools/cadl-autorest": "~0.10.0",
     "@cadl-lang/rest": "~0.8.0",
     "@azure-tools/cadl-rpaas": "~0.11.0",
+    "@types/mocha": "~9.1.0",
     "@types/node": "~14.0.27",
-    "typescript": "~4.5.5"
+    "c8": "~7.11.0",
+    "typescript": "~4.5.5",
+    "mocha": "~9.1.0"
   }
 }

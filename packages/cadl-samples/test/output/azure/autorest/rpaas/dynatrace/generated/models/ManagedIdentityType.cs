@@ -10,7 +10,7 @@ namespace Microsoft.Observability.Service.Models
     {
         string _value;
 
-        public static readonly ManagedIdentityType None = "None", SystemAssigned = "SystemAssigned", UserAssigned = "UserAssigned", SystemAssigned,UserAssigned = "SystemAssigned,UserAssigned"; 
+        public static readonly ManagedIdentityType None = "None", SystemAssigned = "SystemAssigned", UserAssigned = "UserAssigned", SystemAndUserAssigned = "SystemAssigned,UserAssigned"; 
 
         public ManagedIdentityType( string value)
         {
