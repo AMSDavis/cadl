@@ -1,5 +1,5 @@
+import { createWriteStream, existsSync, mkdirSync } from "fs";
 import { get } from "https";
-import { existsSync, mkdirSync, createWriteStream } from "fs";
 import { dirname } from "path";
 
 const remoteSwaggerPath =

@@ -1,4 +1,4 @@
-import { run, scanSwaggers, autorest } from "./helpers.js";
+import { autorest, run, scanSwaggers } from "./helpers.js";
 
 const AUTOREST_CORE_VERSION = "3.7.2";
 
