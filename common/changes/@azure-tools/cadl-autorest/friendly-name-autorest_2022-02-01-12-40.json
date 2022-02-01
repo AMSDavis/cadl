@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-autorest",
+      "comment": "Add `friendlyName` decorator support to cadl-autorest emitter",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-autorest"
+}

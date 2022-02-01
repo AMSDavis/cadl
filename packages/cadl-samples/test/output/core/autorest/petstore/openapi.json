@@ -31,7 +31,7 @@
           "200": {
             "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/ResponsePage_Pet"
+              "$ref": "#/definitions/PetListResults"
             }
           },
           "default": {
@@ -145,7 +145,7 @@
           "200": {
             "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/ResponsePage_Toy"
+              "$ref": "#/definitions/ToyListResults"
             }
           },
           "default": {
@@ -200,7 +200,7 @@
         "age"
       ]
     },
-    "ResponsePage_Pet": {
+    "PetListResults": {
       "type": "object",
       "properties": {
         "items": {
@@ -209,24 +209,6 @@
             "$ref": "#/definitions/Pet"
           },
           "x-cadl-name": "PetStore.Pet[]"
-        },
-        "nextLink": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "items"
-      ]
-    },
-    "ResponsePage_Toy": {
-      "type": "object",
-      "properties": {
-        "items": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Toy"
-          },
-          "x-cadl-name": "PetStore.Toy[]"
         },
         "nextLink": {
           "type": "string"
@@ -255,6 +237,24 @@
         "id",
         "petId",
         "name"
+      ]
+    },
+    "ToyListResults": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Toy"
+          },
+          "x-cadl-name": "PetStore.Toy[]"
+        },
+        "nextLink": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "items"
       ]
     }
   },

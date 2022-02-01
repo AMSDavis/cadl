@@ -10,6 +10,8 @@ const excludedSamples = [
   // fails compilation by design to demo language server
   "local-cadl",
 
+  "rpaas/cognitive",
+
   // no actual samples in these dirs
   "node_modules",
   "scratch",
