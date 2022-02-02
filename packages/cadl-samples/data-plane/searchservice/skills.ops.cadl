@@ -17,7 +17,7 @@ interface Skillsets {
 
   @route("/skillsets")
   @doc("Creates a new skillset in a search service.")
-  @get
+  @post
   create(
     @doc("The skillset containing one or more skills to create in a search service.")
     @body

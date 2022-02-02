@@ -45,11 +45,21 @@ function isTemplatedInterfaceOperation(target: OperationType) {
 }
 
 function createListenerOnGeneralType(fn: (target: Type) => void) {
+  type exitListener<T extends string> = T extends `exit${infer U}` ? T : never;
   // this type ensure that we can get noticed when there is new kind of type being added to the Type alias.
   type FullSemanticNodeListener = Required<
     Omit<
       SemanticNodeListener,
-      "root" | "string" | "boolean" | "number" | "intrinsic" | "enumMember"
+      | exitListener<keyof SemanticNodeListener>
+      | "root"
+      | "string"
+      | "boolean"
+      | "number"
+      | "intrinsic"
+      | "enumMember"
+      | "function"
+      | "object"
+      | "projection"
     >
   >;
   const listener: FullSemanticNodeListener = {

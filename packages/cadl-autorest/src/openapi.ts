@@ -15,6 +15,7 @@ import {
   getPattern,
   getProperty,
   getServiceHost,
+  getServiceNamespace,
   getServiceNamespaceString,
   getServiceTitle,
   getServiceVersion,
@@ -98,25 +99,28 @@ function getRef(program: Program, entity: Type): string | undefined {
 // the emitted OpenAPI document.
 
 const securityDetailsKey = Symbol();
-const securityRequirementsKey = "requirements";
-const securityDefinitionsKey = "definitions";
+interface SecurityDetails {
+  definitions: any;
+  requirements: any[];
+}
 
-function getSecurityRequirements(program: Program) {
+function getSecurityDetails(program: Program, serviceNamespace: NamespaceType): SecurityDetails {
   const definitions = program.stateMap(securityDetailsKey);
-  return definitions?.has(securityRequirementsKey) ? definitions.get(securityRequirementsKey) : [];
+  if (definitions.has(serviceNamespace)) {
+    return definitions.get(serviceNamespace)!;
+  } else {
+    const details = { definitions: {}, requirements: [] };
+    definitions.set(serviceNamespace, details);
+    return details;
+  }
 }
 
-function setSecurityRequirements(program: Program, requirements: any[]) {
-  program.stateMap(securityDetailsKey).set(securityRequirementsKey, requirements);
+function getSecurityRequirements(program: Program, serviceNamespace: NamespaceType) {
+  return getSecurityDetails(program, serviceNamespace).requirements;
 }
 
-function getSecurityDefinitions(program: Program) {
-  const definitions = program.stateMap(securityDetailsKey);
-  return definitions?.has(securityDefinitionsKey) ? definitions.get(securityDefinitionsKey) : {};
-}
-
-function setSecurityDefinitions(program: Program, definitions: any) {
-  program.stateMap(securityDetailsKey).set(securityDefinitionsKey, definitions);
+function getSecurityDefinitions(program: Program, serviceNamespace: NamespaceType) {
+  return getSecurityDetails(program, serviceNamespace).definitions;
 }
 
 export function addSecurityRequirement(
@@ -134,9 +138,8 @@ export function addSecurityRequirement(
 
   const req: any = {};
   req[name] = scopes;
-  const requirements = getSecurityRequirements(program);
+  const requirements = getSecurityRequirements(program, namespace);
   requirements.push(req);
-  setSecurityRequirements(program, requirements);
 }
 
 export function addSecurityDefinition(
@@ -153,9 +156,8 @@ export function addSecurityDefinition(
     return;
   }
 
-  const definitions = getSecurityDefinitions(program);
+  const definitions = getSecurityDefinitions(program, namespace);
   definitions[name] = details;
-  setSecurityDefinitions(program, definitions);
 }
 
 const openApiExtensions = new Map<Type, Map<string, any>>();
@@ -181,6 +183,10 @@ export interface OpenAPIEmitterOptions {
 }
 
 function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
+  // Get the service namespace string for use in name shortening
+  const serviceNamespaceName: string | undefined = getServiceNamespaceString(program);
+  const serviceNamespace = getServiceNamespace(program)!;
+
   const root: any = {
     swagger: "2.0",
     info: {
@@ -191,17 +197,14 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     schemes: ["https"],
     produces: [], // Pre-initialize produces and consumes so that
     consumes: [], // they show up at the top of the document
-    security: getSecurityRequirements(program),
-    securityDefinitions: getSecurityDefinitions(program),
+    security: getSecurityRequirements(program, serviceNamespace),
+    securityDefinitions: getSecurityDefinitions(program, serviceNamespace),
     tags: [],
     paths: {},
     "x-ms-paths": {},
     definitions: {},
     parameters: {},
   };
-
-  // Get the service namespace string for use in name shortening
-  const serviceNamespace: string | undefined = getServiceNamespaceString(program);
 
   let currentBasePath: string | undefined = "";
   let currentPath: any = root.paths;
@@ -807,8 +810,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
     // Try to shorten the type name to exclude the top-level service namespace
     let baseKey = getRefSafeName(key);
-    if (serviceNamespace && key.startsWith(serviceNamespace)) {
-      baseKey = key.substring(serviceNamespace.length + 1);
+    if (serviceNamespaceName && key.startsWith(serviceNamespaceName)) {
+      baseKey = key.substring(serviceNamespaceName.length + 1);
 
       // If no parameter exists with the shortened name, use it, otherwise use the fully-qualified name
       if (root.parameters[baseKey] === undefined) {
@@ -1237,8 +1240,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     typeName = program!.checker!.getTypeName(type).replace(/<([\w\.]+)>/, "_$1");
 
     if (isRefSafeName(typeName)) {
-      if (serviceNamespace) {
-        typeName = typeName.replace(RegExp(serviceNamespace + "\\.", "g"), "");
+      if (serviceNamespaceName) {
+        typeName = typeName.replace(RegExp(serviceNamespaceName + "\\.", "g"), "");
       }
       // exclude the Cadl namespace in type names
       typeName = typeName.replace(/($|_)(Cadl\.)/g, "$1");
@@ -1319,7 +1322,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   function addXMSEnum(type: StringLiteralType | UnionType | EnumType, schema: any): any {
     // For now, automatically treat any nominal union type as an `x-ms-enum`
     // that is expandable, i.e. sets `modelAsString: true`
-    if (type.node.parent && type.node.parent.kind === SyntaxKind.ModelStatement) {
+    if (type.node && type.node.parent && type.node.parent.kind === SyntaxKind.ModelStatement) {
       schema["x-ms-enum"] = {
         name: type.node.parent.id.sv,
         modelAsString: true,

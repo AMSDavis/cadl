@@ -9,8 +9,10 @@ import { run } from "../../../eng/scripts/helpers.js";
 const excludedSamples = [
   // fails compilation by design to demo language server
   "local-cadl",
-
   "rpaas/cognitive",
+
+  // remove this when versioning is implemented in autorest
+  "versioning",
 
   // no actual samples in these dirs
   "node_modules",

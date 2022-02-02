@@ -42,7 +42,7 @@ function getPathParameterInfo(
 
   const paramName: string = paramType.properties.keys().next().value;
   const propType = paramType.properties.get(paramName);
-  if (getIntrinsicType(program, propType) !== "string") {
+  if (getIntrinsicType(program, propType)?.name !== "string") {
     reportDiagnostic(program, {
       code: "path-parameter-type",
       messageId: "string",

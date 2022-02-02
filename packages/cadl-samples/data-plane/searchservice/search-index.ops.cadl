@@ -17,7 +17,7 @@ interface Indexes {
 
   @route("/indexes")
   @doc("Creates a new search index.")
-  @get
+  @post
   create(
     @doc("The definition of the index to create.")
     @body

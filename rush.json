@@ -97,6 +97,12 @@
       "shouldPublish": false
     },
     {
+      "packageName": "@cadl-lang/versioning",
+      "projectFolder": "core/packages/versioning",
+      "reviewCategory": "production",
+      "shouldPublish": false
+    },
+    {
       "packageName": "@cadl-lang/samples",
       "projectFolder": "core/packages/samples",
       "reviewCategory": "production",
