@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas-controller",
+      "comment": "Updating referenced controller package name",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas-controller"
+}

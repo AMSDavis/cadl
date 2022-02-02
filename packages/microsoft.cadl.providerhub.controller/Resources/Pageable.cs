@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Cadl.ProviderHubController.Common
+namespace Microsoft.Cadl.Providerhub.Controller
 {
     /// <summary>
     /// A collection of values that may take multiple service requests to iterate over.

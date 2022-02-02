@@ -7,7 +7,7 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Cadl.ProviderHubController.Common;
+using Microsoft.Cadl.Providerhub.Controller;
 using {{nameSpace}}.Service.Models;
 using {{nameSpace}}.Service.Controllers;
 using Microsoft.AspNetCore.Http;

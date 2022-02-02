@@ -4,7 +4,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace Cadl.ProviderHubController.Common
+namespace Microsoft.Cadl.Providerhub.Controller
 {
     /// <summary>
     /// Attribute class that provides string pattern validation on properties

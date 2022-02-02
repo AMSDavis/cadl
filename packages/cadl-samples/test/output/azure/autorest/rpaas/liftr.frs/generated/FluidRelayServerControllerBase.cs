@@ -6,7 +6,7 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Cadl.ProviderHubController.Common;
+using Microsoft.Cadl.Providerhub.Controller;
 using Microsoft.FluidRelay.Service.Models;
 using Microsoft.FluidRelay.Service.Controllers;
 using Microsoft.AspNetCore.Http;

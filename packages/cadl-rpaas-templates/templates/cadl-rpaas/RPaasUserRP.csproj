@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp5.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Cadl.ProviderHubController.Common" Version="1.0.0-beta.20211111.1" />
+    <PackageReference Include="Microsoft.Cadl.Providerhub.Controller" Version="1.0.0-beta.20211111.1" />
     <PackageReference Include="Cadl.MSBuild" Version="0.2.0-beta.20211212.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.18" />
   </ItemGroup>

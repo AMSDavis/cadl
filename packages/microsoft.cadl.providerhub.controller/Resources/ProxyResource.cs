@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-namespace Cadl.ProviderHubController.Common
+namespace Microsoft.Cadl.Providerhub.Controller
 {
     /// <summary>
     /// Class for ARM proxy resources

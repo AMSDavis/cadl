@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Microsoft.Confluent.Service.Models;
 using Microsoft.Confluent.Service.Controllers;
-using Cadl.ProviderHubController.Common;
+using Microsoft.Cadl.Providerhub.Controller;
 using System.Net;
 
 namespace Microsoft.Confluent.Service

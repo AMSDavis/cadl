@@ -6,7 +6,7 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Cadl.ProviderHubController.Common;
+using Microsoft.Cadl.Providerhub.Controller;
 using Microsoft.Confluent.Service.Models;
 using Microsoft.Confluent.Service.Controllers;
 using Microsoft.AspNetCore.Http;

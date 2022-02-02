@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Microsoft.Observability.Service.Models;
 using Microsoft.Observability.Service.Controllers;
-using Cadl.ProviderHubController.Common;
+using Microsoft.Cadl.Providerhub.Controller;
 using System.Net;
 
 namespace Microsoft.Observability.Service

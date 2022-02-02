@@ -3,7 +3,7 @@
 
 using Microsoft.AspNetCore.Http;
 
-namespace Cadl.ProviderHubController.Common
+namespace Microsoft.Cadl.Providerhub.Controller
 {
     /// <summary>
     /// Extension class for helper functions on HttpRequest

@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Cadl.ProviderHubController.Common
+namespace Microsoft.Cadl.Providerhub.Controller
 {
     /// <summary>
     /// Attribute class that provides property visibility 

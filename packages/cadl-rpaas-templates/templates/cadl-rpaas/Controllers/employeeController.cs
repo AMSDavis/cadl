@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 using System.Threading.Tasks;
-using Cadl.ProviderHubController.Common;
+using Microsoft.Cadl.Providerhub.Controller;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Contoso.Service.Models;
