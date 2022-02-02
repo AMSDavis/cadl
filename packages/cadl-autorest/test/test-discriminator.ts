@@ -310,7 +310,7 @@ describe("autorest: discriminated unions", () => {
       }
       `
     );
-    const diagnostics = await testHost.diagnose("./");
+    const diagnostics = await testHost.diagnose("./", { emitters: ["cadl-autorest"] });
     strictEqual(diagnostics.length, 6);
     strictEqual((diagnostics[0].target as ModelType).name, "Dog");
     match(diagnostics[0].message, /not defined in a variant of a discriminated union/);
@@ -355,7 +355,7 @@ describe("autorest: discriminated unions", () => {
       }
       `
     );
-    const diagnostics = await testHost.diagnose("./");
+    const diagnostics = await testHost.diagnose("./", { emitters: ["cadl-autorest"] });
     strictEqual(diagnostics.length, 2);
     match(diagnostics[0].message, /"housepet" defined in two different variants: Cat and Dog/);
     match(diagnostics[1].message, /"dog" defined in two different variants: Dog and Beagle/);

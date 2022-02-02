@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+// @ts-check
 import { readdirSync, rmdirSync } from "fs";
 import mkdirp from "mkdirp";
 import { dirname, join, normalize, resolve } from "path";
@@ -63,6 +63,11 @@ function main() {
       "operations",
     ],
   });
+  runCadlSamples(join(azureSamplesPath, "rpaas"), outputPath("azure", "autorest/rpaas"), {
+    imports: ["@azure-tools/cadl-autorest"],
+    emitter: "@azure-tools/cadl-rpaas-controller",
+    excludes: ["codesigning", "logz", "servicelinker"],
+  });
 }
 
 function runCadlSamples(samplesPath, baseOutputPath, options) {
@@ -80,6 +85,8 @@ function runCadlSamples(samplesPath, baseOutputPath, options) {
       `--option=registrationOutputPath=${registrationOutput}`,
       `--output-path=${outputPath}`,
       `--import="${options.emitter}"`,
+      ...(options.imports ? options.imports.map((x) => `--import="${x}"`) : []),
+      `--emit="${options.emitter}"`,
       `--debug`,
     ]);
   }

@@ -112,6 +112,7 @@ export async function CheckDiagnostics(code: string) {
   const result = await host.diagnose("./main.cadl", {
     noEmit: false,
     swaggerOutputFile: outPath,
+    emitters: ["@azure-tools/cadl-autorest", "@azure-tools/cadl-rpaas-controller"],
   });
   return result;
 }

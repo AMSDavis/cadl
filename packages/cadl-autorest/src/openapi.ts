@@ -48,7 +48,7 @@ import { reportDiagnostic } from "./lib.js";
 const { getHeaderFieldName, getPathParamName, getQueryParamName, isBody, isHeader, isStatusCode } =
   http;
 
-export async function $onBuild(p: Program) {
+export async function $onEmit(p: Program) {
   const options: OpenAPIEmitterOptions = {
     outputFile:
       (await checkAndGenResourceProviderSubfolder(p, getServiceVersion(p))) ||

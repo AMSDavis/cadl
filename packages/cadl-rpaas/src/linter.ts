@@ -13,7 +13,7 @@ import {
 } from "@cadl-lang/compiler";
 import { reportDiagnostic } from "./lib.js";
 
-export async function $onBuild(p: Program) {
+export async function $onValidate(p: Program) {
   runLinter(p);
 }
 

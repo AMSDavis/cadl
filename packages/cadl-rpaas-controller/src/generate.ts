@@ -42,7 +42,7 @@ import { fileURLToPath } from "url";
 import { reportDiagnostic } from "./lib.js";
 const { getPathParamName, isBody, isPathParam, isQueryParam } = http;
 
-export async function $onBuild(program: Program) {
+export async function $onEmit(program: Program) {
   const rootPath = resolvePath(getDirectoryPath(fileURLToPath(import.meta.url)), "..");
   const serviceCodePath =
     program.compilerOptions.miscOptions?.serviceCodePath || program.compilerOptions.outputPath;

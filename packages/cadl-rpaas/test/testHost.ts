@@ -76,6 +76,7 @@ export async function openApiFor(code: string) {
   await host.compile("./main.cadl", {
     noEmit: false,
     swaggerOutputFile: outPath,
+    emitters: ["cadl-autorest"],
   });
   return JSON.parse(host.fs.get(outPath)!);
 }
@@ -90,6 +91,7 @@ export async function CheckFor(code: string) {
   const result = await host.diagnose("./main.cadl", {
     noEmit: false,
     swaggerOutputFile: outPath,
+    emitters: ["cadl-autorest"],
   });
   return result;
 }

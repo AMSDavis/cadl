@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-rpaas-controller",
+      "comment": "Update for new emitter syntax",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-rpaas-controller"
+}
