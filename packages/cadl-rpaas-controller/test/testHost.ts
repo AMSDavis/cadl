@@ -89,6 +89,17 @@ export async function createRPaaSTestHost() {
     "./node_modules/@cadl-lang/rest/dist/src/resource.js",
     resolvePath(root, "../../core/packages/rest/dist/src/resource.js")
   );
+
+  // load openapi
+  await host.addRealCadlFile(
+    "./node_modules/@cadl-lang/openapi/package.json",
+    resolvePath(root, "../../core/packages/openapi/package.json")
+  );
+  await host.addRealJsFile(
+    "./node_modules/@cadl-lang/openapi/dist/src/index.js",
+    resolvePath(root, "../../core/packages/openapi/dist/src/index.js")
+  );
+
   // load openapi
   await host.addRealCadlFile(
     "./node_modules/@azure-tools/cadl-autorest/package.json",
@@ -107,7 +118,7 @@ export async function CheckDiagnostics(code: string) {
   const outPath = resolvePath("/openapi.json");
   host.addCadlFile(
     "./main.cadl",
-    `import "@cadl-lang/rest"; import "@azure-tools/cadl-autorest"; import "@azure-tools/cadl-rpaas"; import "@azure-tools/cadl-rpaas-controller";${code}`
+    `import "@cadl-lang/rest"; import "@cadl-lang/openapi";import "@azure-tools/cadl-autorest"; import "@azure-tools/cadl-rpaas"; import "@azure-tools/cadl-rpaas-controller";${code}`
   );
   const result = await host.diagnose("./main.cadl", {
     noEmit: false,

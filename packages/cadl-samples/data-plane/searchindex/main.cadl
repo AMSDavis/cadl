@@ -7,6 +7,7 @@
 // ISSUE: @extension on parameter doesn't work: https://github.com/Azure/cadl-azure/issues/1121
 
 import "@cadl-lang/rest";
+import "@cadl-lang/openapi";
 
 @serviceTitle("SearchIndexClient")
 @serviceVersion("2021-04-30-Preview")

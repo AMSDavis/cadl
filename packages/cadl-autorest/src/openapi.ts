@@ -37,6 +37,7 @@ import {
   Type,
   UnionType,
 } from "@cadl-lang/compiler";
+import { $extension, getExtensions, getOperationId } from "@cadl-lang/openapi";
 import {
   getAllRoutes,
   getDiscriminator,
@@ -58,11 +59,6 @@ export async function $onEmit(p: Program) {
 
   const emitter = createOAPIEmitter(p, options);
   await emitter.emitOpenAPI();
-}
-
-const operationIdsKey = Symbol();
-export function $operationId(program: Program, entity: Type, opId: string) {
-  program.stateMap(operationIdsKey).set(entity, opId);
 }
 
 const pageableOperationsKey = Symbol();
@@ -160,22 +156,10 @@ export function addSecurityDefinition(
   definitions[name] = details;
 }
 
-const openApiExtensions = new Map<Type, Map<string, any>>();
-function getExtensions(entity: Type): Map<string, any> {
-  if (!openApiExtensions.has(entity)) {
-    openApiExtensions.set(entity, new Map<string, any>());
-  }
-  return openApiExtensions.get(entity)!;
-}
-
-export function $extension(program: Program, entity: Type, extensionName: string, value: any) {
-  const extensions = getExtensions(entity);
-  extensions.set(extensionName, value);
-}
-
 export function $asyncOperationOptions(program: Program, entity: Type, finalStateVia: string) {
-  let typeExtensions = getExtensions(entity);
-  typeExtensions.set("x-ms-long-running-operation-options", { "final-state-via": finalStateVia });
+  $extension(program, entity, "x-ms-long-running-operation-options", {
+    "final-state-via": finalStateVia,
+  });
 }
 
 export interface OpenAPIEmitterOptions {
@@ -297,8 +281,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     currentConsumes = new Set<string>();
     currentProduces = new Set<string>();
 
-    if (program.stateMap(operationIdsKey).has(op)) {
-      currentEndpoint.operationId = program.stateMap(operationIdsKey).get(op);
+    const operationId = getOperationId(program, op);
+    if (operationId) {
+      currentEndpoint.operationId = operationId;
     } else {
       // Synthesize an operation ID
       currentEndpoint.operationId = (groupName.length > 0 ? `${groupName}_` : "") + op.name;
@@ -1020,7 +1005,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
           if (vals.length === 1) {
             const extensions = getExtensions(child);
             if (!extensions.has("x-ms-discriminator-value")) {
-              extensions.set("x-ms-discriminator-value", vals[0]);
+              $extension(program, child, "x-ms-discriminator-value", vals[0]);
             }
           }
         }

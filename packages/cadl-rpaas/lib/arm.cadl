@@ -1,3 +1,4 @@
+import "@cadl-lang/openapi";
 import "../dist/src/arm.js";
 import "@cadl-lang/rest";
 import "@azure-tools/cadl-autorest";

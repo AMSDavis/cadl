@@ -91,6 +91,12 @@
       "shouldPublish": false
     },
     {
+      "packageName": "@cadl-lang/openapi",
+      "projectFolder": "core/packages/openapi",
+      "reviewCategory": "production",
+      "shouldPublish": false
+    },
+    {
       "packageName": "@cadl-lang/openapi3",
       "projectFolder": "core/packages/openapi3",
       "reviewCategory": "production",

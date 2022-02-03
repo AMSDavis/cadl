@@ -73,10 +73,7 @@
         },
         "tags": [
           "LibraryService"
-        ],
-        "x-ms-pageable": {
-          "nextLinkName": "next_page_token"
-        }
+        ]
       }
     },
     "/v1/shelves/{name}": {

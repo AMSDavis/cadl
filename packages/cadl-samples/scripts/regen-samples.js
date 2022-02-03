@@ -84,7 +84,6 @@ function runCadlSamples(samplesPath, baseOutputPath, options) {
       `--option=arm-types-path=../../../../../../rpaas/types.json`,
       `--option=registrationOutputPath=${registrationOutput}`,
       `--output-path=${outputPath}`,
-      `--import="${options.emitter}"`,
       ...(options.imports ? options.imports.map((x) => `--import="${x}"`) : []),
       `--emit="${options.emitter}"`,
       `--debug`,

@@ -11,6 +11,7 @@ dependencies:
   '@rush-temp/cadl-vs': file:projects/cadl-vs.tgz
   '@rush-temp/cadl-vscode': file:projects/cadl-vscode.tgz
   '@rush-temp/compiler': file:projects/compiler.tgz
+  '@rush-temp/openapi': file:projects/openapi.tgz
   '@rush-temp/openapi3': file:projects/openapi3.tgz
   '@rush-temp/prettier-plugin-cadl': file:projects/prettier-plugin-cadl.tgz
   '@rush-temp/rest': file:projects/rest.tgz
@@ -3138,7 +3139,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-autorest'
     resolution:
-      integrity: sha512-+7fXdViavlG1jmNzZLV5VN9B0MXjMAPGZCEBxpRE13GH2CP9hUtRgYmHRcMkgDnwRNkyMPrA8fbEqofDvivGjQ==
+      integrity: sha512-tXEZSaK1d/Bej/FdNnr/MpFXVGFVxnZZly/hUc1vC+WHLWfzZNjc7tR65MlqwQBfCqFc032xMMMHIy/zHPaH0w==
       tarball: file:projects/cadl-autorest.tgz
     version: 0.0.0
   file:projects/cadl-msbuild-target.tgz:
@@ -3174,7 +3175,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-rpaas'
     resolution:
-      integrity: sha512-OOQNqOpYfX0R69bnfZIx0dtfAFf3ywWKLB/oRMMY3fU+X8dmWl6KleYVn8BVNbriSO/7Xaa49buiYolASfOekQ==
+      integrity: sha512-fSa9EuQetLc1ex3/1vWsdRshM5LjJwvz2A03skQvf7Coms9mNXyjyA+1vY+/+kpeMDZrjmI4TyThY3lOFs33TQ==
       tarball: file:projects/cadl-rpaas.tgz
     version: 0.0.0
   file:projects/cadl-samples.tgz:
@@ -3185,7 +3186,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-samples'
     resolution:
-      integrity: sha512-y886lhYPWYieAzHvtNnSbGOpFdrwphjhhvSdQR8dB0VzR4HUPrHWiMza/4lr5nUDc17KYwD7Cn9PV9BclG34tw==
+      integrity: sha512-P07IaEpd9LwlpnN/zgP/YikdMw/bzS/ia7pq0U27vQw3XGKeACIKJYEBrUlIdvJIyxwkwv3yIUJTyE4BGOZNvg==
       tarball: file:projects/cadl-samples.tgz
     version: 0.0.0
   file:projects/cadl-vs.tgz:
@@ -3250,6 +3251,18 @@ packages:
       integrity: sha512-aqYXRWJD430FlomLZ7cSebQBMaJN/nMUsXDAJuBmfh73dOXyyTC6WqsfKRzCNMOZmOA4nC9rMd/FSws1XLLXkA==
       tarball: file:projects/compiler.tgz
     version: 0.0.0
+  file:projects/openapi.tgz:
+    dependencies:
+      '@types/mocha': 9.1.0
+      '@types/node': 14.0.27
+      mocha: 9.1.4
+      typescript: 4.5.5
+    dev: false
+    name: '@rush-temp/openapi'
+    resolution:
+      integrity: sha512-9wWIqAjDwUgC60xXg1zJ+LNlSnOioC8IncRyq3O2mEMw8mMQ6QhzlLWOzxEw7AS3Otr0Dj65CNfY70lZ7ZwZZQ==
+      tarball: file:projects/openapi.tgz
+    version: 0.0.0
   file:projects/openapi3.tgz:
     dependencies:
       '@types/mocha': 9.1.0
@@ -3260,7 +3273,7 @@ packages:
     dev: false
     name: '@rush-temp/openapi3'
     resolution:
-      integrity: sha512-2nZz2sHMotuyI9pMLpiBy2/W2m23e6krDSYo199EvbMIWFiJsI/1wEGPeyasug2vt22MxHmvrA7bs6LrtwTObg==
+      integrity: sha512-k8XV/gsbKzbZ6aI4xwcni1fLWIdRPZJwDB4dkRaM6eKEe9jVvqIvTO+hmhR41JIdJCl5r0Ec2rrOKylLrFrcmA==
       tarball: file:projects/openapi3.tgz
     version: 0.0.0
   file:projects/prettier-plugin-cadl.tgz:
@@ -3299,7 +3312,7 @@ packages:
     dev: false
     name: '@rush-temp/samples'
     resolution:
-      integrity: sha512-F0j6F/TxdUgS7uHf+TdtLz1VPXeaYYgJxJHhXpJVWlyDUxFRKrOFDA7vPcSp6GB8VJLohZNJy3A8wRsFq8NleQ==
+      integrity: sha512-RGFWzhTXHTYS9LYhIhWhj2dIZ150Xm50kBAA9oRnkMjrQQktsfYCviq/rny9FUkjH5Xfp36xGXcX/3bgrz4pLQ==
       tarball: file:projects/samples.tgz
     version: 0.0.0
   file:projects/spec.tgz:
@@ -3352,6 +3365,7 @@ specifiers:
   '@rush-temp/cadl-vs': file:./projects/cadl-vs.tgz
   '@rush-temp/cadl-vscode': file:./projects/cadl-vscode.tgz
   '@rush-temp/compiler': file:./projects/compiler.tgz
+  '@rush-temp/openapi': file:./projects/openapi.tgz
   '@rush-temp/openapi3': file:./projects/openapi3.tgz
   '@rush-temp/prettier-plugin-cadl': file:./projects/prettier-plugin-cadl.tgz
   '@rush-temp/rest': file:./projects/rest.tgz
