@@ -18,6 +18,20 @@
   ],
   "main": "dist/src/arm.js",
   "cadlMain": "lib/arm.cadl",
+  "exports": {
+    ".": "./dist/src/arm.js",
+    "./testing": "./dist/src/testing/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/src/arm.d.ts"
+      ],
+      "testing": [
+        "./dist/src/testing/index.d.ts"
+      ]
+    }
+  },
   "type": "module",
   "engines": {
     "node": ">=14.0.0"

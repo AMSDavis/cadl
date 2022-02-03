@@ -1,9 +1,9 @@
 import { strictEqual } from "assert";
-import { CheckFor, getDiagnostic } from "./testHost.js";
+import { checkFor, getDiagnostic } from "./test-host.js";
 
 describe("test linter rules in decorator", () => {
   it("operation name check", async () => {
-    const result = await CheckFor(`
+    const result = await checkFor(`
       @armNamespace
       @serviceTitle("Microsoft.Test")
       @serviceVersion("2021-03-01-preview")
@@ -43,7 +43,7 @@ describe("test linter rules in decorator", () => {
   });
 
   it("resource not extends ProxyResourceBase, TrackedResourceBase", async () => {
-    const result = await CheckFor(`
+    const result = await checkFor(`
       @armNamespace
       @serviceTitle("Microsoft.PetStore")
       @serviceVersion("2021-03-01-preview")

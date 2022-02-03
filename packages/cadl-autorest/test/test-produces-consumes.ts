@@ -1,5 +1,5 @@
 import { deepStrictEqual, strictEqual } from "assert";
-import { openApiFor } from "./testHost.js";
+import { openApiFor } from "./test-host.js";
 
 interface ProducesConsumes {
   globalProduces: string[];

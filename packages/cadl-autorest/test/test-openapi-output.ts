@@ -1,5 +1,5 @@
 import { deepStrictEqual, ok, strictEqual } from "assert";
-import { openApiFor } from "./testHost.js";
+import { openApiFor } from "./test-host.js";
 
 describe("autorest: definitions", () => {
   it("defines models", async () => {

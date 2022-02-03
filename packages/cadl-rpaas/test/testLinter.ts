@@ -1,9 +1,9 @@
 import { strictEqual } from "assert";
-import { CheckFor, getDiagnostic } from "./testHost.js";
+import { checkFor, getDiagnostic } from "./test-host.js";
 
 describe("test linter rules", () => {
   it("no documentation", async () => {
-    const result = await CheckFor(`
+    const result = await checkFor(`
       using Cadl.Http;
       model Foo {
         x:string
@@ -26,7 +26,7 @@ describe("test linter rules", () => {
   });
 
   it("inline model in return types", async () => {
-    const result = await CheckFor(`
+    const result = await checkFor(`
       using Cadl.Http;
       @doc("Foo ")
       model Foo {
@@ -48,7 +48,7 @@ describe("test linter rules", () => {
   });
 
   it("inline model in model property", async () => {
-    const result = await CheckFor(`
+    const result = await checkFor(`
       @doc("Foo ")
       model Foo {
         x:string
@@ -71,7 +71,7 @@ describe("test linter rules", () => {
   });
 
   it("repeated properties", async () => {
-    const result = await CheckFor(`
+    const result = await checkFor(`
       @armNamespace
       @serviceTitle("Microsoft.PetStore")
       @serviceVersion("2021-03-01-preview")
@@ -95,7 +95,7 @@ describe("test linter rules", () => {
   });
 
   it("contain disallowed top level properties", async () => {
-    const result = await CheckFor(`
+    const result = await checkFor(`
       @armNamespace
       @serviceTitle("Microsoft.PetStore")
       @serviceVersion("2021-03-01-preview")
@@ -118,7 +118,7 @@ describe("test linter rules", () => {
   });
 
   it("resource extends ArmResource directly", async () => {
-    const result = await CheckFor(`
+    const result = await checkFor(`
       @armNamespace
       @serviceTitle("Microsoft.PetStore")
       @serviceVersion("2021-03-01-preview")

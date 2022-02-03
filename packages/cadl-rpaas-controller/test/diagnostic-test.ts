@@ -1,9 +1,14 @@
-import { strictEqual } from "assert";
-import { CheckDiagnostics, getDiagnostic } from "./testHost.js";
+import { BasicTestRunner, expectDiagnostics } from "@cadl-lang/compiler/testing";
+import { createRPaasControllerTestRunner } from "./test-host.js";
 
 describe("Test identifier validation in service code emitter", async () => {
+  let runner: BasicTestRunner;
+
+  beforeEach(async () => {
+    runner = await createRPaasControllerTestRunner();
+  });
   it("Detects invalid identifiers in model names", async () => {
-    const result = await CheckDiagnostics(`
+    const result = await runner.diagnose(`
       @armNamespace
       @serviceTitle("Microsoft.Test")
       @serviceVersion("2021-03-01-preview")
@@ -39,13 +44,14 @@ describe("Test identifier validation in service code emitter", async () => {
       }
       
     `);
-    let violations = getDiagnostic("invalid-identifier", [...result]);
-    strictEqual(violations.length, 2);
-    strictEqual(result.length, 2);
+    expectDiagnostics(result, [
+      { code: "@azure-tools/cadl-rpaas-controller/invalid-identifier" },
+      { code: "@azure-tools/cadl-rpaas-controller/invalid-identifier" },
+    ]);
   });
 
   it("Detects invalid identifiers in enum names", async () => {
-    const result = await CheckDiagnostics(`
+    const result = await runner.diagnose(`
       @armNamespace
       @serviceTitle("Microsoft.Test")
       @serviceVersion("2021-03-01-preview")
@@ -81,13 +87,11 @@ describe("Test identifier validation in service code emitter", async () => {
       }
       
     `);
-    let violations = getDiagnostic("invalid-identifier", [...result]);
-    strictEqual(violations.length, 1);
-    strictEqual(result.length, 1);
+    expectDiagnostics(result, { code: "@azure-tools/cadl-rpaas-controller/invalid-identifier" });
   });
 
   it("Detects invalid identifiers in property names", async () => {
-    const result = await CheckDiagnostics(`
+    const result = await runner.diagnose(`
       @armNamespace
       @serviceTitle("Microsoft.Test")
       @serviceVersion("2021-03-01-preview")
@@ -125,13 +129,11 @@ describe("Test identifier validation in service code emitter", async () => {
       }
       
     `);
-    let violations = getDiagnostic("invalid-identifier", [...result]);
-    strictEqual(violations.length, 1);
-    strictEqual(result.length, 1);
+    expectDiagnostics(result, { code: "@azure-tools/cadl-rpaas-controller/invalid-identifier" });
   });
 
   it("Detects invalid identifiers in enum values", async () => {
-    const result = await CheckDiagnostics(`
+    const result = await runner.diagnose(`
       @armNamespace
       @serviceTitle("Microsoft.Test")
       @serviceVersion("2021-03-01-preview")
@@ -167,8 +169,6 @@ describe("Test identifier validation in service code emitter", async () => {
       }
       
     `);
-    let violations = getDiagnostic("invalid-identifier", [...result]);
-    strictEqual(violations.length, 1);
-    strictEqual(result.length, 1);
+    expectDiagnostics(result, { code: "@azure-tools/cadl-rpaas-controller/invalid-identifier" });
   });
 });

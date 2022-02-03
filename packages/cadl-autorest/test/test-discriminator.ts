@@ -1,6 +1,6 @@
 import { ModelType, ModelTypeProperty } from "@cadl-lang/compiler";
 import { deepStrictEqual, match, ok, strictEqual } from "assert";
-import { createOpenAPITestHost, openApiFor } from "./testHost.js";
+import { createAutorestTestRunner, openApiFor } from "./test-host.js";
 
 describe("autorest: discriminated unions", () => {
   it("defines unions with discriminators", async () => {
@@ -270,14 +270,9 @@ describe("autorest: discriminated unions", () => {
   });
 
   it("issues diagnostics for errors in a discriminated union", async () => {
-    let testHost = await createOpenAPITestHost();
-    testHost.addCadlFile(
-      "main.cadl",
+    let runner = await createAutorestTestRunner();
+    const diagnostics = await runner.diagnose(
       `
-      import "rest";
-      import "cadl-autorest";
-      using Cadl.Http;
-
       @discriminator("kind")
       model Pet {
         name: string;
@@ -310,7 +305,6 @@ describe("autorest: discriminated unions", () => {
       }
       `
     );
-    const diagnostics = await testHost.diagnose("./", { emitters: ["cadl-autorest"] });
     strictEqual(diagnostics.length, 6);
     strictEqual((diagnostics[0].target as ModelType).name, "Dog");
     match(diagnostics[0].message, /not defined in a variant of a discriminated union/);
@@ -325,14 +319,9 @@ describe("autorest: discriminated unions", () => {
   });
 
   it("issues diagnostics for duplicate discriminator values", async () => {
-    let testHost = await createOpenAPITestHost();
-    testHost.addCadlFile(
-      "main.cadl",
+    let runner = await createAutorestTestRunner();
+    const diagnostics = await runner.diagnose(
       `
-      import "rest";
-      import "cadl-autorest";
-      using Cadl.Http;
-
       @discriminator("kind")
       model Pet {
       }
@@ -355,7 +344,6 @@ describe("autorest: discriminated unions", () => {
       }
       `
     );
-    const diagnostics = await testHost.diagnose("./", { emitters: ["cadl-autorest"] });
     strictEqual(diagnostics.length, 2);
     match(diagnostics[0].message, /"housepet" defined in two different variants: Cat and Dog/);
     match(diagnostics[1].message, /"dog" defined in two different variants: Dog and Beagle/);
