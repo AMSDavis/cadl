@@ -1,6 +1,25 @@
-# Change Log - @azure-tools/cadl-rpaas
+# Change Log - @azure-tools/cadl-providerhub
 
-This log was last generated on Thu, 16 Dec 2021 08:03:03 GMT and should not be manually modified.
+This log was last generated on Fri, 04 Feb 2022 18:01:35 GMT and should not be manually modified.
+
+## 0.12.0
+Fri, 04 Feb 2022 18:01:35 GMT
+
+### Minor changes
+
+- Update cadl depdendencies to peerDependencies
+- Internals: switch to internal path manipulatio
+- Adopt statusCode decorator for http status code
+- Update for new emitter syntax
+- Update to use @cadl-lang/openapi library for @extension instead of autorest
+
+### Patches
+
+- Absorb projections change
+- Renamed rpaas moniker in packages to providerhub
+- Resolve issues with openapi decorators in arm.cadl
+- Renaming @format decorator to @pattern.
+- Fix issue with @armResourceOperations path generation
 
 ## 0.11.0
 Thu, 16 Dec 2021 08:03:03 GMT

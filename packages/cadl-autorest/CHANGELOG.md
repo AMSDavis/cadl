@@ -1,6 +1,31 @@
 # Change Log - @azure-tools/cadl-autorest
 
-This log was last generated on Thu, 16 Dec 2021 08:03:03 GMT and should not be manually modified.
+This log was last generated on Fri, 04 Feb 2022 18:01:35 GMT and should not be manually modified.
+
+## 0.11.0
+Fri, 04 Feb 2022 18:01:35 GMT
+
+### Minor changes
+
+- Absorb projections change
+- cadl-autorest support for discriminated unions
+- Add support for extensions on parameters
+- Uptake changes in @cadl-lang/rest library improving operation parameter handling
+- Update cadl depdendencies to peerDependencies
+- Internals: switch to internal path manipulatio
+- **Added** values to `x-ms-enum` containing `@doc` for members and custom name/values if applicable
+- Adopt statusCode decorator for http status code
+- Update for new emitter syntax
+- Use common decorator from @cadl-lang/openapi library
+
+### Patches
+
+- Adding @format decorator support for autorest to emit "format" for string types
+- **Fix** Added support for nullable array `xzy[] | null`
+- **Fix** issue with @body body: bytes producing `type: string, format: bytes` instead of `type: string, format: binary` for requests and response
+- Add `friendlyName` decorator support to cadl-autorest emitter
+- Renaming @format decorator to @pattern.
+- Add cadl-autorest support for safeint
 
 ## 0.10.0
 Thu, 16 Dec 2021 08:03:03 GMT

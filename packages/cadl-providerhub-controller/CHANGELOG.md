@@ -1,6 +1,26 @@
-# Change Log - @azure-tools/cadl-rpaas-controller
+# Change Log - @azure-tools/cadl-providerhub-controller
 
-This log was last generated on Thu, 16 Dec 2021 08:03:03 GMT and should not be manually modified.
+This log was last generated on Fri, 04 Feb 2022 18:01:35 GMT and should not be manually modified.
+
+## 0.8.0
+Fri, 04 Feb 2022 18:01:35 GMT
+
+### Minor changes
+
+- Update cadl depdendencies to peerDependencies
+- Updated to make use of compiler host for file system manipulation
+- Update for new emitter syntax
+
+### Patches
+
+- Absorb projections change
+- Adding @format decorator support for providerhub controller emitter
+- Renamed rpaas moniker in packages to providerhub
+- Updating referenced controller package name
+- fix npm audit issue
+- fix invalid generated providerhub registration 
+- Validate identifier validity, add unit test infrastructure and unit tests
+- Renaming @format decorator to @pattern.
 
 ## 0.7.0
 Thu, 16 Dec 2021 08:03:03 GMT

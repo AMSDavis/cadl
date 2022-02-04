@@ -1,6 +1,55 @@
 {
-  "name": "@azure-tools/cadl-rpaas",
+  "name": "@azure-tools/cadl-providerhub",
   "entries": [
+    {
+      "version": "0.12.0",
+      "tag": "@azure-tools/cadl-providerhub_v0.12.0",
+      "date": "Fri, 04 Feb 2022 18:01:35 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Absorb projections change"
+          },
+          {
+            "comment": "Renamed rpaas moniker in packages to providerhub"
+          },
+          {
+            "comment": "Resolve issues with openapi decorators in arm.cadl"
+          },
+          {
+            "comment": "Renaming @format decorator to @pattern."
+          },
+          {
+            "comment": "Fix issue with @armResourceOperations path generation"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Update cadl depdendencies to peerDependencies"
+          },
+          {
+            "comment": "Internals: switch to internal path manipulatio"
+          },
+          {
+            "comment": "Adopt statusCode decorator for http status code"
+          },
+          {
+            "comment": "Update for new emitter syntax"
+          },
+          {
+            "comment": "Update to use @cadl-lang/openapi library for @extension instead of autorest"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `~0.10.0` to `~0.11.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `~0.10.0` to `~0.11.0`"
+          }
+        ]
+      }
+    },
     {
       "version": "0.11.0",
       "tag": "@azure-tools/cadl-rpaas_v0.11.0",

@@ -1,6 +1,64 @@
 {
-  "name": "@azure-tools/cadl-rpaas-controller",
+  "name": "@azure-tools/cadl-providerhub-controller",
   "entries": [
+    {
+      "version": "0.8.0",
+      "tag": "@azure-tools/cadl-providerhub-controller_v0.8.0",
+      "date": "Fri, 04 Feb 2022 18:01:35 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Absorb projections change"
+          },
+          {
+            "comment": "Adding @format decorator support for providerhub controller emitter"
+          },
+          {
+            "comment": "Renamed rpaas moniker in packages to providerhub"
+          },
+          {
+            "comment": "Updating referenced controller package name"
+          },
+          {
+            "comment": "fix npm audit issue"
+          },
+          {
+            "comment": "fix invalid generated providerhub registration "
+          },
+          {
+            "comment": "Validate identifier validity, add unit test infrastructure and unit tests"
+          },
+          {
+            "comment": "Renaming @format decorator to @pattern."
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Update cadl depdendencies to peerDependencies"
+          },
+          {
+            "comment": "Updated to make use of compiler host for file system manipulation"
+          },
+          {
+            "comment": "Update for new emitter syntax"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `~0.10.0` to `~0.11.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-providerhub\" from `~0.11.0` to `~0.12.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `~0.10.0` to `~0.11.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-providerhub\" from `~0.11.0` to `~0.12.0`"
+          }
+        ]
+      }
+    },
     {
       "version": "0.7.0",
       "tag": "@azure-tools/cadl-rpaas-controller_v0.7.0",

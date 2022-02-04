@@ -1,6 +1,6 @@
 {
   "name": "@azure-tools/cadl-providerhub-controller",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Azure Cadl ProviderHub service controller code generator",
   "homepage": "https://github.com/Azure/adl",
   "readme": "https://github.com/Azure/adl/blob/master/README.md",
@@ -38,20 +38,20 @@
     "templates/**"
   ],
   "peerDependencies": {
-    "@cadl-lang/compiler": "~0.25.0",
-    "@azure-tools/cadl-autorest": "~0.10.0",
-    "@cadl-lang/rest": "~0.8.0",
-    "@azure-tools/cadl-providerhub": "~0.11.0"
+    "@cadl-lang/compiler": "~0.26.0",
+    "@azure-tools/cadl-autorest": "~0.11.0",
+    "@cadl-lang/rest": "~0.9.0",
+    "@azure-tools/cadl-providerhub": "~0.12.0"
   },
   "dependencies": {
     "handlebars": "^4.7.7"
   },
   "devDependencies": {
-    "@cadl-lang/compiler": "~0.25.0",
-    "@azure-tools/cadl-autorest": "~0.10.0",
-    "@cadl-lang/openapi": "~0.5.0",
-    "@cadl-lang/rest": "~0.8.0",
-    "@azure-tools/cadl-providerhub": "~0.11.0",
+    "@cadl-lang/compiler": "~0.26.0",
+    "@azure-tools/cadl-autorest": "~0.11.0",
+    "@cadl-lang/openapi": "~0.5.1",
+    "@cadl-lang/rest": "~0.9.0",
+    "@azure-tools/cadl-providerhub": "~0.12.0",
     "@types/mocha": "~9.1.0",
     "@types/node": "~14.0.27",
     "c8": "~7.11.0",
