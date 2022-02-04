@@ -67,6 +67,13 @@
       "name": "prepare-publish",
       "summary": "(CUSTOM) Prepare publish",
       "shellCommand": "node eng/scripts/prepare-publish.js"
+    },
+    {
+      "commandKind": "bulk",
+      "name": "clean",
+      "summary": "(CUSTOM) Run `npm run clean` on all the projects.",
+      "enableParallelism": true,
+      "ignoreMissingScript": true
     }
   ],
   /**
