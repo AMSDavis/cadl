@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-providerhub",
+      "comment": "Update to use @cadl-lang/openapi library for @extension instead of autorest",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-providerhub"
+}

@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.Cadl.Providerhub.Controller
+namespace Microsoft.Cadl.ProviderHub.Controller
 {
     /// <summary>
     /// Class for ARM tracked resource

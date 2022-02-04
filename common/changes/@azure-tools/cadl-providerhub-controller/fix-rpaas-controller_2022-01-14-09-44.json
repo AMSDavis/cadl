@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-providerhub-controller",
+      "comment": "fix npm audit issue",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-providerhub-controller"
+}

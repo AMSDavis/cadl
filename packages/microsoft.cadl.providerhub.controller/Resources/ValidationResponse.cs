@@ -3,7 +3,7 @@
 
 using Newtonsoft.Json;
 
-namespace Microsoft.Cadl.Providerhub.Controller
+namespace Microsoft.Cadl.ProviderHub.Controller
 {
     /// <summary>
     /// ValidationResponse class

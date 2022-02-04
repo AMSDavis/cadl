@@ -5,8 +5,8 @@ dependencies:
   '@rollup/plugin-replace': 2.4.2_rollup@2.41.5
   '@rush-temp/cadl-autorest': file:projects/cadl-autorest.tgz
   '@rush-temp/cadl-msbuild-target': file:projects/cadl-msbuild-target.tgz
-  '@rush-temp/cadl-rpaas': file:projects/cadl-rpaas.tgz
-  '@rush-temp/cadl-rpaas-controller': file:projects/cadl-rpaas-controller.tgz
+  '@rush-temp/cadl-providerhub': file:projects/cadl-providerhub.tgz
+  '@rush-temp/cadl-providerhub-controller': file:projects/cadl-providerhub-controller.tgz
   '@rush-temp/cadl-samples': file:projects/cadl-samples.tgz
   '@rush-temp/cadl-vs': file:projects/cadl-vs.tgz
   '@rush-temp/cadl-vscode': file:projects/cadl-vscode.tgz
@@ -3151,7 +3151,7 @@ packages:
       integrity: sha512-L0Q5imTJQoHMUL+lwpzBsXEm56sFUteJC2smwOMZO4blPKf5IGCk5zYZlKKZU+Eyr3CRTqmyyD6Cb+SCXeiiDg==
       tarball: file:projects/cadl-msbuild-target.tgz
     version: 0.0.0
-  file:projects/cadl-rpaas-controller.tgz:
+  file:projects/cadl-providerhub-controller.tgz:
     dependencies:
       '@types/mocha': 9.1.0
       '@types/node': 14.0.27
@@ -3160,12 +3160,12 @@ packages:
       mocha: 9.1.4
       typescript: 4.5.5
     dev: false
-    name: '@rush-temp/cadl-rpaas-controller'
+    name: '@rush-temp/cadl-providerhub-controller'
     resolution:
-      integrity: sha512-TsqSAIU6Z98tOXaU7RmUhi2K4ZF4dZCu8ESGhPU9NvjQGBt5BdXddWKLtlxCLrnIGG2aM80039LsWmtdNo/NEQ==
-      tarball: file:projects/cadl-rpaas-controller.tgz
+      integrity: sha512-xBbzrLpLqRI1zQN3JhCFny38nE31llPPZoqeMDjxZWgWQj4bk/TBoZE3mB/olz9NiaCFGNeJ1petu/TusZF75A==
+      tarball: file:projects/cadl-providerhub-controller.tgz
     version: 0.0.0
-  file:projects/cadl-rpaas.tgz:
+  file:projects/cadl-providerhub.tgz:
     dependencies:
       '@types/mocha': 9.1.0
       '@types/node': 14.0.27
@@ -3173,10 +3173,10 @@ packages:
       mocha: 9.1.4
       typescript: 4.5.5
     dev: false
-    name: '@rush-temp/cadl-rpaas'
+    name: '@rush-temp/cadl-providerhub'
     resolution:
-      integrity: sha512-fSa9EuQetLc1ex3/1vWsdRshM5LjJwvz2A03skQvf7Coms9mNXyjyA+1vY+/+kpeMDZrjmI4TyThY3lOFs33TQ==
-      tarball: file:projects/cadl-rpaas.tgz
+      integrity: sha512-0NDOiwoqujr3ANgP52tmDT3p2dDPG8ga+ft9dUn8YezeJbcsAdENyHbBhdjhVh6PNHMICnlX77kbAWg5/gJldQ==
+      tarball: file:projects/cadl-providerhub.tgz
     version: 0.0.0
   file:projects/cadl-samples.tgz:
     dependencies:
@@ -3186,7 +3186,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-samples'
     resolution:
-      integrity: sha512-P07IaEpd9LwlpnN/zgP/YikdMw/bzS/ia7pq0U27vQw3XGKeACIKJYEBrUlIdvJIyxwkwv3yIUJTyE4BGOZNvg==
+      integrity: sha512-SOETiOwO19Q9NG6p5W4R5TkblpxiUHuVFBbRs9ub5z7hNbSafSS2WVWagIe8AXnkpoCNq7n2dK012OZ8jwrq5w==
       tarball: file:projects/cadl-samples.tgz
     version: 0.0.0
   file:projects/cadl-vs.tgz:
@@ -3361,8 +3361,8 @@ specifiers:
   '@rollup/plugin-replace': ~2.4.2
   '@rush-temp/cadl-autorest': file:./projects/cadl-autorest.tgz
   '@rush-temp/cadl-msbuild-target': file:./projects/cadl-msbuild-target.tgz
-  '@rush-temp/cadl-rpaas': file:./projects/cadl-rpaas.tgz
-  '@rush-temp/cadl-rpaas-controller': file:./projects/cadl-rpaas-controller.tgz
+  '@rush-temp/cadl-providerhub': file:./projects/cadl-providerhub.tgz
+  '@rush-temp/cadl-providerhub-controller': file:./projects/cadl-providerhub-controller.tgz
   '@rush-temp/cadl-samples': file:./projects/cadl-samples.tgz
   '@rush-temp/cadl-vs': file:./projects/cadl-vs.tgz
   '@rush-temp/cadl-vscode': file:./projects/cadl-vscode.tgz

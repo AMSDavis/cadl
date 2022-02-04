@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-providerhub-controller",
+      "comment": "Validate identifier validity, add unit test infrastructure and unit tests",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-providerhub-controller"
+}

@@ -12,7 +12,7 @@
 # Coverage report directory
 **/coverage/
 
-packages/cadl-samples/rpaas/types.json
+packages/cadl-samples/providerhub/types.json
 # These are standard and should not be edited
 SECURITY.md
 CODE_OF_CONDUCT.md

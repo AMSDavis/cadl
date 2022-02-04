@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup>
+  <BuildId Condition="'$(BuildId)' == ''">0</BuildId>
+  <PackageType>Template</PackageType>
+  <PackageVersion>0.1.0-beta.$(BuildId)</PackageVersion>
+  <PackageId>Cadl.ProviderHub.Templates</PackageId>
+  <Title>CadlProviderHub Templates</Title>
+  <Authors>Microsoft</Authors>
+  <Description>Templates to use when creating an application for RpaaS with cadl.</Description>
+  <PackageTags>cadl;providerhub;dotnet-new;templates;</PackageTags>
+  <TargetFramework>net5.0</TargetFramework>
+  <IncludeContentInPack>true</IncludeContentInPack>
+  <IncludeBuildOutput>false</IncludeBuildOutput>
+  <ContentTargetFolders>content</ContentTargetFolders>
+  <NoWarn>$(NoWarn);NU5128</NoWarn>
+</PropertyGroup>
+
+<ItemGroup>
+  <Content Include="templates\**\*" Exclude="templates\**\bin\**;templates\**\obj\**" />
+  <Compile Remove="**\*" />
+</ItemGroup>
+
+<PropertyGroup>
+  <SignAssembly>true</SignAssembly>
+  <DelaySign>true</DelaySign>
+  <AssemblyOriginatorKeyFile>../../eng/MSSharedLibKey.snk</AssemblyOriginatorKeyFile>
+</PropertyGroup>
+
+</Project>

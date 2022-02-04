@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-namespace Microsoft.Cadl.Providerhub.Controller
+namespace Microsoft.Cadl.ProviderHub.Controller
 {
     /// <summary>
     /// Indicates the action type. \"Internal\" refers to actions that are for internal only APIs.

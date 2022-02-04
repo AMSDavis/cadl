@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Microsoft.Cadl.Providerhub.Controller
+namespace Microsoft.Cadl.ProviderHub.Controller
 {
     /// <summary>
     /// Attribute class that provides length validation on properties

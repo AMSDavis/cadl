@@ -9,7 +9,7 @@ import { run } from "../../../eng/scripts/helpers.js";
 const excludedSamples = [
   // fails compilation by design to demo language server
   "local-cadl",
-  "rpaas/cognitive",
+  "providerhub/cognitive",
 
   // remove this when versioning is implemented in autorest
   "versioning",
@@ -57,17 +57,21 @@ function main() {
       "overloads",
 
       // ARM specs depend on functionality in cadl-autorest
-      "rpaas",
+      "providerhub",
 
-      // Spec that uses RPaaS, incompatible with OpenAPI3
+      // Spec that uses ProviderHub, incompatible with OpenAPI3
       "operations",
     ],
   });
-  runCadlSamples(join(azureSamplesPath, "rpaas"), outputPath("azure", "autorest/rpaas"), {
-    imports: ["@azure-tools/cadl-autorest"],
-    emitter: "@azure-tools/cadl-rpaas-controller",
-    excludes: ["codesigning", "logz", "servicelinker"],
-  });
+  runCadlSamples(
+    join(azureSamplesPath, "providerhub"),
+    outputPath("azure", "autorest/providerhub"),
+    {
+      imports: ["@azure-tools/cadl-autorest"],
+      emitter: "@azure-tools/cadl-providerhub-controller",
+      excludes: ["codesigning", "logz", "servicelinker"],
+    }
+  );
 }
 
 function runCadlSamples(samplesPath, baseOutputPath, options) {
@@ -81,7 +85,7 @@ function runCadlSamples(samplesPath, baseOutputPath, options) {
       "../../core/packages/compiler/dist/core/cli.js",
       "compile",
       inputPath,
-      `--option=arm-types-path=../../../../../../rpaas/types.json`,
+      `--option=arm-types-path=../../../../../../providerhub/types.json`,
       `--option=registrationOutputPath=${registrationOutput}`,
       `--output-path=${outputPath}`,
       ...(options.imports ? options.imports.map((x) => `--import="${x}"`) : []),

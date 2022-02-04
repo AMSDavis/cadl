@@ -20,7 +20,7 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-          - script: dotnet pack ./packages/Microsoft.Cadl.Providerhub.Controller --configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) /p:BuildId=$(Build.BuildNumber)
+          - script: dotnet pack ./packages/Microsoft.Cadl.ProviderHub.Controller --configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) /p:BuildId=$(Build.BuildNumber)
             displayName: "Build and publish ProviderHubController.Common"
           - task: PublishBuildArtifacts@1
             condition: succeededOrFailed()

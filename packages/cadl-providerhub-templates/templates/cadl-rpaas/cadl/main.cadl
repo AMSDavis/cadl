@@ -1,0 +1,43 @@
+import "@cadl-lang/rest";
+import "@azure-tools/cadl-autorest";
+import "@azure-tools/cadl-providerhub";
+import "@azure-tools/cadl-providerhub-controller";
+
+@armNamespace
+@serviceTitle("Microsoft.Contoso")
+@serviceVersion("2021-08-01-preview")
+namespace Microsoft.Contoso;
+
+using Azure.ARM;
+using Cadl.Http;
+
+@armResource({
+  path: "Employees",
+  collectionName: "Employees",
+  parameterType: EmployeeNameParameter,
+  standardOperations: ["create","delete","list","update","read"],
+})
+model Employee is TrackedResource<EmployeeProperties> {}
+
+@doc("The status of the current operation.")
+enum ProvisioningState {
+  Succeeded,
+  Failed,
+  Canceled,
+  Provisioning,
+  Updating,
+  Deleting,
+  Accepted,
+}
+
+@doc("Parameter of the employee name.")
+model EmployeeNameParameter {
+  @doc("Employee resource name") @path EmployeeName: string;
+}
+
+@doc("Details of the Contoso Employee.")
+model EmployeeProperties {
+  @visibility("read")
+  @doc("The status of the last operation.")
+  provisioningState?: ProvisioningState;
+}

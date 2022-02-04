@@ -16,9 +16,9 @@ union Pet { cat: Cat, dog: Dog }
 In cadl-autorest, any union containing more than one non-null model is an error,
 except as the return-type of an operation, where union variants can represent the body of different responses (status codes).
 
-#### cadl-rpaas-controller
+#### cadl-providerhub-controller
 
-In cadl-rpaas-controller, any union containing more than one non-null model is an error,
+In cadl-providerhub-controller, any union containing more than one non-null model is an error,
 except as the return-type of an operation, where union variants can represent the body of different responses (status codes).
 
 #### openapi3
@@ -151,14 +151,14 @@ Notes:
 - cadl-autorest suppresses the `enum` for the discriminator property since autorest does not allow it.
 - The `x-ms-discriminator-value` extension is only produced if the discriminator property in the variant is a (single) string constant.
 
-#### cadl-rpaas-controller
+#### cadl-providerhub-controller
 
-The cadl-rpaas-controller will to use the discriminator property to deserialize a request payload into the appropriate class.
+The cadl-providerhub-controller will to use the discriminator property to deserialize a request payload into the appropriate class.
 
 The cadl-rpass-controller emitter will generate an abstract class for Pet and concrete classes for Cat and Dog that extend Pet.
 Any operation parameter types using 'Pet' will accept and correctly deserialize actual types corresponding to 'Cat' or 'Dog'.
 Any return types using 'Pet' will accept either 'Cat' or 'Dog'.
-(Deserialization of parameter types and serialization of return types are here given from the service perspective, as cadl-rpaas-controller is generating service code).
+(Deserialization of parameter types and serialization of return types are here given from the service perspective, as cadl-providerhub-controller is generating service code).
 
 #### openapi3
 

@@ -115,8 +115,8 @@
       "shouldPublish": false
     },
     {
-      "packageName": "@azure-tools/cadl-rpaas",
-      "projectFolder": "packages/cadl-rpaas",
+      "packageName": "@azure-tools/cadl-providerhub",
+      "projectFolder": "packages/cadl-providerhub",
       "reviewCategory": "production",
       "shouldPublish": true
     },
@@ -127,8 +127,8 @@
       "shouldPublish": true
     },
     {
-      "packageName": "@azure-tools/cadl-rpaas-controller",
-      "projectFolder": "packages/cadl-rpaas-controller",
+      "packageName": "@azure-tools/cadl-providerhub-controller",
+      "projectFolder": "packages/cadl-providerhub-controller",
       "reviewCategory": "production",
       "shouldPublish": true
     },

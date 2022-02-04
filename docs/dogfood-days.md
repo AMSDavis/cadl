@@ -94,12 +94,12 @@ For more information on the Cadl language and core libraries, see [Getting start
   - [Cadl Brownbag for ARM](https://microsoft-my.sharepoint.com/:v:/p/markcowl/EQcfmjJ4MXhDmwqfo_e5KNcBvayWd63KwK-WJNPykZC88Q)
   - [Cadl Brownbag for Azure SDK](https://microsoft-my.sharepoint.com/:v:/r/personal/scotk_microsoft_com/Documents/Recordings/Lunch%20Learning%20Series%20_%20Mark%20Cowlishaw%20-%20Cadl%20Walkthrough-20211117_120334-Meeting%20Recording.mp4?csf=1&web=1&e=27IgaX)
 
-## Getting Started for ProviderHub (RPaaS) Management Services
+## Getting Started for ProviderHub (ProviderHub) Management Services
 
 - Documentation
-  - [RPaaS Project Templates](https://github.com/Azure/cadl-azure/blob/main/packages/cadl-rpaas-templates/README.md)
-  - [Getting Started with RPaaS](https://aka.ms/cadl/rpass-start)
+  - [ProviderHub Project Templates](https://github.com/Azure/cadl-azure/blob/main/packages/cadl-providerhub-templates/README.md)
+  - [Getting Started with ProviderHub](https://aka.ms/cadl/rpass-start)
   - [Checking in Cadl Generated Swagger](https://github.com/Azure/cadl-azure/blob/main/docs/checking-in-swagger-guide.md)
 - Video Walkthroughs
-  - [Getting Started with Cadl for RPaaS](https://microsoft.sharepoint.com/:v:/t/AzureDeveloperExperience/EYTV39X351FAlHb8tIPHdCgB1zgVDUGfcCE2mOoQAlVAcw?e=0D1IIW)
+  - [Getting Started with Cadl for ProviderHub](https://microsoft.sharepoint.com/:v:/t/AzureDeveloperExperience/EYTV39X351FAlHb8tIPHdCgB1zgVDUGfcCE2mOoQAlVAcw?e=0D1IIW)
   - [Service Code Generation](https://microsoft.sharepoint.com/:v:/t/AzureDeveloperExperience/EUqfqSySRipChjKAciFLHfMBXHnjti49ZTrLKvHW0UWL-Q?e=EDtBNk)

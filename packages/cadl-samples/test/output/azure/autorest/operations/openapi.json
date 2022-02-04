@@ -23,13 +23,13 @@
           "200": {
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "../../../../../../rpaas/types.json#/definitions/OperationListResult"
+              "$ref": "../../../../../../providerhub/types.json#/definitions/OperationListResult"
             }
           },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../../rpaas/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -50,7 +50,7 @@
           "200": {
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "../../../../../../rpaas/types.json#/definitions/OperationStatusResult"
+              "$ref": "../../../../../../providerhub/types.json#/definitions/OperationStatusResult"
             }
           }
         }

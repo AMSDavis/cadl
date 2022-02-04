@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-providerhub",
+      "comment": "Fix issue with @armResourceOperations path generation",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-providerhub"
+}

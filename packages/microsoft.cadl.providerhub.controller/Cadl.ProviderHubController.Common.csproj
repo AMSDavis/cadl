@@ -3,11 +3,11 @@
   <PropertyGroup>
     <BuildId Condition="'$(BuildId)' == ''">0</BuildId>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageId>Microsoft.Cadl.Providerhub.Controller</PackageId>
+    <PackageId>Microsoft.Cadl.ProviderHub.Controller</PackageId>
       <Version>1.0.0-beta.$(BuildId)</Version>
-      <PackageTags>Microsoft Azure Cadl RPaas</PackageTags>
+      <PackageTags>Microsoft Azure Cadl ProviderHub</PackageTags>
       <Description>
-        This common class library for RPaas controller extensions
+        This common class library for ProviderHub controller extensions
         For this release see notes - TBA
         in addition to the breaking changes TBA
         Cadl quickstarts and tutorials - https://github.com/Azure/adl

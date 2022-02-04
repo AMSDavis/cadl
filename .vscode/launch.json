@@ -8,7 +8,7 @@
       "name": "Generate code for FluidRelay",
       "request": "launch",
       "cwd": "${workspaceFolder}/packages/cadl-samples",
-      "runtimeArgs": ["cadl", "compile", "./rpaas/liftr.frs/fluidrelay.cadl"],
+      "runtimeArgs": ["cadl", "compile", "./providerhub/liftr.frs/fluidrelay.cadl"],
       "runtimeExecutable": "npx",
       "skipFiles": ["<node_internals>/**"],
       "type": "pwa-node",

@@ -1,0 +1,12 @@
+{
+  "providerhub": {
+    "title": "ProviderHub Service",
+    "description": "Create a project representing an Azure Resource Management API",
+    "libraries": [
+      "@cadl-lang/rest",
+      "@azure-tools/cadl-autorest",
+      "@azure-tools/cadl-providerhub",
+      "@azure-tools/cadl-providerhub-controller"
+    ]
+  }
+}

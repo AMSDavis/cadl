@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-providerhub-controller",
+      "comment": "Adding @format decorator support for providerhub controller emitter",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-providerhub-controller"
+}

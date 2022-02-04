@@ -3,7 +3,7 @@
 
 using System.Linq;
 
-namespace Microsoft.Cadl.Providerhub.Controller
+namespace Microsoft.Cadl.ProviderHub.Controller
 {
     /// <summary>
     /// Validation helper class

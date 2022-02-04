@@ -3,12 +3,12 @@ steps:
     displayName: Install Dependencies
   - script: node eng/scripts/download-common-types.js
     displayName: Fetch common-types/v2/types.json
-  - script: node eng/scripts/lint-rpaas.js "packages/cadl-samples/test/output/azure/autorest/rpaas"
-    displayName: RPaaS Linting Swaggers
+  - script: node eng/scripts/lint-providerhub.js "packages/cadl-samples/test/output/azure/autorest/providerhub"
+    displayName: ProviderHub Linting Swaggers
     condition: succeededOrFailed()
-  - script: node eng/scripts/gen-sdk.js python "packages/cadl-samples/test/output/azure/autorest/rpaas"
+  - script: node eng/scripts/gen-sdk.js python "packages/cadl-samples/test/output/azure/autorest/providerhub"
     displayName: Generate Python SDK
     condition: succeededOrFailed()
-  - script: node eng/scripts/gen-sdk.js javascript "packages/cadl-samples/test/output/azure/autorest/rpaas"
+  - script: node eng/scripts/gen-sdk.js javascript "packages/cadl-samples/test/output/azure/autorest/providerhub"
     displayName: Generate JavaScript SDK
     condition: succeededOrFailed()

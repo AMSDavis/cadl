@@ -1,0 +1,153 @@
+import "@cadl-lang/rest";
+import "@azure-tools/cadl-providerhub";
+
+@armNamespace
+@serviceTitle("Microsoft.ServiceLinker provider")
+@serviceVersion("2021-01-01-privatepreview")
+namespace Microsoft.ServiceLinker;
+
+using Azure.ARM;
+using Cadl.Http;
+
+@armResource({
+  path: "linkers",
+  collectionName: "Linker",
+  parameterType: LinkerNameParameter,
+})
+@doc("The details of a service linker.")
+model LinkerResource is ExtensionResource<LinkerProperties> {}
+
+model LinkerNameParameter {
+  @doc("The name of the linker resource.")
+  @path
+  linkerName: string;
+}
+
+@armResourceOperations(LinkerResource)
+namespace Linker {
+  @doc("Validate a linker resource.")
+  @post
+  @route("validateLinker")
+  op validateLinker(
+    ...ResourceUriParameter,
+    ...LinkerNameParameter
+  ): ArmResponse<ValidateResult> | ErrorResponse;
+
+  @doc("List linker resource configurations.")
+  @post
+  @route("listConfigurations")
+  op listConfigurations(
+    ...ResourceUriParameter,
+    ...LinkerNameParameter
+  ): ArmResponse<SourceConfigurationResult> | ErrorResponse;
+}
+
+model LinkerProperties {
+  @doc("The resource Id of the target service.")
+  targetId: string;
+
+  @doc("The authentication type.")
+  authInfo: AuthInfoBase;
+
+  @doc("The provisioning state.")
+  @visibility("read")
+  provisioningState?: string;
+}
+
+@doc("The kmind of authentication used for this linker.")
+enum AuthType {
+  systemAssignedIdentity,
+  userAssignedIdentity,
+  servicePrincipal,
+  secret,
+}
+
+@doc("The abstract base model for all authentication types.") // discriminator: authType
+model AuthInfoBase {
+  authType: AuthType;
+}
+
+// x-ms-discriminator-value: secret
+@doc("Authentication information for secret-based auth.")
+model SecretAuthInfo extends AuthInfoBase {
+  @doc("username or account name for secret auth.")
+  name: string;
+  // @secret
+
+
+  @doc("Password or account key for secret auth.")
+  secret?: string;
+}
+
+// x-ms-discriminator-value: userAssignedIdentity
+@doc("Authentication information for user assigned identity based auth.")
+model UserAssignedIdentityAuthInfo extends AuthInfoBase {
+  @doc("Client Id for userAssignedIdentity")
+  id: string;
+}
+
+// x-ms-discriminator-value: systemAssignedIdentity
+@doc("Authentication information for system assigned identity based auth.")
+model SystemAssignedIdentityAuthInfo extends AuthInfoBase {}
+
+// x-ms-discriminator-value: systemPrincipal
+@doc("Authentication information for service principal based auth.")
+model SystemPrincipalAuthInfo extends AuthInfoBase {
+  @doc("ServicePrincipal Id for servicePrincipal auth.")
+  id: string;
+
+  @doc("ServicePrincipal Name for servicePrincipal auth.")
+  name: string;
+}
+
+@doc("Source configuration details.")
+model SourceConfiguration {
+  @doc("The kind of configuration used in this instance.")
+  type: SourceConfigurationType;
+
+  @doc("The configuration of the linker for appSettings or connectionStrings or serviceBindings")
+  linkConfig: {};
+}
+
+@doc("The kind of source configuration used in a particular instance.")
+enum SourceConfigurationType {
+  "appSettings",
+  "connectionSettings",
+  "serviceBindings",
+}
+
+@doc("Configurations for source resource, include appSettings, connectionString and serviceBindings")
+model SourceConfigurationResult {
+  @doc("Details of the source configurations.")
+  sourceConfigurations: SourceConfiguration[];
+}
+
+@doc("State of the linker resource.")
+enum LinkerStatus {
+  Healthy,
+  "Not healthy",
+}
+
+@doc("Details of validation.")
+model ValidateResult {
+  @doc("The linker name.")
+  name: string;
+
+  @doc("Specifies if the linker is healthy.")
+  linkerStatus: LinkerStatus;
+
+  @doc("The reason of the error.")
+  reason: string;
+
+  @doc("The start time of the validation report.")
+  reportStartTimeUtc: plainDate;
+
+  @doc("The end time of the validation report.")
+  reportEndTimeUtc: plainDate;
+
+  @doc("The resource Id of the target service.")
+  targetId: string;
+
+  @doc("The authentication type.")
+  authType: AuthType;
+}
