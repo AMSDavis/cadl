@@ -1003,7 +1003,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
         if (prop) {
           const vals = getStringValues(prop.type);
           if (vals.length === 1) {
-            const extensions = getExtensions(child);
+            const extensions = getExtensions(program, child);
             if (!extensions.has("x-ms-discriminator-value")) {
               $extension(program, child, "x-ms-discriminator-value", vals[0]);
             }
@@ -1108,7 +1108,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
   function attachExtensions(type: Type, emitObject: any) {
     // Attach any OpenAPI extensions
-    const extensions = getExtensions(type);
+    const extensions = getExtensions(program, type);
     if (extensions) {
       for (const key of extensions.keys()) {
         emitObject[key] = extensions.get(key);
