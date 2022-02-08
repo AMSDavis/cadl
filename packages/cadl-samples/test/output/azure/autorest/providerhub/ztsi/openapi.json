@@ -520,7 +520,7 @@
         ]
       }
     },
-    "Azure.ARM.ManagedIdentityProperties": {
+    "Azure.ResourceManager.ManagedIdentityProperties": {
       "type": "object",
       "properties": {
         "tenantId": {
@@ -534,13 +534,13 @@
           "readOnly": true
         },
         "type": {
-          "$ref": "#/definitions/Azure.ARM.ManagedIdentityType",
+          "$ref": "#/definitions/Azure.ResourceManager.ManagedIdentityType",
           "description": "The type of managed identity assigned to this resource."
         },
         "userAssignedIdentities": {
           "type": "object",
           "additionalProperties": {
-            "$ref": "#/definitions/Azure.ARM.UserAssignedIdentity"
+            "$ref": "#/definitions/Azure.ResourceManager.UserAssignedIdentity"
           },
           "description": "The identities assigned to this resource by the user."
         }
@@ -550,7 +550,7 @@
         "type"
       ]
     },
-    "Azure.ARM.ManagedIdentityType": {
+    "Azure.ResourceManager.ManagedIdentityType": {
       "type": "string",
       "description": "The kind of managed identity assigned to this resource.",
       "enum": [
@@ -582,7 +582,7 @@
         ]
       }
     },
-    "Azure.ARM.UserAssignedIdentity": {
+    "Azure.ResourceManager.UserAssignedIdentity": {
       "type": "object",
       "properties": {
         "clientId": {
@@ -855,7 +855,7 @@
           "readOnly": true
         },
         "identity": {
-          "$ref": "#/definitions/Azure.ARM.ManagedIdentityProperties",
+          "$ref": "#/definitions/Azure.ResourceManager.ManagedIdentityProperties",
           "description": "The managed service identities assigned to this resource."
         }
       },

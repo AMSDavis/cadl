@@ -399,7 +399,7 @@
     }
   },
   "definitions": {
-    "Azure.ARM.ResourceProvisioningState": {
+    "Azure.ResourceManager.ResourceProvisioningState": {
       "type": "string",
       "description": "The provisioning state of a resource type.",
       "enum": [
@@ -613,7 +613,7 @@
           "description": "Subscriber details."
         },
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ARM.ResourceProvisioningState",
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },
@@ -650,7 +650,7 @@
           "description": "Subscriber details."
         },
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ARM.ResourceProvisioningState",
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },

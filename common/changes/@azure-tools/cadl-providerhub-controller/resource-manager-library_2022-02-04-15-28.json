@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-providerhub-controller",
+      "comment": "Use new @azure-tools/cadl-azure-resource-manager library",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-providerhub-controller"
+}

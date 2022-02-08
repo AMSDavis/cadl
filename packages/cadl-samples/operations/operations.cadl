@@ -1,7 +1,9 @@
 import "@cadl-lang/rest";
+import "@azure-tools/cadl-azure-resource-manager";
 import "@azure-tools/cadl-providerhub";
 
 using Azure.ARM;
+using Azure.ResourceManager;
 using Cadl.Http;
 
 @route("/operations")

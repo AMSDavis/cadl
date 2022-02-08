@@ -1,6 +1,7 @@
 import "@cadl-lang/rest";
 import "@azure-tools/cadl-providerhub";
 import "@azure-tools/cadl-providerhub-controller";
+import "@azure-tools/cadl-azure-resource-manager";
 
 @armNamespace
 @serviceTitle("Microsoft.ZeroTrustSystemIntegrity")
@@ -8,6 +9,7 @@ import "@azure-tools/cadl-providerhub-controller";
 namespace Microsoft.ZeroTrustSystemIntegrity;
 
 using Azure.ARM;
+using Azure.ResourceManager;
 using Cadl.Http;
 
 @doc("ZTSI Resource")

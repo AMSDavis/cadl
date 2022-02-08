@@ -1,6 +1,6 @@
+import { getArmNamespace } from "@azure-tools/cadl-azure-resource-manager";
 import {
   ArmResourceInfo,
-  getArmNamespace,
   getArmResourceInfo,
   getArmResources,
   ParameterInfo,

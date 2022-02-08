@@ -43,6 +43,7 @@ export function $armNamespace(program: Program, entity: Type, armNamespace?: str
   // Add the /operations endpoint for the ARM namespace
   program.evalCadlScript(`
     using Azure.ARM;
+    using Azure.ResourceManager;
     using Cadl.Http;
     namespace ${cadlNamespace} {
       @tag("Operations")

@@ -78,6 +78,7 @@ describe("test linter rules", () => {
       namespace Microsoft.PetStore;
       
       using Azure.ARM;
+      using Azure.ResourceManager;
       using Cadl.Http;
 
       @doc("Pet ")
@@ -102,6 +103,7 @@ describe("test linter rules", () => {
       namespace Microsoft.PetStore;
       
       using Azure.ARM;
+      using Azure.ResourceManager;
       using Cadl.Http;
 
       model Pet is TrackedResource<PetProperties> { 
@@ -110,7 +112,7 @@ describe("test linter rules", () => {
      
       model PetProperties {
         @doc("The status of the last operation.")
-        provisioningState?: ProvisioningState;
+        provisioningState?: ResourceProvisioningState;
       }
     `);
     const errors = getDiagnostic("resource-top-level-properties", [...result]);
@@ -125,6 +127,7 @@ describe("test linter rules", () => {
       namespace Microsoft.PetStore;
       
       using Azure.ARM;
+      using Azure.ResourceManager;
       using Cadl.Http;
 
      // extends ArmResource Directly
@@ -133,7 +136,7 @@ describe("test linter rules", () => {
       };
       model PetProperties {
         @doc("The status of the last operation.")
-        provisioningState?: ProvisioningState;
+        provisioningState?: ResourceProvisioningState;
       }
     `);
     const errors = getDiagnostic("resource-extends-base-models", [...result]);

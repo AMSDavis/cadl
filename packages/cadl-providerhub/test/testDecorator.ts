@@ -10,6 +10,7 @@ describe("test linter rules in decorator", () => {
       namespace Microsoft.Test;
       
       using Azure.ARM;
+      using Azure.ResourceManager;
       using Cadl.Http;
 
       @doc("Foo ")
@@ -49,6 +50,7 @@ describe("test linter rules in decorator", () => {
       @serviceVersion("2021-03-01-preview")
       namespace Microsoft.PetStore;
       
+      using Azure.ResourceManager;
       using Azure.ARM;
       using Cadl.Http;
 

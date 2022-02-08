@@ -115,6 +115,12 @@
       "shouldPublish": false
     },
     {
+      "packageName": "@azure-tools/cadl-azure-resource-manager",
+      "projectFolder": "packages/cadl-azure-resource-manager",
+      "reviewCategory": "production",
+      "shouldPublish": true
+    },
+    {
       "packageName": "@azure-tools/cadl-providerhub",
       "projectFolder": "packages/cadl-providerhub",
       "reviewCategory": "production",

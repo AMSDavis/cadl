@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-providerhub",
+      "comment": "Move some common models and library functionality into @azure-tools/cadl-azure-resource-manager",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-providerhub"
+}

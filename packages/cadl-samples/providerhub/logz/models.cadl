@@ -1,10 +1,12 @@
 import "@cadl-lang/rest";
 import "@azure-tools/cadl-autorest";
 import "@azure-tools/cadl-providerhub";
+import "@azure-tools/cadl-azure-resource-manager";
 
 namespace Microsoft.Logz;
 
 using Azure.ARM;
+using Azure.ResourceManager;
 
 @doc("Reusable representation of an email address")
 @pattern("^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$")

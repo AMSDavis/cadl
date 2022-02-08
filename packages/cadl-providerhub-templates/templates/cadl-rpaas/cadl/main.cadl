@@ -9,6 +9,7 @@ import "@azure-tools/cadl-providerhub-controller";
 namespace Microsoft.Contoso;
 
 using Azure.ARM;
+using Azure.ResourceManager;
 using Cadl.Http;
 
 @armResource({

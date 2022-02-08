@@ -1,3 +1,4 @@
+import { getArmNamespace } from "@azure-tools/cadl-azure-resource-manager";
 import {
   getDoc,
   getIntrinsicType,
@@ -9,7 +10,6 @@ import {
   Type,
 } from "@cadl-lang/compiler";
 import { reportDiagnostic } from "./lib.js";
-import { getArmNamespace } from "./namespace.js";
 import { generateStandardOperations } from "./operations.js";
 
 const ExpectedProvisioningStates = ["Succeeded", "Failed", "Canceled"];
@@ -378,6 +378,7 @@ export function $armResource(program: Program, resourceType: Type, resourceDetai
   // Prepare the namespace for the operation group
   program.evalCadlScript(`
       using Azure.ARM;
+      using Azure.ResourceManager;
       using Cadl.Http;
       namespace ${armResourceInfo.parentNamespace} {
         @doc("The response of a ${armResourceInfo.resourceModelName} list operation.")
