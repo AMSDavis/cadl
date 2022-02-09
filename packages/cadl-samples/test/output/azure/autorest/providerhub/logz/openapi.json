@@ -34,13 +34,13 @@
   },
   "tags": [
     {
-      "name": "SubAccounts"
-    },
-    {
       "name": "Operations"
     },
     {
       "name": "Monitors"
+    },
+    {
+      "name": "SubAccounts"
     },
     {
       "name": "TagRules"
@@ -406,10 +406,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "SubAccounts"
-        ]
+        }
       },
       "put": {
         "operationId": "SubAccounts_CreateOrUpdate",
@@ -463,10 +460,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "SubAccounts"
-        ]
+        }
       },
       "patch": {
         "operationId": "SubAccounts_Update",
@@ -510,10 +504,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "SubAccounts"
-        ]
+        }
       },
       "delete": {
         "operationId": "SubAccounts_Delete",
@@ -555,10 +546,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "SubAccounts"
-        ]
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts/{subAccountName}/tagRules": {

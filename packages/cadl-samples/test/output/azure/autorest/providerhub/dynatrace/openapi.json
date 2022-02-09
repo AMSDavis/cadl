@@ -34,10 +34,10 @@
   },
   "tags": [
     {
-      "name": "Monitors"
+      "name": "Operations"
     },
     {
-      "name": "Operations"
+      "name": "Monitors"
     },
     {
       "name": "TagRules"
@@ -180,10 +180,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "Monitors"
-        ]
+        }
       },
       "put": {
         "operationId": "Monitors_CreateOrUpdate",
@@ -234,10 +231,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "Monitors"
-        ]
+        }
       },
       "patch": {
         "operationId": "Monitors_Update",
@@ -278,10 +272,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "Monitors"
-        ]
+        }
       },
       "delete": {
         "operationId": "Monitors_Delete",
@@ -320,10 +311,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "Monitors"
-        ]
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/getAccountCredentials": {
@@ -357,10 +345,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "Monitors"
-        ]
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/listMonitoredResources": {
@@ -395,9 +380,6 @@
             }
           }
         },
-        "tags": [
-          "Monitors"
-        ],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -435,9 +417,6 @@
             }
           }
         },
-        "tags": [
-          "Monitors"
-        ],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -475,9 +454,6 @@
             }
           }
         },
-        "tags": [
-          "Monitors"
-        ],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -878,10 +854,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "Monitors"
-        ]
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/vmHostUpdate": {
@@ -919,9 +892,6 @@
             }
           }
         },
-        "tags": [
-          "Monitors"
-        ],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }

@@ -1,6 +1,7 @@
 import {
   ArrayType,
   checkIfServiceNamespace,
+  DecoratorContext,
   EnumMemberType,
   EnumType,
   findChildModels,
@@ -62,7 +63,11 @@ export async function $onEmit(p: Program) {
 }
 
 const pageableOperationsKey = Symbol();
-export function $pageable(program: Program, entity: Type, nextLinkName: string = "nextLink") {
+export function $pageable(
+  { program }: DecoratorContext,
+  entity: Type,
+  nextLinkName: string = "nextLink"
+) {
   program.stateMap(pageableOperationsKey).set(entity, nextLinkName);
 }
 
@@ -72,7 +77,7 @@ function getPageable(program: Program, entity: Type): string | undefined {
 
 const refTargetsKey = Symbol();
 
-export function $useRef(program: Program, entity: Type, refUrl: string): void {
+export function $useRef({ program }: DecoratorContext, entity: Type, refUrl: string): void {
   if (entity.kind === "Model" || entity.kind === "ModelProperty") {
     program.stateMap(refTargetsKey).set(entity, refUrl);
   } else {
@@ -156,8 +161,12 @@ export function addSecurityDefinition(
   definitions[name] = details;
 }
 
-export function $asyncOperationOptions(program: Program, entity: Type, finalStateVia: string) {
-  $extension(program, entity, "x-ms-long-running-operation-options", {
+export function $asyncOperationOptions(
+  context: DecoratorContext,
+  entity: Type,
+  finalStateVia: string
+) {
+  $extension(context, entity, "x-ms-long-running-operation-options", {
     "final-state-via": finalStateVia,
   });
 }
@@ -1005,7 +1014,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
           if (vals.length === 1) {
             const extensions = getExtensions(program, child);
             if (!extensions.has("x-ms-discriminator-value")) {
-              $extension(program, child, "x-ms-discriminator-value", vals[0]);
+              $extension({ program }, child, "x-ms-discriminator-value", vals[0]);
             }
           }
         }

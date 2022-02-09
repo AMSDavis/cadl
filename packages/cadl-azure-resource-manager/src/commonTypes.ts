@@ -1,5 +1,5 @@
 import { $useRef } from "@azure-tools/cadl-autorest";
-import { Program, Type } from "@cadl-lang/compiler";
+import { DecoratorContext, Program, Type } from "@cadl-lang/compiler";
 import { reportDiagnostic } from "./lib.js";
 
 export function getArmTypesPath(program: Program): string | undefined {
@@ -10,12 +10,12 @@ export function getArmTypesPath(program: Program): string | undefined {
 }
 
 export function $armCommonDefinition(
-  program: Program,
+  context: DecoratorContext,
   entity: Type,
   definitionName?: string
 ): void {
   if (entity.kind !== "Model") {
-    reportDiagnostic(program, {
+    reportDiagnostic(context.program, {
       code: "decorator-wrong-type",
       messageId: "armCommonDefinition",
       target: entity,
@@ -28,12 +28,16 @@ export function $armCommonDefinition(
     definitionName = entity.name;
   }
 
-  $useRef(program, entity, `${getArmTypesPath(program)}#/definitions/${definitionName}`);
+  $useRef(context, entity, `${getArmTypesPath(context.program)}#/definitions/${definitionName}`);
 }
 
-export function $armCommonParameter(program: Program, entity: Type, parameterName?: string): void {
+export function $armCommonParameter(
+  context: DecoratorContext,
+  entity: Type,
+  parameterName?: string
+): void {
   if (entity.kind !== "ModelProperty") {
-    reportDiagnostic(program, {
+    reportDiagnostic(context.program, {
       code: "decorator-wrong-type",
       messageId: "armCommonParameter",
       target: entity,
@@ -46,5 +50,5 @@ export function $armCommonParameter(program: Program, entity: Type, parameterNam
     parameterName = entity.name;
   }
 
-  $useRef(program, entity, `${getArmTypesPath(program)}#/parameters/${parameterName}`);
+  $useRef(context, entity, `${getArmTypesPath(context.program)}#/parameters/${parameterName}`);
 }

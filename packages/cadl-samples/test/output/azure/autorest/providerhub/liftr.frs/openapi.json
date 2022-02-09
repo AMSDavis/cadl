@@ -34,10 +34,10 @@
   },
   "tags": [
     {
-      "name": "FluidRelayServers"
+      "name": "Operations"
     },
     {
-      "name": "Operations"
+      "name": "FluidRelayServers"
     }
   ],
   "paths": {
@@ -174,10 +174,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "FluidRelayServers"
-        ]
+        }
       },
       "put": {
         "operationId": "FluidRelayServers_CreateOrUpdate",
@@ -228,10 +225,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "FluidRelayServers"
-        ]
+        }
       },
       "patch": {
         "operationId": "FluidRelayServers_Update",
@@ -272,10 +266,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "FluidRelayServers"
-        ]
+        }
       },
       "delete": {
         "operationId": "FluidRelayServers_Delete",
@@ -314,10 +305,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "FluidRelayServers"
-        ]
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FluidRelay/fluidRelayServers/{name}/getKeys": {
@@ -355,10 +343,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "FluidRelayServers"
-        ]
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FluidRelay/fluidRelayServers/{name}/regenerateKey": {
@@ -405,10 +390,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "FluidRelayServers"
-        ]
+        }
       }
     }
   },

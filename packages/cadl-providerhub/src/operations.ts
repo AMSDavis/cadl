@@ -1,4 +1,4 @@
-import { NamespaceType, Program, Type } from "@cadl-lang/compiler";
+import { DecoratorContext, NamespaceType, Program, Type } from "@cadl-lang/compiler";
 import { $route } from "@cadl-lang/rest";
 import { reportDiagnostic } from "./lib.js";
 import { ArmResourceInfo, getArmResourceInfo, ParameterInfo } from "./resource.js";
@@ -15,7 +15,12 @@ const standardOperationFunctions: { [key: string]: StandardOperationGenerator } 
 
 const resourceOperationNamespaces = new Map<NamespaceType, Type>();
 
-export function $armResourceOperations(program: Program, target: Type, resourceType: Type): void {
+export function $armResourceOperations(
+  context: DecoratorContext,
+  target: Type,
+  resourceType: Type
+): void {
+  const { program } = context;
   if (target.kind !== "Namespace") {
     reportDiagnostic(program, {
       code: "decorator-wrong-type",
@@ -43,7 +48,7 @@ export function $armResourceOperations(program: Program, target: Type, resourceT
     : armResourceInfo.resourcePath?.path;
 
   // Set the resource path
-  $route(program, target, finalPath);
+  $route(context, target, finalPath);
 
   // Remember this namespace
   resourceOperationNamespaces.set(target, resourceType);
@@ -418,7 +423,7 @@ function checkOperationName(
 }
 
 export function $armListBy(
-  program: Program,
+  { program }: DecoratorContext,
   target: Type,
   paramType: Type,
   operationName: string,

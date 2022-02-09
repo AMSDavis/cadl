@@ -1,5 +1,6 @@
 import { addSecurityDefinition, addSecurityRequirement } from "@azure-tools/cadl-autorest";
 import {
+  DecoratorContext,
   getServiceHost,
   NamespaceType,
   Program,
@@ -15,7 +16,8 @@ const armNamespacesKey = Symbol();
 // NOTE: This can be considered the entrypoint for marking a service definition as
 // an ARM service so that we might enable ARM-specific Swagger emit behavior.
 
-export function $armNamespace(program: Program, entity: Type, armNamespace?: string) {
+export function $armNamespace(context: DecoratorContext, entity: Type, armNamespace?: string) {
+  const { program } = context;
   if (entity.kind !== "Namespace") {
     reportDiagnostic(program, {
       code: "decorator-wrong-type",
@@ -55,8 +57,8 @@ export function $armNamespace(program: Program, entity: Type, armNamespace?: str
     }`);
 
   // ARM services need to have "application/json" set on produces/consumes
-  $produces(program, entity, "application/json");
-  $consumes(program, entity, "application/json");
+  $produces(context, entity, "application/json");
+  $consumes(context, entity, "application/json");
 
   // Set default security definitions
   addSecurityRequirement(program, entity, "azure_auth", ["user_impersonation"]);

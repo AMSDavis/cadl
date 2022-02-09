@@ -1,5 +1,6 @@
 import { getArmNamespace } from "@azure-tools/cadl-azure-resource-manager";
 import {
+  DecoratorContext,
   getDoc,
   getIntrinsicType,
   isIntrinsic,
@@ -163,7 +164,11 @@ function getPropertyValue<TValue extends Type>(
   return undefined;
 }
 
-export function $armResource(program: Program, resourceType: Type, resourceDetails: Type) {
+export function $armResource(
+  { program }: DecoratorContext,
+  resourceType: Type,
+  resourceDetails: Type
+) {
   if (resourceDetails.kind !== "Model") {
     reportDiagnostic(program, {
       code: "decorator-param-wrong-type",

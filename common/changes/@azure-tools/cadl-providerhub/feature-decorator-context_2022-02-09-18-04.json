@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-providerhub",
+      "comment": "Update decorators with new interface",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-providerhub"
+}

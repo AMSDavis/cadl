@@ -34,9 +34,6 @@
   },
   "tags": [
     {
-      "name": "Linker"
-    },
-    {
       "name": "Operations"
     }
   ],
@@ -69,10 +66,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "Linker"
-        ]
+        }
       },
       "put": {
         "operationId": "Linker_CreateOrUpdate",
@@ -120,10 +114,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "Linker"
-        ]
+        }
       },
       "patch": {
         "operationId": "Linker_Update",
@@ -161,10 +152,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "Linker"
-        ]
+        }
       },
       "delete": {
         "operationId": "Linker_Delete",
@@ -200,10 +188,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "Linker"
-        ]
+        }
       }
     },
     "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/listConfigurations": {
@@ -231,10 +216,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "Linker"
-        ]
+        }
       }
     },
     "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/validateLinker": {
@@ -262,10 +244,7 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "tags": [
-          "Linker"
-        ]
+        }
       }
     },
     "/providers/Microsoft.ServiceLinker/operations": {
