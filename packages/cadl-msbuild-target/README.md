@@ -13,7 +13,7 @@ cd path/to/your/project
 mkdir cadl
 cd cadl
 npm init -y
-npm install @cadl-lang/rest @azure-tools/cadl-autorest @azure-tools/cadl-providerhub @azure-tools/cadl-providerhub-controller
+npm install @cadl-lang/compiler @cadl-lang/openapi @cadl-lang/rest @azure-tools/cadl-autorest @azure-tools/cadl-providerhub @azure-tools/cadl-providerhub-controller
 ```
 
 4. add a .cadl file into the './cadl' folder.
@@ -32,7 +32,7 @@ npm install @cadl-lang/rest @azure-tools/cadl-autorest @azure-tools/cadl-provide
 
 ### Cadl Root directory
 
-Specify the `Root` option if you want to put your .cadl files into other folder instead of the './cadl' , it must be a relative path .
+Specify the `Root` option if you want to put your .cadl files into other folder instead of the './cadl' , it must be an absolute path .
 
 ```bash
  <ItemGroup>
@@ -42,7 +42,7 @@ Specify the `Root` option if you want to put your .cadl files into other folder 
 
 ### Output path
 
-Specify the `OutputDir` option, this changes the directory where the OpenAPI specification (openapi.json) and service code wil be omitted, by default the directory is '$(IntermediateOutputPath)' which is a common msbuild project property.
+Specify the `OutputDir` option, this changes the directory where the OpenAPI specification (openapi.json) and service code wil be emitted, by default the directory is '$(IntermediateOutputPath)' which is a common msbuild project property. It must be an absolute path .
 
 ```bash
  <ItemGroup>
@@ -57,5 +57,25 @@ Specify the `Options`, which is following `key=value` pattern and will passed to
 ```bash
  <ItemGroup>
     <CadlCompile Include="cadl\main.cadl" Options="key1=v1;key2=v2" />
+  </ItemGroup>
+```
+
+### Emitters
+
+Specify the `Emitters`, to add emitters to cadl compiler, you can specify multiple imports and use ';' as the separator.By default ithe '@azure-tool/cadl-autorest' and '@azure-tools/cadl-providerhub-controller' are present.
+
+```bash
+ <ItemGroup>
+    <CadlCompile Include="cadl\main.cadl" Emitters="emitter1;emitter2" />
+  </ItemGroup>
+```
+
+### Imports
+
+Specify the `Imports`, to import the specified libraries to cadl compiler, you can specify multiple imports and use ';' as the separator.
+
+```bash
+ <ItemGroup>
+    <CadlCompile Include="cadl\main.cadl" Imports="import1;import2" />
   </ItemGroup>
 ```

@@ -37,9 +37,20 @@ namespace Cadl.Tools
         public string OS { get; set; }
 
         /// <summary>
-        /// The args that use --option to pass to the cadl, the value is following 'key=value' 
+        /// The args that use --option to pass to the cadl compiler, the value is following 'key=value' 
         /// </summary>
         public string[] Options { get; set; }
+
+        /// <summary>
+        /// The args that use --import to pass to the cadl compiler, can be specified multiple times.
+        /// </summary>
+        public string[] Imports { get; set; }
+
+        /// <summary>
+        /// The args that use --emit to pass to the cadl compiler, can be specified multiple times.
+        /// </summary>
+        [Required]
+        public string[] Emitters { get; set; }
 
         class CadlCommandBuilder
         {
@@ -70,7 +81,8 @@ namespace Cadl.Tools
         {
             var cmd = new CadlCommandBuilder();
             cmd.AddArg("compile");
-            cmd.AddArg(Path.GetDirectoryName(CadlPath[0].ItemSpec));
+            // should switch to current folder.
+            cmd.AddArg(".");
             cmd.AddSwitchMaybe("output-path", OutputDir);
             if (Options != null){
               foreach (var option in Options) {
@@ -82,6 +94,17 @@ namespace Cadl.Tools
                     this.serviceCodePath = slices[1];
                   }
                 }
+              }
+            }
+            if (Imports != null) {
+              foreach (var import in Imports) {
+                cmd.AddSwitchMaybe("import", import);
+              }
+            }
+
+            if (Emitters != null) {
+              foreach (var emitter in Emitters) {
+                cmd.AddSwitchMaybe("emit", emitter);
               }
             }
             Log.LogMessage(cmd.ToString());
@@ -119,8 +142,15 @@ namespace Cadl.Tools
             var cadlParentPaths = CadlPath.Select(path => Path.GetDirectoryName(path.ItemSpec)).Distinct().ToArray();
             if (cadlParentPaths.Length > 1)
             {
-                Log.LogError("Found over 1 cadl paths:" + String.Join(",",cadlParentPaths));
+                Log.LogError("Found over 1 cadl folders:" + String.Join(",",cadlParentPaths));
                 return false;
+            }
+            try {
+              Directory.SetCurrentDirectory(cadlParentPaths[0]);
+            }
+            catch (DirectoryNotFoundException e) {
+              Log.LogError(e.ToString());
+              return false;
             }
 
             bool ok = base.Execute();
