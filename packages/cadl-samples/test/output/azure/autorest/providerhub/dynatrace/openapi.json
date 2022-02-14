@@ -50,7 +50,7 @@
     "/providers/Dynatrace.Observability/operations": {
       "get": {
         "operationId": "Operations_List",
-        "summary": "List the operations for Dynatrace.Observability",
+        "description": "List the operations for Dynatrace.Observability",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -81,7 +81,7 @@
     "/subscriptions/{subscriptionId}/providers/Dynatrace.Observability/monitors": {
       "get": {
         "operationId": "Monitors_ListBySubscription",
-        "summary": "List MonitorResource resources by subscription ID",
+        "description": "List MonitorResource resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -115,7 +115,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors": {
       "get": {
         "operationId": "Monitors_ListByResourceGroup",
-        "summary": "List MonitorResource resources by resource group",
+        "description": "List MonitorResource resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -152,7 +152,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}": {
       "get": {
         "operationId": "Monitors_Get",
-        "summary": "Get a MonitorResource",
+        "description": "Get a MonitorResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -188,7 +188,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a MonitorResource",
+        "description": "Create a MonitorResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -235,7 +235,7 @@
       },
       "patch": {
         "operationId": "Monitors_Update",
-        "summary": "Update a MonitorResource",
+        "description": "Update a MonitorResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -280,7 +280,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a MonitorResource",
+        "description": "Delete a MonitorResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -317,7 +317,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/getAccountCredentials": {
       "post": {
         "operationId": "Monitors_getAccountCredentials",
-        "summary": "Gets the user account credentials for a Monitor",
+        "description": "Gets the user account credentials for a Monitor",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -351,7 +351,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/listMonitoredResources": {
       "post": {
         "operationId": "Monitors_listMonitoredResources",
-        "summary": "List the resources currently being monitored by the Dynatrace monitor resource.",
+        "description": "List the resources currently being monitored by the Dynatrace monitor resource.",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -388,7 +388,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/listVMHosts": {
       "post": {
         "operationId": "Monitors_listVMHosts",
-        "summary": "List the compute resources currently being monitored by the Dynatrace resource.",
+        "description": "List the compute resources currently being monitored by the Dynatrace resource.",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -425,7 +425,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/singleSignOnConfigurations": {
       "post": {
         "operationId": "Monitors_listSingleSignOnConfigurations",
-        "summary": "List the single sign-on configurations for a given monitor resource.",
+        "description": "List the single sign-on configurations for a given monitor resource.",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -460,7 +460,7 @@
       },
       "get": {
         "operationId": "SingleSignOn_List",
-        "summary": "List all DynatraceSingleSignOnResource by monitorName",
+        "description": "List all DynatraceSingleSignOnResource by monitorName",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -504,7 +504,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a DynatraceSingleSignOnResource",
+        "description": "Create a DynatraceSingleSignOnResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -557,7 +557,7 @@
       },
       "get": {
         "operationId": "SingleSignOn_Get",
-        "summary": "Get a DynatraceSingleSignOnResource",
+        "description": "Get a DynatraceSingleSignOnResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -597,7 +597,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/tagRules": {
       "get": {
         "operationId": "TagRules_List",
-        "summary": "List all TagRule by monitorName",
+        "description": "List all TagRule by monitorName",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -637,7 +637,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/tagRules/{ruleSetName}": {
       "get": {
         "operationId": "TagRules_Get",
-        "summary": "Get a TagRule",
+        "description": "Get a TagRule",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -679,7 +679,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a TagRule",
+        "description": "Create a TagRule",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -732,7 +732,7 @@
       },
       "patch": {
         "operationId": "TagRules_Update",
-        "summary": "Update a TagRule",
+        "description": "Update a TagRule",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -783,7 +783,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a TagRule",
+        "description": "Delete a TagRule",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -826,7 +826,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/vmHostPayload": {
       "post": {
         "operationId": "Monitors_getVMHostPayload",
-        "summary": "Returns the payload that needs to be passed in the request body for installing Dynatrace agent on a VM.",
+        "description": "Returns the payload that needs to be passed in the request body for installing Dynatrace agent on a VM.",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -860,7 +860,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/vmHostUpdate": {
       "post": {
         "operationId": "Monitors_listVMHostUpdate",
-        "summary": "Sending request to update the collection when Dynatrace agent has been installed on a VM for a given monitor.",
+        "description": "Sending request to update the collection when Dynatrace agent has been installed on a VM for a given monitor.",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"

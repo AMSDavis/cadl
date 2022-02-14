@@ -47,7 +47,7 @@
     "/providers/Microsoft.PlayFab/operations": {
       "get": {
         "operationId": "Operations_List",
-        "summary": "List the operations for Microsoft.PlayFab",
+        "description": "List the operations for Microsoft.PlayFab",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -78,7 +78,7 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.PlayFab/playerDatabases": {
       "get": {
         "operationId": "playerDatabases_ListBySubscription",
-        "summary": "List PlayerDatabase resources by subscription ID",
+        "description": "List PlayerDatabase resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -112,7 +112,7 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.PlayFab/titles": {
       "get": {
         "operationId": "Titles_ListBySubscription",
-        "summary": "List Title resources by subscription ID",
+        "description": "List Title resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -146,7 +146,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/playerDatabases": {
       "get": {
         "operationId": "playerDatabases_ListByResourceGroup",
-        "summary": "List PlayerDatabase resources by resource group",
+        "description": "List PlayerDatabase resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -183,7 +183,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/playerDatabases/{name}": {
       "get": {
         "operationId": "playerDatabases_Get",
-        "summary": "Get a PlayerDatabase",
+        "description": "Get a PlayerDatabase",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -222,7 +222,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a PlayerDatabase",
+        "description": "Create a PlayerDatabase",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -272,7 +272,7 @@
       },
       "patch": {
         "operationId": "playerDatabases_Update",
-        "summary": "Update a PlayerDatabase",
+        "description": "Update a PlayerDatabase",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -320,7 +320,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a PlayerDatabase",
+        "description": "Delete a PlayerDatabase",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -360,7 +360,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/titles": {
       "get": {
         "operationId": "Titles_ListByResourceGroup",
-        "summary": "List Title resources by resource group",
+        "description": "List Title resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -397,7 +397,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PlayFab/titles/{name}": {
       "get": {
         "operationId": "Titles_Get",
-        "summary": "Get a Title",
+        "description": "Get a Title",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -436,7 +436,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a Title",
+        "description": "Create a Title",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -486,7 +486,7 @@
       },
       "patch": {
         "operationId": "Titles_Update",
-        "summary": "Update a Title",
+        "description": "Update a Title",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -534,7 +534,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a Title",
+        "description": "Delete a Title",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"

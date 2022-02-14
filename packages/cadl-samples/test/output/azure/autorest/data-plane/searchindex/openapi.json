@@ -22,7 +22,7 @@
     "/docs": {
       "get": {
         "operationId": "Documents_searchGet",
-        "summary": "Searches for documents in the index.",
+        "description": "Searches for documents in the index.",
         "parameters": [
           {
             "name": "search",
@@ -824,7 +824,7 @@
     "/docs/$count": {
       "get": {
         "operationId": "Documents_count",
-        "summary": "Queries the number of documents in the index.",
+        "description": "Queries the number of documents in the index.",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -856,7 +856,7 @@
     "/docs/search.autocomplete": {
       "get": {
         "operationId": "Documents_autocompleteGet",
-        "summary": "Autocompletes incomplete query terms based on input text and matching terms in the index.",
+        "description": "Autocompletes incomplete query terms based on input text and matching terms in the index.",
         "parameters": [
           {
             "name": "search",
@@ -988,7 +988,7 @@
     "/docs/search.index": {
       "post": {
         "operationId": "Documents_index",
-        "summary": "Sends a batch of document write actions to the index.",
+        "description": "Sends a batch of document write actions to the index.",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -1034,7 +1034,7 @@
     "/docs/search.post.autocomplete": {
       "post": {
         "operationId": "Documents_autocompletePost",
-        "summary": "Autocompletes incomplete query terms based on input text and matching terms in the index.",
+        "description": "Autocompletes incomplete query terms based on input text and matching terms in the index.",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -1074,7 +1074,7 @@
     "/docs/search.post.search": {
       "post": {
         "operationId": "Documents_searchPost",
-        "summary": "Autocompletes incomplete query terms based on input text and matching terms in the index.",
+        "description": "Autocompletes incomplete query terms based on input text and matching terms in the index.",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -1153,7 +1153,7 @@
     "/docs/search.suggest": {
       "get": {
         "operationId": "Documents_suggestGet",
-        "summary": "Suggests documents in the index that match the given partial query text.",
+        "description": "Suggests documents in the index that match the given partial query text.",
         "parameters": [
           {
             "name": "search",
@@ -1272,7 +1272,7 @@
     "/docs('{key}')": {
       "get": {
         "operationId": "DocumentsByKey_get",
-        "summary": "Retrieves a document from the index.",
+        "description": "Retrieves a document from the index.",
         "parameters": [
           {
             "name": "key",

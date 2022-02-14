@@ -41,7 +41,7 @@
     "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}": {
       "get": {
         "operationId": "Linker_Get",
-        "summary": "Get a LinkerResource",
+        "description": "Get a LinkerResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -74,7 +74,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a LinkerResource",
+        "description": "Create a LinkerResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -118,7 +118,7 @@
       },
       "patch": {
         "operationId": "Linker_Update",
-        "summary": "Update a LinkerResource",
+        "description": "Update a LinkerResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -160,7 +160,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a LinkerResource",
+        "description": "Delete a LinkerResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -194,7 +194,7 @@
     "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/listConfigurations": {
       "post": {
         "operationId": "Linker_listConfigurations",
-        "summary": "List linker resource configurations.",
+        "description": "List linker resource configurations.",
         "parameters": [
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -222,7 +222,7 @@
     "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/validateLinker": {
       "post": {
         "operationId": "Linker_validateLinker",
-        "summary": "Validate a linker resource.",
+        "description": "Validate a linker resource.",
         "parameters": [
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -250,7 +250,7 @@
     "/providers/Microsoft.ServiceLinker/operations": {
       "get": {
         "operationId": "Operations_List",
-        "summary": "List the operations for Microsoft.ServiceLinker",
+        "description": "List the operations for Microsoft.ServiceLinker",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"

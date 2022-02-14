@@ -56,7 +56,7 @@
     "/providers/Microsoft.Logz/operations": {
       "get": {
         "operationId": "Operations_List",
-        "summary": "List the operations for Microsoft.Logz",
+        "description": "List the operations for Microsoft.Logz",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -87,7 +87,7 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.Logz/monitors": {
       "get": {
         "operationId": "Monitors_ListBySubscription",
-        "summary": "List LogzMonitorResource resources by subscription ID",
+        "description": "List LogzMonitorResource resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -121,7 +121,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors": {
       "get": {
         "operationId": "Monitors_ListByResourceGroup",
-        "summary": "List LogzMonitorResource resources by resource group",
+        "description": "List LogzMonitorResource resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -158,7 +158,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}": {
       "get": {
         "operationId": "Monitors_Get",
-        "summary": "Get a LogzMonitorResource",
+        "description": "Get a LogzMonitorResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -197,7 +197,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a LogzMonitorResource",
+        "description": "Create a LogzMonitorResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -247,7 +247,7 @@
       },
       "patch": {
         "operationId": "Monitors_Update",
-        "summary": "Update a LogzMonitorResource",
+        "description": "Update a LogzMonitorResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -295,7 +295,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a LogzMonitorResource",
+        "description": "Delete a LogzMonitorResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -335,7 +335,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts": {
       "get": {
         "operationId": "SubAccounts_List",
-        "summary": "List all SubAccountResource by monitorName",
+        "description": "List all SubAccountResource by monitorName",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -375,7 +375,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts/{subAccountName}": {
       "get": {
         "operationId": "SubAccounts_Get",
-        "summary": "Get a SubAccountResource",
+        "description": "Get a SubAccountResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -414,7 +414,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a SubAccountResource",
+        "description": "Create a SubAccountResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -464,7 +464,7 @@
       },
       "patch": {
         "operationId": "SubAccounts_Update",
-        "summary": "Update a SubAccountResource",
+        "description": "Update a SubAccountResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -512,7 +512,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a SubAccountResource",
+        "description": "Delete a SubAccountResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -552,7 +552,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts/{subAccountName}/tagRules": {
       "get": {
         "operationId": "SubAccountTagRules_List",
-        "summary": "List all SubAccountTagRuleResource by subAccountName",
+        "description": "List all SubAccountTagRuleResource by subAccountName",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -595,7 +595,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/accounts/{subAccountName}/tagRules/{tagName}": {
       "get": {
         "operationId": "SubAccountTagRules_Get",
-        "summary": "Get a SubAccountTagRuleResource",
+        "description": "Get a SubAccountTagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -640,7 +640,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a SubAccountTagRuleResource",
+        "description": "Create a SubAccountTagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -700,7 +700,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a SubAccountTagRuleResource",
+        "description": "Delete a SubAccountTagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -746,7 +746,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/listMonitoredResources": {
       "post": {
         "operationId": "LogzMonitors_listMonitoredResources",
-        "summary": "List the resources currently being monitored by the Logz monitor resource.",
+        "description": "List the resources currently being monitored by the Logz monitor resource.",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -780,7 +780,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/singleSignOnConfigurations": {
       "get": {
         "operationId": "SingleSignOnConfigurations_List",
-        "summary": "List all SingleSignOnConfigurationResource by monitorName",
+        "description": "List all SingleSignOnConfigurationResource by monitorName",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -820,7 +820,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/singleSignOnConfigurations/{configurationName}": {
       "get": {
         "operationId": "SingleSignOnConfigurations_Get",
-        "summary": "Get a SingleSignOnConfigurationResource",
+        "description": "Get a SingleSignOnConfigurationResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -862,7 +862,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a SingleSignOnConfigurationResource",
+        "description": "Create a SingleSignOnConfigurationResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -915,7 +915,7 @@
       },
       "patch": {
         "operationId": "SingleSignOnConfigurations_Update",
-        "summary": "Update a SingleSignOnConfigurationResource",
+        "description": "Update a SingleSignOnConfigurationResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -966,7 +966,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a SingleSignOnConfigurationResource",
+        "description": "Delete a SingleSignOnConfigurationResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -1009,7 +1009,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/tagRules": {
       "get": {
         "operationId": "TagRules_List",
-        "summary": "List all TagRuleResource by monitorName",
+        "description": "List all TagRuleResource by monitorName",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -1049,7 +1049,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logz/monitors/{monitorName}/tagRules/{tagName}": {
       "get": {
         "operationId": "TagRules_Get",
-        "summary": "Get a TagRuleResource",
+        "description": "Get a TagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -1091,7 +1091,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a TagRuleResource",
+        "description": "Create a TagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -1148,7 +1148,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a TagRuleResource",
+        "description": "Delete a TagRuleResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"

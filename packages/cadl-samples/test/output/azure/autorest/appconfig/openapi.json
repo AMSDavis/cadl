@@ -18,7 +18,7 @@
     "/keys": {
       "get": {
         "operationId": "GetKeys",
-        "summary": "Gets a list of keys.",
+        "description": "Gets a list of keys.",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersion"
@@ -70,7 +70,7 @@
       },
       "head": {
         "operationId": "CheckKeys",
-        "summary": "Requests the headers and status of the given resource.",
+        "description": "Requests the headers and status of the given resource.",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersion"
@@ -119,7 +119,7 @@
     "/kv": {
       "get": {
         "operationId": "GetKeyValues",
-        "summary": "Gets a list of key-values.",
+        "description": "Gets a list of key-values.",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersion"
@@ -195,7 +195,7 @@
       },
       "head": {
         "operationId": "CheckKeyValues",
-        "summary": "Gets a list of key-values.",
+        "description": "Gets a list of key-values.",
         "parameters": [
           {
             "$ref": "#/parameters/AcceptDatetimeHeader"
@@ -262,7 +262,7 @@
     "/kv/{key}": {
       "get": {
         "operationId": "GetKeyValue",
-        "summary": "Gets a single key-value.",
+        "description": "Gets a single key-value.",
         "parameters": [
           {
             "$ref": "#/parameters/ETagHeaders.ifMatch"
@@ -337,7 +337,7 @@
       },
       "head": {
         "operationId": "CheckKeyValue",
-        "summary": "Requests the headers and status of the given resource.",
+        "description": "Requests the headers and status of the given resource.",
         "parameters": [
           {
             "$ref": "#/parameters/ETagHeaders.ifMatch"
@@ -382,7 +382,7 @@
       },
       "put": {
         "operationId": "PutKeyValue",
-        "summary": "Creates a key-value.",
+        "description": "Creates a key-value.",
         "parameters": [
           {
             "$ref": "#/parameters/ETagHeaders.ifMatch"
@@ -448,7 +448,7 @@
       },
       "post": {
         "operationId": "UpdateKeyValue",
-        "summary": "Updates a key-value pair",
+        "description": "Updates a key-value pair",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersion"
@@ -519,7 +519,7 @@
       },
       "delete": {
         "operationId": "DeleteKeyValue",
-        "summary": "Deletes a key-value.",
+        "description": "Deletes a key-value.",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersion"
@@ -582,7 +582,7 @@
     "/labels": {
       "get": {
         "operationId": "GetLabels",
-        "summary": "Gets a list of labels.",
+        "description": "Gets a list of labels.",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersion"
@@ -634,7 +634,7 @@
       },
       "head": {
         "operationId": "CheckLabels",
-        "summary": "Requests the headers and status of the given resource.",
+        "description": "Requests the headers and status of the given resource.",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersion"
@@ -807,7 +807,7 @@
     "/revisions": {
       "get": {
         "operationId": "GetRevisions",
-        "summary": "Gets a list of revisions.",
+        "description": "Gets a list of revisions.",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersion"
@@ -883,7 +883,7 @@
       },
       "head": {
         "operationId": "CheckRevisions",
-        "summary": "Requests the headers and status of the given resource.",
+        "description": "Requests the headers and status of the given resource.",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersion"

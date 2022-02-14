@@ -4,7 +4,8 @@ using Cadl.Http;
 
 @route("/analyze")
 interface Analyze {
-  @doc("Submit analysis job.")
+  @summary("Submit analysis job")
+  @doc("Submit a collection of text documents for analysis. Specify one or more unique tasks to be executed.")
   @post
   submit(
     @doc("Collection of documents to analyze and tasks to execute.")
@@ -12,7 +13,8 @@ interface Analyze {
     body: AnalyzeBatchInput
   ): LongRunningResponse;
 
-  @doc("Get analysis status and results.")
+  @summary("Get analysis status and results")
+  @doc("Get the status of an analysis job.  A job may consist of one or more tasks.  Once all tasks are completed, the job will transition to the completed state and results will be available for each task.")
   @route("/jobs")
   getStatus(...JobParameters): Response<AnalyzeJobState>;
 }

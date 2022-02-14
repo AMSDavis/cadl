@@ -18,7 +18,7 @@
     "/query-knowledgebases/projects": {
       "get": {
         "operationId": "QuestionAnsweringProjects_ListProjects",
-        "summary": "Gets all projects for a user",
+        "description": "Gets all projects for a user",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -55,7 +55,7 @@
     "/query-knowledgebases/projects/{projectName}": {
       "get": {
         "operationId": "QuestionAnsweringProjects_GetProjectDetails",
-        "summary": "Get the requested project metadata",
+        "description": "Get the requested project metadata",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -81,7 +81,7 @@
       },
       "patch": {
         "operationId": "QuestionAnsweringProjects_CreateProject",
-        "summary": "Create or update a project",
+        "description": "Create or update a project",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -122,7 +122,7 @@
       "delete": {
         "operationId": "QuestionAnsweringProjects_DeleteProject",
         "x-ms-long-running-operation": true,
-        "summary": "Delete the project",
+        "description": "Delete the project",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -153,7 +153,7 @@
       "post": {
         "operationId": "QuestionAnsweringProjects_Export",
         "x-ms-long-running-operation": true,
-        "summary": "Export project metadata and assets",
+        "description": "Export project metadata and assets",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -190,7 +190,7 @@
       "post": {
         "operationId": "QuestionAnsweringProjects_Import",
         "x-ms-long-running-operation": true,
-        "summary": "Import project assets",
+        "description": "Import project assets",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -226,7 +226,7 @@
     "/query-knowledgebases/projects/{projectName}/deployments": {
       "get": {
         "operationId": "QuestionAnsweringProjects_GetDeployments",
-        "summary": "List all deployments of a project.",
+        "description": "List all deployments of a project.",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectNamePathParameter"
@@ -254,7 +254,7 @@
     "/query-knowledgebases/projects/{projectName}/deployments/{deploymentName}": {
       "put": {
         "operationId": "QuestionAnsweringProjects_CreateDeployment",
-        "summary": "Deploy project to production.",
+        "description": "Deploy project to production.",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectNamePathParameter"
@@ -287,7 +287,7 @@
     "/query-knowledgebases/projects/{projectName}/deployments/{deploymentName}/jobs/{jobId}": {
       "get": {
         "operationId": "QuestionAnsweringProjects_GetDeploymentsJobStatus",
-        "summary": "Gets the status of a Deploy job.",
+        "description": "Gets the status of a Deploy job.",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectNamePathParameter"
@@ -321,7 +321,7 @@
     "/query-knowledgebases/projects/{projectName}/deployments/synonyms": {
       "get": {
         "operationId": "QuestionAnsweringProjects_ListSynonyms",
-        "summary": "List all the synonyms of a project.",
+        "description": "List all the synonyms of a project.",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectNamePathParameter"
@@ -356,7 +356,7 @@
       },
       "put": {
         "operationId": "QuestionAnsweringProjects_CreateOrUpdateSynonyms",
-        "summary": "Create or update all the synonyms of a project.",
+        "description": "Create or update all the synonyms of a project.",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectNamePathParameter"
@@ -396,7 +396,7 @@
     "/query-knowledgebases/projects/{projectName}/export/jobs/{jobId}": {
       "get": {
         "operationId": "QuestionAnsweringProjects_GetExportStatus",
-        "summary": "Gets the status of an Export job, once job completes, returns the project metadata, and assets",
+        "description": "Gets the status of an Export job, once job completes, returns the project metadata, and assets",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -427,7 +427,7 @@
     "/query-knowledgebases/projects/{projectName}/feedback": {
       "post": {
         "operationId": "QuestionAnsweringProjects_CreateFeedback",
-        "summary": "Update Active Learning feedback.",
+        "description": "Update Active Learning feedback.",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectNamePathParameter"
@@ -458,7 +458,7 @@
     "/query-knowledgebases/projects/{projectName}/import/jobs/{jobId}": {
       "get": {
         "operationId": "QuestionAnsweringProjects_GetImportStatus",
-        "summary": "Gets the status of an Import job",
+        "description": "Gets the status of an Import job",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -489,7 +489,7 @@
     "/query-knowledgebases/projects/{projectName}/qnas": {
       "get": {
         "operationId": "QuestionAnsweringProjects_ListQuestionAndAnswers",
-        "summary": "List all the sources of a project.",
+        "description": "List all the sources of a project.",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectNamePathParameter"
@@ -524,7 +524,7 @@
       },
       "patch": {
         "operationId": "QuestionAnsweringProjects_UpdateQuestionAndAnswers",
-        "summary": "Updates the sources of a project.",
+        "description": "Updates the sources of a project.",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectNamePathParameter"
@@ -560,7 +560,7 @@
     "/query-knowledgebases/projects/{projectName}/qnas/jobs/{jobId}": {
       "get": {
         "operationId": "QuestionAnsweringProjects_GetQuestionAndAnswersJobStatus",
-        "summary": "Gets the status of update sources job.",
+        "description": "Gets the status of update sources job.",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectNamePathParameter"
@@ -591,7 +591,7 @@
     "/query-knowledgebases/projects/{projectName}/sources": {
       "get": {
         "operationId": "QuestionAnsweringProjects_ListSources",
-        "summary": "List all the sources of a project.",
+        "description": "List all the sources of a project.",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectNamePathParameter"
@@ -626,7 +626,7 @@
       },
       "patch": {
         "operationId": "QuestionAnsweringProjects_UpdateSources",
-        "summary": "Updates the sources of a project.",
+        "description": "Updates the sources of a project.",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectNamePathParameter"
@@ -662,7 +662,7 @@
     "/query-knowledgebases/projects/{projectName}/sources/jobs/{jobId}": {
       "get": {
         "operationId": "QuestionAnsweringProjects_GetSourcesJobStatus",
-        "summary": "Gets the status of update sources job.",
+        "description": "Gets the status of update sources job.",
         "parameters": [
           {
             "$ref": "#/parameters/ProjectNamePathParameter"
@@ -693,7 +693,7 @@
     "/query-knowledgebases/projects/deletion-jobs/{jobId}": {
       "get": {
         "operationId": "QuestionAnsweringProjects_GetDeleteStatus",
-        "summary": "Gets the status of a Project delete job",
+        "description": "Gets the status of a Project delete job",
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersionParameter"

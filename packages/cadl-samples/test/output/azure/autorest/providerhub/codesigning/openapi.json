@@ -47,7 +47,7 @@
     "/providers/Microsoft.CodeSigning/operations": {
       "get": {
         "operationId": "Operations_List",
-        "summary": "List the operations for Microsoft.CodeSigning",
+        "description": "List the operations for Microsoft.CodeSigning",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -78,7 +78,7 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.CodeSigning/codeSignAccounts": {
       "get": {
         "operationId": "CodeSignAccounts_ListBySubscription",
-        "summary": "List CodeSignAccount resources by subscription ID",
+        "description": "List CodeSignAccount resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -112,7 +112,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CodeSigning/codeSignAccounts": {
       "get": {
         "operationId": "CodeSignAccounts_ListByResourceGroup",
-        "summary": "List CodeSignAccount resources by resource group",
+        "description": "List CodeSignAccount resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -149,7 +149,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CodeSigning/codeSignAccounts/{accountName}": {
       "get": {
         "operationId": "CodeSignAccounts_Get",
-        "summary": "Get a CodeSignAccount",
+        "description": "Get a CodeSignAccount",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -188,7 +188,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a CodeSignAccount",
+        "description": "Create a CodeSignAccount",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -238,7 +238,7 @@
       },
       "patch": {
         "operationId": "CodeSignAccounts_Update",
-        "summary": "Update a CodeSignAccount",
+        "description": "Update a CodeSignAccount",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -286,7 +286,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a CodeSignAccount",
+        "description": "Delete a CodeSignAccount",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -326,7 +326,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CodeSigning/codeSignAccounts/{accountName}/certificateProfiles": {
       "get": {
         "operationId": "CertificateProfiles_ListByCodeSignAccounts",
-        "summary": "List all CertificateProfile by accountName",
+        "description": "List all CertificateProfile by accountName",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -366,7 +366,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CodeSigning/codeSignAccounts/{accountName}/certificateProfiles/{profileName}": {
       "get": {
         "operationId": "CertificateProfiles_Get",
-        "summary": "Get a CertificateProfile",
+        "description": "Get a CertificateProfile",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -404,7 +404,7 @@
       },
       "patch": {
         "operationId": "CertificateProfiles_Update",
-        "summary": "Update a CertificateProfile",
+        "description": "Update a CertificateProfile",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"

@@ -34,7 +34,7 @@
     "/datasources": {
       "get": {
         "operationId": "DatasourcesApis_list",
-        "summary": "Lists all indexe data sources available for a search service.",
+        "description": "Lists all indexe data sources available for a search service.",
         "parameters": [
           {
             "$ref": "#/parameters/SelectParameter"
@@ -76,7 +76,7 @@
       },
       "post": {
         "operationId": "DatasourcesApis_create",
-        "summary": "Creates a new datasource.",
+        "description": "Creates a new datasource.",
         "parameters": [
           {
             "$ref": "#/parameters/ClientRequestIdParameter"
@@ -116,7 +116,7 @@
     "/datasources('{dataSourceName}')": {
       "get": {
         "operationId": "DatasourcesApis_get",
-        "summary": "Retrieves an index definition.",
+        "description": "Retrieves an index definition.",
         "parameters": [
           {
             "name": "dataSourceName",
@@ -152,7 +152,7 @@
       },
       "put": {
         "operationId": "DatasourcesApis_createOrUpdate",
-        "summary": "Creates a new search data source or updates an data source if it already exists.",
+        "description": "Creates a new search data source or updates an data source if it already exists.",
         "parameters": [
           {
             "name": "dataSourceName",
@@ -215,7 +215,7 @@
       },
       "delete": {
         "operationId": "DatasourcesApis_delete",
-        "summary": "Deletes a datasource.",
+        "description": "Deletes a datasource.",
         "parameters": [
           {
             "name": "dataSourceName",
@@ -259,7 +259,7 @@
     "/indexers": {
       "get": {
         "operationId": "IndexersApis_list",
-        "summary": "Lists all indexers available for a search service.",
+        "description": "Lists all indexers available for a search service.",
         "parameters": [
           {
             "$ref": "#/parameters/SelectParameter"
@@ -301,7 +301,7 @@
       },
       "post": {
         "operationId": "IndexersApis_create",
-        "summary": "Creates a new search indexer.",
+        "description": "Creates a new search indexer.",
         "parameters": [
           {
             "$ref": "#/parameters/ClientRequestIdParameter"
@@ -341,7 +341,7 @@
     "/indexers('{indexerName}')": {
       "get": {
         "operationId": "IndexersApis_get",
-        "summary": "Retrieves an indexer definition.",
+        "description": "Retrieves an indexer definition.",
         "parameters": [
           {
             "name": "indexerName",
@@ -377,7 +377,7 @@
       },
       "put": {
         "operationId": "IndexersApis_createOrUpdate",
-        "summary": "Creates a new indexer or updates an indexer if it already exists.",
+        "description": "Creates a new indexer or updates an indexer if it already exists.",
         "parameters": [
           {
             "name": "indexerName",
@@ -443,7 +443,7 @@
       },
       "delete": {
         "operationId": "IndexersApis_delete",
-        "summary": "Deletes a indexer.",
+        "description": "Deletes a indexer.",
         "parameters": [
           {
             "name": "indexerName",
@@ -487,7 +487,7 @@
     "/indexers('{indexerName}')/search.reset": {
       "post": {
         "operationId": "IndexersApis_reset",
-        "summary": "Resets the change tracking state associated with an indexer.",
+        "description": "Resets the change tracking state associated with an indexer.",
         "parameters": [
           {
             "name": "indexerName",
@@ -522,7 +522,7 @@
     "/indexers('{indexerName}')/search.resetdocs": {
       "post": {
         "operationId": "IndexersApis_resetDocs",
-        "summary": "Resets specific documents in the datasource to be selectively re-ingested by the indexer.",
+        "description": "Resets specific documents in the datasource to be selectively re-ingested by the indexer.",
         "parameters": [
           {
             "name": "indexerName",
@@ -579,7 +579,7 @@
     "/indexers('{indexerName}')/search.run": {
       "post": {
         "operationId": "IndexersApis_run",
-        "summary": "Runs an indexer on-demand.",
+        "description": "Runs an indexer on-demand.",
         "parameters": [
           {
             "name": "indexerName",
@@ -614,7 +614,7 @@
     "/indexers('{indexerName}')/search.status": {
       "get": {
         "operationId": "IndexersApis_getStatus",
-        "summary": "Returns the current status and execution history of an indexer.",
+        "description": "Returns the current status and execution history of an indexer.",
         "parameters": [
           {
             "name": "indexerName",
@@ -652,7 +652,7 @@
     "/indexes": {
       "get": {
         "operationId": "Indexes_list",
-        "summary": "Lists all indexes available for a search service.",
+        "description": "Lists all indexes available for a search service.",
         "parameters": [
           {
             "$ref": "#/parameters/SelectParameter"
@@ -694,7 +694,7 @@
       },
       "post": {
         "operationId": "Indexes_create",
-        "summary": "Creates a new search index.",
+        "description": "Creates a new search index.",
         "parameters": [
           {
             "$ref": "#/parameters/ClientRequestIdParameter"
@@ -734,7 +734,7 @@
     "/indexes('{indexName}')": {
       "get": {
         "operationId": "Indexes_get",
-        "summary": "Retrieves an index definition.",
+        "description": "Retrieves an index definition.",
         "parameters": [
           {
             "name": "indexName",
@@ -770,7 +770,7 @@
       },
       "put": {
         "operationId": "Indexes_createOrUpdate",
-        "summary": "Creates a new search index or updates an index if it already exists.",
+        "description": "Creates a new search index or updates an index if it already exists.",
         "parameters": [
           {
             "name": "indexName",
@@ -837,7 +837,7 @@
       },
       "delete": {
         "operationId": "Indexes_delete",
-        "summary": "Deletes a search index and all the documents it contains. This operation is permanent, with no recovery option. Make sure you have a master copy of your index definition, data ingestion code, and a backup of the primary data source in case you need to re-build the index.",
+        "description": "Deletes a search index and all the documents it contains. This operation is permanent, with no recovery option. Make sure you have a master copy of your index definition, data ingestion code, and a backup of the primary data source in case you need to re-build the index.",
         "parameters": [
           {
             "name": "indexName",
@@ -878,7 +878,7 @@
     "/indexes('{indexName}')/search.analyze": {
       "post": {
         "operationId": "Indexes_analyze",
-        "summary": "Shows how an analyzer breaks text into tokens.",
+        "description": "Shows how an analyzer breaks text into tokens.",
         "parameters": [
           {
             "name": "indexName",
@@ -925,7 +925,7 @@
     "/indexes('{indexName}')/search.stats": {
       "get": {
         "operationId": "Indexes_getStatistics",
-        "summary": "Returns statistics for the given index, including a document count and storage usage.",
+        "description": "Returns statistics for the given index, including a document count and storage usage.",
         "parameters": [
           {
             "name": "indexName",
@@ -993,7 +993,7 @@
     "/skillsets": {
       "get": {
         "operationId": "Skillsets_list",
-        "summary": "List all skillsets in a search service.",
+        "description": "List all skillsets in a search service.",
         "parameters": [
           {
             "$ref": "#/parameters/SelectParameter"
@@ -1035,7 +1035,7 @@
       },
       "post": {
         "operationId": "Skillsets_create",
-        "summary": "Creates a new skillset in a search service.",
+        "description": "Creates a new skillset in a search service.",
         "parameters": [
           {
             "$ref": "#/parameters/ClientRequestIdParameter"
@@ -1075,7 +1075,7 @@
     "/skillsets('{skillsetName}')": {
       "get": {
         "operationId": "Skillsets_get",
-        "summary": "Retrieves a skillset in a search service.",
+        "description": "Retrieves a skillset in a search service.",
         "parameters": [
           {
             "name": "skillsetName",
@@ -1111,7 +1111,7 @@
       },
       "put": {
         "operationId": "Skillsets_createOrUpdate",
-        "summary": "Creates a new skillset in a search service or updates the skillset if it already exists.",
+        "description": "Creates a new skillset in a search service or updates the skillset if it already exists.",
         "parameters": [
           {
             "name": "skillsetName",
@@ -1156,7 +1156,7 @@
       },
       "delete": {
         "operationId": "Skillsets_delete",
-        "summary": "Deletes a skillset in a search service.",
+        "description": "Deletes a skillset in a search service.",
         "parameters": [
           {
             "name": "skillsetName",
@@ -1195,7 +1195,7 @@
       },
       "post": {
         "operationId": "Skillsets_resetSkills",
-        "summary": "Reset an existing skillset in a search service",
+        "description": "Reset an existing skillset in a search service",
         "parameters": [
           {
             "name": "skillsetName",

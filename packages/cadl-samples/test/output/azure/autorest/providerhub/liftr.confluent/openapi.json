@@ -47,7 +47,7 @@
     "/providers/Microsoft.Confluent/operations": {
       "get": {
         "operationId": "Operations_List",
-        "summary": "List the operations for Microsoft.Confluent",
+        "description": "List the operations for Microsoft.Confluent",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -78,7 +78,7 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/agreements": {
       "get": {
         "operationId": "MarketplaceAgreements_List",
-        "summary": "List all ConfluentAgreementResource by subscriptionId",
+        "description": "List all ConfluentAgreementResource by subscriptionId",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -112,7 +112,7 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/agreements/default": {
       "put": {
         "operationId": "MarketplaceAgreements_create",
-        "summary": "Create a new marketplace agreement.",
+        "description": "Create a new marketplace agreement.",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -149,7 +149,7 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/organizations": {
       "get": {
         "operationId": "Organizations_ListBySubscription",
-        "summary": "List Organization resources by subscription ID",
+        "description": "List Organization resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -183,7 +183,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations": {
       "get": {
         "operationId": "Organizations_ListByResourceGroup",
-        "summary": "List Organization resources by resource group",
+        "description": "List Organization resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -220,7 +220,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}": {
       "get": {
         "operationId": "Organizations_Get",
-        "summary": "Get a Organization",
+        "description": "Get a Organization",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -259,7 +259,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a Organization",
+        "description": "Create a Organization",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -309,7 +309,7 @@
       },
       "patch": {
         "operationId": "Organizations_Update",
-        "summary": "Update a Organization",
+        "description": "Update a Organization",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -357,7 +357,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a Organization",
+        "description": "Delete a Organization",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"

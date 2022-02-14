@@ -44,7 +44,7 @@
     "/providers/Microsoft.ZeroTrustSystemIntegrity/operations": {
       "get": {
         "operationId": "Operations_List",
-        "summary": "List the operations for Microsoft.ZeroTrustSystemIntegrity",
+        "description": "List the operations for Microsoft.ZeroTrustSystemIntegrity",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -75,7 +75,7 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi": {
       "get": {
         "operationId": "ZTSI_ListBySubscription",
-        "summary": "List ZTSIResource resources by subscription ID",
+        "description": "List ZTSIResource resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -109,7 +109,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi": {
       "get": {
         "operationId": "ZTSI_ListByResourceGroup",
-        "summary": "List ZTSIResource resources by resource group",
+        "description": "List ZTSIResource resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -146,7 +146,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}": {
       "get": {
         "operationId": "ZTSI_Get",
-        "summary": "Get a ZTSIResource",
+        "description": "Get a ZTSIResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -185,7 +185,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a ZTSIResource",
+        "description": "Create a ZTSIResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -235,7 +235,7 @@
       },
       "patch": {
         "operationId": "ZTSI_Update",
-        "summary": "Update a ZTSIResource",
+        "description": "Update a ZTSIResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -283,7 +283,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a ZTSIResource",
+        "description": "Delete a ZTSIResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -323,7 +323,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/getMAAURL": {
       "post": {
         "operationId": "ZTSIOperations_getMAAURL",
-        "summary": "Gets the MAA URL for this resource",
+        "description": "Gets the MAA URL for this resource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -357,7 +357,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/getZTSIURL": {
       "post": {
         "operationId": "ZTSIOperations_getZTSIURL",
-        "summary": "Gets the ZTSI URL for this resource",
+        "description": "Gets the ZTSI URL for this resource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -391,7 +391,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/initiateRequest": {
       "post": {
         "operationId": "ZTSIOperations_initiateRequest",
-        "summary": "Hello request to the ZTSI service",
+        "description": "Hello request to the ZTSI service",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -433,7 +433,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/reportRequest": {
       "post": {
         "operationId": "ZTSIOperations_reportRequest",
-        "summary": "ZTSI Report request",
+        "description": "ZTSI Report request",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"

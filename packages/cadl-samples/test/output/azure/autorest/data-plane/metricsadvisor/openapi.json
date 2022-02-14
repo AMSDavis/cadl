@@ -71,7 +71,7 @@
     "/configurations": {
       "post": {
         "operationId": "AnomalyAlertingApis_create",
-        "summary": "Creates a new instance of the resource.",
+        "description": "Creates a new instance of the resource.",
         "parameters": [
           {
             "name": "resource",
@@ -108,7 +108,7 @@
       },
       "get": {
         "operationId": "AnomalyAlertingApis_list",
-        "summary": "Lists all instances of the resource.",
+        "description": "Lists all instances of the resource.",
         "parameters": [],
         "responses": {
           "200": {
@@ -132,7 +132,7 @@
     "/configurations/{anomalyAlertingConfigurationId}": {
       "get": {
         "operationId": "AnomalyAlertingApis_get",
-        "summary": "Gets an instance of the resource.",
+        "description": "Gets an instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/AnomalyAlertingConfiguration.anomalyAlertingConfigurationId"
@@ -158,7 +158,7 @@
       },
       "patch": {
         "operationId": "AnomalyAlertingApis_update",
-        "summary": "Updates an existing instance of the resource.",
+        "description": "Updates an existing instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/AnomalyAlertingConfiguration.anomalyAlertingConfigurationId"
@@ -232,7 +232,7 @@
       },
       "delete": {
         "operationId": "AnomalyAlertingApis_delete",
-        "summary": "Deletes an existing instance of the resource.",
+        "description": "Deletes an existing instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/AnomalyAlertingConfiguration.anomalyAlertingConfigurationId"
@@ -257,7 +257,7 @@
     "/credentials": {
       "post": {
         "operationId": "CredentialApis_create",
-        "summary": "Creates a new instance of the resource.",
+        "description": "Creates a new instance of the resource.",
         "parameters": [
           {
             "name": "resource",
@@ -294,7 +294,7 @@
       },
       "get": {
         "operationId": "CredentialApis_list",
-        "summary": "Lists all instances of the resource.",
+        "description": "Lists all instances of the resource.",
         "parameters": [],
         "responses": {
           "200": {
@@ -318,7 +318,7 @@
     "/credentials/{credentialId}": {
       "get": {
         "operationId": "CredentialApis_get",
-        "summary": "Gets an instance of the resource.",
+        "description": "Gets an instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/Credential"
@@ -344,7 +344,7 @@
       },
       "patch": {
         "operationId": "CredentialApis_update",
-        "summary": "Updates an existing instance of the resource.",
+        "description": "Updates an existing instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/Credential"
@@ -381,7 +381,7 @@
       },
       "delete": {
         "operationId": "CredentialApis_delete",
-        "summary": "Deletes an existing instance of the resource.",
+        "description": "Deletes an existing instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/Credential"
@@ -406,7 +406,7 @@
     "/datafeeds": {
       "post": {
         "operationId": "DataFeedApis_create",
-        "summary": "Creates a new instance of the resource.",
+        "description": "Creates a new instance of the resource.",
         "parameters": [
           {
             "name": "resource",
@@ -443,7 +443,7 @@
       },
       "get": {
         "operationId": "DataFeedApis_list",
-        "summary": "Lists all instances of the resource.",
+        "description": "Lists all instances of the resource.",
         "parameters": [],
         "responses": {
           "200": {
@@ -467,7 +467,7 @@
     "/datafeeds/{dataFeedId}": {
       "get": {
         "operationId": "DataFeedApis_get",
-        "summary": "Gets an instance of the resource.",
+        "description": "Gets an instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/DataFeedDetail.dataFeedId"
@@ -493,7 +493,7 @@
       },
       "patch": {
         "operationId": "DataFeedApis_update",
-        "summary": "Updates an existing instance of the resource.",
+        "description": "Updates an existing instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/DataFeedDetail.dataFeedId"
@@ -675,7 +675,7 @@
       },
       "delete": {
         "operationId": "DataFeedApis_delete",
-        "summary": "Deletes an existing instance of the resource.",
+        "description": "Deletes an existing instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/DataFeedDetail.dataFeedId"
@@ -700,7 +700,7 @@
     "/enrichment/anomalyDetection/configurations": {
       "post": {
         "operationId": "AnomalyDetectionApis_create",
-        "summary": "Creates a new instance of the resource.",
+        "description": "Creates a new instance of the resource.",
         "parameters": [
           {
             "name": "resource",
@@ -737,7 +737,7 @@
       },
       "get": {
         "operationId": "AnomalyDetectionApis_list",
-        "summary": "Lists all instances of the resource.",
+        "description": "Lists all instances of the resource.",
         "parameters": [],
         "responses": {
           "200": {
@@ -761,7 +761,7 @@
     "/enrichment/anomalyDetection/configurations/{configurationId}": {
       "get": {
         "operationId": "AnomalyDetectionApis_get",
-        "summary": "Gets an instance of the resource.",
+        "description": "Gets an instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/AnomalyDetectionConfiguration"
@@ -787,7 +787,7 @@
       },
       "patch": {
         "operationId": "AnomalyDetectionApis_update",
-        "summary": "Updates an existing instance of the resource.",
+        "description": "Updates an existing instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/AnomalyDetectionConfiguration"
@@ -824,7 +824,7 @@
       },
       "delete": {
         "operationId": "AnomalyDetectionApis_delete",
-        "summary": "Deletes an existing instance of the resource.",
+        "description": "Deletes an existing instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/AnomalyDetectionConfiguration"
@@ -849,7 +849,7 @@
     "/enrichment/anomalyDetection/configurations/{configurationId}/alert/anomaly/configurations": {
       "get": {
         "operationId": "AnomalyDetectionApis_listAllAnomalyAlertingConfigurations",
-        "summary": "List all anomaly alerting configurations for specific anomaly detection configuration",
+        "description": "List all anomaly alerting configurations for specific anomaly detection configuration",
         "parameters": [
           {
             "$ref": "#/parameters/AnomalyDetectionConfiguration"
@@ -883,7 +883,7 @@
     "/enrichment/anomalyDetection/configurations/{configurationId}/anomalies/dimension/query": {
       "post": {
         "operationId": "AnomalyDetectionApis_queryAnomalyDimensions",
-        "summary": "Query dimension values of anomalies",
+        "description": "Query dimension values of anomalies",
         "parameters": [
           {
             "$ref": "#/parameters/AnomalyDetectionConfiguration"
@@ -925,7 +925,7 @@
     "/enrichment/anomalyDetection/configurations/{configurationId}/anomalies/query": {
       "post": {
         "operationId": "AnomalyDetectionApis_queryAnomaly",
-        "summary": "Query anomalies under anomaly detection configuration",
+        "description": "Query anomalies under anomaly detection configuration",
         "parameters": [
           {
             "$ref": "#/parameters/AnomalyDetectionConfiguration"
@@ -961,7 +961,7 @@
     "/enrichment/anomalyDetection/configurations/{configurationId}/incidents/{incidentId}/rootcause": {
       "get": {
         "operationId": "AnomalyDetectionApis_queryIncidentRootCause",
-        "summary": "Query rootcause for incidents",
+        "description": "Query rootcause for incidents",
         "parameters": [
           {
             "$ref": "#/parameters/AnomalyDetectionConfiguration"
@@ -995,7 +995,7 @@
     "/enrichment/anomalyDetection/configurations/{configurationId}/incidents/query": {
       "post": {
         "operationId": "AnomalyDetectionApis_queryIncidents",
-        "summary": "Query incidents under anomaly detection configuration",
+        "description": "Query incidents under anomaly detection configuration",
         "parameters": [
           {
             "$ref": "#/parameters/AnomalyDetectionConfiguration"
@@ -1034,7 +1034,7 @@
     "/enrichment/anomalyDetection/configurations/{configurationId}/series/query": {
       "post": {
         "operationId": "AnomalyDetectionApis_querySeries",
-        "summary": "Query series enriched by anomaly detection",
+        "description": "Query series enriched by anomaly detection",
         "parameters": [
           {
             "$ref": "#/parameters/AnomalyDetectionConfiguration"
@@ -1070,7 +1070,7 @@
     "/feedback/metric": {
       "post": {
         "operationId": "FeedbackApis_create",
-        "summary": "Creates a new instance of the resource.",
+        "description": "Creates a new instance of the resource.",
         "parameters": [
           {
             "name": "resource",
@@ -1109,7 +1109,7 @@
     "/feedback/metric/{feedbackId}": {
       "get": {
         "operationId": "FeedbackApis_get",
-        "summary": "Gets an instance of the resource.",
+        "description": "Gets an instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/MetricFeedback.feedbackId"
@@ -1175,7 +1175,7 @@
     "/hooks": {
       "post": {
         "operationId": "HookApis_create",
-        "summary": "Creates a new instance of the resource.",
+        "description": "Creates a new instance of the resource.",
         "parameters": [
           {
             "name": "resource",
@@ -1212,7 +1212,7 @@
       },
       "get": {
         "operationId": "HookApis_list",
-        "summary": "Lists all instances of the resource.",
+        "description": "Lists all instances of the resource.",
         "parameters": [],
         "responses": {
           "200": {
@@ -1236,7 +1236,7 @@
     "/hooks/{hookId}": {
       "get": {
         "operationId": "HookApis_get",
-        "summary": "Gets an instance of the resource.",
+        "description": "Gets an instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/HookInfo.hookId"
@@ -1262,7 +1262,7 @@
       },
       "patch": {
         "operationId": "HookApis_update",
-        "summary": "Updates an existing instance of the resource.",
+        "description": "Updates an existing instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/HookInfo.hookId"
@@ -1326,7 +1326,7 @@
       },
       "delete": {
         "operationId": "HookApis_delete",
-        "summary": "Deletes an existing instance of the resource.",
+        "description": "Deletes an existing instance of the resource.",
         "parameters": [
           {
             "$ref": "#/parameters/HookInfo.hookId"
@@ -1435,7 +1435,7 @@
     "/metrics/{metricId}/data/query": {
       "post": {
         "operationId": "MetricApis_queryData",
-        "summary": "Get time series data from metric",
+        "description": "Get time series data from metric",
         "parameters": [
           {
             "$ref": "#/parameters/MetricIdParameter"
@@ -1529,7 +1529,7 @@
     "/metrics/{metricId}/enrichment/anomalyDetection/configurations": {
       "get": {
         "operationId": "MetricApis_listAnomalyDetectionConfigurations",
-        "summary": "List all anomaly detection configurations for specific metric",
+        "description": "List all anomaly detection configurations for specific metric",
         "parameters": [
           {
             "$ref": "#/parameters/MetricIdParameter"
@@ -1598,7 +1598,7 @@
     "/metrics/{metricId}/status/enrichment/anomalyDetection/query": {
       "post": {
         "operationId": "MetricApis_queryAnomalyDetectionStatus",
-        "summary": "Query anomaly detection status",
+        "description": "Query anomaly detection status",
         "parameters": [
           {
             "$ref": "#/parameters/MetricIdParameter"
@@ -1637,7 +1637,7 @@
     "/stats/latest": {
       "get": {
         "operationId": "AdminApis_getActiveSeriesCount",
-        "summary": "Get latest usage stats",
+        "description": "Get latest usage stats",
         "parameters": [],
         "responses": {
           "200": {

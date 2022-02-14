@@ -22,7 +22,7 @@
     "/v1/kiosks": {
       "post": {
         "operationId": "Display_createKiosk",
-        "summary": "Create a kiosk. This enrolls the kiosk for sign display.",
+        "description": "Create a kiosk. This enrolls the kiosk for sign display.",
         "parameters": [
           {
             "name": "body",
@@ -53,7 +53,7 @@
       },
       "get": {
         "operationId": "Display_listKiosks",
-        "summary": "List active kiosks.",
+        "description": "List active kiosks.",
         "parameters": [],
         "responses": {
           "200": {
@@ -77,7 +77,7 @@
     "/v1/kiosks/{id}": {
       "get": {
         "operationId": "Display_getKiosk",
-        "summary": "Get a kiosk.",
+        "description": "Get a kiosk.",
         "parameters": [
           {
             "name": "id",
@@ -107,7 +107,7 @@
       },
       "delete": {
         "operationId": "Display_deleteKiosk",
-        "summary": "Delete a kiosk.",
+        "description": "Delete a kiosk.",
         "parameters": [
           {
             "name": "id",
@@ -136,7 +136,7 @@
     "/v1/kiosks/{kiosk_id}/sign": {
       "get": {
         "operationId": "Display_getSignIdForKioskId",
-        "summary": "Get the sign that should be displayed on a kiosk.",
+        "description": "Get the sign that should be displayed on a kiosk.",
         "parameters": [
           {
             "name": "kiosk_id",
@@ -168,7 +168,7 @@
     "/v1/signs": {
       "post": {
         "operationId": "Display_createSign",
-        "summary": "Create a sign. This enrolls the sign for sign display.",
+        "description": "Create a sign. This enrolls the sign for sign display.",
         "parameters": [
           {
             "name": "sign",
@@ -199,7 +199,7 @@
       },
       "get": {
         "operationId": "Display_listSigns",
-        "summary": "List active signs.",
+        "description": "List active signs.",
         "parameters": [],
         "responses": {
           "200": {
@@ -217,7 +217,7 @@
     "/v1/signs/{id}": {
       "get": {
         "operationId": "Display_getSign",
-        "summary": "Get a sign.",
+        "description": "Get a sign.",
         "parameters": [
           {
             "name": "id",
@@ -247,7 +247,7 @@
       },
       "delete": {
         "operationId": "Display_deleteSign",
-        "summary": "Delete a sign.",
+        "description": "Delete a sign.",
         "parameters": [
           {
             "name": "id",
@@ -276,7 +276,7 @@
     "/v1/signs/{sign_id}": {
       "post": {
         "operationId": "Display_setSignIdForKioskIds",
-        "summary": "Set a sign for display on one or more kiosks.",
+        "description": "Set a sign for display on one or more kiosks.",
         "parameters": [
           {
             "$ref": "#/parameters/SetSignIdForKioskIdsRequest.sign_id"

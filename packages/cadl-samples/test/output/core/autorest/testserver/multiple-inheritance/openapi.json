@@ -18,7 +18,7 @@
     "/multipleInheritance/cat": {
       "get": {
         "operationId": "MultipleInheritance_getCat",
-        "summary": "Get a cat with name 'Whiskers' where likesMilk, meows, and hisses is true",
+        "description": "Get a cat with name 'Whiskers' where likesMilk, meows, and hisses is true",
         "parameters": [],
         "responses": {
           "200": {
@@ -37,7 +37,7 @@
       },
       "put": {
         "operationId": "MultipleInheritance_putCat",
-        "summary": "Put a cat with name 'Boots' where likesMilk and hisses is false, meows is true",
+        "description": "Put a cat with name 'Boots' where likesMilk and hisses is false, meows is true",
         "parameters": [
           {
             "name": "cat",
@@ -67,7 +67,7 @@
     "/multipleInheritance/feline": {
       "get": {
         "operationId": "MultipleInheritance_getFeline",
-        "summary": "Get a feline where meows and hisses are true",
+        "description": "Get a feline where meows and hisses are true",
         "parameters": [],
         "responses": {
           "200": {
@@ -86,7 +86,7 @@
       },
       "put": {
         "operationId": "MultipleInheritance_putFeline",
-        "summary": "Put a feline who hisses and doesn't meow",
+        "description": "Put a feline who hisses and doesn't meow",
         "parameters": [
           {
             "name": "feline",
@@ -116,7 +116,7 @@
     "/multipleInheritance/horse": {
       "get": {
         "operationId": "MultipleInheritance_getHorse",
-        "summary": "Get a horse with name 'Fred' and isAShowHorse true",
+        "description": "Get a horse with name 'Fred' and isAShowHorse true",
         "parameters": [],
         "responses": {
           "200": {
@@ -135,7 +135,7 @@
       },
       "put": {
         "operationId": "MultipleInheritance_putHorse",
-        "summary": "Put a horse with name 'General' and isAShowHorse false",
+        "description": "Put a horse with name 'General' and isAShowHorse false",
         "parameters": [
           {
             "name": "horse",
@@ -165,7 +165,7 @@
     "/multipleInheritance/kitten": {
       "get": {
         "operationId": "MultipleInheritance_getKitten",
-        "summary": "Get a kitten with name 'Gatito' where likesMilk and meows is true, and hisses and eatsMiceYet is false",
+        "description": "Get a kitten with name 'Gatito' where likesMilk and meows is true, and hisses and eatsMiceYet is false",
         "parameters": [],
         "responses": {
           "200": {
@@ -184,7 +184,7 @@
       },
       "put": {
         "operationId": "MultipleInheritance_putKitten",
-        "summary": "Put a kitten with name 'Kitty' where likesMilk and hisses is false, meows and eatsMiceYet is true",
+        "description": "Put a kitten with name 'Kitty' where likesMilk and hisses is false, meows and eatsMiceYet is true",
         "parameters": [
           {
             "name": "kitten",
@@ -214,7 +214,7 @@
     "/multipleInheritance/pet": {
       "get": {
         "operationId": "MultipleInheritance_getPet",
-        "summary": "Get a pet with name 'Peanut'",
+        "description": "Get a pet with name 'Peanut'",
         "parameters": [],
         "responses": {
           "200": {
@@ -233,7 +233,7 @@
       },
       "put": {
         "operationId": "MultipleInheritance_putPet",
-        "summary": "Put a pet with name 'Butter'",
+        "description": "Put a pet with name 'Butter'",
         "parameters": [
           {
             "name": "horse",

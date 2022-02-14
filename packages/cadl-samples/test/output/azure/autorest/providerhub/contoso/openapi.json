@@ -44,7 +44,7 @@
     "/providers/Microsoft.ContosoProviderHub/operations": {
       "get": {
         "operationId": "Operations_List",
-        "summary": "List the operations for Microsoft.ContosoProviderHub",
+        "description": "List the operations for Microsoft.ContosoProviderHub",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -75,7 +75,7 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.ContosoProviderHub/employees": {
       "get": {
         "operationId": "employees_ListBySubscription",
-        "summary": "List Employee resources by subscription ID",
+        "description": "List Employee resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -109,7 +109,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContosoProviderHub/employees": {
       "get": {
         "operationId": "employees_ListByResourceGroup",
-        "summary": "List Employee resources by resource group",
+        "description": "List Employee resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -146,7 +146,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContosoProviderHub/employees/{employeeName}": {
       "get": {
         "operationId": "employees_Get",
-        "summary": "Get a Employee",
+        "description": "Get a Employee",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -185,7 +185,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a Employee",
+        "description": "Create a Employee",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -235,7 +235,7 @@
       },
       "patch": {
         "operationId": "employees_Update",
-        "summary": "Update a Employee",
+        "description": "Update a Employee",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -283,7 +283,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a Employee",
+        "description": "Delete a Employee",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"

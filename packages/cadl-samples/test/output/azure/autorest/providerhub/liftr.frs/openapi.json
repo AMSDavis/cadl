@@ -44,7 +44,7 @@
     "/providers/Microsoft.FluidRelay/operations": {
       "get": {
         "operationId": "Operations_List",
-        "summary": "List the operations for Microsoft.FluidRelay",
+        "description": "List the operations for Microsoft.FluidRelay",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -75,7 +75,7 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.FluidRelay/fluidRelayServers": {
       "get": {
         "operationId": "FluidRelayServers_ListBySubscription",
-        "summary": "List FluidRelayServer resources by subscription ID",
+        "description": "List FluidRelayServer resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -109,7 +109,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FluidRelay/fluidRelayServers": {
       "get": {
         "operationId": "FluidRelayServers_ListByResourceGroup",
-        "summary": "List FluidRelayServer resources by resource group",
+        "description": "List FluidRelayServer resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -146,7 +146,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FluidRelay/fluidRelayServers/{name}": {
       "get": {
         "operationId": "FluidRelayServers_Get",
-        "summary": "Get a FluidRelayServer",
+        "description": "Get a FluidRelayServer",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -182,7 +182,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a FluidRelayServer",
+        "description": "Create a FluidRelayServer",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -229,7 +229,7 @@
       },
       "patch": {
         "operationId": "FluidRelayServers_Update",
-        "summary": "Update a FluidRelayServer",
+        "description": "Update a FluidRelayServer",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -274,7 +274,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a FluidRelayServer",
+        "description": "Delete a FluidRelayServer",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -311,7 +311,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FluidRelay/fluidRelayServers/{name}/getKeys": {
       "post": {
         "operationId": "FluidRelayServers_getKeys",
-        "summary": "Retrieve the keys for this server.",
+        "description": "Retrieve the keys for this server.",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -349,7 +349,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FluidRelay/fluidRelayServers/{name}/regenerateKey": {
       "post": {
         "operationId": "FluidRelayServers_regenerateKey",
-        "summary": "Regenerate the primary or secondary key for this server.",
+        "description": "Regenerate the primary or secondary key for this server.",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"

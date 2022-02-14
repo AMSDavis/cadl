@@ -4,7 +4,8 @@ using Cadl.Http;
 
 @route("/entities/health/jobs")
 interface Health {
-  @doc("Submit healthcare analysis job.")
+  @summary("Submit healthcare analysis job")
+  @doc("Start a healthcare analysis job to recognize healthcare related entities (drugs, conditions, symptoms, etc) and their relations.")
   @post
   submit(
     ...CommonParameters,
@@ -14,11 +15,13 @@ interface Health {
   ): LongRunningResponse;
 
   @route("/{jobId}")
-  @doc("Get healthcare analysis job status and results")
+  @summary("Get healthcare analysis job status and results")
+  @doc("Get details of the healthcare prediction job specified by the jobId.")
   getStatus(...JobParameters): Response<HealthcareJobState>;
 
   @route("/{jobId}")
-  @doc("Cancel healthcare analysis job.")
+  @summary("Cancel healthcare analysis job")
+  @doc("Cancel healthcare prediction job.")
   @delete
   cancel(...JobIdParameter): LongRunningResponse;
 }

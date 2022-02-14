@@ -29,7 +29,7 @@
       },
       "get": {
         "operationId": "Projects_get",
-        "summary": "Gets an instance of the resource.",
+        "description": "Gets an instance of the resource.",
         "parameters": [
           {
             "$ref": "#/components/parameters/ProjectMetadata.projectName"
@@ -60,7 +60,7 @@
       },
       "delete": {
         "operationId": "Projects_delete",
-        "summary": "Deletes an existing instance of the resource.",
+        "description": "Deletes an existing instance of the resource.",
         "parameters": [
           {
             "$ref": "#/components/parameters/ProjectMetadata.projectName"
@@ -84,7 +84,7 @@
       },
       "patch": {
         "operationId": "Projects_update",
-        "summary": "Updates an existing instance of the resource.",
+        "description": "Updates an existing instance of the resource.",
         "parameters": [
           {
             "$ref": "#/components/parameters/ProjectMetadata.projectName"
@@ -156,7 +156,7 @@
     "/projects": {
       "get": {
         "operationId": "Projects_list",
-        "summary": "Lists all instances of the resource.",
+        "description": "Lists all instances of the resource.",
         "parameters": [],
         "responses": {
           "200": {
@@ -265,7 +265,7 @@
     "/projects/{projectName}/deployments": {
       "post": {
         "operationId": "Deployments_create",
-        "summary": "Creates a new instance of the resource.",
+        "description": "Creates a new instance of the resource.",
         "parameters": [
           {
             "$ref": "#/components/parameters/ProjectMetadata.projectName"
@@ -315,7 +315,7 @@
       },
       "get": {
         "operationId": "Deployments_list",
-        "summary": "Lists all instances of the resource.",
+        "description": "Lists all instances of the resource.",
         "parameters": [
           {
             "$ref": "#/components/parameters/ProjectMetadata.projectName"
@@ -386,7 +386,7 @@
     "/projects/{projectName}/synonym": {
       "post": {
         "operationId": "Synonyms_create",
-        "summary": "Creates a new instance of the resource.",
+        "description": "Creates a new instance of the resource.",
         "parameters": [
           {
             "$ref": "#/components/parameters/ProjectMetadata.projectName"
@@ -436,7 +436,7 @@
       },
       "get": {
         "operationId": "Synonyms_list",
-        "summary": "Lists all instances of the resource.",
+        "description": "Lists all instances of the resource.",
         "parameters": [
           {
             "$ref": "#/components/parameters/ProjectMetadata.projectName"
@@ -469,7 +469,7 @@
     "/projects/{projectName}/sources/{source}": {
       "patch": {
         "operationId": "Sources_update",
-        "summary": "Updates an existing instance of the resource.",
+        "description": "Updates an existing instance of the resource.",
         "parameters": [
           {
             "$ref": "#/components/parameters/ProjectMetadata.projectName"
@@ -532,7 +532,7 @@
     "/projects/{projectName}/sources": {
       "get": {
         "operationId": "Sources_list",
-        "summary": "Lists all instances of the resource.",
+        "description": "Lists all instances of the resource.",
         "parameters": [
           {
             "$ref": "#/components/parameters/ProjectMetadata.projectName"
@@ -603,7 +603,7 @@
     "/projects/{projectName}/qnas": {
       "post": {
         "operationId": "Qnas_create",
-        "summary": "Creates a new instance of the resource.",
+        "description": "Creates a new instance of the resource.",
         "parameters": [
           {
             "$ref": "#/components/parameters/ProjectMetadata.projectName"
@@ -653,7 +653,7 @@
       },
       "get": {
         "operationId": "Qnas_list",
-        "summary": "Lists all instances of the resource.",
+        "description": "Lists all instances of the resource.",
         "parameters": [
           {
             "$ref": "#/components/parameters/ProjectMetadata.projectName"

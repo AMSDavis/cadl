@@ -191,7 +191,7 @@
     "/documentModels:build": {
       "post": {
         "operationId": "Creation_buildModel",
-        "summary": "Builds a custom document analysis model.",
+        "description": "Builds a custom document analysis model.",
         "parameters": [],
         "responses": {
           "202": {
@@ -233,7 +233,7 @@
     "/documentModels:compose": {
       "post": {
         "operationId": "Creation_composeModel",
-        "summary": "Creates a new model from document types of existing models.",
+        "description": "Creates a new model from document types of existing models.",
         "parameters": [],
         "responses": {
           "202": {
@@ -275,7 +275,7 @@
     "/documentModels:authorizeCopy": {
       "post": {
         "operationId": "Creation_authorizeCopy",
-        "summary": "Generates authorization to copy a model to this location with specified modelId and optional description.",
+        "description": "Generates authorization to copy a model to this location with specified modelId and optional description.",
         "parameters": [],
         "responses": {
           "200": {
@@ -316,7 +316,7 @@
     "/documentModels:{modelId}:copyTo": {
       "post": {
         "operationId": "Creation_copyTo",
-        "summary": "Copies model to the target resource, region, and modelId.",
+        "description": "Copies model to the target resource, region, and modelId.",
         "parameters": [
           {
             "name": "modelId",
@@ -367,7 +367,7 @@
     "/operations": {
       "get": {
         "operationId": "Operations_listOperations",
-        "summary": "Lists all operations.",
+        "description": "Lists all operations.",
         "parameters": [],
         "responses": {
           "200": {
@@ -399,7 +399,7 @@
     "/operations/{operationId}": {
       "get": {
         "operationId": "Operations_getOperation",
-        "summary": "Gets operation info.",
+        "description": "Gets operation info.",
         "parameters": [
           {
             "name": "operationId",
@@ -440,7 +440,7 @@
     "/documentModels": {
       "post": {
         "operationId": "DocumentModels_create",
-        "summary": "Creates a new instance of the resource.",
+        "description": "Creates a new instance of the resource.",
         "parameters": [],
         "responses": {
           "200": {
@@ -489,7 +489,7 @@
       },
       "get": {
         "operationId": "DocumentModels_list",
-        "summary": "Lists all instances of the resource.",
+        "description": "Lists all instances of the resource.",
         "parameters": [],
         "responses": {
           "200": {
@@ -521,7 +521,7 @@
     "/documentModels/{modelId}": {
       "get": {
         "operationId": "DocumentModels_get",
-        "summary": "Gets an instance of the resource.",
+        "description": "Gets an instance of the resource.",
         "parameters": [
           {
             "$ref": "#/components/parameters/ModelSummary.modelId"
@@ -555,7 +555,7 @@
       },
       "delete": {
         "operationId": "DocumentModels_delete",
-        "summary": "Deletes an existing instance of the resource.",
+        "description": "Deletes an existing instance of the resource.",
         "parameters": [
           {
             "$ref": "#/components/parameters/ModelSummary.modelId"

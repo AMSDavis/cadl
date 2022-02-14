@@ -20,6 +20,7 @@ import {
   getServiceNamespaceString,
   getServiceTitle,
   getServiceVersion,
+  getSummary,
   getVisibility,
   isErrorModel,
   isErrorType,
@@ -309,7 +310,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
     // allow operation extensions
     attachExtensions(op, currentEndpoint);
-    currentEndpoint.summary = getDoc(program, op);
+    currentEndpoint.summary = getSummary(program, op);
+    currentEndpoint.description = getDoc(program, op);
     currentEndpoint.parameters = [];
     currentEndpoint.responses = {};
 

@@ -47,7 +47,7 @@
     "/providers/Microsoft.EnvelopeTest/operations": {
       "get": {
         "operationId": "Operations_List",
-        "summary": "List the operations for Microsoft.EnvelopeTest",
+        "description": "List the operations for Microsoft.EnvelopeTest",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -78,7 +78,7 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.EnvelopeTest/allProperties": {
       "get": {
         "operationId": "AllProperties_ListBySubscription",
-        "summary": "List AllPropertiesResource resources by subscription ID",
+        "description": "List AllPropertiesResource resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -112,7 +112,7 @@
     "/subscriptions/{subscriptionId}/providers/Microsoft.EnvelopeTest/systems": {
       "get": {
         "operationId": "SystemsOnlyResources_ListBySubscription",
-        "summary": "List SystemOnlyResource resources by subscription ID",
+        "description": "List SystemOnlyResource resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -146,7 +146,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/allProperties": {
       "get": {
         "operationId": "AllProperties_ListByResourceGroup",
-        "summary": "List AllPropertiesResource resources by resource group",
+        "description": "List AllPropertiesResource resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -183,7 +183,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/allProperties/{allPropertiesName}": {
       "get": {
         "operationId": "AllProperties_Get",
-        "summary": "Get a AllPropertiesResource",
+        "description": "Get a AllPropertiesResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -222,7 +222,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a AllPropertiesResource",
+        "description": "Create a AllPropertiesResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -272,7 +272,7 @@
       },
       "patch": {
         "operationId": "AllProperties_Update",
-        "summary": "Update a AllPropertiesResource",
+        "description": "Update a AllPropertiesResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -320,7 +320,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a AllPropertiesResource",
+        "description": "Delete a AllPropertiesResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -360,7 +360,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/systems": {
       "get": {
         "operationId": "SystemsOnlyResources_ListByResourceGroup",
-        "summary": "List SystemOnlyResource resources by resource group",
+        "description": "List SystemOnlyResource resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -397,7 +397,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/systems/{systemOnlyPropertiesName}": {
       "get": {
         "operationId": "SystemsOnlyResources_Get",
-        "summary": "Get a SystemOnlyResource",
+        "description": "Get a SystemOnlyResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -436,7 +436,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Create a SystemOnlyResource",
+        "description": "Create a SystemOnlyResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -486,7 +486,7 @@
       },
       "patch": {
         "operationId": "SystemsOnlyResources_Update",
-        "summary": "Update a SystemOnlyResource",
+        "description": "Update a SystemOnlyResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
@@ -534,7 +534,7 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true,
-        "summary": "Delete a SystemOnlyResource",
+        "description": "Delete a SystemOnlyResource",
         "parameters": [
           {
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"

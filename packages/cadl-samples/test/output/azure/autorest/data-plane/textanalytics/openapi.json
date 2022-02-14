@@ -18,7 +18,8 @@
     "/analyze": {
       "post": {
         "operationId": "Analyze_submit",
-        "summary": "Submit analysis job.",
+        "summary": "Submit analysis job",
+        "description": "Submit a collection of text documents for analysis. Specify one or more unique tasks to be executed.",
         "parameters": [
           {
             "name": "body",
@@ -51,7 +52,8 @@
     "/analyze/jobs/{jobId}": {
       "get": {
         "operationId": "Analyze_getStatus",
-        "summary": "Get analysis status and results.",
+        "summary": "Get analysis status and results",
+        "description": "Get the status of an analysis job.  A job may consist of one or more tasks.  Once all tasks are completed, the job will transition to the completed state and results will be available for each task.",
         "parameters": [
           {
             "$ref": "#/parameters/JobIdParameter"
@@ -85,7 +87,8 @@
     "/entities/health/jobs": {
       "post": {
         "operationId": "Health_submit",
-        "summary": "Submit healthcare analysis job.",
+        "summary": "Submit healthcare analysis job",
+        "description": "Start a healthcare analysis job to recognize healthcare related entities (drugs, conditions, symptoms, etc) and their relations.",
         "parameters": [
           {
             "$ref": "#/parameters/ModelVersionParameter"
@@ -125,6 +128,7 @@
       "get": {
         "operationId": "Health_getStatus",
         "summary": "Get healthcare analysis job status and results",
+        "description": "Get details of the healthcare prediction job specified by the jobId.",
         "parameters": [
           {
             "$ref": "#/parameters/JobIdParameter"
@@ -156,7 +160,8 @@
       },
       "delete": {
         "operationId": "Health_cancel",
-        "summary": "Cancel healthcare analysis job.",
+        "summary": "Cancel healthcare analysis job",
+        "description": "Cancel healthcare prediction job.",
         "parameters": [
           {
             "$ref": "#/parameters/JobIdParameter"
@@ -183,7 +188,8 @@
     "/entities/linking": {
       "post": {
         "operationId": "EntityLinking_recognize",
-        "summary": "Linked entities from a well known knowledge base.",
+        "summary": "Linked entities from a well known knowledge base",
+        "description": "The API returns a list of recognized entities with links to a well known knowledge base. See the <a href=\"https://aka.ms/talangs\">Supported languages in Text Analytics API</a> for the list of enabled languages.",
         "parameters": [
           {
             "$ref": "#/parameters/ModelVersionParameter"
@@ -220,7 +226,8 @@
     "/entities/recognition/general": {
       "post": {
         "operationId": "Entities_recognize",
-        "summary": "Named entity recognition.",
+        "summary": "Named Entity Recognition",
+        "description": "The API returns a list of general named entities in a given document. For the list of supported entity types, check <a href=\"https://aka.ms/taner\">Supported Entity Types in Text Analytics API</a>. See the <a href=\"https://aka.ms/talangs\">Supported languages in Text Analytics API</a> for the list of enabled languages.",
         "parameters": [
           {
             "$ref": "#/parameters/ModelVersionParameter"
@@ -257,7 +264,8 @@
     "/entities/recognition/pii": {
       "post": {
         "operationId": "Pii_recognize",
-        "summary": "Recognize entities containing personal information.",
+        "summary": "Entities containing personal information",
+        "description": "The API returns a list of entities with personal information (\\\"SSN\\\", \\\"Bank Account\\\" etc) in the document. For the list of supported entity types, check <a href=\"https://aka.ms/tanerpii\">Supported Entity Types in Text Analytics API</a>. See the <a href=\"https://aka.ms/talangs\">Supported languages in Text Analytics API</a> for the list of enabled languages.\n",
         "parameters": [
           {
             "$ref": "#/parameters/ModelVersionParameter"
@@ -300,7 +308,8 @@
     "/keyPhrases": {
       "post": {
         "operationId": "KeyPhrases_identifyKeyPhrases",
-        "summary": "Identify key phrases.",
+        "summary": "Key Phrases",
+        "description": "The API returns a list of strings denoting the key phrases in the input text. See the <a href=\"https://aka.ms/talangs\">Supported languages in Text Analytics API</a> for the list of enabled languages.",
         "parameters": [
           {
             "$ref": "#/parameters/ModelVersionParameter"
@@ -334,7 +343,8 @@
     "/languages": {
       "post": {
         "operationId": "Languages_detect",
-        "summary": "Detect language.",
+        "summary": "Detect Language",
+        "description": "The API returns the detected language and a numeric score between 0 and 1. Scores close to 1 indicate 100% certainty that the identified language is true. See the <a href=\"https://aka.ms/talangs\">Supported languages in Text Analytics API</a> for the list of enabled languages.",
         "parameters": [
           {
             "$ref": "#/parameters/ModelVersionParameter"
@@ -371,7 +381,8 @@
     "/sentiment": {
       "post": {
         "operationId": "Sentiment_analyze",
-        "summary": "Analyze sentiment.",
+        "summary": "Sentiment",
+        "description": "The API returns a detailed sentiment analysis for the input text. The analysis is done in multiple levels of granularity, start from the a document level, down to sentence and key terms (targets and assessments).",
         "parameters": [
           {
             "$ref": "#/parameters/ModelVersionParameter"
