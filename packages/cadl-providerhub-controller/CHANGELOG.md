@@ -1,6 +1,14 @@
 # Change Log - @azure-tools/cadl-providerhub-controller
 
-This log was last generated on Fri, 04 Feb 2022 18:01:35 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Feb 2022 06:13:30 GMT and should not be manually modified.
+
+## 0.8.1
+Fri, 11 Feb 2022 06:13:30 GMT
+
+### Patches
+
+- Use new @azure-tools/cadl-azure-resource-manager library
+- Bump dependency versions
 
 ## 0.8.0
 Fri, 04 Feb 2022 18:01:35 GMT

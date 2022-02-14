@@ -2,6 +2,40 @@
   "name": "@azure-tools/cadl-providerhub",
   "entries": [
     {
+      "version": "0.13.0",
+      "tag": "@azure-tools/cadl-providerhub_v0.13.0",
+      "date": "Fri, 11 Feb 2022 06:13:30 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Update decorators with new interface"
+          },
+          {
+            "comment": "Move some common models and library functionality into @azure-tools/cadl-azure-resource-manager"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Bump dependency versions"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `~0.11.0` to `~0.12.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-azure-resource-manager\" from `~0.1.0` to `~0.2.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `~0.11.0` to `~0.12.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-azure-resource-manager\" from `~0.1.0` to `~0.2.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.12.0",
       "tag": "@azure-tools/cadl-providerhub_v0.12.0",
       "date": "Fri, 04 Feb 2022 18:01:35 GMT",

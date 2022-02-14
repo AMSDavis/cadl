@@ -1,0 +1,28 @@
+{
+  "name": "@azure-tools/cadl-azure-resource-manager",
+  "entries": [
+    {
+      "version": "0.2.0",
+      "tag": "@azure-tools/cadl-azure-resource-manager_v0.2.0",
+      "date": "Fri, 11 Feb 2022 06:13:30 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Update decorators with new interface"
+          },
+          {
+            "comment": "Create @azure-tools/cadl-azure-resource-manager library for new interface-based resource modelling design"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `~0.11.0` to `~0.12.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `~0.11.0` to `~0.12.0`"
+          }
+        ]
+      }
+    }
+  ]
+}

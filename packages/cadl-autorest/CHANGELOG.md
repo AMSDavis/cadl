@@ -1,6 +1,17 @@
 # Change Log - @azure-tools/cadl-autorest
 
-This log was last generated on Fri, 04 Feb 2022 18:01:35 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Feb 2022 06:13:30 GMT and should not be manually modified.
+
+## 0.12.0
+Fri, 11 Feb 2022 06:13:30 GMT
+
+### Minor changes
+
+- Update decorators with new interface
+
+### Patches
+
+- Bump dependency versions
 
 ## 0.11.0
 Fri, 04 Feb 2022 18:01:35 GMT

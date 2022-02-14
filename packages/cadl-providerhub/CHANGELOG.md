@@ -1,6 +1,18 @@
 # Change Log - @azure-tools/cadl-providerhub
 
-This log was last generated on Fri, 04 Feb 2022 18:01:35 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Feb 2022 06:13:30 GMT and should not be manually modified.
+
+## 0.13.0
+Fri, 11 Feb 2022 06:13:30 GMT
+
+### Minor changes
+
+- Update decorators with new interface
+- Move some common models and library functionality into @azure-tools/cadl-azure-resource-manager
+
+### Patches
+
+- Bump dependency versions
 
 ## 0.12.0
 Fri, 04 Feb 2022 18:01:35 GMT
