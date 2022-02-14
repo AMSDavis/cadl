@@ -6,15 +6,14 @@ using Cadl.Http;
 @doc("Language of the text records. This is BCP-47 representation of a language. For example, use \"en\" for English; \"es\" for Spanish etc. If not set, use \"en\" for English as default.")
 model Language is string {}
 
+@error
 model ODataError {
-  @statusCode code: "default";
   message: string;
 }
 
 @doc("Error response")
+@error
 model ErrorResponse {
-  @statusCode code: "default";
-
   @doc("The error object")
   error: Error;
 }

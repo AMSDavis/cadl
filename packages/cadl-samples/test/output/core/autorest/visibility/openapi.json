@@ -30,7 +30,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/ReadablePerson"
             }
@@ -51,7 +51,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/ReadablePerson"
             }
@@ -81,7 +81,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/ReadablePerson"
             }

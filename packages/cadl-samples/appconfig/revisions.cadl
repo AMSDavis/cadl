@@ -6,7 +6,7 @@ namespace RevisionsResource {
   @operationId("GetRevisions")
   @get
   op list(
-    ...ServiceParams,
+    ...ApiVersion,
     ...SyncTokenHeader,
     ...AcceptDatetimeHeader,
 
@@ -21,16 +21,24 @@ namespace RevisionsResource {
     @doc("A filter used to match keys.")
     @query
     key: string
-  ): OkResponse<SyncTokenHeader & Page<KeyValue>> | Error;
+  ): {
+    ...Response<200>;
+    ...SyncTokenHeader;
+    @header contentType: "application/vnd.microsoft.appconfig.kvset+json" | "application/json";
+    @body body: Page<KeyValue>;
+  } | Error;
 
   @doc("Requests the headers and status of the given resource.")
   @operationId("CheckRevisions")
   @head
   op listHead(
-    ...ServiceParams,
+    ...ApiVersion,
     ...SyncTokenHeader,
     ...AcceptDatetimeHeader,
     @query name: string,
     @query after: string
-  ): OkResponse<SyncTokenHeader> | Error;
+  ): {
+    ...Response<200>;
+    ...SyncTokenHeader;
+  } | Error;
 }

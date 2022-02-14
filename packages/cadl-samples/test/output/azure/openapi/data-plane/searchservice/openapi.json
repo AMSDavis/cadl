@@ -86,7 +86,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Accepted",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -212,7 +212,7 @@
             }
           },
           "201": {
-            "description": "Accepted",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -397,7 +397,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Accepted",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -526,7 +526,7 @@
             }
           },
           "201": {
-            "description": "Accepted",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -868,7 +868,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Accepted",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -1000,7 +1000,7 @@
             }
           },
           "201": {
-            "description": "Accepted",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -1250,7 +1250,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Accepted",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {

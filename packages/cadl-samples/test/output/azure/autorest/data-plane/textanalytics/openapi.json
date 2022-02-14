@@ -32,12 +32,12 @@
         ],
         "responses": {
           "202": {
+            "description": "A successful call results with an Operation-Location header used to check the status of the job.",
             "headers": {
               "Operation-Location": {
                 "type": "string"
               }
-            },
-            "description": "A successful call results with an Operation-Location header used to check the status of the job."
+            }
           },
           "default": {
             "description": "Unexpected error.",
@@ -105,12 +105,12 @@
         ],
         "responses": {
           "202": {
+            "description": "A successful call results with an Operation-Location header used to check the status of the job.",
             "headers": {
               "Operation-Location": {
                 "type": "string"
               }
-            },
-            "description": "A successful call results with an Operation-Location header used to check the status of the job."
+            }
           },
           "default": {
             "description": "Unexpected error.",
@@ -164,12 +164,12 @@
         ],
         "responses": {
           "202": {
+            "description": "A successful call results with an Operation-Location header used to check the status of the job.",
             "headers": {
               "Operation-Location": {
                 "type": "string"
               }
-            },
-            "description": "A successful call results with an Operation-Location header used to check the status of the job."
+            }
           },
           "default": {
             "description": "Unexpected error.",

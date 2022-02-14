@@ -23,13 +23,15 @@ model SyncTokenHeader {
   syncToken?: string;
 }
 
-model ServiceParams {
+model ApiVersion {
   @query apiVersion: string;
 }
 
 @doc("Azure App Configuration error object.")
+@error
 model Error {
-  @statusCode code: "default";
+  @header
+  contentType: "application/problem+json";
 
   @doc("The type of the error")
   type: string;
@@ -62,8 +64,6 @@ alias LabelPage = Page<Label>;
 
 alias KeyValueHeaders = SyncTokenHeader & LastModifiedHeader & ETagHeader;
 
-alias KeyValue = Key & Value;
-
 model Key {
   key: string;
 }
@@ -72,6 +72,11 @@ model Value {
   label?: string;
   tags: Map<string, string>;
   locked: boolean;
+}
+
+model KeyValue {
+  ...Key;
+  ...Value;
 }
 
 enum KeyField {

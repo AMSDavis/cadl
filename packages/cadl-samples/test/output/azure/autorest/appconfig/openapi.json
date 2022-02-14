@@ -21,7 +21,7 @@
         "summary": "Gets a list of keys.",
         "parameters": [
           {
-            "$ref": "#/parameters/ServiceParams"
+            "$ref": "#/parameters/ApiVersion"
           },
           {
             "$ref": "#/parameters/SyncTokenHeader"
@@ -44,25 +44,15 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded.",
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
+              }
+            },
             "schema": {
-              "type": "object",
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/Key"
-                  },
-                  "x-cadl-name": "Key[]"
-                },
-                "nextLink": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "items"
-              ],
-              "x-cadl-name": "(anonymous model)"
+              "$ref": "#/definitions/Page_Key"
             }
           },
           "default": {
@@ -71,14 +61,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "produces": [
+          "application/vnd.microsoft.appconfig.keyset+json",
+          "application/json",
+          "application/problem+json"
+        ]
       },
       "head": {
         "operationId": "CheckKeys",
         "summary": "Requests the headers and status of the given resource.",
         "parameters": [
           {
-            "$ref": "#/parameters/ServiceParams"
+            "$ref": "#/parameters/ApiVersion"
           },
           {
             "$ref": "#/parameters/SyncTokenHeader"
@@ -101,7 +96,13 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded."
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
+              }
+            }
           },
           "default": {
             "description": "Azure App Configuration error object.",
@@ -109,7 +110,10 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "produces": [
+          "application/problem+json"
+        ]
       }
     },
     "/kv": {
@@ -118,7 +122,7 @@
         "summary": "Gets a list of key-values.",
         "parameters": [
           {
-            "$ref": "#/parameters/ServiceParams"
+            "$ref": "#/parameters/ApiVersion"
           },
           {
             "$ref": "#/parameters/SyncTokenHeader"
@@ -165,48 +169,15 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded.",
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
+              }
+            },
             "schema": {
-              "type": "object",
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "key": {
-                        "type": "string"
-                      },
-                      "label": {
-                        "type": "string"
-                      },
-                      "tags": {
-                        "type": "object",
-                        "additionalProperties": {
-                          "type": "string"
-                        }
-                      },
-                      "locked": {
-                        "type": "boolean"
-                      }
-                    },
-                    "required": [
-                      "key",
-                      "tags",
-                      "locked"
-                    ],
-                    "x-cadl-name": "(anonymous model)"
-                  },
-                  "x-cadl-name": "(anonymous model)[]"
-                },
-                "nextLink": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "items"
-              ],
-              "x-cadl-name": "(anonymous model)"
+              "$ref": "#/definitions/Page_KeyValue"
             }
           },
           "default": {
@@ -215,7 +186,12 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "produces": [
+          "application/vnd.microsoft.appconfig.keyset+json",
+          "application/json",
+          "application/problem+json"
+        ]
       },
       "head": {
         "operationId": "CheckKeyValues",
@@ -263,7 +239,13 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded."
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
+              }
+            }
           },
           "default": {
             "description": "Azure App Configuration error object.",
@@ -271,7 +253,10 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "produces": [
+          "application/problem+json"
+        ]
       }
     },
     "/kv/{key}": {
@@ -319,32 +304,22 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "key": {
-                  "type": "string"
-                },
-                "label": {
-                  "type": "string"
-                },
-                "tags": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                },
-                "locked": {
-                  "type": "boolean"
-                }
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
               },
-              "required": [
-                "key",
-                "tags",
-                "locked"
-              ],
-              "x-cadl-name": "(anonymous model)"
+              "last-modified": {
+                "type": "string",
+                "format": "date"
+              },
+              "e-tag": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/KeyValue"
             }
           },
           "default": {
@@ -353,7 +328,12 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "produces": [
+          "application/vnd.microsoft.appconfig.kv+json",
+          "application/json",
+          "application/problem+json"
+        ]
       },
       "head": {
         "operationId": "CheckKeyValue",
@@ -377,7 +357,17 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded."
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
+              },
+              "last-modified": {
+                "type": "string",
+                "format": "date"
+              }
+            }
           },
           "default": {
             "description": "Azure App Configuration error object.",
@@ -385,7 +375,10 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "produces": [
+          "application/problem+json"
+        ]
       },
       "put": {
         "operationId": "PutKeyValue",
@@ -408,61 +401,28 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "key": {
-                  "type": "string"
-                },
-                "label": {
-                  "type": "string"
-                },
-                "tags": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                },
-                "locked": {
-                  "type": "boolean"
-                }
-              },
-              "required": [
-                "key",
-                "tags",
-                "locked"
-              ],
-              "x-cadl-name": "(anonymous model)"
+              "$ref": "#/definitions/KeyValue"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "key": {
-                  "type": "string"
-                },
-                "label": {
-                  "type": "string"
-                },
-                "tags": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                },
-                "locked": {
-                  "type": "boolean"
-                }
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
               },
-              "required": [
-                "key",
-                "tags",
-                "locked"
-              ],
-              "x-cadl-name": "(anonymous model)"
+              "last-modified": {
+                "type": "string",
+                "format": "date"
+              },
+              "e-tag": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/KeyValue"
             }
           },
           "default": {
@@ -471,14 +431,27 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "consumes": [
+          "application/vnd.microsoft.appconfig.kv+json",
+          "application/vnd.microsoft.appconfig.kvset+json",
+          "application/json",
+          "text/json",
+          "application/*+json",
+          "application/json-patch+json"
+        ],
+        "produces": [
+          "application/vnd.microsoft.appconfig.kv+json",
+          "application/json",
+          "application/problem+json"
+        ]
       },
       "post": {
         "operationId": "UpdateKeyValue",
         "summary": "Updates a key-value pair",
         "parameters": [
           {
-            "$ref": "#/parameters/ServiceParams"
+            "$ref": "#/parameters/ApiVersion"
           },
           {
             "$ref": "#/parameters/SyncTokenHeader"
@@ -510,32 +483,22 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "key": {
-                  "type": "string"
-                },
-                "label": {
-                  "type": "string"
-                },
-                "tags": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                },
-                "locked": {
-                  "type": "boolean"
-                }
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
               },
-              "required": [
-                "key",
-                "tags",
-                "locked"
-              ],
-              "x-cadl-name": "(anonymous model)"
+              "last-modified": {
+                "type": "string",
+                "format": "date"
+              },
+              "e-tag": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/KeyValue"
             }
           },
           "default": {
@@ -547,12 +510,23 @@
         },
         "consumes": [
           "application/json-patch+json"
+        ],
+        "produces": [
+          "application/vnd.microsoft.appconfig.kv+json",
+          "application/json",
+          "application/problem+json"
         ]
       },
       "delete": {
         "operationId": "DeleteKeyValue",
         "summary": "Deletes a key-value.",
         "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersion"
+          },
+          {
+            "$ref": "#/parameters/SyncTokenHeader"
+          },
           {
             "$ref": "#/parameters/KeyWithFilters.key"
           },
@@ -568,36 +542,28 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "key": {
-                  "type": "string"
-                },
-                "label": {
-                  "type": "string"
-                },
-                "tags": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                },
-                "locked": {
-                  "type": "boolean"
-                }
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
               },
-              "required": [
-                "key",
-                "tags",
-                "locked"
-              ],
-              "x-cadl-name": "(anonymous model)"
+              "e-tag": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/KeyValue"
             }
           },
           "204": {
-            "description": "A successful response"
+            "description": "No Content",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
+              }
+            }
           },
           "default": {
             "description": "Azure App Configuration error object.",
@@ -605,7 +571,12 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "produces": [
+          "application/vnd.microsoft.appconfig.kv+json",
+          "application/json",
+          "application/problem+json"
+        ]
       }
     },
     "/labels": {
@@ -614,7 +585,7 @@
         "summary": "Gets a list of labels.",
         "parameters": [
           {
-            "$ref": "#/parameters/ServiceParams"
+            "$ref": "#/parameters/ApiVersion"
           },
           {
             "$ref": "#/parameters/SyncTokenHeader"
@@ -637,25 +608,15 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded.",
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
+              }
+            },
             "schema": {
-              "type": "object",
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/Label"
-                  },
-                  "x-cadl-name": "Label[]"
-                },
-                "nextLink": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "items"
-              ],
-              "x-cadl-name": "(anonymous model)"
+              "$ref": "#/definitions/Page_Label"
             }
           },
           "default": {
@@ -664,14 +625,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "produces": [
+          "application/vnd.microsoft.appconfig.labelset+json",
+          "application/json",
+          "application/problem+json"
+        ]
       },
       "head": {
         "operationId": "CheckLabels",
         "summary": "Requests the headers and status of the given resource.",
         "parameters": [
           {
-            "$ref": "#/parameters/ServiceParams"
+            "$ref": "#/parameters/ApiVersion"
           },
           {
             "$ref": "#/parameters/SyncTokenHeader"
@@ -710,7 +676,13 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded."
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
+              }
+            }
           },
           "default": {
             "description": "Azure App Configuration error object.",
@@ -718,7 +690,10 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "produces": [
+          "application/problem+json"
+        ]
       }
     },
     "/locks/{key}": {
@@ -726,7 +701,7 @@
         "operationId": "GetLock",
         "parameters": [
           {
-            "$ref": "#/parameters/ServiceParams"
+            "$ref": "#/parameters/ApiVersion"
           },
           {
             "$ref": "#/parameters/SyncTokenHeader"
@@ -752,32 +727,15 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded.",
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
+              }
+            },
             "schema": {
-              "type": "object",
-              "properties": {
-                "key": {
-                  "type": "string"
-                },
-                "label": {
-                  "type": "string"
-                },
-                "tags": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                },
-                "locked": {
-                  "type": "boolean"
-                }
-              },
-              "required": [
-                "key",
-                "tags",
-                "locked"
-              ],
-              "x-cadl-name": "(anonymous model)"
+              "$ref": "#/definitions/KeyValue"
             }
           },
           "default": {
@@ -786,13 +744,17 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "produces": [
+          "application/json",
+          "application/problem+json"
+        ]
       },
       "delete": {
         "operationId": "DeleteLock",
         "parameters": [
           {
-            "$ref": "#/parameters/ServiceParams"
+            "$ref": "#/parameters/ApiVersion"
           },
           {
             "$ref": "#/parameters/SyncTokenHeader"
@@ -818,32 +780,15 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded.",
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
+              }
+            },
             "schema": {
-              "type": "object",
-              "properties": {
-                "key": {
-                  "type": "string"
-                },
-                "label": {
-                  "type": "string"
-                },
-                "tags": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                },
-                "locked": {
-                  "type": "boolean"
-                }
-              },
-              "required": [
-                "key",
-                "tags",
-                "locked"
-              ],
-              "x-cadl-name": "(anonymous model)"
+              "$ref": "#/definitions/KeyValue"
             }
           },
           "default": {
@@ -852,7 +797,11 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "produces": [
+          "application/json",
+          "application/problem+json"
+        ]
       }
     },
     "/revisions": {
@@ -861,7 +810,7 @@
         "summary": "Gets a list of revisions.",
         "parameters": [
           {
-            "$ref": "#/parameters/ServiceParams"
+            "$ref": "#/parameters/ApiVersion"
           },
           {
             "$ref": "#/parameters/SyncTokenHeader"
@@ -908,48 +857,15 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded.",
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
+              }
+            },
             "schema": {
-              "type": "object",
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "key": {
-                        "type": "string"
-                      },
-                      "label": {
-                        "type": "string"
-                      },
-                      "tags": {
-                        "type": "object",
-                        "additionalProperties": {
-                          "type": "string"
-                        }
-                      },
-                      "locked": {
-                        "type": "boolean"
-                      }
-                    },
-                    "required": [
-                      "key",
-                      "tags",
-                      "locked"
-                    ],
-                    "x-cadl-name": "(anonymous model)"
-                  },
-                  "x-cadl-name": "(anonymous model)[]"
-                },
-                "nextLink": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "items"
-              ],
-              "x-cadl-name": "(anonymous model)"
+              "$ref": "#/definitions/Page_KeyValue"
             }
           },
           "default": {
@@ -958,14 +874,19 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "produces": [
+          "application/vnd.microsoft.appconfig.kvset+json",
+          "application/json",
+          "application/problem+json"
+        ]
       },
       "head": {
         "operationId": "CheckRevisions",
         "summary": "Requests the headers and status of the given resource.",
         "parameters": [
           {
-            "$ref": "#/parameters/ServiceParams"
+            "$ref": "#/parameters/ApiVersion"
           },
           {
             "$ref": "#/parameters/SyncTokenHeader"
@@ -988,7 +909,13 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded."
+            "description": "Ok",
+            "headers": {
+              "sync-token": {
+                "description": "Used to guarantee real-time consistency between requests.",
+                "type": "string"
+              }
+            }
           },
           "default": {
             "description": "Azure App Configuration error object.",
@@ -996,7 +923,10 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "produces": [
+          "application/problem+json"
+        ]
       }
     }
   },
@@ -1061,6 +991,31 @@
         "modelAsString": true
       }
     },
+    "KeyValue": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "locked": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "key",
+        "tags",
+        "locked"
+      ]
+    },
     "Label": {
       "type": "object",
       "properties": {
@@ -1081,6 +1036,60 @@
         "name": "LabelField",
         "modelAsString": true
       }
+    },
+    "Page_Key": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Key"
+          },
+          "x-cadl-name": "Key[]"
+        },
+        "nextLink": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "Page_KeyValue": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KeyValue"
+          },
+          "x-cadl-name": "KeyValue[]"
+        },
+        "nextLink": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "Page_Label": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Label"
+          },
+          "x-cadl-name": "Label[]"
+        },
+        "nextLink": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "items"
+      ]
     }
   },
   "parameters": {
@@ -1091,6 +1100,13 @@
       "required": true,
       "type": "string",
       "format": "date"
+    },
+    "ApiVersion": {
+      "x-ms-parameter-location": "method",
+      "name": "apiVersion",
+      "in": "query",
+      "required": true,
+      "type": "string"
     },
     "ETagHeaders.ifMatch": {
       "x-ms-parameter-location": "method",
@@ -1136,13 +1152,6 @@
       "in": "query",
       "required": false,
       "description": "A filter used to match labels",
-      "type": "string"
-    },
-    "ServiceParams": {
-      "x-ms-parameter-location": "method",
-      "name": "apiVersion",
-      "in": "query",
-      "required": true,
       "type": "string"
     },
     "SyncTokenHeader": {

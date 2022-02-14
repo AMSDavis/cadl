@@ -28,7 +28,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "type": "string"
             }
@@ -49,7 +49,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "type": "string"
             }

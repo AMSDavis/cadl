@@ -30,7 +30,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/HasBytes"
             }
@@ -48,7 +48,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "type": "file"
             }
@@ -72,7 +72,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "type": "file"
             }
@@ -96,7 +96,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "type": "string",
               "format": "byte"

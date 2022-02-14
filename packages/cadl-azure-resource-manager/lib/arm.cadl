@@ -310,11 +310,8 @@ model OperationStatusResult {
 
 @armCommonDefinition
 @doc("Common error response for all Azure Resource Manager APIs to return error details for failed operations.")
+@error
 model ErrorResponse {
-  @doc("Unexpected error")
-  @statusCode
-  statusCode: "default";
-
   @doc("The error object.")
   error?: ErrorDetail;
 }

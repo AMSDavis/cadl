@@ -84,7 +84,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/AnomalyAlertingConfiguration"
             }
@@ -140,7 +140,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/AnomalyAlertingConfiguration"
             }
@@ -214,7 +214,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/AnomalyAlertingConfiguration"
             }
@@ -270,7 +270,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Credential"
             }
@@ -326,7 +326,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Credential"
             }
@@ -363,7 +363,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Credential"
             }
@@ -419,7 +419,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/DataFeedDetail"
             }
@@ -475,7 +475,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/DataFeedDetail"
             }
@@ -657,7 +657,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/DataFeedDetail"
             }
@@ -713,7 +713,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/AnomalyDetectionConfiguration"
             }
@@ -769,7 +769,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/AnomalyDetectionConfiguration"
             }
@@ -806,7 +806,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/AnomalyDetectionConfiguration"
             }
@@ -1083,7 +1083,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/MetricFeedback"
             }
@@ -1117,7 +1117,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/MetricFeedback"
             }
@@ -1188,7 +1188,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/HookInfo"
             }
@@ -1244,7 +1244,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/HookInfo"
             }
@@ -1308,7 +1308,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/HookInfo"
             }
@@ -1372,7 +1372,7 @@
         ],
         "responses": {
           "204": {
-            "description": "A successful response",
+            "description": "No Content",
             "schema": {
               "$ref": "#/definitions/Cadl.null"
             }

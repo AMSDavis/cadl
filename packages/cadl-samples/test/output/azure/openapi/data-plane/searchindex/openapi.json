@@ -712,7 +712,7 @@
             }
           },
           "207": {
-            "description": "A successful response",
+            "description": "Successful",
             "content": {
               "application/json": {
                 "schema": {

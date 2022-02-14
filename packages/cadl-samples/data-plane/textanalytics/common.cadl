@@ -256,9 +256,8 @@ model LongRunningAcceptedResponse {
 }
 
 @doc("Unexpected error.")
+@error
 model ErrorResponse {
-  @statusCode statusCode: "default";
-
   @doc("Document error.")
   error: Error;
 }

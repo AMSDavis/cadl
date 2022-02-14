@@ -55,7 +55,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Checkup"
             }
@@ -91,7 +91,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Owner"
             }
@@ -141,7 +141,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Owner"
             }
@@ -183,7 +183,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Owner"
             }
@@ -264,7 +264,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Checkup"
             }
@@ -295,7 +295,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Insurance"
             }
@@ -341,7 +341,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Insurance"
             }
@@ -371,7 +371,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Pet"
             }
@@ -421,7 +421,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Pet"
             }
@@ -472,7 +472,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Pet"
             }
@@ -553,7 +553,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Checkup"
             }
@@ -584,7 +584,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Insurance"
             }
@@ -630,7 +630,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Insurance"
             }
@@ -688,7 +688,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Toy"
             }
@@ -716,7 +716,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Insurance"
             }
@@ -765,7 +765,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Insurance"
             }

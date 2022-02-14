@@ -21,7 +21,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Resp"
             }
@@ -67,7 +67,7 @@
             }
           },
           "404": {
-            "description": "A successful response",
+            "description": "Not Found",
             "schema": {
               "$ref": "#/definitions/NotFoundResp"
             }
@@ -87,7 +87,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/Resp"
             }

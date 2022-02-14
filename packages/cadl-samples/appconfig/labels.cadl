@@ -6,22 +6,30 @@ namespace LabelsResource {
   @operationId("GetLabels")
   @get
   op list(
-    ...ServiceParams,
+    ...ApiVersion,
     ...SyncTokenHeader,
     ...AcceptDatetimeHeader,
     @query name?: string,
     @query after?: string
-  ): OkResponse<SyncTokenHeader & LabelPage> | Error;
+  ): {
+    ...Response<200>;
+    ...SyncTokenHeader;
+    @header contentType: "application/vnd.microsoft.appconfig.labelset+json" | "application/json";
+    @body body: LabelPage;
+  } | Error;
 
   @doc("Requests the headers and status of the given resource.")
   @operationId("CheckLabels")
   @head
   op listHead(
-    ...ServiceParams,
+    ...ApiVersion,
     ...SyncTokenHeader,
     ...AcceptDatetimeHeader,
     @query name?: string,
     @query after?: string,
     @query $Select?: LabelField[]
-  ): OkResponse<SyncTokenHeader> | Error;
+  ): {
+    ...Response<200>;
+    ...SyncTokenHeader;
+  } | Error;
 }

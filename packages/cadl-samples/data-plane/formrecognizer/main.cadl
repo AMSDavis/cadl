@@ -134,8 +134,8 @@ model ModelSummary {
   createdDateTime: zonedDateTime;
 }
 
+@error
 model ErrorResponse {
-  @statusCode statusCode: "default";
   error: Error;
 }
 

@@ -48,7 +48,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "type": "object",
               "properties": {
@@ -96,7 +96,7 @@
         ],
         "responses": {
           "201": {
-            "description": "A successful response",
+            "description": "Created",
             "schema": {
               "$ref": "#/definitions/SearchIndexerDataSource"
             }
@@ -197,7 +197,7 @@
             }
           },
           "201": {
-            "description": "A successful response",
+            "description": "Created",
             "schema": {
               "$ref": "#/definitions/SearchIndexerDataSource"
             }
@@ -273,7 +273,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "type": "object",
               "properties": {
@@ -321,7 +321,7 @@
         ],
         "responses": {
           "201": {
-            "description": "A successful response",
+            "description": "Created",
             "schema": {
               "$ref": "#/definitions/SearchIndexer"
             }
@@ -425,7 +425,7 @@
             }
           },
           "201": {
-            "description": "A successful response",
+            "description": "Created",
             "schema": {
               "$ref": "#/definitions/SearchIndexer"
             }
@@ -666,7 +666,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "type": "object",
               "properties": {
@@ -714,7 +714,7 @@
         ],
         "responses": {
           "201": {
-            "description": "A successful response",
+            "description": "Created",
             "schema": {
               "$ref": "#/definitions/SearchIndex"
             }
@@ -819,7 +819,7 @@
             }
           },
           "201": {
-            "description": "A successful response",
+            "description": "Created",
             "schema": {
               "$ref": "#/definitions/SearchIndex"
             }
@@ -1007,7 +1007,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "type": "object",
               "properties": {
@@ -1055,7 +1055,7 @@
         ],
         "responses": {
           "201": {
-            "description": "A successful response",
+            "description": "Created",
             "schema": {
               "$ref": "#/definitions/SearchIndexerSkillset"
             }

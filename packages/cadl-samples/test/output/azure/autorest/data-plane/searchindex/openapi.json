@@ -835,7 +835,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "type": "integer",
               "format": "int64"
@@ -1014,7 +1014,7 @@
             }
           },
           "207": {
-            "description": "A successful response",
+            "description": "Successful",
             "schema": {
               "$ref": "#/definitions/IndexDocumentsResult"
             }
@@ -1299,7 +1299,12 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded."
+            "description": "The request has succeeded.",
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "x-cadl-name": "(anonymous model)"
+            }
           },
           "default": {
             "description": "Describes an error condition for the Azure Cognitive Search API.",

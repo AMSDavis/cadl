@@ -472,9 +472,8 @@ model SearchDocumentsResult {
 }
 
 @doc("Describes an error condition for the Azure Cognitive Search API.")
+@error
 model SearchError {
-  @statusCode statusCode: "default";
-
   @doc("One of a server-defined set of error codes.")
   @visibility("read")
   code?: string;

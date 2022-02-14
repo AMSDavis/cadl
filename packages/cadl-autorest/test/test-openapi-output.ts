@@ -219,13 +219,13 @@ describe("autorest: definitions", () => {
     const res = await oapiForModel(
       "Foo",
       `
-      model Foo { @header x: string};`
+      model Foo { @statusCode code: 200, @header x: string};`
     );
 
     ok(!res.isRef);
     deepStrictEqual(res.defs, {});
     deepStrictEqual(res.response, {
-      description: "A successful response",
+      description: "Ok",
       headers: { x: { type: "string" } },
     });
   });
@@ -527,70 +527,6 @@ describe("autorest: operations", () => {
     ok(getThing.parameters[1].maximum);
     strictEqual(getThing.parameters[1].minimum, 1);
     strictEqual(getThing.parameters[1].maximum, 10);
-  });
-});
-
-describe("autorest: responses", () => {
-  it("defines responses with primitive types", async () => {
-    const res = await openApiFor(
-      `
-    @route("/")
-    namespace root {
-      op read(): string;
-    }
-    `
-    );
-    ok(res.paths["/"].get.responses["200"]);
-    ok(res.paths["/"].get.responses["200"].schema);
-    strictEqual(res.paths["/"].get.responses["200"].schema.type, "string");
-  });
-
-  describe("binary responses", () => {
-    it("bytes responses should produce to byte with application/json", async () => {
-      const res = await openApiFor(
-        `
-      @route("/")
-      namespace root {
-        @get op read(): bytes;
-      }
-      `
-      );
-      const operation = res.paths["/"].get;
-      deepStrictEqual(operation.produces, undefined);
-      strictEqual(operation.responses["200"].schema.type, "string");
-      strictEqual(operation.responses["200"].schema.format, "byte");
-    });
-
-    it("@body body: bytes responses should produce to byte with application/json", async () => {
-      const res = await openApiFor(
-        `
-      @route("/")
-      namespace root {
-        @get op read(): {@body body: bytes};
-      }
-      `
-      );
-
-      const operation = res.paths["/"].get;
-      deepStrictEqual(operation.produces, undefined);
-      strictEqual(operation.responses["200"].schema.type, "string");
-      strictEqual(operation.responses["200"].schema.format, "byte");
-    });
-
-    it("@header contentType should override content type and set type to file", async () => {
-      const res = await openApiFor(
-        `
-      @route("/")
-      namespace root {
-        @get op read(): {@header contentType: "image/png", @body body: bytes};
-      }
-      `
-      );
-
-      const operation = res.paths["/"].get;
-      deepStrictEqual(operation.produces, ["image/png"]);
-      strictEqual(operation.responses["200"].schema.type, "file");
-    });
   });
 });
 

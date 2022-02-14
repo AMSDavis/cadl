@@ -47,7 +47,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
             "schema": {
               "type": "array",
               "items": {
@@ -74,7 +74,7 @@
         ],
         "responses": {
           "204": {
-            "description": "No content"
+            "description": "No Content"
           }
         },
         "tags": [
@@ -97,7 +97,7 @@
         ],
         "responses": {
           "204": {
-            "description": "No content"
+            "description": "No Content"
           }
         },
         "tags": [
@@ -119,7 +119,7 @@
         ],
         "responses": {
           "204": {
-            "description": "No content"
+            "description": "No Content"
           }
         },
         "tags": [
@@ -143,7 +143,7 @@
         ],
         "responses": {
           "204": {
-            "description": "No content"
+            "description": "No Content"
           }
         },
         "tags": [

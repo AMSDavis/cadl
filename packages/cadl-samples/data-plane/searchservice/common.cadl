@@ -4,9 +4,8 @@ import "@cadl-lang/openapi";
 using Cadl.Http;
 
 @doc("The error object")
+@error
 model SearchError {
-  @statusCode statusCode: "default";
-
   @doc("One of a server-defined set of error codes")
   @visibility("read")
   code: string;

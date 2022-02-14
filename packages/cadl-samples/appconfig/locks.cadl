@@ -5,20 +5,28 @@ namespace LocksResource {
   @operationId("GetLock")
   @get
   op read(
-    ...ServiceParams,
+    ...ApiVersion,
     ...SyncTokenHeader,
     @path key: string,
     @query label: string,
     ...ETagHeaders
-  ): OkResponse<SyncTokenHeader & KeyValue> | Error;
+  ): {
+    ...Response<200>;
+    ...SyncTokenHeader;
+    @body body: KeyValue;
+  } | Error;
 
   @operationId("DeleteLock")
   @delete
   op delete(
-    ...ServiceParams,
+    ...ApiVersion,
     ...SyncTokenHeader,
     @path key: string,
     @query label: string,
     ...ETagHeaders
-  ): OkResponse<SyncTokenHeader & KeyValue> | Error;
+  ): {
+    ...Response<200>;
+    ...SyncTokenHeader;
+    @body body: KeyValue;
+  } | Error;
 }

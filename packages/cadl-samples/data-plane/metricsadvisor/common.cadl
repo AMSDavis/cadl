@@ -4,9 +4,8 @@ import "@cadl-lang/openapi";
 using Cadl.Http;
 
 @doc("Error response")
+@error
 model ErrorResponse {
-  @statusCode code: "default";
-
   @doc("The error object")
   error: Error;
 }

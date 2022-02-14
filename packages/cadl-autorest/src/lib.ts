@@ -40,17 +40,22 @@ const libDef = {
         default: "Request has multiple body types",
       },
     },
-    "duplicate-status-code": {
+    "duplicate-response": {
       severity: "error",
       messages: {
-        default: "Duplicate @statusCode declarations on response type",
+        default: paramMessage`Multiple return types for status code ${"statusCode"}`,
+      },
+    },
+    "content-type-ignored": {
+      severity: "warning",
+      messages: {
+        default: "content-type header ignored because return type has no body",
       },
     },
     "content-type-string": {
       severity: "error",
       messages: {
-        default: "contentType parameter must be a string or union of strings",
-        unionOfString: "The contentType property union must contain only string values",
+        default: "contentType parameter must be a string literal or union of string literals",
       },
     },
     "invalid-schema": {

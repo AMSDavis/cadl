@@ -100,7 +100,13 @@
         ],
         "responses": {
           "200": {
-            "description": "A successful response",
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ProjectMetadata"
+            }
+          },
+          "201": {
+            "description": "Created",
             "schema": {
               "$ref": "#/definitions/ProjectMetadata"
             }
@@ -127,12 +133,12 @@
         ],
         "responses": {
           "202": {
+            "description": "Accepted",
             "headers": {
               "operation-location": {
                 "type": "string"
               }
-            },
-            "description": "A successful response"
+            }
           },
           "default": {
             "description": "Error response",
@@ -164,12 +170,12 @@
         ],
         "responses": {
           "202": {
+            "description": "Accepted",
             "headers": {
               "operation-location": {
                 "type": "string"
               }
-            },
-            "description": "A successful response"
+            }
           },
           "default": {
             "description": "Error response",
@@ -201,12 +207,12 @@
         ],
         "responses": {
           "202": {
+            "description": "Accepted",
             "headers": {
               "operation-location": {
                 "type": "string"
               }
-            },
-            "description": "A successful response"
+            }
           },
           "default": {
             "description": "Error response",
@@ -262,12 +268,12 @@
         ],
         "responses": {
           "202": {
+            "description": "Accepted",
             "headers": {
               "operation-location": {
                 "type": "string"
               }
-            },
-            "description": "A successful response"
+            }
           },
           "default": {
             "description": "Error response",
