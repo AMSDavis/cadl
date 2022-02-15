@@ -40,3 +40,6 @@ steps:
 
   - script: node eng/scripts/check-for-changed-files.js
     displayName: Check Git Status For Changed Files
+
+  - script: node eng/scripts/validate-core-submodule.js
+    displayName: Check that core submodule is merged to core repo
