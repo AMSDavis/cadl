@@ -1,4 +1,4 @@
-import { writeFileSync } from "fs";
+import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 import {
   checkForChangedFiles,
@@ -9,17 +9,34 @@ import {
   run,
 } from "./helpers.js";
 
+const NoChange = 0;
+const Patch = 1;
+const Minor = 2;
+const Major = 3;
+
+// Create and checkout branches
 const branch = `publish/${Date.now().toString(36)}`;
+doubleRun("git", "checkout", "-b", branch);
 
 // Check that we have a clean slate before starting
 checkPrePublishState();
 
 // Update the cadl core submodule
 cadlRun("git", "fetch", "https://github.com/microsoft/cadl", "main");
-cadlRun("git", "checkout", "FETCH_HEAD");
+cadlRun("git", "merge", "--ff-only", "FETCH_HEAD");
 
 // Stage the cadl core publish
 cadlRun("rush", "publish", "--apply");
+cadlRun("git", "add", "-A");
+if (checkForChangedFiles(coreRepoRoot, undefined, { silent: true })) {
+  cadlRun("git", "commit", "-m", "Prepare cadl publish");
+} else {
+  console.log("INFO: No changes to cadl.");
+}
+
+if (checkForChangedFiles(repoRoot, undefined, { silent: true })) {
+  cadlAzureRun("git", "commit", "-a", "-m", "Update core submodule");
+}
 
 // Determine project versions including any bumps from cadl publish above
 const versions = getProjectVersions();
@@ -29,10 +46,12 @@ bumpCrossSubmoduleDependencies();
 
 // Stage cadl-azure publish
 cadlAzureRun("rush", "publish", "--apply");
-
-// Checkout branches and commit
-doubleRun("git", "checkout", "-b", branch);
-commitChanges();
+cadlAzureRun("git", "add", "-A");
+if (checkForChangedFiles(repoRoot, undefined, { silent: true })) {
+  cadlAzureRun("git", "commit", "-m", "Prepare cadl-azure publish");
+} else {
+  console.log("INFO: No changes to cadl-azure.");
+}
 
 // And we're done
 console.log();
@@ -81,51 +100,100 @@ function getProjectVersions() {
 }
 
 function bumpCrossSubmoduleDependencies() {
+  let changed = false;
+
   forEachProject((_, projectFolder, project) => {
-    if (bumpDependencies(project.dependencies, project.peerDependencies, project.devDependencies)) {
-      writeFileSync(
-        join(projectFolder, "package.json"),
-        JSON.stringify(project, undefined, 2) + "\n"
-      );
-      cadlAzureRun(
-        "rush",
-        "change",
-        "--bulk",
-        "--bump-type",
-        "patch",
-        "--message",
-        "Update dependencies."
-      );
+    if (projectFolder.startsWith(coreRepoRoot)) {
+      return;
     }
+
+    const change = bumpDependencies(
+      project.dependencies,
+      project.peerDependencies,
+      project.devDependencies
+    );
+
+    if (change == NoChange) {
+      return;
+    }
+
+    writeFileSync(
+      join(projectFolder, "package.json"),
+      JSON.stringify(project, undefined, 2) + "\n"
+    );
+
+    const changelog = {
+      changes: [
+        {
+          comment: "Update dependencies.",
+          type: change === Major ? "major" : change === Minor ? "minor" : "patch",
+          packageName: project.name,
+        },
+      ],
+      packageName: project.name,
+      email: "microsoftopensource@users.noreply.github.com",
+    };
+
+    const changelogDir = join(repoRoot, "common/changes", project.name);
+    mkdirSync(changelogDir, { recursive: true });
+
+    writeFileSync(
+      join(changelogDir, branch.replace("/", "-") + ".json"),
+      JSON.stringify(changelog, undefined, 2) + "\n"
+    );
+
+    changed = true;
   });
+
+  if (changed) {
+    cadlAzureRun("git", "add", "-A");
+    cadlAzureRun("git", "commit", "-m", `Bump cross-submodule dependencies.`);
+  }
 }
 
 function bumpDependencies(...dependencyGroups) {
-  let changed = false;
+  let change = NoChange;
   for (const dependencies of dependencyGroups.filter((x) => x !== undefined)) {
     for (const [dependency, oldVersion] of Object.entries(dependencies)) {
       const newVersion = versions.get(dependency);
       if (newVersion && `~${newVersion}` !== oldVersion) {
         dependencies[dependency] = `~${newVersion}`;
-        changed = true;
+        change = Math.max(change, getChangeType(oldVersion, newVersion));
       }
     }
   }
-  return changed;
+  return change;
 }
 
-function commitChanges() {
-  cadlRun("git", "add", "-A");
-  if (checkForChangedFiles(coreRepoRoot, undefined, { silent: true })) {
-    cadlRun("git", "commit", "-m", "Prepare cadl publish");
-  } else {
-    console.log("INFO: No changes to cadl.");
-  }
+function getChangeType(oldVersion, newVersion) {
+  const oldParts = getVersionParts(oldVersion);
+  const newParts = getVersionParts(newVersion);
 
-  cadlAzureRun("git", "add", "-A");
-  if (checkForChangedFiles(repoRoot, undefined, { silent: true })) {
-    cadlAzureRun("git", "commit", "-m", "Prepare cadl-azure publish");
-  } else {
-    console.log("INFO: No changes to cadl-azure.");
+  if (newParts.major > oldParts.major) {
+    return Major;
   }
+  if (newParts.major < oldParts.major) {
+    throw new Error("version downgrade");
+  }
+  if (newParts.minor > oldParts.minor) {
+    return Minor;
+  }
+  if (newParts.minor < oldParts.minor) {
+    throw new Error("version downgrade");
+  }
+  if (newParts.minor > oldParts.minor) {
+    return Patch;
+  }
+  if (newParts.minor < oldParts.minor) {
+    throw new Error("version downgrade");
+  }
+  return NoChange;
+}
+
+function getVersionParts(version) {
+  const parts = version.match(/(\d+)\.(\d+)\.(\d+)/);
+  if (!parts) {
+    throw new Error(`Invalid version: ${version}`);
+  }
+  return { major: parts[1], minor: parts[2], patch: parts[3] };
 }
