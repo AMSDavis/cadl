@@ -45,6 +45,12 @@ const libDef = {
         default: "content-type header ignored because return type has no body",
       },
     },
+    "duplicate-example": {
+      severity: "error",
+      messages: {
+        default: "Duplicate @example declarations on operation",
+      },
+    },
     "content-type-string": {
       severity: "error",
       messages: {

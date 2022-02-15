@@ -93,6 +93,49 @@ export function getPageable(program: Program, entity: Type): string | undefined 
   return program.stateMap(pageableOperationsKey).get(entity);
 }
 
+export interface Example {
+  pathOrUri: string;
+  title: string;
+}
+
+const exampleKey = Symbol();
+
+export function $example(
+  { program }: DecoratorContext,
+  entity: Type,
+  pathOrUri: string,
+  title: string
+) {
+  if (
+    !validateDecoratorTarget(program, entity, "@example", "Operation") ||
+    !validateDecoratorParamType(program, entity, pathOrUri, "string") ||
+    !validateDecoratorParamType(program, entity, title, "string")
+  ) {
+    return;
+  }
+  if (!program.stateMap(exampleKey).has(entity)) {
+    program.stateMap(exampleKey).set(entity, []);
+  } else if (
+    program
+      .stateMap(exampleKey)
+      .get(entity)
+      .find((e: Example) => e.title === title || e.pathOrUri === pathOrUri)
+  ) {
+    reportDiagnostic(program, {
+      code: "duplicate-example",
+      target: entity,
+    });
+  }
+  program.stateMap(exampleKey).get(entity).push({
+    pathOrUri,
+    title,
+  });
+}
+
+export function getExamples(program: Program, entity: Type): Example[] | undefined {
+  return program.stateMap(exampleKey).get(entity);
+}
+
 const refTargetsKey = Symbol();
 
 export function $useRef({ program }: DecoratorContext, entity: Type, refUrl: string): void {
@@ -343,6 +386,14 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     emitResponses(op.returnType);
     applyEndpointConsumes();
     applyEndpointProduces();
+
+    const examples = getExamples(program, op);
+    if (examples) {
+      currentEndpoint["x-ms-examples"] = examples.reduce(
+        (acc, example) => ({ ...acc, [example.title]: { $ref: example.pathOrUri } }),
+        {}
+      );
+    }
   }
 
   function applyEndpointProduces() {
