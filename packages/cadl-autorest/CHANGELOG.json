@@ -2,6 +2,29 @@
   "name": "@azure-tools/cadl-autorest",
   "entries": [
     {
+      "version": "0.13.0",
+      "tag": "@azure-tools/cadl-autorest_v0.13.0",
+      "date": "Tue, 15 Feb 2022 22:35:13 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Support union values for status-code and content-type in responses"
+          },
+          {
+            "comment": "Add @example decorator"
+          },
+          {
+            "comment": "Update dependencies."
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Add support for separate `@summary` from `@doc`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.12.0",
       "tag": "@azure-tools/cadl-autorest_v0.12.0",
       "date": "Fri, 11 Feb 2022 06:13:30 GMT",

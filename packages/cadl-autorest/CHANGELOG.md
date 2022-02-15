@@ -1,6 +1,19 @@
 # Change Log - @azure-tools/cadl-autorest
 
-This log was last generated on Fri, 11 Feb 2022 06:13:30 GMT and should not be manually modified.
+This log was last generated on Tue, 15 Feb 2022 22:35:13 GMT and should not be manually modified.
+
+## 0.13.0
+Tue, 15 Feb 2022 22:35:13 GMT
+
+### Minor changes
+
+- Support union values for status-code and content-type in responses
+- Add @example decorator
+- Update dependencies.
+
+### Patches
+
+- Add support for separate `@summary` from `@doc`
 
 ## 0.12.0
 Fri, 11 Feb 2022 06:13:30 GMT

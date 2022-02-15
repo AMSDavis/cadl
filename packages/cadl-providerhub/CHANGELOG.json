@@ -2,6 +2,37 @@
   "name": "@azure-tools/cadl-providerhub",
   "entries": [
     {
+      "version": "0.14.0",
+      "tag": "@azure-tools/cadl-providerhub_v0.14.0",
+      "date": "Tue, 15 Feb 2022 22:35:13 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Utilize @error decorator in cadl-providerhub"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Update dependencies."
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `~0.12.0` to `~0.13.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-azure-resource-manager\" from `~0.2.0` to `~0.3.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `~0.12.0` to `~0.13.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-azure-resource-manager\" from `~0.2.0` to `~0.3.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.0",
       "tag": "@azure-tools/cadl-providerhub_v0.13.0",
       "date": "Fri, 11 Feb 2022 06:13:30 GMT",
