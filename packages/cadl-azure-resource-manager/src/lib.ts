@@ -1,23 +1,8 @@
 import { createCadlLibrary, paramMessage } from "@cadl-lang/compiler";
 
 export const libDef = {
-  name: "@azure-tools/cadl-providerhub",
+  name: "@azure-tools/cadl-azure-resoource-manager",
   diagnostics: {
-    "decorator-wrong-type": {
-      severity: "error",
-      messages: {
-        default: "Decorator can only be applied to model types.",
-        armCommonDefinition: "The @armCommonDefinition decorator can only be applied to models.",
-        armCommonParameter:
-          "The @armCommonParameter decorator can only be applied to model properties and operation parameters.",
-        armNamespace: "The @armNamespace decorator can only be applied to namespaces.",
-        armResourceOperations:
-          "The @armResourceOperations decorator can only be applied to namespaces.",
-        armOperation: "The @armOperation decorator can only be applied to operations.",
-        armListBy: "The @armListBy decorator can only be applied to models.",
-        armResource: "The @armResource decorator can only be applied to models.",
-      },
-    },
     "decorator-param-wrong-type": {
       severity: "error",
       messages: {

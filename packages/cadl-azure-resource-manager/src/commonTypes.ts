@@ -1,6 +1,5 @@
 import { $useRef } from "@azure-tools/cadl-autorest";
-import { DecoratorContext, Program, Type } from "@cadl-lang/compiler";
-import { reportDiagnostic } from "./lib.js";
+import { DecoratorContext, Program, Type, validateDecoratorTarget } from "@cadl-lang/compiler";
 
 export function getArmTypesPath(program: Program): string | undefined {
   return (
@@ -14,12 +13,7 @@ export function $armCommonDefinition(
   entity: Type,
   definitionName?: string
 ): void {
-  if (entity.kind !== "Model") {
-    reportDiagnostic(context.program, {
-      code: "decorator-wrong-type",
-      messageId: "armCommonDefinition",
-      target: entity,
-    });
+  if (!validateDecoratorTarget(context.program, entity, "@armCommonDefinition", "Model")) {
     return;
   }
 
@@ -36,12 +30,7 @@ export function $armCommonParameter(
   entity: Type,
   parameterName?: string
 ): void {
-  if (entity.kind !== "ModelProperty") {
-    reportDiagnostic(context.program, {
-      code: "decorator-wrong-type",
-      messageId: "armCommonParameter",
-      target: entity,
-    });
+  if (!validateDecoratorTarget(context.program, entity, "@armCommonParameter", "ModelProperty")) {
     return;
   }
 

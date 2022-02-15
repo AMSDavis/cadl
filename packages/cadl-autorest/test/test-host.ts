@@ -15,7 +15,7 @@ export async function createAutorestTestRunner() {
   return createTestWrapper(
     host,
     (code) =>
-      `import "${RestTestLibrary.name}"; import "${OpenAPITestLibrary.name}"; using Cadl.Http;${code}`,
+      `import "${RestTestLibrary.name}"; import "${OpenAPITestLibrary.name}"; import "${AutorestTestLibrary.name}"; using Cadl.Http;${code}`,
     {
       emitters: [AutorestTestLibrary.name],
     }

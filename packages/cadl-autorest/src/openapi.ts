@@ -39,6 +39,8 @@ import {
   SyntaxKind,
   Type,
   UnionType,
+  validateDecoratorParamType,
+  validateDecoratorTarget,
 } from "@cadl-lang/compiler";
 import { $extension, getExtensions, getOperationId } from "@cadl-lang/openapi";
 import {
@@ -78,29 +80,33 @@ export function $pageable(
   entity: Type,
   nextLinkName: string = "nextLink"
 ) {
+  if (
+    !validateDecoratorTarget(program, entity, "@pageable", "Operation") ||
+    !validateDecoratorParamType(program, entity, nextLinkName, "string")
+  ) {
+    return;
+  }
   program.stateMap(pageableOperationsKey).set(entity, nextLinkName);
 }
 
-function getPageable(program: Program, entity: Type): string | undefined {
+export function getPageable(program: Program, entity: Type): string | undefined {
   return program.stateMap(pageableOperationsKey).get(entity);
 }
 
 const refTargetsKey = Symbol();
 
 export function $useRef({ program }: DecoratorContext, entity: Type, refUrl: string): void {
-  if (entity.kind === "Model" || entity.kind === "ModelProperty") {
-    program.stateMap(refTargetsKey).set(entity, refUrl);
-  } else {
-    reportDiagnostic(program, {
-      code: "decorator-wrong-type",
-      messageId: "modelsOperations",
-      format: { decoratorName: "useRef" },
-      target: entity,
-    });
+  if (
+    !validateDecoratorTarget(program, entity, "@useRef", ["Model", "ModelProperty"]) ||
+    !validateDecoratorParamType(program, entity, refUrl, "string")
+  ) {
+    return;
   }
+
+  program.stateMap(refTargetsKey).set(entity, refUrl);
 }
 
-function getRef(program: Program, entity: Type): string | undefined {
+export function getRef(program: Program, entity: Type): string | undefined {
   return program.stateMap(refTargetsKey).get(entity);
 }
 

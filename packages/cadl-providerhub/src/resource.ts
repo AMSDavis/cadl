@@ -9,6 +9,7 @@ import {
   StringLiteralType,
   TupleType,
   Type,
+  validateDecoratorTarget,
 } from "@cadl-lang/compiler";
 import { reportDiagnostic } from "./lib.js";
 import { generateStandardOperations } from "./operations.js";
@@ -104,8 +105,7 @@ export function getArmResourceInfo(
   program: Program,
   resourceType: Type
 ): ArmResourceInfo | undefined {
-  if (resourceType.kind !== "Model") {
-    reportDiagnostic(program, { code: "decorator-wrong-type", target: resourceType });
+  if (!validateDecoratorTarget(program, resourceType, "@arm", "Model")) {
     return undefined;
   }
 
@@ -178,12 +178,7 @@ export function $armResource(
     return;
   }
 
-  if (resourceType.kind !== "Model") {
-    reportDiagnostic(program, {
-      code: "decorator-wrong-type",
-      messageId: "armResource",
-      target: resourceType,
-    });
+  if (!validateDecoratorTarget(program, resourceType, "@armResource", "Model")) {
     return;
   }
 

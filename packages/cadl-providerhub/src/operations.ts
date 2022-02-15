@@ -1,4 +1,10 @@
-import { DecoratorContext, NamespaceType, Program, Type } from "@cadl-lang/compiler";
+import {
+  DecoratorContext,
+  NamespaceType,
+  Program,
+  Type,
+  validateDecoratorTarget,
+} from "@cadl-lang/compiler";
 import { $route } from "@cadl-lang/rest";
 import { reportDiagnostic } from "./lib.js";
 import { ArmResourceInfo, getArmResourceInfo, ParameterInfo } from "./resource.js";
@@ -21,12 +27,7 @@ export function $armResourceOperations(
   resourceType: Type
 ): void {
   const { program } = context;
-  if (target.kind !== "Namespace") {
-    reportDiagnostic(program, {
-      code: "decorator-wrong-type",
-      messageId: "armResourceOperations",
-      target,
-    });
+  if (!validateDecoratorTarget(program, target, "@armResourceOperations", "Namespace")) {
     return;
   }
 
@@ -55,12 +56,7 @@ export function $armResourceOperations(
 }
 
 export function armResourceParams(program: Program, operation: Type): void {
-  if (operation.kind !== "Operation") {
-    reportDiagnostic(program, {
-      code: "decorator-wrong-type",
-      messageId: "armOperation",
-      target: operation,
-    });
+  if (!validateDecoratorTarget(program, operation, "@armOperation", "Operation")) {
     return;
   }
 
@@ -442,14 +438,10 @@ export function $armListBy(
     return;
   }
 
-  if (paramType.kind !== "Model") {
-    reportDiagnostic(program, {
-      code: "decorator-wrong-type",
-      messageId: "armListBy",
-      target,
-    });
+  if (!validateDecoratorTarget(program, paramType, "@armListBy", "Model")) {
     return;
   }
+
   checkOperationName(program, target, operationName, armResourceInfo);
 
   armListByInternal(program, target, armResourceInfo, paramType.name, operationName, documentation);

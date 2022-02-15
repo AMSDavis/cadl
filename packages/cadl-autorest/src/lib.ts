@@ -3,13 +3,6 @@ import { createCadlLibrary, paramMessage } from "@cadl-lang/compiler";
 const libDef = {
   name: "@azure-tools/cadl-autorest",
   diagnostics: {
-    "decorator-wrong-type": {
-      severity: "error",
-      messages: {
-        default: paramMessage`Cannot apply ${"decoratorName"} decorator to ${"entityKind"}`,
-        modelsOperations: paramMessage`${"decoratorName"} decorator can only be applied to models and operation parameters.`,
-      },
-    },
     "security-service-namespace": {
       severity: "error",
       messages: {

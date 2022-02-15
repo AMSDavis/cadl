@@ -7,9 +7,9 @@ import {
   setServiceHost,
   setServiceNamespace,
   Type,
+  validateDecoratorTarget,
 } from "@cadl-lang/compiler";
 import { $consumes, $produces } from "@cadl-lang/rest";
-import { reportDiagnostic } from "./lib.js";
 
 const armNamespacesKey = Symbol();
 
@@ -18,12 +18,7 @@ const armNamespacesKey = Symbol();
 
 export function $armNamespace(context: DecoratorContext, entity: Type, armNamespace?: string) {
   const { program } = context;
-  if (entity.kind !== "Namespace") {
-    reportDiagnostic(program, {
-      code: "decorator-wrong-type",
-      messageId: "armNamespace",
-      target: entity,
-    });
+  if (!validateDecoratorTarget(program, entity, "@armNamespace", "Namespace")) {
     return;
   }
 
