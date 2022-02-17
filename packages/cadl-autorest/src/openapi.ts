@@ -82,7 +82,7 @@ export function $pageable(
 ) {
   if (
     !validateDecoratorTarget(program, entity, "@pageable", "Operation") ||
-    !validateDecoratorParamType(program, entity, nextLinkName, "string")
+    !validateDecoratorParamType(program, entity, nextLinkName, "String")
   ) {
     return;
   }
@@ -108,8 +108,8 @@ export function $example(
 ) {
   if (
     !validateDecoratorTarget(program, entity, "@example", "Operation") ||
-    !validateDecoratorParamType(program, entity, pathOrUri, "string") ||
-    !validateDecoratorParamType(program, entity, title, "string")
+    !validateDecoratorParamType(program, entity, pathOrUri, "String") ||
+    !validateDecoratorParamType(program, entity, title, "String")
   ) {
     return;
   }
@@ -141,7 +141,7 @@ const refTargetsKey = Symbol();
 export function $useRef({ program }: DecoratorContext, entity: Type, refUrl: string): void {
   if (
     !validateDecoratorTarget(program, entity, "@useRef", ["Model", "ModelProperty"]) ||
-    !validateDecoratorParamType(program, entity, refUrl, "string")
+    !validateDecoratorParamType(program, entity, refUrl, "String")
   ) {
     return;
   }

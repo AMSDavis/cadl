@@ -31,7 +31,7 @@ describe("cadl: autorest - decorators", () => {
 
       expectDiagnostics(diagnostics, {
         code: "invalid-argument",
-        message: "Argument '123' of type 'number' is not assignable to parameter of type 'string'",
+        message: "Argument '123' of type 'Number' is not assignable to parameter of type 'String'",
       });
     });
 
@@ -75,7 +75,7 @@ describe("cadl: autorest - decorators", () => {
 
       expectDiagnostics(diagnostics, {
         code: "invalid-argument",
-        message: "Argument '123' of type 'number' is not assignable to parameter of type 'string'",
+        message: "Argument '123' of type 'Number' is not assignable to parameter of type 'String'",
       });
     });
 
@@ -87,7 +87,7 @@ describe("cadl: autorest - decorators", () => {
 
       expectDiagnostics(diagnostics, {
         code: "invalid-argument",
-        message: "Argument '' of type 'undefined' is not assignable to parameter of type 'string'",
+        message: "Argument '' of type '' is not assignable to parameter of type 'String'",
       });
     });
 
