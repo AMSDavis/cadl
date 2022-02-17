@@ -34,6 +34,8 @@ jobs:
         parameters:
           nodeVersion: $(nodeVersion)
 
+      - template: swagger-checks.yml
+
   - job: Consistency_Check
     pool:
       vmImage: ubuntu-latest

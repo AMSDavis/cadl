@@ -140,10 +140,14 @@ each individual repo as you would any other.
 
 Do the following to publish a new release:
 
-1. Make sure your working copy is clean and you are up-to-date and on the
+1. Announce to coworkers on Teams in Cadl Engineering channel that you will
+   be publishing and that they should hold off on merging until the process
+   is complete.
+
+2. Make sure your working copy is clean and you are up-to-date and on the
    main branch.
 
-2. Run `rush prepare-publish`
+3. Run `rush prepare-publish` to stage the publishing changes.
 
 If it works you'll get a message like this:
 
@@ -151,9 +155,15 @@ If it works you'll get a message like this:
 Success! Push publish/kvd01q9v branches and send PRs.
 ```
 
-(NOTE: The branch name is uniquely generated for every run of `rush prepare-publish`.)
+4. Follow steps 4-9 in [making a cross-cutting change across both
+   repos](#making-a-cross-cutting-change-across-both-repos) to send PRs from
+   the generated `publish/<unique_id>` branches and merge them.
 
-What's happened here is basically that steps 1-3 of cross-cutting change
-guidance above have basically been automated for you. Now proceed through
-steps 4-9 to send PRs. Once you merge them, CI will automatically publish
-new versions of packages to npmjs.org.
+**NOTE**: The reason for step 1 to ask for folks to avoid merging while
+publishing is in progress is that any changes merged to the repo while the
+publish PR would become part of the release, but the release changelogs
+would not include their descriptions. For this reason, publish PRs will fail
+if this happens and you will have to close them and start over. In the case
+where you are in another time zone and unable to coordinate with the rest of
+the team, it may be easier to ask on Teams for someone in a closer time zone
+to coordinate and perform the publish in the morning.

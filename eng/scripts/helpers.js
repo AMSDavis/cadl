@@ -27,7 +27,7 @@ export function forEachProject(onEach) {
     const packageName = each.packageName;
     const projectFolder = resolve(`${repoRoot}/${each.projectFolder}`);
     const project = JSON.parse(readFileSync(`${projectFolder}/package.json`));
-    onEach(packageName, projectFolder, project);
+    onEach(packageName, projectFolder, project, each);
   }
 }
 

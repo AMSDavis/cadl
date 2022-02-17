@@ -1,14 +1,11 @@
 steps:
   - script: npm install -g autorest && cd eng/scripts && npm install
-    displayName: Install Dependencies
+    displayName: Swagger - Install Dependencies
   - script: node eng/scripts/download-common-types.js
-    displayName: Fetch common-types/v2/types.json
+    displayName: Swagger - Fetch common-types/v2/types.json
   - script: node eng/scripts/lint-providerhub.js "packages/cadl-samples/test/output/azure/autorest/providerhub"
-    displayName: ProviderHub Linting Swaggers
-    condition: succeededOrFailed()
+    displayName: Swagger - ProviderHub Linting
   - script: node eng/scripts/gen-sdk.js python "packages/cadl-samples/test/output/azure/autorest/providerhub"
-    displayName: Generate Python SDK
-    condition: succeededOrFailed()
+    displayName: Swagger - Generate Python SDK
   - script: node eng/scripts/gen-sdk.js javascript "packages/cadl-samples/test/output/azure/autorest/providerhub"
-    displayName: Generate JavaScript SDK
-    condition: succeededOrFailed()
+    displayName: Swagger - Generate JavaScript SDK

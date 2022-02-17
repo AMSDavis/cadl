@@ -102,8 +102,8 @@ function getProjectVersions() {
 function bumpCrossSubmoduleDependencies() {
   let changed = false;
 
-  forEachProject((_, projectFolder, project) => {
-    if (projectFolder.startsWith(coreRepoRoot)) {
+  forEachProject((_, projectFolder, project, rushProject) => {
+    if (projectFolder.startsWith(coreRepoRoot) || !rushProject.shouldPublish) {
       return;
     }
 

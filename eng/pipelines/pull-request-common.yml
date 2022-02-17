@@ -17,10 +17,6 @@ steps:
   - script: node core/packages/cadl-vs/scripts/build.js --restore && node packages/cadl-msbuild-target/scripts/build.js --restore
     displayName: Restore .NET Dependencies
 
-  - script: node common/scripts/install-run-rush.js change -v
-    condition: and(succeeded(), eq(startsWith(variables['System.PullRequest.SourceBranch'], 'publish/'), false))
-    displayName: Verify Change Files
-
   - script: node common/scripts/install-run-rush.js rebuild --verbose
     displayName: Build
 
@@ -34,9 +30,6 @@ steps:
 
   - script: node common/scripts/install-run-rush.js regen-samples
     displayName: Regenerate Samples
-
-  - script: cd packages/cadl-samples/providerhub/liftr.confluent && npx cadl compile . --option arm-types-path=../../types.json --import=@azure-tools/cadl-autorest && npx autorest --typescript --clear-output-folder=true --output-folder=cadl-output/client --title=CadlClient --input-file=cadl-output/openapi.json
-    displayName: Sanity Check Client Generation
 
   - script: node eng/scripts/check-for-changed-files.js
     displayName: Check Git Status For Changed Files
