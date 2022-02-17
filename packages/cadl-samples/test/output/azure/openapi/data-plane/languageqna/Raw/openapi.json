@@ -883,7 +883,8 @@
         "required": true,
         "description": "Client API version",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "Client API version"
         }
       },
       "TopParameter": {
@@ -927,6 +928,7 @@
         "x-ms-parameter-location": "method",
         "schema": {
           "type": "string",
+          "description": "The name of the project to use",
           "maxLength": 100
         }
       },
@@ -937,7 +939,8 @@
         "description": "Job ID",
         "x-ms-parameter-location": "method",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "Job ID"
         }
       },
       "ImportExportFormatParameter": {
@@ -976,7 +979,8 @@
         "description": "The name of the specific deployment of the project to use.",
         "x-ms-parameter-location": "method",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "The name of the specific deployment of the project to use."
         }
       }
     },

@@ -132,7 +132,8 @@
             "required": true,
             "description": "The name of the data source to retrieve.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the data source to retrieve."
             }
           },
           {
@@ -178,7 +179,8 @@
             "required": true,
             "description": "The name of the data source to create or update.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the data source to create or update."
             }
           },
           {
@@ -256,7 +258,8 @@
             "required": true,
             "description": "The name of the data source to delete.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the data source to delete."
             }
           },
           {
@@ -443,7 +446,8 @@
             "required": true,
             "description": "The name of the data source to retrieve.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the data source to retrieve."
             }
           },
           {
@@ -489,7 +493,8 @@
             "required": true,
             "description": "The name of the indexer to create or update.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the indexer to create or update."
             }
           },
           {
@@ -570,7 +575,8 @@
             "required": true,
             "description": "The name of the indexer to delete.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the indexer to delete."
             }
           },
           {
@@ -620,7 +626,8 @@
             "required": true,
             "description": "The name of the indexer to reset.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the indexer to reset."
             }
           },
           {
@@ -661,7 +668,8 @@
             "required": true,
             "description": "The name of the indexer to reset.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the indexer to reset."
             }
           },
           {
@@ -726,7 +734,8 @@
             "required": true,
             "description": "The name of the indexer to reset.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the indexer to reset."
             }
           },
           {
@@ -767,7 +776,8 @@
             "required": true,
             "description": "The name of the indexer for which to retrieve status.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the indexer for which to retrieve status."
             }
           },
           {
@@ -914,7 +924,8 @@
             "required": true,
             "description": "The name of the index to retrieve.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the index to retrieve."
             }
           },
           {
@@ -960,7 +971,8 @@
             "required": true,
             "description": "The name of the index to create or update.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the index to create or update."
             }
           },
           {
@@ -1044,7 +1056,8 @@
             "required": true,
             "description": "The name of the index to delete.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the index to delete."
             }
           },
           {
@@ -1091,7 +1104,8 @@
             "required": true,
             "description": "The name of the index for which to retrieve statistics.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the index for which to retrieve statistics."
             }
           },
           {
@@ -1139,7 +1153,8 @@
             "required": true,
             "description": "The name of the index for which to test an analyzer.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the index for which to test an analyzer."
             }
           },
           {
@@ -1296,7 +1311,8 @@
             "required": true,
             "description": "The name of the skillset to retrieve.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the skillset to retrieve."
             }
           },
           {
@@ -1342,7 +1358,8 @@
             "required": true,
             "description": "The name of the skillset to create or update.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the skillset to create or update."
             }
           },
           {
@@ -1398,7 +1415,8 @@
             "required": true,
             "description": "The name of the skillset to delete.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the skillset to delete."
             }
           },
           {
@@ -1443,7 +1461,8 @@
             "required": true,
             "description": "The name of the skillset to reset.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The name of the skillset to reset."
             }
           },
           {
@@ -1491,7 +1510,8 @@
         "required": false,
         "description": "Selects which top-level properties of the resource to retrieve. Specified as a comma-separated list of JSON property names, or '*' for all properties. The default is all properties.",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "Selects which top-level properties of the resource to retrieve. Specified as a comma-separated list of JSON property names, or '*' for all properties. The default is all properties."
         }
       },
       "ClientRequestIdParameter": {
@@ -1500,7 +1520,8 @@
         "required": true,
         "description": "The tracking ID sent with the request to help with debugging.",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "The tracking ID sent with the request to help with debugging."
         }
       },
       "ApiVersionParameter": {
@@ -1509,7 +1530,8 @@
         "required": true,
         "description": "Client API version",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "Client API version"
         }
       },
       "IgnoreResetRequirementsParameter": {
@@ -1528,7 +1550,8 @@
         "required": false,
         "description": "The tracking ID sent with the request to help with debugging.",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "The tracking ID sent with the request to help with debugging."
         }
       },
       "IfNoneMatchParameter": {
@@ -1537,7 +1560,8 @@
         "required": false,
         "description": "Defines the If-None-Match condition. The operation will be performed only if the ETag on the server does not match this value.",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "Defines the If-None-Match condition. The operation will be performed only if the ETag on the server does not match this value."
         }
       },
       "PreferHeaderParameter": {
@@ -3692,14 +3716,14 @@
           },
           "delimiter": {
             "type": "string",
-            "maxLength": 1,
             "description": "The delimiter character to use. Default is \"/\".",
+            "maxLength": 1,
             "default": "/"
           },
           "replacement": {
             "type": "string",
-            "maxLength": 1,
             "description": "A value that, if set, replaces the delimiter character. Default is \"/\".",
+            "maxLength": 1,
             "default": "/"
           },
           "maxTokenLength": {
@@ -4931,8 +4955,8 @@
           },
           "maskingCharacter": {
             "type": "string",
-            "maxLength": 1,
-            "description": "The character used to mask the text if the maskingMode parameter is set to replace. Default is '*'."
+            "description": "The character used to mask the text if the maskingMode parameter is set to replace. Default is '*'.",
+            "maxLength": 1
           },
           "modelVersion": {
             "type": "string",

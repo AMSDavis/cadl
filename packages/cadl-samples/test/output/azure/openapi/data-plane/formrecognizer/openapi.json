@@ -63,7 +63,8 @@
             "required": true,
             "description": "List of 1-based page numbers to analyze. Ex. \"1-3,5,7-9\"",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "List of 1-based page numbers to analyze. Ex. \"1-3,5,7-9\""
             }
           },
           {
@@ -72,7 +73,8 @@
             "required": true,
             "description": "Locale hint for text recognition and document analysis. Value may contain only the language code (ex. \"en\", \"fr\") or BCP 47 language tag (ex. \"en-US\").",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Locale hint for text recognition and document analysis. Value may contain only the language code (ex. \"en\", \"fr\") or BCP 47 language tag (ex. \"en-US\")."
             }
           },
           {
@@ -97,7 +99,8 @@
               "operation-location": {
                 "description": "Operation result URL.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Operation result URL."
                 }
               }
             }
@@ -167,7 +170,8 @@
             "required": true,
             "description": "Analyze operation result ID.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Analyze operation result ID."
             }
           }
         ],
@@ -200,7 +204,8 @@
               "operation-location": {
                 "description": "Operation result URL.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Operation result URL."
                 }
               }
             }
@@ -242,7 +247,8 @@
               "operation-location": {
                 "description": "Operation result URL.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Operation result URL."
                 }
               }
             }
@@ -334,7 +340,8 @@
               "operation-location": {
                 "description": "Operation result URL.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Operation result URL."
                 }
               }
             }
@@ -591,6 +598,7 @@
         "description": "Unique model name",
         "schema": {
           "type": "string",
+          "description": "Unique model name",
           "pattern": "[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}"
         }
       }
@@ -990,10 +998,12 @@
       },
       "ModelId": {
         "type": "string",
+        "description": "Unique model name",
         "pattern": "[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}"
       },
       "ModelDescription": {
         "type": "string",
+        "description": "Model description.",
         "maxLength": 4096
       },
       "AzureBlobContentSource": {
@@ -1613,6 +1623,7 @@
       },
       "DocType": {
         "type": "string",
+        "description": "Document type name.",
         "minLength": 2,
         "maxLength": 64
       },

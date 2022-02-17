@@ -64,7 +64,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               }
             },
@@ -144,7 +145,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               }
             }
@@ -210,7 +212,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               },
               "last-modified": {
@@ -277,7 +280,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               },
               "last-modified": {
@@ -324,7 +328,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               },
               "last-modified": {
@@ -428,7 +433,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               },
               "last-modified": {
@@ -513,7 +519,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               },
               "e-tag": {
@@ -541,7 +548,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               }
             }
@@ -597,7 +605,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               }
             },
@@ -677,7 +686,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               }
             }
@@ -735,7 +745,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               }
             },
@@ -798,7 +809,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               }
             },
@@ -863,7 +875,8 @@
             "required": true,
             "description": "A filter used to match labels",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "A filter used to match labels"
             }
           },
           {
@@ -872,7 +885,8 @@
             "required": true,
             "description": "A filter used to match keys.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "A filter used to match keys."
             }
           }
         ],
@@ -883,7 +897,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               }
             },
@@ -949,7 +964,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               }
             }
@@ -1005,7 +1021,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               }
             },
@@ -1071,7 +1088,8 @@
               "sync-token": {
                 "description": "Used to guarantee real-time consistency between requests.",
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Used to guarantee real-time consistency between requests."
                 }
               }
             }
@@ -1106,7 +1124,8 @@
         "required": false,
         "description": "Used to guarantee real-time consistency between requests.",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "Used to guarantee real-time consistency between requests."
         }
       },
       "AcceptDatetimeHeader": {
@@ -1124,7 +1143,8 @@
         "required": false,
         "description": "A filter for the name of the returned keys.",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "A filter for the name of the returned keys."
         }
       },
       "KeyFilters.label": {
@@ -1133,7 +1153,8 @@
         "required": false,
         "description": "A filter used to match labels",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "A filter used to match labels"
         }
       },
       "ETagHeaders.ifMatch": {
@@ -1158,7 +1179,8 @@
         "required": true,
         "description": "A filter for the name of the returned keys.",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "A filter for the name of the returned keys."
         }
       },
       "KeyWithFilters.label": {
@@ -1167,7 +1189,8 @@
         "required": false,
         "description": "A filter used to match labels",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "A filter used to match labels"
         }
       }
     },

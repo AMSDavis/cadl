@@ -58,6 +58,8 @@ dependencies:
   vscode-languageclient: 7.0.0
   vscode-languageserver: 7.0.0
   vscode-languageserver-textdocument: 1.0.4
+  vscode-oniguruma: 1.6.1
+  vscode-textmate: 6.0.0
   watch: 1.0.2
   yargs: 17.3.1
 lockfileVersion: 5.2
@@ -3280,6 +3282,14 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-60HTx5ID+fLRcgdHfmz0LDZAXYEV68fzwG0JWwEPBode9NuMYTIxuYXPg4ngO8i8+Ou0lM7y6GzaYWbiDL0drw==
+  /vscode-oniguruma/1.6.1:
+    dev: false
+    resolution:
+      integrity: sha512-vc4WhSIaVpgJ0jJIejjYxPvURJavX6QG41vu0mGhqywMkQqulezEqEQ3cO3gc8GvcOpX6ycmKGqRoROEMBNXTQ==
+  /vscode-textmate/6.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-gu73tuZfJgu+mvCSy4UZwd2JXykjK9zAZsfmDeut5dx/1a7FeTk0XwJsSuqQn+cuMCGVbIBfl+s53X4T19DnzQ==
   /w3c-hr-time/1.0.2:
     dependencies:
       browser-process-hrtime: 1.0.0
@@ -3514,7 +3524,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-autorest'
     resolution:
-      integrity: sha512-XhcmW460tuKBuhCnKHHsPY8RG/srPCI1l864wNXzehXc5wjLL3U+JvFYNSgpKxDutEHaBro9mqUAyPNBASoR9Q==
+      integrity: sha512-UCrLHuqeffOaAHCf7Ur+hD7EGFYex7k4AW/24I1MUhgM1C9eTcJw2AvwV5ocHx/wm+QwCuyHlcOJdw1KOQ8OUQ==
       tarball: file:projects/cadl-autorest.tgz
     version: 0.0.0
   file:projects/cadl-azure-resource-manager.tgz:
@@ -3528,7 +3538,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-azure-resource-manager'
     resolution:
-      integrity: sha512-/Vu79v5TEzV1ry2Zy0z1JylUM3bwYEjc/o6KxvKWfEhN0ecq1mTFupq1Bj/kCxIo8FEjqAryFXEt/vQ23sV6Vg==
+      integrity: sha512-My57Rjln+ps5vU8PWHvDmLGXtMqWlPQu+t/nHkQEhmoXfBpgX9neIVTsy9ywmKjSit6uAWQ6koIFp0UsAE0PgQ==
       tarball: file:projects/cadl-azure-resource-manager.tgz
     version: 0.0.0
   file:projects/cadl-msbuild-target.tgz:
@@ -3552,7 +3562,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-providerhub-controller'
     resolution:
-      integrity: sha512-7ad3yPslcGQtxFlweEjqW2v/KGLNZ/cVTvy1F2vFeB6ax2nRuQiT2U9nU4F2rTLXIrtDsXKeYwJPaRTtXkRFBw==
+      integrity: sha512-OVEogf1IaRSUm3EiREpcRAolcEx4k9Bw+P4sGSO2xFXaZYR87uMv9Lj6QEcXxo3WFVRYKhlr5R6zl/qTIjk2xA==
       tarball: file:projects/cadl-providerhub-controller.tgz
     version: 0.0.0
   file:projects/cadl-providerhub.tgz:
@@ -3566,7 +3576,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-providerhub'
     resolution:
-      integrity: sha512-CpRHSYGt9VfdbdfzcUe3XoHV22FYzcz0gKfBRLfEFHuiGE3XTLZpfn6BDWpomMQcvmWiXXc1KGknOUFK01Kcmw==
+      integrity: sha512-7TH5yN7bVz7vARlyWK7oAOA5CLucb2Mp0OawqmpRw3rCTOVjS2JCDVBn58pzmYC+jOMRxo7xBsh2Bc7p8hNoHQ==
       tarball: file:projects/cadl-providerhub.tgz
     version: 0.0.0
   file:projects/cadl-samples.tgz:
@@ -3577,14 +3587,14 @@ packages:
     dev: false
     name: '@rush-temp/cadl-samples'
     resolution:
-      integrity: sha512-/keEAlOVJ5T9mKt9+srBO6Hfe2DfA+UrhoxGScVlw9XjBx5kwILN6WE6uRu03w1poHvc149Sp5Ynql+8mmPkjQ==
+      integrity: sha512-ILnD+NhH26EWurtmSi/vqJAz/6EaXPqhPc2DSK3TLULYz23Wm/GRIrTT1nLnCw3XADkVQxAel7aqJUK53ORmUg==
       tarball: file:projects/cadl-samples.tgz
     version: 0.0.0
   file:projects/cadl-vs.tgz:
     dev: false
     name: '@rush-temp/cadl-vs'
     resolution:
-      integrity: sha512-Q/5OzEdZ+uMzT+fd9Ah6wky2f3Ym40rAOWYN60Z3SC+UlLz5tymxbW2oPSgJsgq+sx0y872L6xyyvnhD6NzJ0g==
+      integrity: sha512-cNCO5VatPZ7e6Oq5rVMiH6dLQp6dWmC7O3H/g+QI0zJT/V5S2nvSOYSd7S59cxJDmRyZ/9RWEJUOg6dAZBq+Zw==
       tarball: file:projects/cadl-vs.tgz
     version: 0.0.0
   file:projects/cadl-vscode.tgz:
@@ -3592,19 +3602,24 @@ packages:
       '@rollup/plugin-commonjs': 17.1.0_rollup@2.41.5
       '@rollup/plugin-node-resolve': 11.2.1_rollup@2.41.5
       '@types/mkdirp': 1.0.2
+      '@types/mocha': 9.1.0
       '@types/node': 14.0.27
       '@types/vscode': 1.53.0
+      c8: 7.11.0
       mkdirp: 1.0.4
+      mocha: 9.2.0
       rimraf: 3.0.2
       rollup: 2.41.5
       typescript: 4.5.5
       vsce: 2.6.7
       vscode-languageclient: 7.0.0
+      vscode-oniguruma: 1.6.1
+      vscode-textmate: 6.0.0
       watch: 1.0.2
     dev: false
     name: '@rush-temp/cadl-vscode'
     resolution:
-      integrity: sha512-XcvN3oMXCSteaRRoXqMQ5gg4uPMCR7vsx/pm9/9INLMLeqB30RoRN8omdWHWAFk0X4k5OY0sDgnG+UWa67HHjw==
+      integrity: sha512-FdJ0JhHpj1Tu+dfGhS7FnUwuAwdtrL0X+y1SNycvT8GzV5z5NJ5r/DnGaVomHsUFCFaG69jiRJL+6h08f1IcXQ==
       tarball: file:projects/cadl-vscode.tgz
     version: 0.0.0
   file:projects/compiler.tgz:
@@ -3655,7 +3670,7 @@ packages:
     dev: false
     name: '@rush-temp/openapi'
     resolution:
-      integrity: sha512-B1f7cWpUuSBLnWrOf8BA/zSW9IgqGJG8jmT8Bo6puj68HrNPk+LZnWlu0IjjVIiKXJ6NghNbYQDpgTvofPwm2A==
+      integrity: sha512-vH5G0jXrSDkPNnkCIKlcdxkn0aTdvNH4b269OvQNEHhV3daJCYW87v3HPXrgRLAl5Vv7Mq19C4fGmkYfA2hFcA==
       tarball: file:projects/openapi.tgz
     version: 0.0.0
   file:projects/openapi3.tgz:
@@ -3669,7 +3684,7 @@ packages:
     dev: false
     name: '@rush-temp/openapi3'
     resolution:
-      integrity: sha512-sU2VK69ds39DjxXXoM/9Tl4zuqYv7eeY3M5W3Rc+hhBAZXY3F7HaQyaf6ZBe+Utobzga7jRzxhBeZJKyO4MRDQ==
+      integrity: sha512-uZgGiBETAU4D9+M7V2a+j/fmgS2ZLPsFOz0/ivr5RIBMmdt6Tom1CVPEu+pD16IRABv86yCbQIe/esV21Nwg2A==
       tarball: file:projects/openapi3.tgz
     version: 0.0.0
   file:projects/prettier-plugin-cadl.tgz:
@@ -3684,7 +3699,7 @@ packages:
     dev: false
     name: '@rush-temp/prettier-plugin-cadl'
     resolution:
-      integrity: sha512-TTSRcqX6zeEE6NYkVsah2bYNVyWnEdjeAP9ehYuDJwQ4XoFLUGTw+1N9+T+g1UmhVItPwZROW49tc9ZZ5YSlOw==
+      integrity: sha512-B1u9tB2ojV7InblhLQxA0ygdWv24lQbR/W3qXxbTmEKegTAjVFzcL+wqO9NWKYXfycd1xb+JMkvH2gQ8Us0gAA==
       tarball: file:projects/prettier-plugin-cadl.tgz
     version: 0.0.0
   file:projects/rest.tgz:
@@ -3698,7 +3713,7 @@ packages:
     dev: false
     name: '@rush-temp/rest'
     resolution:
-      integrity: sha512-AE8oangCorrrPlIO81aZOdq/Z4P3hrx5jp1vHCNg980Ng0zSKJkDePZw/qx+eMQlupT0XxMArA361hAMhnqIpw==
+      integrity: sha512-zbex/Pxdl09zJSN484Hn2fDorVNLffAj73v2ZPtGeWTS1GX/ZkV8SQWTs99+BY+ADUvUnOG/vKKVpbYyQtc69Q==
       tarball: file:projects/rest.tgz
     version: 0.0.0
   file:projects/samples.tgz:
@@ -3709,7 +3724,7 @@ packages:
     dev: false
     name: '@rush-temp/samples'
     resolution:
-      integrity: sha512-rYA53Lr04hrk4PfZjuP6H8xtb2LSc6lqch3ALNraPlf2Jpvppn6/JzI9fSrPDHZk45u6cm0vCuQeKDKtxpST7g==
+      integrity: sha512-RVkBNXDmv0ycgohgtkBfdfZGp8dxj20bheCHhBsUf6ZQLFTBd7jaserAmcdHNr+eCCkK8su9CfXOaD/2qrFqAg==
       tarball: file:projects/samples.tgz
     version: 0.0.0
   file:projects/spec.tgz:
@@ -3748,7 +3763,7 @@ packages:
     dev: false
     name: '@rush-temp/versioning'
     resolution:
-      integrity: sha512-7Og+ecQxuVe+Aau4NrhBoH8M62Jf07eqgu0fF90hFyHsF6YmUksF5lvuJ0WqbZSsE1yo6pbgpK+jHcTGwdZJbA==
+      integrity: sha512-Zkfvo0vLOOepw7zrb1dhulKPvVvBtRR0XvemfVOWiCX1NZ5mo3liYZYwYcV9tbt4d2JFeT9gxnRfwHf9RZsAhw==
       tarball: file:projects/versioning.tgz
     version: 0.0.0
 specifiers:
@@ -3811,5 +3826,7 @@ specifiers:
   vscode-languageclient: ~7.0.0
   vscode-languageserver: ~7.0.0
   vscode-languageserver-textdocument: ~1.0.1
+  vscode-oniguruma: ~1.6.1
+  vscode-textmate: ~6.0.0
   watch: ~1.0.2
   yargs: ~17.3.1

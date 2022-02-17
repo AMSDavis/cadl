@@ -551,6 +551,7 @@
         "description": "This value indicates which model will be used for scoring.\nIf a model-version is not specified, the API should default to the latest, non-preview version.",
         "schema": {
           "type": "string",
+          "description": "This value indicates which model will be used for scoring.\nIf a model-version is not specified, the API should default to the latest, non-preview version.",
           "default": "latest"
         }
       },
@@ -592,7 +593,8 @@
         "required": true,
         "description": "Job ID.",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "Job ID."
         }
       },
       "JobParameters.$top": {

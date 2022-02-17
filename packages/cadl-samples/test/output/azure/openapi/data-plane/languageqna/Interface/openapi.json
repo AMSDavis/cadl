@@ -732,6 +732,7 @@
         "x-ms-parameter-location": "method",
         "schema": {
           "type": "string",
+          "description": "The name of the project to use",
           "maxLength": 100
         }
       },
@@ -741,7 +742,8 @@
         "required": false,
         "description": "Name of the project.",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "Name of the project."
         }
       },
       "AssetKindParameter": {
@@ -764,7 +766,8 @@
         "required": false,
         "description": "Unique source identifier. Name of the file if it's a 'file' source; otherwise, the complete URL if it's a 'url' source.",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "Unique source identifier. Name of the file if it's a 'file' source; otherwise, the complete URL if it's a 'url' source."
         }
       },
       "JobIdParameter": {
@@ -774,7 +777,8 @@
         "description": "Job ID",
         "x-ms-parameter-location": "method",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "description": "Job ID"
         }
       },
       "QnaRecord.id": {
