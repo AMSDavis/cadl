@@ -16,17 +16,17 @@ namespace Microsoft.Contoso.Service
     [ApiController]
     public partial class EmployeeController : EmployeeControllerBase {
 
-    protected override Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string EmployeeName, Employee body, HttpRequest request)
+    protected override Task<ValidationResponse> OnValidateCreate(string subscriptionId, string resourceGroupName, string EmployeeName, Employee body)
     {
         return Task.FromResult(ValidationResponse.Valid);
     }
 
-    protected override Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string EmployeeName, Employee body, HttpRequest request)
+    protected override Task<IActionResult> OnCreateAsync(string subscriptionId, string resourceGroupName, string EmployeeName, Employee body)
     {
         return Task.FromResult(this.Ok() as IActionResult);
     }
 
-    protected override Task OnEndCreate(string subscriptionId, string resourceGroupName, string EmployeeName, Employee body, HttpRequest request)
+    protected override Task OnEndCreate(string subscriptionId, string resourceGroupName, string EmployeeName, Employee body)
     {
         return Task.CompletedTask;
     }

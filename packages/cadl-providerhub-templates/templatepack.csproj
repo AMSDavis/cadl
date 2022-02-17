@@ -3,8 +3,8 @@
   <BuildId Condition="'$(BuildId)' == ''">0</BuildId>
   <PackageType>Template</PackageType>
   <PackageVersion>0.1.0-beta.$(BuildId)</PackageVersion>
-  <PackageId>Cadl.ProviderHub.Templates</PackageId>
-  <Title>CadlProviderHub Templates</Title>
+  <PackageId>Microsoft.Cadl.ProviderHub.Templates</PackageId>
+  <Title>Microsoft CadlProviderHub Templates</Title>
   <Authors>Microsoft</Authors>
   <Description>Templates to use when creating an application for RpaaS with cadl.</Description>
   <PackageTags>cadl;providerhub;dotnet-new;templates;</PackageTags>

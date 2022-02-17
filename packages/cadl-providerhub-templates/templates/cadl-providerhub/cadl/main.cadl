@@ -1,7 +1,7 @@
 import "@cadl-lang/rest";
 import "@azure-tools/cadl-autorest";
 import "@azure-tools/cadl-providerhub";
-import "@azure-tools/cadl-providerhub-controller";
+import "@azure-tools/cadl-azure-resource-manager";
 
 @armNamespace
 @serviceTitle("Microsoft.Contoso")

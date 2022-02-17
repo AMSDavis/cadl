@@ -9,7 +9,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "Build",
-      "program": "${workspaceFolder}/bin/Debug/netcoreapp5.0/ProviderHubUserRP.dll",
+      "program": "${workspaceFolder}/bin/Debug/netcoreapp5.0/UserRP.dll",
       "args": [],
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false,

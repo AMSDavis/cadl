@@ -9,7 +9,7 @@ This package provides a project template to help create your first ProviderHub s
 via nuget:
 
 ```bash
-dotnet new -i Cadl.ProviderHub.Templates --nuget-source <the nuget source >
+dotnet new -i Microsoft.Cadl.ProviderHub.Templates --nuget-source <the nuget source >
 
 ```
 
@@ -95,7 +95,7 @@ To stop OneBox, run `docker-compose down`.
 #### Option 2: Run OneBox with [Porter](https://porter.sh/install/)
 
 ```bash
-porter install --reference rpaasoneboxacr.azurecr.io/providerhub-onebox:v0.1.1 --allow-docker-host-access
+porter install --reference rpaasoneboxacr.azurecr.io/rpaas-onebox:v0.1.1 --allow-docker-host-access
 ```
 
 Available parameters:
@@ -109,10 +109,10 @@ Available parameters:
 For example, to run the OneBox on another port:
 
 ```bash
-porter install --reference rpaasoneboxacr.azurecr.io/providerhub-onebox:v0.1.1 --allow-docker-host-access --param port=8080
+porter install --reference rpaasoneboxacr.azurecr.io/rpaas-onebox:v0.1.1 --allow-docker-host-access --param port=8080
 ```
 
-To stop, run `porter uninstall providerhub-onebox`.
+To stop, run `porter uninstall rpaas-onebox`.
 
 ### Register resourceProvider and resourceTypes
 
@@ -136,11 +136,11 @@ With following command, you can register the resourceProvider and resourceTypes 
 or with `docker`:
 
 ```bash
-docker run --rm -v $(pwd)/registrations:/app/registrations:ro rpaasoneboxacr.azurecr.io/providerhub-onebox/register
+docker run --rm -v $(pwd)/registrations:/app/registrations:ro rpaasoneboxacr.azurecr.io/rpaas-onebox/register
 ```
 
-or directly do the registration with Curl or other REST tools. See [ProviderHub wiki As RP owner section](https://armwiki.azurewebsites.net/providerhub/onebox.html#as-rp-owner-userrp).
+or directly do the registration with Curl or other REST tools. See [RPaaS wiki As RP owner section](https://armwiki.azurewebsites.net/rpaas/onebox.html#as-rp-owner-userrp).
 
 ## API Test
 
-TBD. For now, please refer to [ProviderHub wiki As an end user section](https://armwiki.azurewebsites.net/providerhub/onebox.html#as-an-end-user-uses-metarp).
+TBD. For now, please refer to [RPaaS wiki As an end user section](https://armwiki.azurewebsites.net/rpaas/onebox.html#as-an-end-user-uses-metarp).
