@@ -1,0 +1,12 @@
+import "../dist/src/index.js";
+
+namespace Azure.Core;
+
+@doc("Paged response")
+model Page<T> {
+  @doc("The items on this page")
+  value: T[];
+
+  @doc("The link to the next page of items")
+  nextLink?: string;
+}

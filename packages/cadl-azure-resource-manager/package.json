@@ -50,6 +50,7 @@
   ],
   "peerDependencies": {
     "@cadl-lang/compiler": "~0.28.0",
+    "@azure-tools/cadl-azure-core": "~0.0.1",
     "@azure-tools/cadl-autorest": "~0.13.0",
     "@cadl-lang/openapi": "~0.6.1",
     "@cadl-lang/rest": "~0.11.0"
@@ -57,6 +58,7 @@
   "devDependencies": {
     "@cadl-lang/compiler": "~0.28.0",
     "@cadl-lang/openapi": "~0.6.1",
+    "@azure-tools/cadl-azure-core": "~0.0.1",
     "@azure-tools/cadl-autorest": "~0.13.0",
     "@cadl-lang/rest": "~0.11.0",
     "@types/mocha": "~9.1.0",

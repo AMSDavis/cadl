@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-azure-resource-manager",
+      "comment": "Use new Azure.Core library and adapt to Page<T> moving over to it",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-azure-resource-manager"
+}

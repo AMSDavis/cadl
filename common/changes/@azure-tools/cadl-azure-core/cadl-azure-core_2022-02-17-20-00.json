@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-azure-core",
+      "comment": "Introduce new Azure.Core library, @azure-tools/cadl-azure-core",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-azure-core"
+}

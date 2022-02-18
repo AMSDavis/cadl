@@ -377,6 +377,7 @@ export function $armResource(
 
   // Prepare the namespace for the operation group
   program.evalCadlScript(`
+      using Azure.Core;
       using Azure.ARM;
       using Azure.ResourceManager;
       using Cadl.Http;
