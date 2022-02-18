@@ -31,3 +31,23 @@ export async function openApiFor(code: string) {
   });
   return JSON.parse(runner.fs.get(outPath)!);
 }
+
+export async function oapiForModel(name: string, modelDef: string) {
+  const oapi = await openApiFor(`
+    ${modelDef};
+    @route("/")
+    namespace root {
+      op read(): ${name};
+    }
+  `);
+
+  const response = oapi.paths["/"].get.responses[200];
+  const useSchema = response?.schema;
+
+  return {
+    isRef: !!useSchema?.$ref,
+    useSchema,
+    defs: oapi.definitions,
+    response: response,
+  };
+}

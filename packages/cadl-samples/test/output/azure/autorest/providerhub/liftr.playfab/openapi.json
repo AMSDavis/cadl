@@ -663,8 +663,8 @@
     },
     "PlayerDatabaseReference": {
       "type": "string",
-      "pattern": "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/playerDatabases\\/[^\\/]+",
-      "description": "A reference to a player database resource."
+      "description": "A reference to a player database resource.",
+      "pattern": "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/playerDatabases\\/[^\\/]+"
     },
     "PlayerDatabaseUpdate": {
       "type": "object",
@@ -773,8 +773,8 @@
     },
     "TitleReference": {
       "type": "string",
-      "pattern": "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/titles\\/[^\\/]+",
-      "description": "A reference to a resource of type title."
+      "description": "A reference to a resource of type title.",
+      "pattern": "\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/titles\\/[^\\/]+"
     },
     "TitleUpdate": {
       "type": "object",

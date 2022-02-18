@@ -808,9 +808,9 @@
     },
     "DocType": {
       "type": "string",
+      "description": "Document type name.",
       "minLength": 2,
-      "maxLength": 64,
-      "description": "Document type name."
+      "maxLength": 64
     },
     "Document": {
       "type": "object",
@@ -1533,13 +1533,13 @@
     },
     "ModelDescription": {
       "type": "string",
-      "maxLength": 4096,
-      "description": "Model description."
+      "description": "Model description.",
+      "maxLength": 4096
     },
     "ModelId": {
       "type": "string",
-      "pattern": "[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}",
-      "description": "Unique model name"
+      "description": "Unique model name",
+      "pattern": "[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}"
     },
     "ModelSummary": {
       "type": "object",

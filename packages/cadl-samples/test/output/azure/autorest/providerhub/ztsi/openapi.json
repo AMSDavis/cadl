@@ -602,8 +602,8 @@
     },
     "DeviceId": {
       "type": "string",
-      "pattern": "^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$",
-      "description": "Device identification in Guid format"
+      "description": "Device identification in Guid format",
+      "pattern": "^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$"
     },
     "InitiateRequestInformation": {
       "type": "object",
@@ -665,8 +665,8 @@
     },
     "MediumString": {
       "type": "string",
-      "maxLength": 50,
-      "description": "Shorthand for setting length limit."
+      "description": "Shorthand for setting length limit.",
+      "maxLength": 50
     },
     "PlanData": {
       "type": "object",
@@ -794,8 +794,8 @@
         },
         "phoneNumber": {
           "type": "string",
-          "maxLength": 40,
-          "description": "Phone number of the user used by Dynatrace for contacting them if needed"
+          "description": "Phone number of the user used by Dynatrace for contacting them if needed",
+          "maxLength": 40
         },
         "country": {
           "type": "string",
@@ -929,8 +929,8 @@
     },
     "email": {
       "type": "string",
-      "pattern": "^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$",
-      "description": "Reusable representation of an email address"
+      "description": "Reusable representation of an email address",
+      "pattern": "^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$"
     }
   },
   "parameters": {

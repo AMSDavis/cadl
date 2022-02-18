@@ -465,9 +465,9 @@
     },
     "MediumString": {
       "type": "string",
+      "description": "Shorthand for setting length limit.",
       "minLength": 5,
-      "maxLength": 50,
-      "description": "Shorthand for setting length limit."
+      "maxLength": 50
     },
     "OfferDetail": {
       "type": "object",
@@ -655,8 +655,8 @@
     },
     "ShortString": {
       "type": "string",
-      "maxLength": 25,
-      "description": "Shorthand for setting length limit."
+      "description": "Shorthand for setting length limit.",
+      "maxLength": 25
     },
     "Uri": {
       "type": "string",
@@ -687,8 +687,8 @@
     },
     "email": {
       "type": "string",
-      "pattern": "\\w+@\\w+\\.\\w+",
-      "description": "Reusable representation of an email address"
+      "description": "Reusable representation of an email address",
+      "pattern": "\\w+@\\w+\\.\\w+"
     }
   },
   "parameters": {

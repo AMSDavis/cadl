@@ -1416,9 +1416,9 @@
     },
     "MediumString": {
       "type": "string",
+      "description": "Shorthand for setting length limit.",
       "minLength": 5,
-      "maxLength": 50,
-      "description": "Shorthand for setting length limit."
+      "maxLength": 50
     },
     "MonitoredResource": {
       "type": "object",
@@ -1826,8 +1826,8 @@
         },
         "phoneNumber": {
           "type": "string",
-          "maxLength": 40,
-          "description": "Phone number of the user used by Logz for contacting them if needed"
+          "description": "Phone number of the user used by Logz for contacting them if needed",
+          "maxLength": 40
         }
       },
       "description": "User details.",
@@ -1840,8 +1840,8 @@
     },
     "email": {
       "type": "string",
-      "pattern": "^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$",
-      "description": "Reusable representation of an email address"
+      "description": "Reusable representation of an email address",
+      "pattern": "^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$"
     }
   },
   "parameters": {

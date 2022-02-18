@@ -5590,8 +5590,8 @@
         },
         "maskingCharacter": {
           "type": "string",
-          "maxLength": 1,
-          "description": "The character used to mask the text if the maskingMode parameter is set to replace. Default is '*'."
+          "description": "The character used to mask the text if the maskingMode parameter is set to replace. Default is '*'.",
+          "maxLength": 1
         },
         "modelVersion": {
           "type": "string",
@@ -5652,14 +5652,14 @@
         },
         "delimiter": {
           "type": "string",
-          "maxLength": 1,
           "description": "The delimiter character to use. Default is \"/\".",
+          "maxLength": 1,
           "default": "/"
         },
         "replacement": {
           "type": "string",
-          "maxLength": 1,
           "description": "A value that, if set, replaces the delimiter character. Default is \"/\".",
+          "maxLength": 1,
           "default": "/"
         },
         "maxTokenLength": {

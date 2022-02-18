@@ -566,9 +566,9 @@
     },
     "SecretKey": {
       "type": "string",
+      "description": "The representation of a secret value, represented as a string on the wire",
       "format": "password",
-      "x-ms-secret": true,
-      "description": "The representation of a secret value, represented as a string on the wire"
+      "x-ms-secret": true
     },
     "Uri": {
       "type": "string",

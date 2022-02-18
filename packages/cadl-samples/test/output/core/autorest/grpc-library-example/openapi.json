@@ -391,13 +391,13 @@
     },
     "book_name": {
       "type": "string",
-      "pattern": "shelves/\\w+/books/\\w+",
-      "description": "The name of a book.\nBook names have the form `shelves/{shelf_id}/books/{book_id}`"
+      "description": "The name of a book.\nBook names have the form `shelves/{shelf_id}/books/{book_id}`",
+      "pattern": "shelves/\\w+/books/\\w+"
     },
     "shelf_name": {
       "type": "string",
-      "pattern": "shelves/\\w+",
-      "description": "The name of a shelf.\nShelf names have the form `shelves/{shelf_id}`."
+      "description": "The name of a shelf.\nShelf names have the form `shelves/{shelf_id}`.",
+      "pattern": "shelves/\\w+"
     }
   },
   "parameters": {

@@ -1688,8 +1688,8 @@
       "properties": {
         "anomalyAlertingConfigurationId": {
           "type": "string",
-          "pattern": "UUID",
           "description": "anomaly alerting configuration unique id",
+          "pattern": "UUID",
           "readOnly": true
         },
         "name": {
@@ -1833,18 +1833,18 @@
       "properties": {
         "dataFeedId": {
           "type": "string",
-          "pattern": "UUID",
-          "description": "data feed unique id only return for alerting anomaly result"
+          "description": "data feed unique id only return for alerting anomaly result",
+          "pattern": "UUID"
         },
         "metricId": {
           "type": "string",
-          "pattern": "UUID",
-          "description": "metric unique id only return for alerting anomaly result"
+          "description": "metric unique id only return for alerting anomaly result",
+          "pattern": "UUID"
         },
         "anomalyDetectionConfigurationId": {
           "type": "string",
-          "pattern": "UUID",
-          "description": "anomaly detection configuration unique id only return for alerting anomaly result"
+          "description": "anomaly detection configuration unique id only return for alerting anomaly result",
+          "pattern": "UUID"
         },
         "timestamp": {
           "type": "string",
@@ -2212,8 +2212,8 @@
       "properties": {
         "credentialId": {
           "type": "string",
-          "pattern": "UUID",
           "description": "Data source credential",
+          "pattern": "UUID",
           "readOnly": true
         }
       },
@@ -2226,8 +2226,8 @@
       "properties": {
         "dataFeedId": {
           "type": "string",
-          "pattern": "UUID",
           "description": "Datafeed details",
+          "pattern": "UUID",
           "readOnly": true
         },
         "dataSourceType": {
@@ -2799,18 +2799,18 @@
       "properties": {
         "dataFeedId": {
           "type": "string",
-          "pattern": "UUID",
-          "description": "data feed unique id only return for alerting anomaly result"
+          "description": "data feed unique id only return for alerting anomaly result",
+          "pattern": "UUID"
         },
         "metricId": {
           "type": "string",
-          "pattern": "UUID",
-          "description": "metric unique id only return for alerting incident result"
+          "description": "metric unique id only return for alerting incident result",
+          "pattern": "UUID"
         },
         "anomalyDetectionConfigurationId": {
           "type": "string",
-          "pattern": "UUID",
-          "description": "anomaly detection configuration unique id only return for alerting incident result"
+          "description": "anomaly detection configuration unique id only return for alerting incident result",
+          "pattern": "UUID"
         },
         "incidentId": {
           "type": "string",
@@ -2913,8 +2913,8 @@
       "properties": {
         "metricId": {
           "type": "string",
-          "pattern": "UUID",
-          "description": "metric id"
+          "description": "metric id",
+          "pattern": "UUID"
         },
         "metricName": {
           "type": "string",
@@ -2922,8 +2922,8 @@
         },
         "metricDisplayName": {
           "type": "string",
-          "pattern": "[.a-zA-Z0-9_-]+",
-          "description": "metric display name"
+          "description": "metric display name",
+          "pattern": "[.a-zA-Z0-9_-]+"
         },
         "metricDescription": {
           "type": "string",
@@ -2939,8 +2939,8 @@
       "properties": {
         "anomalyDetectionConfigurationId": {
           "type": "string",
-          "pattern": "UUID",
-          "description": "Anomaly detection configuration unique id"
+          "description": "Anomaly detection configuration unique id",
+          "pattern": "UUID"
         },
         "anomalyScopeType": {
           "$ref": "#/definitions/AnomalyScope",
@@ -2975,8 +2975,8 @@
       "properties": {
         "metricId": {
           "type": "string",
-          "pattern": "UUID",
           "description": "metric unique id",
+          "pattern": "UUID",
           "readOnly": true
         },
         "dimension": {
@@ -3055,8 +3055,8 @@
       "properties": {
         "feedbackId": {
           "type": "string",
-          "pattern": "UUID",
-          "description": "Feedback Id"
+          "description": "Feedback Id",
+          "pattern": "UUID"
         },
         "feedbackType": {
           "$ref": "#/definitions/FeedbackType",
@@ -3075,8 +3075,8 @@
         },
         "metricId": {
           "type": "string",
-          "pattern": "UUID",
-          "description": "metric unique id"
+          "description": "metric unique id",
+          "pattern": "UUID"
         },
         "dimensionFilter": {
           "$ref": "#/definitions/FeedbackDimensionFilter",
@@ -3094,8 +3094,8 @@
       "properties": {
         "metricId": {
           "type": "string",
-          "pattern": "UUID",
-          "description": "filter feedbacks by metric id"
+          "description": "filter feedbacks by metric id",
+          "pattern": "UUID"
         },
         "FeedbackDimensionFilter": {
           "$ref": "#/definitions/FeedbackDimensionFilter"
@@ -3124,8 +3124,8 @@
       "properties": {
         "metricId": {
           "type": "string",
-          "pattern": "UUID",
           "description": "metric unique id",
+          "pattern": "UUID",
           "readOnly": true
         },
         "dimension": {
@@ -3414,8 +3414,8 @@
         },
         "metricId": {
           "type": "string",
-          "pattern": "UUID",
-          "description": "the other metric unique id used for value filter"
+          "description": "the other metric unique id used for value filter",
+          "pattern": "UUID"
         },
         "triggerForMissing": {
           "type": "boolean",
