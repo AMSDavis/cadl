@@ -34,10 +34,10 @@
   },
   "tags": [
     {
-      "name": "Operations"
+      "name": "MarketplaceAgreements"
     },
     {
-      "name": "MarketplaceAgreements"
+      "name": "Operations"
     },
     {
       "name": "Organizations"
@@ -143,7 +143,10 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "MarketplaceAgreements"
+        ]
       }
     },
     "/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/organizations": {
@@ -396,19 +399,6 @@
     }
   },
   "definitions": {
-    "Azure.ResourceManager.ResourceProvisioningState": {
-      "type": "string",
-      "description": "The provisioning state of a resource type.",
-      "enum": [
-        "Succeeded",
-        "Failed",
-        "Canceled"
-      ],
-      "x-ms-enum": {
-        "name": "ResourceProvisioningState",
-        "modelAsString": true
-      }
-    },
     "ConfluentAgreementResource": {
       "type": "object",
       "properties": {
@@ -610,7 +600,7 @@
           "description": "Subscriber details."
         },
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },
@@ -647,11 +637,24 @@
           "description": "Subscriber details."
         },
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },
       "description": "The updatable properties of the Organization."
+    },
+    "ResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a resource type.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true
+      }
     },
     "ShortString": {
       "type": "string",

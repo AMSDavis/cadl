@@ -34,10 +34,10 @@
   },
   "tags": [
     {
-      "name": "Operations"
+      "name": "Monitors"
     },
     {
-      "name": "Monitors"
+      "name": "Operations"
     },
     {
       "name": "TagRules"
@@ -180,7 +180,10 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Monitors"
+        ]
       },
       "put": {
         "operationId": "Monitors_CreateOrUpdate",
@@ -231,7 +234,10 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Monitors"
+        ]
       },
       "patch": {
         "operationId": "Monitors_Update",
@@ -272,7 +278,10 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Monitors"
+        ]
       },
       "delete": {
         "operationId": "Monitors_Delete",
@@ -311,7 +320,10 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Monitors"
+        ]
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/getAccountCredentials": {
@@ -345,7 +357,10 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Monitors"
+        ]
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/listMonitoredResources": {
@@ -380,6 +395,9 @@
             }
           }
         },
+        "tags": [
+          "Monitors"
+        ],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -417,6 +435,9 @@
             }
           }
         },
+        "tags": [
+          "Monitors"
+        ],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -454,6 +475,9 @@
             }
           }
         },
+        "tags": [
+          "Monitors"
+        ],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -854,7 +878,10 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Monitors"
+        ]
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/vmHostUpdate": {
@@ -892,6 +919,9 @@
             }
           }
         },
+        "tags": [
+          "Monitors"
+        ],
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -935,86 +965,6 @@
         }
       },
       "description": "Dynatrace account API Key"
-    },
-    "Azure.ResourceManager.ManagedIdentityProperties": {
-      "type": "object",
-      "properties": {
-        "tenantId": {
-          "type": "string",
-          "description": "The Active Directory tenant id of the principal.",
-          "readOnly": true
-        },
-        "principalId": {
-          "type": "string",
-          "description": "The active directory identifier of this principal.",
-          "readOnly": true
-        },
-        "type": {
-          "$ref": "#/definitions/Azure.ResourceManager.ManagedIdentityType",
-          "description": "The type of managed identity assigned to this resource."
-        },
-        "userAssignedIdentities": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/Azure.ResourceManager.UserAssignedIdentity"
-          },
-          "description": "The identities assigned to this resource by the user."
-        }
-      },
-      "description": "The properties of the managed service identities assigned to this resource.",
-      "required": [
-        "type"
-      ]
-    },
-    "Azure.ResourceManager.ManagedIdentityType": {
-      "type": "string",
-      "description": "The kind of managed identity assigned to this resource.",
-      "enum": [
-        "None",
-        "SystemAssigned",
-        "UserAssigned",
-        "SystemAssigned,UserAssigned"
-      ],
-      "x-ms-enum": {
-        "name": "ManagedIdentityType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "None",
-            "value": "None"
-          },
-          {
-            "name": "SystemAssigned",
-            "value": "SystemAssigned"
-          },
-          {
-            "name": "UserAssigned",
-            "value": "UserAssigned"
-          },
-          {
-            "name": "SystemAndUserAssigned",
-            "value": "SystemAssigned,UserAssigned"
-          }
-        ]
-      }
-    },
-    "Azure.ResourceManager.UserAssignedIdentity": {
-      "type": "object",
-      "properties": {
-        "clientId": {
-          "type": "string",
-          "description": "The active directory client identifier for this principal."
-        },
-        "principalId": {
-          "type": "string",
-          "description": "The active directory identifier for this principal."
-        }
-      },
-      "description": "A managed identity assigned by the user.",
-      "required": [
-        "clientId",
-        "principalId"
-      ]
     },
     "DynatraceEnvironmentProperties": {
       "type": "object",
@@ -1197,6 +1147,68 @@
       },
       "description": "Set of rules for sending logs for the Monitor resource."
     },
+    "ManagedIdentityProperties": {
+      "type": "object",
+      "properties": {
+        "tenantId": {
+          "type": "string",
+          "description": "The Active Directory tenant id of the principal.",
+          "readOnly": true
+        },
+        "principalId": {
+          "type": "string",
+          "description": "The active directory identifier of this principal.",
+          "readOnly": true
+        },
+        "type": {
+          "$ref": "#/definitions/ManagedIdentityType",
+          "description": "The type of managed identity assigned to this resource."
+        },
+        "userAssignedIdentities": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/UserAssignedIdentity"
+          },
+          "description": "The identities assigned to this resource by the user."
+        }
+      },
+      "description": "The properties of the managed service identities assigned to this resource.",
+      "required": [
+        "type"
+      ]
+    },
+    "ManagedIdentityType": {
+      "type": "string",
+      "description": "The kind of managed identity assigned to this resource.",
+      "enum": [
+        "None",
+        "SystemAssigned",
+        "UserAssigned",
+        "SystemAssigned,UserAssigned"
+      ],
+      "x-ms-enum": {
+        "name": "ManagedIdentityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None"
+          },
+          {
+            "name": "SystemAssigned",
+            "value": "SystemAssigned"
+          },
+          {
+            "name": "UserAssigned",
+            "value": "UserAssigned"
+          },
+          {
+            "name": "SystemAndUserAssigned",
+            "value": "SystemAssigned,UserAssigned"
+          }
+        ]
+      }
+    },
     "MarketplaceSubscriptionStatus": {
       "type": "string",
       "description": "Flag specifying the Marketplace Subscription Status of the resource. If payment is not made in time, the resource will go in Suspended state.",
@@ -1274,7 +1286,7 @@
           "readOnly": true
         },
         "identity": {
-          "$ref": "#/definitions/Azure.ResourceManager.ManagedIdentityProperties",
+          "$ref": "#/definitions/ManagedIdentityProperties",
           "description": "The managed service identities assigned to this resource."
         }
       },
@@ -1613,6 +1625,24 @@
         }
       },
       "description": "The updatable properties of the TagRule."
+    },
+    "UserAssignedIdentity": {
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "type": "string",
+          "description": "The active directory client identifier for this principal."
+        },
+        "principalId": {
+          "type": "string",
+          "description": "The active directory identifier for this principal."
+        }
+      },
+      "description": "A managed identity assigned by the user.",
+      "required": [
+        "clientId",
+        "principalId"
+      ]
     },
     "UserInfo": {
       "type": "object",

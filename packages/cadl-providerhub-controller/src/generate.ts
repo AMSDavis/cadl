@@ -853,7 +853,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         case "UnionVariant": {
           if (target.node !== undefined) {
             const parent = program.checker?.getTypeForNode(target.node.parent!) as UnionType;
-            location = `variant ${target.name} in union ${parent?.name}`;
+            location = `variant ${String(target.name)} in union ${parent?.name}`;
           }
           break;
         }

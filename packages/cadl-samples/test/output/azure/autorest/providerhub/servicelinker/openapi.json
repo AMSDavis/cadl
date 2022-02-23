@@ -34,6 +34,9 @@
   },
   "tags": [
     {
+      "name": "Linker"
+    },
+    {
       "name": "Operations"
     }
   ],
@@ -47,7 +50,7 @@
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+            "$ref": "#/parameters/ResourceUriParameter"
           },
           {
             "$ref": "#/parameters/LinkerNameParameter"
@@ -66,7 +69,10 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Linker"
+        ]
       },
       "put": {
         "operationId": "Linker_CreateOrUpdate",
@@ -80,7 +86,7 @@
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+            "$ref": "#/parameters/ResourceUriParameter"
           },
           {
             "$ref": "#/parameters/LinkerNameParameter"
@@ -114,7 +120,10 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Linker"
+        ]
       },
       "patch": {
         "operationId": "Linker_Update",
@@ -124,7 +133,7 @@
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+            "$ref": "#/parameters/ResourceUriParameter"
           },
           {
             "$ref": "#/parameters/LinkerNameParameter"
@@ -152,7 +161,10 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Linker"
+        ]
       },
       "delete": {
         "operationId": "Linker_Delete",
@@ -166,7 +178,7 @@
             "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+            "$ref": "#/parameters/ResourceUriParameter"
           },
           {
             "$ref": "#/parameters/LinkerNameParameter"
@@ -188,7 +200,10 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Linker"
+        ]
       }
     },
     "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/listConfigurations": {
@@ -197,7 +212,7 @@
         "description": "List linker resource configurations.",
         "parameters": [
           {
-            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+            "$ref": "#/parameters/ResourceUriParameter"
           },
           {
             "$ref": "#/parameters/LinkerNameParameter"
@@ -216,7 +231,10 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Linker"
+        ]
       }
     },
     "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/validateLinker": {
@@ -225,7 +243,7 @@
         "description": "Validate a linker resource.",
         "parameters": [
           {
-            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+            "$ref": "#/parameters/ResourceUriParameter"
           },
           {
             "$ref": "#/parameters/LinkerNameParameter"
@@ -244,7 +262,10 @@
               "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "tags": [
+          "Linker"
+        ]
       }
     },
     "/providers/Microsoft.ServiceLinker/operations": {
@@ -479,15 +500,6 @@
     }
   },
   "parameters": {
-    "Azure.ResourceManager.ResourceUriParameter": {
-      "x-ms-parameter-location": "method",
-      "name": "resourceUri",
-      "in": "path",
-      "required": true,
-      "description": "The fully qualified Azure Resource manager identifier of the resource.",
-      "type": "string",
-      "x-ms-skip-url-encoding": true
-    },
     "LinkerNameParameter": {
       "x-ms-parameter-location": "method",
       "name": "linkerName",
@@ -495,6 +507,15 @@
       "required": true,
       "description": "The name of the linker resource.",
       "type": "string"
+    },
+    "ResourceUriParameter": {
+      "x-ms-parameter-location": "method",
+      "name": "resourceUri",
+      "in": "path",
+      "required": true,
+      "description": "The fully qualified Azure Resource manager identifier of the resource.",
+      "type": "string",
+      "x-ms-skip-url-encoding": true
     }
   }
 }

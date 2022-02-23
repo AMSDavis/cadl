@@ -520,86 +520,6 @@
         ]
       }
     },
-    "Azure.ResourceManager.ManagedIdentityProperties": {
-      "type": "object",
-      "properties": {
-        "tenantId": {
-          "type": "string",
-          "description": "The Active Directory tenant id of the principal.",
-          "readOnly": true
-        },
-        "principalId": {
-          "type": "string",
-          "description": "The active directory identifier of this principal.",
-          "readOnly": true
-        },
-        "type": {
-          "$ref": "#/definitions/Azure.ResourceManager.ManagedIdentityType",
-          "description": "The type of managed identity assigned to this resource."
-        },
-        "userAssignedIdentities": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/Azure.ResourceManager.UserAssignedIdentity"
-          },
-          "description": "The identities assigned to this resource by the user."
-        }
-      },
-      "description": "The properties of the managed service identities assigned to this resource.",
-      "required": [
-        "type"
-      ]
-    },
-    "Azure.ResourceManager.ManagedIdentityType": {
-      "type": "string",
-      "description": "The kind of managed identity assigned to this resource.",
-      "enum": [
-        "None",
-        "SystemAssigned",
-        "UserAssigned",
-        "SystemAssigned,UserAssigned"
-      ],
-      "x-ms-enum": {
-        "name": "ManagedIdentityType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "None",
-            "value": "None"
-          },
-          {
-            "name": "SystemAssigned",
-            "value": "SystemAssigned"
-          },
-          {
-            "name": "UserAssigned",
-            "value": "UserAssigned"
-          },
-          {
-            "name": "SystemAndUserAssigned",
-            "value": "SystemAssigned,UserAssigned"
-          }
-        ]
-      }
-    },
-    "Azure.ResourceManager.UserAssignedIdentity": {
-      "type": "object",
-      "properties": {
-        "clientId": {
-          "type": "string",
-          "description": "The active directory client identifier for this principal."
-        },
-        "principalId": {
-          "type": "string",
-          "description": "The active directory identifier for this principal."
-        }
-      },
-      "description": "A managed identity assigned by the user.",
-      "required": [
-        "clientId",
-        "principalId"
-      ]
-    },
     "DeviceId": {
       "type": "string",
       "description": "Device identification in Guid format",
@@ -662,6 +582,68 @@
         }
       },
       "description": "Microsoft Azure Attestation Endpoint"
+    },
+    "ManagedIdentityProperties": {
+      "type": "object",
+      "properties": {
+        "tenantId": {
+          "type": "string",
+          "description": "The Active Directory tenant id of the principal.",
+          "readOnly": true
+        },
+        "principalId": {
+          "type": "string",
+          "description": "The active directory identifier of this principal.",
+          "readOnly": true
+        },
+        "type": {
+          "$ref": "#/definitions/ManagedIdentityType",
+          "description": "The type of managed identity assigned to this resource."
+        },
+        "userAssignedIdentities": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/UserAssignedIdentity"
+          },
+          "description": "The identities assigned to this resource by the user."
+        }
+      },
+      "description": "The properties of the managed service identities assigned to this resource.",
+      "required": [
+        "type"
+      ]
+    },
+    "ManagedIdentityType": {
+      "type": "string",
+      "description": "The kind of managed identity assigned to this resource.",
+      "enum": [
+        "None",
+        "SystemAssigned",
+        "UserAssigned",
+        "SystemAssigned,UserAssigned"
+      ],
+      "x-ms-enum": {
+        "name": "ManagedIdentityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None"
+          },
+          {
+            "name": "SystemAssigned",
+            "value": "SystemAssigned"
+          },
+          {
+            "name": "UserAssigned",
+            "value": "UserAssigned"
+          },
+          {
+            "name": "SystemAndUserAssigned",
+            "value": "SystemAssigned,UserAssigned"
+          }
+        ]
+      }
     },
     "MediumString": {
       "type": "string",
@@ -777,6 +759,24 @@
         "messageType"
       ]
     },
+    "UserAssignedIdentity": {
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "type": "string",
+          "description": "The active directory client identifier for this principal."
+        },
+        "principalId": {
+          "type": "string",
+          "description": "The active directory identifier for this principal."
+        }
+      },
+      "description": "A managed identity assigned by the user.",
+      "required": [
+        "clientId",
+        "principalId"
+      ]
+    },
     "UserInfo": {
       "type": "object",
       "properties": {
@@ -855,7 +855,7 @@
           "readOnly": true
         },
         "identity": {
-          "$ref": "#/definitions/Azure.ResourceManager.ManagedIdentityProperties",
+          "$ref": "#/definitions/ManagedIdentityProperties",
           "description": "The managed service identities assigned to this resource."
         }
       },
