@@ -4159,6 +4159,7 @@ packages:
       eslint: 8.9.0
       onigasm: 2.2.5
       plist: 3.0.4
+      rimraf: 3.0.2
       typescript: 4.5.5
     dev: false
     id: file:projects/tmlanguage-generator.tgz
@@ -4166,7 +4167,7 @@ packages:
     peerDependencies:
       prettier: '*'
     resolution:
-      integrity: sha512-iFzSnGkN8Q57wxL6yX4iCue/+PzTIFhO+ONXWFF4II05U1tPFSXonYBspTndVSjJ8H+sbV80A6t1GSCSBIT8pg==
+      integrity: sha512-bmrdMIx88rkaKtjba8YdACh+L5Qf1/3sSSv7ZVE+goSirwh/CtX72ScaScCmzhC/XMa+pDykj6aSfpQpBY/nkQ==
       tarball: file:projects/tmlanguage-generator.tgz
     version: 0.0.0
   file:projects/versioning.tgz_prettier@2.5.1:

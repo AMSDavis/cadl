@@ -24,7 +24,7 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./dist ./temp",
     "build": "npm run compile",
     "compile": "tsc -p .",
     "watch": "tsc -p . --watch",
