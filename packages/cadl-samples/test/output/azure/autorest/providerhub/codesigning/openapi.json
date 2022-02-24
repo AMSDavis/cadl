@@ -2,7 +2,8 @@
   "swagger": "2.0",
   "info": {
     "title": "CodeSigningManagementClient",
-    "version": "2020-12-14-preview"
+    "version": "2020-12-14-preview",
+    "description": "Code Sign Resource Provider Account and Certificate Profile management API."
   },
   "host": "management.azure.com",
   "schemes": [

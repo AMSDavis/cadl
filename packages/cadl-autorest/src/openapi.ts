@@ -244,6 +244,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     info: {
       title: getServiceTitle(program),
       version: getServiceVersion(program),
+      description: getDoc(program, getServiceNamespace(program)!),
     },
     host: getServiceHost(program),
     schemes: ["https"],

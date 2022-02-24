@@ -2,7 +2,8 @@
   "swagger": "2.0",
   "info": {
     "title": "Metrics Advisor",
-    "version": "1.0"
+    "version": "1.0",
+    "description": "Microsoft Azure Metrics Advisor REST API (OpenAPI v2)"
   },
   "schemes": [
     "https"

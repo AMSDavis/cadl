@@ -2,7 +2,8 @@
   "swagger": "2.0",
   "info": {
     "title": "Form Recognizer",
-    "version": "2021-09-30-preview"
+    "version": "2021-09-30-preview",
+    "description": "Extracts content, layout, and structured data from documents."
   },
   "schemes": [
     "https"
