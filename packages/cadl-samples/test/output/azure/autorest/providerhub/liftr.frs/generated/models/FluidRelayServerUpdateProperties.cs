@@ -8,19 +8,17 @@ using System;
 using System.Security.Policy;
 using System.Collections.Generic; 
 
-namespace Microsoft.Observability.Service.Models
+namespace Microsoft.FluidRelay.Service.Models
 {
     /// <summary>
-    /// The updatable properties of the MonitorResource.
+    /// The updatable properties of FluidRelayServerProperties
     /// </summary>
-    public class MonitorResourceUpdate 
+    public class FluidRelayServerUpdateProperties 
     {
         /// <summary>
-        /// Resource tags.
+        /// Provisioning states for FluidRelay RP
         /// </summary>
-        public IDictionary<string, string> Tags { get; set; }
-
-        public MonitorResourceUpdateProperties Properties { get; set; }
+        public ProvisioningState ProvisioningState { get; set; }
 
     }
 }

@@ -1320,13 +1320,17 @@
           "additionalProperties": {
             "type": "string"
           },
-          "description": "Resource tags.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "description": "Resource tags."
         },
+        "properties": {
+          "$ref": "#/definitions/LogzMonitorResourceUpdateProperties"
+        }
+      },
+      "description": "The updatable properties of the LogzMonitorResource."
+    },
+    "LogzMonitorResourceUpdateProperties": {
+      "type": "object",
+      "properties": {
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Provisioning state of the resource."
@@ -1361,7 +1365,7 @@
           "description": "The priority of the resource."
         }
       },
-      "description": "The updatable properties of the LogzMonitorResource."
+      "description": "The updatable properties of LogzMonitorResourceProperties"
     },
     "LogzOrganizationProperties": {
       "type": "object",
@@ -1598,6 +1602,15 @@
     "SingleSignOnConfigurationResourceUpdate": {
       "type": "object",
       "properties": {
+        "properties": {
+          "$ref": "#/definitions/SingleSignOnConfigurationResourceUpdateProperties"
+        }
+      },
+      "description": "The updatable properties of the SingleSignOnConfigurationResource."
+    },
+    "SingleSignOnConfigurationResourceUpdateProperties": {
+      "type": "object",
+      "properties": {
         "singleSignOnState": {
           "$ref": "#/definitions/SingleSignOnStates",
           "description": "Various states of the SSO resource"
@@ -1615,7 +1628,7 @@
           "description": "The provisioning state of the SSO resource"
         }
       },
-      "description": "The updatable properties of the SingleSignOnConfigurationResource."
+      "description": "The updatable properties of LogzSingleSignOnProperties"
     },
     "SingleSignOnStates": {
       "type": "string",
@@ -1683,6 +1696,15 @@
     "SubAccountResourceUpdate": {
       "type": "object",
       "properties": {
+        "properties": {
+          "$ref": "#/definitions/SubAccountResourceUpdateProperties"
+        }
+      },
+      "description": "The updatable properties of the SubAccountResource."
+    },
+    "SubAccountResourceUpdateProperties": {
+      "type": "object",
+      "properties": {
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Provisioning state of the resource."
@@ -1717,7 +1739,7 @@
           "description": "The priority of the resource."
         }
       },
-      "description": "The updatable properties of the SubAccountResource."
+      "description": "The updatable properties of LogzMonitorResourceProperties"
     },
     "SubAccountTagRuleResource": {
       "type": "object",

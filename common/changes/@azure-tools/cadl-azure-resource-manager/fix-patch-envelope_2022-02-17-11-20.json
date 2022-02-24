@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-azure-resource-manager",
+      "comment": "Remove redundent `@visibility` decorators in arm.cadl",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-azure-resource-manager"
+}

@@ -380,6 +380,15 @@
     "LinkerResourceUpdate": {
       "type": "object",
       "properties": {
+        "properties": {
+          "$ref": "#/definitions/LinkerResourceUpdateProperties"
+        }
+      },
+      "description": "The updatable properties of the LinkerResource."
+    },
+    "LinkerResourceUpdateProperties": {
+      "type": "object",
+      "properties": {
         "targetId": {
           "type": "string",
           "description": "The resource Id of the target service."
@@ -389,7 +398,7 @@
           "description": "The authentication type."
         }
       },
-      "description": "The updatable properties of the LinkerResource."
+      "description": "The updatable properties of LinkerProperties"
     },
     "LinkerStatus": {
       "type": "string",

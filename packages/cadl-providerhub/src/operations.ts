@@ -1,5 +1,6 @@
 import {
   DecoratorContext,
+  ModelType,
   NamespaceType,
   Program,
   Type,
@@ -9,7 +10,11 @@ import { $route } from "@cadl-lang/rest";
 import { reportDiagnostic } from "./lib.js";
 import { ArmResourceInfo, getArmResourceInfo, ParameterInfo } from "./resource.js";
 
-type StandardOperationGenerator = (program: Program, target: Type, documentation?: string) => void;
+type StandardOperationGenerator = (
+  program: Program,
+  target: ModelType,
+  documentation?: string
+) => void;
 
 const standardOperationFunctions: { [key: string]: StandardOperationGenerator } = {
   read: armStandardRead,
@@ -94,7 +99,7 @@ function getOperationPathArguments(pathParameters: ParameterInfo[]): string {
 function prepareOperationInfo(
   program: Program,
   decoratorName: string,
-  resourceType: Type,
+  resourceType: ModelType,
   operationGroup?: string
 ) {
   const armResourceInfo = getArmResourceInfo(program, resourceType);
@@ -138,7 +143,7 @@ function evalInNamespace(program: Program, namespace: string, cadlScript: string
   `);
 }
 
-export function armStandardRead(program: Program, target: Type, documentation?: string): void {
+export function armStandardRead(program: Program, target: ModelType, documentation?: string): void {
   const info = prepareOperationInfo(program, "armStandardRead", target);
   if (!info) {
     return;
@@ -160,7 +165,11 @@ export function armStandardRead(program: Program, target: Type, documentation?: 
   );
 }
 
-export function armStandardCreate(program: Program, target: Type, documentation?: string): void {
+export function armStandardCreate(
+  program: Program,
+  target: ModelType,
+  documentation?: string
+): void {
   const info = prepareOperationInfo(program, "armStandardCreate", target);
   if (!info) {
     return;
@@ -187,7 +196,11 @@ export function armStandardCreate(program: Program, target: Type, documentation?
   );
 }
 
-export function armStandardUpdate(program: Program, target: Type, documentation?: string): void {
+export function armStandardUpdate(
+  program: Program,
+  target: ModelType,
+  documentation?: string
+): void {
   const info = prepareOperationInfo(program, "armStandardUpdate", target);
   if (!info) {
     return;
@@ -204,25 +217,29 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
   if (armResourceInfo.propertiesType) {
     updateModelName = `${armResourceInfo.resourceModelName}Update`;
     const updatePropertiesModel = `${updateModelName}Properties`;
-    const updatePropertiesDescription = `@doc("The updateable properties of ${armResourceInfo.propertiesType.name}")`;
-    const propertiesModelString = `${updatePropertiesDescription}
-        model ${updatePropertiesModel} {
-          ...OmitDefaults<OptionalProperties<UpdateableProperties<${armResourceInfo.propertiesType.name}>>>
-        }`;
 
     // Only TrackedResources have a tags property
     const tagsString = armResourceInfo.resourceKind === "Tracked" ? "...ArmTagsProperty;" : "";
 
-    evalInNamespace(
-      program,
-      armResourceInfo.parentNamespace,
-      `${propertiesModelString}
-       @doc("The updatable properties of the ${armResourceInfo.resourceModelName}.")
-       model ${updateModelName} {
-         ${tagsString}
-         ...${updatePropertiesModel};
-       }`
-    );
+    const updateModelString = `
+    @doc("The updatable properties of ${armResourceInfo.propertiesType.name}")
+    model ${updatePropertiesModel} {
+      ...OmitDefaults<OptionalProperties<UpdateableProperties<${
+        armResourceInfo.propertiesType.name
+      }>>>
+    }
+
+    @doc("The updatable properties of the ${armResourceInfo.resourceModelName}.")
+    model ${updateModelName} {
+      ${tagsString}
+      properties?: ${updatePropertiesModel};
+      ${target.properties.has("sku") ? "...ResourceSku;" : ""}
+      ${target.properties.has("plan") ? "...ResourcePlan;" : ""}
+      ${target.properties.has("managedBy") ? "...ManagedBy;" : ""}
+    }
+    `;
+
+    evalInNamespace(program, armResourceInfo.parentNamespace, updateModelString);
   }
 
   evalInNamespace(
@@ -237,7 +254,11 @@ export function armStandardUpdate(program: Program, target: Type, documentation?
   );
 }
 
-export function armStandardDelete(program: Program, target: Type, documentation?: string): void {
+export function armStandardDelete(
+  program: Program,
+  target: ModelType,
+  documentation?: string
+): void {
   const info = prepareOperationInfo(program, "armStandardDelete", target);
   if (!info) {
     return;
@@ -262,7 +283,7 @@ export function armStandardDelete(program: Program, target: Type, documentation?
   );
 }
 
-export function armStandardList(program: Program, target: Type, documentation?: string): void {
+export function armStandardList(program: Program, target: ModelType, documentation?: string): void {
   const info = prepareOperationInfo(program, "armStandardList", target);
 
   if (!info) {
@@ -293,7 +314,7 @@ export function armStandardList(program: Program, target: Type, documentation?: 
 
 export function generateStandardOperations(
   program: Program,
-  resourceType: Type,
+  resourceType: ModelType,
   standardOperations: string[]
 ) {
   for (const op of standardOperations) {

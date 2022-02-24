@@ -15,10 +15,7 @@ namespace Microsoft.Observability.Service.Models
     /// </summary>
     public class TagRuleUpdate 
     {
-        /// <summary>
-        /// Set of rules for sending logs for the Monitor resource.
-        /// </summary>
-        public LogRules LogRules { get; set; }
+        public TagRuleUpdateProperties Properties { get; set; }
 
     }
 }

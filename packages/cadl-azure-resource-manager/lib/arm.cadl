@@ -36,7 +36,6 @@ model TrackedResourceBase extends ArmResource {
 @doc("The ARM Resource tags.")
 model ArmTagsProperty {
   @doc("Resource tags.")
-  @visibility("read", "write", "create")
   tags?: Map<string, string>;
 }
 
@@ -405,7 +404,6 @@ model EntityTag {
 @doc("The managedBy property envelope.")
 model ManagedBy {
   @doc("The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource.")
-  @visibility("read", "create", "update")
   managedBy?: string;
 }
 

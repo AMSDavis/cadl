@@ -397,13 +397,17 @@
           "additionalProperties": {
             "type": "string"
           },
-          "description": "Resource tags.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "description": "Resource tags."
         },
+        "properties": {
+          "$ref": "#/definitions/EmployeeUpdateProperties"
+        }
+      },
+      "description": "The updatable properties of the Employee."
+    },
+    "EmployeeUpdateProperties": {
+      "type": "object",
+      "properties": {
         "age": {
           "type": "integer",
           "format": "int32"
@@ -412,7 +416,7 @@
           "type": "string"
         }
       },
-      "description": "The updatable properties of the Employee."
+      "description": "The updatable properties of EmployeeProperties"
     },
     "ProvisioningState": {
       "type": "string",

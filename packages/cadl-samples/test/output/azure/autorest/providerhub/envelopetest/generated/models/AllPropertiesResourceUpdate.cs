@@ -20,15 +20,22 @@ namespace Microsoft.EnvelopeTest.Service.Models
         /// </summary>
         public IDictionary<string, string> Tags { get; set; }
 
-        /// <summary>
-        /// The status of the last operation performed on this resource.
-        /// </summary>
-        public EnvelopeProvisioningState ProvisioningState { get; set; }
+        public AllPropertiesResourceUpdateProperties Properties { get; set; }
 
         /// <summary>
-        /// Name of the resource
+        /// The SKU (Stock Keeping Unit) assigned to this resource.
         /// </summary>
-        public string DisplayName { get; set; }
+        public ResourceSkuType Sku { get; set; }
+
+        /// <summary>
+        /// Details of the resource plan.
+        /// </summary>
+        public ResourcePlanType Plan { get; set; }
+
+        /// <summary>
+        /// The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource.
+        /// </summary>
+        public string ManagedBy { get; set; }
 
     }
 }

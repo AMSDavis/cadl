@@ -11,16 +11,14 @@ using System.Collections.Generic;
 namespace Microsoft.Observability.Service.Models
 {
     /// <summary>
-    /// The updatable properties of the MonitorResource.
+    /// The updatable properties of MonitoringTagRulesProperties
     /// </summary>
-    public class MonitorResourceUpdate 
+    public class TagRuleUpdateProperties 
     {
         /// <summary>
-        /// Resource tags.
+        /// Set of rules for sending logs for the Monitor resource.
         /// </summary>
-        public IDictionary<string, string> Tags { get; set; }
-
-        public MonitorResourceUpdateProperties Properties { get; set; }
+        public LogRules LogRules { get; set; }
 
     }
 }

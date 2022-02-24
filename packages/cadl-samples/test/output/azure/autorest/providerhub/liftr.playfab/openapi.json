@@ -674,13 +674,17 @@
           "additionalProperties": {
             "type": "string"
           },
-          "description": "Resource tags.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "description": "Resource tags."
         },
+        "properties": {
+          "$ref": "#/definitions/PlayerDatabaseUpdateProperties"
+        }
+      },
+      "description": "The updatable properties of the PlayerDatabase."
+    },
+    "PlayerDatabaseUpdateProperties": {
+      "type": "object",
+      "properties": {
         "userId": {
           "type": "string",
           "description": "The user id for this player database"
@@ -698,7 +702,7 @@
           "description": "The provisioning state of the resource."
         }
       },
-      "description": "The updatable properties of the PlayerDatabase."
+      "description": "The updatable properties of PlayerDatabaseProperties"
     },
     "Title": {
       "type": "object",
@@ -784,19 +788,23 @@
           "additionalProperties": {
             "type": "string"
           },
-          "description": "Resource tags.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "description": "Resource tags."
         },
+        "properties": {
+          "$ref": "#/definitions/TitleUpdateProperties"
+        }
+      },
+      "description": "The updatable properties of the Title."
+    },
+    "TitleUpdateProperties": {
+      "type": "object",
+      "properties": {
         "provisioningState": {
           "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },
-      "description": "The updatable properties of the Title."
+      "description": "The updatable properties of TitleProperties"
     }
   },
   "parameters": {

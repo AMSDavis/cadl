@@ -530,19 +530,23 @@
           "additionalProperties": {
             "type": "string"
           },
-          "description": "Resource tags.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "description": "Resource tags."
         },
+        "properties": {
+          "$ref": "#/definitions/FluidRelayServerUpdateProperties"
+        }
+      },
+      "description": "The updatable properties of the FluidRelayServer."
+    },
+    "FluidRelayServerUpdateProperties": {
+      "type": "object",
+      "properties": {
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Provisioning states for FluidRelay RP"
         }
       },
-      "description": "The updatable properties of the FluidRelayServer."
+      "description": "The updatable properties of FluidRelayServerProperties"
     },
     "KeyName": {
       "type": "string",

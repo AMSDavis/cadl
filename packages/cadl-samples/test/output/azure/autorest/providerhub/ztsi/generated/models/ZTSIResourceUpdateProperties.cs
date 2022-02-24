@@ -11,16 +11,19 @@ using System.Collections.Generic;
 namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
 {
     /// <summary>
-    /// The updatable properties of the ZTSIResource.
+    /// The updatable properties of ZTSIProperties
     /// </summary>
-    public class ZTSIResourceUpdate 
+    public class ZTSIResourceUpdateProperties 
     {
         /// <summary>
-        /// Resource tags.
+        /// User info.
         /// </summary>
-        public IDictionary<string, string> Tags { get; set; }
+        public UserInfo UserInfo { get; set; }
 
-        public ZTSIResourceUpdateProperties Properties { get; set; }
+        /// <summary>
+        /// Billing plan information.
+        /// </summary>
+        public PlanData PlanData { get; set; }
 
     }
 }

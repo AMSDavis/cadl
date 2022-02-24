@@ -8,19 +8,17 @@ using System;
 using System.Security.Policy;
 using System.Collections.Generic; 
 
-namespace Microsoft.Observability.Service.Models
+namespace Microsoft.PlayFab.Service.Models
 {
     /// <summary>
-    /// The updatable properties of the MonitorResource.
+    /// The updatable properties of TitleProperties
     /// </summary>
-    public class MonitorResourceUpdate 
+    public class TitleUpdateProperties 
     {
         /// <summary>
-        /// Resource tags.
+        /// The provisioning state of the resource.
         /// </summary>
-        public IDictionary<string, string> Tags { get; set; }
-
-        public MonitorResourceUpdateProperties Properties { get; set; }
+        public ResourceProvisioningState ProvisioningState { get; set; }
 
     }
 }

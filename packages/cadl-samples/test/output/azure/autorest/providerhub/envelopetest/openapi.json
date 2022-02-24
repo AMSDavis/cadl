@@ -614,11 +614,7 @@
         },
         "managedBy": {
           "type": "string",
-          "description": "The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
+          "description": "The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource."
         },
         "kind": {
           "type": "string",
@@ -681,13 +677,29 @@
           "additionalProperties": {
             "type": "string"
           },
-          "description": "Resource tags.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "description": "Resource tags."
         },
+        "properties": {
+          "$ref": "#/definitions/AllPropertiesResourceUpdateProperties"
+        },
+        "sku": {
+          "$ref": "../../../../../../providerhub/types.json#/definitions/Sku",
+          "description": "The SKU (Stock Keeping Unit) assigned to this resource."
+        },
+        "plan": {
+          "$ref": "../../../../../../providerhub/types.json#/definitions/Plan",
+          "description": "Details of the resource plan."
+        },
+        "managedBy": {
+          "type": "string",
+          "description": "The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource."
+        }
+      },
+      "description": "The updatable properties of the AllPropertiesResource."
+    },
+    "AllPropertiesResourceUpdateProperties": {
+      "type": "object",
+      "properties": {
         "provisioningState": {
           "$ref": "#/definitions/EnvelopeProvisioningState",
           "description": "The status of the last operation performed on this resource."
@@ -697,7 +709,7 @@
           "description": "Name of the resource"
         }
       },
-      "description": "The updatable properties of the AllPropertiesResource."
+      "description": "The updatable properties of AllPropertiesProperties"
     },
     "Azure.ResourceManager.ManagedIdentityProperties": {
       "type": "object",
@@ -900,19 +912,23 @@
           "additionalProperties": {
             "type": "string"
           },
-          "description": "Resource tags.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "description": "Resource tags."
         },
+        "properties": {
+          "$ref": "#/definitions/SystemOnlyResourceUpdateProperties"
+        }
+      },
+      "description": "The updatable properties of the SystemOnlyResource."
+    },
+    "SystemOnlyResourceUpdateProperties": {
+      "type": "object",
+      "properties": {
         "provisioningState": {
           "$ref": "#/definitions/EnvelopeProvisioningState",
           "description": "The status of the last operation performed on this resource."
         }
       },
-      "description": "The updatable properties of the SystemOnlyResource."
+      "description": "The updatable properties of SystemOnlyProperties"
     }
   },
   "parameters": {

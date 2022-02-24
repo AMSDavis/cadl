@@ -613,6 +613,15 @@
     "CertificateProfileUpdate": {
       "type": "object",
       "properties": {
+        "properties": {
+          "$ref": "#/definitions/CertificateProfileUpdateProperties"
+        }
+      },
+      "description": "The updatable properties of the CertificateProfile."
+    },
+    "CertificateProfileUpdateProperties": {
+      "type": "object",
+      "properties": {
         "profileType": {
           "$ref": "#/definitions/ProfileType",
           "description": "The kind of certificate profile represented."
@@ -630,7 +639,7 @@
           "description": "Subject Alternative Name of the certificate"
         }
       },
-      "description": "The updatable properties of the CertificateProfile."
+      "description": "The updatable properties of CertificateProfileProperties"
     },
     "CodeSignAccount": {
       "type": "object",
@@ -710,15 +719,18 @@
           "additionalProperties": {
             "type": "string"
           },
-          "description": "Resource tags.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "description": "Resource tags."
+        },
+        "properties": {
+          "$ref": "#/definitions/CodeSignAccountUpdateProperties"
         }
       },
       "description": "The updatable properties of the CodeSignAccount."
+    },
+    "CodeSignAccountUpdateProperties": {
+      "type": "object",
+      "properties": {},
+      "description": "The updatable properties of CodeSignAccountProperties"
     },
     "ProfileType": {
       "type": "string",

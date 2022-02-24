@@ -11,16 +11,19 @@ using System.Collections.Generic;
 namespace Microsoft.EnvelopeTest.Service.Models
 {
     /// <summary>
-    /// The updatable properties of the SystemOnlyResource.
+    /// The updatable properties of AllPropertiesProperties
     /// </summary>
-    public class SystemOnlyResourceUpdate 
+    public class AllPropertiesResourceUpdateProperties 
     {
         /// <summary>
-        /// Resource tags.
+        /// The status of the last operation performed on this resource.
         /// </summary>
-        public IDictionary<string, string> Tags { get; set; }
+        public EnvelopeProvisioningState ProvisioningState { get; set; }
 
-        public SystemOnlyResourceUpdateProperties Properties { get; set; }
+        /// <summary>
+        /// Name of the resource
+        /// </summary>
+        public string DisplayName { get; set; }
 
     }
 }

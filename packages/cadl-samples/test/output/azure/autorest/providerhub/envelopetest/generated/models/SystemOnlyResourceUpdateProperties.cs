@@ -8,19 +8,17 @@ using System;
 using System.Security.Policy;
 using System.Collections.Generic; 
 
-namespace Microsoft.Observability.Service.Models
+namespace Microsoft.EnvelopeTest.Service.Models
 {
     /// <summary>
-    /// The updatable properties of the MonitorResource.
+    /// The updatable properties of SystemOnlyProperties
     /// </summary>
-    public class MonitorResourceUpdate 
+    public class SystemOnlyResourceUpdateProperties 
     {
         /// <summary>
-        /// Resource tags.
+        /// The status of the last operation performed on this resource.
         /// </summary>
-        public IDictionary<string, string> Tags { get; set; }
-
-        public MonitorResourceUpdateProperties Properties { get; set; }
+        public EnvelopeProvisioningState ProvisioningState { get; set; }
 
     }
 }

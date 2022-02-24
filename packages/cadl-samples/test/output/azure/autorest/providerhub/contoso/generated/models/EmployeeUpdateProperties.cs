@@ -11,16 +11,13 @@ using System.Collections.Generic;
 namespace Microsoft.ContosoProviderHub.Service.Models
 {
     /// <summary>
-    /// The updatable properties of the Employee.
+    /// The updatable properties of EmployeeProperties
     /// </summary>
-    public class EmployeeUpdate 
+    public class EmployeeUpdateProperties 
     {
-        /// <summary>
-        /// Resource tags.
-        /// </summary>
-        public IDictionary<string, string> Tags { get; set; }
+        public int Age { get; set; }
 
-        public EmployeeUpdateProperties Properties { get; set; }
+        public string City { get; set; }
 
     }
 }
