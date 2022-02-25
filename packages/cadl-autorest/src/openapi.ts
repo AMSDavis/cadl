@@ -42,7 +42,7 @@ import {
   validateDecoratorParamType,
   validateDecoratorTarget,
 } from "@cadl-lang/compiler";
-import { $extension, getExtensions, getOperationId } from "@cadl-lang/openapi";
+import { $extension, getExtensions, getExternalDocs, getOperationId } from "@cadl-lang/openapi";
 import {
   getAllRoutes,
   getDiscriminator,
@@ -244,8 +244,9 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     info: {
       title: getServiceTitle(program),
       version: getServiceVersion(program),
-      description: getDoc(program, getServiceNamespace(program)!),
+      description: getDoc(program, serviceNamespace),
     },
+    externalDocs: getExternalDocs(program, serviceNamespace),
     host: getServiceHost(program),
     schemes: ["https"],
     produces: [], // Pre-initialize produces and consumes so that
@@ -357,6 +358,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       // Synthesize an operation ID
       currentEndpoint.operationId = (groupName.length > 0 ? `${groupName}_` : "") + op.name;
     }
+
+    applyExternalDocs(op, currentEndpoint);
 
     // allow operation extensions
     attachExtensions(op, currentEndpoint);
@@ -1179,6 +1182,8 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       }
     }
 
+    applyExternalDocs(model, modelSchema);
+
     for (const [name, prop] of model.properties) {
       if (!isSchemaProperty(prop)) {
         continue;
@@ -1452,6 +1457,13 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     }
 
     return newTarget;
+  }
+
+  function applyExternalDocs(cadlType: Type, target: Record<string, unknown>) {
+    const externalDocs = getExternalDocs(program, cadlType);
+    if (externalDocs) {
+      target.externalDocs = externalDocs;
+    }
   }
 
   function addXMSEnum(type: StringLiteralType | UnionType | EnumType, schema: any): any {
