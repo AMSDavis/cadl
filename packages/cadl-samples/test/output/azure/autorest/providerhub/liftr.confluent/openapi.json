@@ -399,6 +399,19 @@
     }
   },
   "definitions": {
+    "Azure.ResourceManager.ResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a resource type.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true
+      }
+    },
     "ConfluentAgreementResource": {
       "type": "object",
       "properties": {
@@ -600,7 +613,7 @@
           "description": "Subscriber details."
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },
@@ -641,24 +654,11 @@
           "description": "Subscriber details."
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },
       "description": "The updatable properties of OrganizationProperties"
-    },
-    "ResourceProvisioningState": {
-      "type": "string",
-      "description": "The provisioning state of a resource type.",
-      "enum": [
-        "Succeeded",
-        "Failed",
-        "Canceled"
-      ],
-      "x-ms-enum": {
-        "name": "ResourceProvisioningState",
-        "modelAsString": true
-      }
     },
     "ShortString": {
       "type": "string",
