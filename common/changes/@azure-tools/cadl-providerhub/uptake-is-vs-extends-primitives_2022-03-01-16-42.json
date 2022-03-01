@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-providerhub",
+      "comment": "Uptake change to intrinsic types",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-providerhub"
+}

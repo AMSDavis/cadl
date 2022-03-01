@@ -14,11 +14,11 @@ using Azure.ResourceManager;
 using Cadl.Http;
 
 @doc("A string that represents a URI.")
-model Uri extends string {}
+model Uri is string {}
 
 @doc("The representation of a secret value, represented as a string on the wire")
 @secret
-model SecretKey extends string {}
+model SecretKey is string {}
 
 @armResource({
   path: "fluidRelayServers",

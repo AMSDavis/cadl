@@ -14,15 +14,15 @@ using Azure.ResourceManager;
 using Cadl.Http;
 
 @doc("A string that represents a URI.")
-model Uri extends string {}
+model Uri is string {}
 
 @doc("A reference to a resource of type title.")
 @pattern("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/titles\\/[^\\/]+")
-model TitleReference extends string {}
+model TitleReference is string {}
 
 @doc("A reference to a player database resource.")
 @pattern("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/playerDatabases\\/[^\\/]+")
-model PlayerDatabaseReference extends string {}
+model PlayerDatabaseReference is string {}
 
 @armResource({
   path: "playerDatabases",

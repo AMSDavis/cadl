@@ -13,19 +13,19 @@ using Cadl.Http;
 
 @doc("A virtual machine reference")
 @pattern("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.Compute\\/virtualMachines\\/[^\\/]+")
-model virtualMachineId extends string {}
+model virtualMachineId is string {}
 
 @doc("Reusable representation of an email address")
 @pattern("^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$")
-model email extends string {}
+model email is string {}
 
 @doc("Shorthand for setting length limit.")
 @maxLength(50)
-model MediumString extends string {}
+model MediumString is string {}
 
 @doc("Credential string.")
 @secret
-model SecureString extends string {}
+model SecureString is string {}
 
 @doc("Indicates whether metrics are being sent.")
 enum SendingMetricsStatus {

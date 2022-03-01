@@ -2,7 +2,8 @@ import { getArmNamespace } from "@azure-tools/cadl-azure-resource-manager";
 import {
   DecoratorContext,
   getDoc,
-  getIntrinsicType,
+  getIntrinsicModelName,
+  getPropertyType,
   isIntrinsic,
   ModelType,
   Program,
@@ -44,7 +45,10 @@ function getPathParameterInfo(
 
   const paramName: string = paramType.properties.keys().next().value;
   const propType = paramType.properties.get(paramName);
-  if (getIntrinsicType(program, propType)?.name !== "string") {
+  if (
+    propType === undefined ||
+    getIntrinsicModelName(program, getPropertyType(propType)) !== "string"
+  ) {
     reportDiagnostic(program, {
       code: "path-parameter-type",
       messageId: "string",

@@ -14,12 +14,14 @@ import {
   getDirectoryPath,
   getDoc,
   getFormat,
+  getIntrinsicModelName,
   getMaxLength,
   getMinLength,
   getPattern,
   getServiceNamespace,
   getServiceNamespaceString,
   getServiceVersion,
+  isIntrinsic,
   joinPaths,
   ModelSpreadPropertyNode,
   ModelType,
@@ -1038,60 +1040,72 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             }
           }
 
-          switch (cadlType.name) {
-            case "bytes":
-              return { name: "byte[]", nameSpace: "System", isBuiltIn: true };
-            case "int32":
-              return { name: "int", nameSpace: "System", isBuiltIn: true };
-            case "int64":
-              return { name: "int", nameSpace: "System", isBuiltIn: true };
-            case "float64":
-              return { name: "double", nameSpace: "System", isBuiltIn: true };
-            case "float32":
-              return { name: "float", nameSpace: "System", isBuiltIn: true };
-            case "string":
-              return { name: "string", nameSpace: "System", isBuiltIn: true };
-            case "boolean":
-              return { name: "bool", nameSpace: "System", isBuiltIn: true };
-            case "plainDate":
-              return { name: "DateTime", nameSpace: "System", isBuiltIn: true };
-            case "zonedDateTime":
-              return { name: "DateTime", nameSpace: "System", isBuiltIn: true };
-            case "plainTime":
-              return { name: "DateTime", nameSpace: "System", isBuiltIn: true };
-            case "Map":
-              // We assert on valType because Map types always have a type
-              const valType = cadlType.properties.get("v");
-              return {
-                name: "IDictionary",
-                nameSpace: "System.Collections",
-                isBuiltIn: true,
-                typeParameters: [
-                  { name: "string", nameSpace: "System", isBuiltIn: true },
-                  getCSharpType(valType!.type)!,
-                ],
-              };
-            default:
-              const known = getKnownType(cadlType);
-              if (cadlType.name === undefined || cadlType.name === "") {
-                return undefined;
-              }
-              if (known) {
-                return known;
-              }
-              ensureCSharpIdentifier(cadlType, cadlType.name);
-              return {
-                name: transformCSharpIdentifier(cadlType.name),
-                nameSpace: modelNamespace,
-                isBuiltIn: false,
-              };
+          const cadlIntrinsicType = getCSharpTypeForCadlIntrinsicModels(cadlType);
+          if (cadlIntrinsicType !== undefined) {
+            return cadlIntrinsicType;
           }
+          const known = getKnownType(cadlType);
+          if (cadlType.name === undefined || cadlType.name === "") {
+            return undefined;
+          }
+          if (known) {
+            return known;
+          }
+          ensureCSharpIdentifier(cadlType, cadlType.name);
+          return {
+            name: transformCSharpIdentifier(cadlType.name),
+            nameSpace: modelNamespace,
+            isBuiltIn: false,
+          };
         case "Intrinsic":
           return undefined;
         case "TemplateParameter":
           return undefined;
         case "String":
           return undefined;
+        default:
+          return undefined;
+      }
+    }
+
+    function getCSharpTypeForCadlIntrinsicModels(cadlType: ModelType) {
+      if (!isIntrinsic(program, cadlType)) {
+        return undefined;
+      }
+      const name = getIntrinsicModelName(program, cadlType);
+      switch (name) {
+        case "bytes":
+          return { name: "byte[]", nameSpace: "System", isBuiltIn: true };
+        case "int32":
+          return { name: "int", nameSpace: "System", isBuiltIn: true };
+        case "int64":
+          return { name: "int", nameSpace: "System", isBuiltIn: true };
+        case "float64":
+          return { name: "double", nameSpace: "System", isBuiltIn: true };
+        case "float32":
+          return { name: "float", nameSpace: "System", isBuiltIn: true };
+        case "string":
+          return { name: "string", nameSpace: "System", isBuiltIn: true };
+        case "boolean":
+          return { name: "bool", nameSpace: "System", isBuiltIn: true };
+        case "plainDate":
+          return { name: "DateTime", nameSpace: "System", isBuiltIn: true };
+        case "zonedDateTime":
+          return { name: "DateTime", nameSpace: "System", isBuiltIn: true };
+        case "plainTime":
+          return { name: "DateTime", nameSpace: "System", isBuiltIn: true };
+        case "Map":
+          // We assert on valType because Map types always have a type
+          const valType = cadlType.properties.get("v");
+          return {
+            name: "IDictionary",
+            nameSpace: "System.Collections",
+            isBuiltIn: true,
+            typeParameters: [
+              { name: "string", nameSpace: "System", isBuiltIn: true },
+              getCSharpType(valType!.type)!,
+            ],
+          };
         default:
           return undefined;
       }

@@ -115,11 +115,11 @@ enum StringIndexType {
 
 @doc("Unique model name")
 @pattern("[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}")
-model ModelId extends string {}
+model ModelId is string {}
 
 @doc("Model description.")
 @maxLength(4096)
-model ModelDescription extends string {}
+model ModelDescription is string {}
 
 model ModelSummary {
   @key
@@ -328,7 +328,7 @@ model DocumentSelectionMark {
 @doc("Prediction confidence.")
 @minValue(0)
 @maxValue(1)
-model Confidence extends float64 {}
+model Confidence is float64 {}
 
 @doc("State of the selection mark.")
 enum SelectionMarkState {
@@ -477,7 +477,7 @@ model Document {
 @doc("Document type name.")
 @minLength(2)
 @maxLength(64)
-model DocType extends string {}
+model DocType is string {}
 
 @doc("An object representing the content and location of a field value.")
 model DocumentField {

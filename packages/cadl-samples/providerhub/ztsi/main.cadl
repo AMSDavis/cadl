@@ -102,7 +102,7 @@ model ZTSIProperties {
 
 @doc("Shorthand for setting length limit.")
 @maxLength(50)
-model MediumString extends string {}
+model MediumString is string {}
 
 @doc("Provisioning state of the monitoring resource")
 enum ProvisioningState {
@@ -119,7 +119,7 @@ enum ProvisioningState {
 
 @doc("Reusable representation of an email address")
 @pattern("^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$")
-model email extends string {}
+model email is string {}
 
 @doc("User info.")
 model UserInfo {
@@ -226,7 +226,7 @@ model ZTSIReport {
 
 @doc("A reusable Guid formatted string type.")
 @pattern("^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$")
-model Guid extends string {}
+model Guid is string {}
 
 @doc("Device identification in Guid format")
 model DeviceId is Guid {}

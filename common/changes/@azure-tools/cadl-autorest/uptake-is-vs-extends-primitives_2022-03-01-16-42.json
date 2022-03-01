@@ -1,0 +1,15 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-autorest",
+      "comment": "Uptake change to intrinsic types",
+      "type": "minor"
+    },
+    {
+        "packageName": "@azure-tools/cadl-autorest",
+      "comment": "Fix issue where a model name the same as Cadl Intrinsic type would be treated the same.",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-autorest"
+}

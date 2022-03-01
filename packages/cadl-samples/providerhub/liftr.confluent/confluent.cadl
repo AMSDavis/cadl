@@ -14,20 +14,20 @@ using Azure.ResourceManager;
 using Cadl.Http;
 
 @doc("A string that represents a URI.")
-model Uri extends string {}
+model Uri is string {}
 
 @doc("Reusable representation of an email address")
 @pattern("\\w+@\\w+\\.\\w+")
-model email extends string {}
+model email is string {}
 
 @doc("Shorthand for setting length limit.")
 @minLength(5)
 @maxLength(50)
-model MediumString extends string {}
+model MediumString is string {}
 
 @doc("Shorthand for setting length limit.")
 @maxLength(25)
-model ShortString extends string {}
+model ShortString is string {}
 
 @armResource({
   path: "organizations",
