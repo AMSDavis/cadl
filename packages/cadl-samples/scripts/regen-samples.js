@@ -58,6 +58,7 @@ function main() {
       "overloads",
 
       // ARM specs depend on functionality in cadl-autorest
+      "resource-manager",
       "providerhub",
 
       // Spec that uses ProviderHub, incompatible with OpenAPI3
@@ -71,6 +72,14 @@ function main() {
       imports: ["@azure-tools/cadl-autorest"],
       emitter: "@azure-tools/cadl-providerhub-controller",
       excludes: ["codesigning", "logz", "servicelinker"],
+    }
+  );
+  runCadlSamples(
+    join(azureSamplesPath, "resource-manager"),
+    outputPath("azure", "autorest/resource-manager"),
+    {
+      imports: ["@azure-tools/cadl-autorest"],
+      emitter: "@azure-tools/cadl-autorest",
     }
   );
   InstantiateTemplate();

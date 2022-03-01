@@ -1,8 +1,6 @@
 import "@cadl-lang/rest";
 import "@azure-tools/cadl-azure-core";
 import "@azure-tools/cadl-providerhub";
-import "@azure-tools/cadl-azure-resource-manager";
-import "@azure-tools/cadl-providerhub-controller";
 import "./models.cadl";
 
 @armNamespace
@@ -11,7 +9,6 @@ import "./models.cadl";
 namespace Dynatrace.Observability;
 
 using Azure.ARM;
-using Azure.ResourceManager;
 using Cadl.Http;
 
 @doc("Dynatrace Monitor Resource")

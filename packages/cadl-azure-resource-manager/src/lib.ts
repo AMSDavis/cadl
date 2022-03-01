@@ -6,11 +6,18 @@ export const libDef = {
     "decorator-param-wrong-type": {
       severity: "error",
       messages: {
+        armNamespace: "The parameter to @armResource must be a namespace.",
         armResource: "The parameter to @armResource must be a model expression.",
         armResourceParameterType:
           "The @armResource decorator only accepts model types for the resource parameter type.",
         armResourceStandardOperation: "Standard operation value must be a string",
         armResourceResourceProperty: "Resource property type must be a model type.",
+        armUpdateProviderNamespace:
+          "The parameter to @armUpdateProviderNamespace must be an operation with a 'provider' parameter.",
+        assignProviderNameValueTargetType:
+          "The type of the parameter to which @assignProviderNameValue is applied must be 'string'.",
+        assignProviderNameValueResourceType:
+          "The second parameter @assignProviderNameValue must be a model type that represents a resource.",
       },
     },
     "arm-resource-operations-with-resource-path": {
@@ -18,6 +25,26 @@ export const libDef = {
       messages: {
         default:
           "The @armResourceOperations decorator can only be used for resource types that have an @armResourcePath configured.",
+      },
+    },
+    "arm-resource-missing-name-property": {
+      severity: "error",
+      messages: {
+        default: "Resource types must include a string property called 'name'.",
+      },
+    },
+    "arm-resource-missing-name-key-decorator": {
+      severity: "error",
+      messages: {
+        default:
+          "Resource type 'name' property must have a @key decorator which defines its key name.",
+      },
+    },
+    "arm-resource-missing-name-segment-decorator": {
+      severity: "error",
+      messages: {
+        default:
+          "Resource type 'name' property must have a @segment decorator which defines its path fragment.",
       },
     },
     "arm-resource-missing-arm-namespace": {

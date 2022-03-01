@@ -1,0 +1,82 @@
+import "@cadl-lang/rest";
+import "@azure-tools/cadl-azure-core";
+import "@azure-tools/cadl-azure-resource-manager";
+import "./models.cadl";
+
+@armNamespace
+@serviceTitle("Microsoft.Logz")
+@serviceVersion("2020-10-01-preview")
+namespace Microsoft.Logz;
+
+using Cadl.Http;
+using Cadl.Rest;
+using Azure.ResourceManager;
+
+@doc("The LogZ Monitor resource details.")
+model LogzMonitorResource is TrackedResource<LogzMonitorResourceProperties> {
+  @doc("Monitor resource name")
+  @key("monitorName")
+  @segment("monitors")
+  name: string;
+}
+
+@armResourceOperations
+interface Monitors mixes ResourceOperations<LogzMonitorResource, LogzMonitorResourceProperties> {
+  @doc("List the resources currently being monitored by the Logz monitor resource.")
+  @action
+  listMonitoredResources(
+    ...ResourceInstanceParameters<LogzMonitorResource>
+  ): MonitoredResourceListResponse | ErrorResponse;
+}
+
+@doc("Details of a TagRule.")
+@parentResource(LogzMonitorResource)
+model TagRuleResource is ProxyResource<{}> {
+  @doc("Tag name")
+  @key("tagName")
+  @segment("tagRules")
+  name: string;
+}
+
+@armResourceOperations
+interface TagRules
+  mixes ProxyResourceOperations<TagRuleResource>,
+    ProxyResourceUpdate<TagRuleResource, {}> {}
+
+@doc("Details of a single sign-on configuration.")
+@parentResource(LogzMonitorResource)
+model SingleSignOnConfigurationResource is ProxyResource<LogzSingleSignOnProperties> {
+  @doc("Configuration name")
+  @key("configurationName")
+  @segment("singleSignOnConfigurations")
+  name: string;
+}
+
+@armResourceOperations
+interface SingleSignOnConfigurations
+  mixes ProxyResourceOperations<SingleSignOnConfigurationResource>,
+    ProxyResourceUpdate<SingleSignOnConfigurationResource, LogzSingleSignOnProperties> {}
+
+@doc("Details of a sub account.")
+@parentResource(LogzMonitorResource)
+model SubAccountResource is ProxyResource<LogzMonitorResourceProperties> {
+  @doc("Sub account name")
+  @key("subAccountName")
+  @segment("accounts")
+  name: string;
+}
+
+@armResourceOperations
+interface SubAccounts mixes ProxyResourceOperations<SubAccountResource> {}
+
+@doc("Details of a SubAccount TagRule.")
+@parentResource(SubAccountResource)
+model SubAccountTagRuleResource is ProxyResource<{}> {
+  @doc("Tag name")
+  @key("tagName")
+  @segment("tagRules")
+  name: string;
+}
+
+@armResourceOperations
+interface SubAccountTagRules mixes ProxyResourceOperations<SubAccountTagRuleResource> {}

@@ -78,17 +78,16 @@ describe("test linter rules", () => {
       namespace Microsoft.PetStore;
       
       using Azure.ARM;
-      using Azure.ResourceManager;
       using Cadl.Http;
 
       @doc("Pet ")
       model Pet extends TrackedResource<PetProperties> { };
-      
+
       model PetProperties {
         @doc("The status of the last operation.")
-        provisioningState?: ProvisioningState;
+        provisioningState?: ResourceProvisioningState;
         @doc("The repeated property.")
-        name:string;
+        properties: {};
       }
     `);
     const errors = getDiagnostic("no-repeated-property-inside-the-properties", [...result]);
@@ -103,7 +102,6 @@ describe("test linter rules", () => {
       namespace Microsoft.PetStore;
       
       using Azure.ARM;
-      using Azure.ResourceManager;
       using Cadl.Http;
 
       model Pet is TrackedResource<PetProperties> { 
@@ -127,7 +125,6 @@ describe("test linter rules", () => {
       namespace Microsoft.PetStore;
       
       using Azure.ARM;
-      using Azure.ResourceManager;
       using Cadl.Http;
 
      // extends ArmResource Directly

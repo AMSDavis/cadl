@@ -8,16 +8,15 @@ namespace Azure.ResourceManager;
 
 using Cadl.Http;
 using Azure.Core;
+using Cadl.Rest;
 
 @doc("Common properties for all ARM resources.")
 model ArmResource {
   @doc("Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}")
   @visibility("read")
   id: string;
+  // The name property must be included by the resource type author!
 
-  @doc("The name of the resource.")
-  @visibility("read")
-  name: string;
 
   @doc("The type of the resource. E.g. \"Microsoft.Compute/virtualMachines\" or \"Microsoft.Storage/storageAccounts\"")
   @visibility("read")
@@ -53,6 +52,7 @@ model DefaultProvisioningStateProperty {
 }
 
 @doc("Concrete tracked resource types can be created by aliasing this type using a specific property type.")
+@armResourceInternal(TProperties)
 model TrackedResource<TProperties> extends TrackedResourceBase {
   @doc("The resource-specific properties for this resource.")
   @visibility("read", "create")
@@ -77,7 +77,28 @@ model ExtensionResourceBase {
   ...ArmResource;
 }
 
+@doc("The response of a {name} list operation.", TResource)
+@friendlyName("{name}ListResult", TResource)
+model ResourceListResult<TResource> is Page<TResource> {}
+
+// Defines a properties type used to create named resource update models.
+// This type is not used directly, it is referenced by ResourceUpdateModel<T>.
+@doc("The updatable properties of the {name}.", TResource)
+@friendlyName("{name}UpdateProperties", TResource)
+model ResourceUpdateModelProperties<TResource, TProperties> is OptionalProperties<UpdateableProperties<TProperties>> {}
+
+// Defines a model type used to create named resource update models
+//   e.g. `model MyResourceUpdate is ResourceUpdate<MyResourceProperties> {}`
+@doc("The type used for update operations of the {name}.", TResource)
+@friendlyName("{name}Update", TResource)
+model ResourceUpdateModel<TResource, TProperties> {
+  @doc("ARM resource tags.")
+  tags?: Map<string, string>;
+  properties?: ResourceUpdateModelProperties<TResource, TProperties>;
+}
+
 @doc("Concrete proxy resource types can be created by aliasing this type using a specific property type.")
+@armResourceInternal(TProperties)
 model ProxyResource<TProperties> extends ProxyResourceBase {
   @doc("The resource-specific properties for this resource.")
   @visibility("read", "create")
@@ -90,6 +111,7 @@ model ProxyResource<TProperties> extends ProxyResourceBase {
 }
 
 @doc("Concrete extension resource types can be created by aliasing this type using a specific property type.")
+@armResourceInternal(TProperties)
 model ExtensionResource<TProperties> extends ExtensionResourceBase {
   @doc("The resource-specific properties for this resource.")
   @visibility("read", "create")
@@ -109,9 +131,7 @@ model NameParameter {
 }
 
 @doc("ARM operation completed successfully.")
-model ArmResponse<T> {
-  ...OkResponse<T>;
-}
+model ArmResponse<T> is OkResponse<T> {}
 
 @doc("ARM create operation completed successfully.")
 model ArmCreatedResponse<T> {
@@ -126,21 +146,21 @@ model ArmCreatedResponse<T> {
 model ArmDeletedResponse {
   @doc("The status code.")
   @statusCode
-  statusCode: 200;
+  _: 200;
 }
 
 @doc("Resource deletion accepted.")
 model ArmDeleteAcceptedResponse {
   @doc("The status code.")
   @statusCode
-  statusCode: 202;
+  _: 202;
 }
 
 @doc("Resource deleted successfully.")
 model ArmDeletedNoContentResponse {
   @doc("The status code.")
   @statusCode
-  statusCode: 204;
+  _: 204;
 }
 
 @doc("The default api-version parameter type.")
@@ -153,30 +173,67 @@ model ApiVersionParameter {
 }
 
 @doc("The default subscriptionId parameter type.")
-model SubscriptionIdParameter {
+model SubscriptionId {
   @path
   @minLength(1)
+  @segment("subscriptions")
   @doc("The ID of the target subscription.")
   @armCommonParameter("SubscriptionIdParameter")
   subscriptionId: string;
 }
 
 @doc("The default resource group parameter type.")
-model ResourceGroupNameParameter {
+model ResourceGroup {
   @path
   @minLength(1)
   @maxLength(90)
+  @segment("resourceGroups")
   @pattern("^[-\\w\\._\\(\\)]+$")
   @doc("The name of the resource group. The name is case insensitive.")
   @armCommonParameter("ResourceGroupNameParameter")
   resourceGroupName: string;
 }
 
+model ProviderNamespace<TResource> {
+  @path
+  @segment("providers")
+  @assignProviderNameValue(TResource)
+  @doc("The provider namespace for the resource.")
+  provider: "Microsoft.ThisWillBeReplaced";
+}
+
+model ResourceCommonParameters<TResource> {
+  ...ApiVersionParameter;
+  ...SubscriptionId;
+  ...ResourceGroup;
+  ...ProviderNamespace<TResource>;
+}
+
+model ResourceInstanceParameters<TResource> {
+  ...ResourceCommonParameters<TResource>;
+  ...KeysOf<TResource>;
+}
+
+model SubscriptionScope<TResource> {
+  ...ApiVersionParameter;
+  ...SubscriptionId;
+  ...ProviderNamespace<TResource>;
+  ...ParentKeysOf<TResource>;
+}
+
+model ResourceGroupScope<TResource> {
+  ...ApiVersionParameter;
+  ...SubscriptionId;
+  ...ResourceGroup;
+  ...ProviderNamespace<TResource>;
+  ...ParentKeysOf<TResource>;
+}
+
 @doc("The default resourceUri parameter type.")
 model ResourceUriParameter {
+  @path
   @doc("The fully qualified Azure Resource manager identifier of the resource.")
   @extension("x-ms-skip-url-encoding", true)
-  @path
   resourceUri: string;
 }
 
@@ -192,8 +249,8 @@ model OperationIdParameter {
 @doc("The common resource parameters type.")
 model CommonResourceParameters {
   ...ApiVersionParameter;
-  ...SubscriptionIdParameter;
-  ...ResourceGroupNameParameter;
+  ...SubscriptionId;
+  ...ResourceGroup;
 }
 
 @armCommonDefinition
@@ -300,9 +357,9 @@ model OperationStatusResult {
   error?: ErrorDetail;
 }
 
+@error
 @armCommonDefinition
 @doc("Common error response for all Azure Resource Manager APIs to return error details for failed operations.")
-@error
 model ErrorResponse {
   @doc("The error object.")
   error?: ErrorDetail;
@@ -527,8 +584,228 @@ enum ManagedSystemIdentityType {
   SystemAssigned,
 }
 
-@doc("Update model for resource tags")
-model ResourceUpdate {
-  @doc("ARM resource tags.")
-  tags?: Map<string, string>;
+@copyResourceKeyParameters
+model KeysOf<TResource> {}
+
+@copyResourceKeyParameters("parent")
+model ParentKeysOf<TResource> {}
+
+interface ResourceRead<TResource> {
+  @autoRoute
+  @doc("Get a {name}", TResource)
+  @get
+  Get(...ResourceInstanceParameters<TResource>): ArmResponse<TResource> | ErrorResponse;
 }
+
+interface ResourceCreate<TResource> {
+  @autoRoute
+  @doc("Create a {name}", TResource)
+  @extension("x-ms-long-running-operation", true)
+  @armAsyncOperation
+  @put
+  CreateOrUpdate(
+    ...ResourceInstanceParameters<TResource>,
+
+    @doc("Resource create parameters.")
+    @body
+    resource: TResource
+  ): ArmResponse<TResource> | ArmCreatedResponse<TResource> | ErrorResponse;
+}
+
+@doc("Update model for resource tags")
+interface ResourceUpdate<TResource, TProperties> {
+  @autoRoute
+  @doc("Update a {name}", TResource)
+  @patch
+  Update(
+    ...ResourceInstanceParameters<TResource>,
+
+    @doc("The resource properties to be updated.")
+    @body
+    properties: ResourceUpdateModel<TResource, TProperties>
+  ): ArmResponse<TResource> | ErrorResponse;
+}
+
+interface ResourceDelete<TResource> {
+  @autoRoute
+  @doc("Delete a {name}", TResource)
+  @extension("x-ms-long-running-operation", true)
+  @armAsyncOperation
+  @deletesResource(TResource)
+  Delete(...ResourceInstanceParameters<TResource>):
+    | ArmDeletedResponse
+    | ArmDeleteAcceptedResponse
+    | ArmDeletedNoContentResponse
+    | ErrorResponse;
+}
+
+interface ResourceListBySubscription<TResource> {
+  @pageable
+  @autoRoute
+  @doc("List {name} resources by subscription ID", TResource)
+  @list(TResource)
+  @segmentOf(TResource)
+  @get
+  ListBySubscription(
+    ...SubscriptionScope<TResource>
+  ): ArmResponse<ResourceListResult<TResource>> | ErrorResponse;
+}
+
+interface ResourceListByResourceGroup<TResource> {
+  @pageable
+  @autoRoute
+  @doc("List {name} resources by resource group", TResource)
+  @list(TResource)
+  @segmentOf(TResource)
+  @get
+  ListByResourceGroup(
+    ...ResourceGroupScope<TResource>
+  ): ArmResponse<ResourceListResult<TResource>> | ErrorResponse;
+}
+
+interface ResourceInstanceOperations<TResource, TProperties>
+  mixes ResourceRead<TResource>,
+    ResourceUpdate<TResource, TProperties>,
+    ResourceDelete<TResource> {}
+
+interface ResourceCollectionOperations<TResource>
+  mixes ResourceCreate<TResource>,
+    ResourceListByResourceGroup<TResource>,
+    ResourceListBySubscription<TResource> {}
+
+interface ResourceOperations<TResource, TProperties>
+  mixes ResourceRead<TResource>,
+    ResourceCreate<TResource>,
+    ResourceUpdate<TResource, TProperties>,
+    ResourceDelete<TResource>,
+    ResourceListByResourceGroup<TResource>,
+    ResourceListBySubscription<TResource> {}
+
+// Defines a model type used to create named resource update models
+//   e.g. `model MyResourceUpdate is ResourceUpdate<MyResourceProperties> {}`
+@doc("The type used for update operations of the {name}.", TResource)
+@friendlyName("{name}Update", TResource)
+model ProxyResourceUpdateModel<TResource, TProperties> {
+  properties?: ResourceUpdateModelProperties<TResource, TProperties>;
+}
+
+interface ProxyResourceOperations<TResource>
+  mixes ResourceRead<TResource>,
+    ResourceCreate<TResource>,
+    ResourceDelete<TResource>,
+    ResourceListByResourceGroup<TResource> {}
+
+interface ProxyResourceUpdate<TResource, TProperties> {
+  @autoRoute
+  @doc("Update a {name}", TResource)
+  @patch
+  Update(
+    ...ResourceInstanceParameters<TResource>,
+
+    @doc("The resource properties to be updated.")
+    @body
+    properties: ProxyResourceUpdateModel<TResource, TProperties>
+  ): ArmResponse<TResource> | ErrorResponse;
+}
+
+@tag("Operations")
+interface Operations {
+  @autoRoute
+  @armUpdateProviderNamespace
+  @pageable
+  @doc("List the operations for the provider")
+  @segment("operations")
+  @get
+  List(
+    ...ApiVersionParameter,
+
+    @path
+    @segment("providers")
+    @doc("The provider namespace (this parameter will not show up in operations).")
+    provider: "Microsoft.ThisWillBeReplaced"
+  ): ArmResponse<OperationListResult> | ErrorResponse;
+}
+
+model ExtensionResourceCommonParameters<TResource> {
+  ...ApiVersionParameter;
+  ...ResourceUriParameter;
+  ...ProviderNamespace<TResource>;
+}
+
+model ExtensionResourceInstanceParameters<TResource> {
+  ...ExtensionResourceCommonParameters<TResource>;
+  ...KeysOf<TResource>;
+}
+
+interface ExtensionResourceRead<TResource> {
+  @doc("Get a {name}", TResource)
+  @get
+  Get(...ExtensionResourceInstanceParameters<TResource>): ArmResponse<TResource> | ErrorResponse;
+}
+
+interface ExtensionResourceCreate<TResource> {
+  @doc("Create a {name}", TResource)
+  @extension("x-ms-long-running-operation", true)
+  @armAsyncOperation
+  @put
+  CreateOrUpdate(
+    ...ExtensionResourceInstanceParameters<TResource>,
+
+    @doc("Resource create parameters.")
+    @body
+    resource: TResource
+  ): ArmResponse<TResource> | ArmCreatedResponse<TResource> | ErrorResponse;
+}
+
+interface ExtensionResourceUpdate<TResource, TProperties> {
+  @doc("Update a {name}", TResource)
+  @patch
+  Update(
+    ...ExtensionResourceInstanceParameters<TResource>,
+
+    @doc("The resource properties to be updated.")
+    @body
+    properties: ResourceUpdateModel<TResource, TProperties>
+  ): ArmResponse<TResource> | ErrorResponse;
+}
+
+interface ExtensionResourceDelete<TResource> {
+  @doc("Delete a {name}", TResource)
+  @extension("x-ms-long-running-operation", true)
+  @armAsyncOperation
+  @delete
+  Delete(...ExtensionResourceInstanceParameters<TResource>):
+    | ArmDeletedResponse
+    | ArmDeleteAcceptedResponse
+    | ArmDeletedNoContentResponse
+    | ErrorResponse;
+}
+
+interface ExtensionResourceList<TResource> {
+  @pageable
+  @autoRoute
+  @doc("List {name} resources by parent", TResource)
+  @list(TResource)
+  @segmentOf(TResource)
+  @get
+  List(
+    ...ExtensionResourceCommonParameters<TResource>,
+    ...ParentKeysOf<TResource>
+  ): ArmResponse<ResourceListResult<TResource>> | ErrorResponse;
+}
+
+interface ExtensionResourceInstanceOperations<TResource, TProperties>
+  mixes ExtensionResourceRead<TResource>,
+    ExtensionResourceUpdate<TResource, TProperties>,
+    ExtensionResourceDelete<TResource> {}
+
+interface ExtensionResourceCollectionOperations<TResource>
+  mixes ExtensionResourceCreate<TResource>,
+    ExtensionResourceList<TResource> {}
+
+interface ExtensionResourceOperations<TResource, TProperties>
+  mixes ExtensionResourceRead<TResource>,
+    ExtensionResourceCreate<TResource>,
+    ExtensionResourceUpdate<TResource, TProperties>,
+    ExtensionResourceDelete<TResource>,
+    ExtensionResourceList<TResource> {}

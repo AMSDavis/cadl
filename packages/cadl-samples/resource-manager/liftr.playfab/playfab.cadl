@@ -1,0 +1,63 @@
+import "@cadl-lang/rest";
+import "@azure-tools/cadl-azure-core";
+import "@azure-tools/cadl-azure-resource-manager";
+
+@armNamespace
+@serviceTitle("Azure PlayFab")
+@serviceVersion("2021-06-15-preview")
+namespace Microsoft.PlayFab;
+
+using Cadl.Http;
+using Cadl.Rest;
+using Azure.ResourceManager;
+
+@doc("A string that represents a URI.")
+model Uri is string {}
+
+@doc("A reference to a resource of type title.")
+@pattern("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/titles\\/[^\\/]+")
+model TitleReference is string {}
+
+@doc("A reference to a player database resource.")
+@pattern("\\/subscriptions\\/[a-z0-9\\-]+\\/resourceGroups\\/[^\\/]+\\/providers\\/Microsoft\\.PlayFab\\/playerDatabases\\/[^\\/]+")
+model PlayerDatabaseReference is string {}
+
+@doc("Details of the player database.")
+model PlayerDatabase is TrackedResource<PlayerDatabaseProperties> {
+  @doc("The name of the player database resource.")
+  @key
+  @segment("playerDatabases")
+  name: string;
+}
+
+@armResourceOperations
+interface PlayerDatabases mixes ResourceOperations<PlayerDatabase, PlayerDatabaseProperties> {}
+
+@doc("Details of a title.")
+model Title is TrackedResource<TitleProperties> {
+  @doc("Name of the title resource.")
+  @key
+  @segment("titles")
+  name: string;
+}
+
+@armResourceOperations
+interface Titles mixes ResourceOperations<Title, TitleProperties> {}
+
+@doc("The properties of a player database.")
+model PlayerDatabaseProperties {
+  @doc("The user id for this player database")
+  userId: string;
+
+  @doc("The set of titles belonging to this player database.")
+  titles?: TitleReference[];
+  ...DefaultProvisioningStateProperty;
+}
+
+@doc("The properties of a title.")
+model TitleProperties {
+  @doc("The player database for this title")
+  @visibility("create", "read")
+  parentDatabase: PlayerDatabaseReference;
+  ...DefaultProvisioningStateProperty;
+}

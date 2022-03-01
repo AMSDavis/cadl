@@ -573,7 +573,7 @@
     }
   },
   "definitions": {
-    "Azure.ResourceManager.ResourceProvisioningState": {
+    "Azure.ARM.ResourceProvisioningState": {
       "type": "string",
       "description": "The provisioning state of a resource type.",
       "enum": [
@@ -651,7 +651,7 @@
           "description": "The set of titles belonging to this player database."
         },
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/Azure.ARM.ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },
@@ -698,7 +698,7 @@
           "description": "The set of titles belonging to this player database."
         },
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/Azure.ARM.ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },
@@ -765,7 +765,7 @@
           ]
         },
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/Azure.ARM.ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },
@@ -800,7 +800,7 @@
       "type": "object",
       "properties": {
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/Azure.ARM.ResourceProvisioningState",
           "description": "The provisioning state of the resource."
         }
       },

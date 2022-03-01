@@ -1,0 +1,139 @@
+﻿import "@cadl-lang/rest";
+import "@azure-tools/cadl-azure-core";
+import "@azure-tools/cadl-azure-resource-manager";
+
+@armNamespace
+@serviceTitle("Microsoft.Confluent")
+@serviceVersion("2021-03-01-preview")
+namespace Microsoft.Confluent;
+
+using Cadl.Http;
+using Cadl.Rest;
+using Azure.ResourceManager;
+
+@doc("A string that represents a URI.")
+model Uri is string {}
+
+@doc("Reusable representation of an email address")
+@pattern("\\w+@\\w+\\.\\w+")
+model email is string {}
+
+@doc("Shorthand for setting length limit.")
+@minLength(5)
+@maxLength(50)
+model MediumString is string {}
+
+@doc("Shorthand for setting length limit.")
+@maxLength(25)
+model ShortString is string {}
+
+@doc("Details of the Confluent organization.")
+model Organization is TrackedResource<OrganizationProperties> {
+  @doc("Organization resource name")
+  @key("organizationName")
+  @segment("organizations")
+  name: string;
+}
+
+@armResourceOperations
+interface Organizations mixes ResourceOperations<Organization, OrganizationProperties> {}
+
+@doc("Details of the Confluent organization.")
+model OrganizationProperties {
+  @doc("UTC Time when Organization resource was created.")
+  @visibility("read")
+  createdTime?: zonedDateTime;
+
+  @doc("Id of the Confluent organization.")
+  @visibility("read", "create")
+  organizationId: string;
+
+  @doc("Single sign-on url for the Confluent organization.")
+  @visibility("read", "create")
+  ssoUrl: Uri;
+
+  @doc("Details of the product offering.")
+  offerDetail: OfferDetail;
+
+  @doc("Subscriber details.")
+  userDetail: UserDetail;
+  ...DefaultProvisioningStateProperty;
+}
+
+@doc("SaaS offer status.")
+enum OfferStatus {
+  Started,
+  PendingFulfillmentStart,
+  InProgress,
+  Subscribed,
+  Suspended,
+  Reinstated,
+  Succeeded,
+  Failed,
+  Unsubscribed,
+  Updating,
+}
+
+@doc("Details of the product offering.")
+model OfferDetail {
+  @doc("Id of the product publisher.")
+  publisherId: MediumString;
+
+  @doc("Id of the product offering.")
+  id: MediumString;
+
+  @doc("Id of the product offer plan.")
+  planId: MediumString;
+
+  @doc("Name of the product offer plan.")
+  planName: MediumString;
+
+  @doc("Offer plan term unit.")
+  termUnit: ShortString;
+
+  @doc("SaaS offer status.")
+  status: OfferStatus;
+}
+
+@doc("Details of the subscriber")
+model UserDetail {
+  @doc("Subscriber first name.")
+  firstName: MediumString;
+
+  @doc("Subscriber last name.")
+  lastName: MediumString;
+
+  @doc("Subscriber email address.")
+  emailAddress: email;
+}
+
+@doc("The details of a marketplace agreement.")
+model ConfluentAgreementResource is ProxyResource<ConfluentAgreementResourceProperties> {
+  @key
+  @segment("agreements")
+  name: string;
+}
+
+@doc("The details of the agreement.")
+model ConfluentAgreementResourceProperties {}
+
+@armResourceOperations
+interface MarketplaceAgreements {
+  @pageable
+  @segment("agreements")
+  @list(ConfluentAgreementResource)
+  List(
+    ...SubscriptionScope<ConfluentAgreementResource>
+  ): ArmResponse<ResourceListResult<ConfluentAgreementResource>> | ErrorResponse;
+
+  @put
+  @segment("agreements/default")
+  @doc("Create a new marketplace agreement.")
+  create(
+    ...SubscriptionScope<ConfluentAgreementResource>,
+
+    @doc("The agreement details.")
+    @body
+    agreement: ConfluentAgreementResource
+  ): ArmResponse<ConfluentAgreementResource> | ErrorResponse;
+}

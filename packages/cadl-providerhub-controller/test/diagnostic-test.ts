@@ -15,7 +15,6 @@ describe("Test identifier validation in service code emitter", async () => {
       namespace Microsoft.Test;
       
       using Azure.ARM;
-      using Azure.ResourceManager;
       using Cadl.Http;
 
       @doc("Foo is life")
@@ -59,7 +58,6 @@ describe("Test identifier validation in service code emitter", async () => {
       namespace Microsoft.Test;
       
       using Azure.ARM;
-      using Azure.ResourceManager;
       using Cadl.Http;
 
       @doc("Foo is the word")
@@ -102,7 +100,6 @@ describe("Test identifier validation in service code emitter", async () => {
       namespace Microsoft.Test;
       
       using Azure.ARM;
-      using Azure.ResourceManager;
       using Cadl.Http;
 
       @doc("Foo is the resource")
@@ -147,7 +144,6 @@ describe("Test identifier validation in service code emitter", async () => {
       namespace Microsoft.Test;
       
       using Azure.ARM;
-      using Azure.ResourceManager;
       using Cadl.Http;
 
       @doc("Foo is the name of this resource")

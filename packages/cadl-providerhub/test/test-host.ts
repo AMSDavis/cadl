@@ -1,5 +1,5 @@
 import { AutorestTestLibrary } from "@azure-tools/cadl-autorest/testing";
-import { AzureResourceManagerTestLibrary } from "@azure-tools/cadl-azure-resource-manager/testing";
+import { AzureCoreTestLibrary } from "@azure-tools/cadl-azure-core/testing";
 import { Diagnostic, resolvePath } from "@cadl-lang/compiler";
 import { createTestHost, createTestWrapper } from "@cadl-lang/compiler/testing";
 import { OpenAPITestLibrary } from "@cadl-lang/openapi/testing";
@@ -13,8 +13,8 @@ export async function createProviderHubTestHost() {
       RestTestLibrary,
       OpenAPITestLibrary,
       AutorestTestLibrary,
+      AzureCoreTestLibrary,
       ProviderHubTestLibrary,
-      AzureResourceManagerTestLibrary,
     ],
   });
 }
@@ -24,7 +24,7 @@ export async function createProviderHubTestRunner() {
   return createTestWrapper(
     host,
     (code) =>
-      `import "${RestTestLibrary.name}"; import "${AutorestTestLibrary.name}"; import "${AzureResourceManagerTestLibrary.name}"; import "${ProviderHubTestLibrary.name}";${code}`,
+      `import "${RestTestLibrary.name}"; import "${AzureCoreTestLibrary.name}"; import "${AutorestTestLibrary.name}"; import "${ProviderHubTestLibrary.name}";${code}`,
     {
       emitters: [AutorestTestLibrary.name],
     }

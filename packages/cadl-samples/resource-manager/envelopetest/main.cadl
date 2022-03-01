@@ -1,0 +1,59 @@
+import "@cadl-lang/rest";
+import "@azure-tools/cadl-azure-core";
+import "@azure-tools/cadl-azure-resource-manager";
+
+@serviceTitle("Microsoft.EnvelopeTest")
+@serviceVersion("2021-09-21-preview")
+@armNamespace
+namespace Microsoft.EnvelopeTest;
+
+using Cadl.Http;
+using Cadl.Rest;
+using Azure.ResourceManager;
+
+model AllPropertiesResource is TrackedResource<AllPropertiesProperties> {
+  @doc("The name of the all properties resource.")
+  @key("allPropertiesName")
+  @segment("allProperties")
+  name: string;
+  ...EntityTag;
+  ...ManagedBy;
+  ...ResourceKind;
+  ...ResourcePlan;
+  ...ResourceSku;
+  ...ManagedServiceIdentity;
+}
+
+@armResourceOperations
+interface AllProperties mixes ResourceOperations<AllPropertiesResource, AllPropertiesProperties> {}
+
+model AllPropertiesProperties {
+  @doc("The status of the last operation performed on this resource.")
+  provisioningState: EnvelopeProvisioningState;
+
+  @doc("Name of the resource")
+  displayName?: string = "default";
+}
+
+model SystemOnlyProperties {
+  @doc("The status of the last operation performed on this resource.")
+  provisioningState: EnvelopeProvisioningState;
+}
+
+model SystemOnlyResource is TrackedResource<SystemOnlyProperties> {
+  @doc("The name of the all properties resource.")
+  @key("systemOnlyPropertiesName")
+  @segment("systems")
+  name: string;
+  ...ManagedSystemAssignedIdentity;
+}
+
+@armResourceOperations
+interface SystemsOnlyResources mixes ResourceOperations<SystemOnlyResource, SystemOnlyProperties> {}
+
+enum EnvelopeProvisioningState {
+  Working,
+  Succeeded,
+  Canceled,
+  Failed,
+}

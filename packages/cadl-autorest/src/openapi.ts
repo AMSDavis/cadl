@@ -954,8 +954,11 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   function getParameterKey(property: ModelTypeProperty, param: any) {
     const parent = program.checker!.getTypeForNode(property.node.parent!) as ModelType;
     let key = program.checker!.getTypeName(parent);
+    let isQualifiedParamName = false;
+
     if (parent.properties.size > 1) {
       key += `.${property.name}`;
+      isQualifiedParamName = true;
     }
 
     // Try to shorten the type name to exclude the top-level service namespace
@@ -964,7 +967,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       baseKey = key.substring(serviceNamespaceName.length + 1);
 
       // If no parameter exists with the shortened name, use it, otherwise use the fully-qualified name
-      if (root.parameters[baseKey] === undefined) {
+      if (!root.parameters[baseKey] || isQualifiedParamName) {
         key = baseKey;
       }
     }

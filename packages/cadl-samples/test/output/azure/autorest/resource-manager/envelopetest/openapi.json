@@ -1,0 +1,953 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft.EnvelopeTest",
+    "version": "2021-09-21-preview"
+  },
+  "host": "management.azure.com",
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "flow": "implicit",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "AllProperties"
+    },
+    {
+      "name": "SystemsOnlyResources"
+    },
+    {
+      "name": "Operations"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.EnvelopeTest/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Operations"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.EnvelopeTest/allProperties": {
+      "get": {
+        "operationId": "AllProperties_ListBySubscription",
+        "description": "List AllPropertiesResource resources by subscription ID",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AllPropertiesResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AllProperties"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.EnvelopeTest/systems": {
+      "get": {
+        "operationId": "SystemsOnlyResources_ListBySubscription",
+        "description": "List SystemOnlyResource resources by subscription ID",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SystemOnlyResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SystemsOnlyResources"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/allProperties": {
+      "get": {
+        "operationId": "AllProperties_ListByResourceGroup",
+        "description": "List AllPropertiesResource resources by resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AllPropertiesResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AllProperties"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/allProperties/{allPropertiesName}": {
+      "get": {
+        "operationId": "AllProperties_Get",
+        "description": "Get a AllPropertiesResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/AllPropertiesResource.allPropertiesName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AllPropertiesResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AllProperties"
+        ]
+      },
+      "put": {
+        "operationId": "AllProperties_CreateOrUpdate",
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true,
+        "description": "Create a AllPropertiesResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/AllPropertiesResource.allPropertiesName"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "description": "Resource create parameters.",
+            "schema": {
+              "$ref": "#/definitions/AllPropertiesResource"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AllPropertiesResource"
+            }
+          },
+          "201": {
+            "description": "ARM create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AllPropertiesResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AllProperties"
+        ]
+      },
+      "patch": {
+        "operationId": "AllProperties_Update",
+        "description": "Update a AllPropertiesResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/AllPropertiesResource.allPropertiesName"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "required": true,
+            "description": "The resource properties to be updated.",
+            "schema": {
+              "$ref": "#/definitions/AllPropertiesResourceUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AllPropertiesResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AllProperties"
+        ]
+      },
+      "delete": {
+        "operationId": "AllProperties_Delete",
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true,
+        "description": "Delete a AllPropertiesResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/AllPropertiesResource.allPropertiesName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "202": {
+            "description": "Resource deletion accepted."
+          },
+          "204": {
+            "description": "Resource deleted successfully."
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AllProperties"
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/systems": {
+      "get": {
+        "operationId": "SystemsOnlyResources_ListByResourceGroup",
+        "description": "List SystemOnlyResource resources by resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SystemOnlyResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SystemsOnlyResources"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EnvelopeTest/systems/{systemOnlyPropertiesName}": {
+      "get": {
+        "operationId": "SystemsOnlyResources_Get",
+        "description": "Get a SystemOnlyResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/SystemOnlyResource.systemOnlyPropertiesName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SystemOnlyResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SystemsOnlyResources"
+        ]
+      },
+      "put": {
+        "operationId": "SystemsOnlyResources_CreateOrUpdate",
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true,
+        "description": "Create a SystemOnlyResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/SystemOnlyResource.systemOnlyPropertiesName"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "description": "Resource create parameters.",
+            "schema": {
+              "$ref": "#/definitions/SystemOnlyResource"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SystemOnlyResource"
+            }
+          },
+          "201": {
+            "description": "ARM create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SystemOnlyResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SystemsOnlyResources"
+        ]
+      },
+      "patch": {
+        "operationId": "SystemsOnlyResources_Update",
+        "description": "Update a SystemOnlyResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/SystemOnlyResource.systemOnlyPropertiesName"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "required": true,
+            "description": "The resource properties to be updated.",
+            "schema": {
+              "$ref": "#/definitions/SystemOnlyResourceUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SystemOnlyResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SystemsOnlyResources"
+        ]
+      },
+      "delete": {
+        "operationId": "SystemsOnlyResources_Delete",
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true,
+        "description": "Delete a SystemOnlyResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/SystemOnlyResource.systemOnlyPropertiesName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "202": {
+            "description": "Resource deletion accepted."
+          },
+          "204": {
+            "description": "Resource deleted successfully."
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SystemsOnlyResources"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AllPropertiesProperties": {
+      "type": "object",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/EnvelopeProvisioningState",
+          "description": "The status of the last operation performed on this resource."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Name of the resource",
+          "default": "default"
+        }
+      },
+      "required": [
+        "provisioningState"
+      ]
+    },
+    "AllPropertiesResource": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/AllPropertiesProperties",
+          "description": "The resource-specific properties for this resource.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../../providerhub/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the all properties resource.",
+          "readOnly": true
+        },
+        "eTag": {
+          "type": "string",
+          "description": "If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields.",
+          "readOnly": true
+        },
+        "managedBy": {
+          "type": "string",
+          "description": "The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource."
+        },
+        "kind": {
+          "type": "string",
+          "description": "Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value.",
+          "pattern": "^[-\\w\\._,\\(\\\\\\)]+$",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "plan": {
+          "$ref": "../../../../../../providerhub/types.json#/definitions/Plan",
+          "description": "Details of the resource plan."
+        },
+        "sku": {
+          "$ref": "../../../../../../providerhub/types.json#/definitions/Sku",
+          "description": "The SKU (Stock Keeping Unit) assigned to this resource."
+        },
+        "identity": {
+          "$ref": "#/definitions/Azure.ResourceManager.ManagedIdentityProperties",
+          "description": "The managed service identities assigned to this resource."
+        }
+      },
+      "description": "Concrete tracked resource types can be created by aliasing this type using a specific property type.",
+      "required": [
+        "properties",
+        "name"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../providerhub/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "AllPropertiesResourceListResult": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AllPropertiesResource"
+          },
+          "x-cadl-name": "Microsoft.EnvelopeTest.AllPropertiesResource[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "The response of a AllPropertiesResource list operation.",
+      "required": [
+        "value"
+      ]
+    },
+    "AllPropertiesResourceUpdate": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "ARM resource tags."
+        },
+        "properties": {
+          "$ref": "#/definitions/AllPropertiesResourceUpdateProperties"
+        }
+      },
+      "description": "The type used for update operations of the AllPropertiesResource."
+    },
+    "AllPropertiesResourceUpdateProperties": {
+      "type": "object",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/EnvelopeProvisioningState",
+          "description": "The status of the last operation performed on this resource."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Name of the resource",
+          "default": "default"
+        }
+      },
+      "description": "The updatable properties of the AllPropertiesResource."
+    },
+    "Azure.ResourceManager.ManagedIdentityProperties": {
+      "type": "object",
+      "properties": {
+        "tenantId": {
+          "type": "string",
+          "description": "The Active Directory tenant id of the principal.",
+          "readOnly": true
+        },
+        "principalId": {
+          "type": "string",
+          "description": "The active directory identifier of this principal.",
+          "readOnly": true
+        },
+        "type": {
+          "$ref": "#/definitions/Azure.ResourceManager.ManagedIdentityType",
+          "description": "The type of managed identity assigned to this resource."
+        },
+        "userAssignedIdentities": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Azure.ResourceManager.UserAssignedIdentity"
+          },
+          "description": "The identities assigned to this resource by the user."
+        }
+      },
+      "description": "The properties of the managed service identities assigned to this resource.",
+      "required": [
+        "type"
+      ]
+    },
+    "Azure.ResourceManager.ManagedIdentityType": {
+      "type": "string",
+      "description": "The kind of managed identity assigned to this resource.",
+      "enum": [
+        "None",
+        "SystemAssigned",
+        "UserAssigned",
+        "SystemAssigned,UserAssigned"
+      ],
+      "x-ms-enum": {
+        "name": "ManagedIdentityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None"
+          },
+          {
+            "name": "SystemAssigned",
+            "value": "SystemAssigned"
+          },
+          {
+            "name": "UserAssigned",
+            "value": "UserAssigned"
+          },
+          {
+            "name": "SystemAndUserAssigned",
+            "value": "SystemAssigned,UserAssigned"
+          }
+        ]
+      }
+    },
+    "Azure.ResourceManager.ManagedSystemIdentityProperties": {
+      "type": "object",
+      "properties": {
+        "tenantId": {
+          "type": "string",
+          "description": "The Active Directory tenant id of the principal.",
+          "readOnly": true
+        },
+        "principalId": {
+          "type": "string",
+          "description": "The active directory identifier of this principal.",
+          "readOnly": true
+        },
+        "type": {
+          "$ref": "#/definitions/Azure.ResourceManager.ManagedSystemIdentityType",
+          "description": "The type of managed identity assigned to this resource."
+        }
+      },
+      "description": "The properties of the service-assigned identity associated with this resource/",
+      "required": [
+        "type"
+      ]
+    },
+    "Azure.ResourceManager.ManagedSystemIdentityType": {
+      "type": "string",
+      "description": "The kind of managemed identity assigned to this resource.",
+      "enum": [
+        "None",
+        "SystemAssigned"
+      ],
+      "x-ms-enum": {
+        "name": "ManagedSystemIdentityType",
+        "modelAsString": true
+      }
+    },
+    "Azure.ResourceManager.UserAssignedIdentity": {
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "type": "string",
+          "description": "The active directory client identifier for this principal."
+        },
+        "principalId": {
+          "type": "string",
+          "description": "The active directory identifier for this principal."
+        }
+      },
+      "description": "A managed identity assigned by the user.",
+      "required": [
+        "clientId",
+        "principalId"
+      ]
+    },
+    "EnvelopeProvisioningState": {
+      "type": "string",
+      "enum": [
+        "Working",
+        "Succeeded",
+        "Canceled",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "EnvelopeProvisioningState",
+        "modelAsString": true
+      }
+    },
+    "SystemOnlyProperties": {
+      "type": "object",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/EnvelopeProvisioningState",
+          "description": "The status of the last operation performed on this resource."
+        }
+      },
+      "required": [
+        "provisioningState"
+      ]
+    },
+    "SystemOnlyResource": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/SystemOnlyProperties",
+          "description": "The resource-specific properties for this resource.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../../providerhub/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the all properties resource.",
+          "readOnly": true
+        },
+        "identity": {
+          "$ref": "#/definitions/Azure.ResourceManager.ManagedSystemIdentityProperties",
+          "description": "The managed service identities assigned to this resource."
+        }
+      },
+      "description": "Concrete tracked resource types can be created by aliasing this type using a specific property type.",
+      "required": [
+        "properties",
+        "name"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../providerhub/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "SystemOnlyResourceListResult": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SystemOnlyResource"
+          },
+          "x-cadl-name": "Microsoft.EnvelopeTest.SystemOnlyResource[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "The response of a SystemOnlyResource list operation.",
+      "required": [
+        "value"
+      ]
+    },
+    "SystemOnlyResourceUpdate": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "ARM resource tags."
+        },
+        "properties": {
+          "$ref": "#/definitions/SystemOnlyResourceUpdateProperties"
+        }
+      },
+      "description": "The type used for update operations of the SystemOnlyResource."
+    },
+    "SystemOnlyResourceUpdateProperties": {
+      "type": "object",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/EnvelopeProvisioningState",
+          "description": "The status of the last operation performed on this resource."
+        }
+      },
+      "description": "The updatable properties of the SystemOnlyResource."
+    }
+  },
+  "parameters": {
+    "AllPropertiesResource.allPropertiesName": {
+      "x-ms-parameter-location": "method",
+      "name": "allPropertiesName",
+      "in": "path",
+      "required": true,
+      "description": "The name of the all properties resource.",
+      "type": "string"
+    },
+    "SystemOnlyResource.systemOnlyPropertiesName": {
+      "x-ms-parameter-location": "method",
+      "name": "systemOnlyPropertiesName",
+      "in": "path",
+      "required": true,
+      "description": "The name of the all properties resource.",
+      "type": "string"
+    }
+  }
+}

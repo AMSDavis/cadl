@@ -1,0 +1,968 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft.ZeroTrustSystemIntegrity",
+    "version": "2021-10-18-preview"
+  },
+  "host": "management.azure.com",
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "flow": "implicit",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "ZTSI"
+    },
+    {
+      "name": "Operations"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.ZeroTrustSystemIntegrity/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Operations"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi": {
+      "get": {
+        "operationId": "ZTSI_ListBySubscription",
+        "description": "List ZTSIResource resources by subscription ID",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ZTSIResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "ZTSI"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi": {
+      "get": {
+        "operationId": "ZTSI_ListByResourceGroup",
+        "description": "List ZTSIResource resources by resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ZTSIResourceListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "ZTSI"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}": {
+      "get": {
+        "operationId": "ZTSI_Get",
+        "description": "Get a ZTSIResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/ZTSIResource.ztsiName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ZTSIResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "ZTSI"
+        ]
+      },
+      "put": {
+        "operationId": "ZTSI_CreateOrUpdate",
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true,
+        "description": "Create a ZTSIResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/ZTSIResource.ztsiName"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "description": "Resource create parameters.",
+            "schema": {
+              "$ref": "#/definitions/ZTSIResource"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ZTSIResource"
+            }
+          },
+          "201": {
+            "description": "ARM create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ZTSIResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "ZTSI"
+        ]
+      },
+      "patch": {
+        "operationId": "ZTSI_Update",
+        "description": "Update a ZTSIResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/ZTSIResource.ztsiName"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "required": true,
+            "description": "The resource properties to be updated.",
+            "schema": {
+              "$ref": "#/definitions/ZTSIResourceUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ZTSIResource"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "ZTSI"
+        ]
+      },
+      "delete": {
+        "operationId": "ZTSI_Delete",
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true,
+        "description": "Delete a ZTSIResource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/ZTSIResource.ztsiName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "202": {
+            "description": "Resource deletion accepted."
+          },
+          "204": {
+            "description": "Resource deleted successfully."
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "ZTSI"
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/getMAAURL": {
+      "post": {
+        "operationId": "ZTSI_getMAAURL",
+        "description": "Gets the MAA URL for this resource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/ZTSIResource.ztsiName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Microsoft Azure Attestation Endpoint",
+            "schema": {
+              "$ref": "#/definitions/MAAURL"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "ZTSI"
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/getZTSIURL": {
+      "post": {
+        "operationId": "ZTSI_getZTSIURL",
+        "description": "Gets the ZTSI URL for this resource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/ZTSIResource.ztsiName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ZTSI URL",
+            "schema": {
+              "$ref": "#/definitions/ZTSIURL"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "ZTSI"
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/initiateRequest": {
+      "post": {
+        "operationId": "ZTSI_initiateRequest",
+        "description": "Hello request to the ZTSI service",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/ZTSIResource.ztsiName"
+          },
+          {
+            "name": "initiateRequest",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InitiateRequestInformation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response of the Initiate Request",
+            "schema": {
+              "$ref": "#/definitions/InitiateResponse"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "ZTSI"
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSystemIntegrity/ztsi/{ztsiName}/reportRequest": {
+      "post": {
+        "operationId": "ZTSI_reportRequest",
+        "description": "ZTSI Report request",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/ZTSIResource.ztsiName"
+          },
+          {
+            "name": "reportRequest",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReportRequestInformation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ZTSI report given after a successful Report Request.",
+            "schema": {
+              "$ref": "#/definitions/ZTSIReport"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "ZTSI"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AttestationInformation": {
+      "type": "object",
+      "properties": {
+        "attestationType": {
+          "$ref": "#/definitions/AttestationType",
+          "description": "Attestation type that this information object is refering to"
+        },
+        "attestationData": {
+          "type": "string",
+          "format": "byte",
+          "description": "Base64 encoded attestation data."
+        }
+      },
+      "description": "Attestation information",
+      "required": [
+        "attestationType",
+        "attestationData"
+      ]
+    },
+    "AttestationType": {
+      "type": "string",
+      "description": "The type of attestation.",
+      "enum": [
+        "Boot",
+        "Runtime",
+        "Boot,Runtime"
+      ],
+      "x-ms-enum": {
+        "name": "AttestationType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Boot",
+            "value": "Boot"
+          },
+          {
+            "name": "Runtime",
+            "value": "Runtime"
+          },
+          {
+            "name": "BootAndRuntime",
+            "value": "Boot,Runtime"
+          }
+        ]
+      }
+    },
+    "Azure.ResourceManager.ManagedIdentityProperties": {
+      "type": "object",
+      "properties": {
+        "tenantId": {
+          "type": "string",
+          "description": "The Active Directory tenant id of the principal.",
+          "readOnly": true
+        },
+        "principalId": {
+          "type": "string",
+          "description": "The active directory identifier of this principal.",
+          "readOnly": true
+        },
+        "type": {
+          "$ref": "#/definitions/Azure.ResourceManager.ManagedIdentityType",
+          "description": "The type of managed identity assigned to this resource."
+        },
+        "userAssignedIdentities": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Azure.ResourceManager.UserAssignedIdentity"
+          },
+          "description": "The identities assigned to this resource by the user."
+        }
+      },
+      "description": "The properties of the managed service identities assigned to this resource.",
+      "required": [
+        "type"
+      ]
+    },
+    "Azure.ResourceManager.ManagedIdentityType": {
+      "type": "string",
+      "description": "The kind of managed identity assigned to this resource.",
+      "enum": [
+        "None",
+        "SystemAssigned",
+        "UserAssigned",
+        "SystemAssigned,UserAssigned"
+      ],
+      "x-ms-enum": {
+        "name": "ManagedIdentityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None"
+          },
+          {
+            "name": "SystemAssigned",
+            "value": "SystemAssigned"
+          },
+          {
+            "name": "UserAssigned",
+            "value": "UserAssigned"
+          },
+          {
+            "name": "SystemAndUserAssigned",
+            "value": "SystemAssigned,UserAssigned"
+          }
+        ]
+      }
+    },
+    "Azure.ResourceManager.UserAssignedIdentity": {
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "type": "string",
+          "description": "The active directory client identifier for this principal."
+        },
+        "principalId": {
+          "type": "string",
+          "description": "The active directory identifier for this principal."
+        }
+      },
+      "description": "A managed identity assigned by the user.",
+      "required": [
+        "clientId",
+        "principalId"
+      ]
+    },
+    "DeviceId": {
+      "type": "string",
+      "description": "Device identification in Guid format",
+      "pattern": "^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$"
+    },
+    "InitiateRequestInformation": {
+      "type": "object",
+      "properties": {
+        "requestHeader": {
+          "$ref": "#/definitions/RequestHeader",
+          "description": "Request Header"
+        },
+        "lastZtsiReport": {
+          "type": "string",
+          "format": "byte",
+          "description": "ZTSI report from last RequestReport call, if any"
+        }
+      },
+      "description": "Request initiating the communication between ZTSI service and agent",
+      "required": [
+        "requestHeader"
+      ]
+    },
+    "InitiateResponse": {
+      "type": "object",
+      "properties": {
+        "serviceContext": {
+          "type": "string",
+          "format": "byte",
+          "description": "Service Context"
+        },
+        "challenge": {
+          "type": "string",
+          "format": "byte",
+          "description": "Challenge/Nonce"
+        },
+        "requiredAttestations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttestationInformation"
+          },
+          "x-cadl-name": "Microsoft.ZeroTrustSystemIntegrity.AttestationInformation[]",
+          "description": "List of attestations that the service requires the client to send, based on the last ZTSI report if one is available."
+        }
+      },
+      "description": "Expected response of the Initiate Request",
+      "required": [
+        "serviceContext",
+        "challenge",
+        "requiredAttestations"
+      ]
+    },
+    "MAAURL": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "URL of the MAA instance that ztsi is using for attestation.",
+          "readOnly": true
+        }
+      },
+      "description": "Microsoft Azure Attestation Endpoint"
+    },
+    "MediumString": {
+      "type": "string",
+      "description": "Shorthand for setting length limit.",
+      "maxLength": 50
+    },
+    "PlanData": {
+      "type": "object",
+      "properties": {
+        "usageType": {
+          "$ref": "#/definitions/MediumString",
+          "description": "different usage type like PAYG/COMMITTED. this could be enum"
+        },
+        "billingCycle": {
+          "$ref": "#/definitions/MediumString",
+          "description": "different billing cycles like MONTHLY/WEEKLY. this could be enum"
+        },
+        "planDetails": {
+          "$ref": "#/definitions/MediumString",
+          "description": "plan id as published by Dynatrace"
+        },
+        "effectiveDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "date when plan was applied"
+        }
+      },
+      "description": "Billing plan information."
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "Provisioning state of the monitoring resource",
+      "enum": [
+        "Accepted",
+        "Creating",
+        "Updating",
+        "Deleting",
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Deleted",
+        "NotSpecified"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true
+      }
+    },
+    "ReportRequestInformation": {
+      "type": "object",
+      "properties": {
+        "requestHeader": {
+          "$ref": "#/definitions/RequestHeader",
+          "description": "Request Header."
+        },
+        "serviceContext": {
+          "type": "string",
+          "format": "byte",
+          "description": "Service Context"
+        },
+        "challenge": {
+          "type": "string",
+          "format": "byte",
+          "description": "Challenge given by the service in InitiateRequest response"
+        },
+        "attestations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttestationInformation"
+          },
+          "x-cadl-name": "Microsoft.ZeroTrustSystemIntegrity.AttestationInformation[]",
+          "description": "List of attestations the service had required from the client"
+        },
+        "ephemeralKeyPub": {
+          "type": "string",
+          "format": "byte"
+        },
+        "ephemeralKeySignature": {
+          "type": "string",
+          "format": "byte"
+        }
+      },
+      "description": "ZTSI Report request information.",
+      "required": [
+        "requestHeader",
+        "serviceContext",
+        "challenge",
+        "attestations",
+        "ephemeralKeyPub",
+        "ephemeralKeySignature"
+      ]
+    },
+    "RequestHeader": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "description": "Version of the Api that's being used for the request."
+        },
+        "deviceId": {
+          "$ref": "#/definitions/DeviceId",
+          "description": "Unique identifier of the device"
+        },
+        "messageType": {
+          "type": "string",
+          "description": "Type of the message that follows this header"
+        }
+      },
+      "description": "Common information that's included in all ZTSI Agent requests.",
+      "required": [
+        "apiVersion",
+        "deviceId",
+        "messageType"
+      ]
+    },
+    "UserInfo": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "$ref": "#/definitions/MediumString",
+          "description": "First Name of the user"
+        },
+        "lastName": {
+          "$ref": "#/definitions/MediumString",
+          "description": "Last Name of the user"
+        },
+        "emailAddress": {
+          "$ref": "#/definitions/email",
+          "description": "Email of the user used by Dynatrace for contacting them if needed"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Phone number of the user used by Dynatrace for contacting them if needed",
+          "maxLength": 40
+        },
+        "country": {
+          "type": "string",
+          "description": "Country of the user"
+        }
+      },
+      "description": "User info."
+    },
+    "ZTSIProperties": {
+      "type": "object",
+      "properties": {
+        "userInfo": {
+          "$ref": "#/definitions/UserInfo",
+          "description": "User info."
+        },
+        "planData": {
+          "$ref": "#/definitions/PlanData",
+          "description": "Billing plan information."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the resource.",
+          "readOnly": true
+        }
+      },
+      "description": "Properties specific to the ztsi resource."
+    },
+    "ZTSIReport": {
+      "type": "object",
+      "properties": {
+        "ztsiReport": {
+          "type": "string",
+          "format": "byte",
+          "description": "Base64 encoded ZTSI report information"
+        }
+      },
+      "description": "ZTSI report given after a successful Report Request.",
+      "required": [
+        "ztsiReport"
+      ]
+    },
+    "ZTSIResource": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ZTSIProperties",
+          "description": "The resource-specific properties for this resource.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../../providerhub/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "ZTSI resource name",
+          "readOnly": true
+        },
+        "identity": {
+          "$ref": "#/definitions/Azure.ResourceManager.ManagedIdentityProperties",
+          "description": "The managed service identities assigned to this resource."
+        }
+      },
+      "description": "ZTSI Resource",
+      "required": [
+        "properties",
+        "name"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../providerhub/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "ZTSIResourceListResult": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ZTSIResource"
+          },
+          "x-cadl-name": "Microsoft.ZeroTrustSystemIntegrity.ZTSIResource[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "The response of a ZTSIResource list operation.",
+      "required": [
+        "value"
+      ]
+    },
+    "ZTSIResourceUpdate": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "ARM resource tags."
+        },
+        "properties": {
+          "$ref": "#/definitions/ZTSIResourceUpdateProperties"
+        }
+      },
+      "description": "The type used for update operations of the ZTSIResource."
+    },
+    "ZTSIResourceUpdateProperties": {
+      "type": "object",
+      "properties": {
+        "userInfo": {
+          "$ref": "#/definitions/UserInfo",
+          "description": "User info."
+        },
+        "planData": {
+          "$ref": "#/definitions/PlanData",
+          "description": "Billing plan information."
+        }
+      },
+      "description": "The updatable properties of the ZTSIResource."
+    },
+    "ZTSIURL": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "URL of the ZTSI instance created as a part of the resource.",
+          "readOnly": true
+        }
+      },
+      "description": "ZTSI URL"
+    },
+    "email": {
+      "type": "string",
+      "description": "Reusable representation of an email address",
+      "pattern": "^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$"
+    }
+  },
+  "parameters": {
+    "ZTSIResource.ztsiName": {
+      "x-ms-parameter-location": "method",
+      "name": "ztsiName",
+      "in": "path",
+      "required": true,
+      "description": "ZTSI resource name",
+      "type": "string"
+    }
+  }
+}

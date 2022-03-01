@@ -135,7 +135,6 @@ function prepareOperationInfo(
 function evalInNamespace(program: Program, namespace: string, cadlScript: string): void {
   program.evalCadlScript(`
     using Azure.ARM;
-    using Azure.ResourceManager;
     using Cadl.Http;
     namespace ${namespace} {
       ${cadlScript}
@@ -402,7 +401,6 @@ function armListByInternal(
   armResourceInfo.operationNamespaces?.add(armResourceInfo.collectionName + "." + operationName);
   program.evalCadlScript(`
     using Azure.ARM;
-    using Azure.ResourceManager;
     using Cadl.Http;
     namespace ${armResourceInfo.parentNamespace} {
       @tag("${armResourceInfo.collectionName}")

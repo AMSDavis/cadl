@@ -1,0 +1,168 @@
+import "@cadl-lang/rest";
+import "@azure-tools/cadl-azure-core";
+import "@azure-tools/cadl-azure-resource-manager";
+
+@armNamespace
+@serviceTitle("CodeSigningManagementClient")
+@serviceVersion("2020-12-14-preview")
+@doc("Code Sign Resource Provider Account and Certificate Profile management API.")
+namespace Microsoft.CodeSigning;
+
+using Azure.ResourceManager;
+using Cadl.Http;
+using Cadl.Rest;
+
+@doc("A CodeSignAccount resource")
+model CodeSignAccount is TrackedResource<CodeSignAccountProperties> {
+  @doc("Code Signing account name")
+  @format("^[a-zA-Z0-9-]{3,24}$")
+  @key("accountName")
+  @segment("codeSignAccounts")
+  name: string;
+}
+
+@armResourceOperations
+interface CodeSignAccounts mixes ResourceOperations<CodeSignAccount, CodeSignAccountProperties> {}
+
+@doc("Properties of the code sign account")
+model CodeSignAccountProperties {
+  @visibility("read")
+  @doc("The URI of the code sign account for performing operations on certificate profiles. This property is readonly")
+  accountUri?: string;
+
+  @visibility("read")
+  @doc("Indicates whether the account has been verified.")
+  verificationStatus?: VerificationStatus;
+
+  @visibility("read")
+  @doc("The status of the last operation.")
+  provisioningState?: ProvisioningState;
+}
+
+@doc("Object containing updates for patch operations")
+model CodeSignAccountPatch {
+  @doc("Resource tags.")
+  tags: {};
+}
+
+@doc("Current verification information.")
+enum VerificationStatus {
+  Completed,
+  InProgress,
+  NotCompleted,
+}
+
+@doc("The rotation policy for the profile.")
+enum RotationPolicy {
+  Monthly,
+}
+
+@doc("The type of the profile.")
+enum ProfileType {
+  Test,
+  Trial,
+  PrivateTrust,
+  PublicTrust,
+}
+
+@doc("The status of the current operation.")
+enum ProvisioningState {
+  Succeeded,
+  Failed,
+  Canceled,
+  Provisioning,
+  Updating,
+  Deleting,
+  Accepted,
+}
+
+@parentResource(CodeSignAccount)
+model CertificateProfile is ProxyResource<CertificateProfileProperties> {
+  @doc("Certificate profile name")
+  @pattern("^[a-zA-Z0-9-]{3,24}$")
+  @key("profileName")
+  @segment("certificateProfiles")
+  name: string;
+}
+
+@armResourceOperations
+interface CertificateProfiles
+  mixes ResourceRead<CertificateProfile>,
+    ResourceUpdate<CertificateProfile, CertificateProfileProperties>,
+    ResourceListByResourceGroup<CertificateProfile> {}
+
+@doc("Properties of the certificate profile")
+model CertificateProfileProperties {
+  @doc("The kind of certificate profile represented.")
+  profileType: ProfileType;
+
+  @doc("The certificate rotation policy.")
+  rotationPolicy: RotationPolicy;
+
+  @doc("Name of the certificate")
+  commonName: string;
+
+  @visibility("read")
+  @doc("Certificate authority of the certificate")
+  authority?: string;
+
+  @doc("Subject Alternative Name of the certificate")
+  subjectAlternativeName: string;
+
+  @visibility("read")
+  @doc("The certificate organization.")
+  organization?: string;
+
+  @visibility("read")
+  @doc("The street address of the entity the certificate was issued to.")
+  streetAddress?: string;
+
+  @visibility("read")
+  @doc("The city of the entity the certificate was issued to.")
+  city?: string;
+
+  @visibility("read")
+  @doc("The state of the entity the certificate was issued to.")
+  state?: string;
+
+  @visibility("read")
+  @doc("The country of the entity the certificate was issued to.")
+  country?: string;
+  // TODO: Flatten?
+
+
+  @visibility("read")
+  @doc("The set of certificates associated with this profile.")
+  certificates?: Certificate[];
+
+  @visibility("read")
+  @doc("The provisioning state of the certificate.")
+  provisioningState?: ProvisioningState;
+}
+
+@doc("Properties of the certificate")
+model Certificate {
+  @doc("Id of the certificate")
+  @visibility("read")
+  id?: string;
+
+  @doc("Subject name of the certificate")
+  @visibility("read")
+  subjectName?: string;
+
+  @doc("Subject alternative name of the certificate")
+  @visibility("read")
+  subjectAlternativeName?: string;
+
+  @doc("Thumbprint of the certificate")
+  @visibility("read")
+  thumbprint?: string;
+
+  @doc("Certificate created date")
+  @visibility("read")
+  createdDate?: string;
+
+  @doc("Certificate expiry date")
+  @visibility("read")
+  expiryDate?: string;
+}

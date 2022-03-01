@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-autorest",
+      "comment": "Fix issue where parameter definitions were being duplicated unnecessarily",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-autorest"
+}

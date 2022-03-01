@@ -649,7 +649,7 @@
         "operationId": "Toys_list",
         "parameters": [
           {
-            "$ref": "#/parameters/PetStore.Pet.petId"
+            "$ref": "#/parameters/Pet.petId"
           },
           {
             "name": "nameFilter",
@@ -680,7 +680,7 @@
         "description": "Gets an instance of the resource.",
         "parameters": [
           {
-            "$ref": "#/parameters/PetStore.Pet.petId"
+            "$ref": "#/parameters/Pet.petId"
           },
           {
             "$ref": "#/parameters/Toy.toyId"
@@ -708,7 +708,7 @@
         "description": "Gets the singleton resource.",
         "parameters": [
           {
-            "$ref": "#/parameters/PetStore.Pet.petId"
+            "$ref": "#/parameters/Pet.petId"
           },
           {
             "$ref": "#/parameters/Toy.toyId"
@@ -734,7 +734,7 @@
         "description": "Updates the singleton resource.",
         "parameters": [
           {
-            "$ref": "#/parameters/PetStore.Pet.petId"
+            "$ref": "#/parameters/Pet.petId"
           },
           {
             "$ref": "#/parameters/Toy.toyId"
@@ -1014,14 +1014,6 @@
       "format": "int64"
     },
     "Pet.petId": {
-      "x-ms-parameter-location": "method",
-      "name": "petId",
-      "in": "path",
-      "required": true,
-      "type": "integer",
-      "format": "int32"
-    },
-    "PetStore.Pet.petId": {
       "x-ms-parameter-location": "method",
       "name": "petId",
       "in": "path",

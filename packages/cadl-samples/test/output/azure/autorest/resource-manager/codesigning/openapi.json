@@ -1,0 +1,832 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "CodeSigningManagementClient",
+    "version": "2020-12-14-preview",
+    "description": "Code Sign Resource Provider Account and Certificate Profile management API."
+  },
+  "host": "management.azure.com",
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "flow": "implicit",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "CodeSignAccounts"
+    },
+    {
+      "name": "CertificateProfiles"
+    },
+    {
+      "name": "Operations"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.CodeSigning/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Operations"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.CodeSigning/codeSignAccounts": {
+      "get": {
+        "operationId": "CodeSignAccounts_ListBySubscription",
+        "description": "List CodeSignAccount resources by subscription ID",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CodeSignAccountListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "CodeSignAccounts"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CodeSigning/codeSignAccounts": {
+      "get": {
+        "operationId": "CodeSignAccounts_ListByResourceGroup",
+        "description": "List CodeSignAccount resources by resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CodeSignAccountListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "CodeSignAccounts"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CodeSigning/codeSignAccounts/{accountName}": {
+      "get": {
+        "operationId": "CodeSignAccounts_Get",
+        "description": "Get a CodeSignAccount",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/CodeSignAccount.accountName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CodeSignAccount"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "CodeSignAccounts"
+        ]
+      },
+      "put": {
+        "operationId": "CodeSignAccounts_CreateOrUpdate",
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true,
+        "description": "Create a CodeSignAccount",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/CodeSignAccount.accountName"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "required": true,
+            "description": "Resource create parameters.",
+            "schema": {
+              "$ref": "#/definitions/CodeSignAccount"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CodeSignAccount"
+            }
+          },
+          "201": {
+            "description": "ARM create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CodeSignAccount"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "CodeSignAccounts"
+        ]
+      },
+      "patch": {
+        "operationId": "CodeSignAccounts_Update",
+        "description": "Update a CodeSignAccount",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/CodeSignAccount.accountName"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "required": true,
+            "description": "The resource properties to be updated.",
+            "schema": {
+              "$ref": "#/definitions/CodeSignAccountUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CodeSignAccount"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "CodeSignAccounts"
+        ]
+      },
+      "delete": {
+        "operationId": "CodeSignAccounts_Delete",
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true,
+        "description": "Delete a CodeSignAccount",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/CodeSignAccount.accountName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "202": {
+            "description": "Resource deletion accepted."
+          },
+          "204": {
+            "description": "Resource deleted successfully."
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "CodeSignAccounts"
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CodeSigning/codeSignAccounts/{accountName}/certificateProfiles": {
+      "get": {
+        "operationId": "CertificateProfiles_ListByResourceGroup",
+        "description": "List CertificateProfile resources by resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/CodeSignAccount.accountName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CertificateProfileListResult"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "CertificateProfiles"
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CodeSigning/codeSignAccounts/{accountName}/certificateProfiles/{profileName}": {
+      "get": {
+        "operationId": "CertificateProfiles_Get",
+        "description": "Get a CertificateProfile",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/CodeSignAccount.accountName"
+          },
+          {
+            "$ref": "#/parameters/CertificateProfile.profileName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CertificateProfile"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "CertificateProfiles"
+        ]
+      },
+      "patch": {
+        "operationId": "CertificateProfiles_Update",
+        "description": "Update a CertificateProfile",
+        "parameters": [
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../providerhub/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/CodeSignAccount.accountName"
+          },
+          {
+            "$ref": "#/parameters/CertificateProfile.profileName"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "required": true,
+            "description": "The resource properties to be updated.",
+            "schema": {
+              "$ref": "#/definitions/CertificateProfileUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CertificateProfile"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../../providerhub/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "CertificateProfiles"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Certificate": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Id of the certificate",
+          "readOnly": true
+        },
+        "subjectName": {
+          "type": "string",
+          "description": "Subject name of the certificate",
+          "readOnly": true
+        },
+        "subjectAlternativeName": {
+          "type": "string",
+          "description": "Subject alternative name of the certificate",
+          "readOnly": true
+        },
+        "thumbprint": {
+          "type": "string",
+          "description": "Thumbprint of the certificate",
+          "readOnly": true
+        },
+        "createdDate": {
+          "type": "string",
+          "description": "Certificate created date",
+          "readOnly": true
+        },
+        "expiryDate": {
+          "type": "string",
+          "description": "Certificate expiry date",
+          "readOnly": true
+        }
+      },
+      "description": "Properties of the certificate"
+    },
+    "CertificateProfile": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/CertificateProfileProperties",
+          "description": "The resource-specific properties for this resource.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../../providerhub/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Certificate profile name",
+          "pattern": "^[a-zA-Z0-9-]{3,24}$",
+          "readOnly": true
+        }
+      },
+      "description": "Concrete proxy resource types can be created by aliasing this type using a specific property type.",
+      "required": [
+        "properties",
+        "name"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../providerhub/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "CertificateProfileListResult": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CertificateProfile"
+          },
+          "x-cadl-name": "Microsoft.CodeSigning.CertificateProfile[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "The response of a CertificateProfile list operation.",
+      "required": [
+        "value"
+      ]
+    },
+    "CertificateProfileProperties": {
+      "type": "object",
+      "properties": {
+        "profileType": {
+          "$ref": "#/definitions/ProfileType",
+          "description": "The kind of certificate profile represented."
+        },
+        "rotationPolicy": {
+          "$ref": "#/definitions/RotationPolicy",
+          "description": "The certificate rotation policy."
+        },
+        "commonName": {
+          "type": "string",
+          "description": "Name of the certificate"
+        },
+        "authority": {
+          "type": "string",
+          "description": "Certificate authority of the certificate",
+          "readOnly": true
+        },
+        "subjectAlternativeName": {
+          "type": "string",
+          "description": "Subject Alternative Name of the certificate"
+        },
+        "organization": {
+          "type": "string",
+          "description": "The certificate organization.",
+          "readOnly": true
+        },
+        "streetAddress": {
+          "type": "string",
+          "description": "The street address of the entity the certificate was issued to.",
+          "readOnly": true
+        },
+        "city": {
+          "type": "string",
+          "description": "The city of the entity the certificate was issued to.",
+          "readOnly": true
+        },
+        "state": {
+          "type": "string",
+          "description": "The state of the entity the certificate was issued to.",
+          "readOnly": true
+        },
+        "country": {
+          "type": "string",
+          "description": "The country of the entity the certificate was issued to.",
+          "readOnly": true
+        },
+        "certificates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Certificate"
+          },
+          "x-cadl-name": "Microsoft.CodeSigning.Certificate[]",
+          "description": "The set of certificates associated with this profile.",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the certificate.",
+          "readOnly": true
+        }
+      },
+      "description": "Properties of the certificate profile",
+      "required": [
+        "profileType",
+        "rotationPolicy",
+        "commonName",
+        "subjectAlternativeName"
+      ]
+    },
+    "CertificateProfileUpdate": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "ARM resource tags."
+        },
+        "properties": {
+          "$ref": "#/definitions/CertificateProfileUpdateProperties"
+        }
+      },
+      "description": "The type used for update operations of the CertificateProfile."
+    },
+    "CertificateProfileUpdateProperties": {
+      "type": "object",
+      "properties": {
+        "profileType": {
+          "$ref": "#/definitions/ProfileType",
+          "description": "The kind of certificate profile represented."
+        },
+        "rotationPolicy": {
+          "$ref": "#/definitions/RotationPolicy",
+          "description": "The certificate rotation policy."
+        },
+        "commonName": {
+          "type": "string",
+          "description": "Name of the certificate"
+        },
+        "subjectAlternativeName": {
+          "type": "string",
+          "description": "Subject Alternative Name of the certificate"
+        }
+      },
+      "description": "The updatable properties of the CertificateProfile."
+    },
+    "CodeSignAccount": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/CodeSignAccountProperties",
+          "description": "The resource-specific properties for this resource.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-client-flatten": true
+        },
+        "systemData": {
+          "$ref": "../../../../../../providerhub/types.json#/definitions/systemData",
+          "description": "System metadata for this resource.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Code Signing account name",
+          "format": "^[a-zA-Z0-9-]{3,24}$",
+          "readOnly": true
+        }
+      },
+      "description": "A CodeSignAccount resource",
+      "required": [
+        "properties",
+        "name"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../providerhub/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "CodeSignAccountListResult": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CodeSignAccount"
+          },
+          "x-cadl-name": "Microsoft.CodeSigning.CodeSignAccount[]",
+          "description": "The items on this page"
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The link to the next page of items"
+        }
+      },
+      "description": "The response of a CodeSignAccount list operation.",
+      "required": [
+        "value"
+      ]
+    },
+    "CodeSignAccountProperties": {
+      "type": "object",
+      "properties": {
+        "accountUri": {
+          "type": "string",
+          "description": "The URI of the code sign account for performing operations on certificate profiles. This property is readonly",
+          "readOnly": true
+        },
+        "verificationStatus": {
+          "$ref": "#/definitions/VerificationStatus",
+          "description": "Indicates whether the account has been verified.",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation.",
+          "readOnly": true
+        }
+      },
+      "description": "Properties of the code sign account"
+    },
+    "CodeSignAccountUpdate": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "ARM resource tags."
+        },
+        "properties": {
+          "$ref": "#/definitions/CodeSignAccountUpdateProperties"
+        }
+      },
+      "description": "The type used for update operations of the CodeSignAccount."
+    },
+    "CodeSignAccountUpdateProperties": {
+      "type": "object",
+      "properties": {},
+      "description": "The updatable properties of the CodeSignAccount."
+    },
+    "ProfileType": {
+      "type": "string",
+      "description": "The type of the profile.",
+      "enum": [
+        "Test",
+        "Trial",
+        "PrivateTrust",
+        "PublicTrust"
+      ],
+      "x-ms-enum": {
+        "name": "ProfileType",
+        "modelAsString": true
+      }
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "The status of the current operation.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Provisioning",
+        "Updating",
+        "Deleting",
+        "Accepted"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true
+      }
+    },
+    "RotationPolicy": {
+      "type": "string",
+      "description": "The rotation policy for the profile.",
+      "enum": [
+        "Monthly"
+      ],
+      "x-ms-enum": {
+        "name": "RotationPolicy",
+        "modelAsString": true
+      }
+    },
+    "VerificationStatus": {
+      "type": "string",
+      "description": "Current verification information.",
+      "enum": [
+        "Completed",
+        "InProgress",
+        "NotCompleted"
+      ],
+      "x-ms-enum": {
+        "name": "VerificationStatus",
+        "modelAsString": true
+      }
+    }
+  },
+  "parameters": {
+    "CertificateProfile.profileName": {
+      "x-ms-parameter-location": "method",
+      "name": "profileName",
+      "in": "path",
+      "required": true,
+      "description": "Certificate profile name",
+      "pattern": "^[a-zA-Z0-9-]{3,24}$",
+      "type": "string"
+    },
+    "CodeSignAccount.accountName": {
+      "x-ms-parameter-location": "method",
+      "name": "accountName",
+      "in": "path",
+      "required": true,
+      "description": "Code Signing account name",
+      "format": "^[a-zA-Z0-9-]{3,24}$",
+      "type": "string"
+    }
+  }
+}

@@ -107,10 +107,7 @@ function* getOverlappedProperty(inner: ModelType, topLevel: ModelType) {
 
 function hasBaseModel(model: ModelType, baseModelName: string): boolean {
   if (model.baseModel) {
-    if (
-      model.baseModel.name === baseModelName &&
-      model.baseModel.namespace?.name === "ResourceManager"
-    ) {
+    if (model.baseModel.name === baseModelName && model.baseModel.namespace?.name === "ARM") {
       return true;
     }
     return hasBaseModel(model.baseModel, baseModelName);

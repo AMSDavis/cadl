@@ -2,7 +2,6 @@
 import "@azure-tools/cadl-azure-core";
 import "@azure-tools/cadl-providerhub";
 import "@azure-tools/cadl-providerhub-controller";
-import "@azure-tools/cadl-azure-resource-manager";
 
 @armNamespace
 @serviceTitle("Microsoft.Confluent")
@@ -10,7 +9,6 @@ import "@azure-tools/cadl-azure-resource-manager";
 namespace Microsoft.Confluent;
 
 using Azure.ARM;
-using Azure.ResourceManager;
 using Cadl.Http;
 
 @doc("A string that represents a URI.")

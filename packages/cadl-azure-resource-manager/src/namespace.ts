@@ -2,19 +2,21 @@ import { addSecurityDefinition, addSecurityRequirement } from "@azure-tools/cadl
 import {
   DecoratorContext,
   getServiceHost,
+  ModelType,
   NamespaceType,
+  OperationType,
   Program,
   setServiceHost,
   setServiceNamespace,
+  StringLiteralType,
   Type,
+  validateDecoratorParamType,
   validateDecoratorTarget,
 } from "@cadl-lang/compiler";
 import { $consumes, $produces } from "@cadl-lang/rest";
+import { reportDiagnostic } from "./lib.js";
 
 const armNamespacesKey = Symbol();
-
-// NOTE: This can be considered the entrypoint for marking a service definition as
-// an ARM service so that we might enable ARM-specific Swagger emit behavior.
 
 export function $armNamespace(context: DecoratorContext, entity: Type, armNamespace?: string) {
   const { program } = context;
@@ -37,20 +39,6 @@ export function $armNamespace(context: DecoratorContext, entity: Type, armNamesp
 
   program.stateMap(armNamespacesKey).set(entity, armNamespace);
 
-  // Add the /operations endpoint for the ARM namespace
-  program.evalCadlScript(`
-    using Azure.ARM;
-    using Azure.ResourceManager;
-    using Cadl.Http;
-    namespace ${cadlNamespace} {
-      @tag("Operations")
-      @route("/providers/${armNamespace}/operations")
-      namespace Operations {
-        @doc("List the operations for ${armNamespace}")
-        @pageable @get op List(...ApiVersionParameter): ArmResponse<OperationListResult> | ErrorResponse;
-      }
-    }`);
-
   // ARM services need to have "application/json" set on produces/consumes
   $produces(context, entity, "application/json");
   $consumes(context, entity, "application/json");
@@ -68,8 +56,13 @@ export function $armNamespace(context: DecoratorContext, entity: Type, armNamesp
   });
 }
 
-export function getArmNamespace(program: Program, namespace: NamespaceType): string | undefined {
-  let currentNamespace: NamespaceType | undefined = namespace;
+export function getArmNamespace(
+  program: Program,
+  entity: NamespaceType | ModelType
+): string | undefined {
+  let currentNamespace: NamespaceType | undefined =
+    entity.kind === "Namespace" ? entity : entity.namespace;
+
   let armNamespace: string | undefined;
   while (currentNamespace) {
     armNamespace = program.stateMap(armNamespacesKey).get(currentNamespace);
@@ -81,4 +74,66 @@ export function getArmNamespace(program: Program, namespace: NamespaceType): str
   }
 
   return undefined;
+}
+
+/**
+ * This decorator dynamcally assigns the serviceNamespace from the containing
+ * namespace to the string literal value of the path parameter to which this
+ * decorator is applied.  Its purpose is to dynamically insert the provider
+ * namespace (e.g. 'Microsoft.CodeSigning') into the path parameter list.
+ */
+export function $assignProviderNameValue(
+  context: DecoratorContext,
+  target: Type,
+  resourceType: Type
+) {
+  const { program } = context;
+
+  // If the resource type is a template parameter, this must be a templated type
+  if (resourceType.kind === "TemplateParameter") {
+    return;
+  }
+
+  if (
+    !validateDecoratorTarget(program, target, "@assignProviderNameValue", "ModelProperty") ||
+    !validateDecoratorParamType(program, target, target.type, "String") ||
+    !validateDecoratorParamType(program, target, resourceType, "Model")
+  ) {
+    return;
+  }
+
+  const armNamespace = getArmNamespace(program, resourceType as ModelType);
+  if (armNamespace) {
+    (target.type as StringLiteralType).value = armNamespace;
+  }
+}
+
+export function $armUpdateProviderNamespace(context: DecoratorContext, entity: Type) {
+  const { program } = context;
+
+  if (!validateDecoratorTarget(program, entity, "@armUpdateProviderNamespace", "Operation")) {
+    return;
+  }
+
+  const operation = entity as OperationType;
+  const opInterface = operation.interface;
+  if (opInterface && opInterface.namespace) {
+    const armNamespace = getArmNamespace(program, opInterface.namespace);
+    if (armNamespace) {
+      // Set the namespace constant on the 'provider' parameter
+      const providerParam = operation.parameters.properties.get("provider");
+      if (providerParam) {
+        if (providerParam.type.kind !== "String") {
+          reportDiagnostic(program, {
+            code: "decorator-param-wrong-type",
+            messageId: "armUpdateProviderNamespace",
+            target: providerParam,
+          });
+          return;
+        }
+
+        providerParam.type.value = armNamespace;
+      }
+    }
+  }
 }
