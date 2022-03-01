@@ -28,6 +28,9 @@ steps:
   - script: node common/scripts/install-run-rush.js check-format
     displayName: Check Formatting
 
+  - script: node packages/cadl-providerhub-templates/scripts/test-providerhub-template.js
+    displayName: Check ProviderHub Templates generation
+
   - script: node common/scripts/install-run-rush.js regen-samples
     displayName: Regenerate Samples
 

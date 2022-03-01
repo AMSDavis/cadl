@@ -54,7 +54,11 @@
         ".template.config/**/*",
         "**/*.filelist",
         "**/*.user",
-        "**/*.lock.json"
+        "**/*.lock.json",
+        "**/node_modules/**",
+        "**/generated/**",
+        "**/openapi.json",
+        "**.rush/**"
       ]
     },
     {

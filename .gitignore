@@ -187,3 +187,6 @@ obj/
 *.zip
 
 .npmrc
+
+# template generated post action files
+packages/cadl-samples/test/output/azure/templates-contoso/setup.*

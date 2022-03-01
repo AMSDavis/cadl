@@ -25,3 +25,5 @@ core/packages/compiler/test/formatter/**/*.cadl
 
 # That is an example with error and can't be formatted
 core/packages/samples/local-cadl/test.cadl
+
+packages/cadl-providerhub-templates/templates/cadl-providerhub/swagger/**

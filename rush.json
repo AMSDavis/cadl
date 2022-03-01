@@ -155,6 +155,12 @@
       "projectFolder": "packages/cadl-msbuild-target",
       "reviewCategory": "production",
       "shouldPublish": false
+    },
+    {
+      "packageName": "cadl-providerhub-templates-contoso",
+      "projectFolder": "packages/cadl-providerhub-templates/templates/cadl-providerhub/cadl",
+      "reviewCategory": "production",
+      "shouldPublish": false
     }
   ]
 }

@@ -10,6 +10,7 @@ dependencies:
   '@rush-temp/cadl-msbuild-target': file:projects/cadl-msbuild-target.tgz
   '@rush-temp/cadl-providerhub': file:projects/cadl-providerhub.tgz
   '@rush-temp/cadl-providerhub-controller': file:projects/cadl-providerhub-controller.tgz
+  '@rush-temp/cadl-providerhub-templates-contoso': file:projects/cadl-providerhub-templates-contoso.tgz
   '@rush-temp/cadl-samples': file:projects/cadl-samples.tgz
   '@rush-temp/cadl-vs': file:projects/cadl-vs.tgz
   '@rush-temp/cadl-vscode': file:projects/cadl-vscode.tgz_prettier@2.5.1
@@ -3955,6 +3956,13 @@ packages:
       integrity: sha512-9ysHNCU/8FWqhZdAaNoCF+316wELLw27ETcfooFzeQJcRv/Hk6QS3T+51oCnsbUZaulKTjDgVIyQJQxBsSgfWw==
       tarball: file:projects/cadl-providerhub-controller.tgz
     version: 0.0.0
+  file:projects/cadl-providerhub-templates-contoso.tgz:
+    dev: false
+    name: '@rush-temp/cadl-providerhub-templates-contoso'
+    resolution:
+      integrity: sha512-knB5/n1USdRcS6mEuNF7GwDe2iO62JhynUPiNZkak0nxfBUbjDcUPhzk4fbn9ylIzdeCDe27XM7sCsasmJL2Ag==
+      tarball: file:projects/cadl-providerhub-templates-contoso.tgz
+    version: 0.0.0
   file:projects/cadl-providerhub.tgz:
     dependencies:
       '@types/mocha': 9.1.0
@@ -4201,6 +4209,7 @@ specifiers:
   '@rush-temp/cadl-msbuild-target': file:./projects/cadl-msbuild-target.tgz
   '@rush-temp/cadl-providerhub': file:./projects/cadl-providerhub.tgz
   '@rush-temp/cadl-providerhub-controller': file:./projects/cadl-providerhub-controller.tgz
+  '@rush-temp/cadl-providerhub-templates-contoso': file:./projects/cadl-providerhub-templates-contoso.tgz
   '@rush-temp/cadl-samples': file:./projects/cadl-samples.tgz
   '@rush-temp/cadl-vs': file:./projects/cadl-vs.tgz
   '@rush-temp/cadl-vscode': file:./projects/cadl-vscode.tgz
