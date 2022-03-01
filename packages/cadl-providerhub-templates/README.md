@@ -1,6 +1,6 @@
 # Cadl ProviderHub Template
 
-This package provides a project template to help create your first ProviderHub services using Cadl. The generated project has integrated with cadl and providerhub onebox, so that the cadl specs can be simply deployed with providerhub onebox.
+This package provides a project template to help create your first ProviderHub service using Cadl. The generated project has integrated Cadl and ProviderHub OneBox, so that the Cadl specifications can be simply deployed with ProviderHub OneBox.
 
 ## Getting started
 
@@ -20,7 +20,7 @@ via git clone locally：
 
 ```bash
 git clone <this repo>
-dotnet new -i  path-to-the-repo/packages/cadl-providerhub-templates/templates/cadl-providerhub
+dotnet new -i path-to-the-repo/packages/cadl-providerhub-templates/templates/cadl-providerhub
 dotnet new --list
 ```
 
@@ -48,7 +48,7 @@ Note:
 
 ## Debug with OneBox
 
-To debug your UserRP project with [ProviderHub OneBox](https://armwiki.azurewebsites.net/providerhub/onebox.html) in local environment, you need basically perform following 2 steps:
+To debug your UserRP project with [ProviderHub OneBox](https://armwiki.azurewebsites.net/rpaas/onebox.html) in local environment, you need basically perform following 2 steps:
 
 1. Run OneBox locally
 2. Register your resourceProvider and resourceTypes
@@ -139,8 +139,8 @@ or with `docker`:
 docker run --rm -v $(pwd)/registrations:/app/registrations:ro rpaasoneboxacr.azurecr.io/rpaas-onebox/register
 ```
 
-or directly do the registration with Curl or other REST tools. See [RPaaS wiki As RP owner section](https://armwiki.azurewebsites.net/rpaas/onebox.html#as-rp-owner-userrp).
+or directly do the registration with Curl or other REST tools. See [ProviderHub wiki As RP owner section](https://armwiki.azurewebsites.net/rpaas/onebox.html#as-rp-owner-userrp).
 
 ## API Test
 
-TBD. For now, please refer to [RPaaS wiki As an end user section](https://armwiki.azurewebsites.net/rpaas/onebox.html#as-an-end-user-uses-metarp).
+TBD. For now, please refer to [ProviderHub wiki As an end user section](https://armwiki.azurewebsites.net/rpaas/onebox.html#as-an-end-user-uses-metarp).
