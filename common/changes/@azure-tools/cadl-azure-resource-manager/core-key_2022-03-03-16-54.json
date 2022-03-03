@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-azure-resource-manager",
+      "comment": "React to @key decorator move to core",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-azure-resource-manager"
+}

@@ -5,6 +5,7 @@ import {
   DecoratorContext,
   getDoc,
   getIntrinsicModelName,
+  getKeyName,
   getPropertyType,
   getTags,
   ModelType,
@@ -14,7 +15,7 @@ import {
   validateDecoratorParamType,
   validateDecoratorTarget,
 } from "@cadl-lang/compiler";
-import { $autoRoute, getKeyName, getSegment } from "@cadl-lang/rest";
+import { $autoRoute, getSegment } from "@cadl-lang/rest";
 import { reportDiagnostic } from "./lib.js";
 import { getArmNamespace } from "./namespace.js";
 
