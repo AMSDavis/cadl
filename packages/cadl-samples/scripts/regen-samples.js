@@ -4,7 +4,7 @@ import { readdirSync, rmdirSync } from "fs";
 import mkdirp from "mkdirp";
 import { dirname, join, normalize, resolve } from "path";
 import { fileURLToPath } from "url";
-import { InstantiateTemplate } from "../../../eng/scripts/cadl-providerhub-template.js";
+import { instantiateTemplate } from "../../../eng/scripts/cadl-providerhub-template.js";
 import { run } from "../../../eng/scripts/helpers.js";
 
 const excludedSamples = [
@@ -82,7 +82,7 @@ function main() {
       emitter: "@azure-tools/cadl-autorest",
     }
   );
-  InstantiateTemplate();
+  instantiateTemplate();
 }
 
 function runCadlSamples(samplesPath, baseOutputPath, options) {

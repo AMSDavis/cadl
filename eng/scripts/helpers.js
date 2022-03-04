@@ -19,6 +19,11 @@ export const prettier = resolve(repoRoot, "core/packages/compiler/node_modules/.
 export const tsc = resolve(repoRoot, "core/packages/compiler/node_modules/.bin/tsc");
 export const autorest = resolve(repoRoot, "eng/scripts/node_modules/.bin/autorest");
 
+const minimumDotnetVersion = {
+  major: 5,
+  minor: 0,
+};
+
 const rush = read(`${repoRoot}/rush.json`);
 
 export function forEachProject(onEach) {
@@ -89,6 +94,63 @@ export function run(command, args, options) {
   }
 
   return proc;
+}
+
+export function runDotnetOrExit(args, options) {
+  ensureDotnetVersionOrExit();
+  return run("dotnet", args, options);
+}
+
+let validatedDotnet = false;
+function ensureDotnetVersionOrExit() {
+  if (validatedDotnet) {
+    return;
+  }
+
+  const { error } = validateDotnetVersion();
+  if (error) {
+    // If running in CI/AzureDevOps fail if dotnet is invalid.
+    if (process.env.CI || process.env.TF_BUILD) {
+      console.error(`error: ${error}`);
+      process.exit(1);
+    } else {
+      console.log(`Skipping cadl-vs build: ${error}.`);
+      process.exit(0);
+    }
+  }
+
+  validatedDotnet = true;
+}
+
+function validateDotnetVersion() {
+  try {
+    const proc = run("dotnet", ["--version"], {
+      stdio: [null, "pipe", "inherit"],
+      silent: true,
+    });
+
+    if (proc.status !== 0 || proc.error || !proc.stdout) {
+      return { error: `Skipping dotnet build: dotnet command was not found found.` };
+    }
+    const version = proc.stdout.toString().trim();
+    const [major, minor, patch] = version.split(".").map((x) => parseInt(x, 10));
+
+    if (
+      major < minimumDotnetVersion.major ||
+      (major === minimumDotnetVersion.major && minor < minimumDotnetVersion.minor)
+    ) {
+      return {
+        error: `dotnet command version "${version}" is not maching minimum requirement of ${minimumDotnetVersion.major}.${minimumDotnetVersion.minor}.x`,
+      };
+    }
+    return {};
+  } catch (e) {
+    if (e.code === "ENOENT") {
+      return { error: "dotnet command was not found found." };
+    } else {
+      throw e;
+    }
+  }
 }
 
 export function runPrettier(...args) {
@@ -214,7 +276,7 @@ export function scanSwaggers(root) {
   }
   return files;
 }
-export function runMsBuild(packageName, solutionName) {
+export function runMsBuildOrExit(packageName, solutionName) {
   if (process.platform !== "win32") {
     console.log("Skipping cadl-vs build: not on Windows.");
     process.exit(0);

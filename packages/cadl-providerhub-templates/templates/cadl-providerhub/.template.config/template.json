@@ -82,7 +82,7 @@
     },
     {
       "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
-      "condition": "(OS == \"Windows_NT\")",
+      "condition": "(OS == \"Windows_NT\" && AllowScripts)",
       "args": {
         "executable": "setup.cmd",
         "args": "",
@@ -90,7 +90,7 @@
       },
       "manualInstructions": [
         {
-          "text": ".\\setup.cmd"
+          "text": "Run .\\setup.cmd"
         }
       ],
       "continueOnError": false,
@@ -108,15 +108,15 @@
     },
     {
       "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
-      "condition": "(OS != \"Windows_NT\")",
+      "condition": "(OS != \"Windows_NT\" && AllowScripts)",
       "args": {
-        "executable": "setup.sh",
+        "executable": "./setup.sh",
         "args": "",
         "redirectStandardOutput": false
       },
       "manualInstructions": [
         {
-          "text": "./setup.sh"
+          "text": "Run ./setup.sh"
         }
       ],
       "continueOnError": false,

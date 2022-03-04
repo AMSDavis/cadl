@@ -1,6 +1,8 @@
-import { existsSync, rmdirSync } from "fs";
-import { resolve } from "path";
-import { repoRoot, run } from "./helpers.js";
+// @ts-check
+
+import { existsSync, readdirSync, rmdirSync, rmSync } from "fs";
+import { join, resolve } from "path";
+import { repoRoot, runDotnetOrExit } from "./helpers.js";
 
 export const cadlProviderhubTemplateName = "cadl-providerhub";
 export const templateDir = resolve(
@@ -15,35 +17,40 @@ const templateOutputDir = resolve(
   "packages/cadl-samples/test/output/azure/templates-contoso"
 );
 
-export function InstantiateTemplate() {
+export function instantiateTemplate() {
   // 'rush update' will create a node_modules folder , so we need to remove it,otherwise the following creating command will be slow.
   const node_modules = resolve(templateDir, "cadl", "node_modules");
   if (existsSync(node_modules)) {
     rmdirSync(node_modules, { recursive: true });
   }
+  const templateInstallTempDir = join(repoRoot, "temp/dotnet-template-hive");
+  rmSync(templateInstallTempDir, { force: true, recursive: true });
+
   // install template locally
-  try {
-    run("dotnet", ["new", "-i", templateDir]);
-  } catch (e) {}
+  runDotnetOrExit(["new", "-i", templateDir, "--debug:custom-hive", templateInstallTempDir]);
+
+  // TODO test
+  console.log("READ DIR", readdirSync(templateInstallTempDir));
 
   // create a sample project from template
-  try {
-    run("dotnet", [
-      "new",
-      cadlProviderhubTemplateName,
-      "-o",
-      templateOutputDir,
-      "-n",
-      "contoso",
-      "--force",
-      "--allow-scripts",
-      "no",
-    ]);
-  } catch (e) {}
+  runDotnetOrExit([
+    "new",
+    cadlProviderhubTemplateName,
+    "-o",
+    templateOutputDir,
+    "--debug:custom-hive",
+    templateInstallTempDir,
+    "-n",
+    "contoso",
+    "--force",
+    "--allow-scripts",
+    "no",
+  ]);
 
   console.log("\n");
 }
 
 export function buildTemplateProject() {
-  run("dotnet", ["build"], { cwd: templateDir });
+  runDotnetOrExit(["restore"], { cwd: templateDir });
+  runDotnetOrExit(["build"], { cwd: templateDir });
 }

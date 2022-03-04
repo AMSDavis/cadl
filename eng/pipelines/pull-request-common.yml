@@ -1,6 +1,8 @@
 parameters:
   - name: nodeVersion
     type: string
+  - name: dotnetVersion
+    type: string
 
 steps:
   - checkout: self
@@ -11,8 +13,18 @@ steps:
       versionSpec: ${{ parameters.nodeVersion }}
     displayName: Install Node.js
 
+  # TODO renable for everybody when issue with nuget feed is solved https://github.com/Azure/cadl-azure/issues/1252
+  # - task: UseDotNet@2
+  #   inputs:
+  #     version: ${{ parameters.dotnetVersion }}
+
   - script: node common/scripts/install-run-rush.js install
     displayName: Install JavaScript Dependencies
+
+  - script: |
+      echo "Dotnet version:"
+      dotnet --version
+    displayName: Log versions
 
   - script: node core/packages/cadl-vs/scripts/build.js --restore && node packages/cadl-msbuild-target/scripts/build.js --restore
     displayName: Restore .NET Dependencies
@@ -30,6 +42,8 @@ steps:
 
   - script: node packages/cadl-providerhub-templates/scripts/test-providerhub-template.js
     displayName: Check ProviderHub Templates generation
+    # TODO renable for everybody when issue with nuget feed is solved https://github.com/Azure/cadl-azure/issues/1252
+    condition: and(succeeded(), ne(variables['Agent.OS'], 'Linux'))
 
   - script: node common/scripts/install-run-rush.js regen-samples
     displayName: Regenerate Samples

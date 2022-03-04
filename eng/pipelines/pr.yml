@@ -6,21 +6,25 @@ jobs:
   - job: Build_And_Test
     strategy:
       matrix:
-        "Linux - Node 14.x":
+        "Linux - Node 14.x  - Dotnet 5":
           imageName: ubuntu-latest
           nodeVersion: "14.x"
+          dotnetVersion: 5.0.x
 
-        "Linux - Node 16.x":
+        "Linux - Node 16.x  - Dotnet 6":
           imageName: ubuntu-latest
           nodeVersion: "16.x"
+          dotnetVersion: 6.0.x
 
-        "Windows - Node 14.x":
+        "Windows - Node 14.x - Dotnet 5":
           imageName: windows-2019
           nodeVersion: "14.x"
+          dotnetVersion: 5.0.x
 
-        "Windows - Node 16.x":
+        "Windows - Node 16.x - Dotnet 6":
           imageName: windows-2019
           nodeVersion: "16.x"
+          dotnetVersion: 6.0.x
 
     pool:
       vmImage: $(imageName)
@@ -33,6 +37,7 @@ jobs:
       - template: pull-request-common.yml
         parameters:
           nodeVersion: $(nodeVersion)
+          dotnetVersion: $(dotnetVersion)
 
       - template: swagger-checks.yml
 

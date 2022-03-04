@@ -4,9 +4,7 @@ async function buildProviderhubTemplate() {
   console.log("Start build cadl providerhub templating project:");
 
   // In linux , there is issue to restore dotnet nuget dependencies.
-  if (process.env.CADL_VS_CI_BUILD) {
-    buildTemplateProject();
-  }
+  buildTemplateProject();
   console.log("Build cadl providerhub templating project successfully: \n");
 }
 

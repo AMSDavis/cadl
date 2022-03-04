@@ -1,3 +1,4 @@
-import { runMsBuild } from "../../../eng/scripts/helpers.js";
+// @ts-check
+import { runMsBuildOrExit } from "../../../eng/scripts/helpers.js";
 
-runMsBuild("packages/cadl-msbuild-target", "CadlMSBuild.csproj");
+runMsBuildOrExit("packages/cadl-msbuild-target", "CadlMSBuild.csproj");
