@@ -347,17 +347,17 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
         function extractResponseType(operation: OperationType): ModelType | undefined {
           const model = operation.returnType;
-          let union = model as UnionType;
+          const union = model as UnionType;
           if (union) {
             let outModel: ModelType | undefined = undefined;
             union?.options.forEach((option) => {
-              let optionModel = option as ModelType;
+              const optionModel = option as ModelType;
               if (
                 optionModel &&
                 optionModel.name === "ArmResponse" &&
                 optionModel.templateArguments
               ) {
-                let innerModel = optionModel.templateArguments[0] as ModelType;
+                const innerModel = optionModel.templateArguments[0] as ModelType;
                 if (innerModel) {
                   outModel = innerModel;
                 }
@@ -385,7 +385,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           namespaceKey: string,
           resource?: Resource
         ) {
-          let localOperations: Operation[] = [];
+          const localOperations: Operation[] = [];
           const visitedTypes = new Set<Type>();
           operations.forEach((operation) => visitOperation(operation, namespaceKey));
           if (!outOperations.has(namespaceKey)) {
@@ -449,20 +449,20 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             let bodyProp: MethodParameter | undefined = undefined;
             if (!visitedOperations.has(operationKey)) {
               visitedOperations.set(operationKey, operation);
-              let returnType = extractResponseType(operation);
+              const returnType = extractResponseType(operation);
               if (returnType) {
                 visitType(returnType);
               }
-              let parameters: MethodParameter[] = [];
+              const parameters: MethodParameter[] = [];
 
               if (operation.parameters) {
                 operation.parameters.properties.forEach((prop) => {
-                  let propType = getCSharpType(prop.type);
+                  const propType = getCSharpType(prop.type);
                   if (prop.name === "api-version" && propType?.name === "string") {
                     // skip standard api-version parameter
                   } else if (propType) {
                     visitType(prop.type);
-                    let propLoc: string = isQueryParam(program, prop)
+                    const propLoc: string = isQueryParam(program, prop)
                       ? "Query"
                       : isPathParam(program, prop)
                       ? "Path"
@@ -524,7 +524,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         }
 
         function visitNamespace(visited: NamespaceType, parent?: string) {
-          let key: string = visited.name;
+          const key: string = visited.name;
           let resource: Resource | undefined = undefined;
           if (armResourceLookup.has(key)) {
             resource = armResourceLookup.get(key)!;
@@ -532,7 +532,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
           if (!visitedNamespaces.has(key)) {
             visitedNamespaces.set(key, visited);
-            let armSpace = getArmNamespace(program, visited);
+            const armSpace = getArmNamespace(program, visited);
             if (armSpace) {
               visitOperations(visited.operations, key, resource);
             }
@@ -544,19 +544,19 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         });
       }
 
-      for (let res of getArmResources(program).map((r) => <Type>r)) {
-        let resourceInfo = getArmResourceInfo(program, res)!;
+      for (const res of getArmResources(program).map((r) => <Type>r)) {
+        const resourceInfo = getArmResourceInfo(program, res)!;
         if (!resources.has(resourceInfo.resourceModelName)) {
-          let modelName = resourceInfo.resourceModelName;
-          let listName = resourceInfo.resourceListModelName;
-          let matchingNamespace = resourceInfo.armNamespace;
+          const modelName = resourceInfo.resourceModelName;
+          const listName = resourceInfo.resourceListModelName;
+          const matchingNamespace = resourceInfo.armNamespace;
           const cSharpModelName = transformCSharpIdentifier(resourceInfo.resourceModelName);
           resourceNamespaceTable.set(resourceInfo.resourceModelName, resourceInfo.armNamespace);
           const map = new Map<string, Operation>();
           resourceInfo.standardOperations
             .filter((o) => o == PutName || o == PatchName || o == DeleteName || o == GetName)
             .forEach((op) => {
-              let value = getStandardOperation(op, resourceInfo, cSharpModelName, res)!;
+              const value = getStandardOperation(op, resourceInfo, cSharpModelName, res)!;
               if (value && !map.has(value.name)) {
                 map.set(value.name, value);
               }
@@ -593,7 +593,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     function populateModels() {
       const models = new Map<string, Model>();
       function populateModel(cadlType: Type) {
-        let model = cadlType as ModelType;
+        const model = cadlType as ModelType;
         if (model && model.name && model.name.length > 0) {
           const typeRef = getCSharpType(model);
           reportInfo(`*** ${model.name} => ${typeRef?.name}`, model.node);
@@ -629,7 +629,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               if (model.templateNode) {
                 const templateBase = program.checker!.getTypeForNode(model.templateNode);
                 if (templateBase) {
-                  let modelType = templateBase as ModelType;
+                  const modelType = templateBase as ModelType;
                   const converted = getCSharpType(modelType);
                   if (converted) {
                     baseType.push(converted);
@@ -721,9 +721,9 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     ): Property | undefined {
       const spreadNode = property.node as ModelSpreadPropertyNode;
       if (spreadNode && property.sourceProperty === undefined) {
-        let parentNode = spreadNode.parent;
+        const parentNode = spreadNode.parent;
         if (parentNode) {
-          let parentType = program.checker!.getTypeForNode(parentNode);
+          const parentType = program.checker!.getTypeForNode(parentNode);
           const parentModel = parentType as ModelType;
           // remove special case when we refactor library type changes to models
           if (parentModel !== parent && property.name !== "properties") {
@@ -936,18 +936,18 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
         const output: ValidationAttribute[] = [];
 
-        let format = getFormat(program, localType);
+        const format = getFormat(program, localType);
         if (format) {
           output.push(getFormatAttribute(format));
         }
 
-        let pattern = getPattern(program, localType);
+        const pattern = getPattern(program, localType);
         if (pattern) {
           output.push(getPatternAttribute(pattern));
         }
 
-        let minLength = getMinLength(program, localType);
-        let maxLength = getMaxLength(program, localType);
+        const minLength = getMinLength(program, localType);
+        const maxLength = getMaxLength(program, localType);
         if (minLength || maxLength) {
           output.push(getLengthAttribute(minLength, maxLength));
         }
@@ -1060,8 +1060,6 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         case "Intrinsic":
           return undefined;
         case "TemplateParameter":
-          return undefined;
-        case "String":
           return undefined;
         default:
           return undefined;
@@ -1194,7 +1192,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             nameSpace: "Microsoft.Cadl.ProviderHub",
             typeParameters: [],
           };
-          let innerType = model.templateArguments
+          const innerType = model.templateArguments
             ? getCSharpType(model.templateArguments![0])
             : undefined;
           if (innerType) {

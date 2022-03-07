@@ -262,7 +262,6 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     parameters: {},
   };
 
-  let currentBasePath: string | undefined = "";
   let currentPath: any = root.paths;
   let currentEndpoint: any;
   let currentConsumes: Set<string>;
@@ -336,10 +335,10 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   }
 
   function emitOperation(operation: OperationDetails) {
-    const { path: fullPath, operation: op, groupName, container, verb, parameters } = operation;
+    const { path: fullPath, operation: op, groupName, verb, parameters } = operation;
 
     // If path contains a literal query string parameter, add it to x-ms-paths instead
-    let pathsObject = fullPath.indexOf("?") < 0 ? root.paths : root["x-ms-paths"];
+    const pathsObject = fullPath.indexOf("?") < 0 ? root.paths : root["x-ms-paths"];
 
     if (!pathsObject[fullPath]) {
       pathsObject[fullPath] = {};
@@ -448,7 +447,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
   function emitResponseObject(responseModel: Type) {
     // Get explicity defined status codes
-    let statusCodes = getResponseStatusCodes(responseModel);
+    const statusCodes = getResponseStatusCodes(responseModel);
 
     // Get explicitly defined content types
     const contentTypes = getResponseContentTypes(responseModel);
@@ -554,59 +553,6 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       }
     }
     return codes;
-  }
-
-  function isEmptyResponse(adlType: Type) {
-    switch (adlType.kind) {
-      case "TemplateParameter":
-        {
-          if (adlType.instantiationParameters) {
-            for (let element of adlType.instantiationParameters) {
-              if (!isEmptyResponse(element)) return false;
-            }
-          }
-        }
-        return true;
-      case "Model": {
-        if (isIntrinsic(program, adlType)) {
-          return false;
-        }
-        if (adlType.properties) {
-          for (let element of adlType.properties.values()) {
-            const headerInfo = isHeader(program, element);
-            const statusCodeinfo = isStatusCode(program, element);
-            if (!(headerInfo || statusCodeinfo)) return false;
-          }
-        }
-        if (adlType.baseModel) {
-          if (!isEmptyResponse(adlType.baseModel)) return false;
-        }
-        if (adlType.templateArguments) {
-          for (let element of adlType.templateArguments) {
-            if (!isEmptyResponse(element)) return false;
-          }
-        }
-        if (getDiscriminator(program, adlType)) {
-          return false;
-        }
-
-        return true;
-      }
-      case "Tuple":
-        for (let element of adlType.values) {
-          if (!isEmptyResponse(element)) return false;
-        }
-
-        return false;
-      case "Union":
-        for (let element of adlType.options) {
-          if (!isEmptyResponse(element)) return false;
-        }
-
-        return false;
-      default:
-        return false;
-    }
   }
 
   function getResponseDescription(responseModel: Type, statusCode: string) {
@@ -807,7 +753,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       // we didn't find an explicit content type anywhere, so infer from body.
       const modelType = getModelTypeIfNullable(methodParams.body.type);
       if (modelType) {
-        let contentTypeParam = modelType.properties.get("contentType");
+        const contentTypeParam = modelType.properties.get("contentType");
         if (contentTypeParam) {
           getContentTypes(contentTypeParam).forEach((c) => consumes.push(c));
         } else {
@@ -1162,7 +1108,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
       const { propertyName } = discriminator;
 
-      for (let child of childModels) {
+      for (const child of childModels) {
         // getSchemaOrRef on all children to make sure these are pushed into definitions
         getSchemaOrRef(child);
 
@@ -1288,13 +1234,13 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
   function validateDiscriminator(discriminator: any, childModels: ModelType[]): boolean {
     const { propertyName } = discriminator;
-    var retVals = childModels.map((t) => {
+    const retVals = childModels.map((t) => {
       const prop = getProperty(t, propertyName);
       if (!prop) {
         reportDiagnostic(program, { code: "discriminator", messageId: "missing", target: t });
         return false;
       }
-      var retval = true;
+      let retval = true;
       if (!isOasString(prop.type)) {
         reportDiagnostic(program, { code: "discriminator", messageId: "type", target: prop });
         retval = false;
@@ -1307,7 +1253,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     });
     // Map of discriminator value to the model in which it is declared
     const discriminatorValues = new Map<string, string>();
-    for (let t of childModels) {
+    for (const t of childModels) {
       // Get the discriminator property directly in the child model
       const prop = t.properties?.get(propertyName);
       // Issue warning diagnostic if discriminator property missing or is not a string literal
@@ -1392,7 +1338,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     }
 
     // Try to shorten the type name to exclude the top-level service namespace
-    typeName = program!.checker!.getTypeName(type).replace(/<([\w\.]+)>/, "_$1");
+    typeName = program!.checker!.getTypeName(type).replace(/<([\w.]+)>/, "_$1");
 
     if (isRefSafeName(typeName)) {
       if (serviceNamespaceName) {
@@ -1403,15 +1349,6 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     }
 
     return typeName;
-  }
-
-  function hasSchemaProperties(properties: Map<string, ModelTypeProperty>) {
-    for (const property of properties.values()) {
-      if (isSchemaProperty(property)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   function applyIntrinsicDecorators(cadlType: ModelType | ModelTypeProperty, target: any): any {

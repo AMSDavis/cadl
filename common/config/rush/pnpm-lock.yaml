@@ -1,5 +1,4 @@
 dependencies:
-  '@cadl-lang/eslint-config-cadl': 0.1.0_prettier@2.5.1
   '@rollup/plugin-commonjs': 17.1.0_rollup@2.41.5
   '@rollup/plugin-json': 4.1.0_rollup@2.41.5
   '@rollup/plugin-node-resolve': 11.2.1_rollup@2.41.5
@@ -13,16 +12,18 @@ dependencies:
   '@rush-temp/cadl-providerhub-templates-contoso': file:projects/cadl-providerhub-templates-contoso.tgz
   '@rush-temp/cadl-samples': file:projects/cadl-samples.tgz
   '@rush-temp/cadl-vs': file:projects/cadl-vs.tgz
-  '@rush-temp/cadl-vscode': file:projects/cadl-vscode.tgz_prettier@2.5.1
+  '@rush-temp/cadl-vscode': file:projects/cadl-vscode.tgz
   '@rush-temp/compiler': file:projects/compiler.tgz
-  '@rush-temp/openapi': file:projects/openapi.tgz_prettier@2.5.1
-  '@rush-temp/openapi3': file:projects/openapi3.tgz_prettier@2.5.1
+  '@rush-temp/eslint-config-cadl': file:projects/eslint-config-cadl.tgz_prettier@2.5.1
+  '@rush-temp/openapi': file:projects/openapi.tgz
+  '@rush-temp/openapi3': file:projects/openapi3.tgz
   '@rush-temp/prettier-plugin-cadl': file:projects/prettier-plugin-cadl.tgz
-  '@rush-temp/rest': file:projects/rest.tgz_prettier@2.5.1
+  '@rush-temp/rest': file:projects/rest.tgz
   '@rush-temp/samples': file:projects/samples.tgz
   '@rush-temp/spec': file:projects/spec.tgz
-  '@rush-temp/tmlanguage-generator': file:projects/tmlanguage-generator.tgz_prettier@2.5.1
-  '@rush-temp/versioning': file:projects/versioning.tgz_prettier@2.5.1
+  '@rush-temp/tmlanguage-generator': file:projects/tmlanguage-generator.tgz
+  '@rush-temp/versioning': file:projects/versioning.tgz
+  '@rushstack/eslint-patch': 1.1.0
   '@types/glob': 7.1.4
   '@types/js-yaml': 4.0.5
   '@types/mkdirp': 1.0.2
@@ -34,12 +35,16 @@ dependencies:
   '@types/prompts': 2.0.14
   '@types/vscode': 1.53.0
   '@types/yargs': 17.0.8
+  '@typescript-eslint/eslint-plugin': 5.12.1_aa3af6382115a42a71cc388b7b2c30b3
+  '@typescript-eslint/parser': 5.12.1_eslint@8.9.0+typescript@4.5.5
   ajv: 8.9.0
   autorest: 3.3.2
   c8: 7.11.0
   change-case: 4.1.2
   ecmarkup: 9.8.1
   eslint: 8.9.0
+  eslint-config-prettier: 8.4.0_eslint@8.9.0
+  eslint-plugin-prettier: 4.0.0_9f62b85ce3ce02949dbd2ccffcebe95f
   glob: 7.1.7
   grammarkdown: 3.1.2
   handlebars: 4.7.7
@@ -3895,13 +3900,14 @@ packages:
       '@types/mocha': 9.1.0
       '@types/node': 14.0.27
       c8: 7.11.0
+      eslint: 8.9.0
       mocha: 9.2.1
       rimraf: 3.0.2
       typescript: 4.5.5
     dev: false
     name: '@rush-temp/cadl-autorest'
     resolution:
-      integrity: sha512-UCrLHuqeffOaAHCf7Ur+hD7EGFYex7k4AW/24I1MUhgM1C9eTcJw2AvwV5ocHx/wm+QwCuyHlcOJdw1KOQ8OUQ==
+      integrity: sha512-hN03rMjmZUGB9DuN1gjQAuQHL8dJUTUltpBfX2rjNEH7h5tqdU5Cj+XnACbxuzTR/z0pOMI8OXFKRyEZt0uzaQ==
       tarball: file:projects/cadl-autorest.tgz
     version: 0.0.0
   file:projects/cadl-azure-core.tgz:
@@ -3923,13 +3929,14 @@ packages:
       '@types/mocha': 9.1.0
       '@types/node': 14.0.27
       c8: 7.11.0
+      eslint: 8.9.0
       mocha: 9.2.1
       rimraf: 3.0.2
       typescript: 4.5.5
     dev: false
     name: '@rush-temp/cadl-azure-resource-manager'
     resolution:
-      integrity: sha512-1hqr2QIqLNj+Mr80x5SUA5nO+AUh3lvyc6FqVe/eWHbTSZ70RdDXwZUYOpWoZgkGqlwx06/Owgd41DnifE+QTg==
+      integrity: sha512-SM07r/Zvzgt2diRo0LpheDbuUuKyKJZg2zbhfy9LGV53EjwOvnBD4+KdnMlOnxrtP0CGEt1dMIdchqjoqhuqAA==
       tarball: file:projects/cadl-azure-resource-manager.tgz
     version: 0.0.0
   file:projects/cadl-msbuild-target.tgz:
@@ -3946,6 +3953,7 @@ packages:
       '@types/mocha': 9.1.0
       '@types/node': 14.0.27
       c8: 7.11.0
+      eslint: 8.9.0
       handlebars: 4.7.7
       mocha: 9.2.1
       rimraf: 3.0.2
@@ -3953,7 +3961,7 @@ packages:
     dev: false
     name: '@rush-temp/cadl-providerhub-controller'
     resolution:
-      integrity: sha512-9ysHNCU/8FWqhZdAaNoCF+316wELLw27ETcfooFzeQJcRv/Hk6QS3T+51oCnsbUZaulKTjDgVIyQJQxBsSgfWw==
+      integrity: sha512-fJj1N/qcVjr7nd1qxRWGRoJbvD5f9B2zq75puAG7WIWfENGUiI6M3mkDcBpAhgPUbKualP2sbyFDKuwgz8nQRQ==
       tarball: file:projects/cadl-providerhub-controller.tgz
     version: 0.0.0
   file:projects/cadl-providerhub-templates-contoso.tgz:
@@ -3968,13 +3976,14 @@ packages:
       '@types/mocha': 9.1.0
       '@types/node': 14.0.27
       c8: 7.11.0
+      eslint: 8.9.0
       mocha: 9.2.1
       rimraf: 3.0.2
       typescript: 4.5.5
     dev: false
     name: '@rush-temp/cadl-providerhub'
     resolution:
-      integrity: sha512-XpawFuwI4KOGExMEGQrViPch+UfmqAQWBzjo/vG35YqiYiaXS0oknXrjg3GhVk23wdCEaIgQa/5bMM7IdM/SPw==
+      integrity: sha512-VDYDhSirUE8wLv//z0Cd5bZ+GQ55oY4owPWqm6Y+/wHMTvReML7pG1yv+N0id8Pn5DilxYhPU4hTT/avxKUN8g==
       tarball: file:projects/cadl-providerhub.tgz
     version: 0.0.0
   file:projects/cadl-samples.tgz:
@@ -3995,9 +4004,8 @@ packages:
       integrity: sha512-cNCO5VatPZ7e6Oq5rVMiH6dLQp6dWmC7O3H/g+QI0zJT/V5S2nvSOYSd7S59cxJDmRyZ/9RWEJUOg6dAZBq+Zw==
       tarball: file:projects/cadl-vs.tgz
     version: 0.0.0
-  file:projects/cadl-vscode.tgz_prettier@2.5.1:
+  file:projects/cadl-vscode.tgz:
     dependencies:
-      '@cadl-lang/eslint-config-cadl': 0.1.0_prettier@2.5.1
       '@rollup/plugin-commonjs': 17.1.0_rollup@2.41.5
       '@rollup/plugin-node-resolve': 11.2.1_rollup@2.41.5
       '@types/mkdirp': 1.0.2
@@ -4017,12 +4025,9 @@ packages:
       vscode-textmate: 6.0.0
       watch: 1.0.2
     dev: false
-    id: file:projects/cadl-vscode.tgz
     name: '@rush-temp/cadl-vscode'
-    peerDependencies:
-      prettier: '*'
     resolution:
-      integrity: sha512-LgKrxdjD0Je0MyBebqsRnhLnWgtUfL7uUBCFUV2rPVnAclUvn4hrl/VJHR2d4gbGB/8Jpwc8Xz9f/bT4OPiK7Q==
+      integrity: sha512-wkC0qua+SLJUeN2aaKJxqEXIbd95oGRF8A1PJOpl813MIG1b5+PPIIhoMpJO2UrSYkaE7z0pFRmEjWGCAtqrTA==
       tarball: file:projects/cadl-vscode.tgz
     version: 0.0.0
   file:projects/compiler.tgz:
@@ -4061,12 +4066,29 @@ packages:
     dev: false
     name: '@rush-temp/compiler'
     resolution:
-      integrity: sha512-PAl4UQUqNNlVjaN31XGRj1aCTRTE9KgcD4obIp8ERHgNjyufkjkJR1fW0uU59/K0X6XP+6GsYCsOjlYTg+sYPQ==
+      integrity: sha512-/rxLXB7+W3PkBgGSsB4Id3xjhdMD3P9ZDNQB6NGxnvEUW/u2nkJGr8xiped9jlVEU7xUna9AGaRumZ1ueY5mOA==
       tarball: file:projects/compiler.tgz
     version: 0.0.0
-  file:projects/openapi.tgz_prettier@2.5.1:
+  file:projects/eslint-config-cadl.tgz_prettier@2.5.1:
     dependencies:
-      '@cadl-lang/eslint-config-cadl': 0.1.0_prettier@2.5.1
+      '@rushstack/eslint-patch': 1.1.0
+      '@typescript-eslint/eslint-plugin': 5.12.1_aa3af6382115a42a71cc388b7b2c30b3
+      '@typescript-eslint/parser': 5.12.1_eslint@8.9.0+typescript@4.5.5
+      eslint: 8.9.0
+      eslint-config-prettier: 8.4.0_eslint@8.9.0
+      eslint-plugin-prettier: 4.0.0_9f62b85ce3ce02949dbd2ccffcebe95f
+      typescript: 4.5.5
+    dev: false
+    id: file:projects/eslint-config-cadl.tgz
+    name: '@rush-temp/eslint-config-cadl'
+    peerDependencies:
+      prettier: '*'
+    resolution:
+      integrity: sha512-djZZqlrkfB2H3h/gGEqfGgqZ8YUJ43e5yUDKW+9RnDGLLYXYV2KFr5rnyuEsdnrGfo70lg/NZ36G8pVt7xB1Dg==
+      tarball: file:projects/eslint-config-cadl.tgz
+    version: 0.0.0
+  file:projects/openapi.tgz:
+    dependencies:
       '@types/mocha': 9.1.0
       '@types/node': 14.0.27
       c8: 7.11.0
@@ -4075,17 +4097,13 @@ packages:
       rimraf: 3.0.2
       typescript: 4.5.5
     dev: false
-    id: file:projects/openapi.tgz
     name: '@rush-temp/openapi'
-    peerDependencies:
-      prettier: '*'
     resolution:
-      integrity: sha512-nhEg4u0V2TwyRofHZ+pixo6JgzDZdhRXuKU1K3JtHRqb2hXPdgzzuRNwzoe9o//unCidzqLUwnClHl3s8r4llg==
+      integrity: sha512-HRFXDuYpYnQNpMFfq1TQ7zjwylCXrzkof5fet8KMC1M5MQ3pf9x0/h/4wRFcklCHGajQ2d0/vtKb+eB4afT4OQ==
       tarball: file:projects/openapi.tgz
     version: 0.0.0
-  file:projects/openapi3.tgz_prettier@2.5.1:
+  file:projects/openapi3.tgz:
     dependencies:
-      '@cadl-lang/eslint-config-cadl': 0.1.0_prettier@2.5.1
       '@types/mocha': 9.1.0
       '@types/node': 14.0.27
       c8: 7.11.0
@@ -4094,12 +4112,9 @@ packages:
       rimraf: 3.0.2
       typescript: 4.5.5
     dev: false
-    id: file:projects/openapi3.tgz
     name: '@rush-temp/openapi3'
-    peerDependencies:
-      prettier: '*'
     resolution:
-      integrity: sha512-N3+qhBPenccfHoZ5sZ4JFPgqb5j5ErkOiEhXOpEB+9TJyIsci9lKZG5TJwPDQb9y9KgCsZXVW3yeCPGushPwMw==
+      integrity: sha512-ELv4Yz/sAViYSfS07nJNisKIdR+GhJt4jDVFo//vNr+VgX4dABKgz8i9ZLgfbmwckVYEp8uAaWTwvzBW3rOs/A==
       tarball: file:projects/openapi3.tgz
     version: 0.0.0
   file:projects/prettier-plugin-cadl.tgz:
@@ -4117,9 +4132,8 @@ packages:
       integrity: sha512-B1u9tB2ojV7InblhLQxA0ygdWv24lQbR/W3qXxbTmEKegTAjVFzcL+wqO9NWKYXfycd1xb+JMkvH2gQ8Us0gAA==
       tarball: file:projects/prettier-plugin-cadl.tgz
     version: 0.0.0
-  file:projects/rest.tgz_prettier@2.5.1:
+  file:projects/rest.tgz:
     dependencies:
-      '@cadl-lang/eslint-config-cadl': 0.1.0_prettier@2.5.1
       '@types/mocha': 9.1.0
       '@types/node': 14.0.27
       c8: 7.11.0
@@ -4128,12 +4142,9 @@ packages:
       rimraf: 3.0.2
       typescript: 4.5.5
     dev: false
-    id: file:projects/rest.tgz
     name: '@rush-temp/rest'
-    peerDependencies:
-      prettier: '*'
     resolution:
-      integrity: sha512-PvIpN6Q4kjPCBfHbSCXymS+pC4aLmQfeB5DcPXS71N4X2BOKPlklBXwl0yYf/PC86UdAeyHpCseByCPtIFqQdQ==
+      integrity: sha512-XObafHBdbl5emNsC5M8SE5FEGKKTSlIcQwQNi+KqNnAz+3xALX8TF3UgJCh7soersQMFc65GGlTe7kM73hrweA==
       tarball: file:projects/rest.tgz
     version: 0.0.0
   file:projects/samples.tgz:
@@ -4159,9 +4170,8 @@ packages:
       integrity: sha512-Ke32FXVPrWJtIPoVOIdoH3Sl9zFnDptVyyX+NqZsvMj4zgStqtPVsoCaw8FSCVIio2ci76RjZrKbkQJ6cYorVQ==
       tarball: file:projects/spec.tgz
     version: 0.0.0
-  file:projects/tmlanguage-generator.tgz_prettier@2.5.1:
+  file:projects/tmlanguage-generator.tgz:
     dependencies:
-      '@cadl-lang/eslint-config-cadl': 0.1.0_prettier@2.5.1
       '@types/node': 14.0.27
       '@types/plist': 3.0.2
       eslint: 8.9.0
@@ -4170,17 +4180,13 @@ packages:
       rimraf: 3.0.2
       typescript: 4.5.5
     dev: false
-    id: file:projects/tmlanguage-generator.tgz
     name: '@rush-temp/tmlanguage-generator'
-    peerDependencies:
-      prettier: '*'
     resolution:
-      integrity: sha512-bmrdMIx88rkaKtjba8YdACh+L5Qf1/3sSSv7ZVE+goSirwh/CtX72ScaScCmzhC/XMa+pDykj6aSfpQpBY/nkQ==
+      integrity: sha512-nKdhYEUuUjOleZFdVjXKiIjOuWZ2DqlgoyCDcc6m+4LeDUNhf4M/2KnjaS61OCPkRjrnY5fNgVY2GxnnkV5YvQ==
       tarball: file:projects/tmlanguage-generator.tgz
     version: 0.0.0
-  file:projects/versioning.tgz_prettier@2.5.1:
+  file:projects/versioning.tgz:
     dependencies:
-      '@cadl-lang/eslint-config-cadl': 0.1.0_prettier@2.5.1
       '@types/mocha': 9.1.0
       '@types/node': 14.0.27
       c8: 7.11.0
@@ -4189,16 +4195,12 @@ packages:
       rimraf: 3.0.2
       typescript: 4.5.5
     dev: false
-    id: file:projects/versioning.tgz
     name: '@rush-temp/versioning'
-    peerDependencies:
-      prettier: '*'
     resolution:
-      integrity: sha512-L4YT44PVHW8EedCr2K4SR7BGAtkOmPbdxQxqGMBLzqm/lrRJLOGQEZkMP6ddquciXJJnG36nu669FiXf7dMhag==
+      integrity: sha512-IVu/pe8eFl0L0aL4LyRPgmK+XPE5/bHIgyg8avm1df4ryPfzPupWUoJ67NQ25o3y54WTZ3lUYq+HMMg5dXSXUQ==
       tarball: file:projects/versioning.tgz
     version: 0.0.0
 specifiers:
-  '@cadl-lang/eslint-config-cadl': ~0.1.0
   '@rollup/plugin-commonjs': ~17.1.0
   '@rollup/plugin-json': ~4.1.0
   '@rollup/plugin-node-resolve': ~11.2.0
@@ -4214,6 +4216,7 @@ specifiers:
   '@rush-temp/cadl-vs': file:./projects/cadl-vs.tgz
   '@rush-temp/cadl-vscode': file:./projects/cadl-vscode.tgz
   '@rush-temp/compiler': file:./projects/compiler.tgz
+  '@rush-temp/eslint-config-cadl': file:./projects/eslint-config-cadl.tgz
   '@rush-temp/openapi': file:./projects/openapi.tgz
   '@rush-temp/openapi3': file:./projects/openapi3.tgz
   '@rush-temp/prettier-plugin-cadl': file:./projects/prettier-plugin-cadl.tgz
@@ -4222,6 +4225,7 @@ specifiers:
   '@rush-temp/spec': file:./projects/spec.tgz
   '@rush-temp/tmlanguage-generator': file:./projects/tmlanguage-generator.tgz
   '@rush-temp/versioning': file:./projects/versioning.tgz
+  '@rushstack/eslint-patch': '1.1.0 '
   '@types/glob': ~7.1.3
   '@types/js-yaml': ~4.0.1
   '@types/mkdirp': ~1.0.1
@@ -4233,12 +4237,16 @@ specifiers:
   '@types/prompts': ~2.0.14
   '@types/vscode': ~1.53.0
   '@types/yargs': ~17.0.2
+  '@typescript-eslint/eslint-plugin': ^5.10.0
+  '@typescript-eslint/parser': ^5.10.0
   ajv: ~8.9.0
   autorest: ~3.3.2
   c8: ~7.11.0
   change-case: ~4.1.2
   ecmarkup: ~9.8.1
   eslint: ^8.7.0
+  eslint-config-prettier: ^8.3.0
+  eslint-plugin-prettier: ^4.0.0
   glob: ~7.1.6
   grammarkdown: ~3.1.2
   handlebars: ^4.7.7

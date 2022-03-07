@@ -79,6 +79,12 @@
       "shouldPublish": false
     },
     {
+      "packageName": "@cadl-lang/eslint-config-cadl",
+      "projectFolder": "core/packages/eslint-config-cadl",
+      "reviewCategory": "production",
+      "shouldPublish": false
+    },
+    {
       "packageName": "@cadl-lang/spec",
       "projectFolder": "core/packages/spec",
       "reviewCategory": "production",

@@ -101,8 +101,8 @@ async function openApiForProducesConsumes(
 ): Promise<ProducesConsumes> {
   const apiDoc: string[] = createAdlFromConfig(configuration);
 
-  let input = apiDoc.join("\n");
-  let openApi = await openApiFor(input);
+  const input = apiDoc.join("\n");
+  const openApi = await openApiFor(input);
   const output = {
     globalProduces: openApi.produces as string[],
     globalConsumes: openApi.consumes,
@@ -110,8 +110,8 @@ async function openApiForProducesConsumes(
   };
 
   configuration.forEach((config) => {
-    let opName = config.type === "consumes" ? "delete" : "get";
-    let opPath = openApi.paths[config.path];
+    const opName = config.type === "consumes" ? "delete" : "get";
+    const opPath = openApi.paths[config.path];
     output.operations.set(config.path, {
       path: config.path,
       produces: opPath[opName].produces,
@@ -125,11 +125,11 @@ async function openApiForProducesConsumes(
 function createAdlFromConfig(configuration: ProducesConsumesOperation[]): string[] {
   const apiDoc: string[] = [];
   configuration.forEach((config) => {
-    let opString =
+    const opString =
       config.type === "consumes"
         ? `@delete op remove(@body payload : ${config.modelName}) : NoContentResponse;`
         : `@get op read() : ${config.modelName};`;
-    let doc = `
+    const doc = `
     ${config.modelDef}
     @route("${config.path}")
     namespace ${config.namespace} {

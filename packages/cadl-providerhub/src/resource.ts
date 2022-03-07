@@ -276,7 +276,7 @@ export function $armResource(
   );
 
   // Locate the ARM namespace in the namespace hierarchy
-  let armNamespace = getArmNamespace(program, resourceType.namespace);
+  const armNamespace = getArmNamespace(program, resourceType.namespace);
   if (!armNamespace) {
     reportDiagnostic(program, { code: "arm-resource-missing-arm-namespace", target: resourceType });
     return;

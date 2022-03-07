@@ -236,7 +236,7 @@ export function $armResourceInternal(
   const resourceModelName = resourceType.name;
 
   // Locate the ARM namespace in the namespace hierarchy
-  let armNamespace = getArmNamespace(program, resourceType.namespace);
+  const armNamespace = getArmNamespace(program, resourceType.namespace);
   if (!armNamespace) {
     reportDiagnostic(program, { code: "arm-resource-missing-arm-namespace", target: resourceType });
     return;
@@ -252,7 +252,7 @@ export function $armResourceInternal(
   // Set the name property to be read only
   $visibility(context, nameProperty, "read");
 
-  let resourceKeyName = getKeyName(program, nameProperty);
+  const resourceKeyName = getKeyName(program, nameProperty);
   if (!resourceKeyName) {
     reportDiagnostic(program, {
       code: "arm-resource-missing-name-key-decorator",

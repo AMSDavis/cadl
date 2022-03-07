@@ -282,7 +282,7 @@ describe("cadl-autorest: return types", () => {
   });
 
   it("returns diagnostics for duplicate body decorator", async () => {
-    let runner = await createAutorestTestRunner();
+    const runner = await createAutorestTestRunner();
     const diagnostics = await runner.diagnose(
       `
       model Foo {
@@ -304,7 +304,7 @@ describe("cadl-autorest: return types", () => {
   });
 
   it("issues diagnostics for return type with duplicate status code", async () => {
-    let runner = await createAutorestTestRunner();
+    const runner = await createAutorestTestRunner();
     const diagnostics = await runner.diagnose(
       `
       model Foo {
@@ -326,7 +326,7 @@ describe("cadl-autorest: return types", () => {
   });
 
   it("issues diagnostics for invalid content types", async () => {
-    let runner = await createAutorestTestRunner();
+    const runner = await createAutorestTestRunner();
     const diagnostics = await runner.diagnose(
       `
       model Foo {

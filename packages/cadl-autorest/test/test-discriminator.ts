@@ -270,7 +270,7 @@ describe("autorest: discriminated unions", () => {
   });
 
   it("issues diagnostics for errors in a discriminated union", async () => {
-    let runner = await createAutorestTestRunner();
+    const runner = await createAutorestTestRunner();
     const diagnostics = await runner.diagnose(
       `
       @discriminator("kind")
@@ -319,7 +319,7 @@ describe("autorest: discriminated unions", () => {
   });
 
   it("issues diagnostics for duplicate discriminator values", async () => {
-    let runner = await createAutorestTestRunner();
+    const runner = await createAutorestTestRunner();
     const diagnostics = await runner.diagnose(
       `
       @discriminator("kind")
