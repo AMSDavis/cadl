@@ -1803,6 +1803,51 @@
         "dimensionName"
       ]
     },
+    "AnomalyFeedback": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "the start timestamp of feedback time range"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "the end timestamp of feedback time range, when equals to startTime means only one timestamp"
+        },
+        "value": {
+          "$ref": "#/definitions/AnomalyFeedbackValue"
+        },
+        "anomalyDetectionConfigurationId": {
+          "type": "string",
+          "description": "the corresponding anomaly detection configuration of this feedback",
+          "pattern": "UUID"
+        }
+      },
+      "required": [
+        "startTime",
+        "endTime",
+        "value"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/MetricFeedback"
+        }
+      ]
+    },
+    "AnomalyFeedbackValue": {
+      "type": "string",
+      "enum": [
+        "AutoDetect",
+        "Anomaly",
+        "NotAnomaly"
+      ],
+      "x-ms-enum": {
+        "name": "AnomalyFeedbackValue",
+        "modelAsString": true
+      }
+    },
     "AnomalyProperty": {
       "type": "object",
       "properties": {
@@ -2208,6 +2253,68 @@
       "type": "object",
       "properties": {}
     },
+    "ChangePointFeedback": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "description": "the start timestamp of feedback time range"
+        },
+        "endTime": {
+          "type": "string",
+          "description": "the end timestamp of feedback time range, when equals to startTime means only one timestamp"
+        },
+        "value": {
+          "$ref": "#/definitions/ChangePointFeedbackValue"
+        }
+      },
+      "required": [
+        "startTime",
+        "endTime",
+        "value"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/MetricFeedback"
+        }
+      ]
+    },
+    "ChangePointFeedbackValue": {
+      "type": "string",
+      "enum": [
+        "AutoDetect",
+        "ChangePoint",
+        "NotChangePoint"
+      ],
+      "x-ms-enum": {
+        "name": "ChangePointFeedbackValue",
+        "modelAsString": true
+      }
+    },
+    "CommentFeedback": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "description": "the start timestamp of feedback time range"
+        },
+        "endTime": {
+          "type": "string",
+          "description": "the end timestamp of feedback time range, when equals to startTime means only one timestamp"
+        },
+        "commentValue": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "commentValue"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/MetricFeedback"
+        }
+      ]
+    },
     "Credential": {
       "type": "object",
       "properties": {
@@ -2573,6 +2680,24 @@
         "name": "Direction",
         "modelAsString": true
       }
+    },
+    "EmailHook": {
+      "type": "object",
+      "properties": {
+        "toList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-cadl-name": "Cadl.string[]",
+          "description": "Email TO: list."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/HookInfo"
+        }
+      ]
     },
     "EnrichmentStatusQueryOption": {
       "type": "object",
@@ -3170,6 +3295,25 @@
         "modelAsString": true
       }
     },
+    "PeriodFeedback": {
+      "type": "object",
+      "properties": {
+        "periodType": {
+          "type": "string",
+          "description": "the type of setting period"
+        },
+        "periodValue": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the number of intervals a period contains, when no period set to 0"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/MetricFeedback"
+        }
+      ]
+    },
     "RollUpMethod": {
       "type": "string",
       "enum": [
@@ -3453,6 +3597,46 @@
         "name": "ViewMode",
         "modelAsString": true
       }
+    },
+    "WebhookHookInfo": {
+      "type": "object",
+      "properties": {
+        "endpoint": {
+          "type": "string",
+          "description": "API address, will be called when alert is triggered, only support POST method via SSL"
+        },
+        "username": {
+          "type": "string",
+          "description": "(Deprecated) The username, if using basic authentication"
+        },
+        "password": {
+          "type": "string",
+          "description": "(Deprecated) The password, if using basic authentication"
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "custom headers in api call"
+        },
+        "certificateKey": {
+          "type": "string",
+          "description": "The certificate key/URL, if using client certificate, please read documents for more informations."
+        },
+        "certificatePassword": {
+          "type": "string",
+          "description": "The certificate password, if using client certificate, please read documents for more informations."
+        }
+      },
+      "required": [
+        "endpoint"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/HookInfo"
+        }
+      ]
     }
   },
   "parameters": {

@@ -480,6 +480,28 @@
         "modelAsString": true
       }
     },
+    "SecretAuthInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "username or account name for secret auth."
+        },
+        "secret": {
+          "type": "string",
+          "description": "Password or account key for secret auth."
+        }
+      },
+      "description": "Authentication information for secret-based auth.",
+      "required": [
+        "name"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/AuthInfoBase"
+        }
+      ]
+    },
     "SourceConfiguration": {
       "type": "object",
       "properties": {
@@ -529,6 +551,57 @@
         "name": "SourceConfigurationType",
         "modelAsString": true
       }
+    },
+    "SystemAssignedIdentityAuthInfo": {
+      "type": "object",
+      "properties": {},
+      "description": "Authentication information for system assigned identity based auth.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/AuthInfoBase"
+        }
+      ]
+    },
+    "SystemPrincipalAuthInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ServicePrincipal Id for servicePrincipal auth."
+        },
+        "name": {
+          "type": "string",
+          "description": "ServicePrincipal Name for servicePrincipal auth."
+        }
+      },
+      "description": "Authentication information for service principal based auth.",
+      "required": [
+        "id",
+        "name"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/AuthInfoBase"
+        }
+      ]
+    },
+    "UserAssignedIdentityAuthInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Client Id for userAssignedIdentity"
+        }
+      },
+      "description": "Authentication information for user assigned identity based auth.",
+      "required": [
+        "id"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/AuthInfoBase"
+        }
+      ]
     },
     "ValidateResult": {
       "type": "object",

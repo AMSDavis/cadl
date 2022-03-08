@@ -4,7 +4,6 @@ import {
   DecoratorContext,
   EnumMemberType,
   EnumType,
-  findChildModels,
   getAllTags,
   getDoc,
   getFormat,
@@ -31,6 +30,7 @@ import {
   isSecret,
   isStringType,
   joinPaths,
+  mapChildModels,
   ModelType,
   ModelTypeProperty,
   NamespaceType,
@@ -282,10 +282,13 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
   const globalProduces = new Set<string>(["application/json"]);
   const globalConsumes = new Set<string>(["application/json"]);
 
+  let childModelMap: ReadonlyMap<ModelType, readonly ModelType[]>;
+
   return { emitOpenAPI };
 
   async function emitOpenAPI() {
     try {
+      childModelMap = mapChildModels(program);
       getAllRoutes(program).forEach(emitOperation);
       emitReferences();
       emitTags();
@@ -1096,11 +1099,15 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       properties: {},
       description: getDoc(program, model),
     };
+    const childModels = childModelMap.get(model) ?? [];
+
+    // getSchemaOrRef on all children to push them into components.schemas
+    for (const child of childModels) {
+      getSchemaOrRef(child);
+    }
 
     const discriminator = getDiscriminator(program, model);
     if (discriminator) {
-      const childModels = findChildModels(program, model);
-
       if (!validateDiscriminator(discriminator, childModels)) {
         // appropriate diagnostic is generated in the validate function
         return {};
@@ -1109,9 +1116,6 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       const { propertyName } = discriminator;
 
       for (const child of childModels) {
-        // getSchemaOrRef on all children to make sure these are pushed into definitions
-        getSchemaOrRef(child);
-
         // Set x-ms-discriminator-value if only one value for the discriminator property
         const prop = getProperty(child, propertyName);
         if (prop) {
@@ -1232,7 +1236,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     }
   }
 
-  function validateDiscriminator(discriminator: any, childModels: ModelType[]): boolean {
+  function validateDiscriminator(discriminator: any, childModels: readonly ModelType[]): boolean {
     const { propertyName } = discriminator;
     const retVals = childModels.map((t) => {
       const prop = getProperty(t, propertyName);

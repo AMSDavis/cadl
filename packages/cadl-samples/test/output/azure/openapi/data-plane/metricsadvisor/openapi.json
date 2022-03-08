@@ -3372,6 +3372,108 @@
           }
         }
       },
+      "AnomalyFeedback": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "the start timestamp of feedback time range"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "the end timestamp of feedback time range, when equals to startTime means only one timestamp"
+          },
+          "value": {
+            "$ref": "#/components/schemas/AnomalyFeedbackValue"
+          },
+          "anomalyDetectionConfigurationId": {
+            "type": "string",
+            "description": "the corresponding anomaly detection configuration of this feedback",
+            "pattern": "UUID"
+          }
+        },
+        "required": [
+          "startTime",
+          "endTime",
+          "value"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MetricFeedback"
+          }
+        ]
+      },
+      "ChangePointFeedback": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "type": "string",
+            "description": "the start timestamp of feedback time range"
+          },
+          "endTime": {
+            "type": "string",
+            "description": "the end timestamp of feedback time range, when equals to startTime means only one timestamp"
+          },
+          "value": {
+            "$ref": "#/components/schemas/ChangePointFeedbackValue"
+          }
+        },
+        "required": [
+          "startTime",
+          "endTime",
+          "value"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MetricFeedback"
+          }
+        ]
+      },
+      "CommentFeedback": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "type": "string",
+            "description": "the start timestamp of feedback time range"
+          },
+          "endTime": {
+            "type": "string",
+            "description": "the end timestamp of feedback time range, when equals to startTime means only one timestamp"
+          },
+          "commentValue": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "commentValue"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MetricFeedback"
+          }
+        ]
+      },
+      "PeriodFeedback": {
+        "type": "object",
+        "properties": {
+          "periodType": {
+            "type": "string",
+            "description": "the type of setting period"
+          },
+          "periodValue": {
+            "type": "integer",
+            "format": "int32",
+            "description": "the number of intervals a period contains, when no period set to 0"
+          }
+        },
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MetricFeedback"
+          }
+        ]
+      },
       "FeedbackType": {
         "type": "string",
         "enum": [
@@ -3401,6 +3503,64 @@
         "enum": [
           "MetricTimestamp",
           "FeedbackCreatedTime"
+        ]
+      },
+      "EmailHook": {
+        "type": "object",
+        "properties": {
+          "toList": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-cadl-name": "Cadl.string[]",
+            "description": "Email TO: list."
+          }
+        },
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HookInfo"
+          }
+        ]
+      },
+      "WebhookHookInfo": {
+        "type": "object",
+        "properties": {
+          "endpoint": {
+            "type": "string",
+            "description": "API address, will be called when alert is triggered, only support POST method via SSL"
+          },
+          "username": {
+            "type": "string",
+            "description": "(Deprecated) The username, if using basic authentication"
+          },
+          "password": {
+            "type": "string",
+            "description": "(Deprecated) The password, if using basic authentication"
+          },
+          "headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "custom headers in api call"
+          },
+          "certificateKey": {
+            "type": "string",
+            "description": "The certificate key/URL, if using client certificate, please read documents for more informations."
+          },
+          "certificatePassword": {
+            "type": "string",
+            "description": "The certificate password, if using client certificate, please read documents for more informations."
+          }
+        },
+        "required": [
+          "endpoint"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HookInfo"
+          }
         ]
       },
       "SeriesIdentity": {
@@ -3743,6 +3903,22 @@
           "NoData",
           "Error",
           "Paused"
+        ]
+      },
+      "AnomalyFeedbackValue": {
+        "type": "string",
+        "enum": [
+          "AutoDetect",
+          "Anomaly",
+          "NotAnomaly"
+        ]
+      },
+      "ChangePointFeedbackValue": {
+        "type": "string",
+        "enum": [
+          "AutoDetect",
+          "ChangePoint",
+          "NotChangePoint"
         ]
       },
       "SeverityFilterCondition": {

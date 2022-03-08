@@ -3010,6 +3010,15 @@
           }
         }
       },
+      "SearchIndexerDataNoneIdentity": {
+        "type": "object",
+        "properties": {},
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SearchIndexerDataIdentity"
+          }
+        ]
+      },
       "ResourceCounter": {
         "type": "object",
         "properties": {
@@ -5276,6 +5285,51 @@
         "description": "Output field mapping for a skill.",
         "required": [
           "name"
+        ]
+      },
+      "DefaultCognitiveServicesAccount": {
+        "type": "object",
+        "properties": {
+          "@odata.type": {
+            "type": "string",
+            "enum": [
+              "#Microsoft.Azure.Search.DefaultCognitiveServices"
+            ]
+          }
+        },
+        "description": "An empty object that represents the default cognitive service resource for a skillset.",
+        "required": [
+          "@odata.type"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CognitiveServicesAccount"
+          }
+        ]
+      },
+      "CognitiveServicesAccountKey": {
+        "type": "object",
+        "properties": {
+          "@odata.type": {
+            "type": "string",
+            "enum": [
+              "#Microsoft.Azure.Search.CognitiveServicesByKey"
+            ]
+          },
+          "key": {
+            "type": "string",
+            "description": "The key used to provision the cognitive service resource attached to a skillset."
+          }
+        },
+        "description": "A cognitive service resource provisioned with a key that is attached to a skillset.",
+        "required": [
+          "@odata.type",
+          "key"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CognitiveServicesAccount"
+          }
         ]
       },
       "SearchIndexerKnowledgeStoreProjection": {

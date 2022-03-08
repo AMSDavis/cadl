@@ -108,6 +108,31 @@ describe("autorest: definitions", () => {
     });
   });
 
+  it("emits models extended from models when parent is emitted", async () => {
+    const res = await openApiFor(
+      `
+      model Parent {
+        x?: int32;
+      };
+      model Child extends Parent {
+        y?: int32;
+      }
+      namespace Test {
+        @route("/") op test(): Parent;
+      }
+      `
+    );
+    deepStrictEqual(res.definitions.Parent, {
+      type: "object",
+      properties: { x: { type: "integer", format: "int32" } },
+    });
+    deepStrictEqual(res.definitions.Child, {
+      type: "object",
+      allOf: [{ $ref: "#/definitions/Parent" }],
+      properties: { y: { type: "integer", format: "int32" } },
+    });
+  });
+
   it("defines models with properties extended from models", async () => {
     const res = await oapiForModel(
       "Bar",

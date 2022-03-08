@@ -145,9 +145,7 @@ describe("autorest: discriminated unions", () => {
     ok(openApi.definitions.Pet, "expected definition named Pet");
     ok(openApi.definitions.Cat, "expected definition named Cat");
     ok(openApi.definitions.Dog, "expected definition named Dog");
-    // Child models are not pushed out to the emitter if they are not actually referenced in the API.
-    // This is orthogonal to support for discriminators so I'm leaving it alone.
-    // ok(openApi.definitions.Beagle, "expected definition named Beagle");
+    ok(openApi.definitions.Beagle, "expected definition named Beagle");
     deepStrictEqual(openApi.paths["/"].get.responses["200"].schema, {
       $ref: "#/definitions/Pet",
     });
@@ -163,6 +161,7 @@ describe("autorest: discriminated unions", () => {
     });
     deepStrictEqual(openApi.definitions.Cat.allOf, [{ $ref: "#/definitions/Pet" }]);
     deepStrictEqual(openApi.definitions.Dog.allOf, [{ $ref: "#/definitions/Pet" }]);
+    deepStrictEqual(openApi.definitions.Beagle.allOf, [{ $ref: "#/definitions/Dog" }]);
   });
 
   it("defines nested discriminated unions", async () => {
