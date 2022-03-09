@@ -1,6 +1,23 @@
 # Change Log - @azure-tools/cadl-autorest
 
-This log was last generated on Tue, 15 Feb 2022 22:35:13 GMT and should not be manually modified.
+This log was last generated on Wed, 09 Mar 2022 17:42:26 GMT and should not be manually modified.
+
+## 0.14.0
+Wed, 09 Mar 2022 17:42:26 GMT
+
+### Minor changes
+
+- @doc and @summary will set the description and summary on extended primitive types
+- Emit child models to OpenAPI when parent is emitted
+- **Added** support for `@externalDocs` decorator
+- @doc on service namespace set openapi description
+- Update dependencies.
+- Uptake change to intrinsic types
+- Fix issue where a model name the same as Cadl Intrinsic type would be treated the same.
+
+### Patches
+
+- Fix issue where parameter definitions were being duplicated unnecessarily
 
 ## 0.13.0
 Tue, 15 Feb 2022 22:35:13 GMT

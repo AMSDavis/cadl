@@ -2,6 +2,41 @@
   "name": "@azure-tools/cadl-autorest",
   "entries": [
     {
+      "version": "0.14.0",
+      "tag": "@azure-tools/cadl-autorest_v0.14.0",
+      "date": "Wed, 09 Mar 2022 17:42:26 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix issue where parameter definitions were being duplicated unnecessarily"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "@doc and @summary will set the description and summary on extended primitive types"
+          },
+          {
+            "comment": "Emit child models to OpenAPI when parent is emitted"
+          },
+          {
+            "comment": "**Added** support for `@externalDocs` decorator"
+          },
+          {
+            "comment": "@doc on service namespace set openapi description"
+          },
+          {
+            "comment": "Update dependencies."
+          },
+          {
+            "comment": "Uptake change to intrinsic types"
+          },
+          {
+            "comment": "Fix issue where a model name the same as Cadl Intrinsic type would be treated the same."
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.0",
       "tag": "@azure-tools/cadl-autorest_v0.13.0",
       "date": "Tue, 15 Feb 2022 22:35:13 GMT",

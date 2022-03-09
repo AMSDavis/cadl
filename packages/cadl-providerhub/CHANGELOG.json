@@ -2,6 +2,52 @@
   "name": "@azure-tools/cadl-providerhub",
   "entries": [
     {
+      "version": "0.15.0",
+      "tag": "@azure-tools/cadl-providerhub_v0.15.0",
+      "date": "Wed, 09 Mar 2022 17:42:26 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use new Azure.Core library"
+          },
+          {
+            "comment": "Fix properties envelope for PATCH operation"
+          },
+          {
+            "comment": "Add other top level properties"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Update dependencies."
+          },
+          {
+            "comment": "Uptake change to intrinsic types"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-azure-core\" from `~0.0.1` to `~0.1.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `~0.13.0` to `~0.14.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-azure-resource-manager\" from `~0.3.0` to `~0.4.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `~0.13.0` to `~0.14.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-azure-core\" from `~0.0.1` to `~0.1.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-azure-resource-manager\" from `~0.3.0` to `~0.4.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.14.0",
       "tag": "@azure-tools/cadl-providerhub_v0.14.0",
       "date": "Tue, 15 Feb 2022 22:35:13 GMT",

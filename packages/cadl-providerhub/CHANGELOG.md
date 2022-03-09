@@ -1,6 +1,20 @@
 # Change Log - @azure-tools/cadl-providerhub
 
-This log was last generated on Tue, 15 Feb 2022 22:35:13 GMT and should not be manually modified.
+This log was last generated on Wed, 09 Mar 2022 17:42:26 GMT and should not be manually modified.
+
+## 0.15.0
+Wed, 09 Mar 2022 17:42:26 GMT
+
+### Minor changes
+
+- Update dependencies.
+- Uptake change to intrinsic types
+
+### Patches
+
+- Use new Azure.Core library
+- Fix properties envelope for PATCH operation
+- Add other top level properties
 
 ## 0.14.0
 Tue, 15 Feb 2022 22:35:13 GMT

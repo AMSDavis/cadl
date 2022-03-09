@@ -1,4 +1,4 @@
-import { checkForChangedFiles, coreRepoRoot, repoRoot } from "./helpers.js";
+import { checkForChangedFiles, coreRepoRoot, repoRoot, run } from "./helpers.js";
 
 if (
   checkForChangedFiles(coreRepoRoot, "## cadl ##") ||
@@ -16,5 +16,7 @@ In the future, remember to alert coworkers to avoid merging additional changes w
 Close this PR, run prepare-publish again.`
     );
   }
+  run("git", ["diff"], { cwd: coreRepoRoot });
+  run("git", ["diff"], { cwd: repoRoot });
   process.exit(1);
 }

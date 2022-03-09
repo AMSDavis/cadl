@@ -2,6 +2,46 @@
   "name": "@azure-tools/cadl-azure-resource-manager",
   "entries": [
     {
+      "version": "0.4.0",
+      "tag": "@azure-tools/cadl-azure-resource-manager_v0.4.0",
+      "date": "Wed, 09 Mar 2022 17:42:26 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Add interface-based ARM resource modelling pattern"
+          },
+          {
+            "comment": "Use new Azure.Core library and adapt to Page<T> moving over to it"
+          },
+          {
+            "comment": "React to @key decorator move to core"
+          },
+          {
+            "comment": "Update dependencies."
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Remove redundent `@visibility` decorators in arm.cadl"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-azure-core\" from `~0.0.1` to `~0.1.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `~0.13.0` to `~0.14.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-azure-core\" from `~0.0.1` to `~0.1.0`"
+          },
+          {
+            "comment": "Updating dependency \"@azure-tools/cadl-autorest\" from `~0.13.0` to `~0.14.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.0",
       "tag": "@azure-tools/cadl-azure-resource-manager_v0.3.0",
       "date": "Tue, 15 Feb 2022 22:35:13 GMT",

@@ -103,7 +103,7 @@ function bumpCrossSubmoduleDependencies() {
   let changed = false;
 
   forEachProject((_, projectFolder, project, rushProject) => {
-    if (projectFolder.startsWith(coreRepoRoot) || !rushProject.shouldPublish) {
+    if (projectFolder.startsWith(coreRepoRoot)) {
       return;
     }
 
@@ -121,6 +121,10 @@ function bumpCrossSubmoduleDependencies() {
       join(projectFolder, "package.json"),
       JSON.stringify(project, undefined, 2) + "\n"
     );
+
+    if (!rushProject.shouldPublish) {
+      return;
+    }
 
     const changelog = {
       changes: [
