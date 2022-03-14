@@ -32,7 +32,9 @@ model EmployeeProperties {
 @armResourceOperations
 interface Employees mixes ResourceOperations<Employee, EmployeeProperties> {}
 
-enum ProvisioningState {
+@knownValues(ProvisioningStateKV)
+model ProvisioningState is string {}
+enum ProvisioningStateKV {
   Succeeded,
   Failed,
   Canceled,

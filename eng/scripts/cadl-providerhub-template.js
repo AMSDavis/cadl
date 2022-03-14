@@ -1,6 +1,6 @@
 // @ts-check
 
-import { existsSync, readdirSync, rmdirSync, rmSync } from "fs";
+import { existsSync, rmdirSync, rmSync } from "fs";
 import { join, resolve } from "path";
 import { repoRoot, runDotnetOrExit } from "./helpers.js";
 
@@ -28,9 +28,6 @@ export function instantiateTemplate() {
 
   // install template locally
   runDotnetOrExit(["new", "-i", templateDir, "--debug:custom-hive", templateInstallTempDir]);
-
-  // TODO test
-  console.log("READ DIR", readdirSync(templateInstallTempDir));
 
   // create a sample project from template
   runDotnetOrExit([

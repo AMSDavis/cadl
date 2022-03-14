@@ -249,7 +249,9 @@ model JobMetadata {
   status: JobStatus;
 }
 
-enum JobStatus {
+@knownValues(JobStatusKV)
+model JobStatus is string {}
+enum JobStatusKV {
   "notStarted",
   "running",
   "succeeded",
@@ -316,13 +318,17 @@ model QnaSourceMetadata {
 }
 
 @doc("Supported source types.")
-enum QnaSourceKind {
+@knownValues(QnaSourceKindKV)
+model QnaSourceKind is string {}
+enum QnaSourceKindKV {
   "file",
   "url",
 }
 
 @doc("Content structure type for sources.")
-enum SourceContentStructureKind {
+@knownValues(SourceContentStructureKindKV)
+model SourceContentStructureKind is string {}
+enum SourceContentStructureKindKV {
   "unstructured",
 }
 
@@ -339,7 +345,9 @@ model UpdateQnaSourceRecord {
   refreshSourceOptions: boolean;
 }
 
-enum UpdateOperationKind {
+@knownValues(UpdateOperationKindKV)
+model UpdateOperationKind is string {}
+enum UpdateOperationKindKV {
   "add",
   "delete",
   "replace",

@@ -26,31 +26,41 @@ model MediumString is string {}
 model SecureString is string {}
 
 @doc("Indicates whether metrics are being sent.")
-enum SendingMetricsStatus {
+@knownValues(SendingMetricsStatusKV)
+model SendingMetricsStatus is string {}
+enum SendingMetricsStatusKV {
   "Enabled",
   "Disabled",
 }
 
 @doc("Indicates whether logs are being sent.")
-enum SendingLogsStatus {
+@knownValues(SendingLogsStatusKV)
+model SendingLogsStatus is string {}
+enum SendingLogsStatusKV {
   "Enabled",
   "Disabled",
 }
 
 @doc("Indicates whether AAD logs are being sent.")
-enum SendAadLogsStatus {
+@knownValues(SendAadLogsStatusKV)
+model SendAadLogsStatus is string {}
+enum SendAadLogsStatusKV {
   "Enabled",
   "Disabled",
 }
 
 @doc("Indicates whether activity logs are being sent.")
-enum SendActivityLogsStatus {
+@knownValues(SendActivityLogsStatusKV)
+model SendActivityLogsStatus is string {}
+enum SendActivityLogsStatusKV {
   "Enabled",
   "Disabled",
 }
 
 @doc("Indicates whether subscription logs are being sent.")
-enum SendSubscriptionLogsStatus {
+@knownValues(SendSubscriptionLogsStatusKV)
+model SendSubscriptionLogsStatus is string {}
+enum SendSubscriptionLogsStatusKV {
   "Enabled",
   "Disabled",
 }
@@ -166,7 +176,9 @@ model EnvironmentInfo {
 }
 
 @doc("Provisioning state of the monitoring resource")
-enum ProvisioningState {
+@knownValues(ProvisioningStateKV)
+model ProvisioningState is string {}
+enum ProvisioningStateKV {
   "Accepted",
   "Creating",
   "Updating",
@@ -179,19 +191,25 @@ enum ProvisioningState {
 }
 
 @doc("Flag specifying if the resource monitoring is enabled or disabled.")
-enum MonitoringStatus {
+@knownValues(MonitoringStatusKV)
+model MonitoringStatus is string {}
+enum MonitoringStatusKV {
   "Enabled",
   "Disabled",
 }
 
 @doc("Flag specifying the Marketplace Subscription Status of the resource. If payment is not made in time, the resource will go in Suspended state.")
-enum MarketplaceSubscriptionStatus {
+@knownValues(MarketplaceSubscriptionStatusKV)
+model MarketplaceSubscriptionStatus is string {}
+enum MarketplaceSubscriptionStatusKV {
   "Active",
   "Suspended",
 }
 
 @doc("Liftr resource category")
-enum LiftrResourceCategories {
+@knownValues(LiftrResourceCategoriesKV)
+model LiftrResourceCategories is string {}
+enum LiftrResourceCategoriesKV {
   "Unknown",
   "MonitorLogs",
 }
@@ -271,7 +289,9 @@ model FilteringTag {
 }
 
 @doc("Valid actions for a filtering tag. Exclusion takes priority over inclusion.")
-enum TagAction {
+@knownValues(TagActionKV)
+model TagAction is string {}
+enum TagActionKV {
   "Include",
   "Exclude",
 }
@@ -295,7 +315,9 @@ model VMResources {
 }
 
 @doc("Various states of the updating vm extension on resource")
-enum VMHostUpdateState {
+@knownValues(VMHostUpdateStateKV)
+model VMHostUpdateState is string {}
+enum VMHostUpdateStateKV {
   "Install",
   "Delete",
 }
@@ -320,7 +342,9 @@ model VMHostUpdateRequest {
 }
 
 @doc("Various states of the SSO resource")
-enum SingleSignOnStates {
+@knownValues(SingleSignOnStatesKV)
+model SingleSignOnStates is string {}
+enum SingleSignOnStatesKV {
   "Initial",
   "Enable",
   "Disable",

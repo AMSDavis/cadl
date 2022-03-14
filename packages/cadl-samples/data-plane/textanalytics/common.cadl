@@ -41,7 +41,9 @@ model StringIndexTypeParameter {
   stringIndexType?: StringIndexType;
 }
 
-enum StringIndexType {
+@knownValues(StringIndexTypeKV)
+model StringIndexType is string {}
+enum StringIndexTypeKV {
   @doc("Returned offset and length values will correspond to grapheme clusters according to Unicode 8.0.0.")
   TextElement_v8,
 
@@ -146,12 +148,16 @@ model Warning {
   targetRef?: string;
 }
 
-enum WarningCode {
+@knownValues(WarningCodeKV)
+model WarningCode is string {}
+enum WarningCodeKV {
   LongWordsInDocument,
   DocumentTruncated,
 }
 
-enum ErrorCode {
+@knownValues(ErrorCodeKV)
+model ErrorCode is string {}
+enum ErrorCodeKV {
   InvalidRequest,
   InvalidArgument,
   InternalServerError,
@@ -159,7 +165,9 @@ enum ErrorCode {
   NotFound,
 }
 
-enum InnerErrorCode {
+@knownValues(InnerErrorCodeKV)
+model InnerErrorCode is string {}
+enum InnerErrorCodeKV {
   InvalidParameterValue,
   InvalidRequestBodyFormat,
   EmptyRequest,
@@ -212,7 +220,9 @@ model RequestStatistics {
   transactionsCount: int64;
 }
 
-enum State {
+@knownValues(StateKV)
+model State is string {}
+enum StateKV {
   notStarted,
   running,
   succeeded,

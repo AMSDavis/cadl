@@ -79,7 +79,9 @@ model KeyValue {
   ...Value;
 }
 
-enum KeyField {
+@knownValues(KeyFieldKV)
+model KeyField is string {}
+enum KeyFieldKV {
   key,
   label,
   content_type,
@@ -88,6 +90,8 @@ enum KeyField {
   tags,
 }
 
-enum LabelField {
+@knownValues(LabelFieldKV)
+model LabelField is string {}
+enum LabelFieldKV {
   name,
 }

@@ -30,7 +30,9 @@ model MetricFeedback {
   dimensionFilter: FeedbackDimensionFilter;
 }
 
-enum FeedbackType {
+@knownValues(FeedbackTypeKV)
+model FeedbackType is string {}
+enum FeedbackTypeKV {
   Anomaly,
   ChangePoint,
   Period,
@@ -53,7 +55,9 @@ model MetricFeedbackFilter {
   timeMode?: FeedbackQueryTimeMode;
 }
 
-enum FeedbackQueryTimeMode {
+@knownValues(FeedbackQueryTimeModeKV)
+model FeedbackQueryTimeMode is string {}
+enum FeedbackQueryTimeModeKV {
   MetricTimestamp,
   FeedbackCreatedTime,
 }
@@ -72,13 +76,17 @@ model AnomalyFeedback extends MetricFeedback {
   anomalyDetectionConfigurationId?: string;
 }
 
-enum AnomalyFeedbackValue {
+@knownValues(AnomalyFeedbackValueKV)
+model AnomalyFeedbackValue is string {}
+enum AnomalyFeedbackValueKV {
   AutoDetect,
   Anomaly,
   NotAnomaly,
 }
 
-enum ChangePointFeedbackValue {
+@knownValues(ChangePointFeedbackValueKV)
+model ChangePointFeedbackValue is string {}
+enum ChangePointFeedbackValueKV {
   AutoDetect,
   ChangePoint,
   NotChangePoint,

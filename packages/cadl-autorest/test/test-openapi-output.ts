@@ -547,7 +547,7 @@ describe("autorest: enums", () => {
     deepStrictEqual(schema, {
       ...enumBase,
       "x-ms-enum": {
-        modelAsString: true,
+        modelAsString: false,
         name: "Foo",
       },
     });
@@ -569,7 +569,7 @@ describe("autorest: enums", () => {
     deepStrictEqual(schema, {
       ...enumBase,
       "x-ms-enum": {
-        modelAsString: true,
+        modelAsString: false,
         name: "Foo",
         values: [
           {
@@ -601,7 +601,7 @@ describe("autorest: enums", () => {
     deepStrictEqual(schema, {
       ...enumBase,
       "x-ms-enum": {
-        modelAsString: true,
+        modelAsString: false,
         name: "Foo",
         values: [
           {
@@ -614,6 +614,26 @@ describe("autorest: enums", () => {
           },
         ],
       },
+    });
+  });
+
+  it("defines known values (modelAsString enums)", async () => {
+    const res = await oapiForModel(
+      "PetType",
+      `
+      enum KnownPetType {
+        Dog, Cat
+      }
+
+      @knownValues(KnownPetType)
+      model PetType is string {}
+      `
+    );
+    ok(res.isRef);
+    deepStrictEqual(res.defs.PetType, {
+      type: "string",
+      enum: ["Dog", "Cat"],
+      "x-ms-enum": { name: "PetType", modelAsString: true },
     });
   });
 });

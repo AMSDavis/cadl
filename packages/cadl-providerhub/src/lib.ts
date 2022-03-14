@@ -74,7 +74,7 @@ export const libDef = {
       severity: "error",
       messages: {
         missing:
-          "A TrackedResource must have a 'provisioningState' property of type 'enum' to track the provisioningState of the last operation. The enum must include values 'Failed', 'Succeeded', and 'Canceled'.",
+          "A TrackedResource must have a 'provisioningState' property of type 'model is string' with `@knownValues` to track the provisioningState of the last operation. The enum must include values 'Failed', 'Succeeded', and 'Canceled'.",
         wrongType: paramMessage`The enum type '${"name"}' must also contain the following provisioning states: ${"missingStates"}.`,
       },
     },

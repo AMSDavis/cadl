@@ -50,7 +50,9 @@ model LinkerProperties {
 }
 
 @doc("The kmind of authentication used for this linker.")
-enum AuthType {
+@knownValues(AuthTypeKV)
+model AuthType is string {}
+enum AuthTypeKV {
   systemAssignedIdentity,
   userAssignedIdentity,
   servicePrincipal,
@@ -105,7 +107,9 @@ model SourceConfiguration {
 }
 
 @doc("The kind of source configuration used in a particular instance.")
-enum SourceConfigurationType {
+@knownValues(SourceConfigurationTypeKV)
+model SourceConfigurationType is string {}
+enum SourceConfigurationTypeKV {
   "appSettings",
   "connectionSettings",
   "serviceBindings",
@@ -118,7 +122,9 @@ model SourceConfigurationResult {
 }
 
 @doc("State of the linker resource.")
-enum LinkerStatus {
+@knownValues(LinkerStatusKV)
+model LinkerStatus is string {}
+enum LinkerStatusKV {
   Healthy,
   "Not healthy",
 }

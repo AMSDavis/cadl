@@ -52,7 +52,9 @@ model HealthcareRelation {
   relationType: HealthcareRelationType;
 }
 
-enum HealthcareRelationType {
+@knownValues(HealthcareRelationTypeKV)
+model HealthcareRelationType is string {}
+enum HealthcareRelationTypeKV {
   Abbreviation,
   DirectionOfBodyStructure,
   DirectionOfCondition,
@@ -91,13 +93,17 @@ model HealthcareRelationEntity {
 }
 
 // ISSUE: Can't get modelAsString=false for named enum: https://github.com/Azure/cadl-azure/issues/1036
-enum Conditionality {
+@knownValues(ConditionalityKV)
+model Conditionality is string {}
+enum ConditionalityKV {
   hypothetical,
   conditional,
 }
 
 // ISSUE: Can't get modelAsString=false for named enum: https://github.com/Azure/cadl-azure/issues/1036
-enum Certainty {
+@knownValues(CertaintyKV)
+model Certainty is string {}
+enum CertaintyKV {
   positive,
   positivePossible,
   neutralPossible,
@@ -105,7 +111,9 @@ enum Certainty {
   negative,
 }
 
-enum Association {
+@knownValues(AssociationKV)
+model Association is string {}
+enum AssociationKV {
   subject,
   other,
 }
@@ -156,7 +164,9 @@ model HealthcareEntity {
   links?: HealthcareEntityLink[];
 }
 
-enum HealthcareEntityCategory {
+@knownValues(HealthcareEntityCategoryKV)
+model HealthcareEntityCategory is string {}
+enum HealthcareEntityCategoryKV {
   BODY_STRUCTURE,
   AGE,
   GENDER,

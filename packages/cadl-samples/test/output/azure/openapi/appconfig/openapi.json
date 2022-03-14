@@ -44,14 +44,21 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "string",
-                "enum": [
-                  "key",
-                  "label",
-                  "content_type",
-                  "value",
-                  "last_modified",
-                  "tags"
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "key",
+                      "label",
+                      "content_type",
+                      "value",
+                      "last_modified",
+                      "tags"
+                    ]
+                  }
                 ]
               }
             }
@@ -125,14 +132,21 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "string",
-                "enum": [
-                  "key",
-                  "label",
-                  "content_type",
-                  "value",
-                  "last_modified",
-                  "tags"
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "key",
+                      "label",
+                      "content_type",
+                      "value",
+                      "last_modified",
+                      "tags"
+                    ]
+                  }
                 ]
               }
             }
@@ -192,14 +206,21 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "string",
-                "enum": [
-                  "key",
-                  "label",
-                  "content_type",
-                  "value",
-                  "last_modified",
-                  "tags"
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "key",
+                      "label",
+                      "content_type",
+                      "value",
+                      "last_modified",
+                      "tags"
+                    ]
+                  }
                 ]
               }
             }
@@ -671,9 +692,16 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "string",
-                "enum": [
-                  "name"
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "name"
+                    ]
+                  }
                 ]
               }
             }
@@ -857,14 +885,21 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "string",
-                "enum": [
-                  "key",
-                  "label",
-                  "content_type",
-                  "value",
-                  "last_modified",
-                  "tags"
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "key",
+                      "label",
+                      "content_type",
+                      "value",
+                      "last_modified",
+                      "tags"
+                    ]
+                  }
                 ]
               }
             }
@@ -1196,14 +1231,21 @@
     },
     "schemas": {
       "KeyField": {
-        "type": "string",
-        "enum": [
-          "key",
-          "label",
-          "content_type",
-          "value",
-          "last_modified",
-          "tags"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "key",
+              "label",
+              "content_type",
+              "value",
+              "last_modified",
+              "tags"
+            ]
+          }
         ]
       },
       "Page_KeyValue": {
@@ -1302,9 +1344,16 @@
         ]
       },
       "LabelField": {
-        "type": "string",
-        "enum": [
-          "name"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "name"
+            ]
+          }
         ]
       },
       "Page_Key": {

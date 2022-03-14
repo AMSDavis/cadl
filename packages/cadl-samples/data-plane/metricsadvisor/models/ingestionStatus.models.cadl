@@ -24,7 +24,9 @@ model IngestionStatus {
 }
 
 @doc("latest ingestion task status for this data slice.")
-enum IngestionStatusType {
+@knownValues(IngestionStatusTypeKV)
+model IngestionStatusType is string {}
+enum IngestionStatusTypeKV {
   NotStarted,
   Scheduled,
   Running,

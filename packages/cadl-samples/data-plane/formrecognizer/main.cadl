@@ -107,7 +107,9 @@ interface DocumentModels
     ResourceDelete<ModelSummary, ErrorResponse> {}
 
 @doc("Method used to compute string offset and length.")
-enum StringIndexType {
+@knownValues(StringIndexTypeKV)
+model StringIndexType is string {}
+enum StringIndexTypeKV {
   textElements,
   unicodeCodePoint,
   utf16CodeUnit,
@@ -179,7 +181,9 @@ model CustomDocumentModelsInfo {
 }
 
 @doc("Operation status.")
-enum AnalyzeResultOperationStatus {
+@knownValues(AnalyzeResultOperationStatusKV)
+model AnalyzeResultOperationStatus is string {}
+enum AnalyzeResultOperationStatusKV {
   notStarted,
   runnning,
   failed,
@@ -272,7 +276,9 @@ model DocumentPage {
 }
 
 @doc("The unit used by the width, height, and boundingBox properties. For images, the unit is \"pixel\". For PDF, the unit is \"inch\".")
-enum LengthUnit {
+@knownValues(LengthUnitKV)
+model LengthUnit is string {}
+enum LengthUnitKV {
   pixel,
   inch,
 }
@@ -331,7 +337,9 @@ model DocumentSelectionMark {
 model Confidence is float64 {}
 
 @doc("State of the selection mark.")
-enum SelectionMarkState {
+@knownValues(SelectionMarkStateKV)
+model SelectionMarkState is string {}
+enum SelectionMarkStateKV {
   selected,
   unselected,
 }
@@ -381,7 +389,9 @@ model DocumentTableCell {
 }
 
 @doc("Table cell kind.")
-enum DocumentTableCellKind {
+@knownValues(DocumentTableCellKindKV)
+model DocumentTableCellKind is string {}
+enum DocumentTableCellKindKV {
   content,
   rowHeader,
   columnHeader,
@@ -531,7 +541,9 @@ model DocumentField {
 }
 
 @doc("Semantic data type of the field value.")
-enum DocumentFieldType {
+@knownValues(DocumentFieldTypeKV)
+model DocumentFieldType is string {}
+enum DocumentFieldTypeKV {
   string,
   date,
   time,
@@ -546,7 +558,9 @@ enum DocumentFieldType {
 }
 
 @doc("Presence of signature.")
-enum DocumentSignatureType {
+@knownValues(DocumentSignatureTypeKV)
+model DocumentSignatureType is string {}
+enum DocumentSignatureTypeKV {
   signed,
   unsigned,
 }
@@ -668,7 +682,9 @@ model OperationInfo {
 }
 
 @doc("Operation status.")
-enum OperationStatus {
+@knownValues(OperationStatusKV)
+model OperationStatus is string {}
+enum OperationStatusKV {
   notStarted,
   running,
   failed,
@@ -677,7 +693,9 @@ enum OperationStatus {
 }
 
 @doc("Type of operation")
-enum OperationKind {
+@knownValues(OperationKindKV)
+model OperationKind is string {}
+enum OperationKindKV {
   documentModelBuild,
   documentModelCompose,
   documentModelCopyTo,

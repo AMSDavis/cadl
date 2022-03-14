@@ -691,7 +691,7 @@
       ],
       "x-ms-enum": {
         "name": "CMYKColors",
-        "modelAsString": true
+        "modelAsString": false
       }
     },
     "DateTimeWrapper": {

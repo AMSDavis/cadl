@@ -105,13 +105,17 @@ model AnomalyResult {
   property: AnomalyProperty;
 }
 
-enum AnomalySeverity {
+@knownValues(AnomalySeverityKV)
+model AnomalySeverity is string {}
+enum AnomalySeverityKV {
   Low,
   Medium,
   High,
 }
 
-enum AnomalyStatus {
+@knownValues(AnomalyStatusKV)
+model AnomalyStatus is string {}
+enum AnomalyStatusKV {
   Active,
   Resolved,
 }
@@ -182,7 +186,9 @@ model IncidentResult {
   property: IncidentProperty;
 }
 
-enum IncidentStatus {
+@knownValues(IncidentStatusKV)
+model IncidentStatus is string {}
+enum IncidentStatusKV {
   Active,
   Resolved,
 }

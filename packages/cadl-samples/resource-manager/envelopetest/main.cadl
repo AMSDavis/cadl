@@ -51,7 +51,9 @@ model SystemOnlyResource is TrackedResource<SystemOnlyProperties> {
 @armResourceOperations
 interface SystemsOnlyResources mixes ResourceOperations<SystemOnlyResource, SystemOnlyProperties> {}
 
-enum EnvelopeProvisioningState {
+@knownValues(EnvelopeProvisioningStateKV)
+model EnvelopeProvisioningState is string {}
+enum EnvelopeProvisioningStateKV {
   Working,
   Succeeded,
   Canceled,

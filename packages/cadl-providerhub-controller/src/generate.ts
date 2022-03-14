@@ -15,6 +15,7 @@ import {
   getDoc,
   getFormat,
   getIntrinsicModelName,
+  getKnownValues,
   getMaxLength,
   getMinLength,
   getPattern,
@@ -90,6 +91,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     PatchName = "update",
     DeleteName = "delete",
     GetName = "read";
+
+  const csharpTypeCache = new Map<Type, TypeReference>();
   reportInfo(`Service name: ${serviceName}`, serviceRootNamespace?.node);
   reportProgress("rootpath: " + rootPath);
 
@@ -899,11 +902,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       return output;
     }
 
-    function createInlineEnum(cadlType: EnumType): TypeReference {
-      ensureCSharpIdentifier(cadlType, cadlType.name);
+    function createInlineEnum(cadlType: EnumType, name?: string): TypeReference {
+      name ??= cadlType.name;
+      ensureCSharpIdentifier(cadlType, name);
       const outEnum: Enumeration = {
         isClosed: false,
-        name: transformCSharpIdentifier(cadlType.name),
+        name: transformCSharpIdentifier(name),
         serviceName: serviceName,
         values: [],
         sourceNode: cadlType.node,
@@ -996,6 +1000,18 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     }
 
     function getCSharpType(cadlType: Type): TypeReference | undefined {
+      const cached = csharpTypeCache.get(cadlType);
+      if (cached) {
+        return cached;
+      }
+
+      const type = getCSharpTypeInternal(cadlType);
+      if (type) {
+        csharpTypeCache.set(cadlType, type);
+      }
+      return type;
+    }
+    function getCSharpTypeInternal(cadlType: Type): TypeReference | undefined {
       switch (cadlType.kind) {
         case "String":
           return { name: "string", nameSpace: "System", isBuiltIn: true };
@@ -1041,7 +1057,13 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           }
 
           const cadlIntrinsicType = getCSharpTypeForCadlIntrinsicModels(cadlType);
+
           if (cadlIntrinsicType !== undefined) {
+            // Check if there is known value and then return an enum instead.
+            const values = getKnownValues(program, cadlType);
+            if (values) {
+              return createInlineEnum(values, cadlType.name);
+            }
             return cadlIntrinsicType;
           }
           const known = getKnownType(cadlType);

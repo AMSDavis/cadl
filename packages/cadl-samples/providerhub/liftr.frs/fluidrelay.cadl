@@ -76,7 +76,9 @@ model FluidRelayServerProperties {
 }
 
 @doc("Provisioning states for FluidRelay RP")
-enum ProvisioningState {
+@knownValues(ProvisioningStateKV)
+model ProvisioningState is string {}
+enum ProvisioningStateKV {
   Succeeded,
   Failed,
   Canceled,
@@ -105,7 +107,9 @@ model FluidRelayServerKeys {
 }
 
 @doc("The keys that are defined fro a FluidRelay Service.")
-enum KeyName {
+@knownValues(KeyNameKV)
+model KeyName is string {}
+enum KeyNameKV {
   key1,
   key2,
 }

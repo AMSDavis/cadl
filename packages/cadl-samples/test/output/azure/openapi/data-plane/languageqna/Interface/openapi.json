@@ -996,18 +996,32 @@
         ]
       },
       "QnaSourceKind": {
-        "type": "string",
-        "description": "Supported source types.",
-        "enum": [
-          "file",
-          "url"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Supported source types."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "file",
+              "url"
+            ]
+          }
         ]
       },
       "SourceContentStructureKind": {
-        "type": "string",
-        "description": "Content structure type for sources.",
-        "enum": [
-          "unstructured"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Content structure type for sources."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "unstructured"
+            ]
+          }
         ]
       },
       "QnaSourceRecord": {
@@ -1122,16 +1136,23 @@
         ]
       },
       "JobStatus": {
-        "type": "string",
-        "description": "Job status.",
-        "enum": [
-          "notStarted",
-          "running",
-          "succeeded",
-          "failed",
-          "cancelled",
-          "cancelling",
-          "partiallyCompleted"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Job status."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "notStarted",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled",
+              "cancelling",
+              "partiallyCompleted"
+            ]
+          }
         ]
       },
       "Error": {
@@ -1209,22 +1230,29 @@
         ]
       },
       "ErrorCode": {
-        "type": "string",
-        "enum": [
-          "InvalidRequest",
-          "InvalidArgument",
-          "Unauthorized",
-          "Forbidden",
-          "NotFound",
-          "ProjectNotFound",
-          "OperationNotFound",
-          "AzureCognitiveSearchNotFound",
-          "AzureCognitiveSearchIndexNotFound",
-          "TooManyRequests",
-          "AzureCognitiveSearchThrottling",
-          "AzureCognitiveSearchIndexLimitReached",
-          "InternalServerError",
-          "ServiceUnavailable"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "InvalidRequest",
+              "InvalidArgument",
+              "Unauthorized",
+              "Forbidden",
+              "NotFound",
+              "ProjectNotFound",
+              "OperationNotFound",
+              "AzureCognitiveSearchNotFound",
+              "AzureCognitiveSearchIndexNotFound",
+              "TooManyRequests",
+              "AzureCognitiveSearchThrottling",
+              "AzureCognitiveSearchIndexLimitReached",
+              "InternalServerError",
+              "ServiceUnavailable"
+            ]
+          }
         ]
       },
       "QnaPrompt": {

@@ -103,7 +103,9 @@ model ZTSIProperties {
 model MediumString is string {}
 
 @doc("Provisioning state of the monitoring resource")
-enum ProvisioningState {
+@knownValues(ProvisioningStateKV)
+model ProvisioningState is string {}
+enum ProvisioningStateKV {
   "Accepted",
   "Creating",
   "Updating",
@@ -230,7 +232,9 @@ model Guid is string {}
 model DeviceId is Guid {}
 
 @doc("The type of attestation.")
-enum AttestationType {
+@knownValues(AttestationTypeKV)
+model AttestationType is string {}
+enum AttestationTypeKV {
   "Boot",
   "Runtime",
   BootAndRuntime: "Boot,Runtime",

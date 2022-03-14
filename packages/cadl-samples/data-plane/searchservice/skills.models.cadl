@@ -102,7 +102,9 @@ model OcrSkill extends SearchIndexerSkill {
   lineEnding?: LineEnding; // = LineEnding.Space https://github.com/microsoft/cadl/issues/130
 }
 
-enum LineEnding {
+@knownValues(LineEndingKV)
+model LineEnding is string {}
+enum LineEndingKV {
   @doc("Lines are separated by a single space character.")
   Space: "space",
 
@@ -131,7 +133,9 @@ model ImageAnalysisSkill extends SearchIndexerSkill {
 }
 
 @doc("The strings indicating what visual feature types to return.")
-enum VisualFeature {
+@knownValues(VisualFeatureKV)
+model VisualFeature is string {}
+enum VisualFeatureKV {
   @doc("Visual features recognized as adult persons.")
   Adult: "adult",
 
@@ -155,7 +159,9 @@ enum VisualFeature {
 }
 
 @doc("A string indicating which domain-specific details to return.")
-enum ImageDetail {
+@knownValues(ImageDetailKV)
+model ImageDetail is string {}
+enum ImageDetailKV {
   @doc("Details recognized as celebrities.")
   Celebrities: "celebrities",
 
@@ -208,7 +214,9 @@ model EntityRecognitionSkill extends SearchIndexerSkill {
 }
 
 @doc("A string indicating what entity categories to return.")
-enum EntityCategory {
+@knownValues(EntityCategoryKV)
+model EntityCategory is string {}
+enum EntityCategoryKV {
   @doc("Entities describing a physical location.")
   Location: "location",
 
@@ -317,7 +325,9 @@ model PIIDetectionSkill extends SearchIndexerSkill {
   domain?: string;
 }
 
-enum PIIDetectionSkillMaskingMode {
+@knownValues(PIIDetectionSkillMaskingModeKV)
+model PIIDetectionSkillMaskingMode is string {}
+enum PIIDetectionSkillMaskingModeKV {
   @doc("No masking occurs and the maskedText output will not be returned.")
   None: "none",
 

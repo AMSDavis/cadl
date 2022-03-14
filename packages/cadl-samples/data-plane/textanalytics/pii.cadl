@@ -34,7 +34,9 @@ model PiiDocumentEntities is DocumentInfo {
   entities: Entity[];
 }
 
-enum PiiCategory {
+@knownValues(PiiCategoryKV)
+model PiiCategory is string {}
+enum PiiCategoryKV {
   ABARoutingNumber,
   ARNationalIdentityNumber,
   AUBankAccountNumber,

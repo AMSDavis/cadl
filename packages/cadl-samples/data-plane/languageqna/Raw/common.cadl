@@ -27,7 +27,9 @@ model Errors {
   errors: Error[];
 }
 
-enum ErrorCode {
+@knownValues(ErrorCodeKV)
+model ErrorCode is string {}
+enum ErrorCodeKV {
   "InvalidRequest",
   "InvalidArgument",
   "Unauthorized",
@@ -120,7 +122,9 @@ model Language {
   language?: string;
 }
 
-enum ImportExportFormat {
+@knownValues(ImportExportFormatKV)
+model ImportExportFormat is string {}
+enum ImportExportFormatKV {
   @doc("Export or Import QnA assets in JSON format")
   "json",
 

@@ -17,7 +17,9 @@ using Cadl.Http;
 
 // ISSUE: Can't set modelAsString=false: https://github.com/Azure/cadl-azure/issues/1097
 @doc("Specifies the mode for Autocomplete. The default is 'oneTerm'. Use 'twoTerms' to get shingles and 'oneTermWithContext' to use the current context in producing autocomplete terms.")
-enum AutocompleteMode {
+@knownValues(AutocompleteModeKV)
+model AutocompleteMode is string {}
+enum AutocompleteModeKV {
   @doc("Only one term is suggested. If the query has two terms, only the last term is completed. For example, if the input is 'washington medic', the suggested terms could include 'medicaid', 'medicare', and 'medicine'.")
   OneTerm: "oneTerm",
 
@@ -29,7 +31,9 @@ enum AutocompleteMode {
 }
 
 @doc("This parameter is only valid if the query type is 'semantic'. If set, the query returns answers extracted from key passages in the highest ranked documents. The number of answers returned can be configured by appending the pipe character '|' followed by the 'count-<number of answers>' option after the answers parameter value, such as 'extractive|count-3'. Default count is 1.")
-enum QueryAnswerType {
+@knownValues(QueryAnswerTypeKV)
+model QueryAnswerType is string {}
+enum QueryAnswerTypeKV {
   @doc("Do not return answers for the query.")
   None: "none",
 
@@ -38,7 +42,9 @@ enum QueryAnswerType {
 }
 
 @doc("This parameter is only valid if the query type is 'semantic'. If set, the query returns captions extracted from key passages in the highest ranked documents. When s is set to 'extractive', highlighting is enabled by default, and can be configured by appending the pipe character '|' followed by the 'highlight-<true/false>' option, such as 'extractive|highlight-true'. Defaults to 'None'.")
-enum QueryCaptionType {
+@knownValues(QueryCaptionTypeKV)
+model QueryCaptionType is string {}
+enum QueryCaptionTypeKV {
   @doc("Do not return captions for the query.")
   None: "none",
 
@@ -47,7 +53,9 @@ enum QueryCaptionType {
 }
 
 @doc("The language of the query.")
-enum QueryLanguage {
+@knownValues(QueryLanguageKV)
+model QueryLanguage is string {}
+enum QueryLanguageKV {
   @doc("Query language not specified.")
   None: "none",
 
@@ -266,7 +274,9 @@ enum QueryLanguage {
 }
 
 @doc("Improve search recall by spell-correcting individual search query terms.")
-enum QuerySpellerType {
+@knownValues(QuerySpellerTypeKV)
+model QuerySpellerType is string {}
+enum QuerySpellerTypeKV {
   @doc("Speller not enabled.")
   None: "none",
 
@@ -276,7 +286,9 @@ enum QuerySpellerType {
 
 // ISSUE: Can't set modelAsString=false: https://github.com/Azure/cadl-azure/issues/1097
 @doc("Specifies the syntax of the search query. The default is 'simple'. Use 'full' if your query uses the Lucene query syntax and 'semantic' if query syntax is not needed.")
-enum QueryType {
+@knownValues(QueryTypeKV)
+model QueryType is string {}
+enum QueryTypeKV {
   @doc("Uses the simple query syntax for searches. Search text is interpreted using a simple query language that allows for symbols such as +, * and \"\". Queries are evaluated across all searchable fields by default, unless the searchFields parameter is specified.")
   Simple: "simple",
 
@@ -288,7 +300,9 @@ enum QueryType {
 }
 
 // ISSUE: Can't set modelAsString=false: https://github.com/Azure/cadl-azure/issues/1097
-enum IndexActionType {
+@knownValues(IndexActionTypeKV)
+model IndexActionType is string {}
+enum IndexActionTypeKV {
   @doc("Inserts the document into the index if it is new and updates it if it exists. All fields are replaced in the update case.")
   Upload: "upload",
 
@@ -304,7 +318,9 @@ enum IndexActionType {
 
 // ISSUE: Can't set modelAsString=false: https://github.com/Azure/cadl-azure/issues/1097
 @doc("Specifies whether any or all of the search terms must be matched in order to count the document as a match.")
-enum SearchMode {
+@knownValues(SearchModeKV)
+model SearchMode is string {}
+enum SearchModeKV {
   @doc("Any of the search terms must be matched in order to count the document as a match.")
   Any: "any",
 
@@ -314,7 +330,9 @@ enum SearchMode {
 
 // ISSUE: Can't set modelAsString=false: https://github.com/Azure/cadl-azure/issues/1097
 @doc("A value that specifies whether we want to calculate scoring statistics (such as document frequency) globally for more consistent scoring, or locally, for lower latency. The default is 'local'. Use 'global' to aggregate scoring statistics globally before scoring. Using global scoring statistics can increase latency of search queries.")
-enum ScoringStatistics {
+@knownValues(ScoringStatisticsKV)
+model ScoringStatistics is string {}
+enum ScoringStatisticsKV {
   @doc("The scoring statistics will be calculated locally for lower latency.")
   Local: "local",
 

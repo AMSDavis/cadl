@@ -61,7 +61,9 @@ model OrganizationProperties {
 }
 
 @doc("SaaS offer status.")
-enum OfferStatus {
+@knownValues(OfferStatusKV)
+model OfferStatus is string {}
+enum OfferStatusKV {
   Started,
   PendingFulfillmentStart,
   InProgress,

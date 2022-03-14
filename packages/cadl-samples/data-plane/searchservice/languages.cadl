@@ -1,5 +1,7 @@
 @doc("The language codes supported for input text by KeyPhraseExtractionSkill.")
-enum KeyPhraseExtractionSkillLanguage {
+@knownValues(KeyPhraseExtractionSkillLanguageKV)
+model KeyPhraseExtractionSkillLanguage is string {}
+enum KeyPhraseExtractionSkillLanguageKV {
   @doc("Danish") "da",
   @doc("Dutch") "nl",
   @doc("English") "en",
@@ -19,7 +21,9 @@ enum KeyPhraseExtractionSkillLanguage {
 }
 
 @doc("The language codes supported for input by OcrSkill.")
-enum OcrSkillLanguage {
+@knownValues(OcrSkillLanguageKV)
+model OcrSkillLanguage is string {}
+enum OcrSkillLanguageKV {
   @doc("Chinese-Simplified") "zh-Hans",
   @doc("Chinese-Traditional") "zh-Hant",
   @doc("Czech") "cs",
@@ -52,7 +56,9 @@ enum OcrSkillLanguage {
 }
 
 @doc("The language codes supported for input by ImageAnalysisSkill.")
-enum ImageAnalysisSkillLanguage {
+@knownValues(ImageAnalysisSkillLanguageKV)
+model ImageAnalysisSkillLanguage is string {}
+enum ImageAnalysisSkillLanguageKV {
   @doc("English") "en",
   @doc("Spanish") "es",
   @doc("Japanese") "ja",
@@ -61,7 +67,9 @@ enum ImageAnalysisSkillLanguage {
 }
 
 @doc("The language codes supported for input text by EntityRecognitionSkill.")
-enum EntityRecognitionSkillLanguage {
+@knownValues(EntityRecognitionSkillLanguageKV)
+model EntityRecognitionSkillLanguage is string {}
+enum EntityRecognitionSkillLanguageKV {
   @doc("Arabic") "ar",
   @doc("Czech") "cs",
   @doc("Chinese-Simplified") "zh-Hans",
@@ -88,7 +96,9 @@ enum EntityRecognitionSkillLanguage {
 }
 
 @doc("The language codes supported for input text by SentimentSkill.")
-enum SentimentSkillLanguage {
+@knownValues(SentimentSkillLanguageKV)
+model SentimentSkillLanguage is string {}
+enum SentimentSkillLanguageKV {
   @doc("Danish") "da",
   @doc("Dutch") "nl",
   @doc("English") "en",
@@ -109,7 +119,9 @@ enum SentimentSkillLanguage {
 }
 
 @doc("The language codes supported for input text by SplitSkill.")
-enum SplitSkillLanguage {
+@knownValues(SplitSkillLanguageKV)
+model SplitSkillLanguage is string {}
+enum SplitSkillLanguageKV {
   @doc("Danish") "da",
   @doc("German") "de",
   @doc("English") "en",
@@ -122,7 +134,9 @@ enum SplitSkillLanguage {
 }
 
 @doc("The language codes supported for input text by CustomEntityLookupSkill.")
-enum CustomEntityLookupSkillLanguage {
+@knownValues(CustomEntityLookupSkillLanguageKV)
+model CustomEntityLookupSkillLanguage is string {}
+enum CustomEntityLookupSkillLanguageKV {
   @doc("Danish") "da",
   @doc("German") "de",
   @doc("English") "en",
@@ -135,7 +149,9 @@ enum CustomEntityLookupSkillLanguage {
 }
 
 @doc("The language codes supported for input text by TextTranslationSkill.")
-enum TextTranslationSkillLanguage {
+@knownValues(TextTranslationSkillLanguageKV)
+model TextTranslationSkillLanguage is string {}
+enum TextTranslationSkillLanguageKV {
   @doc("Afrikaans") "af",
   @doc("Arabic") "ar",
   @doc("Bangla") "bn",

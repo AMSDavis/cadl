@@ -6,6 +6,7 @@ import {
   DecoratorContext,
   getDoc,
   getIntrinsicModelName,
+  getKnownValues,
   getPropertyType,
   isIntrinsic,
   ModelType,
@@ -318,17 +319,29 @@ export function $armResource(
       // This will find either TrackedResource<T> or TrackedResourceBase
       if (coreType.name.startsWith("TrackedResource")) {
         const provisioningStateProperty = propertiesType.properties.get("provisioningState");
-        if (!provisioningStateProperty || provisioningStateProperty.type.kind !== "Enum") {
+        if (!provisioningStateProperty || provisioningStateProperty.type.kind !== "Model") {
+          console.log("NO PROP", provisioningStateProperty?.type.kind);
+
           reportDiagnostic(program, {
             code: "tracked-resource-provisioning-state",
             messageId: "missing",
-            target: resourceType,
+            target: provisioningStateProperty?.type ?? resourceType,
+          });
+          return;
+        }
+
+        const values = getKnownValues(program, provisioningStateProperty.type);
+        if (!values) {
+          reportDiagnostic(program, {
+            code: "tracked-resource-provisioning-state",
+            messageId: "missing",
+            target: provisioningStateProperty.type,
           });
           return;
         }
 
         // Check the enum for the mandatory provisioning state values
-        const enumValues = new Set(provisioningStateProperty.type.members.map((m) => m.name));
+        const enumValues = new Set(values.members.map((m) => m.name));
         const missingStates = ExpectedProvisioningStates.filter((v) => !enumValues.has(v));
         if (missingStates.length > 0) {
           reportDiagnostic(program, {

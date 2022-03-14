@@ -19,7 +19,9 @@ using Cadl.Http;
 model Employee is TrackedResource<EmployeeProperties> {}
 
 @doc("The status of the current operation.")
-enum ProvisioningState {
+@knownValues(ProvisioningStateKV)
+model ProvisioningState is string {}
+enum ProvisioningStateKV {
   Succeeded,
   Failed,
   Canceled,

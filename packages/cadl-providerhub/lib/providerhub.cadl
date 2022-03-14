@@ -40,7 +40,9 @@ model ArmTagsProperty {
 }
 
 @doc("The provisioning state of a resource type.")
-enum ResourceProvisioningState {
+@knownValues(ResourceProvisioningStateKV)
+model ResourceProvisioningState is string {}
+enum ResourceProvisioningStateKV {
   Succeeded,
   Failed,
   Canceled,
@@ -229,7 +231,9 @@ model Operation {
 @doc("""
 The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default value is "user,system"
 """)
-enum Origin {
+@knownValues(OriginKV)
+model Origin is string {}
+enum OriginKV {
   user,
   system,
   "user,system",
@@ -238,7 +242,9 @@ enum Origin {
 @doc("""
 Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
 """)
-enum ActionType {
+@knownValues(ActionTypeKV)
+model ActionType is string {}
+enum ActionTypeKV {
   Internal,
 }
 
@@ -346,7 +352,9 @@ model ErrorAdditionalInfo {
 
 // NOTE: This is how the enum is named in types.json
 @doc("The kind of entity that created the resource.")
-enum createdByType {
+@knownValues(createdByTypeKV)
+model createdByType is string {}
+enum createdByTypeKV {
   User,
   Application,
   ManagedIdentity,
@@ -441,7 +449,9 @@ model ResourcePlan {
 }
 
 @doc("Available service tiers for the SKU.")
-enum SkuTier {
+@knownValues(SkuTierKV)
+model SkuTier is string {}
+enum SkuTierKV {
   "Free",
   "Basic",
   "Standard",
@@ -514,7 +524,9 @@ model UserAssignedIdentity {
 }
 
 @doc("The kind of managed identity assigned to this resource.")
-enum ManagedIdentityType {
+@knownValues(ManagedIdentityTypeKV)
+model ManagedIdentityType is string {}
+enum ManagedIdentityTypeKV {
   None,
   SystemAssigned,
   UserAssigned,
@@ -522,7 +534,9 @@ enum ManagedIdentityType {
 }
 
 @doc("The kind of managemed identity assigned to this resource.")
-enum ManagedSystemIdentityType {
+@knownValues(ManagedSystemIdentityTypeKV)
+model ManagedSystemIdentityType is string {}
+enum ManagedSystemIdentityTypeKV {
   None,
   SystemAssigned,
 }

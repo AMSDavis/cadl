@@ -59,7 +59,9 @@ model SystemOnlyResource is TrackedResource<SystemOnlyProperties> {
   ...ManagedSystemAssignedIdentity;
 }
 
-enum EnvelopeProvisioningState {
+@knownValues(EnvelopeProvisioningStateKV)
+model EnvelopeProvisioningState is string {}
+enum EnvelopeProvisioningStateKV {
   Working,
   Succeeded,
   Canceled,

@@ -93,7 +93,9 @@ model SearchField {
 }
 
 @doc("Defines the data type of a field in a search index.")
-enum SearchFieldDataType {
+@knownValues(SearchFieldDataTypeKV)
+model SearchFieldDataType is string {}
+enum SearchFieldDataTypeKV {
   @doc("Indicates that a field contains a string.")
   String: "Edm.String",
 
@@ -120,7 +122,9 @@ enum SearchFieldDataType {
 }
 
 @doc("Defines the names of all text analyzers supported by Azure Cognitive Search.")
-enum LexicalAnalyzerName {
+@knownValues(LexicalAnalyzerNameKV)
+model LexicalAnalyzerName is string {}
+enum LexicalAnalyzerNameKV {
   @doc("Microsoft analyzer for Arabic.")
   ArMicrosoft: "ar.microsoft",
 
@@ -501,7 +505,9 @@ model TagScoringParameters {
 }
 
 @doc("Defines the function used to interpolate score boosting across a range of documents.")
-enum ScoringFunctionInterpolation {
+@knownValues(ScoringFunctionInterpolationKV)
+model ScoringFunctionInterpolation is string {}
+enum ScoringFunctionInterpolationKV {
   @doc("Boosts scores by a linearly decreasing amount. This is the default interpolation for scoring functions.")
   Linear: "linear",
 
@@ -516,7 +522,9 @@ enum ScoringFunctionInterpolation {
 }
 
 @doc("Defines the aggregation function used to combine the results of all the scoring functions in a scoring profile.")
-enum ScoringFunctionAggregation {
+@knownValues(ScoringFunctionAggregationKV)
+model ScoringFunctionAggregation is string {}
+enum ScoringFunctionAggregationKV {
   @doc("Boost scores by the sum of all scoring function results.")
   Sum: "sum",
 
@@ -555,7 +563,9 @@ model Suggester {
 }
 
 @doc("A value indicating the capabilities of the suggester.")
-enum SuggesterSearchMode {
+@knownValues(SuggesterSearchModeKV)
+model SuggesterSearchMode is string {}
+enum SuggesterSearchModeKV {
   @doc("Matches consecutive whole terms and prefixes in a field. For example, for the field 'The fastest brown fox', the queries 'fast' and 'fastest brow' would both match.")
   AnalyzingInfixMatching: "analyzingInfixMatching",
 }
@@ -619,7 +629,9 @@ model StopAnalyzer extends LexicalAnalyzer {
 }
 
 @doc("Defines the names of all tokenizers supported by Azure Cognitive Search.")
-enum LexicalTokenizerName {
+@knownValues(LexicalTokenizerNameKV)
+model LexicalTokenizerName is string {}
+enum LexicalTokenizerNameKV {
   @doc("Grammar-based tokenizer that is suitable for processing most European-language documents. See http://lucene.apache.org/core/4_10_3/analyzers-common/org/apache/lucene/analysis/standard/ClassicTokenizer.html")
   Classic: "classic",
 
@@ -661,7 +673,9 @@ enum LexicalTokenizerName {
 }
 
 @doc("Defines the names of all token filters supported by Azure Cognitive Search.")
-enum TokenFilterName {
+@knownValues(TokenFilterNameKV)
+model TokenFilterName is string {}
+enum TokenFilterNameKV {
   @doc("A token filter that applies the Arabic normalizer to normalize the orthography. See http://lucene.apache.org/core/4_10_3/analyzers-common/org/apache/lucene/analysis/ar/ArabicNormalizationFilter.html")
   ArabicNormalization: "arabic_normalization",
 
@@ -766,13 +780,17 @@ enum TokenFilterName {
 }
 
 @doc("Defines the names of all character filters supported by Azure Cognitive Search.")
-enum CharFilterName {
+@knownValues(CharFilterNameKV)
+model CharFilterName is string {}
+enum CharFilterNameKV {
   @doc("A character filter that attempts to strip out HTML constructs. See https://lucene.apache.org/core/4_10_3/analyzers-common/org/apache/lucene/analysis/charfilter/HTMLStripCharFilter.html")
   HtmlStrip: "html_strip",
 }
 
 @doc("Defines flags that can be combined to control how regular expressions are used in the pattern analyzer and pattern tokenizer.")
-enum RegexFlags {
+@knownValues(RegexFlagsKV)
+model RegexFlags is string {}
+enum RegexFlagsKV {
   @doc("Enables canonical equivalence.")
   CanonEq: "CANON_EQ",
 
@@ -831,7 +849,9 @@ model EdgeNGramTokenizer extends LexicalTokenizer {
 }
 
 @doc("Represents classes of characters on which a token filter can operate.")
-enum TokenCharacterKind {
+@knownValues(TokenCharacterKindKV)
+model TokenCharacterKind is string {}
+enum TokenCharacterKindKV {
   @doc("Keeps letters in tokens.")
   Letter: "letter",
 
@@ -881,7 +901,9 @@ model MicrosoftLanguageTokenizer extends LexicalTokenizer {
 }
 
 @doc("Lists the languages supported by the Microsoft language tokenizer.")
-enum MicrosoftTokenizerLanguage {
+@knownValues(MicrosoftTokenizerLanguageKV)
+model MicrosoftTokenizerLanguage is string {}
+enum MicrosoftTokenizerLanguageKV {
   @doc("Selects the Microsoft tokenizer for Arabic.")
   Arabic: "arabic",
 
@@ -1031,7 +1053,9 @@ model MicrosoftLanguageStemmingTokenizer extends LexicalTokenizer {
 }
 
 @doc("Lists the languages supported by the Microsoft language stemming  tokenizer.")
-enum MicrosoftStemmingTokenizerLanguage {
+@knownValues(MicrosoftStemmingTokenizerLanguageKV)
+model MicrosoftStemmingTokenizerLanguage is string {}
+enum MicrosoftStemmingTokenizerLanguageKV {
   @doc("Selects the Microsoft stemming tokenizer for Bangla.")
   Bangla: "bangla",
 
@@ -1256,7 +1280,9 @@ model AsciiFoldingTokenFilter extends TokenFilter {
 }
 
 @doc("Scripts that can be ignored by CjkBigramTokenFilter.")
-enum CjkBigramTokenFilterScripts {
+@knownValues(CjkBigramTokenFilterScriptsKV)
+model CjkBigramTokenFilterScripts is string {}
+enum CjkBigramTokenFilterScriptsKV {
   @doc("Ignore Han script when forming bigrams of CJK terms.")
   Han: "han",
 
@@ -1320,7 +1346,9 @@ model DictionaryDecompounderTokenFilter extends TokenFilter {
 }
 
 @doc("Specifies which side of the input an n-gram should be generated from.")
-enum EdgeNGramTokenFilterSide {
+@knownValues(EdgeNGramTokenFilterSideKV)
+model EdgeNGramTokenFilterSide is string {}
+enum EdgeNGramTokenFilterSideKV {
   @doc("Specifies that the n-gram should be generated from the front of the input.")
   Front: "front",
 
@@ -1557,7 +1585,9 @@ model CustomNormalizer extends LexicalNormalizer {
 }
 
 @doc("Defines the names of all text normalizers supported by Azure Cognitive Search.")
-enum LexicalNormalizerName {
+@knownValues(LexicalNormalizerNameKV)
+model LexicalNormalizerName is string {}
+enum LexicalNormalizerNameKV {
   @doc("Converts alphabetic, numeric, and symbolic Unicode characters which are not in the first 127 ASCII characters (the \"Basic Latin\" Unicode block) into their ASCII equivalents, if such equivalents exist. See http://lucene.apache.org/core/4_10_3/analyzers-common/org/apache/lucene/analysis/miscellaneous/ASCIIFoldingFilter.html")
   Asciifolding: "asciifolding",
 

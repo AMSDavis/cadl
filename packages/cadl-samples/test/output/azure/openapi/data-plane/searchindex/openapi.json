@@ -161,13 +161,21 @@
             "required": false,
             "description": "A value that specifies the syntax of the search query. The default is 'simple'. Use 'full' if your query uses the Lucene query syntax.",
             "schema": {
-              "type": "string",
-              "description": "Specifies the syntax of the search query. The default is 'simple'. Use 'full' if your query uses the Lucene query syntax and 'semantic' if query syntax is not needed.",
-              "enum": [
-                "simple",
-                "full",
-                "semantic"
-              ]
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Specifies the syntax of the search query. The default is 'simple'. Use 'full' if your query uses the Lucene query syntax and 'semantic' if query syntax is not needed."
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "simple",
+                    "full",
+                    "semantic"
+                  ]
+                }
+              ],
+              "description": "A value that specifies the syntax of the search query. The default is 'simple'. Use 'full' if your query uses the Lucene query syntax."
             }
           },
           {
@@ -221,82 +229,90 @@
             "required": false,
             "description": "The language of the query.",
             "schema": {
-              "type": "string",
-              "description": "The language of the query.",
-              "enum": [
-                "none",
-                "en-us",
-                "en-gb",
-                "en-in",
-                "en-ca",
-                "en-au",
-                "fr-fr",
-                "fr-ca",
-                "de-de",
-                "es-es",
-                "es-mx",
-                "zh-cn",
-                "zh-tw",
-                "pt-br",
-                "pt-pt",
-                "it-it",
-                "ja-jp",
-                "ko-kr",
-                "ru-ru",
-                "cs-cz",
-                "nl-be",
-                "nl-nl",
-                "hu-hu",
-                "pl-pl",
-                "sv-se",
-                "tr-tr",
-                "hi-in",
-                "ar-sa",
-                "ar-eg",
-                "ar-ma",
-                "ar-kw",
-                "ar-jo",
-                "da-dk",
-                "no-no",
-                "bg-bg",
-                "hr-hr",
-                "hr-ba",
-                "ms-my",
-                "ms-bn",
-                "sl-sl",
-                "ta-in",
-                "vi-vn",
-                "el-gr",
-                "ro-ro",
-                "is-is",
-                "id-id",
-                "th-th",
-                "lt-lt",
-                "uk-ua",
-                "lv-lv",
-                "et-ee",
-                "ca-es",
-                "fi-fi",
-                "sr-ba",
-                "sr-me",
-                "sr-rs",
-                "sk-sk",
-                "nb-no",
-                "hy-am",
-                "bn-in",
-                "eu-es",
-                "gl-es",
-                "gu-in",
-                "he-il",
-                "ga-ie",
-                "kn-in",
-                "ml-in",
-                "mr-in",
-                "fa-ae",
-                "pa-in",
-                "te-in",
-                "ur-pk"
-              ]
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "The language of the query."
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "none",
+                    "en-us",
+                    "en-gb",
+                    "en-in",
+                    "en-ca",
+                    "en-au",
+                    "fr-fr",
+                    "fr-ca",
+                    "de-de",
+                    "es-es",
+                    "es-mx",
+                    "zh-cn",
+                    "zh-tw",
+                    "pt-br",
+                    "pt-pt",
+                    "it-it",
+                    "ja-jp",
+                    "ko-kr",
+                    "ru-ru",
+                    "cs-cz",
+                    "nl-be",
+                    "nl-nl",
+                    "hu-hu",
+                    "pl-pl",
+                    "sv-se",
+                    "tr-tr",
+                    "hi-in",
+                    "ar-sa",
+                    "ar-eg",
+                    "ar-ma",
+                    "ar-kw",
+                    "ar-jo",
+                    "da-dk",
+                    "no-no",
+                    "bg-bg",
+                    "hr-hr",
+                    "hr-ba",
+                    "ms-my",
+                    "ms-bn",
+                    "sl-sl",
+                    "ta-in",
+                    "vi-vn",
+                    "el-gr",
+                    "ro-ro",
+                    "is-is",
+                    "id-id",
+                    "th-th",
+                    "lt-lt",
+                    "uk-ua",
+                    "lv-lv",
+                    "et-ee",
+                    "ca-es",
+                    "fi-fi",
+                    "sr-ba",
+                    "sr-me",
+                    "sr-rs",
+                    "sk-sk",
+                    "nb-no",
+                    "hy-am",
+                    "bn-in",
+                    "eu-es",
+                    "gl-es",
+                    "gu-in",
+                    "he-il",
+                    "ga-ie",
+                    "kn-in",
+                    "ml-in",
+                    "mr-in",
+                    "fa-ae",
+                    "pa-in",
+                    "te-in",
+                    "ur-pk"
+                  ]
+                }
+              ],
+              "description": "The language of the query."
             }
           },
           {
@@ -305,12 +321,20 @@
             "required": false,
             "description": "Improve search recall by spell-correcting individual search query terms.",
             "schema": {
-              "type": "string",
-              "description": "Improve search recall by spell-correcting individual search query terms.",
-              "enum": [
-                "none",
-                "lexicon"
-              ]
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Improve search recall by spell-correcting individual search query terms."
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "none",
+                    "lexicon"
+                  ]
+                }
+              ],
+              "description": "Improve search recall by spell-correcting individual search query terms."
             }
           },
           {
@@ -319,12 +343,20 @@
             "required": false,
             "description": "This parameter is only valid if the query type is 'semantic'. If set, the query returns answers extracted from key passages in the highest ranked documents. The number of answers returned can be configured by appending the pipe character '|' followed by the 'count-<number of answers>' option after the answers parameter value, such as 'extractive|count-3'. Default count is 1.",
             "schema": {
-              "type": "string",
-              "description": "This parameter is only valid if the query type is 'semantic'. If set, the query returns answers extracted from key passages in the highest ranked documents. The number of answers returned can be configured by appending the pipe character '|' followed by the 'count-<number of answers>' option after the answers parameter value, such as 'extractive|count-3'. Default count is 1.",
-              "enum": [
-                "none",
-                "extractive"
-              ]
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "This parameter is only valid if the query type is 'semantic'. If set, the query returns answers extracted from key passages in the highest ranked documents. The number of answers returned can be configured by appending the pipe character '|' followed by the 'count-<number of answers>' option after the answers parameter value, such as 'extractive|count-3'. Default count is 1."
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "none",
+                    "extractive"
+                  ]
+                }
+              ],
+              "description": "This parameter is only valid if the query type is 'semantic'. If set, the query returns answers extracted from key passages in the highest ranked documents. The number of answers returned can be configured by appending the pipe character '|' followed by the 'count-<number of answers>' option after the answers parameter value, such as 'extractive|count-3'. Default count is 1."
             }
           },
           {
@@ -333,12 +365,20 @@
             "required": false,
             "description": "A value that specifies whether any or all of the search terms must be matched in order to count the document as a match.",
             "schema": {
-              "type": "string",
-              "description": "Specifies whether any or all of the search terms must be matched in order to count the document as a match.",
-              "enum": [
-                "any",
-                "all"
-              ]
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Specifies whether any or all of the search terms must be matched in order to count the document as a match."
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "any",
+                    "all"
+                  ]
+                }
+              ],
+              "description": "A value that specifies whether any or all of the search terms must be matched in order to count the document as a match."
             }
           },
           {
@@ -347,12 +387,20 @@
             "required": false,
             "description": "A value that specifies whether we want to calculate scoring statistics (such as document frequency) globally for more consistent scoring, or locally, for lower latency.",
             "schema": {
-              "type": "string",
-              "description": "A value that specifies whether we want to calculate scoring statistics (such as document frequency) globally for more consistent scoring, or locally, for lower latency. The default is 'local'. Use 'global' to aggregate scoring statistics globally before scoring. Using global scoring statistics can increase latency of search queries.",
-              "enum": [
-                "local",
-                "global"
-              ]
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "A value that specifies whether we want to calculate scoring statistics (such as document frequency) globally for more consistent scoring, or locally, for lower latency. The default is 'local'. Use 'global' to aggregate scoring statistics globally before scoring. Using global scoring statistics can increase latency of search queries."
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "local",
+                    "global"
+                  ]
+                }
+              ],
+              "description": "A value that specifies whether we want to calculate scoring statistics (such as document frequency) globally for more consistent scoring, or locally, for lower latency."
             }
           },
           {
@@ -403,12 +451,20 @@
             "required": false,
             "description": "This parameter is only valid if the query type is 'semantic'. If set, the query returns captions extracted from key passages in the highest ranked documents. When Captions is set to 'extractive', highlighting is enabled by default, and can be configured by appending the pipe character '|' followed by the 'highlight-<true/false>' option, such as 'extractive|highlight-true'. Defaults to 'None'.",
             "schema": {
-              "type": "string",
-              "description": "This parameter is only valid if the query type is 'semantic'. If set, the query returns captions extracted from key passages in the highest ranked documents. When s is set to 'extractive', highlighting is enabled by default, and can be configured by appending the pipe character '|' followed by the 'highlight-<true/false>' option, such as 'extractive|highlight-true'. Defaults to 'None'.",
-              "enum": [
-                "none",
-                "extractive"
-              ]
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "This parameter is only valid if the query type is 'semantic'. If set, the query returns captions extracted from key passages in the highest ranked documents. When s is set to 'extractive', highlighting is enabled by default, and can be configured by appending the pipe character '|' followed by the 'highlight-<true/false>' option, such as 'extractive|highlight-true'. Defaults to 'None'."
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "none",
+                    "extractive"
+                  ]
+                }
+              ],
+              "description": "This parameter is only valid if the query type is 'semantic'. If set, the query returns captions extracted from key passages in the highest ranked documents. When Captions is set to 'extractive', highlighting is enabled by default, and can be configured by appending the pipe character '|' followed by the 'highlight-<true/false>' option, such as 'extractive|highlight-true'. Defaults to 'None'."
             }
           },
           {
@@ -537,13 +593,21 @@
             "required": false,
             "description": "Specifies the mode for Autocomplete. The default is 'oneTerm'. Use 'twoTerms' to get shingles and 'oneTermWithContext' to use the current context while producing auto-completed terms.",
             "schema": {
-              "type": "string",
-              "description": "Specifies the mode for Autocomplete. The default is 'oneTerm'. Use 'twoTerms' to get shingles and 'oneTermWithContext' to use the current context in producing autocomplete terms.",
-              "enum": [
-                "oneTerm",
-                "twoTerms",
-                "oneTermWithContext"
-              ]
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Specifies the mode for Autocomplete. The default is 'oneTerm'. Use 'twoTerms' to get shingles and 'oneTermWithContext' to use the current context in producing autocomplete terms."
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "oneTerm",
+                    "twoTerms",
+                    "oneTermWithContext"
+                  ]
+                }
+              ],
+              "description": "Specifies the mode for Autocomplete. The default is 'oneTerm'. Use 'twoTerms' to get shingles and 'oneTermWithContext' to use the current context while producing auto-completed terms."
             }
           },
           {
@@ -1558,130 +1622,179 @@
         ]
       },
       "QueryType": {
-        "type": "string",
-        "description": "Specifies the syntax of the search query. The default is 'simple'. Use 'full' if your query uses the Lucene query syntax and 'semantic' if query syntax is not needed.",
-        "enum": [
-          "simple",
-          "full",
-          "semantic"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Specifies the syntax of the search query. The default is 'simple'. Use 'full' if your query uses the Lucene query syntax and 'semantic' if query syntax is not needed."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "simple",
+              "full",
+              "semantic"
+            ]
+          }
         ]
       },
       "ScoringStatistics": {
-        "type": "string",
-        "description": "A value that specifies whether we want to calculate scoring statistics (such as document frequency) globally for more consistent scoring, or locally, for lower latency. The default is 'local'. Use 'global' to aggregate scoring statistics globally before scoring. Using global scoring statistics can increase latency of search queries.",
-        "enum": [
-          "local",
-          "global"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "A value that specifies whether we want to calculate scoring statistics (such as document frequency) globally for more consistent scoring, or locally, for lower latency. The default is 'local'. Use 'global' to aggregate scoring statistics globally before scoring. Using global scoring statistics can increase latency of search queries."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "local",
+              "global"
+            ]
+          }
         ]
       },
       "SearchMode": {
-        "type": "string",
-        "description": "Specifies whether any or all of the search terms must be matched in order to count the document as a match.",
-        "enum": [
-          "any",
-          "all"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Specifies whether any or all of the search terms must be matched in order to count the document as a match."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "any",
+              "all"
+            ]
+          }
         ]
       },
       "QueryLanguage": {
-        "type": "string",
-        "description": "The language of the query.",
-        "enum": [
-          "none",
-          "en-us",
-          "en-gb",
-          "en-in",
-          "en-ca",
-          "en-au",
-          "fr-fr",
-          "fr-ca",
-          "de-de",
-          "es-es",
-          "es-mx",
-          "zh-cn",
-          "zh-tw",
-          "pt-br",
-          "pt-pt",
-          "it-it",
-          "ja-jp",
-          "ko-kr",
-          "ru-ru",
-          "cs-cz",
-          "nl-be",
-          "nl-nl",
-          "hu-hu",
-          "pl-pl",
-          "sv-se",
-          "tr-tr",
-          "hi-in",
-          "ar-sa",
-          "ar-eg",
-          "ar-ma",
-          "ar-kw",
-          "ar-jo",
-          "da-dk",
-          "no-no",
-          "bg-bg",
-          "hr-hr",
-          "hr-ba",
-          "ms-my",
-          "ms-bn",
-          "sl-sl",
-          "ta-in",
-          "vi-vn",
-          "el-gr",
-          "ro-ro",
-          "is-is",
-          "id-id",
-          "th-th",
-          "lt-lt",
-          "uk-ua",
-          "lv-lv",
-          "et-ee",
-          "ca-es",
-          "fi-fi",
-          "sr-ba",
-          "sr-me",
-          "sr-rs",
-          "sk-sk",
-          "nb-no",
-          "hy-am",
-          "bn-in",
-          "eu-es",
-          "gl-es",
-          "gu-in",
-          "he-il",
-          "ga-ie",
-          "kn-in",
-          "ml-in",
-          "mr-in",
-          "fa-ae",
-          "pa-in",
-          "te-in",
-          "ur-pk"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "The language of the query."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "none",
+              "en-us",
+              "en-gb",
+              "en-in",
+              "en-ca",
+              "en-au",
+              "fr-fr",
+              "fr-ca",
+              "de-de",
+              "es-es",
+              "es-mx",
+              "zh-cn",
+              "zh-tw",
+              "pt-br",
+              "pt-pt",
+              "it-it",
+              "ja-jp",
+              "ko-kr",
+              "ru-ru",
+              "cs-cz",
+              "nl-be",
+              "nl-nl",
+              "hu-hu",
+              "pl-pl",
+              "sv-se",
+              "tr-tr",
+              "hi-in",
+              "ar-sa",
+              "ar-eg",
+              "ar-ma",
+              "ar-kw",
+              "ar-jo",
+              "da-dk",
+              "no-no",
+              "bg-bg",
+              "hr-hr",
+              "hr-ba",
+              "ms-my",
+              "ms-bn",
+              "sl-sl",
+              "ta-in",
+              "vi-vn",
+              "el-gr",
+              "ro-ro",
+              "is-is",
+              "id-id",
+              "th-th",
+              "lt-lt",
+              "uk-ua",
+              "lv-lv",
+              "et-ee",
+              "ca-es",
+              "fi-fi",
+              "sr-ba",
+              "sr-me",
+              "sr-rs",
+              "sk-sk",
+              "nb-no",
+              "hy-am",
+              "bn-in",
+              "eu-es",
+              "gl-es",
+              "gu-in",
+              "he-il",
+              "ga-ie",
+              "kn-in",
+              "ml-in",
+              "mr-in",
+              "fa-ae",
+              "pa-in",
+              "te-in",
+              "ur-pk"
+            ]
+          }
         ]
       },
       "QuerySpellerType": {
-        "type": "string",
-        "description": "Improve search recall by spell-correcting individual search query terms.",
-        "enum": [
-          "none",
-          "lexicon"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Improve search recall by spell-correcting individual search query terms."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "none",
+              "lexicon"
+            ]
+          }
         ]
       },
       "QueryAnswerType": {
-        "type": "string",
-        "description": "This parameter is only valid if the query type is 'semantic'. If set, the query returns answers extracted from key passages in the highest ranked documents. The number of answers returned can be configured by appending the pipe character '|' followed by the 'count-<number of answers>' option after the answers parameter value, such as 'extractive|count-3'. Default count is 1.",
-        "enum": [
-          "none",
-          "extractive"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "This parameter is only valid if the query type is 'semantic'. If set, the query returns answers extracted from key passages in the highest ranked documents. The number of answers returned can be configured by appending the pipe character '|' followed by the 'count-<number of answers>' option after the answers parameter value, such as 'extractive|count-3'. Default count is 1."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "none",
+              "extractive"
+            ]
+          }
         ]
       },
       "QueryCaptionType": {
-        "type": "string",
-        "description": "This parameter is only valid if the query type is 'semantic'. If set, the query returns captions extracted from key passages in the highest ranked documents. When s is set to 'extractive', highlighting is enabled by default, and can be configured by appending the pipe character '|' followed by the 'highlight-<true/false>' option, such as 'extractive|highlight-true'. Defaults to 'None'.",
-        "enum": [
-          "none",
-          "extractive"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "This parameter is only valid if the query type is 'semantic'. If set, the query returns captions extracted from key passages in the highest ranked documents. When s is set to 'extractive', highlighting is enabled by default, and can be configured by appending the pipe character '|' followed by the 'highlight-<true/false>' option, such as 'extractive|highlight-true'. Defaults to 'None'."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "none",
+              "extractive"
+            ]
+          }
         ]
       },
       "AutocompleteItem": {
@@ -1705,12 +1818,19 @@
         ]
       },
       "AutocompleteMode": {
-        "type": "string",
-        "description": "Specifies the mode for Autocomplete. The default is 'oneTerm'. Use 'twoTerms' to get shingles and 'oneTermWithContext' to use the current context in producing autocomplete terms.",
-        "enum": [
-          "oneTerm",
-          "twoTerms",
-          "oneTermWithContext"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Specifies the mode for Autocomplete. The default is 'oneTerm'. Use 'twoTerms' to get shingles and 'oneTermWithContext' to use the current context in producing autocomplete terms."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "oneTerm",
+              "twoTerms",
+              "oneTermWithContext"
+            ]
+          }
         ]
       },
       "IndexAction": {
@@ -1791,12 +1911,19 @@
         "description": "Captions are the most representative passages from the document relatively to the search query. They are often used as document summary. Captions are only returned for queries of type 'semantic'.."
       },
       "IndexActionType": {
-        "type": "string",
-        "enum": [
-          "upload",
-          "merge",
-          "mergeOrUpload",
-          "delete"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "upload",
+              "merge",
+              "mergeOrUpload",
+              "delete"
+            ]
+          }
         ]
       }
     }

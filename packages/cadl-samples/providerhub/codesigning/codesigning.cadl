@@ -48,19 +48,25 @@ model AccountNameParameter {
 }
 
 @doc("Current verification information.")
-enum VerificationStatus {
+@knownValues(VerificationStatusKV)
+model VerificationStatus is string {}
+enum VerificationStatusKV {
   Completed,
   InProgress,
   NotCompleted,
 }
 
 @doc("The rotation policy for the profile.")
-enum RotationPolicy {
+@knownValues(RotationPolicyKV)
+model RotationPolicy is string {}
+enum RotationPolicyKV {
   Monthly,
 }
 
 @doc("The type of the profile.")
-enum ProfileType {
+@knownValues(ProfileTypeKV)
+model ProfileType is string {}
+enum ProfileTypeKV {
   Test,
   Trial,
   PrivateTrust,
@@ -68,7 +74,9 @@ enum ProfileType {
 }
 
 @doc("The status of the current operation.")
-enum ProvisioningState {
+@knownValues(ProvisioningStateKV)
+model ProvisioningState is string {}
+enum ProvisioningStateKV {
   Succeeded,
   Failed,
   Canceled,

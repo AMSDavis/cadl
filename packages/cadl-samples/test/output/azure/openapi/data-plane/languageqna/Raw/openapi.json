@@ -950,12 +950,20 @@
         "description": "Knowledge base Import or Export format",
         "x-ms-parameter-location": "method",
         "schema": {
-          "type": "string",
-          "enum": [
-            "json",
-            "tsv",
-            "excel"
-          ]
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "json",
+                "tsv",
+                "excel"
+              ]
+            }
+          ],
+          "description": "Knowledge base Import or Export format"
         }
       },
       "AssetKindParameter": {
@@ -1296,15 +1304,22 @@
         "description": "Configurable settings of the Project"
       },
       "JobStatus": {
-        "type": "string",
-        "enum": [
-          "notStarted",
-          "running",
-          "succeeded",
-          "failed",
-          "cancelled",
-          "cancelling",
-          "partiallyCompleted"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "notStarted",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled",
+              "cancelling",
+              "partiallyCompleted"
+            ]
+          }
         ]
       },
       "ProjectDeployment": {
@@ -1356,11 +1371,18 @@
         ]
       },
       "UpdateOperationKind": {
-        "type": "string",
-        "enum": [
-          "add",
-          "delete",
-          "replace"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "add",
+              "delete",
+              "replace"
+            ]
+          }
         ]
       },
       "QnaRecord": {
@@ -1405,37 +1427,58 @@
         ]
       },
       "ErrorCode": {
-        "type": "string",
-        "enum": [
-          "InvalidRequest",
-          "InvalidArgument",
-          "Unauthorized",
-          "Forbidden",
-          "NotFound",
-          "ProjectNotFound",
-          "OperationNotFound",
-          "AzureCognitiveSearchNotFound",
-          "AzureCognitiveSearchIndexNotFound",
-          "TooManyRequests",
-          "AzureCognitiveSearchThrottling",
-          "AzureCognitiveSearchIndexLimitReached",
-          "InternalServerError",
-          "ServiceUnavailable"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "InvalidRequest",
+              "InvalidArgument",
+              "Unauthorized",
+              "Forbidden",
+              "NotFound",
+              "ProjectNotFound",
+              "OperationNotFound",
+              "AzureCognitiveSearchNotFound",
+              "AzureCognitiveSearchIndexNotFound",
+              "TooManyRequests",
+              "AzureCognitiveSearchThrottling",
+              "AzureCognitiveSearchIndexLimitReached",
+              "InternalServerError",
+              "ServiceUnavailable"
+            ]
+          }
         ]
       },
       "QnaSourceKind": {
-        "type": "string",
-        "description": "Supported source types.",
-        "enum": [
-          "file",
-          "url"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Supported source types."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "file",
+              "url"
+            ]
+          }
         ]
       },
       "SourceContentStructureKind": {
-        "type": "string",
-        "description": "Content structure type for sources.",
-        "enum": [
-          "unstructured"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Content structure type for sources."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "unstructured"
+            ]
+          }
         ]
       },
       "QnaDialog": {

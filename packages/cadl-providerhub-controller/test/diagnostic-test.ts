@@ -33,7 +33,9 @@ describe("Test identifier validation in service code emitter", async () => {
       }
 
       @doc("The status of the current operation.")
-      enum ProvisioningState {
+      @knownValues(ProvisioningStateKV)
+      model ProvisioningState is string {}
+      enum ProvisioningStateKV {
         Succeeded, Failed, Canceled, Provisioning, Updating, Deleting, Accepted
       }
       
@@ -45,7 +47,6 @@ describe("Test identifier validation in service code emitter", async () => {
       
     `);
     expectDiagnostics(result, [
-      { code: "@azure-tools/cadl-providerhub-controller/invalid-identifier" },
       { code: "@azure-tools/cadl-providerhub-controller/invalid-identifier" },
     ]);
   });
@@ -76,14 +77,22 @@ describe("Test identifier validation in service code emitter", async () => {
       }
 
       @doc("The status of the current operation.")
-      enum Provisioning$State {
+      @knownValues(ProvisioningStateKV)
+      model ProvisioningState is string {}
+      enum ProvisioningStateKV {
         Succeeded, Failed, Canceled, Provisioning, Updating, Deleting, Accepted
       }
+
+      @doc("Invalid enum.")
+      enum Invalid$Enum {one, two}
 
       @doc("The properties of foo")
       model FooProperties {
         @doc("The status of the last operation.")
-        provisioningState?: Provisioning$State;
+        provisioningState?: ProvisioningState;
+
+        @doc("Invalid enum prop")
+        invalidEnum: Invalid$Enum;
       }
       
     `);
@@ -118,7 +127,9 @@ describe("Test identifier validation in service code emitter", async () => {
       }
 
       @doc("The status of the current operation.")
-      enum ProvisioningState {
+      @knownValues(ProvisioningStateKV)
+      model ProvisioningState is string {}
+      enum ProvisioningStateKV {
         Succeeded, Failed, Canceled, Provisioning, Updating, Deleting, Accepted
       }
       
@@ -162,7 +173,9 @@ describe("Test identifier validation in service code emitter", async () => {
       }
 
       @doc("The status of the current operation.")
-      enum ProvisioningState {
+      @knownValues(ProvisioningStateKV)
+      model ProvisioningState is string {}
+      enum ProvisioningStateKV {
         Succeeded, Failed, Canceled, Provisioning, "Updating, Updated", Deleting, Accepted
       }
       

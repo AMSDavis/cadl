@@ -27,7 +27,9 @@ describe("test linter rules in decorator", () => {
         name: string
       }
       @doc("The status of the current operation.")
-      enum ProvisioningState {
+      @knownValues(ProvisioningStateKV)
+      model ProvisioningState is string {}
+      enum ProvisioningStateKV {
         Succeeded, Failed, Canceled, Provisioning, Updating, Deleting, Accepted
       } 
       model FooProperties {
@@ -69,7 +71,9 @@ describe("test linter rules in decorator", () => {
         name: string
       }
       @doc("The status of the current operation.")
-      enum ProvisioningState {
+      @knownValues(ProvisioningStateKV)
+      model ProvisioningState is string {}
+      enum ProvisioningStateKV {
         Succeeded, Failed, Canceled, Provisioning, Updating, Deleting, Accepted
       } 
       model PetProperties {

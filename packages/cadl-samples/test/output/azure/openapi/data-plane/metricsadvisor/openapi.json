@@ -2225,11 +2225,18 @@
         ]
       },
       "AnomalyAlertingConfigurationLogicType": {
-        "type": "string",
-        "enum": [
-          "AND",
-          "OR",
-          "XOR"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "AND",
+              "OR",
+              "XOR"
+            ]
+          }
         ]
       },
       "MetricAlertingConfiguration": {
@@ -2493,33 +2500,47 @@
         ]
       },
       "DataSourceType": {
-        "type": "string",
-        "enum": [
-          "AzureApplicationInsights",
-          "AzureBlob",
-          "AzureCosmosDB",
-          "AzureDataExplorer",
-          "AzureDataLakeStorageGen2",
-          "AzureEventHubs",
-          "AzureLogAnalytics",
-          "AzureTable",
-          "InfluxDB",
-          "MongoDB",
-          "MySql",
-          "PostgreSql",
-          "SqlServer"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "AzureApplicationInsights",
+              "AzureBlob",
+              "AzureCosmosDB",
+              "AzureDataExplorer",
+              "AzureDataLakeStorageGen2",
+              "AzureEventHubs",
+              "AzureLogAnalytics",
+              "AzureTable",
+              "InfluxDB",
+              "MongoDB",
+              "MySql",
+              "PostgreSql",
+              "SqlServer"
+            ]
+          }
         ]
       },
       "Granularity": {
-        "type": "string",
-        "enum": [
-          "Yearly",
-          "Monthly",
-          "Weekly",
-          "Daily",
-          "Hourly",
-          "Minutely",
-          "Custom"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Yearly",
+              "Monthly",
+              "Weekly",
+              "Daily",
+              "Hourly",
+              "Minutely",
+              "Custom"
+            ]
+          }
         ]
       },
       "Metric": {
@@ -2565,56 +2586,98 @@
         ]
       },
       "NeedRollupType": {
-        "type": "string",
-        "enum": [
-          "NoRollup",
-          "NeedRollup",
-          "AlreadyRollup"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "NoRollup",
+              "NeedRollup",
+              "AlreadyRollup"
+            ]
+          }
         ]
       },
       "RollUpMethod": {
-        "type": "string",
-        "enum": [
-          "None",
-          "Sum",
-          "Max",
-          "Min",
-          "Avg",
-          "Count"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "None",
+              "Sum",
+              "Max",
+              "Min",
+              "Avg",
+              "Count"
+            ]
+          }
         ]
       },
       "FillMissingPointType": {
-        "type": "string",
-        "enum": [
-          "SmartFilling",
-          "PreviousValue",
-          "CustomValue",
-          "NoFilling"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "SmartFilling",
+              "PreviousValue",
+              "CustomValue",
+              "NoFilling"
+            ]
+          }
         ]
       },
       "ViewMode": {
-        "type": "string",
-        "enum": [
-          "Private",
-          "Public"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Private",
+              "Public"
+            ]
+          }
         ]
       },
       "DataFeedStatus": {
-        "type": "string",
-        "enum": [
-          "Active",
-          "Paused"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Active",
+              "Paused"
+            ]
+          }
         ]
       },
       "AuthenticationType": {
-        "type": "string",
-        "enum": [
-          "Basic",
-          "ManagedIdentity",
-          "AzureSQLConnectionString",
-          "DataLakeGen2SharedKey",
-          "ServicePrincipal",
-          "ServicePrincipalInKV"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Basic",
+              "ManagedIdentity",
+              "AzureSQLConnectionString",
+              "DataLakeGen2SharedKey",
+              "ServicePrincipal",
+              "ServicePrincipalInKV"
+            ]
+          }
         ]
       },
       "Cadl.Rest.Resource.Page_DataFeedDetail": {
@@ -2836,10 +2899,17 @@
         ]
       },
       "HookType": {
-        "type": "string",
-        "enum": [
-          "Webhook",
-          "Email"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Webhook",
+              "Email"
+            ]
+          }
         ]
       },
       "Cadl.Rest.Resource.Page_HookInfo": {
@@ -3226,11 +3296,18 @@
         ]
       },
       "AnomalyScope": {
-        "type": "string",
-        "enum": [
-          "All",
-          "Dimension",
-          "TopN"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "All",
+              "Dimension",
+              "TopN"
+            ]
+          }
         ]
       },
       "DimensionGroupIdentity": {
@@ -3475,12 +3552,19 @@
         ]
       },
       "FeedbackType": {
-        "type": "string",
-        "enum": [
-          "Anomaly",
-          "ChangePoint",
-          "Period",
-          "Comment"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Anomaly",
+              "ChangePoint",
+              "Period",
+              "Comment"
+            ]
+          }
         ]
       },
       "FeedbackDimensionFilter": {
@@ -3499,10 +3583,17 @@
         ]
       },
       "FeedbackQueryTimeMode": {
-        "type": "string",
-        "enum": [
-          "MetricTimestamp",
-          "FeedbackCreatedTime"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "MetricTimestamp",
+              "FeedbackCreatedTime"
+            ]
+          }
         ]
       },
       "EmailHook": {
@@ -3843,82 +3934,138 @@
         }
       },
       "ErrorCode": {
-        "type": "string",
-        "enum": [
-          "InvalidRequest",
-          "InvalidArgument",
-          "Unauthorized",
-          "Forbidden",
-          "NotFound",
-          "ProjectNotFound",
-          "OperationNotFound",
-          "AzureCognitiveSearchNotFound",
-          "AzureCognitiveSearchIndexNotFound",
-          "TooManyRequests",
-          "AzureCognitiveSearchThrottling",
-          "AzureCognitiveSearchIndexLimitReached",
-          "InternalServerError",
-          "ServiceUnavailable"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "InvalidRequest",
+              "InvalidArgument",
+              "Unauthorized",
+              "Forbidden",
+              "NotFound",
+              "ProjectNotFound",
+              "OperationNotFound",
+              "AzureCognitiveSearchNotFound",
+              "AzureCognitiveSearchIndexNotFound",
+              "TooManyRequests",
+              "AzureCognitiveSearchThrottling",
+              "AzureCognitiveSearchIndexLimitReached",
+              "InternalServerError",
+              "ServiceUnavailable"
+            ]
+          }
         ]
       },
       "Severity": {
-        "type": "string",
-        "enum": [
-          "Low",
-          "Medium",
-          "High"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Low",
+              "Medium",
+              "High"
+            ]
+          }
         ]
       },
       "SnoozeScope": {
-        "type": "string",
-        "enum": [
-          "Metric",
-          "Series"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Metric",
+              "Series"
+            ]
+          }
         ]
       },
       "Direction": {
-        "type": "string",
-        "enum": [
-          "Both",
-          "Down",
-          "Up"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Both",
+              "Down",
+              "Up"
+            ]
+          }
         ]
       },
       "ValueType": {
-        "type": "string",
-        "enum": [
-          "Value",
-          "Mean"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Value",
+              "Mean"
+            ]
+          }
         ]
       },
       "IngestionStatusType": {
-        "type": "string",
-        "description": "latest ingestion task status for this data slice.",
-        "enum": [
-          "NotStarted",
-          "Scheduled",
-          "Running",
-          "Succeeded",
-          "Failed",
-          "NoData",
-          "Error",
-          "Paused"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "latest ingestion task status for this data slice."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "NotStarted",
+              "Scheduled",
+              "Running",
+              "Succeeded",
+              "Failed",
+              "NoData",
+              "Error",
+              "Paused"
+            ]
+          }
         ]
       },
       "AnomalyFeedbackValue": {
-        "type": "string",
-        "enum": [
-          "AutoDetect",
-          "Anomaly",
-          "NotAnomaly"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "AutoDetect",
+              "Anomaly",
+              "NotAnomaly"
+            ]
+          }
         ]
       },
       "ChangePointFeedbackValue": {
-        "type": "string",
-        "enum": [
-          "AutoDetect",
-          "ChangePoint",
-          "NotChangePoint"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "AutoDetect",
+              "ChangePoint",
+              "NotChangePoint"
+            ]
+          }
         ]
       },
       "SeverityFilterCondition": {
@@ -3984,25 +4131,46 @@
         }
       },
       "AnomalySeverity": {
-        "type": "string",
-        "enum": [
-          "Low",
-          "Medium",
-          "High"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Low",
+              "Medium",
+              "High"
+            ]
+          }
         ]
       },
       "AnomalyStatus": {
-        "type": "string",
-        "enum": [
-          "Active",
-          "Resolved"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Active",
+              "Resolved"
+            ]
+          }
         ]
       },
       "IncidentStatus": {
-        "type": "string",
-        "enum": [
-          "Active",
-          "Resolved"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Active",
+              "Resolved"
+            ]
+          }
         ]
       }
     }

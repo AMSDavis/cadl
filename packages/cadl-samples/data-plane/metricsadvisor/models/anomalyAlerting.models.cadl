@@ -30,13 +30,17 @@ model AnomalyAlertingConfiguration {
   metricAlertingConfigurations: MetricAlertingConfiguration[];
 }
 
-enum AnomalyAlertingConfigurationLogicType {
+@knownValues(AnomalyAlertingConfigurationLogicTypeKV)
+model AnomalyAlertingConfigurationLogicType is string {}
+enum AnomalyAlertingConfigurationLogicTypeKV {
   AND,
   OR,
   XOR,
 }
 
-enum AnomalyScope {
+@knownValues(AnomalyScopeKV)
+model AnomalyScope is string {}
+enum AnomalyScopeKV {
   All,
   Dimension,
   TopN,
@@ -75,7 +79,9 @@ model TopNGroupScope {
   minTopCount: int32;
 }
 
-enum Severity {
+@knownValues(SeverityKV)
+model Severity is string {}
+enum SeverityKV {
   Low,
   Medium,
   High,
@@ -89,7 +95,9 @@ model SeverityCondition {
   maxAlertSeverity: Severity;
 }
 
-enum SnoozeScope {
+@knownValues(SnoozeScopeKV)
+model SnoozeScope is string {}
+enum SnoozeScopeKV {
   Metric,
   Series,
 }
@@ -105,13 +113,17 @@ model AlertSnoozeCondition {
   onlyForSuccessive: boolean;
 }
 
-enum Direction {
+@knownValues(DirectionKV)
+model Direction is string {}
+enum DirectionKV {
   Both,
   Down,
   Up,
 }
 
-enum ValueType {
+@knownValues(ValueTypeKV)
+model ValueType is string {}
+enum ValueTypeKV {
   Value,
   Mean,
 }

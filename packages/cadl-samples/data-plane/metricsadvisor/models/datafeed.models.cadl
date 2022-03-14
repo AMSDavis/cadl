@@ -100,7 +100,9 @@ model DataFeedDetail {
   credentialId?: string;
 }
 
-enum AuthenticationType {
+@knownValues(AuthenticationTypeKV)
+model AuthenticationType is string {}
+enum AuthenticationTypeKV {
   Basic,
   ManagedIdentity,
   AzureSQLConnectionString,
@@ -109,12 +111,16 @@ enum AuthenticationType {
   ServicePrincipalInKV,
 }
 
-enum DataFeedStatus {
+@knownValues(DataFeedStatusKV)
+model DataFeedStatus is string {}
+enum DataFeedStatusKV {
   Active,
   Paused,
 }
 
-enum DataSourceType {
+@knownValues(DataSourceTypeKV)
+model DataSourceType is string {}
+enum DataSourceTypeKV {
   AzureApplicationInsights,
   AzureBlob,
   AzureCosmosDB,
@@ -130,7 +136,9 @@ enum DataSourceType {
   SqlServer,
 }
 
-enum Granularity {
+@knownValues(GranularityKV)
+model Granularity is string {}
+enum GranularityKV {
   Yearly,
   Monthly,
   Weekly,
@@ -140,13 +148,17 @@ enum Granularity {
   Custom,
 }
 
-enum NeedRollupType {
+@knownValues(NeedRollupTypeKV)
+model NeedRollupType is string {}
+enum NeedRollupTypeKV {
   NoRollup,
   NeedRollup,
   AlreadyRollup,
 }
 
-enum RollUpMethod {
+@knownValues(RollUpMethodKV)
+model RollUpMethod is string {}
+enum RollUpMethodKV {
   None,
   Sum,
   Max,
@@ -155,14 +167,18 @@ enum RollUpMethod {
   Count,
 }
 
-enum FillMissingPointType {
+@knownValues(FillMissingPointTypeKV)
+model FillMissingPointType is string {}
+enum FillMissingPointTypeKV {
   SmartFilling,
   PreviousValue,
   CustomValue,
   NoFilling,
 }
 
-enum ViewMode {
+@knownValues(ViewModeKV)
+model ViewMode is string {}
+enum ViewModeKV {
   Private,
   Public,
 }

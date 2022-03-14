@@ -9,6 +9,7 @@ import {
   getFormat,
   getFriendlyName,
   getIntrinsicModelName,
+  getKnownValues,
   getMaxLength,
   getMaxValue,
   getMinLength,
@@ -1405,6 +1406,16 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
       newTarget["x-ms-secret"] = true;
     }
 
+    if (isString) {
+      const values = getKnownValues(program, cadlType);
+      if (values) {
+        const enumSchema = { ...newTarget, ...getSchemaForEnum(values) };
+        enumSchema["x-ms-enum"].modelAsString = true;
+        enumSchema["x-ms-enum"].name = (getPropertyType(cadlType) as ModelType).name;
+        return enumSchema;
+      }
+    }
+
     return newTarget;
   }
 
@@ -1426,7 +1437,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     } else if (type.kind === "Enum") {
       schema["x-ms-enum"] = {
         name: type.name,
-        modelAsString: true,
+        modelAsString: false,
       };
 
       const values = [];

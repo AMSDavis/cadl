@@ -570,12 +570,20 @@
         "required": false,
         "description": "Specifies the method used to interpret string offsets.\n\nDefaults to grapheme clusters according to Unicode v8.0.0.\nFor additional information see https://aka.ms/text-analytics-offsets",
         "schema": {
-          "type": "string",
-          "enum": [
-            "TextElement_v8",
-            "UnicodeCodePoint",
-            "Utf16CodeUnit"
-          ]
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "TextElement_v8",
+                "UnicodeCodePoint",
+                "Utf16CodeUnit"
+              ]
+            }
+          ],
+          "description": "Specifies the method used to interpret string offsets.\n\nDefaults to grapheme clusters according to Unicode v8.0.0.\nFor additional information see https://aka.ms/text-analytics-offsets"
         }
       },
       "ShowStatsParameter": {
@@ -640,181 +648,188 @@
         "schema": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "ABARoutingNumber",
-              "ARNationalIdentityNumber",
-              "AUBankAccountNumber",
-              "AUDriversLicenseNumber",
-              "AUMedicalAccountNumber",
-              "AUPassportNumber",
-              "AUTaxFileNumber",
-              "AUBusinessNumber",
-              "AUCompanyNumber",
-              "ATIdentityCard",
-              "ATTaxIdentificationNumber",
-              "ATValueAddedTaxNumber",
-              "AzureDocumentDBAuthKey",
-              "AzureIAASDatabaseConnectionAndSQLString",
-              "AzureIoTConnectionString",
-              "AzurePublishSettingPassword",
-              "AzureRedisCacheString",
-              "AzureSAS",
-              "AzureServiceBusString",
-              "AzureStorageAccountKey",
-              "AzureStorageAccountGeneric",
-              "BENationalNumber",
-              "BENationalNumberV2",
-              "BEValueAddedTaxNumber",
-              "BRCPFNumber",
-              "BRLegalEntityNumber",
-              "BRNationalIDRG",
-              "BGUniformCivilNumber",
-              "CABankAccountNumber",
-              "CADriversLicenseNumber",
-              "CAHealthServiceNumber",
-              "CAPassportNumber",
-              "CAPersonalHealthIdentification",
-              "CASocialInsuranceNumber",
-              "CLIdentityCardNumber",
-              "CNResidentIdentityCardNumber",
-              "CreditCardNumber",
-              "HRIdentityCardNumber",
-              "HRNationalIDNumber",
-              "HRPersonalIdentificationNumber",
-              "HRPersonalIdentificationOIBNumberV2",
-              "CYIdentityCard",
-              "CYTaxIdentificationNumber",
-              "CZPersonalIdentityNumber",
-              "CZPersonalIdentityV2",
-              "DKPersonalIdentificationNumber",
-              "DKPersonalIdentificationV2",
-              "DrugEnforcementAgencyNumber",
-              "EEPersonalIdentificationCode",
-              "EUDebitCardNumber",
-              "EUDriversLicenseNumber",
-              "EUGPSCoordinates",
-              "EUNationalIdentificationNumber",
-              "EUPassportNumber",
-              "EUSocialSecurityNumber",
-              "EUTaxIdentificationNumber",
-              "FIEuropeanHealthNumber",
-              "FINationalID",
-              "FINationalIDV2",
-              "FIPassportNumber",
-              "FRDriversLicenseNumber",
-              "FRHealthInsuranceNumber",
-              "FRNationalID",
-              "FRPassportNumber",
-              "FRSocialSecurityNumber",
-              "FRTaxIdentificationNumber",
-              "FRValueAddedTaxNumber",
-              "DEDriversLicenseNumber",
-              "DEPassportNumber",
-              "DEIdentityCardNumber",
-              "DETaxIdentificationNumber",
-              "DEValueAddedNumber",
-              "GRNationalIDCard",
-              "GRNationalIDV2",
-              "GRTaxIdentificationNumber",
-              "HKIdentityCardNumber",
-              "HUValueAddedNumber",
-              "HUPersonalIdentificationNumber",
-              "HUTaxIdentificationNumber",
-              "INPermanentAccount",
-              "INUniqueIdentificationNumber",
-              "IDIdentityCardNumber",
-              "InternationalBankingAccountNumber",
-              "IEPersonalPublicServiceNumber",
-              "IEPersonalPublicServiceNumberV2",
-              "ILBankAccountNumber",
-              "ILNationalID",
-              "ITDriversLicenseNumber",
-              "ITFiscalCode",
-              "ITValueAddedTaxNumber",
-              "JPBankAccountNumber",
-              "JPDriversLicenseNumber",
-              "JPPassportNumber",
-              "JPResidentRegistrationNumber",
-              "JPSocialInsuranceNumber",
-              "JPMyNumberCorporate",
-              "JPMyNumberPersonal",
-              "JPResidenceCardNumber",
-              "LVPersonalCode",
-              "LTPersonalCode",
-              "LUNationalIdentificationNumberNatural",
-              "LUNationalIdentificationNumberNonNatural",
-              "MYIdentityCardNumber",
-              "MTIdentityCardNumber",
-              "MTTaxIDNumber",
-              "NLCitizensServiceNumber",
-              "NLCitizensServiceNumberV2",
-              "NLTaxIdentificationNumber",
-              "NLValueAddedTaxNumber",
-              "NZBankAccountNumber",
-              "NZDriversLicenseNumber",
-              "NZInlandRevenueNumber",
-              "NZMinistryOfHealthNumber",
-              "NZSocialWelfareNumber",
-              "NOIdentityNumber",
-              "PHUnifiedMultiPurposeIDNumber",
-              "PLIdentityCard",
-              "PLNationalID",
-              "PLNationalIDV2",
-              "PLPassportNumber",
-              "PLTaxIdentificationNumber",
-              "PLREGONNumber",
-              "PTCitizenCardNumber",
-              "PTCitizenCardNumberV2",
-              "PTTaxIdentificationNumber",
-              "ROPersonalNumericalCode",
-              "RUPassportNumberDomestic",
-              "RUPassportNumberInternational",
-              "SANationalID",
-              "SGNationalRegistrationIdentityCardNumber",
-              "SKPersonalNumber",
-              "SITaxIdentificationNumber",
-              "SIUniqueMasterCitizenNumber",
-              "ZAIdentificationNumber",
-              "KRResidentRegistrationNumber",
-              "ESDNI",
-              "ESSocialSecurityNumber",
-              "ESTaxIdentificationNumber",
-              "SQLServerConnectionString",
-              "SENationalID",
-              "SENationalIDV2",
-              "SEPassportNumber",
-              "SETaxIdentificationNumber",
-              "SWIFTCode",
-              "CHSocialSecurityNumber",
-              "TWNationalID",
-              "TWPassportNumber",
-              "TWResidentCertificate",
-              "THPopulationIdentificationCode",
-              "TRNationalIdentificationNumber",
-              "UKDriversLicenseNumber",
-              "UKElectoralRollNumber",
-              "UKNationalHealthNumber",
-              "UKNationalInsuranceNumber",
-              "UKUniqueTaxpayerNumber",
-              "USUKPassportNumber",
-              "USBankAccountNumber",
-              "USDriversLicenseNumber",
-              "USIndividualTaxpayerIdentification",
-              "USSocialSecurityNumber",
-              "UAPassportNumberDomestic",
-              "UAPassportNumberInternational",
-              "Organization",
-              "Email",
-              "URL",
-              "Age",
-              "PhoneNumber",
-              "IPAddress",
-              "Date",
-              "Person",
-              "Address",
-              "All",
-              "Default"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "ABARoutingNumber",
+                  "ARNationalIdentityNumber",
+                  "AUBankAccountNumber",
+                  "AUDriversLicenseNumber",
+                  "AUMedicalAccountNumber",
+                  "AUPassportNumber",
+                  "AUTaxFileNumber",
+                  "AUBusinessNumber",
+                  "AUCompanyNumber",
+                  "ATIdentityCard",
+                  "ATTaxIdentificationNumber",
+                  "ATValueAddedTaxNumber",
+                  "AzureDocumentDBAuthKey",
+                  "AzureIAASDatabaseConnectionAndSQLString",
+                  "AzureIoTConnectionString",
+                  "AzurePublishSettingPassword",
+                  "AzureRedisCacheString",
+                  "AzureSAS",
+                  "AzureServiceBusString",
+                  "AzureStorageAccountKey",
+                  "AzureStorageAccountGeneric",
+                  "BENationalNumber",
+                  "BENationalNumberV2",
+                  "BEValueAddedTaxNumber",
+                  "BRCPFNumber",
+                  "BRLegalEntityNumber",
+                  "BRNationalIDRG",
+                  "BGUniformCivilNumber",
+                  "CABankAccountNumber",
+                  "CADriversLicenseNumber",
+                  "CAHealthServiceNumber",
+                  "CAPassportNumber",
+                  "CAPersonalHealthIdentification",
+                  "CASocialInsuranceNumber",
+                  "CLIdentityCardNumber",
+                  "CNResidentIdentityCardNumber",
+                  "CreditCardNumber",
+                  "HRIdentityCardNumber",
+                  "HRNationalIDNumber",
+                  "HRPersonalIdentificationNumber",
+                  "HRPersonalIdentificationOIBNumberV2",
+                  "CYIdentityCard",
+                  "CYTaxIdentificationNumber",
+                  "CZPersonalIdentityNumber",
+                  "CZPersonalIdentityV2",
+                  "DKPersonalIdentificationNumber",
+                  "DKPersonalIdentificationV2",
+                  "DrugEnforcementAgencyNumber",
+                  "EEPersonalIdentificationCode",
+                  "EUDebitCardNumber",
+                  "EUDriversLicenseNumber",
+                  "EUGPSCoordinates",
+                  "EUNationalIdentificationNumber",
+                  "EUPassportNumber",
+                  "EUSocialSecurityNumber",
+                  "EUTaxIdentificationNumber",
+                  "FIEuropeanHealthNumber",
+                  "FINationalID",
+                  "FINationalIDV2",
+                  "FIPassportNumber",
+                  "FRDriversLicenseNumber",
+                  "FRHealthInsuranceNumber",
+                  "FRNationalID",
+                  "FRPassportNumber",
+                  "FRSocialSecurityNumber",
+                  "FRTaxIdentificationNumber",
+                  "FRValueAddedTaxNumber",
+                  "DEDriversLicenseNumber",
+                  "DEPassportNumber",
+                  "DEIdentityCardNumber",
+                  "DETaxIdentificationNumber",
+                  "DEValueAddedNumber",
+                  "GRNationalIDCard",
+                  "GRNationalIDV2",
+                  "GRTaxIdentificationNumber",
+                  "HKIdentityCardNumber",
+                  "HUValueAddedNumber",
+                  "HUPersonalIdentificationNumber",
+                  "HUTaxIdentificationNumber",
+                  "INPermanentAccount",
+                  "INUniqueIdentificationNumber",
+                  "IDIdentityCardNumber",
+                  "InternationalBankingAccountNumber",
+                  "IEPersonalPublicServiceNumber",
+                  "IEPersonalPublicServiceNumberV2",
+                  "ILBankAccountNumber",
+                  "ILNationalID",
+                  "ITDriversLicenseNumber",
+                  "ITFiscalCode",
+                  "ITValueAddedTaxNumber",
+                  "JPBankAccountNumber",
+                  "JPDriversLicenseNumber",
+                  "JPPassportNumber",
+                  "JPResidentRegistrationNumber",
+                  "JPSocialInsuranceNumber",
+                  "JPMyNumberCorporate",
+                  "JPMyNumberPersonal",
+                  "JPResidenceCardNumber",
+                  "LVPersonalCode",
+                  "LTPersonalCode",
+                  "LUNationalIdentificationNumberNatural",
+                  "LUNationalIdentificationNumberNonNatural",
+                  "MYIdentityCardNumber",
+                  "MTIdentityCardNumber",
+                  "MTTaxIDNumber",
+                  "NLCitizensServiceNumber",
+                  "NLCitizensServiceNumberV2",
+                  "NLTaxIdentificationNumber",
+                  "NLValueAddedTaxNumber",
+                  "NZBankAccountNumber",
+                  "NZDriversLicenseNumber",
+                  "NZInlandRevenueNumber",
+                  "NZMinistryOfHealthNumber",
+                  "NZSocialWelfareNumber",
+                  "NOIdentityNumber",
+                  "PHUnifiedMultiPurposeIDNumber",
+                  "PLIdentityCard",
+                  "PLNationalID",
+                  "PLNationalIDV2",
+                  "PLPassportNumber",
+                  "PLTaxIdentificationNumber",
+                  "PLREGONNumber",
+                  "PTCitizenCardNumber",
+                  "PTCitizenCardNumberV2",
+                  "PTTaxIdentificationNumber",
+                  "ROPersonalNumericalCode",
+                  "RUPassportNumberDomestic",
+                  "RUPassportNumberInternational",
+                  "SANationalID",
+                  "SGNationalRegistrationIdentityCardNumber",
+                  "SKPersonalNumber",
+                  "SITaxIdentificationNumber",
+                  "SIUniqueMasterCitizenNumber",
+                  "ZAIdentificationNumber",
+                  "KRResidentRegistrationNumber",
+                  "ESDNI",
+                  "ESSocialSecurityNumber",
+                  "ESTaxIdentificationNumber",
+                  "SQLServerConnectionString",
+                  "SENationalID",
+                  "SENationalIDV2",
+                  "SEPassportNumber",
+                  "SETaxIdentificationNumber",
+                  "SWIFTCode",
+                  "CHSocialSecurityNumber",
+                  "TWNationalID",
+                  "TWPassportNumber",
+                  "TWResidentCertificate",
+                  "THPopulationIdentificationCode",
+                  "TRNationalIdentificationNumber",
+                  "UKDriversLicenseNumber",
+                  "UKElectoralRollNumber",
+                  "UKNationalHealthNumber",
+                  "UKNationalInsuranceNumber",
+                  "UKUniqueTaxpayerNumber",
+                  "USUKPassportNumber",
+                  "USBankAccountNumber",
+                  "USDriversLicenseNumber",
+                  "USIndividualTaxpayerIdentification",
+                  "USSocialSecurityNumber",
+                  "UAPassportNumberDomestic",
+                  "UAPassportNumberInternational",
+                  "Organization",
+                  "Email",
+                  "URL",
+                  "Age",
+                  "PhoneNumber",
+                  "IPAddress",
+                  "Date",
+                  "Person",
+                  "Address",
+                  "All",
+                  "Default"
+                ]
+              }
             ]
           }
         }
@@ -994,181 +1009,188 @@
         ]
       },
       "PiiCategory": {
-        "type": "string",
-        "enum": [
-          "ABARoutingNumber",
-          "ARNationalIdentityNumber",
-          "AUBankAccountNumber",
-          "AUDriversLicenseNumber",
-          "AUMedicalAccountNumber",
-          "AUPassportNumber",
-          "AUTaxFileNumber",
-          "AUBusinessNumber",
-          "AUCompanyNumber",
-          "ATIdentityCard",
-          "ATTaxIdentificationNumber",
-          "ATValueAddedTaxNumber",
-          "AzureDocumentDBAuthKey",
-          "AzureIAASDatabaseConnectionAndSQLString",
-          "AzureIoTConnectionString",
-          "AzurePublishSettingPassword",
-          "AzureRedisCacheString",
-          "AzureSAS",
-          "AzureServiceBusString",
-          "AzureStorageAccountKey",
-          "AzureStorageAccountGeneric",
-          "BENationalNumber",
-          "BENationalNumberV2",
-          "BEValueAddedTaxNumber",
-          "BRCPFNumber",
-          "BRLegalEntityNumber",
-          "BRNationalIDRG",
-          "BGUniformCivilNumber",
-          "CABankAccountNumber",
-          "CADriversLicenseNumber",
-          "CAHealthServiceNumber",
-          "CAPassportNumber",
-          "CAPersonalHealthIdentification",
-          "CASocialInsuranceNumber",
-          "CLIdentityCardNumber",
-          "CNResidentIdentityCardNumber",
-          "CreditCardNumber",
-          "HRIdentityCardNumber",
-          "HRNationalIDNumber",
-          "HRPersonalIdentificationNumber",
-          "HRPersonalIdentificationOIBNumberV2",
-          "CYIdentityCard",
-          "CYTaxIdentificationNumber",
-          "CZPersonalIdentityNumber",
-          "CZPersonalIdentityV2",
-          "DKPersonalIdentificationNumber",
-          "DKPersonalIdentificationV2",
-          "DrugEnforcementAgencyNumber",
-          "EEPersonalIdentificationCode",
-          "EUDebitCardNumber",
-          "EUDriversLicenseNumber",
-          "EUGPSCoordinates",
-          "EUNationalIdentificationNumber",
-          "EUPassportNumber",
-          "EUSocialSecurityNumber",
-          "EUTaxIdentificationNumber",
-          "FIEuropeanHealthNumber",
-          "FINationalID",
-          "FINationalIDV2",
-          "FIPassportNumber",
-          "FRDriversLicenseNumber",
-          "FRHealthInsuranceNumber",
-          "FRNationalID",
-          "FRPassportNumber",
-          "FRSocialSecurityNumber",
-          "FRTaxIdentificationNumber",
-          "FRValueAddedTaxNumber",
-          "DEDriversLicenseNumber",
-          "DEPassportNumber",
-          "DEIdentityCardNumber",
-          "DETaxIdentificationNumber",
-          "DEValueAddedNumber",
-          "GRNationalIDCard",
-          "GRNationalIDV2",
-          "GRTaxIdentificationNumber",
-          "HKIdentityCardNumber",
-          "HUValueAddedNumber",
-          "HUPersonalIdentificationNumber",
-          "HUTaxIdentificationNumber",
-          "INPermanentAccount",
-          "INUniqueIdentificationNumber",
-          "IDIdentityCardNumber",
-          "InternationalBankingAccountNumber",
-          "IEPersonalPublicServiceNumber",
-          "IEPersonalPublicServiceNumberV2",
-          "ILBankAccountNumber",
-          "ILNationalID",
-          "ITDriversLicenseNumber",
-          "ITFiscalCode",
-          "ITValueAddedTaxNumber",
-          "JPBankAccountNumber",
-          "JPDriversLicenseNumber",
-          "JPPassportNumber",
-          "JPResidentRegistrationNumber",
-          "JPSocialInsuranceNumber",
-          "JPMyNumberCorporate",
-          "JPMyNumberPersonal",
-          "JPResidenceCardNumber",
-          "LVPersonalCode",
-          "LTPersonalCode",
-          "LUNationalIdentificationNumberNatural",
-          "LUNationalIdentificationNumberNonNatural",
-          "MYIdentityCardNumber",
-          "MTIdentityCardNumber",
-          "MTTaxIDNumber",
-          "NLCitizensServiceNumber",
-          "NLCitizensServiceNumberV2",
-          "NLTaxIdentificationNumber",
-          "NLValueAddedTaxNumber",
-          "NZBankAccountNumber",
-          "NZDriversLicenseNumber",
-          "NZInlandRevenueNumber",
-          "NZMinistryOfHealthNumber",
-          "NZSocialWelfareNumber",
-          "NOIdentityNumber",
-          "PHUnifiedMultiPurposeIDNumber",
-          "PLIdentityCard",
-          "PLNationalID",
-          "PLNationalIDV2",
-          "PLPassportNumber",
-          "PLTaxIdentificationNumber",
-          "PLREGONNumber",
-          "PTCitizenCardNumber",
-          "PTCitizenCardNumberV2",
-          "PTTaxIdentificationNumber",
-          "ROPersonalNumericalCode",
-          "RUPassportNumberDomestic",
-          "RUPassportNumberInternational",
-          "SANationalID",
-          "SGNationalRegistrationIdentityCardNumber",
-          "SKPersonalNumber",
-          "SITaxIdentificationNumber",
-          "SIUniqueMasterCitizenNumber",
-          "ZAIdentificationNumber",
-          "KRResidentRegistrationNumber",
-          "ESDNI",
-          "ESSocialSecurityNumber",
-          "ESTaxIdentificationNumber",
-          "SQLServerConnectionString",
-          "SENationalID",
-          "SENationalIDV2",
-          "SEPassportNumber",
-          "SETaxIdentificationNumber",
-          "SWIFTCode",
-          "CHSocialSecurityNumber",
-          "TWNationalID",
-          "TWPassportNumber",
-          "TWResidentCertificate",
-          "THPopulationIdentificationCode",
-          "TRNationalIdentificationNumber",
-          "UKDriversLicenseNumber",
-          "UKElectoralRollNumber",
-          "UKNationalHealthNumber",
-          "UKNationalInsuranceNumber",
-          "UKUniqueTaxpayerNumber",
-          "USUKPassportNumber",
-          "USBankAccountNumber",
-          "USDriversLicenseNumber",
-          "USIndividualTaxpayerIdentification",
-          "USSocialSecurityNumber",
-          "UAPassportNumberDomestic",
-          "UAPassportNumberInternational",
-          "Organization",
-          "Email",
-          "URL",
-          "Age",
-          "PhoneNumber",
-          "IPAddress",
-          "Date",
-          "Person",
-          "Address",
-          "All",
-          "Default"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "ABARoutingNumber",
+              "ARNationalIdentityNumber",
+              "AUBankAccountNumber",
+              "AUDriversLicenseNumber",
+              "AUMedicalAccountNumber",
+              "AUPassportNumber",
+              "AUTaxFileNumber",
+              "AUBusinessNumber",
+              "AUCompanyNumber",
+              "ATIdentityCard",
+              "ATTaxIdentificationNumber",
+              "ATValueAddedTaxNumber",
+              "AzureDocumentDBAuthKey",
+              "AzureIAASDatabaseConnectionAndSQLString",
+              "AzureIoTConnectionString",
+              "AzurePublishSettingPassword",
+              "AzureRedisCacheString",
+              "AzureSAS",
+              "AzureServiceBusString",
+              "AzureStorageAccountKey",
+              "AzureStorageAccountGeneric",
+              "BENationalNumber",
+              "BENationalNumberV2",
+              "BEValueAddedTaxNumber",
+              "BRCPFNumber",
+              "BRLegalEntityNumber",
+              "BRNationalIDRG",
+              "BGUniformCivilNumber",
+              "CABankAccountNumber",
+              "CADriversLicenseNumber",
+              "CAHealthServiceNumber",
+              "CAPassportNumber",
+              "CAPersonalHealthIdentification",
+              "CASocialInsuranceNumber",
+              "CLIdentityCardNumber",
+              "CNResidentIdentityCardNumber",
+              "CreditCardNumber",
+              "HRIdentityCardNumber",
+              "HRNationalIDNumber",
+              "HRPersonalIdentificationNumber",
+              "HRPersonalIdentificationOIBNumberV2",
+              "CYIdentityCard",
+              "CYTaxIdentificationNumber",
+              "CZPersonalIdentityNumber",
+              "CZPersonalIdentityV2",
+              "DKPersonalIdentificationNumber",
+              "DKPersonalIdentificationV2",
+              "DrugEnforcementAgencyNumber",
+              "EEPersonalIdentificationCode",
+              "EUDebitCardNumber",
+              "EUDriversLicenseNumber",
+              "EUGPSCoordinates",
+              "EUNationalIdentificationNumber",
+              "EUPassportNumber",
+              "EUSocialSecurityNumber",
+              "EUTaxIdentificationNumber",
+              "FIEuropeanHealthNumber",
+              "FINationalID",
+              "FINationalIDV2",
+              "FIPassportNumber",
+              "FRDriversLicenseNumber",
+              "FRHealthInsuranceNumber",
+              "FRNationalID",
+              "FRPassportNumber",
+              "FRSocialSecurityNumber",
+              "FRTaxIdentificationNumber",
+              "FRValueAddedTaxNumber",
+              "DEDriversLicenseNumber",
+              "DEPassportNumber",
+              "DEIdentityCardNumber",
+              "DETaxIdentificationNumber",
+              "DEValueAddedNumber",
+              "GRNationalIDCard",
+              "GRNationalIDV2",
+              "GRTaxIdentificationNumber",
+              "HKIdentityCardNumber",
+              "HUValueAddedNumber",
+              "HUPersonalIdentificationNumber",
+              "HUTaxIdentificationNumber",
+              "INPermanentAccount",
+              "INUniqueIdentificationNumber",
+              "IDIdentityCardNumber",
+              "InternationalBankingAccountNumber",
+              "IEPersonalPublicServiceNumber",
+              "IEPersonalPublicServiceNumberV2",
+              "ILBankAccountNumber",
+              "ILNationalID",
+              "ITDriversLicenseNumber",
+              "ITFiscalCode",
+              "ITValueAddedTaxNumber",
+              "JPBankAccountNumber",
+              "JPDriversLicenseNumber",
+              "JPPassportNumber",
+              "JPResidentRegistrationNumber",
+              "JPSocialInsuranceNumber",
+              "JPMyNumberCorporate",
+              "JPMyNumberPersonal",
+              "JPResidenceCardNumber",
+              "LVPersonalCode",
+              "LTPersonalCode",
+              "LUNationalIdentificationNumberNatural",
+              "LUNationalIdentificationNumberNonNatural",
+              "MYIdentityCardNumber",
+              "MTIdentityCardNumber",
+              "MTTaxIDNumber",
+              "NLCitizensServiceNumber",
+              "NLCitizensServiceNumberV2",
+              "NLTaxIdentificationNumber",
+              "NLValueAddedTaxNumber",
+              "NZBankAccountNumber",
+              "NZDriversLicenseNumber",
+              "NZInlandRevenueNumber",
+              "NZMinistryOfHealthNumber",
+              "NZSocialWelfareNumber",
+              "NOIdentityNumber",
+              "PHUnifiedMultiPurposeIDNumber",
+              "PLIdentityCard",
+              "PLNationalID",
+              "PLNationalIDV2",
+              "PLPassportNumber",
+              "PLTaxIdentificationNumber",
+              "PLREGONNumber",
+              "PTCitizenCardNumber",
+              "PTCitizenCardNumberV2",
+              "PTTaxIdentificationNumber",
+              "ROPersonalNumericalCode",
+              "RUPassportNumberDomestic",
+              "RUPassportNumberInternational",
+              "SANationalID",
+              "SGNationalRegistrationIdentityCardNumber",
+              "SKPersonalNumber",
+              "SITaxIdentificationNumber",
+              "SIUniqueMasterCitizenNumber",
+              "ZAIdentificationNumber",
+              "KRResidentRegistrationNumber",
+              "ESDNI",
+              "ESSocialSecurityNumber",
+              "ESTaxIdentificationNumber",
+              "SQLServerConnectionString",
+              "SENationalID",
+              "SENationalIDV2",
+              "SEPassportNumber",
+              "SETaxIdentificationNumber",
+              "SWIFTCode",
+              "CHSocialSecurityNumber",
+              "TWNationalID",
+              "TWPassportNumber",
+              "TWResidentCertificate",
+              "THPopulationIdentificationCode",
+              "TRNationalIdentificationNumber",
+              "UKDriversLicenseNumber",
+              "UKElectoralRollNumber",
+              "UKNationalHealthNumber",
+              "UKNationalInsuranceNumber",
+              "UKUniqueTaxpayerNumber",
+              "USUKPassportNumber",
+              "USBankAccountNumber",
+              "USDriversLicenseNumber",
+              "USIndividualTaxpayerIdentification",
+              "USSocialSecurityNumber",
+              "UAPassportNumberDomestic",
+              "UAPassportNumberInternational",
+              "Organization",
+              "Email",
+              "URL",
+              "Age",
+              "PhoneNumber",
+              "IPAddress",
+              "Date",
+              "Person",
+              "Address",
+              "All",
+              "Default"
+            ]
+          }
         ]
       },
       "PiiResult": {
@@ -2173,13 +2195,20 @@
         ]
       },
       "ErrorCode": {
-        "type": "string",
-        "enum": [
-          "InvalidRequest",
-          "InvalidArgument",
-          "InternalServerError",
-          "ServiceUnavailable",
-          "NotFound"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "InvalidRequest",
+              "InvalidArgument",
+              "InternalServerError",
+              "ServiceUnavailable",
+              "NotFound"
+            ]
+          }
         ]
       },
       "InnerError": {
@@ -2307,15 +2336,22 @@
         ]
       },
       "State": {
-        "type": "string",
-        "enum": [
-          "notStarted",
-          "running",
-          "succeeded",
-          "failed",
-          "cancelled",
-          "cancelling",
-          "rejected"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "notStarted",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled",
+              "cancelling",
+              "rejected"
+            ]
+          }
         ]
       },
       "DetectedLanguage": {
@@ -2342,12 +2378,19 @@
         ]
       },
       "DocumentSentimentValue": {
-        "type": "string",
-        "enum": [
-          "positive",
-          "neutral",
-          "negative",
-          "mixed"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "positive",
+              "neutral",
+              "negative",
+              "mixed"
+            ]
+          }
         ]
       },
       "SentenceSentiment": {
@@ -2415,11 +2458,18 @@
         ]
       },
       "StringIndexType": {
-        "type": "string",
-        "enum": [
-          "TextElement_v8",
-          "UnicodeCodePoint",
-          "Utf16CodeUnit"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "TextElement_v8",
+              "UnicodeCodePoint",
+              "Utf16CodeUnit"
+            ]
+          }
         ]
       },
       "TaskState": {
@@ -2443,24 +2493,38 @@
         ]
       },
       "WarningCode": {
-        "type": "string",
-        "enum": [
-          "LongWordsInDocument",
-          "DocumentTruncated"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "LongWordsInDocument",
+              "DocumentTruncated"
+            ]
+          }
         ]
       },
       "InnerErrorCode": {
-        "type": "string",
-        "enum": [
-          "InvalidParameterValue",
-          "InvalidRequestBodyFormat",
-          "EmptyRequest",
-          "MissingInputRecords",
-          "InvalidDocument",
-          "ModelVersionIncorrect",
-          "InvalidDocumentBatch",
-          "UnsupportedLanguageCode",
-          "InvalidCountryHint"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "InvalidParameterValue",
+              "InvalidRequestBodyFormat",
+              "EmptyRequest",
+              "MissingInputRecords",
+              "InvalidDocument",
+              "ModelVersionIncorrect",
+              "InvalidDocumentBatch",
+              "UnsupportedLanguageCode",
+              "InvalidCountryHint"
+            ]
+          }
         ]
       },
       "Match": {
@@ -2571,11 +2635,18 @@
         ]
       },
       "SentenceSentimentValue": {
-        "type": "string",
-        "enum": [
-          "positive",
-          "neutral",
-          "negative"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "positive",
+              "neutral",
+              "negative"
+            ]
+          }
         ]
       },
       "SentenceTarget": {
@@ -2622,34 +2693,41 @@
         ]
       },
       "HealthcareEntityCategory": {
-        "type": "string",
-        "enum": [
-          "BODY_STRUCTURE",
-          "AGE",
-          "GENDER",
-          "EXAMINATION_NAME",
-          "DATE",
-          "DIRECTION",
-          "FREQUENCY",
-          "MEASUREMENT_VALUE",
-          "MEASUREMENT_UNIT",
-          "RELATIONAL_OPERATOR",
-          "TIME",
-          "GENE_OR_PROTEIN",
-          "VARIANT",
-          "ADMINISTRATIVE_EVENT",
-          "CARE_ENVIRONMENT",
-          "HEALTHCARE_PROFESSION",
-          "DIAGNOSIS",
-          "SYMPTOM_OR_SIGN",
-          "CONDITION_QUALIFIER",
-          "MEDICATION_CLASS",
-          "MEDICATION_NAME",
-          "DOSAGE",
-          "MEDICATION_FORM",
-          "MEDICATION_ROUTE",
-          "FAMILY_RELATION",
-          "TREATMENT_NAME"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "BODY_STRUCTURE",
+              "AGE",
+              "GENDER",
+              "EXAMINATION_NAME",
+              "DATE",
+              "DIRECTION",
+              "FREQUENCY",
+              "MEASUREMENT_VALUE",
+              "MEASUREMENT_UNIT",
+              "RELATIONAL_OPERATOR",
+              "TIME",
+              "GENE_OR_PROTEIN",
+              "VARIANT",
+              "ADMINISTRATIVE_EVENT",
+              "CARE_ENVIRONMENT",
+              "HEALTHCARE_PROFESSION",
+              "DIAGNOSIS",
+              "SYMPTOM_OR_SIGN",
+              "CONDITION_QUALIFIER",
+              "MEDICATION_CLASS",
+              "MEDICATION_NAME",
+              "DOSAGE",
+              "MEDICATION_FORM",
+              "MEDICATION_ROUTE",
+              "FAMILY_RELATION",
+              "TREATMENT_NAME"
+            ]
+          }
         ]
       },
       "HealthcareAssertion": {
@@ -2704,37 +2782,51 @@
         ]
       },
       "HealthcareRelationType": {
-        "type": "string",
-        "enum": [
-          "Abbreviation",
-          "DirectionOfBodyStructure",
-          "DirectionOfCondition",
-          "DirectionOfExamination",
-          "DirectionOfTreatment",
-          "DosageOfMedication",
-          "FormOfMedication",
-          "FrequencyOfMedication",
-          "FrequencyOfTreatment",
-          "QualifierOfCondition",
-          "RelationOfExamination",
-          "RouteOfMedication",
-          "TimeOfCondition",
-          "TimeOfEvent",
-          "TimeOfExamination",
-          "TimeOfMedication",
-          "TimeOfTreatment",
-          "UnitOfCondition",
-          "UnitOfExamination",
-          "ValueOfCondition",
-          "ValueOfExamination"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Abbreviation",
+              "DirectionOfBodyStructure",
+              "DirectionOfCondition",
+              "DirectionOfExamination",
+              "DirectionOfTreatment",
+              "DosageOfMedication",
+              "FormOfMedication",
+              "FrequencyOfMedication",
+              "FrequencyOfTreatment",
+              "QualifierOfCondition",
+              "RelationOfExamination",
+              "RouteOfMedication",
+              "TimeOfCondition",
+              "TimeOfEvent",
+              "TimeOfExamination",
+              "TimeOfMedication",
+              "TimeOfTreatment",
+              "UnitOfCondition",
+              "UnitOfExamination",
+              "ValueOfCondition",
+              "ValueOfExamination"
+            ]
+          }
         ]
       },
       "TokenSentimentValue": {
-        "type": "string",
-        "enum": [
-          "positive",
-          "neutral",
-          "mixed"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "positive",
+              "neutral",
+              "mixed"
+            ]
+          }
         ]
       },
       "TargetConfidenceScorePerLabel": {
@@ -2772,34 +2864,62 @@
         ]
       },
       "Conditionality": {
-        "type": "string",
-        "enum": [
-          "hypothetical",
-          "conditional"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "hypothetical",
+              "conditional"
+            ]
+          }
         ]
       },
       "Certainty": {
-        "type": "string",
-        "enum": [
-          "positive",
-          "positivePossible",
-          "neutralPossible",
-          "negativePossible",
-          "negative"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "positive",
+              "positivePossible",
+              "neutralPossible",
+              "negativePossible",
+              "negative"
+            ]
+          }
         ]
       },
       "Association": {
-        "type": "string",
-        "enum": [
-          "subject",
-          "other"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "subject",
+              "other"
+            ]
+          }
         ]
       },
       "TargetRelationType": {
-        "type": "string",
-        "enum": [
-          "assessment",
-          "target"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "assessment",
+              "target"
+            ]
+          }
         ]
       }
     }

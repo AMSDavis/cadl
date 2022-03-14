@@ -28,7 +28,9 @@ model HookInfo {
   admins: string[];
 }
 
-enum HookType {
+@knownValues(HookTypeKV)
+model HookType is string {}
+enum HookTypeKV {
   Webhook,
   Email,
 }

@@ -98,13 +98,17 @@ model SentimentConfidenceScorePerLabel {
 }
 
 // ISSUE: Can't get modelAsString=false for named enum: https://github.com/Azure/cadl-azure/issues/1036
-enum TargetRelationType {
+@knownValues(TargetRelationTypeKV)
+model TargetRelationType is string {}
+enum TargetRelationTypeKV {
   assessment,
   target,
 }
 
 // ISSUE: Can't get modelAsString=false for named enum: https://github.com/Azure/cadl-azure/issues/1036
-enum DocumentSentimentValue {
+@knownValues(DocumentSentimentValueKV)
+model DocumentSentimentValue is string {}
+enum DocumentSentimentValueKV {
   positive,
   neutral,
   negative,
@@ -112,14 +116,18 @@ enum DocumentSentimentValue {
 }
 
 // ISSUE: Can't get modelAsString=false for named enum: https://github.com/Azure/cadl-azure/issues/1036
-enum SentenceSentimentValue {
+@knownValues(SentenceSentimentValueKV)
+model SentenceSentimentValue is string {}
+enum SentenceSentimentValueKV {
   positive,
   neutral,
   negative,
 }
 
 // ISSUE: Can't get modelAsString=false for named enum: https://github.com/Azure/cadl-azure/issues/1036
-enum TokenSentimentValue {
+@knownValues(TokenSentimentValueKV)
+model TokenSentimentValue is string {}
+enum TokenSentimentValueKV {
   positive,
   neutral,
   mixed,

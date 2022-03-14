@@ -83,12 +83,19 @@
             "in": "query",
             "required": true,
             "schema": {
-              "type": "string",
-              "description": "Method used to compute string offset and length.",
-              "enum": [
-                "textElements",
-                "unicodeCodePoint",
-                "utf16CodeUnit"
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Method used to compute string offset and length."
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "textElements",
+                    "unicodeCodePoint",
+                    "utf16CodeUnit"
+                  ]
+                }
               ]
             }
           }
@@ -904,13 +911,20 @@
         ]
       },
       "AnalyzeResultOperationStatus": {
-        "type": "string",
-        "description": "Operation status.",
-        "enum": [
-          "notStarted",
-          "runnning",
-          "failed",
-          "succeeded"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Operation status."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "notStarted",
+              "runnning",
+              "failed",
+              "succeeded"
+            ]
+          }
         ]
       },
       "AnalyzeResult": {
@@ -1109,12 +1123,19 @@
         ]
       },
       "StringIndexType": {
-        "type": "string",
-        "description": "Method used to compute string offset and length.",
-        "enum": [
-          "textElements",
-          "unicodeCodePoint",
-          "utf16CodeUnit"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Method used to compute string offset and length."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "textElements",
+              "unicodeCodePoint",
+              "utf16CodeUnit"
+            ]
+          }
         ]
       },
       "DocumentPage": {
@@ -1370,31 +1391,52 @@
         ]
       },
       "OperationStatus": {
-        "type": "string",
-        "description": "Operation status.",
-        "enum": [
-          "notStarted",
-          "running",
-          "failed",
-          "succeeded",
-          "canceled"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Operation status."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "notStarted",
+              "running",
+              "failed",
+              "succeeded",
+              "canceled"
+            ]
+          }
         ]
       },
       "OperationKind": {
-        "type": "string",
-        "description": "Type of operation",
-        "enum": [
-          "documentModelBuild",
-          "documentModelCompose",
-          "documentModelCopyTo"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Type of operation"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "documentModelBuild",
+              "documentModelCompose",
+              "documentModelCopyTo"
+            ]
+          }
         ]
       },
       "LengthUnit": {
-        "type": "string",
-        "description": "The unit used by the width, height, and boundingBox properties. For images, the unit is \"pixel\". For PDF, the unit is \"inch\".",
-        "enum": [
-          "pixel",
-          "inch"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "The unit used by the width, height, and boundingBox properties. For images, the unit is \"pixel\". For PDF, the unit is \"inch\"."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "pixel",
+              "inch"
+            ]
+          }
         ]
       },
       "DocumentSpan": {
@@ -1723,47 +1765,75 @@
         ]
       },
       "SelectionMarkState": {
-        "type": "string",
-        "description": "State of the selection mark.",
-        "enum": [
-          "selected",
-          "unselected"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "State of the selection mark."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "selected",
+              "unselected"
+            ]
+          }
         ]
       },
       "DocumentTableCellKind": {
-        "type": "string",
-        "description": "Table cell kind.",
-        "enum": [
-          "content",
-          "rowHeader",
-          "columnHeader",
-          "stubHead",
-          "description"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Table cell kind."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "content",
+              "rowHeader",
+              "columnHeader",
+              "stubHead",
+              "description"
+            ]
+          }
         ]
       },
       "DocumentFieldType": {
-        "type": "string",
-        "description": "Semantic data type of the field value.",
-        "enum": [
-          "string",
-          "date",
-          "time",
-          "phoneNumber",
-          "number",
-          "integer",
-          "selectionMark",
-          "countryRegion",
-          "signature",
-          "array",
-          "object"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Semantic data type of the field value."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "string",
+              "date",
+              "time",
+              "phoneNumber",
+              "number",
+              "integer",
+              "selectionMark",
+              "countryRegion",
+              "signature",
+              "array",
+              "object"
+            ]
+          }
         ]
       },
       "DocumentSignatureType": {
-        "type": "string",
-        "description": "Presence of signature.",
-        "enum": [
-          "signed",
-          "unsigned"
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Presence of signature."
+          },
+          {
+            "type": "string",
+            "enum": [
+              "signed",
+              "unsigned"
+            ]
+          }
         ]
       }
     }

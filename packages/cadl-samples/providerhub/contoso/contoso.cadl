@@ -35,7 +35,9 @@ model AccountNameParameter {
   employeeName: string;
 }
 
-enum ProvisioningState {
+@knownValues(ProvisioningStateKV)
+model ProvisioningState is string {}
+enum ProvisioningStateKV {
   Succeeded,
   Failed,
   Canceled,
