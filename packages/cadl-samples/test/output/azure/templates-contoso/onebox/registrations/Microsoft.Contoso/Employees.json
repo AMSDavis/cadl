@@ -24,8 +24,7 @@
               "ResourcePatchValidate",
               "ResourcePatchBegin",
               "ResourcePatchCompleted",
-              "ResourceReadValidate",
-              "ResourceReadBegin"
+              "ResourceReadValidate"
             ]
           }
         ]

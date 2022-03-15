@@ -1273,7 +1273,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             "ResourceDeletionBegin",
             "ResourceDeletionCompleted",
           ],
-          get: ["ResourceReadValidate", "ResourceReadBegin"],
+          get: ["ResourceReadValidate"],
           post: ["ResourcePostAction"],
         } as any;
         const _extensions = extensionMap[operation.verb.toLowerCase()] as string[];

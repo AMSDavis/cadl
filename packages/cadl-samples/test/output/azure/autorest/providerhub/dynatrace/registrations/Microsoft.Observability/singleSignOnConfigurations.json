@@ -18,8 +18,7 @@
               "ResourceCreationValidate",
               "ResourceCreationBegin",
               "ResourceCreationCompleted",
-              "ResourceReadValidate",
-              "ResourceReadBegin"
+              "ResourceReadValidate"
             ]
           }
         ]
