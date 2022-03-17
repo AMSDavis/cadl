@@ -22,22 +22,22 @@ model ZTSIResource is TrackedResource<ZTSIProperties> {
 
 @armResourceOperations
 interface ZTSI mixes ResourceOperations<ZTSIResource, ZTSIProperties> {
-  @action
+  @armResourceAction(ZTSIResource)
   @doc("Gets the MAA URL for this resource")
   getMAAURL(...ResourceInstanceParameters<ZTSIResource>): MAAURL | ErrorResponse;
 
-  @action
+  @armResourceAction(ZTSIResource)
   @doc("Gets the ZTSI URL for this resource")
   getZTSIURL(...ResourceInstanceParameters<ZTSIResource>): ZTSIURL | ErrorResponse;
 
-  @action
+  @armResourceAction(ZTSIResource)
   @doc("Hello request to the ZTSI service")
   initiateRequest(
     ...ResourceInstanceParameters<ZTSIResource>,
     @body initiateRequest: InitiateRequestInformation
   ): InitiateResponse | ErrorResponse;
 
-  @action
+  @armResourceAction(ZTSIResource)
   @doc("ZTSI Report request")
   reportRequest(
     ...ResourceInstanceParameters<ZTSIResource>,

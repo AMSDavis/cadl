@@ -29,16 +29,76 @@ namespace Microsoft.Contoso.Service
         }
 
         /// <summary>
+        /// Validate the request to Read the Employee resource.
+        /// </summary>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name="EmployeeName">
+        /// </param>
+        /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
+        [HttpPost]
+        [Route(ContosoServiceRoutes.EmployeeValidateRead)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ValidationResponse))]
+        public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId, string resourceGroupName, string EmployeeName)
+        {
+            _logger.LogInformation($"ValidateReadAsync()");
+            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, EmployeeName);
+            return modelValidation;
+        }
+
+        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string EmployeeName)
+        {
+            return Task.FromResult(ValidationResponse.Valid);
+        }
+
+
+        /// <summary>
+        /// Read the Employee resource.
+        /// </summary>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name="EmployeeName">
+        /// </param>
+        /// <returns> The Employee resource.</returns>
+        [HttpPost]
+        [Route(ContosoServiceRoutes.EmployeeBeginRead)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Employee))]
+        public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string EmployeeName)
+        {
+            _logger.LogInformation("ReadAsync()");
+            if (Request == null)
+            {
+                _logger.LogError($"Http request is null");
+                return BadRequest("Http request is null");
+            }
+
+            return await OnReadAsync(subscriptionId, resourceGroupName, EmployeeName);
+
+        }
+
+        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string EmployeeName)
+        {
+            return Task.FromResult(Ok() as IActionResult);
+        }
+
+        /// <summary>
         /// Validate the request to Create the Employee resource.
         /// </summary>
         /// <param name="subscriptionId">
-        /// The subscription containing the resource.
+        /// The ID of the target subscription.
         /// </param>
         /// <param name="resourceGroupName">
-        /// The resource group containing the resource.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name="EmployeeName">
-        /// Employee resource name
         /// </param>
         /// <param name="body">
         /// The resource data.
@@ -68,13 +128,12 @@ namespace Microsoft.Contoso.Service
         /// Called after the end of the request to Create the Employee resource.
         /// </summary>
         /// <param name="subscriptionId">
-        /// The subscription containing the resource.
+        /// The ID of the target subscription.
         /// </param>
         /// <param name="resourceGroupName">
-        /// The resource group containing the resource.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name="EmployeeName">
-        /// Employee resource name
         /// </param>
         /// <param name="body">
         /// The resource data.
@@ -99,13 +158,12 @@ namespace Microsoft.Contoso.Service
         /// Create the Employee resource.
         /// </summary>
         /// <param name="subscriptionId">
-        /// The subscription containing the resource.
+        /// The ID of the target subscription.
         /// </param>
         /// <param name="resourceGroupName">
-        /// The resource group containing the resource.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name="EmployeeName">
-        /// Employee resource name
         /// </param>
         /// <param name="body">
         /// The resource data.
@@ -136,107 +194,15 @@ namespace Microsoft.Contoso.Service
         }
 
         /// <summary>
-        /// Validate the request to Delete the Employee resource.
-        /// </summary>
-        /// <param name="subscriptionId">
-        /// The subscription containing the resource.
-        /// </param>
-        /// <param name="resourceGroupName">
-        /// The resource group containing the resource.
-        /// </param>
-        /// <param name="EmployeeName">
-        /// Employee resource name
-        /// </param>
-        /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
-        [HttpPost]
-        [Route(ContosoServiceRoutes.EmployeeValidateDelete)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ValidationResponse))]
-        public async Task<ValidationResponse> ValidateDeleteAsync(string subscriptionId, string resourceGroupName, string EmployeeName)
-        {
-            _logger.LogInformation($"ValidateDeleteAsync()");
-            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, EmployeeName);
-            return modelValidation;
-        }
-
-        protected virtual Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string EmployeeName)
-        {
-            return Task.FromResult(ValidationResponse.Valid);
-        }
-
-        /// <summary>
-        /// Called after the end of the request to Delete the Employee resource.
-        /// </summary>
-        /// <param name="subscriptionId">
-        /// The subscription containing the resource.
-        /// </param>
-        /// <param name="resourceGroupName">
-        /// The resource group containing the resource.
-        /// </param>
-        /// <param name="EmployeeName">
-        /// Employee resource name
-        /// </param>
-        /// <returns> Nothing.</returns>
-        [HttpPost]
-        [Route(ContosoServiceRoutes.EmployeeEndDelete)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
-        public async Task EndDeleteAsync(string subscriptionId, string resourceGroupName, string EmployeeName)
-        {
-            _logger.LogInformation($"EndDeleteAsync()");
-            await OnEndDelete(subscriptionId, resourceGroupName, EmployeeName);
-            return;
-        }
-
-        protected virtual Task OnEndDelete(string subscriptionId, string resourceGroupName, string EmployeeName)
-        {
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// Delete the Employee resource.
-        /// </summary>
-        /// <param name="subscriptionId">
-        /// The subscription containing the resource.
-        /// </param>
-        /// <param name="resourceGroupName">
-        /// The resource group containing the resource.
-        /// </param>
-        /// <param name="EmployeeName">
-        /// Employee resource name
-        /// </param>
-        /// <returns> The Employee resource.</returns>
-        [HttpDelete]
-        [Route(ContosoServiceRoutes.EmployeeItem)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
-        [ProducesResponseType((int)HttpStatusCode.NoContent, Type = typeof(void))]
-        public async Task<IActionResult> BeginDeleteAsync(string subscriptionId, string resourceGroupName, string EmployeeName)
-        {
-            _logger.LogInformation("DeleteAsync()");
-            if (Request == null)
-            {
-                _logger.LogError($"Http request is null");
-                return BadRequest("Http request is null");
-            }
-
-            return await OnDeleteAsync(subscriptionId, resourceGroupName, EmployeeName);
-
-        }
-
-        protected virtual Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string EmployeeName)
-        {
-            return Task.FromResult(Ok() as IActionResult);
-        }
-
-        /// <summary>
         /// Validate the request to Patch the Employee resource.
         /// </summary>
         /// <param name="subscriptionId">
-        /// The subscription containing the resource.
+        /// The ID of the target subscription.
         /// </param>
         /// <param name="resourceGroupName">
-        /// The resource group containing the resource.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name="EmployeeName">
-        /// Employee resource name
         /// </param>
         /// <param name="body">
         /// The resource patch data.
@@ -266,13 +232,12 @@ namespace Microsoft.Contoso.Service
         /// Called after the end of the request to Patch the Employee resource.
         /// </summary>
         /// <param name="subscriptionId">
-        /// The subscription containing the resource.
+        /// The ID of the target subscription.
         /// </param>
         /// <param name="resourceGroupName">
-        /// The resource group containing the resource.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name="EmployeeName">
-        /// Employee resource name
         /// </param>
         /// <param name="body">
         /// The resource patch data.
@@ -297,13 +262,12 @@ namespace Microsoft.Contoso.Service
         /// Patch the Employee resource.
         /// </summary>
         /// <param name="subscriptionId">
-        /// The subscription containing the resource.
+        /// The ID of the target subscription.
         /// </param>
         /// <param name="resourceGroupName">
-        /// The resource group containing the resource.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name="EmployeeName">
-        /// Employee resource name
         /// </param>
         /// <param name="body">
         /// The resource patch data.
@@ -334,64 +298,89 @@ namespace Microsoft.Contoso.Service
         }
 
         /// <summary>
-        /// Validate the request to Read the Employee resource.
+        /// Validate the request to Delete the Employee resource.
         /// </summary>
         /// <param name="subscriptionId">
-        /// The subscription containing the resource.
+        /// The ID of the target subscription.
         /// </param>
         /// <param name="resourceGroupName">
-        /// The resource group containing the resource.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name="EmployeeName">
-        /// Employee resource name
         /// </param>
-        /// <returns> A ValidationResponse indicating the validity of the Read request.</returns>
+        /// <returns> A ValidationResponse indicating the validity of the Delete request.</returns>
         [HttpPost]
-        [Route(ContosoServiceRoutes.EmployeeValidateRead)]
+        [Route(ContosoServiceRoutes.EmployeeValidateDelete)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ValidationResponse))]
-        public async Task<ValidationResponse> ValidateReadAsync(string subscriptionId, string resourceGroupName, string EmployeeName)
+        public async Task<ValidationResponse> ValidateDeleteAsync(string subscriptionId, string resourceGroupName, string EmployeeName)
         {
-            _logger.LogInformation($"ValidateReadAsync()");
-            var modelValidation = await OnValidateRead(subscriptionId, resourceGroupName, EmployeeName);
+            _logger.LogInformation($"ValidateDeleteAsync()");
+            var modelValidation = await OnValidateDelete(subscriptionId, resourceGroupName, EmployeeName);
             return modelValidation;
         }
 
-        protected virtual Task<ValidationResponse> OnValidateRead(string subscriptionId, string resourceGroupName, string EmployeeName)
+        protected virtual Task<ValidationResponse> OnValidateDelete(string subscriptionId, string resourceGroupName, string EmployeeName)
         {
             return Task.FromResult(ValidationResponse.Valid);
         }
 
-
         /// <summary>
-        /// Read the Employee resource.
+        /// Called after the end of the request to Delete the Employee resource.
         /// </summary>
         /// <param name="subscriptionId">
-        /// The subscription containing the resource.
+        /// The ID of the target subscription.
         /// </param>
         /// <param name="resourceGroupName">
-        /// The resource group containing the resource.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name="EmployeeName">
-        /// Employee resource name
+        /// </param>
+        /// <returns> Nothing.</returns>
+        [HttpPost]
+        [Route(ContosoServiceRoutes.EmployeeEndDelete)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
+        public async Task EndDeleteAsync(string subscriptionId, string resourceGroupName, string EmployeeName)
+        {
+            _logger.LogInformation($"EndDeleteAsync()");
+            await OnEndDelete(subscriptionId, resourceGroupName, EmployeeName);
+            return;
+        }
+
+        protected virtual Task OnEndDelete(string subscriptionId, string resourceGroupName, string EmployeeName)
+        {
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Delete the Employee resource.
+        /// </summary>
+        /// <param name="subscriptionId">
+        /// The ID of the target subscription.
+        /// </param>
+        /// <param name="resourceGroupName">
+        /// The name of the resource group. The name is case insensitive.
+        /// </param>
+        /// <param name="EmployeeName">
         /// </param>
         /// <returns> The Employee resource.</returns>
-        [HttpPost]
-        [Route(ContosoServiceRoutes.EmployeeBeginRead)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Employee))]
-        public async Task<IActionResult> BeginReadAsync(string subscriptionId, string resourceGroupName, string EmployeeName)
+        [HttpDelete]
+        [Route(ContosoServiceRoutes.EmployeeItem)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(void))]
+        [ProducesResponseType((int)HttpStatusCode.NoContent, Type = typeof(void))]
+        public async Task<IActionResult> BeginDeleteAsync(string subscriptionId, string resourceGroupName, string EmployeeName)
         {
-            _logger.LogInformation("ReadAsync()");
+            _logger.LogInformation("DeleteAsync()");
             if (Request == null)
             {
                 _logger.LogError($"Http request is null");
                 return BadRequest("Http request is null");
             }
 
-            return await OnReadAsync(subscriptionId, resourceGroupName, EmployeeName);
+            return await OnDeleteAsync(subscriptionId, resourceGroupName, EmployeeName);
 
         }
 
-        protected virtual Task<IActionResult> OnReadAsync(string subscriptionId, string resourceGroupName, string EmployeeName)
+        protected virtual Task<IActionResult> OnDeleteAsync(string subscriptionId, string resourceGroupName, string EmployeeName)
         {
             return Task.FromResult(Ok() as IActionResult);
         }

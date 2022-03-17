@@ -14,23 +14,19 @@ describe("Test identifier validation in service code emitter", async () => {
       @serviceVersion("2021-03-01-preview")
       namespace Microsoft.Test;
       
-      using Azure.ARM;
+      using Azure.ResourceManager;
       using Cadl.Http;
+      using Cadl.Rest;
 
       @doc("Foo is life")
-      @armResource({
-        path: "Foo",
-        collectionName: "FooStore",
-        parameterType: FooParameter,
-        standardOperations: ["create","delete"]
-      })
-      model Foo is TrackedResource<Foo$Properties> { };
-      
-      @doc("Path parameter for foo")
-      model FooParameter {
+      model Foo is TrackedResource<Foo$Properties> {
+        @key("fooName")
         @doc("foo name")
-        @path name: string
+        @segment("Foo")
+        name: string;
       }
+
+      interface FooStore mixes ResourceCreate<Foo>, ResourceDelete<Foo> {}
 
       @doc("The status of the current operation.")
       @knownValues(ProvisioningStateKV)
@@ -58,23 +54,19 @@ describe("Test identifier validation in service code emitter", async () => {
       @serviceVersion("2021-03-01-preview")
       namespace Microsoft.Test;
       
-      using Azure.ARM;
+      using Azure.ResourceManager;
       using Cadl.Http;
+      using Cadl.Rest;
 
       @doc("Foo is the word")
-      @armResource({
-        path: "Foo",
-        collectionName: "FooStore",
-        parameterType: FooParameter,
-        standardOperations: ["create","delete"]
-      })
-      model Foo is TrackedResource<FooProperties> { };
-      
-      @doc("Path parameter for foo")
-      model FooParameter {
+      model Foo is TrackedResource<FooProperties> {
+        @key("fooName")
         @doc("foo name")
-        @path name: string
+        @segment("Foo")
+        name: string;
       }
+
+      interface FooStore mixes ResourceCreate<Foo>, ResourceDelete<Foo> {}
 
       @doc("The status of the current operation.")
       @knownValues(ProvisioningStateKV)
@@ -108,23 +100,19 @@ describe("Test identifier validation in service code emitter", async () => {
       @serviceVersion("2021-03-01-preview")
       namespace Microsoft.Test;
       
-      using Azure.ARM;
+      using Azure.ResourceManager;
       using Cadl.Http;
+      using Cadl.Rest;
 
       @doc("Foo is the resource")
-      @armResource({
-        path: "Foo",
-        collectionName: "FooStore",
-        parameterType: FooParameter,
-        standardOperations: ["create","delete"]
-      })
-      model Foo is TrackedResource<FooProperties> { };
-      
-      @doc("Path parameter for foo")
-      model FooParameter {
+      model Foo is TrackedResource<FooProperties> {
+        @key("fooName")
         @doc("foo name")
-        @path name: string
+        @segment("Foo")
+        name: string;
       }
+
+      interface FooStore mixes ResourceCreate<Foo>, ResourceDelete<Foo> {}
 
       @doc("The status of the current operation.")
       @knownValues(ProvisioningStateKV)
@@ -154,23 +142,19 @@ describe("Test identifier validation in service code emitter", async () => {
       @serviceVersion("2021-03-01-preview")
       namespace Microsoft.Test;
       
-      using Azure.ARM;
+      using Azure.ResourceManager;
       using Cadl.Http;
+      using Cadl.Rest;
 
       @doc("Foo is the name of this resource")
-      @armResource({
-        path: "Foo",
-        collectionName: "FooStore",
-        parameterType: FooParameter,
-        standardOperations: ["create","delete"]
-      })
-      model Foo is TrackedResource<FooProperties> { };
-      
-      @doc("Path parameter for foo")
-      model FooParameter {
+      model Foo is TrackedResource<FooProperties> {
+        @key("fooName")
         @doc("foo name")
-        @path name: string
+        @segment("Foo")
+        name: string;
       }
+
+      interface FooStore mixes ResourceCreate<Foo>, ResourceDelete<Foo> {}
 
       @doc("The status of the current operation.")
       @knownValues(ProvisioningStateKV)

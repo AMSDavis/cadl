@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Microsoft.Contoso.Service.Models
 {
     /// <summary>
-    /// The updatable properties of EmployeeProperties
+    /// The updatable properties of the Employee.
     /// </summary>
     public class EmployeeUpdateProperties 
     {

@@ -1,22 +1,23 @@
 import "@cadl-lang/rest";
-import "@azure-tools/cadl-autorest";
-import "@azure-tools/cadl-providerhub";
+import "@azure-tools/cadl-azure-core";
+import "@azure-tools/cadl-azure-resource-manager";
 
 @armNamespace
 @serviceTitle("Microsoft.Contoso")
 @serviceVersion("2021-08-01-preview")
 namespace Microsoft.Contoso;
 
-using Azure.ARM;
 using Cadl.Http;
+using Cadl.Rest;
+using Azure.ResourceManager;
 
-@armResource({
-  path: "Employees",
-  collectionName: "Employees",
-  parameterType: EmployeeNameParameter,
-  standardOperations: ["create","delete","list","update","read"],
-})
-model Employee is TrackedResource<EmployeeProperties> {}
+@doc("A ContosoProviderHub resource")
+model Employee is TrackedResource<EmployeeProperties> {
+  @format("^[a-zA-Z0-9-]{3,24}$")
+  @key("EmployeeName")
+  @segment("Employees")
+  name: string;
+}
 
 @doc("The status of the current operation.")
 @knownValues(ProvisioningStateKV)
@@ -31,14 +32,12 @@ enum ProvisioningStateKV {
   Accepted,
 }
 
-@doc("Parameter of the employee name.")
-model EmployeeNameParameter {
-  @doc("Employee resource name") @path EmployeeName: string;
-}
-
 @doc("Details of the Contoso Employee.")
 model EmployeeProperties {
   @visibility("read")
   @doc("The status of the last operation.")
   provisioningState?: ProvisioningState;
 }
+
+@armResourceOperations
+interface Employees mixes ResourceOperations<Employee, EmployeeProperties> {}

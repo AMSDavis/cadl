@@ -1,10 +1,10 @@
 import {
-  ArmResourceInfo,
-  getArmNamespace,
-  getArmResourceInfo,
+  ArmLifecycleOperationKind,
+  ArmOperationKind,
+  ArmResourceOperation,
+  getArmResource,
   getArmResources,
-  ParameterInfo,
-} from "@azure-tools/cadl-providerhub";
+} from "@azure-tools/cadl-azure-resource-manager";
 import {
   ArrayType,
   BooleanLiteralType,
@@ -14,6 +14,7 @@ import {
   getDirectoryPath,
   getDoc,
   getFormat,
+  getFriendlyName,
   getIntrinsicModelName,
   getKnownValues,
   getMaxLength,
@@ -27,7 +28,6 @@ import {
   ModelSpreadPropertyNode,
   ModelType,
   ModelTypeProperty,
-  NamespaceType,
   Node,
   NoTarget,
   NumericLiteralType,
@@ -39,11 +39,11 @@ import {
   Type,
   UnionType,
 } from "@cadl-lang/compiler";
-import { getAllRoutes, http, OperationDetails } from "@cadl-lang/rest";
+import { getSegment, http, HttpOperationParameter, OperationDetails } from "@cadl-lang/rest";
 import Handlebars from "handlebars";
 import { fileURLToPath } from "url";
 import { reportDiagnostic } from "./lib.js";
-const { getPathParamName, isBody, isPathParam, isQueryParam } = http;
+const { isPathParam, isQueryParam } = http;
 
 export async function $onEmit(program: Program) {
   const rootPath = resolvePath(getDirectoryPath(fileURLToPath(import.meta.url)), "..");
@@ -87,7 +87,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
   const serviceNamespace = "Microsoft." + serviceName;
   const modelNamespace = serviceNamespace + ".Models";
   const ListName = "list",
-    PutName = "create",
+    PutName = "createOrUpdate",
     PatchName = "update",
     DeleteName = "delete",
     GetName = "read";
@@ -109,6 +109,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     hasSubscriptionList: boolean;
     hasResourceGroupList: boolean;
     itemPath: string;
+    resourceTypeName: string;
     operations?: Operation[];
     specificationArmNamespace: string;
     specificationModelName: string;
@@ -117,6 +118,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
   interface Operation extends TraceableEntity {
     name: string;
+    kind: ArmOperationKind;
     returnType: string;
     verb: string;
     subPath?: string;
@@ -227,13 +229,15 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     // maps resource model name to arm Namespace
     const resourceNamespaceTable = new Map<string, string>();
 
-    function transformPathParameter(parameter: ParameterInfo): MethodParameter {
+    function transformPathParameter(
+      parameter: HttpOperationParameter,
+      cadlType: Type
+    ): MethodParameter {
       return {
         name: parameter.name,
         type: "string",
-        description: parameter.description,
-        location: "path",
-        sourceNode: parameter.resourceType?.node,
+        description: getDoc(program, parameter.param),
+        sourceNode: cadlType.node,
       };
     }
 
@@ -241,23 +245,21 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     const resources = new Map<string, Resource>();
 
     function populateResources() {
-      const armResourceLookup: Map<string, Resource> = new Map<string, Resource>();
       function getStandardOperation(
-        opName: string,
-        resourceInfo: ArmResourceInfo,
+        operation: ArmResourceOperation,
         modelName: string,
-        sourceType: Type
+        sourceType: ModelType
       ): Operation | undefined {
-        const pathParams = resourceInfo.resourcePath?.parameters.map((p) =>
-          transformPathParameter(p)
-        );
-        if (resourceInfo.resourceNameParam) {
-          pathParams!.push(transformPathParameter(resourceInfo.resourceNameParam!));
-        }
-        switch (opName) {
+        const pathParams = operation.operationDetails.parameters.parameters
+          .filter((p) => p.type === "path")
+          .map((p) => transformPathParameter(p, sourceType));
+
+        const operationName = transformCSharpIdentifier(operation.name);
+        switch (operation.kind) {
           case GetName:
             return {
-              name: "Get",
+              name: operationName,
+              kind: operation.kind,
               parameters: pathParams,
               returnType: modelName,
               verb: "GET",
@@ -265,7 +267,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             };
           case PutName:
             return {
-              name: "CreateOrUpdate",
+              name: operationName,
+              kind: operation.kind,
               parameters: [
                 ...pathParams!,
                 {
@@ -288,7 +291,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             };
           case DeleteName:
             return {
-              name: "Delete",
+              name: operationName,
+              kind: operation.kind,
               parameters: pathParams,
               returnType: "void",
               verb: "Delete",
@@ -296,7 +300,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             };
           case PatchName:
             return {
-              name: "Update",
+              name: operationName,
+              kind: operation.kind,
               parameters: [
                 ...pathParams!,
                 {
@@ -322,275 +327,260 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         }
       }
 
-      function GetAdditionalOperations() {
-        const allRouteOperations = getAllRoutes(program);
+      const visitedTypes = new Set<Type>();
+      const visitedOperations = new Map<string, OperationType>();
 
-        // Get a unique set of all namespaces where @route is used on an operation
-        const namespaceSet = new Set(
-          allRouteOperations
-            .map((route) => route.container)
-            .filter((c) => c.kind === "Namespace") as NamespaceType[]
-        );
-
-        // Build a mapping of operations to their operation details
-        const operationMap = new Map<OperationType, OperationDetails>(
-          allRouteOperations.map((route) => [route.operation, route])
-        );
-
-        const modelNameSpaces: NamespaceType[] = Array.from(namespaceSet.keys());
-        const visitedNamespaces = new Map<string, NamespaceType>();
-        const visitedOperations = new Map<string, OperationType>();
-        const outOperations = new Map<string, Operation[]>();
-        function visitModel(model: ModelType, namespaceKey: string) {
-          const modelKey: string = model.name;
-          if (!modelsToGenerate.has(modelKey) && !getKnownType(model)) {
-            modelsToGenerate.set(modelKey, model);
+      function visitOperation(
+        operation: ArmResourceOperation,
+        operationDetails: OperationDetails,
+        resource?: Resource
+      ) {
+        const operationType = operation.operation;
+        const operationKey: string = operationDetails.groupName + "." + operationType.name;
+        let bodyProp: MethodParameter | undefined = undefined;
+        if (!visitedOperations.has(operationKey)) {
+          visitedOperations.set(operationKey, operationType);
+          const returnType = extractResponseType(operationType);
+          if (returnType) {
+            visitType(returnType);
           }
-        }
+          const parameters: MethodParameter[] = [];
 
-        function extractResponseType(operation: OperationType): ModelType | undefined {
-          const model = operation.returnType;
-          const union = model as UnionType;
-          if (union) {
-            let outModel: ModelType | undefined = undefined;
-            union?.options.forEach((option) => {
-              const optionModel = option as ModelType;
-              if (
-                optionModel &&
-                optionModel.name === "ArmResponse" &&
-                optionModel.templateArguments
-              ) {
-                const innerModel = optionModel.templateArguments[0] as ModelType;
-                if (innerModel) {
-                  outModel = innerModel;
-                }
-              } else if (optionModel && optionModel.name !== "ErrorResponse") {
-                outModel = optionModel;
-              }
-            });
-
-            if (outModel === undefined) {
-              reportDiagnostic(program, {
-                code: "invalid-response",
-                format: { operationName: operation ? operation.name : "<unknown>" },
-                target: operation,
+          operationDetails.parameters.parameters.forEach((httpParam) => {
+            const prop = httpParam.param;
+            const propType = getCSharpType(prop.type);
+            if (prop.name === "api-version" && propType?.name === "string") {
+              // skip standard api-version parameter
+            } else if (propType) {
+              visitType(prop.type);
+              const propLoc: string = isQueryParam(program, prop)
+                ? "Query"
+                : isPathParam(program, prop)
+                ? "Path"
+                : "????";
+              const paramDescription = getDoc(program, prop);
+              ensureCSharpIdentifier(prop, prop.name);
+              parameters.push({
+                name: prop.name,
+                type: propType.name,
+                description: paramDescription,
+                location: propLoc,
+                sourceNode: prop.node,
+                default: prop.default && formatDefaultValue(prop.type, prop.default),
               });
             }
+          });
 
-            return outModel;
-          }
-
-          return model as ModelType;
-        }
-
-        function visitOperations(
-          operations: Map<string, OperationType>,
-          namespaceKey: string,
-          resource?: Resource
-        ) {
-          const localOperations: Operation[] = [];
-          const visitedTypes = new Set<Type>();
-          operations.forEach((operation) => visitOperation(operation, namespaceKey));
-          if (!outOperations.has(namespaceKey)) {
-            outOperations.set(namespaceKey, localOperations);
-          }
-
-          function visitType(cadlType: Type) {
-            if (!visitedTypes.has(cadlType)) {
-              visitedTypes.add(cadlType);
-
-              switch (cadlType.kind) {
-                case "Array":
-                  visitType(cadlType.elementType);
-                  break;
-                case "Tuple":
-                  cadlType.values.forEach((element) => {
-                    visitType(element);
-                  });
-                  break;
-                case "TemplateParameter":
-                  cadlType.instantiationParameters?.forEach((element) => {
-                    visitType(element);
-                  });
-                  break;
-                case "Union":
-                  cadlType.options.forEach((element) => {
-                    visitType(element);
-                  });
-                  break;
-                case "ModelProperty":
-                  visitType(cadlType.type);
-                  break;
-                case "Model":
-                  if (cadlType.baseModel) {
-                    visitType(cadlType.baseModel);
-                  }
-                  cadlType.templateArguments?.forEach((element) => {
-                    visitType(element);
-                  });
-                  if (!getKnownType(cadlType)) {
-                    cadlType.properties.forEach((element) => {
-                      visitType(element);
-                    });
-                    visitModel(cadlType, namespaceKey);
-                  }
-                  break;
-                default:
-                  // do nothing
-                  break;
-              }
-            }
-          }
-
-          function visitOperation(operation: OperationType, namespaceKey: string) {
-            const operationKey: string = namespaceKey + "." + operation.name;
-            const operationDetails = operationMap.get(operation);
-            if (!operationDetails) {
-              throw new Error(`No route details found for operation '${operation.name}'`);
-            }
-
-            let bodyProp: MethodParameter | undefined = undefined;
-            if (!visitedOperations.has(operationKey)) {
-              visitedOperations.set(operationKey, operation);
-              const returnType = extractResponseType(operation);
-              if (returnType) {
-                visitType(returnType);
-              }
-              const parameters: MethodParameter[] = [];
-
-              if (operation.parameters) {
-                operation.parameters.properties.forEach((prop) => {
-                  const propType = getCSharpType(prop.type);
-                  if (prop.name === "api-version" && propType?.name === "string") {
-                    // skip standard api-version parameter
-                  } else if (propType) {
-                    visitType(prop.type);
-                    const propLoc: string = isQueryParam(program, prop)
-                      ? "Query"
-                      : isPathParam(program, prop)
-                      ? "Path"
-                      : isBody(program, prop)
-                      ? "Body"
-                      : "????";
-                    const paramDescription = getDoc(program, prop);
-                    ensureCSharpIdentifier(prop, prop.name);
-                    parameters.push({
-                      name: prop.name,
-                      type: propType.name,
-                      description: paramDescription,
-                      location: propLoc,
-                      sourceNode: prop.node,
-                      default: prop.default && formatDefaultValue(prop.type, prop.default),
-                    });
-                    if (propLoc === "Body") {
-                      bodyProp = {
-                        name: prop.name,
-                        type: propType.name,
-                        description: paramDescription,
-                        location: propLoc,
-                        sourceNode: prop.node,
-                      };
-                    }
-                  }
-                });
-              }
-
-              getPathParamName(program, operation);
-              ensureCSharpIdentifier(operation, operation.name);
-              const outOperation: Operation = {
-                name: transformCSharpIdentifier(operation.name),
-                returnType: returnType?.name ?? "void",
-                parameters: parameters,
-                subPath: operationDetails.pathFragment,
-                verb: operationDetails.verb,
-                sourceNode: operation.node,
+          if (operationDetails.parameters.body) {
+            const bodyParam = operationDetails.parameters.body;
+            const bodyType = getCSharpType(bodyParam.type);
+            const paramDescription = getDoc(program, bodyParam);
+            visitType(bodyParam.type);
+            ensureCSharpIdentifier(bodyParam, bodyParam.name);
+            if (bodyType) {
+              bodyProp = {
+                name: bodyParam.name,
+                type: bodyType.name,
+                description: paramDescription,
+                location: "Body",
+                sourceNode: bodyParam.node,
               };
-              if (bodyProp !== undefined) {
-                outOperation.requestParameter = bodyProp;
-              }
-              // use the default path for post operations
-              if (outOperation.verb === "post" && !outOperation.subPath) {
-                outOperation.subPath = outOperation.name;
-              }
-              localOperations.push(outOperation);
 
-              let exists: boolean = false;
-              if (resource) {
-                exists = resource.operations?.some((op) => op.name === outOperation.name) ?? false;
-              }
-
-              if (resource && !exists) {
-                resource!.operations!.push(outOperation);
-              }
+              parameters.push(bodyProp);
             }
           }
-        }
 
-        function visitNamespace(visited: NamespaceType, parent?: string) {
-          const key: string = visited.name;
-          let resource: Resource | undefined = undefined;
-          if (armResourceLookup.has(key)) {
-            resource = armResourceLookup.get(key)!;
+          ensureCSharpIdentifier(operationType, operationType.name);
+          const outOperation: Operation = {
+            name: transformCSharpIdentifier(operationType.name),
+            kind: operation.kind,
+            returnType: returnType?.name ?? "void",
+            parameters: parameters,
+            subPath: getSegment(program, operation.operation) ?? operationDetails.pathFragment,
+            verb: operationDetails.verb,
+            sourceNode: operationType.node,
+          };
+          if (bodyProp !== undefined) {
+            outOperation.requestParameter = bodyProp;
+          }
+          // use the default path for actions
+          if (outOperation.kind === "action" && !outOperation.subPath) {
+            outOperation.subPath = outOperation.name;
           }
 
-          if (!visitedNamespaces.has(key)) {
-            visitedNamespaces.set(key, visited);
-            const armSpace = getArmNamespace(program, visited);
-            if (armSpace) {
-              visitOperations(visited.operations, key, resource);
-            }
+          let exists: boolean = false;
+          if (resource) {
+            exists = resource.operations?.some((op) => op.name === outOperation.name) ?? false;
+          }
+
+          if (resource && !exists) {
+            resource!.operations!.push(outOperation);
           }
         }
-
-        modelNameSpaces.forEach((namespace: NamespaceType) => {
-          visitNamespace(namespace);
-        });
       }
 
-      for (const res of getArmResources(program).map((r) => <Type>r)) {
-        const resourceInfo = getArmResourceInfo(program, res)!;
-        if (!resources.has(resourceInfo.resourceModelName)) {
-          const modelName = resourceInfo.resourceModelName;
-          const listName = resourceInfo.resourceListModelName;
-          const matchingNamespace = resourceInfo.armNamespace;
-          const cSharpModelName = transformCSharpIdentifier(resourceInfo.resourceModelName);
-          resourceNamespaceTable.set(resourceInfo.resourceModelName, resourceInfo.armNamespace);
+      function visitModel(model: ModelType) {
+        const modelKey: string = getFriendlyName(program, model) || model.name;
+        if (!modelsToGenerate.has(modelKey) && !getKnownType(model)) {
+          modelsToGenerate.set(modelKey, model);
+        }
+      }
+
+      function extractResponseType(operation: OperationType): ModelType | undefined {
+        const model = operation.returnType;
+        const union = model as UnionType;
+        if (union) {
+          let outModel: ModelType | undefined = undefined;
+          union?.options.forEach((option) => {
+            const optionModel = option as ModelType;
+            if (
+              optionModel &&
+              optionModel.name === "ArmResponse" &&
+              optionModel.templateArguments
+            ) {
+              const innerModel = optionModel.templateArguments[0] as ModelType;
+              if (innerModel) {
+                outModel = innerModel;
+              }
+            } else if (optionModel && optionModel.name !== "ErrorResponse") {
+              outModel = optionModel;
+            }
+          });
+
+          if (outModel === undefined) {
+            reportDiagnostic(program, {
+              code: "invalid-response",
+              format: { operationName: operation ? operation.name : "<unknown>" },
+              target: operation,
+            });
+          }
+
+          return outModel;
+        }
+
+        return model as ModelType;
+      }
+
+      function visitType(cadlType: Type) {
+        if (!visitedTypes.has(cadlType)) {
+          visitedTypes.add(cadlType);
+
+          switch (cadlType.kind) {
+            case "Array":
+              visitType(cadlType.elementType);
+              break;
+            case "Tuple":
+              cadlType.values.forEach((element) => {
+                visitType(element);
+              });
+              break;
+            case "TemplateParameter":
+              cadlType.instantiationParameters?.forEach((element) => {
+                visitType(element);
+              });
+              break;
+            case "Union":
+              cadlType.options.forEach((element) => {
+                visitType(element);
+              });
+              break;
+            case "ModelProperty":
+              visitType(cadlType.type);
+              break;
+            case "Model":
+              if (cadlType.baseModel) {
+                visitType(cadlType.baseModel);
+              }
+              cadlType.templateArguments?.forEach((element) => {
+                visitType(element);
+              });
+
+              // A type with a friendly name should be treated as a unique type
+              if (getFriendlyName(program, cadlType) || !getKnownType(cadlType)) {
+                cadlType.properties.forEach((element) => {
+                  visitType(element);
+                });
+                visitModel(cadlType);
+              }
+              break;
+            default:
+              // do nothing
+              break;
+          }
+        }
+      }
+
+      for (const resourceDetails of getArmResources(program)) {
+        if (!resources.has(resourceDetails.name)) {
+          const modelName = resourceDetails.name;
+          const listName = `${modelName}ListResult`;
+          const matchingNamespace = resourceDetails.armNamespace;
+          const cSharpModelName = transformCSharpIdentifier(modelName);
+          resourceNamespaceTable.set(modelName, resourceDetails.armNamespace);
+
+          const standardOps: ArmLifecycleOperationKind[] = [
+            "read",
+            "createOrUpdate",
+            "update",
+            "delete",
+          ];
+
           const map = new Map<string, Operation>();
-          resourceInfo.standardOperations
-            .filter((o) => o == PutName || o == PatchName || o == DeleteName || o == GetName)
-            .forEach((op) => {
-              const value = getStandardOperation(op, resourceInfo, cSharpModelName, res)!;
+          standardOps.forEach((op) => {
+            const armOperation = resourceDetails.operations.lifecycle[op];
+            if (armOperation) {
+              const value = getStandardOperation(
+                armOperation,
+                cSharpModelName,
+                resourceDetails.cadlType
+              )!;
               if (value && !map.has(value.name)) {
                 map.set(value.name, value);
               }
-            });
-          const outResource = {
-            hasResourceGroupList: resourceInfo.standardOperations.includes(ListName),
-            hasSubscriptionList: resourceInfo.standardOperations.includes(ListName),
+            }
+          });
+
+          const outResource: Resource = {
+            hasResourceGroupList:
+              resourceDetails.operations.lists["ListByResourceGroup"] !== undefined,
+            hasSubscriptionList:
+              resourceDetails.operations.lists["ListBySubscription"] !== undefined,
             serviceName: serviceName,
-            itemPath:
-              resourceInfo.resourcePath!.path +
-              (resourceInfo.resourceNameParam !== undefined
-                ? "/{" + resourceInfo.resourceNameParam!.name + "}"
-                : ""),
-            name: resourceInfo.resourceModelName,
-            resourceTypeName: resourceInfo.resourceTypeName,
+            // TODO: This is currently a problem!  We don't have a canonical path
+            itemPath: (resourceDetails.operations.lifecycle.read ||
+              resourceDetails.operations.lifecycle.createOrUpdate)!.path,
+            name: resourceDetails.name,
+            resourceTypeName: resourceDetails.collectionName,
             nameSpace: serviceNamespace,
-            nameParameter: resourceInfo.resourceNameParam?.name ?? "name",
-            serializedName: transformJsonIdentifier(resourceInfo.collectionName),
+            nameParameter: resourceDetails.keyName ?? "name",
+            serializedName: transformJsonIdentifier(resourceDetails.collectionName),
             operations: [...map.values()],
             specificationArmNamespace: matchingNamespace,
             specificationModelName: transformCSharpIdentifier(modelName),
             specificationListModelName: transformCSharpIdentifier(listName),
-            sourceNode: res.node,
+            sourceNode: resourceDetails.cadlType.node,
           };
+
+          // Loop through the lifecycle operations again to visit their types
+          // now that we have the outResource
+          for (const lifecycleOp of Object.values(resourceDetails.operations.lifecycle)) {
+            visitOperation(lifecycleOp, lifecycleOp.operationDetails, outResource);
+          }
+
+          // Visit all action operations
+          for (const actionOpName in resourceDetails.operations.actions) {
+            const actionOp = resourceDetails.operations.actions[actionOpName];
+            visitOperation(actionOp, actionOp.operationDetails, outResource);
+          }
+
+          // NOTE: We explicitly skip visiting list operations because the
+          // MetaRP will be providing the behavior for listing all resource
+          // types.
+
           resources.set(modelName, outResource);
           outputModel.resources.push(outResource);
-          resourceInfo.operationNamespaces.forEach((ns) => armResourceLookup.set(ns, outResource));
         }
       }
-
-      GetAdditionalOperations();
     }
 
     function populateModels() {
@@ -598,11 +588,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       function populateModel(cadlType: Type) {
         const model = cadlType as ModelType;
         if (model && model.name && model.name.length > 0) {
+          const friendlyName = getFriendlyName(program, model);
           const typeRef = getCSharpType(model);
           reportInfo(`*** ${model.name} => ${typeRef?.name}`, model.node);
           if (typeRef) {
             const outModel: Model = {
-              name: typeRef?.name ?? model.name,
+              name: friendlyName ?? typeRef?.name ?? model.name,
               nameSpace: typeRef?.nameSpace ?? modelNamespace,
               properties: [],
               description: getDoc(program, model),
@@ -616,9 +607,14 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               validations: getValidations(cadlType),
               sourceNode: cadlType.node,
             };
+
+            // The model type may need to derive from another type if:
+            // - It explicitly has a base model type
+            // - It is an instantiation of a templated type without a friendly name
+            //   (the friendly name is used to rename the type without derivation)
             if (
               model.baseModel ||
-              (model.templateArguments && model.templateArguments.length > 0)
+              (!friendlyName && model.templateArguments && model.templateArguments.length > 0)
             ) {
               outModel.isDerivedType = true;
               const baseType: TypeReference[] = [];
@@ -642,10 +638,19 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               outModel.baseClass = baseType.length > 0 ? baseType[0] : undefined;
             }
             if (model.properties && model.properties.size > 0) {
+              // Filter out unwanted properties from the resource model type:
+              // - name: Use the name property defined in the base ArmResource type instead
+              // - systemData
               [...model.properties.values()]
-                ?.filter((prop) => prop.name !== "systemData")
+                ?.filter(
+                  (prop) =>
+                    prop.name !== "systemData" &&
+                    !(prop.name === "name" && getArmResource(program, model))
+                )
                 ?.forEach((val) => {
-                  const decl = getPropertyDecl(val, model);
+                  const decl = getPropertyDecl(val, model, {
+                    includeSpreadProperties: friendlyName !== undefined,
+                  });
                   if (decl) {
                     outModel.properties.push(decl);
                   }
@@ -691,27 +696,22 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       }
     }
 
-    getArmResources(program).forEach((cadlType) => {
+    getArmResources(program).forEach((resource) => {
       function reportResourceInfo(message: string) {
-        reportInfo(message, cadlType.node);
+        reportInfo(message, resource.cadlType.node);
       }
-      const resourceMeta = getArmResourceInfo(program, cadlType)!;
+      const resourceMeta = getArmResource(program, resource.cadlType)!;
       reportResourceInfo("ARM RESOURCE DETAILS");
       reportResourceInfo("--------------------");
       reportResourceInfo("armNamespace: " + resourceMeta.armNamespace);
-      reportResourceInfo("parentNamespace: " + resourceMeta.parentNamespace);
-      reportResourceInfo("resourceModelName: " + resourceMeta.resourceModelName);
-      reportResourceInfo("resourceListModelName: " + resourceMeta.resourceListModelName);
-      reportResourceInfo("resourceKind: " + resourceMeta.resourceKind);
+      reportResourceInfo("resourceModelName: " + resourceMeta.name);
+      reportResourceInfo("resourceKind: " + resourceMeta.kind);
       reportResourceInfo("collectionName: " + resourceMeta.collectionName);
-      reportResourceInfo("operations: " + resourceMeta.standardOperations);
-      reportResourceInfo("resourceNameParam: " + resourceMeta.resourceNameParam?.name);
-      reportResourceInfo("parentResourceType: " + resourceMeta.parentResourceType?.kind);
-      reportResourceInfo("resourcePath: " + resourceMeta.resourcePath?.path);
-      const cType = getCSharpType(cadlType);
-      reportResourceInfo(
-        `-- ${resourceMeta.resourceModelName} => ${cType?.nameSpace}.${cType?.name}`
-      );
+      reportResourceInfo("operations: " + resourceMeta.operations);
+      reportResourceInfo("resourceNameParam: " + resourceMeta.keyName);
+      // reportResourceInfo("parentResourceType: " + resourceMeta.parentResourceType?.kind);
+      const cType = getCSharpType(resource.cadlType);
+      reportResourceInfo(`-- ${resourceMeta.name} => ${cType?.nameSpace}.${cType?.name}`);
       reportResourceInfo("--------------------");
     });
     populateResources();
@@ -720,10 +720,15 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
     function getPropertyDecl(
       property: ModelTypeProperty,
-      parent?: ModelType
+      parent?: ModelType,
+      options?: { includeSpreadProperties?: boolean }
     ): Property | undefined {
       const spreadNode = property.node as ModelSpreadPropertyNode;
-      if (spreadNode && property.sourceProperty === undefined) {
+      if (
+        !options?.includeSpreadProperties &&
+        spreadNode &&
+        property.sourceProperty === undefined
+      ) {
         const parentNode = spreadNode.parent;
         if (parentNode) {
           const parentType = program.checker!.getTypeForNode(parentNode);
@@ -1048,8 +1053,14 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         case "Enum":
           return createInlineEnum(cadlType);
         case "Model":
+          const friendlyName = getFriendlyName(program, cadlType);
+
           // Is the type templated with only one type?
-          if (cadlType.baseModel && (!cadlType.properties || cadlType.properties.size === 0)) {
+          if (
+            !friendlyName &&
+            cadlType.baseModel &&
+            (!cadlType.properties || cadlType.properties.size === 0)
+          ) {
             const outRef = getCSharpType(cadlType.baseModel);
             if (isSealedBaseModel(outRef)) {
               return outRef;
@@ -1073,9 +1084,10 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
           if (known) {
             return known;
           }
-          ensureCSharpIdentifier(cadlType, cadlType.name);
+          const modelName = friendlyName ?? cadlType.name;
+          ensureCSharpIdentifier(cadlType, modelName);
           return {
-            name: transformCSharpIdentifier(cadlType.name),
+            name: transformCSharpIdentifier(modelName),
             nameSpace: modelNamespace,
             isBuiltIn: false,
           };
@@ -1146,6 +1158,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             nameSpace: "Microsoft.Cadl.ProviderHub",
           };
         case "ArmDeleteAcceptedResponse":
+        case "ArmDeletedNoContentResponse":
         case "ArmCreatedResponse":
           return {
             isBuiltIn: true,
@@ -1407,17 +1420,18 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       eqi: (a: string, b: string) => a.toLowerCase() === b.toLowerCase(),
       ne: (a: string | number, b: string | number) => a !== b,
       or: (a: boolean, b: boolean) => a || b,
-      notCustomOp: (op: any) => op.verb.toLowerCase() !== "post",
+      notCustomOp: (op: any) => op.kind !== "action",
       getOperationAction: (operation: Operation) => {
         const subPath = operation.subPath || "";
+        const actionName = subPath.length ? subPath[0].toUpperCase() + subPath.substring(1) : "";
         const mapping = {
           get: "Read",
           put: "Create",
           delete: "Delete",
           patch: "Patch",
-          post: subPath.length ? subPath[0].toUpperCase() + subPath.substring(1) : "",
+          post: actionName,
         } as any;
-        return mapping[operation.verb.toLowerCase()];
+        return operation.kind === "action" ? actionName : mapping[operation.verb.toLowerCase()];
       },
       join: (arr: string[], separator: string) => arr.join(separator),
       split: (str: string, separator: string) => (str ? str.split(separator) : ""),

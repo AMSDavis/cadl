@@ -65,23 +65,26 @@ function main() {
       "operations",
     ],
   });
+
   runCadlSamples(
-    join(azureSamplesPath, "providerhub"),
-    outputPath("azure", "autorest/providerhub"),
+    join(azureSamplesPath, "resource-manager"),
+    outputPath("azure", "autorest/resource-manager"),
     {
       imports: ["@azure-tools/cadl-autorest"],
       emitter: "@azure-tools/cadl-providerhub-controller",
       excludes: ["codesigning", "logz", "servicelinker"],
     }
   );
+
   runCadlSamples(
-    join(azureSamplesPath, "resource-manager"),
-    outputPath("azure", "autorest/resource-manager"),
+    join(azureSamplesPath, "providerhub"),
+    outputPath("azure", "autorest/providerhub"),
     {
       imports: ["@azure-tools/cadl-autorest"],
       emitter: "@azure-tools/cadl-autorest",
     }
   );
+
   instantiateTemplate();
 }
 

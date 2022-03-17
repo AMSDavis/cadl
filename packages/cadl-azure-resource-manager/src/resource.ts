@@ -1,15 +1,10 @@
-import { $asyncOperationOptions } from "@azure-tools/cadl-autorest";
 import {
   $tag,
   $visibility,
   DecoratorContext,
-  getDoc,
-  getIntrinsicModelName,
   getKeyName,
-  getPropertyType,
   getTags,
   ModelType,
-  OperationType,
   Program,
   Type,
   validateDecoratorParamType,
@@ -18,119 +13,81 @@ import {
 import { $autoRoute, getSegment } from "@cadl-lang/rest";
 import { reportDiagnostic } from "./lib.js";
 import { getArmNamespace } from "./namespace.js";
+import { ArmResourceOperations, resolveResourceOperations } from "./operations.js";
 
 const ExpectedProvisioningStates = ["Succeeded", "Failed", "Canceled"];
 
-interface ResourceOperations {
-  resourceInfo: ArmResourceInfo;
-  operations: OperationType[];
-}
+export type ArmResourceKind = "Tracked" | "Proxy" | "Extension";
 
-export interface ParameterInfo {
+export interface ArmResourceDetailsBase {
   name: string;
-  typeName: string;
-  resourceType?: Type;
-  description?: string;
+  kind: ArmResourceKind;
+  armNamespace: string;
+  keyName: string;
+  collectionName: string;
+  cadlType: ModelType;
 }
 
-function getPathParameterInfo(
+export interface ArmResourceDetails extends ArmResourceDetailsBase {
+  operations: ArmResourceOperations;
+}
+
+const armResourcesKey = Symbol();
+const armResourcesCachedKey = Symbol();
+
+function resolveArmResourceDetails(
   program: Program,
-  paramType: Type,
-  resourceType?: Type
-): ParameterInfo | undefined {
-  if (paramType.kind !== "Model") {
-    reportDiagnostic(program, { code: "path-parameter-type", target: paramType });
-    return undefined;
-  }
-
-  if (paramType.properties.size !== 1) {
-    reportDiagnostic(program, {
-      code: "path-parameter-type",
-      messageId: "singleProp",
-      target: paramType,
-    });
-    return undefined;
-  }
-
-  const paramName: string = paramType.properties.keys().next().value;
-  const propType = paramType.properties.get(paramName);
-  if (
-    propType === undefined ||
-    getIntrinsicModelName(program, getPropertyType(propType)) !== "string"
-  ) {
-    reportDiagnostic(program, {
-      code: "path-parameter-type",
-      messageId: "string",
-      target: propType!,
-    });
-
-    return undefined;
-  }
-
+  resource: ArmResourceDetailsBase
+): ArmResourceDetails {
+  // Combine fully-resolved operation details with the base details we already have
   return {
-    name: paramName!,
-    typeName: paramType.name,
-    description: propType ? getDoc(program, propType) : "",
-    resourceType,
+    ...resource,
+    operations: resolveResourceOperations(program, resource.cadlType),
   };
 }
 
-function getPathParameters(program: Program, pathParameters: Type[]): ParameterInfo[] {
-  const parameters = [];
-  for (const p of pathParameters) {
-    const info = getPathParameterInfo(program, p);
-    if (info) {
-      parameters.push(info);
-    }
+/**
+ *  This function returns fully-resolved details about all ARM resources
+ *  registered in the Cadl document including operations and their details.
+ *
+ *  It should only be called after the full Cadl document has been compiled
+ *  so that operation route details are certain to be present.
+ */
+export function getArmResources(program: Program): ArmResourceDetails[] {
+  // Have we cached the resolved resource details already?
+  const cachedResources = program.stateMap(armResourcesCachedKey);
+  if (cachedResources.size > 0) {
+    // Return the cached resource details
+    return Array.from(program.stateMap(armResourcesCachedKey).values()) as ArmResourceDetails[];
   }
-  return parameters;
+
+  // We haven't generated the full resource details yet
+  const resources: ArmResourceDetails[] = [];
+  for (const resource of program.stateMap(armResourcesKey).values()) {
+    const fullResource = resolveArmResourceDetails(program, resource);
+    cachedResources.set(resource.cadlType, fullResource);
+    resources.push(fullResource);
+  }
+
+  return resources;
 }
 
-type ResourceKind = "Tracked" | "Proxy" | "Extension" | "Plain";
-
-export interface ArmResourcePath {
-  path: string;
-  parameters: ParameterInfo[];
-}
-
-export interface ArmResourceInfo {
-  armNamespace: string;
-  resourceType: ModelType;
-  resourceTypeName: string;
-  resourceModelName: string;
-  resourceKeyName: string;
-}
-
-export interface ArmResourceInfoOld {
-  armNamespace: string;
-  parentNamespace: string;
-  resourceModelName: string;
-  resourceTypeName: string;
-  resourceListModelName: string;
-  resourceKind: ResourceKind;
-  collectionName: string;
-  standardOperations: string[];
-  propertiesType?: ModelType;
-  resourceNameParam?: ParameterInfo;
-  parentResourceType?: Type;
-  resourcePath?: ArmResourcePath;
-  operationNamespaces: Set<string>;
-}
-
-const armResourceNamespacesKey = Symbol();
-export function getArmResources(program: Program): ModelType[] {
-  return Array.from(program.stateMap(armResourceNamespacesKey).keys()) as ModelType[];
+export function getArmResource(
+  program: Program,
+  resourceType: ModelType
+): ArmResourceDetails | undefined {
+  return program.stateMap(armResourcesKey).get(resourceType);
 }
 
 export function getArmResourceInfo(
   program: Program,
   resourceType: Type
-): ArmResourceInfo | undefined {
+): ArmResourceDetails | undefined {
   if (!validateDecoratorTarget(program, resourceType, "@arm", "Model")) {
     return undefined;
   }
 
-  const resourceInfo = program.stateMap(armResourceNamespacesKey).get(resourceType);
+  const resourceInfo = program.stateMap(armResourcesKey).get(resourceType);
 
   if (!resourceInfo) {
     reportDiagnostic(program, {
@@ -185,6 +142,21 @@ function getPropertyValue<TValue extends Type>(
   return undefined;
 }
 
+function getArmResourceKind(resourceType: ModelType): ArmResourceKind | undefined {
+  if (resourceType.baseModel) {
+    const coreType = resourceType.baseModel;
+    if (coreType.name.startsWith("TrackedResource")) {
+      return "Tracked";
+    } else if (coreType.name.startsWith("ProxyResource")) {
+      return "Proxy";
+    } else if (coreType.name.startsWith("ExtensionResource")) {
+      return "Extension";
+    }
+  }
+
+  return undefined;
+}
+
 /**
  * This decorator is used to identify ARM resource types and extract their
  * metadata.  It is *not* meant to be used directly by a spec author, it instead
@@ -233,8 +205,6 @@ export function $armResourceInternal(
     return;
   }
 
-  const resourceModelName = resourceType.name;
-
   // Locate the ARM namespace in the namespace hierarchy
   const armNamespace = getArmNamespace(program, resourceType.namespace);
   if (!armNamespace) {
@@ -252,8 +222,8 @@ export function $armResourceInternal(
   // Set the name property to be read only
   $visibility(context, nameProperty, "read");
 
-  const resourceKeyName = getKeyName(program, nameProperty);
-  if (!resourceKeyName) {
+  const keyName = getKeyName(program, nameProperty);
+  if (!keyName) {
     reportDiagnostic(program, {
       code: "arm-resource-missing-name-key-decorator",
       target: resourceType,
@@ -261,8 +231,8 @@ export function $armResourceInternal(
     return;
   }
 
-  const resourceTypeName = getSegment(program, nameProperty);
-  if (!resourceTypeName) {
+  const collectionName = getSegment(program, nameProperty);
+  if (!collectionName) {
     reportDiagnostic(program, {
       code: "arm-resource-missing-name-segment-decorator",
       target: resourceType,
@@ -270,15 +240,32 @@ export function $armResourceInternal(
     return;
   }
 
-  const armResourceInfo: ArmResourceInfo = {
-    resourceType,
-    resourceModelName,
-    resourceTypeName,
-    resourceKeyName,
+  const kind = getArmResourceKind(resourceType);
+
+  if (!kind) {
+    reportDiagnostic(program, {
+      code: "arm-resource-missing-name-segment-decorator",
+      target: resourceType,
+    });
+
+    return;
+  }
+
+  const armResourceDetails: ArmResourceDetails = {
+    name: resourceType.name,
+    kind,
+    cadlType: resourceType,
+    collectionName,
+    keyName,
     armNamespace: armNamespace ?? "",
+    operations: {
+      lifecycle: {},
+      lists: {},
+      actions: {},
+    },
   };
 
-  program.stateMap(armResourceNamespacesKey).set(resourceType, armResourceInfo);
+  program.stateMap(armResourcesKey).set(resourceType, armResourceDetails);
 }
 
 /**
@@ -305,14 +292,4 @@ export function $armResourceOperations(context: DecoratorContext, interfaceType:
   if (getTags(program, interfaceType).length === 0) {
     $tag(context, interfaceType, interfaceType.name);
   }
-}
-
-/**
- * This decorator wraps `asyncOperationOptions` because it only exists
- * in the cadl-autorest emitter library (for now).  This decorator helps
- * avoid issues where @asyncOperationOptions doesn't exist when the
- * @cadl-lang/openapi3 emitter is used.
- */
-export function $armAsyncOperation(context: DecoratorContext, target: Type) {
-  $asyncOperationOptions(context, target, "azure-async-operation");
 }

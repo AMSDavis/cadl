@@ -30,7 +30,8 @@ model FluidRelayServer is TrackedResource<FluidRelayServerProperties> {
 @armResourceOperations
 interface FluidRelayServers mixes ResourceOperations<FluidRelayServer, FluidRelayServerProperties> {
   @doc("Regenerate the primary or secondary key for this server.")
-  @action
+  @post
+  @armResourceAction(FluidRelayServer)
   regenerateKey(
     ...ResourceInstanceParameters<FluidRelayServer>,
 
@@ -40,8 +41,8 @@ interface FluidRelayServers mixes ResourceOperations<FluidRelayServer, FluidRela
   ): ArmResponse<FluidRelayServerKeys> | ErrorResponse;
 
   @doc("Retrieve the keys for this server.")
-  @get
-  @action
+  @post
+  @armResourceAction(FluidRelayServer)
   getKeys(
     ...ResourceInstanceParameters<FluidRelayServer>
   ): ArmResponse<FluidRelayServerKeys> | ErrorResponse;

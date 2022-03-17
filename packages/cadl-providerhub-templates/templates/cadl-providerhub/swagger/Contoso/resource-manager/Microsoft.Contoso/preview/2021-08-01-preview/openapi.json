@@ -34,17 +34,17 @@
   },
   "tags": [
     {
-      "name": "Operations"
+      "name": "Employees"
     },
     {
-      "name": "Employees"
+      "name": "Operations"
     }
   ],
   "paths": {
     "/providers/Microsoft.Contoso/operations": {
       "get": {
         "operationId": "Operations_List",
-        "description": "List the operations for Microsoft.Contoso",
+        "description": "List the operations for the provider",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
@@ -144,6 +144,41 @@
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Contoso/Employees/{EmployeeName}": {
+      "get": {
+        "operationId": "Employees_Get",
+        "description": "Get a Employee",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/Employee.EmployeeName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ARM operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Employee"
+            }
+          },
+          "default": {
+            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Employees"
+        ]
+      },
       "put": {
         "operationId": "Employees_CreateOrUpdate",
         "x-ms-long-running-operation-options": {
@@ -162,7 +197,7 @@
             "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "$ref": "#/parameters/EmployeeNameParameter"
+            "$ref": "#/parameters/Employee.EmployeeName"
           },
           {
             "name": "resource",
@@ -198,48 +233,6 @@
           "Employees"
         ]
       },
-      "delete": {
-        "operationId": "Employees_Delete",
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        },
-        "x-ms-long-running-operation": true,
-        "description": "Delete a Employee",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "#/parameters/EmployeeNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "202": {
-            "description": "Resource deletion accepted."
-          },
-          "204": {
-            "description": "Resource deleted successfully."
-          },
-          "default": {
-            "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "Employees"
-        ]
-      },
       "patch": {
         "operationId": "Employees_Update",
         "description": "Update a Employee",
@@ -254,10 +247,10 @@
             "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "$ref": "#/parameters/EmployeeNameParameter"
+            "$ref": "#/parameters/Employee.EmployeeName"
           },
           {
-            "name": "resource",
+            "name": "properties",
             "in": "body",
             "required": true,
             "description": "The resource properties to be updated.",
@@ -284,9 +277,13 @@
           "Employees"
         ]
       },
-      "get": {
-        "operationId": "Employees_Get",
-        "description": "Get a Employee",
+      "delete": {
+        "operationId": "Employees_Delete",
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true,
+        "description": "Delete a Employee",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
@@ -298,15 +295,18 @@
             "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "$ref": "#/parameters/EmployeeNameParameter"
+            "$ref": "#/parameters/Employee.EmployeeName"
           }
         ],
         "responses": {
           "200": {
-            "description": "ARM operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/Employee"
-            }
+            "description": "Resource deleted successfully."
+          },
+          "202": {
+            "description": "Resource deletion accepted."
+          },
+          "204": {
+            "description": "Resource deleted successfully."
           },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
@@ -338,11 +338,17 @@
           "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/systemData",
           "description": "System metadata for this resource.",
           "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "format": "^[a-zA-Z0-9-]{3,24}$",
+          "readOnly": true
         }
       },
-      "description": "Concrete tracked resource types can be created by aliasing this type using a specific property type.",
+      "description": "A ContosoProviderHub resource",
       "required": [
-        "properties"
+        "properties",
+        "name"
       ],
       "allOf": [
         {
@@ -390,18 +396,18 @@
           "additionalProperties": {
             "type": "string"
           },
-          "description": "Resource tags."
+          "description": "ARM resource tags."
         },
         "properties": {
           "$ref": "#/definitions/EmployeeUpdateProperties"
         }
       },
-      "description": "The updatable properties of the Employee."
+      "description": "The type used for update operations of the Employee."
     },
     "EmployeeUpdateProperties": {
       "type": "object",
       "properties": {},
-      "description": "The updatable properties of EmployeeProperties"
+      "description": "The updatable properties of the Employee."
     },
     "ProvisioningState": {
       "type": "string",
@@ -422,12 +428,12 @@
     }
   },
   "parameters": {
-    "EmployeeNameParameter": {
+    "Employee.EmployeeName": {
       "x-ms-parameter-location": "method",
       "name": "EmployeeName",
       "in": "path",
       "required": true,
-      "description": "Employee resource name",
+      "format": "^[a-zA-Z0-9-]{3,24}$",
       "type": "string"
     }
   }

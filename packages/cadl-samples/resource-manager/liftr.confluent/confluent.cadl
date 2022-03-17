@@ -123,7 +123,7 @@ model ConfluentAgreementResourceProperties {}
 interface MarketplaceAgreements {
   @pageable
   @segment("agreements")
-  @list(ConfluentAgreementResource)
+  @armResourceList(ConfluentAgreementResource, "ListBySubscription")
   List(
     ...SubscriptionScope<ConfluentAgreementResource>
   ): ArmResponse<ResourceListResult<ConfluentAgreementResource>> | ErrorResponse;
@@ -131,6 +131,7 @@ interface MarketplaceAgreements {
   @put
   @segment("agreements/default")
   @doc("Create a new marketplace agreement.")
+  @armResourceCreateOrUpdate(ConfluentAgreementResource)
   create(
     ...SubscriptionScope<ConfluentAgreementResource>,
 

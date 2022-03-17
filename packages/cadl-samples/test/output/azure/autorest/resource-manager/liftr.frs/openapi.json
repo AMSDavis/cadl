@@ -321,7 +321,7 @@
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FluidRelay/fluidRelayServers/{name}/getKeys": {
-      "get": {
+      "post": {
         "operationId": "FluidRelayServers_getKeys",
         "description": "Retrieve the keys for this server.",
         "parameters": [

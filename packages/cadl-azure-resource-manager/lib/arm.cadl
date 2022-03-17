@@ -148,21 +148,21 @@ model ArmCreatedResponse<T> {
 model ArmDeletedResponse {
   @doc("The status code.")
   @statusCode
-  _: 200;
+  statusCode: 200;
 }
 
 @doc("Resource deletion accepted.")
 model ArmDeleteAcceptedResponse {
   @doc("The status code.")
   @statusCode
-  _: 202;
+  statusCode: 202;
 }
 
 @doc("Resource deleted successfully.")
 model ArmDeletedNoContentResponse {
   @doc("The status code.")
   @statusCode
-  _: 204;
+  statusCode: 204;
 }
 
 @doc("The default api-version parameter type.")
@@ -608,6 +608,7 @@ interface ResourceRead<TResource> {
   @autoRoute
   @doc("Get a {name}", TResource)
   @get
+  @armResourceRead(TResource)
   Get(...ResourceInstanceParameters<TResource>): ArmResponse<TResource> | ErrorResponse;
 }
 
@@ -615,7 +616,8 @@ interface ResourceCreate<TResource> {
   @autoRoute
   @doc("Create a {name}", TResource)
   @extension("x-ms-long-running-operation", true)
-  @armAsyncOperation
+  @asyncOperationOptions("azure-async-operation")
+  @armResourceCreateOrUpdate(TResource)
   @put
   CreateOrUpdate(
     ...ResourceInstanceParameters<TResource>,
@@ -630,6 +632,7 @@ interface ResourceCreate<TResource> {
 interface ResourceUpdate<TResource, TProperties> {
   @autoRoute
   @doc("Update a {name}", TResource)
+  @armResourceUpdate(TResource)
   @patch
   Update(
     ...ResourceInstanceParameters<TResource>,
@@ -644,8 +647,9 @@ interface ResourceDelete<TResource> {
   @autoRoute
   @doc("Delete a {name}", TResource)
   @extension("x-ms-long-running-operation", true)
-  @armAsyncOperation
-  @deletesResource(TResource)
+  @asyncOperationOptions("azure-async-operation")
+  @armResourceDelete(TResource)
+  @delete
   Delete(...ResourceInstanceParameters<TResource>):
     | ArmDeletedResponse
     | ArmDeleteAcceptedResponse
@@ -659,6 +663,7 @@ interface ResourceListBySubscription<TResource> {
   @doc("List {name} resources by subscription ID", TResource)
   @list(TResource)
   @segmentOf(TResource)
+  @armResourceList(TResource, "ListBySubscription")
   @get
   ListBySubscription(
     ...SubscriptionScope<TResource>
@@ -671,6 +676,7 @@ interface ResourceListByResourceGroup<TResource> {
   @doc("List {name} resources by resource group", TResource)
   @list(TResource)
   @segmentOf(TResource)
+  @armResourceList(TResource, "ListByResourceGroup")
   @get
   ListByResourceGroup(
     ...ResourceGroupScope<TResource>
@@ -713,6 +719,7 @@ interface ProxyResourceUpdate<TResource, TProperties> {
   @autoRoute
   @doc("Update a {name}", TResource)
   @patch
+  @armResourceUpdate(TResource)
   Update(
     ...ResourceInstanceParameters<TResource>,
 
@@ -753,6 +760,7 @@ model ExtensionResourceInstanceParameters<TResource> {
 
 interface ExtensionResourceRead<TResource> {
   @doc("Get a {name}", TResource)
+  @armResourceRead(TResource)
   @get
   Get(...ExtensionResourceInstanceParameters<TResource>): ArmResponse<TResource> | ErrorResponse;
 }
@@ -760,7 +768,8 @@ interface ExtensionResourceRead<TResource> {
 interface ExtensionResourceCreate<TResource> {
   @doc("Create a {name}", TResource)
   @extension("x-ms-long-running-operation", true)
-  @armAsyncOperation
+  @asyncOperationOptions("azure-async-operation")
+  @armResourceCreateOrUpdate(TResource)
   @put
   CreateOrUpdate(
     ...ExtensionResourceInstanceParameters<TResource>,
@@ -773,6 +782,7 @@ interface ExtensionResourceCreate<TResource> {
 
 interface ExtensionResourceUpdate<TResource, TProperties> {
   @doc("Update a {name}", TResource)
+  @armResourceUpdate(TResource)
   @patch
   Update(
     ...ExtensionResourceInstanceParameters<TResource>,
@@ -786,7 +796,8 @@ interface ExtensionResourceUpdate<TResource, TProperties> {
 interface ExtensionResourceDelete<TResource> {
   @doc("Delete a {name}", TResource)
   @extension("x-ms-long-running-operation", true)
-  @armAsyncOperation
+  @asyncOperationOptions("azure-async-operation")
+  @armResourceDelete(TResource)
   @delete
   Delete(...ExtensionResourceInstanceParameters<TResource>):
     | ArmDeletedResponse

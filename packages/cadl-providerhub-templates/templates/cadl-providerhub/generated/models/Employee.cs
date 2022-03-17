@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Microsoft.Contoso.Service.Models
 {
     /// <summary>
-    /// Concrete tracked resource types can be created by aliasing this type using a specific property type.
+    /// A ContosoProviderHub resource
     /// </summary>
     public class Employee : TrackedResource 
     {

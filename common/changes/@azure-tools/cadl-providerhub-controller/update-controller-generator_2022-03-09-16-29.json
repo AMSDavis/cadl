@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-providerhub-controller",
+      "comment": "Consume resource and operation definitions from the new library @azure-tools/cadl-azure-resource-manager",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-providerhub-controller"
+}

@@ -26,6 +26,7 @@ interface Monitors mixes ResourceOperations<MonitorResource, MonitorProperties> 
   @post
   @segment("getAccountCredentials")
   @doc("Gets the user account credentials for a Monitor")
+  @armResourceAction(MonitorResource)
   getAccountCredentials(
     ...ResourceInstanceParameters<MonitorResource>
   ): AccountInfoSecure | ErrorResponse;
@@ -34,6 +35,7 @@ interface Monitors mixes ResourceOperations<MonitorResource, MonitorProperties> 
   @segment("listMonitoredResources")
   @doc("List the resources currently being monitored by the Dynatrace monitor resource.")
   @pageable("nextLink")
+  @armResourceAction(MonitorResource)
   listMonitoredResources(
     ...ResourceInstanceParameters<MonitorResource>
   ): ArmResponse<MonitoredResourceListResponse> | ErrorResponse;
@@ -41,6 +43,7 @@ interface Monitors mixes ResourceOperations<MonitorResource, MonitorProperties> 
   @post
   @segment("vmHostPayload")
   @doc("Returns the payload that needs to be passed in the request body for installing Dynatrace agent on a VM.")
+  @armResourceAction(MonitorResource)
   getVMHostPayload(
     ...ResourceInstanceParameters<MonitorResource>
   ): ArmResponse<VMExtensionPayload> | ErrorResponse;
@@ -49,6 +52,7 @@ interface Monitors mixes ResourceOperations<MonitorResource, MonitorProperties> 
   @segment("vmHostUpdate")
   @doc("Sending request to update the collection when Dynatrace agent has been installed on a VM for a given monitor.")
   @pageable("nextLink")
+  @armResourceAction(MonitorResource)
   listVMHostUpdate(
     ...ResourceInstanceParameters<MonitorResource>,
     ...VMHostUpdateParameter // change here
@@ -58,6 +62,7 @@ interface Monitors mixes ResourceOperations<MonitorResource, MonitorProperties> 
   @segment("listVMHosts")
   @doc("List the compute resources currently being monitored by the Dynatrace resource.")
   @pageable("nextLink")
+  @armResourceAction(MonitorResource)
   listVMHosts(
     ...ResourceInstanceParameters<MonitorResource>
   ): ArmResponse<VMResourcesListResponse> | ErrorResponse;
@@ -66,6 +71,7 @@ interface Monitors mixes ResourceOperations<MonitorResource, MonitorProperties> 
   @segment("singleSignOnConfigurations")
   @doc("List the single sign-on configurations for a given monitor resource.")
   @pageable("nextLink")
+  @armResourceAction(MonitorResource)
   listSingleSignOnConfigurations(
     ...ResourceInstanceParameters<MonitorResource>
   ): ArmResponse<VMResourcesListResponse> | ErrorResponse;
