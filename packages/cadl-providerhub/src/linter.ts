@@ -1,6 +1,9 @@
+import { isArmCommonType } from "@azure-tools/cadl-azure-resource-manager";
 import {
+  ArrayType,
   EventEmitter,
   getDoc,
+  getProperty,
   isIntrinsic,
   ModelType,
   ModelTypeProperty,
@@ -11,6 +14,7 @@ import {
   SyntaxKind,
   Type,
 } from "@cadl-lang/compiler";
+import { getExtensions } from "@cadl-lang/openapi";
 import { reportDiagnostic } from "./lib.js";
 
 export async function $onValidate(p: Program) {
@@ -169,6 +173,19 @@ function isArmAllowedTopLevelProperty(prop: ModelTypeProperty) {
   return allowedTopLevelProperties.includes(prop.name.toLowerCase());
 }
 
+function ifArrayItemContainsIdentifier(program: Program, array: ArrayType) {
+  if (array.elementType.kind != "Model") {
+    return true;
+  }
+  if (isArmCommonType(array.elementType)) {
+    return true;
+  }
+  return (
+    getExtensions(program, array).has("x-ms-identifier") ||
+    isIntrinsic(program, array.elementType) ||
+    getProperty(array.elementType, "id")
+  );
+}
 class Linter {
   private eventEmitter = new EventEmitter<SemanticNodeListener>();
 
@@ -265,7 +282,24 @@ const runLinter = (p: Program) => {
     },
   };
 
+  const checkXmsIdentifier: SemanticNodeListener = {
+    array: (context: ArrayType) => {
+      if (!ifArrayItemContainsIdentifier(p, context)) {
+        reportDiagnostic(p, {
+          code: "no-identifier-property-in-array-item",
+          target: context,
+        });
+      }
+    },
+  };
+
   const linter = new Linter();
-  linter.register([checkInlineModel, checkDocumentation, checkDocumentationText, checkResources]);
+  linter.register([
+    checkInlineModel,
+    checkDocumentation,
+    checkDocumentationText,
+    checkResources,
+    checkXmsIdentifier,
+  ]);
   return linter.run(p);
 };

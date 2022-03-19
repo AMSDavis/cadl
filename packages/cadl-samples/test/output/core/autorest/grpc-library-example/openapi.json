@@ -307,6 +307,7 @@
           "items": {
             "$ref": "#/definitions/Book"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Book[]",
           "description": "The list of books."
         },
@@ -328,6 +329,7 @@
           "items": {
             "$ref": "#/definitions/Shelf"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Shelf[]",
           "description": "The list of shelves."
         },
@@ -367,6 +369,7 @@
           "items": {
             "$ref": "#/definitions/ProtobufAny"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "ProtobufAny[]"
         }
       },

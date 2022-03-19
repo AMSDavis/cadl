@@ -641,6 +641,7 @@
           "items": {
             "$ref": "#/definitions/AttestationInformation"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.ZeroTrustSystemIntegrity.AttestationInformation[]",
           "description": "List of attestations that the service requires the client to send, based on the last ZTSI report if one is available."
         }
@@ -732,6 +733,7 @@
           "items": {
             "$ref": "#/definitions/AttestationInformation"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.ZeroTrustSystemIntegrity.AttestationInformation[]",
           "description": "List of attestations the service had required from the client"
         },

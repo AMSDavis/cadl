@@ -1045,6 +1045,7 @@
           "items": {
             "$ref": "#/definitions/Key"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Key[]"
         },
         "nextLink": {
@@ -1063,6 +1064,7 @@
           "items": {
             "$ref": "#/definitions/KeyValue"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "KeyValue[]"
         },
         "nextLink": {
@@ -1081,6 +1083,7 @@
           "items": {
             "$ref": "#/definitions/Label"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Label[]"
         },
         "nextLink": {

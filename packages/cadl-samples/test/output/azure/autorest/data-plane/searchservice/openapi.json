@@ -1331,6 +1331,7 @@
           "items": {
             "$ref": "#/definitions/AnalyzedTokenInfo"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "AnalyzedTokenInfo[]",
           "description": "The list of tokens returned by the analyzer specified in the request."
         }
@@ -1923,6 +1924,7 @@
           "items": {
             "$ref": "#/definitions/CustomEntityAlias"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "CustomEntityAlias[]",
           "description": "An array of complex objects that can be used to specify alternative spellings or synonyms to the root entity name."
         }
@@ -3066,6 +3068,7 @@
           "items": {
             "$ref": "#/definitions/SearchIndexerError"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SearchIndexerError[]",
           "description": "The item-level indexing errors.",
           "readOnly": true
@@ -3075,6 +3078,7 @@
           "items": {
             "$ref": "#/definitions/SearchIndexerWarning"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SearchIndexerWarning[]",
           "description": "The item-level indexing warnings.",
           "readOnly": true
@@ -3354,6 +3358,7 @@
           "items": {
             "$ref": "#/definitions/InputFieldMappingEntry"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "InputFieldMappingEntry[]",
           "description": "The recursive inputs used when creating a complex type."
         }
@@ -5907,6 +5912,7 @@
           "items": {
             "$ref": "#/definitions/SemanticField"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SemanticField[]",
           "description": "Defines the title field to be used for semantic ranking, captions, highlights, and answers. If you don't have a title field in your index, leave this blank."
         },
@@ -5915,6 +5921,7 @@
           "items": {
             "$ref": "#/definitions/SemanticField"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SemanticField[]",
           "description": "Defines the content fields to be used for semantic ranking, captions, highlights, and answers. For the best result, the selected fields should contain text in natural language form. The order of the fields in the array represents their priority. Fields with lower priority may get truncated if the content is long."
         },
@@ -5923,6 +5930,7 @@
           "items": {
             "$ref": "#/definitions/SemanticField"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SemanticField[]",
           "description": "Defines the keyword fields to be used for semantic ranking, captions, highlights, and answers. For the best result, the selected fields should contain a list of keywords. The order of the fields in the array represents their priority. Fields with lower priority may get truncated if the content is long."
         }
@@ -6129,6 +6137,7 @@
           "items": {
             "$ref": "#/definitions/ScoringFunction"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "ScoringFunction[]",
           "description": "The collection of functions that influence the scoring of documents."
         },
@@ -6160,6 +6169,7 @@
           "items": {
             "$ref": "#/definitions/SearchError"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SearchError[]",
           "description": "An array of details about specific errors that led to this reported error.",
           "readOnly": true
@@ -6235,6 +6245,7 @@
           "items": {
             "$ref": "#/definitions/SearchField"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SearchField[]",
           "description": "A list of sub-fields if this is a field of type Edm.ComplexType or Collection(Edm.ComplexType). Must be null or empty for simple fields."
         }
@@ -6323,6 +6334,7 @@
           "items": {
             "$ref": "#/definitions/SearchField"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SearchField[]",
           "description": "The fields of the index."
         },
@@ -6331,6 +6343,7 @@
           "items": {
             "$ref": "#/definitions/ScoringProfile"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "ScoringProfile[]",
           "description": "The scoring profiles for the index."
         },
@@ -6650,6 +6663,7 @@
           "items": {
             "$ref": "#/definitions/SearchIndexerKnowledgeStoreProjection"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SearchIndexerKnowledgeStoreProjection[]",
           "description": "A list of additional projections to perform during indexing."
         }
@@ -6740,6 +6754,7 @@
           "items": {
             "$ref": "#/definitions/InputFieldMappingEntry"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "InputFieldMappingEntry[]",
           "description": "Nested inputs for complex projections."
         }
@@ -6806,6 +6821,7 @@
           "items": {
             "$ref": "#/definitions/InputFieldMappingEntry"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "InputFieldMappingEntry[]",
           "description": "Inputs of the skills could be a column in the source data set, or the output of an upstream skill."
         },
@@ -6814,6 +6830,7 @@
           "items": {
             "$ref": "#/definitions/OutputFieldMappingEntry"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "OutputFieldMappingEntry[]",
           "description": "The output of a skill is either a field in a search index, or a value that can be consumed as an input by another skill."
         }
@@ -6848,6 +6865,7 @@
           "items": {
             "$ref": "#/definitions/SearchIndexerSkill"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SearchIndexerSkill[]",
           "description": "A list of skills in the skillset."
         },
@@ -6920,6 +6938,7 @@
           "items": {
             "$ref": "#/definitions/IndexerExecutionResult"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "IndexerExecutionResult[]",
           "description": "History of the recent indexer executions, sorted in reverse chronological order."
         },
@@ -7036,6 +7055,7 @@
           "items": {
             "$ref": "#/definitions/SemanticConfiguration"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SemanticConfiguration[]",
           "description": "The semantic configurations for the index."
         }

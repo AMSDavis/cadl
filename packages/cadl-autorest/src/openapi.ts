@@ -1062,13 +1062,28 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
     }
   }
 
+  function ifArrayItemContainsIdentifier(program: Program, array: ArrayType) {
+    if (array.elementType.kind != "Model") {
+      return true;
+    }
+    return (
+      getExtensions(program, array).has("x-ms-identifier") ||
+      isIntrinsic(program, array.elementType) ||
+      getProperty(array.elementType, "id")
+    );
+  }
+
   function getSchemaForArray(array: ArrayType) {
     const target = array.elementType;
-
-    return {
+    let schema = {
       type: "array",
       items: getSchemaOrRef(target),
-    };
+    } as any;
+    // set default x-ms-identifier.
+    if (!ifArrayItemContainsIdentifier(program, array)) {
+      schema["x-ms-identifier"] = [];
+    }
+    return schema;
   }
 
   function isNullType(type: Type): boolean {

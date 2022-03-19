@@ -440,6 +440,7 @@
               "items": {
                 "$ref": "#/definitions/EntitiesTask"
               },
+              "x-ms-identifier": [],
               "x-cadl-name": "TextAnalytics.EntitiesTask[]"
             },
             "entityRecognitionPiiTasks": {
@@ -447,6 +448,7 @@
               "items": {
                 "$ref": "#/definitions/PiiTask"
               },
+              "x-ms-identifier": [],
               "x-cadl-name": "TextAnalytics.PiiTask[]"
             },
             "keyPhraseExtractionTasks": {
@@ -454,6 +456,7 @@
               "items": {
                 "$ref": "#/definitions/KeyPhraseTask"
               },
+              "x-ms-identifier": [],
               "x-cadl-name": "TextAnalytics.KeyPhraseTask[]"
             },
             "entityLinkingTasks": {
@@ -461,6 +464,7 @@
               "items": {
                 "$ref": "#/definitions/EntityLinkingTask"
               },
+              "x-ms-identifier": [],
               "x-cadl-name": "TextAnalytics.EntityLinkingTask[]"
             },
             "sentimentAnalysisTasks": {
@@ -468,6 +472,7 @@
               "items": {
                 "$ref": "#/definitions/SentimentTask"
               },
+              "x-ms-identifier": [],
               "x-cadl-name": "TextAnalytics.SentimentTask[]"
             }
           },
@@ -501,6 +506,7 @@
               "items": {
                 "$ref": "#/definitions/EntityLinkingTaskResult"
               },
+              "x-ms-identifier": [],
               "x-cadl-name": "TextAnalytics.EntityLinkingTaskResult[]"
             },
             "entityRecognitionPiiTasks": {
@@ -508,6 +514,7 @@
               "items": {
                 "$ref": "#/definitions/PiiTaskResult"
               },
+              "x-ms-identifier": [],
               "x-cadl-name": "TextAnalytics.PiiTaskResult[]"
             },
             "entityRecognitionTasks": {
@@ -515,6 +522,7 @@
               "items": {
                 "$ref": "#/definitions/EntitiesTaskResult"
               },
+              "x-ms-identifier": [],
               "x-cadl-name": "TextAnalytics.EntitiesTaskResult[]"
             },
             "keyPhraseExtractionTasks": {
@@ -522,6 +530,7 @@
               "items": {
                 "$ref": "#/definitions/KeyPhraseTaskResult"
               },
+              "x-ms-identifier": [],
               "x-cadl-name": "TextAnalytics.KeyPhraseTaskResult[]"
             },
             "sentimentAnalysisTasks": {
@@ -529,6 +538,7 @@
               "items": {
                 "$ref": "#/definitions/SentimentTaskResult"
               },
+              "x-ms-identifier": [],
               "x-cadl-name": "TextAnalytics.SentimentTaskResult[]"
             }
           },
@@ -624,6 +634,7 @@
           "items": {
             "$ref": "#/definitions/Warning"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.Warning[]",
           "description": "Warnings encountered while processing document."
         },
@@ -632,6 +643,7 @@
           "items": {
             "$ref": "#/definitions/DocumentStatistics"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.DocumentStatistics[]",
           "description": "If showStats=true was specified in the request this field will contain information about the document payload."
         },
@@ -640,6 +652,7 @@
           "items": {
             "$ref": "#/definitions/Entity"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.Entity[]",
           "description": "Recognized entities in the document."
         }
@@ -680,6 +693,7 @@
           "items": {
             "$ref": "#/definitions/Warning"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.Warning[]",
           "description": "Warnings encountered while processing document."
         },
@@ -688,6 +702,7 @@
           "items": {
             "$ref": "#/definitions/DocumentStatistics"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.DocumentStatistics[]",
           "description": "If showStats=true was specified in the request this field will contain information about the document payload."
         },
@@ -696,6 +711,7 @@
           "items": {
             "$ref": "#/definitions/HealthcareEntity"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.HealthcareEntity[]",
           "description": "Healthcare entities."
         },
@@ -704,6 +720,7 @@
           "items": {
             "$ref": "#/definitions/HealthcareRelation"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.HealthcareRelation[]",
           "description": "Healthcare entity relations."
         }
@@ -728,6 +745,7 @@
           "items": {
             "$ref": "#/definitions/Warning"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.Warning[]",
           "description": "Warnings encountered while processing document."
         },
@@ -736,6 +754,7 @@
           "items": {
             "$ref": "#/definitions/DocumentStatistics"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.DocumentStatistics[]",
           "description": "If showStats=true was specified in the request this field will contain information about the document payload."
         },
@@ -767,6 +786,7 @@
           "items": {
             "$ref": "#/definitions/Warning"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.Warning[]",
           "description": "Warnings encountered while processing document."
         },
@@ -775,6 +795,7 @@
           "items": {
             "$ref": "#/definitions/DocumentStatistics"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.DocumentStatistics[]",
           "description": "If showStats=true was specified in the request this field will contain information about the document payload."
         },
@@ -802,6 +823,7 @@
           "items": {
             "$ref": "#/definitions/Warning"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.Warning[]",
           "description": "Warnings encountered while processing document."
         },
@@ -810,6 +832,7 @@
           "items": {
             "$ref": "#/definitions/DocumentStatistics"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.DocumentStatistics[]",
           "description": "If showStats=true was specified in the request this field will contain information about the document payload."
         },
@@ -841,6 +864,7 @@
           "items": {
             "$ref": "#/definitions/Warning"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.Warning[]",
           "description": "Warnings encountered while processing document."
         },
@@ -849,6 +873,7 @@
           "items": {
             "$ref": "#/definitions/DocumentStatistics"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.DocumentStatistics[]",
           "description": "If showStats=true was specified in the request this field will contain information about the document payload."
         },
@@ -861,6 +886,7 @@
           "items": {
             "$ref": "#/definitions/SentenceSentiment"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.SentenceSentiment[]",
           "description": "Sentence level sentiment analysis."
         },
@@ -1316,6 +1342,7 @@
           "items": {
             "$ref": "#/definitions/HealthcareRelationEntity"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.HealthcareRelationEntity[]",
           "description": "The entities in the relation."
         },
@@ -1487,6 +1514,7 @@
           "items": {
             "$ref": "#/definitions/Error"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.Error[]"
         },
         "@nextLink": {
@@ -1658,6 +1686,7 @@
           "items": {
             "$ref": "#/definitions/Match"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.Match[]",
           "description": "List of instances this entity appears in the text."
         },
@@ -1951,6 +1980,7 @@
           "items": {
             "$ref": "#/definitions/Warning"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.Warning[]",
           "description": "Warnings encountered while processing document."
         },
@@ -1959,6 +1989,7 @@
           "items": {
             "$ref": "#/definitions/DocumentStatistics"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.DocumentStatistics[]",
           "description": "If showStats=true was specified in the request this field will contain information about the document payload."
         },
@@ -1970,6 +2001,7 @@
           "items": {
             "$ref": "#/definitions/Entity"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.Entity[]"
         }
       },
@@ -2141,6 +2173,7 @@
           "items": {
             "$ref": "#/definitions/SentenceTarget"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.SentenceTarget[]",
           "description": "The array of sentence targets for the sentence."
         }
@@ -2195,6 +2228,7 @@
           "items": {
             "$ref": "#/definitions/TargetRelation"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "TextAnalytics.TargetRelation[]",
           "description": "The array of either assessment or target objects which is related to the target."
         }

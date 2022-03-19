@@ -1,4 +1,4 @@
-import { deepStrictEqual, ok, strictEqual } from "assert";
+import { deepStrictEqual, notStrictEqual, ok, strictEqual } from "assert";
 import { oapiForModel, openApiFor } from "./test-host.js";
 
 describe("autorest: definitions", () => {
@@ -697,5 +697,25 @@ describe("cadl-autorest: extension decorator", () => {
     strictEqual(oapi.paths["/Pets/{petId}"].get.parameters[0]["$ref"], "#/parameters/PetId");
     strictEqual(oapi.parameters.PetId.name, "petId");
     strictEqual(oapi.parameters.PetId["x-parameter-extension"], "foobaz");
+  });
+
+  it("support x-ms-identifier with null array ", async () => {
+    const oapi = await openApiFor(
+      `
+      model Pet {
+        name: string;
+      }
+      model PetList {
+        value: Pet[]
+      }
+      @route("/Pets")
+      namespace root {
+        @get()
+        op list(): PetList;
+      }
+      `
+    );
+    ok(oapi.paths["/Pets"].get);
+    notStrictEqual(oapi.definitions.PetList.properties.value["x-ms-identifier"], []);
   });
 });

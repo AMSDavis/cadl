@@ -172,6 +172,13 @@ export const libDef = {
           "The resource model should either extends the TrackedResource,ProxyResource,ExtensionResource or extends one of the base models: TrackedResourceBase,ProxyResourceBase.",
       },
     },
+    "no-identifier-property-in-array-item": {
+      severity: "warning",
+      messages: {
+        default:
+          "Missing identifying properties of objects in the array item, please add @extension('x-ms-identifier',...) to specify it.",
+      },
+    },
   },
 } as const;
 export const { reportDiagnostic } = createCadlLibrary(libDef);

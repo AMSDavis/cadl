@@ -462,6 +462,7 @@
           "items": {
             "$ref": "#/definitions/SourceConfiguration"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.ServiceLinker.SourceConfiguration[]",
           "description": "Details of the source configurations."
         }

@@ -414,6 +414,7 @@
           "items": {
             "$ref": "#/definitions/ProtobufAny"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "ProtobufAny[]"
         }
       },

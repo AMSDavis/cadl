@@ -53,6 +53,7 @@
               "items": {
                 "$ref": "#/definitions/Resp"
               },
+              "x-ms-identifier": [],
               "x-cadl-name": "Resp[]"
             }
           }

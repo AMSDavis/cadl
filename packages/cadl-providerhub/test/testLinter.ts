@@ -139,4 +139,37 @@ describe("test linter rules", () => {
     const errors = getDiagnostic("resource-extends-base-models", [...result]);
     strictEqual(errors.length, 1);
   });
+
+  it("Array item does have id property", async () => {
+    const result = await checkFor(`
+      @armNamespace
+      @serviceTitle("Microsoft.PetStore")
+      @serviceVersion("2021-03-01-preview")
+      namespace Microsoft.PetStore;
+      
+      using Azure.ARM;
+      using Cadl.Http;
+
+     // extends ArmResource Directly
+      model Pet {
+        properties: PetProperties
+      };
+
+      model PetProperties {
+        @doc("The status of the last operation.")
+        provisioningState?: ResourceProvisioningState;
+      }
+
+      namespace Pets {
+        op ListPets(): OkResponse<PetList>;
+      }
+
+      model PetList {
+        value: Pet[];
+      }
+
+    `);
+    const errors = getDiagnostic("no-identifier-property-in-array-item", [...result]);
+    strictEqual(errors.length, 1);
+  });
 });

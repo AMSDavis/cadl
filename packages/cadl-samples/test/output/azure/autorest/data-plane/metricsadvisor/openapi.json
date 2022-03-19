@@ -204,6 +204,7 @@
                   "items": {
                     "$ref": "#/definitions/MetricAlertingConfiguration"
                   },
+                  "x-ms-identifier": [],
                   "x-cadl-name": "MetricAlertingConfiguration[]",
                   "description": "Anomaly alerting configurations"
                 }
@@ -533,6 +534,7 @@
                   "items": {
                     "$ref": "#/definitions/Metric"
                   },
+                  "x-ms-identifier": [],
                   "x-cadl-name": "Metric[]",
                   "description": "measure list"
                 },
@@ -541,6 +543,7 @@
                   "items": {
                     "$ref": "#/definitions/Dimension"
                   },
+                  "x-ms-identifier": [],
                   "x-cadl-name": "Dimension[]",
                   "description": "Dimensions list"
                 },
@@ -1726,6 +1729,7 @@
           "items": {
             "$ref": "#/definitions/MetricAlertingConfiguration"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "MetricAlertingConfiguration[]",
           "description": "Anomaly alerting configurations"
         }
@@ -1984,6 +1988,7 @@
           "items": {
             "$ref": "#/definitions/AnomalyAlertingConfiguration"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "AnomalyAlertingConfiguration[]",
           "description": "The items on this page"
         },
@@ -2005,6 +2010,7 @@
           "items": {
             "$ref": "#/definitions/AnomalyDetectionConfiguration"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "AnomalyDetectionConfiguration[]",
           "description": "The items on this page"
         },
@@ -2026,6 +2032,7 @@
           "items": {
             "$ref": "#/definitions/AnomalyDimension"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "AnomalyDimension[]",
           "description": "The items on this page"
         },
@@ -2047,6 +2054,7 @@
           "items": {
             "$ref": "#/definitions/AnomalyResult"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "AnomalyResult[]",
           "description": "The items on this page"
         },
@@ -2068,6 +2076,7 @@
           "items": {
             "$ref": "#/definitions/Credential"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Credential[]",
           "description": "The items on this page"
         },
@@ -2089,6 +2098,7 @@
           "items": {
             "$ref": "#/definitions/DataFeedDetail"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "DataFeedDetail[]",
           "description": "The items on this page"
         },
@@ -2110,6 +2120,7 @@
           "items": {
             "$ref": "#/definitions/HookInfo"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "HookInfo[]",
           "description": "The items on this page"
         },
@@ -2131,6 +2142,7 @@
           "items": {
             "$ref": "#/definitions/IncidentResult"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "IncidentResult[]",
           "description": "The items on this page"
         },
@@ -2152,6 +2164,7 @@
           "items": {
             "$ref": "#/definitions/IngestionStatus"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "IngestionStatus[]",
           "description": "The items on this page"
         },
@@ -2173,6 +2186,7 @@
           "items": {
             "$ref": "#/definitions/MetricDataItem"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "MetricDataItem[]",
           "description": "The items on this page"
         },
@@ -2194,6 +2208,7 @@
           "items": {
             "$ref": "#/definitions/MetricFeedback"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "MetricFeedback[]",
           "description": "The items on this page"
         },
@@ -2215,6 +2230,7 @@
           "items": {
             "$ref": "#/definitions/MetricSeriesItem"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "MetricSeriesItem[]",
           "description": "The items on this page"
         },
@@ -2236,6 +2252,7 @@
           "items": {
             "$ref": "#/definitions/SeriesResult"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SeriesResult[]",
           "description": "The items on this page"
         },
@@ -2365,6 +2382,7 @@
           "items": {
             "$ref": "#/definitions/Metric"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Metric[]",
           "description": "measure list"
         },
@@ -2373,6 +2391,7 @@
           "items": {
             "$ref": "#/definitions/Dimension"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Dimension[]",
           "description": "Dimensions list"
         },
@@ -2606,6 +2625,7 @@
           "items": {
             "$ref": "#/definitions/DimensionGroupIdentity"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "DimensionGroupIdentity[]",
           "description": "dimension filter"
         }
@@ -2633,6 +2653,7 @@
           "items": {
             "$ref": "#/definitions/SeriesIdentity"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SeriesIdentity[]",
           "description": "The series to be queried. The identity must be able to define one single time series instead of a group of time series. The maximum number of series is 100."
         }

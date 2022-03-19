@@ -1468,6 +1468,7 @@
           "items": {
             "$ref": "#/definitions/AutocompleteItem"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SearchIndex.AutocompleteItem[]",
           "description": "The list of returned Autocompleted items.",
           "readOnly": true,
@@ -1563,6 +1564,7 @@
           "items": {
             "$ref": "#/definitions/IndexAction"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SearchIndex.IndexAction[]",
           "description": "The actions in the batch.",
           "x-ms-client-name": "Actions"
@@ -1581,6 +1583,7 @@
           "items": {
             "$ref": "#/definitions/IndexingResult"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SearchIndex.IndexingResult[]",
           "description": "The list of status information for each document in the indexing request.",
           "readOnly": true,
@@ -2224,6 +2227,7 @@
             "items": {
               "$ref": "#/definitions/FacetResult"
             },
+            "x-ms-identifier": [],
             "x-cadl-name": "SearchIndex.FacetResult[]"
           },
           "description": "The facet query results for the search operation, organized as a collection of buckets for each faceted field; null if the query did not include any facet expressions.",
@@ -2235,6 +2239,7 @@
           "items": {
             "$ref": "#/definitions/AnswerResult"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SearchIndex.AnswerResult[]",
           "description": "The answers query results for the search operation; null if the answers query parameter was not specified or set to 'none'.",
           "readOnly": true,
@@ -2251,6 +2256,7 @@
           "items": {
             "$ref": "#/definitions/SearchResult"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SearchIndex.SearchResult[]",
           "description": "The sequence of results returned by the query.",
           "readOnly": true,
@@ -2280,6 +2286,7 @@
           "items": {
             "$ref": "#/definitions/SearchError"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SearchIndex.SearchError[]",
           "description": "An array of details about specific errors that led to this reported error.",
           "readOnly": true
@@ -2443,6 +2450,7 @@
           "items": {
             "$ref": "#/definitions/CaptionResult"
           },
+          "x-ms-identifier": [],
           "x-nullable": true,
           "x-cadl-name": "SearchIndex.CaptionResult[] | Cadl.null",
           "description": "Captions are the most representative passages from the document relatively to the search query. They are often used as document summary. Captions are only returned for queries of type 'semantic'.",
@@ -2492,6 +2500,7 @@
           "items": {
             "$ref": "#/definitions/SuggestResult"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SearchIndex.SuggestResult[]",
           "description": "The sequence of results returned by the query.",
           "readOnly": true,

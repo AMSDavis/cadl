@@ -586,6 +586,7 @@
           "items": {
             "$ref": "#/definitions/FeedbackRecord"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "FeedbackRecord[]",
           "description": "A list of Feedback Records for Active Learning."
         }
@@ -599,6 +600,7 @@
           "items": {
             "$ref": "#/definitions/ProjectDeployment"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "ProjectDeployment[]",
           "description": "The items on this page"
         },
@@ -620,6 +622,7 @@
           "items": {
             "$ref": "#/definitions/ProjectMetadata"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "ProjectMetadata[]",
           "description": "The items on this page"
         },
@@ -662,6 +665,7 @@
           "items": {
             "$ref": "#/definitions/QnaSourceRecord"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "QnaSourceRecord[]",
           "description": "The items on this page"
         },
@@ -683,6 +687,7 @@
           "items": {
             "$ref": "#/definitions/SynonymAsset"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "SynonymAsset[]",
           "description": "The items on this page"
         },
@@ -785,6 +790,7 @@
           "items": {
             "$ref": "#/definitions/Error"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Error[]",
           "description": "Collection of Error types."
         }
@@ -898,6 +904,7 @@
           "items": {
             "$ref": "#/definitions/QnaPrompt"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "QnaPrompt[]"
         }
       },

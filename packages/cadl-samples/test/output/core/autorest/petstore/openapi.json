@@ -203,6 +203,7 @@
           "items": {
             "$ref": "#/definitions/Pet"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "PetStore.Pet[]"
         },
         "nextLink": {

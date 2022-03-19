@@ -495,6 +495,7 @@
           "items": {
             "$ref": "#/definitions/DocumentPage"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentPage[]",
           "description": "Analyzed pages."
         },
@@ -503,6 +504,7 @@
           "items": {
             "$ref": "#/definitions/DocumentTable"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentTable[]",
           "description": "Extracted tables."
         },
@@ -511,6 +513,7 @@
           "items": {
             "$ref": "#/definitions/DocumentKeyValuePair"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentKeyValuePair[]",
           "description": "Extracted key-value pairs."
         },
@@ -519,6 +522,7 @@
           "items": {
             "$ref": "#/definitions/DocumentEntity"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentEntity[]",
           "description": "Extracted entities."
         },
@@ -527,6 +531,7 @@
           "items": {
             "$ref": "#/definitions/DocumentStyle"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentStyle[]",
           "description": "Extracted styles."
         },
@@ -535,6 +540,7 @@
           "items": {
             "$ref": "#/definitions/Document"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.Document[]",
           "description": "Extracted documents."
         }
@@ -689,6 +695,7 @@
           "items": {
             "$ref": "#/definitions/ModelSummary"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.ModelSummary[]",
           "description": "The items on this page"
         },
@@ -731,6 +738,7 @@
           "items": {
             "$ref": "#/definitions/ComponentModelInfo"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.ComponentModelInfo[]",
           "description": "List of component models to compose."
         }
@@ -825,6 +833,7 @@
           "items": {
             "$ref": "#/definitions/DocumentSpan"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentSpan[]",
           "description": "Location of the document in the reading order concatenated content."
         },
@@ -876,6 +885,7 @@
           "items": {
             "$ref": "#/definitions/DocumentSpan"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentSpan[]",
           "description": "Location of the entity in the reading order concatenated content."
         },
@@ -901,6 +911,7 @@
           "items": {
             "$ref": "#/definitions/DocumentSpan"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentSpan[]",
           "description": "Location of the field in the reading order concatenated content."
         },
@@ -957,6 +968,7 @@
           "items": {
             "$ref": "#/definitions/DocumentField"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentField[]",
           "description": "Array of field values."
         },
@@ -976,6 +988,7 @@
           "items": {
             "$ref": "#/definitions/BoundingRegion"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.BoundingRegion[]",
           "description": "Bounding regions covering the field."
         }
@@ -1020,6 +1033,7 @@
           "items": {
             "$ref": "#/definitions/DocumentSpan"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentSpan[]",
           "description": "Location of the key-value element in the reading order concatenated content."
         },
@@ -1120,6 +1134,7 @@
           "items": {
             "$ref": "#/definitions/DocumentSpan"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentSpan[]",
           "description": "Location of the page in the reading order concatenated content."
         },
@@ -1128,6 +1143,7 @@
           "items": {
             "$ref": "#/definitions/DocumentWord"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentWord[]",
           "description": "Extracted words from the page."
         },
@@ -1136,6 +1152,7 @@
           "items": {
             "$ref": "#/definitions/DocumentSelectionMark"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentSelectionMark[]",
           "description": "Extracted selection marks from the page."
         },
@@ -1144,6 +1161,7 @@
           "items": {
             "$ref": "#/definitions/DocumentLine"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentLine[]",
           "description": "Extracted lines from the page, potentially containing both textual and visual elements."
         }
@@ -1235,6 +1253,7 @@
           "items": {
             "$ref": "#/definitions/DocumentSpan"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentSpan[]",
           "description": "Location of the text elements in the concatenated content the style applies to."
         },
@@ -1271,6 +1290,7 @@
           "items": {
             "$ref": "#/definitions/DocumentTableCell"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentTableCell[]",
           "description": "Cells contained within the table."
         },
@@ -1279,6 +1299,7 @@
           "items": {
             "$ref": "#/definitions/BoundingRegion"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.BoundingRegion[]",
           "description": "Bounding regions covering the table."
         },
@@ -1287,6 +1308,7 @@
           "items": {
             "$ref": "#/definitions/DocumentSpan"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentSpan[]",
           "description": "Location of the table in the reading order concatenated content."
         }
@@ -1334,6 +1356,7 @@
           "items": {
             "$ref": "#/definitions/BoundingRegion"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.BoundingRegion[]",
           "description": "Bounding regions covering the table cell."
         },
@@ -1342,6 +1365,7 @@
           "items": {
             "$ref": "#/definitions/DocumentSpan"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.DocumentSpan[]",
           "description": "Location of the table cell in the reading order concatenated content."
         }
@@ -1418,6 +1442,7 @@
           "items": {
             "$ref": "#/definitions/Error"
           },
+          "x-ms-identifier": [],
           "x-cadl-name": "Microsoft.Azure.FormRecognizer.Error[]"
         },
         "innerError": {

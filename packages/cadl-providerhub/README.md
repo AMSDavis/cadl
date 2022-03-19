@@ -143,6 +143,15 @@ Types of resources and common models for defining arm resources
 | ProxyResource<TProperties>     | Defines a proxy Proxy resource, where `TProperties` is the model of the `properties`    |
 | ExtensionResource<TProperties> | Defines an extension ARM resource, where `TProperties` is the model of the `properties` |
 
+#### x-ms-identifier
+
+For array type with object item , the x-ms-identifier is used to the identifying properties, see [x-ms-identifier](https://github.com/Azure/autorest/tree/main/docs/extensions#x-ms-identifiers) for detail.
+If the array type does not contain 'id' and no 'x-ms-identifier' is specified explicitly, an "x-ms-identifier" with empty array will be added for the array type by default. And there is a linter rule to check it and show below waring :
+
+```txt
+Missing identifying properties of objects in the array item, please add @extension('x-ms-identifier',...) to specify it.
+```
+
 ### Sub resources
 
 Azure Management resources can be a sub resource of another.

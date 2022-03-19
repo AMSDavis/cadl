@@ -1,5 +1,11 @@
 import { $useRef } from "@azure-tools/cadl-autorest";
-import { DecoratorContext, Program, Type, validateDecoratorTarget } from "@cadl-lang/compiler";
+import {
+  DecoratorContext,
+  isCadlValueTypeOf,
+  Program,
+  Type,
+  validateDecoratorTarget,
+} from "@cadl-lang/compiler";
 
 export function getArmTypesPath(program: Program): string | undefined {
   return (
@@ -40,4 +46,14 @@ export function $armCommonParameter(
   }
 
   $useRef(context, entity, `${getArmTypesPath(context.program)}#/parameters/${parameterName}`);
+}
+
+export function isArmCommonType(entity: Type) {
+  const commonDecorators = ["$armCommonDefinition", "$armCommonParameter"];
+  if (isCadlValueTypeOf(entity, ["Model", "ModelProperty"])) {
+    return commonDecorators.some((commonDecorator) =>
+      entity.decorators.some((d) => d.decorator.name === commonDecorator)
+    );
+  }
+  return false;
 }
