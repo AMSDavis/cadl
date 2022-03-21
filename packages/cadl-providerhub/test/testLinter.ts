@@ -49,6 +49,8 @@ describe("test linter rules", () => {
 
   it("inline model in model property", async () => {
     const result = await checkFor(`
+      using Cadl.Http;
+
       @doc("Foo ")
       model Foo {
         x:string
