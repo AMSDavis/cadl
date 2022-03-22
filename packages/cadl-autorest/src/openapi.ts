@@ -30,6 +30,7 @@ import {
   isNumericType,
   isSecret,
   isStringType,
+  isVoidType,
   joinPaths,
   mapChildModels,
   ModelType,
@@ -486,16 +487,11 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
     // If there is no explicit status code, set the default
     if (statusCodes.length === 0) {
-      if (bodyModel) {
-        const defaultStatusCode = isErrorModel(program, responseModel) ? "default" : "200";
-        statusCodes.push(defaultStatusCode);
-      } else {
-        statusCodes.push("204");
-      }
+      statusCodes.push(getDefaultStatusCode(responseModel, bodyModel));
     }
 
     // If there is a body but no explicit content types, use application/json
-    if (bodyModel && contentTypes.length === 0) {
+    if (bodyModel && !isVoidType(bodyModel) && contentTypes.length === 0) {
       contentTypes.push("application/json");
     }
 
@@ -538,6 +534,18 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
     for (const contentType of contentTypes) {
       currentProduces.add(contentType);
+    }
+  }
+
+  /**
+   * Return the default status code for the given response/body
+   * @param model representing the body
+   */
+  function getDefaultStatusCode(responseModel: Type, bodyModel: Type | undefined) {
+    if (bodyModel === undefined || isVoidType(bodyModel)) {
+      return "204";
+    } else {
+      return isErrorModel(program, responseModel) ? "default" : "200";
     }
   }
 
