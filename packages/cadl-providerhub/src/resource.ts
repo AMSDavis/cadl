@@ -320,8 +320,6 @@ export function $armResource(
       if (coreType.name.startsWith("TrackedResource")) {
         const provisioningStateProperty = propertiesType.properties.get("provisioningState");
         if (!provisioningStateProperty || provisioningStateProperty.type.kind !== "Model") {
-          console.log("NO PROP", provisioningStateProperty?.type.kind);
-
           reportDiagnostic(program, {
             code: "tracked-resource-provisioning-state",
             messageId: "missing",

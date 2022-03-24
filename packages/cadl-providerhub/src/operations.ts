@@ -289,7 +289,7 @@ export function armStandardList(program: Program, target: ModelType, documentati
     return;
   }
 
-  const { armResourceInfo, operationParams, namespace } = info;
+  const { armResourceInfo } = info;
   if (armResourceInfo.resourceKind === "Tracked") {
     armListByInternal(
       program,

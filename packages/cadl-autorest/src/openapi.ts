@@ -1083,7 +1083,7 @@ function createOAPIEmitter(program: Program, options: OpenAPIEmitterOptions) {
 
   function getSchemaForArray(array: ArrayType) {
     const target = array.elementType;
-    let schema = {
+    const schema = {
       type: "array",
       items: getSchemaOrRef(target),
     } as any;

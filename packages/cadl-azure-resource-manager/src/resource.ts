@@ -15,8 +15,6 @@ import { reportDiagnostic } from "./lib.js";
 import { getArmNamespace } from "./namespace.js";
 import { ArmResourceOperations, resolveResourceOperations } from "./operations.js";
 
-const ExpectedProvisioningStates = ["Succeeded", "Failed", "Canceled"];
-
 export type ArmResourceKind = "Tracked" | "Proxy" | "Extension";
 
 export interface ArmResourceDetailsBase {
@@ -98,48 +96,6 @@ export function getArmResourceInfo(
   }
 
   return resourceInfo;
-}
-
-function getRequiredPropertyValue<TValue extends Type>(
-  program: Program,
-  model: ModelType,
-  propertyName: string,
-  valueKind: string
-): TValue | undefined {
-  const value = getPropertyValue<TValue>(program, model, propertyName, valueKind);
-
-  if (!value) {
-    reportDiagnostic(program, {
-      code: "missing-required-prop",
-      format: { propertyName },
-      target: model,
-    });
-  }
-
-  return value;
-}
-
-function getPropertyValue<TValue extends Type>(
-  program: Program,
-  model: ModelType,
-  propertyName: string,
-  valueKind: string
-): TValue | undefined {
-  const prop = model.properties.get(propertyName);
-
-  if (prop) {
-    if (prop.type.kind === valueKind) {
-      return prop.type as TValue;
-    } else {
-      reportDiagnostic(program, {
-        code: "invalid-type-prop",
-        format: { type: prop.type.kind, valueType: valueKind },
-        target: prop.type,
-      });
-    }
-  }
-
-  return undefined;
 }
 
 function getArmResourceKind(resourceType: ModelType): ArmResourceKind | undefined {

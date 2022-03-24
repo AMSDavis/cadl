@@ -121,6 +121,12 @@
       "shouldPublish": false
     },
     {
+      "packageName": "cadl-playground",
+      "projectFolder": "core/packages/playground",
+      "reviewCategory": "production",
+      "shouldPublish": false
+    },
+    {
       "packageName": "@azure-tools/cadl-azure-core",
       "projectFolder": "packages/cadl-azure-core",
       "reviewCategory": "production",

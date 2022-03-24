@@ -86,8 +86,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
   const serviceName: string = getServiceName(serviceNamespaceName);
   const serviceNamespace = "Microsoft." + serviceName;
   const modelNamespace = serviceNamespace + ".Models";
-  const ListName = "list",
-    PutName = "createOrUpdate",
+  const PutName = "createOrUpdate",
     PatchName = "update",
     DeleteName = "delete",
     GetName = "read";

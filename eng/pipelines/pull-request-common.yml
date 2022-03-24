@@ -40,6 +40,9 @@ steps:
   - script: node common/scripts/install-run-rush.js check-format
     displayName: Check Formatting
 
+  - script: node common/scripts/install-run-rush.js lint
+    displayName: Lint
+
   - script: node packages/cadl-providerhub-templates/scripts/test-providerhub-template.js
     displayName: Check ProviderHub Templates generation
     # TODO renable for everybody when issue with nuget feed is solved https://github.com/Azure/cadl-azure/issues/1252
