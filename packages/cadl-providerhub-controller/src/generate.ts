@@ -1499,21 +1499,20 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
         }
         await generateResourceProviderReg(outputModel);
       }
-      outputModel.resources.forEach(
-        async (resource: Resource) =>
-          await generateResource(resource).catch((error) =>
-            reportDiagnostic(program, {
-              code: "generating-resource",
-              format: {
-                namespace: resource?.nameSpace ?? "",
-                resourceName: resource?.name ?? "",
-                error,
-              },
-              target: NoTarget,
-            })
-          )
-      );
-      outputModel.models.forEach(async (model) => {
+      for (const resource of outputModel.resources) {
+        await generateResource(resource).catch((error) =>
+          reportDiagnostic(program, {
+            code: "generating-resource",
+            format: {
+              namespace: resource?.nameSpace ?? "",
+              resourceName: resource?.name ?? "",
+              error,
+            },
+            target: NoTarget,
+          })
+        );
+      }
+      for (const model of outputModel.models) {
         reportInfo(`Rendering model ${model.nameSpace}.${model.name}`, model.sourceNode);
         await generateModel(model).catch((error) =>
           reportDiagnostic(program, {
@@ -1526,12 +1525,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
             target: NoTarget,
           })
         );
-      });
+      }
 
-      outputModel.enumerations?.forEach((enumeration) => {
+      for (const enumeration of outputModel.enumerations ?? []) {
         reportInfo(`Rendering enum ${enumeration.name}`, enumeration.sourceNode);
         generateEnum(enumeration);
-      });
+      }
     }
   }
 }
