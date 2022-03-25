@@ -23,7 +23,7 @@
   <!-- TODO review and move into common props and targets when multiple csproj exists.-->
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>../../eng/MSSharedLibKey.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../../../eng/MSSharedLibKey.snk</AssemblyOriginatorKeyFile>
     <DelaySign>true</DelaySign>
   </PropertyGroup>
 </Project>

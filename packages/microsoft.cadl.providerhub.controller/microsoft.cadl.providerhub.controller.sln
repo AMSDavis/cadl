@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProviderHubControllerTests", "test\ProviderHubControllerTests.csproj", "{9EF301A1-2767-4659-AF3B-482BDF9FB266}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cadl.ProviderHubController.Common", "src\Cadl.ProviderHubController.Common.csproj", "{AD5EC951-1A86-47C8-91A6-F9E2AA57423B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9EF301A1-2767-4659-AF3B-482BDF9FB266}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EF301A1-2767-4659-AF3B-482BDF9FB266}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EF301A1-2767-4659-AF3B-482BDF9FB266}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EF301A1-2767-4659-AF3B-482BDF9FB266}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD5EC951-1A86-47C8-91A6-F9E2AA57423B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD5EC951-1A86-47C8-91A6-F9E2AA57423B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD5EC951-1A86-47C8-91A6-F9E2AA57423B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD5EC951-1A86-47C8-91A6-F9E2AA57423B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {41655E09-01F8-4C6D-9505-0B79A60768A4}
+	EndGlobalSection
+EndGlobal
