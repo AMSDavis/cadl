@@ -1,5 +1,6 @@
 {
-  "name": "cadl-msbuild-target",
+  "name": "@azure-tools/cadl-msbuild-target",
+  "private": true,
   "author": "Microsoft Corporation",
   "version": "0.1.0",
   "description": "Cadl msbuild target",

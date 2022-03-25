@@ -7,10 +7,9 @@ dependencies:
   '@rush-temp/cadl-azure-core': file:projects/cadl-azure-core.tgz
   '@rush-temp/cadl-azure-resource-manager': file:projects/cadl-azure-resource-manager.tgz
   '@rush-temp/cadl-msbuild-target': file:projects/cadl-msbuild-target.tgz
-  '@rush-temp/cadl-playground': file:projects/cadl-playground.tgz
   '@rush-temp/cadl-providerhub': file:projects/cadl-providerhub.tgz
   '@rush-temp/cadl-providerhub-controller': file:projects/cadl-providerhub-controller.tgz
-  '@rush-temp/cadl-providerhub-templates-contoso': file:projects/cadl-providerhub-templates-contoso.tgz
+  '@rush-temp/cadl-providerhub-template': file:projects/cadl-providerhub-template.tgz
   '@rush-temp/cadl-samples': file:projects/cadl-samples.tgz
   '@rush-temp/cadl-vs': file:projects/cadl-vs.tgz
   '@rush-temp/cadl-vscode': file:projects/cadl-vscode.tgz
@@ -18,6 +17,7 @@ dependencies:
   '@rush-temp/eslint-config-cadl': file:projects/eslint-config-cadl.tgz_prettier@2.5.1
   '@rush-temp/openapi': file:projects/openapi.tgz
   '@rush-temp/openapi3': file:projects/openapi3.tgz
+  '@rush-temp/playground': file:projects/playground.tgz
   '@rush-temp/prettier-plugin-cadl': file:projects/prettier-plugin-cadl.tgz
   '@rush-temp/rest': file:projects/rest.tgz
   '@rush-temp/samples': file:projects/samples.tgz
@@ -4278,30 +4278,6 @@ packages:
       integrity: sha512-L0Q5imTJQoHMUL+lwpzBsXEm56sFUteJC2smwOMZO4blPKf5IGCk5zYZlKKZU+Eyr3CRTqmyyD6Cb+SCXeiiDg==
       tarball: file:projects/cadl-msbuild-target.tgz
     version: 0.0.0
-  file:projects/cadl-playground.tgz:
-    dependencies:
-      '@types/debounce': 1.2.1
-      '@types/lz-string': 1.3.34
-      '@types/mocha': 9.1.0
-      '@types/node': 14.0.27
-      '@types/prettier': 2.4.4
-      c8: 7.11.0
-      debounce: 1.2.1
-      eslint: 8.9.0
-      lzutf8: 0.6.1
-      mocha: 9.2.1
-      monaco-editor: 0.32.1
-      prettier: 2.5.1
-      rimraf: 3.0.2
-      typescript: 4.5.5
-      vite: 2.8.6
-      vscode-languageserver-textdocument: 1.0.4
-    dev: false
-    name: '@rush-temp/cadl-playground'
-    resolution:
-      integrity: sha512-pOK8nv/h53rStnLA9fnIjovtqJNkVNc9t9o2Uu15JkQVr6oisG4FvVhz4bn1jrxygsm3OFAKMyVuRjfKCN8FUw==
-      tarball: file:projects/cadl-playground.tgz
-    version: 0.0.0
   file:projects/cadl-providerhub-controller.tgz:
     dependencies:
       '@types/mocha': 9.1.0
@@ -4318,12 +4294,12 @@ packages:
       integrity: sha512-yANDMCcWalpCRHUwJblAeWMj9gOhKPbWrV6ByeDQp0Yfyr+mR15ldkML6mLfGFDMxo0ey5kprTviJ41+lPyQHg==
       tarball: file:projects/cadl-providerhub-controller.tgz
     version: 0.0.0
-  file:projects/cadl-providerhub-templates-contoso.tgz:
+  file:projects/cadl-providerhub-template.tgz:
     dev: false
-    name: '@rush-temp/cadl-providerhub-templates-contoso'
+    name: '@rush-temp/cadl-providerhub-template'
     resolution:
-      integrity: sha512-6xExz49/37jFZk5TN4Std0/yEtsFrhX1Ex5b0WQUVAmf9uEYw/iphQH/MvKdsPdqaSHCsoO9AXeBH6OCwef7GQ==
-      tarball: file:projects/cadl-providerhub-templates-contoso.tgz
+      integrity: sha512-Mx6XZrDFcgmXk/nNds89WuhfEbS+vJ3x37/5NghuMG9qcwijvcY25Y4lMIe1+89ucpPWQj9URt0pxhrG0nL6gA==
+      tarball: file:projects/cadl-providerhub-template.tgz
     version: 0.0.0
   file:projects/cadl-providerhub.tgz:
     dependencies:
@@ -4471,6 +4447,30 @@ packages:
       integrity: sha512-lZhmQx6xq1WVjXiNQidyMF4ufCfNyI0sTXwOk4OHPG4rIB7/l/MsTA04nH4nAAu8FRimvURi9whTZ5WfZQgz7Q==
       tarball: file:projects/openapi3.tgz
     version: 0.0.0
+  file:projects/playground.tgz:
+    dependencies:
+      '@types/debounce': 1.2.1
+      '@types/lz-string': 1.3.34
+      '@types/mocha': 9.1.0
+      '@types/node': 14.0.27
+      '@types/prettier': 2.4.4
+      c8: 7.11.0
+      debounce: 1.2.1
+      eslint: 8.9.0
+      lzutf8: 0.6.1
+      mocha: 9.2.1
+      monaco-editor: 0.32.1
+      prettier: 2.5.1
+      rimraf: 3.0.2
+      typescript: 4.5.5
+      vite: 2.8.6
+      vscode-languageserver-textdocument: 1.0.4
+    dev: false
+    name: '@rush-temp/playground'
+    resolution:
+      integrity: sha512-WgKeXW0Jjjntze4sO576ult23mEiPcyjtwpdaK0MOYR1vmBjvPcrbEEsI6b0xliMl8xjEvMeTZJp9gBbd8rJ9w==
+      tarball: file:projects/playground.tgz
+    version: 0.0.0
   file:projects/prettier-plugin-cadl.tgz:
     dependencies:
       '@rollup/plugin-commonjs': 22.0.0-13_rollup@2.70.1
@@ -4563,10 +4563,9 @@ specifiers:
   '@rush-temp/cadl-azure-core': file:./projects/cadl-azure-core.tgz
   '@rush-temp/cadl-azure-resource-manager': file:./projects/cadl-azure-resource-manager.tgz
   '@rush-temp/cadl-msbuild-target': file:./projects/cadl-msbuild-target.tgz
-  '@rush-temp/cadl-playground': file:./projects/cadl-playground.tgz
   '@rush-temp/cadl-providerhub': file:./projects/cadl-providerhub.tgz
   '@rush-temp/cadl-providerhub-controller': file:./projects/cadl-providerhub-controller.tgz
-  '@rush-temp/cadl-providerhub-templates-contoso': file:./projects/cadl-providerhub-templates-contoso.tgz
+  '@rush-temp/cadl-providerhub-template': file:./projects/cadl-providerhub-template.tgz
   '@rush-temp/cadl-samples': file:./projects/cadl-samples.tgz
   '@rush-temp/cadl-vs': file:./projects/cadl-vs.tgz
   '@rush-temp/cadl-vscode': file:./projects/cadl-vscode.tgz
@@ -4574,6 +4573,7 @@ specifiers:
   '@rush-temp/eslint-config-cadl': file:./projects/eslint-config-cadl.tgz
   '@rush-temp/openapi': file:./projects/openapi.tgz
   '@rush-temp/openapi3': file:./projects/openapi3.tgz
+  '@rush-temp/playground': file:./projects/playground.tgz
   '@rush-temp/prettier-plugin-cadl': file:./projects/prettier-plugin-cadl.tgz
   '@rush-temp/rest': file:./projects/rest.tgz
   '@rush-temp/samples': file:./projects/samples.tgz

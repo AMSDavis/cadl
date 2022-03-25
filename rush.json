@@ -121,7 +121,7 @@
       "shouldPublish": false
     },
     {
-      "packageName": "cadl-playground",
+      "packageName": "@cadl-lang/playground",
       "projectFolder": "core/packages/playground",
       "reviewCategory": "production",
       "shouldPublish": false
@@ -163,13 +163,13 @@
       "shouldPublish": false
     },
     {
-      "packageName": "cadl-msbuild-target",
+      "packageName": "@azure-tools/cadl-msbuild-target",
       "projectFolder": "packages/cadl-msbuild-target",
       "reviewCategory": "production",
       "shouldPublish": false
     },
     {
-      "packageName": "cadl-providerhub-templates-contoso",
+      "packageName": "@azure-tools/cadl-providerhub-template",
       "projectFolder": "packages/cadl-providerhub-templates/templates/cadl-providerhub/cadl",
       "reviewCategory": "production",
       "shouldPublish": false

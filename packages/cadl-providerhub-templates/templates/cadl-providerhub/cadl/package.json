@@ -1,35 +1,11 @@
 {
-  "name": "cadl-providerhub-templates-contoso",
-  "private": true,
+  "name": "@azure-tools/cadl-providerhub-template",
   "version": "1.0.0",
-  "author": "Microsoft Corporation",
-  "description": "Cadl for Contoso",
-  "homepage": "https://github.com/Azure/cadl-azure",
-  "readme": "https://github.com/Azure/cadl-azure/blob/master/readme.md",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Azure/cadl-azure.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Azure/cadl-azure/issues"
-  },
-  "keywords": [
-    "adl",
-    "cli"
-  ],
+  "private": true,
   "type": "module",
-  "engines": {
-    "node": ">=14.0.0"
-  },
   "scripts": {
-    "build": "echo \"nothing to do for samples\""
+    "build": "echo \"Nothing to do for template.\""
   },
-  "files": [
-    "lib/*.adl",
-    "dist/**",
-    "!dist/test/**"
-  ],
   "dependencies": {
     "@cadl-lang/compiler": "~0.29.0",
     "@cadl-lang/openapi": "~0.7.0",
@@ -38,6 +14,5 @@
     "@azure-tools/cadl-azure-core": "~0.1.0",
     "@azure-tools/cadl-providerhub-controller": "~0.10.0",
     "@azure-tools/cadl-azure-resource-manager": "~0.4.0"
-  },
-  "devDependencies": {}
+  }
 }
