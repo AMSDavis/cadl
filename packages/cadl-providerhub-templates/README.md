@@ -65,6 +65,8 @@ az login
 az acr login --name rpaasoneboxacr
 ```
 
+If you are not authorized to access rpaasoneboxacr, you may need to be added to the [RPaaS Partners Security Group](https://idweb.microsoft.com/identitymanagement/aspx/groups/AllGroups.aspx?popupFromClipboard=%2Fidentitymanagement%2Faspx%2FGroups%2FEditGroup.aspx%3Fid%3Dfc4a82d5-c2fb-4519-8e14-6b9582de07fe).
+
 ### Run OneBox
 
 #### Option 1: Run OneBox with `docker-compose`
