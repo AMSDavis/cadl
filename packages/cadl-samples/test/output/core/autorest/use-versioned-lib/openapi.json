@@ -1,0 +1,51 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Pet Store Service",
+    "version": "0000-00-00"
+  },
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "tags": [],
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "VersionedApi_read",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Library.PetToy"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Library.PetToy": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "material": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "material"
+      ]
+    }
+  },
+  "parameters": {}
+}

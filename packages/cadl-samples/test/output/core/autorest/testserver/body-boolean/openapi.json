@@ -103,9 +103,6 @@
               "type": "boolean"
             }
           },
-          "204": {
-            "description": "No Content"
-          },
           "default": {
             "description": "Error",
             "schema": {

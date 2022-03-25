@@ -1,3 +1,4 @@
+import { expectDiagnostics } from "@cadl-lang/compiler/testing";
 import { deepStrictEqual, ok, strictEqual } from "assert";
 import { createAutorestTestRunner, openApiFor } from "./test-host.js";
 
@@ -281,86 +282,25 @@ describe("cadl-autorest: return types", () => {
     deepStrictEqual(res.paths["/"].get.produces, ["text/plain", "text/html", "text/csv"]);
   });
 
-  it("returns diagnostics for duplicate body decorator", async () => {
+  it("issues diagnostics when there is differrent body types across content types", async () => {
     const runner = await createAutorestTestRunner();
     const diagnostics = await runner.diagnose(
       `
       model Foo {
+        @header contentType: "application/json";
         foo: string;
       }
       model Bar {
-        bar: string;
-      }
-      @route("/")
-      namespace root {
-        @get
-        op read(): { @body body1: Foo, @body body2: Bar };
-      }
-      `
-    );
-    strictEqual(diagnostics.length, 1);
-    strictEqual(diagnostics[0].code, "@azure-tools/cadl-autorest/duplicate-body");
-    strictEqual(diagnostics[0].message, "Duplicate @body declarations on response type");
-  });
-
-  it("issues diagnostics for return type with duplicate status code", async () => {
-    const runner = await createAutorestTestRunner();
-    const diagnostics = await runner.diagnose(
-      `
-      model Foo {
-        foo: string;
-      }
-      model Error {
+        @header contentType: "application/xml";
         code: string;
       }
-      @route("/")
-      namespace root {
-        @get
-        op read(): Foo | Error;
-      }
+      op read(): Foo | Bar;
       `
     );
-    strictEqual(diagnostics.length, 1);
-    strictEqual(diagnostics[0].code, "@azure-tools/cadl-autorest/duplicate-response");
-    strictEqual(diagnostics[0].message, "Multiple return types for status code 200");
-  });
-
-  it("issues diagnostics for invalid content types", async () => {
-    const runner = await createAutorestTestRunner();
-    const diagnostics = await runner.diagnose(
-      `
-      model Foo {
-        foo: string;
-      }
-
-      model TextPlain {
-        contentType: "text/plain";
-      }
-
-      namespace root {
-        @route("/test1")
-        @get
-        op test1(): { @header contentType: string, @body body: Foo };
-        @route("/test2")
-        @get
-        op test2(): { @header contentType: 42, @body body: Foo };
-        @route("/test3")
-        @get
-        op test3(): { @header contentType: "application/json" | TextPlain, @body body: Foo };
-      }
-    `
-    );
-    strictEqual(diagnostics.length, 3);
-    ok(
-      diagnostics.every((e: any) => e.code === "@azure-tools/cadl-autorest/content-type-string"),
-      "All diagnostics have code === content-type-string"
-    );
-    ok(
-      diagnostics.every((e: any) =>
-        e.message.includes("must be a string literal or union of string literals")
-      ),
-      "All diagnostics have expected message"
-    );
+    expectDiagnostics(diagnostics, {
+      code: "@azure-tools/cadl-autorest/duplicate-body-types",
+      message: "Request has multiple body types",
+    });
   });
 
   it("defines responses with primitive types", async () => {

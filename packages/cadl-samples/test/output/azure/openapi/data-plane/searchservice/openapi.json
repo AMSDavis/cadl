@@ -2556,6 +2556,10 @@
       "LexicalAnalyzer": {
         "type": "object",
         "properties": {
+          "@odata.type": {
+            "type": "string",
+            "description": "Discriminator property for LexicalAnalyzer."
+          },
           "name": {
             "type": "string",
             "description": "The name of the analyzer. It must only contain letters, digits, spaces, dashes or underscores, can only start and end with alphanumeric characters, and is limited to 128 characters."
@@ -2578,6 +2582,10 @@
       "LexicalTokenizer": {
         "type": "object",
         "properties": {
+          "@odata.type": {
+            "type": "string",
+            "description": "Discriminator property for LexicalTokenizer."
+          },
           "name": {
             "type": "string",
             "description": "The name of the tokenizer. It must only contain letters, digits, spaces, dashes or underscores, can only start and end with alphanumeric characters, and is limited to 128 characters."
@@ -2608,6 +2616,10 @@
       "TokenFilter": {
         "type": "object",
         "properties": {
+          "@odata.type": {
+            "type": "string",
+            "description": "Discriminator property for TokenFilter."
+          },
           "name": {
             "type": "string",
             "description": "The name of the token filter. It must only contain letters, digits, spaces, dashes or underscores, can only start and end with alphanumeric characters, and is limited to 128 characters."
@@ -2641,6 +2653,10 @@
       "CharFilter": {
         "type": "object",
         "properties": {
+          "@odata.type": {
+            "type": "string",
+            "description": "Discriminator property for CharFilter."
+          },
           "name": {
             "type": "string",
             "description": "The name of the char filter. It must only contain letters, digits, spaces, dashes or underscores, can only start and end with alphanumeric characters, and is limited to 128 characters."
@@ -2661,6 +2677,10 @@
       "LexicalNormalizer": {
         "type": "object",
         "properties": {
+          "@odata.type": {
+            "type": "string",
+            "description": "Discriminator property for LexicalNormalizer."
+          },
           "name": {
             "type": "string",
             "description": "The name of the normalizer. It must only contain letters, digits, spaces, dashes or underscores, can only start and end with alphanumeric characters, and is limited to 128 characters. It cannot end in '.microsoft' nor '.lucene', nor be named 'asciifolding', 'standard', 'lowercase', 'uppercase', or 'elision'."
@@ -2679,7 +2699,12 @@
       },
       "Similarity": {
         "type": "object",
-        "properties": {},
+        "properties": {
+          "@odata.type": {
+            "type": "string",
+            "description": "Discriminator property for Similarity."
+          }
+        },
         "description": "Base type for similarity algorithms. Similarity algorithms are used to calculate scores that tie queries to documents. The higher the score, the more relevant the document is to that specific query. Those scores are used to rank the search results.",
         "discriminator": {
           "propertyName": "@odata.type",
@@ -2951,6 +2976,10 @@
       "SearchIndexerSkill": {
         "type": "object",
         "properties": {
+          "@odata.type": {
+            "type": "string",
+            "description": "Discriminator property for SearchIndexerSkill."
+          },
           "name": {
             "type": "string",
             "description": "The name of the skill which uniquely identifies it within the skillset. A skill with no name defined will be given a default name of its 1-based index in the skills array, prefixed with the character '#'."
@@ -3355,6 +3384,10 @@
       "ScoringFunction": {
         "type": "object",
         "properties": {
+          "type": {
+            "type": "string",
+            "description": "Discriminator property for ScoringFunction."
+          },
           "fieldName": {
             "type": "string",
             "description": "The name of the field used as input to the scoring function."

@@ -21,40 +21,22 @@ const libDef = {
         default: paramMessage`Path contains parameter ${"param"} but wasn't found in given parameters`,
       },
     },
-    "duplicate-body": {
-      severity: "error",
-      messages: {
-        default: "Duplicate @body declarations on response type",
-      },
-    },
     "duplicate-body-types": {
       severity: "error",
       messages: {
         default: "Request has multiple body types",
       },
     },
-    "duplicate-response": {
+    "duplicate-header": {
       severity: "error",
       messages: {
-        default: paramMessage`Multiple return types for status code ${"statusCode"}`,
-      },
-    },
-    "content-type-ignored": {
-      severity: "warning",
-      messages: {
-        default: "content-type header ignored because return type has no body",
+        default: paramMessage`The header ${"header"} is defined across multiple content types`,
       },
     },
     "duplicate-example": {
       severity: "error",
       messages: {
         default: "Duplicate @example declarations on operation",
-      },
-    },
-    "content-type-string": {
-      severity: "error",
-      messages: {
-        default: "contentType parameter must be a string literal or union of string literals",
       },
     },
     "invalid-schema": {
