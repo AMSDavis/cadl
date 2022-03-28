@@ -1529,7 +1529,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
       for (const enumeration of outputModel.enumerations ?? []) {
         reportInfo(`Rendering enum ${enumeration.name}`, enumeration.sourceNode);
-        generateEnum(enumeration);
+        await generateEnum(enumeration);
       }
     }
   }

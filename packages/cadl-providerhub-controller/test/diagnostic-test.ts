@@ -1,7 +1,7 @@
 import { BasicTestRunner, expectDiagnostics } from "@cadl-lang/compiler/testing";
 import { createRPaasControllerTestRunner } from "./test-host.js";
 
-describe("Test identifier validation in service code emitter", async () => {
+describe("Test identifier validation in service code emitter", () => {
   let runner: BasicTestRunner;
 
   beforeEach(async () => {
