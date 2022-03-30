@@ -164,7 +164,7 @@ For example to create a new `AddressResource` resource under the `UserResource` 
 @doc("An AddressResource")
 @armResource({
   path: "AddressResources",
-  parameterType: SubResourceNameParameter,
+  parameterType: AddressNameParameter,
   collectionName: "AddressResource",
   parentResourceType: UserResource,
 })
