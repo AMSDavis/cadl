@@ -161,14 +161,14 @@ The value is the parent resource type(Model with the `@armResource` decorator)
 For example to create a new `AddressResource` resource under the `UserResource` defined above.
 
 ```cadl
-@doc("A AddressResource")
+@doc("An AddressResource")
 @armResource({
   path: "AddressResources",
   parameterType: SubResourceNameParameter,
   collectionName: "AddressResource",
   parentResourceType: UserResource,
 })
-model UserResource is TrackedResource<UserResourceProperties> {}
+model AddressResource is TrackedResource<AddressResourceProperties> {}
 
 ```
 
