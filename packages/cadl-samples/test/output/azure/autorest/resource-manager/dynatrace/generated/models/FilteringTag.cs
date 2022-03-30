@@ -29,6 +29,5 @@ namespace Microsoft.Observability.Service.Models
         /// Valid actions for a filtering tag. Exclusion takes priority over inclusion.
         /// </summary>
         public TagAction Action { get; set; }
-
     }
 }

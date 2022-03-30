@@ -19,6 +19,5 @@ namespace Microsoft.FluidRelay.Service.Models
         /// The key to regenerate.
         /// </summary>
         public KeyName KeyName { get; set; }
-
     }
 }

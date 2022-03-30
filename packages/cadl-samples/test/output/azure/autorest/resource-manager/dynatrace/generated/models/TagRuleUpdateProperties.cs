@@ -19,6 +19,5 @@ namespace Microsoft.Observability.Service.Models
         /// Set of rules for sending logs for the Monitor resource.
         /// </summary>
         public LogRules LogRules { get; set; }
-
     }
 }

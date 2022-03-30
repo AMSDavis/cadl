@@ -19,6 +19,5 @@ namespace Microsoft.FluidRelay.Service.Models
         /// Provisioning states for FluidRelay RP
         /// </summary>
         public ProvisioningState ProvisioningState { get; set; }
-
     }
 }

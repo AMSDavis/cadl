@@ -24,6 +24,5 @@ namespace Microsoft.FluidRelay.Service.Models
         /// The Fluid Relay storage endpoints.
         /// </summary>
         public string[] StorageEndpoints { get; set; }
-
     }
 }

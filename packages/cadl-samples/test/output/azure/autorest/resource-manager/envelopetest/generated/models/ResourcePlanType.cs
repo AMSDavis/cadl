@@ -39,6 +39,5 @@ namespace Microsoft.EnvelopeTest.Service.Models
         /// The version of the desired product/artifact.
         /// </summary>
         public string Version { get; set; }
-
     }
 }

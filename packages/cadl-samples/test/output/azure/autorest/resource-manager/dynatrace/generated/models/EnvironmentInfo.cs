@@ -29,6 +29,5 @@ namespace Microsoft.Observability.Service.Models
         /// Ingestion endpoint used for sending logs
         /// </summary>
         public string LogsIngestionEndpoint { get; set; }
-
     }
 }

@@ -29,6 +29,5 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
         /// List of attestations that the service requires the client to send, based on the last ZTSI report if one is available.
         /// </summary>
         public AttestationInformation[] RequiredAttestations { get; set; }
-
     }
 }

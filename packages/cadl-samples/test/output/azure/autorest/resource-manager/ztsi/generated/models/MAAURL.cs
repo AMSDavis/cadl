@@ -19,6 +19,5 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
         /// URL of the MAA instance that ztsi is using for attestation.
         /// </summary>
         public string Url { get; set; }
-
     }
 }

@@ -38,6 +38,5 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
         public byte[] EphemeralKeyPub { get; set; }
 
         public byte[] EphemeralKeySignature { get; set; }
-
     }
 }

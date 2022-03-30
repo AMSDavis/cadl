@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@azure-tools/cadl-providerhub-controller",
+      "comment": "Adding discriminator model support.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@azure-tools/cadl-providerhub-controller"
+}

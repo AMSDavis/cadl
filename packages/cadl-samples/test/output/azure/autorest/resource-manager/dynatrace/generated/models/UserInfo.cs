@@ -43,6 +43,5 @@ namespace Microsoft.Observability.Service.Models
         /// Country of the user
         /// </summary>
         public string Country { get; set; }
-
     }
 }

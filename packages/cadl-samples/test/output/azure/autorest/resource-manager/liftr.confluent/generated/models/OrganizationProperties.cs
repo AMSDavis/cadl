@@ -44,6 +44,5 @@ namespace Microsoft.Confluent.Service.Models
         /// The provisioning state of the resource.
         /// </summary>
         public ResourceProvisioningState ProvisioningState { get; set; }
-
     }
 }

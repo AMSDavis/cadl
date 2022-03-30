@@ -21,6 +21,5 @@ namespace Microsoft.Contoso.Service.Models
         public IDictionary<string, string> Tags { get; set; }
 
         public EmployeeUpdateProperties Properties { get; set; }
-
     }
 }

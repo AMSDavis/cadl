@@ -24,6 +24,5 @@ namespace Microsoft.Observability.Service.Models
         /// The active directory identifier for this principal.
         /// </summary>
         public string PrincipalId { get; set; }
-
     }
 }

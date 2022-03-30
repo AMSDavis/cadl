@@ -39,6 +39,5 @@ namespace Microsoft.Observability.Service.Models
         /// Provisioning state of the resource.
         /// </summary>
         public ProvisioningState ProvisioningState { get; set; }
-
     }
 }

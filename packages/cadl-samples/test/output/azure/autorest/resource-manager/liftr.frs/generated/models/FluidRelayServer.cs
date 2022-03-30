@@ -19,6 +19,5 @@ namespace Microsoft.FluidRelay.Service.Models
         /// The resource-specific properties for this resource.
         /// </summary>
         public FluidRelayServerProperties Properties { get; set; }
-
     }
 }

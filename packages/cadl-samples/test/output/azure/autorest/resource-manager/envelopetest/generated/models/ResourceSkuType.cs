@@ -39,6 +39,5 @@ namespace Microsoft.EnvelopeTest.Service.Models
         /// If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the resource this may be omitted.
         /// </summary>
         public int Capacity { get; set; }
-
     }
 }

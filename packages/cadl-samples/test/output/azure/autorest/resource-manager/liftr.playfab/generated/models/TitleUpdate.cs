@@ -21,6 +21,5 @@ namespace Microsoft.PlayFab.Service.Models
         public IDictionary<string, string> Tags { get; set; }
 
         public TitleUpdateProperties Properties { get; set; }
-
     }
 }

@@ -30,6 +30,5 @@ namespace Microsoft.PlayFab.Service.Models
         /// The provisioning state of the resource.
         /// </summary>
         public ResourceProvisioningState ProvisioningState { get; set; }
-
     }
 }

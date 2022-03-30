@@ -34,6 +34,5 @@ namespace Microsoft.EnvelopeTest.Service.Models
         /// The identities assigned to this resource by the user.
         /// </summary>
         public IDictionary<string, UserAssignedIdentity> UserAssignedIdentities { get; set; }
-
     }
 }

@@ -35,6 +35,5 @@ namespace Microsoft.Observability.Service.Models
         /// If only Exclude action is specified, the rules will apply to the list of all available resources. If Include actions are specified, the rules will only include resources with the associated tags.
         /// </summary>
         public FilteringTag[] FilteringTags { get; set; }
-
     }
 }

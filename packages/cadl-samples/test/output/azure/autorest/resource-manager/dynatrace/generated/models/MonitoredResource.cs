@@ -39,6 +39,5 @@ namespace Microsoft.Observability.Service.Models
         /// Reason for why the resource is sending logs (or why it is not sending).
         /// </summary>
         public string ReasonForLogsStatus { get; set; }
-
     }
 }

@@ -24,6 +24,5 @@ namespace Microsoft.Observability.Service.Models
         /// Specifies the state of the operation - install/ delete.
         /// </summary>
         public VMHostUpdateState State { get; set; }
-
     }
 }

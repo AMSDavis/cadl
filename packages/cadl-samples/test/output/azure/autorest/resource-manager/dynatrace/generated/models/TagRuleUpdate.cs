@@ -16,6 +16,5 @@ namespace Microsoft.Observability.Service.Models
     public class TagRuleUpdate 
     {
         public TagRuleUpdateProperties Properties { get; set; }
-
     }
 }

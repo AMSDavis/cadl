@@ -21,6 +21,5 @@ namespace Microsoft.EnvelopeTest.Service.Models
         /// Name of the resource
         /// </summary>
         public string DisplayName { get; set; } = "default";
-
     }
 }

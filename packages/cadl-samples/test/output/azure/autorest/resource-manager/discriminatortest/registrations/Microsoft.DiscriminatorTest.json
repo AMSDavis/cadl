@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "providerType": "Hidden",
+    "management": {
+      "incidentRoutingService": "DiscriminatorTest Resource Provider",
+      "incidentRoutingTeam": "DiscriminatorTest Triage",
+      "incidentContactEmail": "helpme@DiscriminatorTest.com"
+    },
+    "enableTenantLinkedNotification": false
+  }
+}

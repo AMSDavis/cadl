@@ -21,6 +21,5 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
         public IDictionary<string, string> Tags { get; set; }
 
         public ZTSIResourceUpdateProperties Properties { get; set; }
-
     }
 }

@@ -24,6 +24,5 @@ namespace Microsoft.Observability.Service.Models
         /// Id of the environment created
         /// </summary>
         public string EnvironmentId { get; set; }
-
     }
 }

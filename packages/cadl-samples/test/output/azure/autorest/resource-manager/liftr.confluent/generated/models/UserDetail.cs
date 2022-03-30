@@ -32,6 +32,5 @@ namespace Microsoft.Confluent.Service.Models
         /// </summary>
         [Pattern(@"\w+@\w+\.\w+")]
         public string EmailAddress { get; set; }
-
     }
 }

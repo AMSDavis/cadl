@@ -29,6 +29,5 @@ namespace Microsoft.EnvelopeTest.Service.Models
         /// The type of managed identity assigned to this resource.
         /// </summary>
         public ManagedSystemIdentityType Type { get; set; }
-
     }
 }

@@ -20,6 +20,5 @@ namespace Microsoft.ContosoProviderHub.Service.Models
         /// The status of the last operation.
         /// </summary>
         public ProvisioningState ProvisioningState { get; set; }
-
     }
 }

@@ -19,6 +19,5 @@ namespace Microsoft.Contoso.Service.Models
         /// The resource-specific properties for this resource.
         /// </summary>
         public EmployeeProperties Properties { get; set; }
-
     }
 }

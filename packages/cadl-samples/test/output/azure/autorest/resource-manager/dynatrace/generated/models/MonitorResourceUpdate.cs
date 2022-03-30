@@ -21,6 +21,5 @@ namespace Microsoft.Observability.Service.Models
         public IDictionary<string, string> Tags { get; set; }
 
         public MonitorResourceUpdateProperties Properties { get; set; }
-
     }
 }

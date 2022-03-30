@@ -1,0 +1,59 @@
+import "@cadl-lang/rest";
+import "@azure-tools/cadl-azure-core";
+import "@azure-tools/cadl-azure-resource-manager";
+import "./common.cadl";
+
+@armNamespace
+@serviceTitle("DiscriminatorTest")
+@serviceVersion("2021-10-01-preview")
+@doc("DiscriminatorTest Resource Provider management API.")
+namespace Microsoft.DiscriminatorTest;
+
+using Cadl.Http;
+using Cadl.Rest;
+using Azure.ResourceManager;
+using Microsoft.DiscriminatorTest.Common;
+
+@doc("A DiscriminatorTest resource")
+model Employee is TrackedResource<EmployeeProperties> {
+  @format("^[a-zA-Z0-9-]{3,24}$")
+  @key("employeeName")
+  @segment("employees")
+  name: string;
+}
+
+@armResourceOperations
+interface Employees mixes ResourceOperations<Employee, EmployeeProperties> {
+  @post GiveRaise(...ResourceInstanceParameters<Employee>): ArmResponse<Employee> | ErrorResponse;
+}
+
+model EmployeeProperties {
+  age?: int32;
+  city?: string;
+  role: EmployeeRole;
+  type: EmployeeType;
+  ...DefaultProvisioningStateProperty;
+}
+
+@discriminator("employeeType")
+model EmployeeType {}
+
+model HourlyEmployee extends EmployeeType {
+  employeeType: "Hourly";
+  hourlyRate: int32;
+}
+
+model SalariedEmployee extends EmployeeType {
+  employeeType: "Salaried";
+  annualPay: int32;
+}
+
+model ExecutiveEmployee extends EmployeeType {
+  employeeType: "Executive";
+  specialReward: int32;
+}
+
+model ManagerRole extends EmployeeRole {
+  roleType: "Manager";
+  teamSize: int32;
+}

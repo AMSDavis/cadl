@@ -7,16 +7,38 @@ using Microsoft.Cadl.ProviderHub.Controller;
 using System;
 using System.Security.Policy;
 using System.Collections.Generic; 
-
+{{#if discriminatorInfo}}
+using Newtonsoft.Json;
+{{#if (ne discriminatorBaseType.namespace namespace)}}
+using {{discriminatorBaseType.namespace}};
+{{/if}}{{/if}}
 namespace Microsoft.{{serviceName}}.Service.Models
 {
+{{#if discriminatorInfo}}
+    [Discriminator(DiscriminatorPropertyName, DiscriminatorValue)]
+    [JsonConverter(typeof(DiscriminatorJsonConverter<{{discriminatorInfo.baseType.name}}>))]
+{{/if}}
 {{#if description}}
     /// <summary>
     {{> renderComment content=description}} 
     /// </summary>
 {{/if}}
-    public class {{name}}{{#if (or isDerivedType isImplementer)}} : {{#if baseClass}}{{baseClass.name}}{{#if baseClass.typeParameters}}<{{typeParamList baseClass}}>{{/if}}{{/if}}{{#if implements}}{{#if isDerivedType}}, {{/if}}{{join implements ", "}}{{/if}}{{/if}} 
-    {
+    public {{#if discriminatorInfo}}{{#if (eq discriminatorInfo.value "")}}abstract {{/if}}{{/if}}class {{name}}{{#if (or isDerivedType isImplementer)}} : {{#if baseClass}}{{baseClass.name}}{{#if baseClass.typeParameters}}<{{typeParamList baseClass}}>{{/if}}{{/if}}{{#if implements}}{{#if isDerivedType}}, {{/if}}{{join implements ", "}}{{/if}}{{/if}} 
+    {{curly true}}{{#if discriminatorInfo}}
+        // Discriminator value
+        const string DiscriminatorValue = "{{discriminatorInfo.value}}";{{#if (eq discriminatorInfo.value "")}}
+
+        // Discriminator property name
+        protected const string DiscriminatorPropertyName = "{{discriminatorInfo.propertyName}}";{{else}}
+
+        /// <summary>
+        /// Initializes a new instance of the {{name}} class.
+        /// </summary>
+        public {{name}}()
+        {
+            {{csharpname discriminatorInfo.propertyName}} = DiscriminatorValue;
+        }
+{{/if}}{{/if}}
 {{#each properties}}
 {{#if description}}
         /// <summary>
@@ -29,7 +51,7 @@ namespace Microsoft.{{serviceName}}.Service.Models
 {{/each}}
 {{/if}}
         public {{type.name}}{{#if type.typeParameters}}<{{typeParamList type}}>{{/if}} {{name}} { get; set; }{{#if default}} = {{default}};{{/if}}
+{{#unless @last}}
 
-{{/each}}
-    }
+{{/unless}}{{/each}}    }
 }

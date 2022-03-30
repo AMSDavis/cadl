@@ -49,6 +49,5 @@ namespace Microsoft.Confluent.Service.Models
         /// SaaS offer status.
         /// </summary>
         public OfferStatus Status { get; set; }
-
     }
 }

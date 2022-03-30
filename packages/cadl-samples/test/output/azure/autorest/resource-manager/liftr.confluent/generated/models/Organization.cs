@@ -19,6 +19,5 @@ namespace Microsoft.Confluent.Service.Models
         /// The resource-specific properties for this resource.
         /// </summary>
         public OrganizationProperties Properties { get; set; }
-
     }
 }

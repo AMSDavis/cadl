@@ -24,6 +24,5 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
         /// The managed service identities assigned to this resource.
         /// </summary>
         public ManagedIdentityProperties Identity { get; set; }
-
     }
 }

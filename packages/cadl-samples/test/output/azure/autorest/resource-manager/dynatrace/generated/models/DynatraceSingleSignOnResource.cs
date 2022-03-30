@@ -19,6 +19,5 @@ namespace Microsoft.Observability.Service.Models
         /// The resource-specific properties for this resource.
         /// </summary>
         public DynatraceSingleSignOnProperties Properties { get; set; }
-
     }
 }

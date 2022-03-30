@@ -1,0 +1,8 @@
+namespace Microsoft.DiscriminatorTest.Common;
+
+@discriminator("roleType")
+model EmployeeRole {}
+
+model IcRole extends EmployeeRole {
+  roleType: "IC";
+}

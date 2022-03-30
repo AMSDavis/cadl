@@ -21,6 +21,5 @@ namespace Microsoft.EnvelopeTest.Service.Models
         public IDictionary<string, string> Tags { get; set; }
 
         public AllPropertiesResourceUpdateProperties Properties { get; set; }
-
     }
 }

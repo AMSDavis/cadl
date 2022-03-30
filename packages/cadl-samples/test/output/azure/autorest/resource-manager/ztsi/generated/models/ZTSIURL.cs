@@ -19,6 +19,5 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
         /// URL of the ZTSI instance created as a part of the resource.
         /// </summary>
         public string Url { get; set; }
-
     }
 }

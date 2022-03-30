@@ -16,6 +16,5 @@ namespace Microsoft.EnvelopeTest.Service.Models
         /// The status of the last operation performed on this resource.
         /// </summary>
         public EnvelopeProvisioningState ProvisioningState { get; set; }
-
     }
 }

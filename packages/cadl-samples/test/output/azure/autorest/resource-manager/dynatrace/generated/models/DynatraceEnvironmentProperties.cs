@@ -29,6 +29,5 @@ namespace Microsoft.Observability.Service.Models
         /// Dynatrace Environment Information
         /// </summary>
         public EnvironmentInfo EnvironmentInfo { get; set; }
-
     }
 }

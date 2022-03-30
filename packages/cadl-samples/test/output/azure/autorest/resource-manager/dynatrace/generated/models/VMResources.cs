@@ -25,6 +25,5 @@ namespace Microsoft.Observability.Service.Models
         /// Version of the Dynatrace agent installed on the VM.
         /// </summary>
         public string AgentVersion { get; set; }
-
     }
 }

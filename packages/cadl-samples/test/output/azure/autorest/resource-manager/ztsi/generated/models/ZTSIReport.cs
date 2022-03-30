@@ -19,6 +19,5 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
         /// Base64 encoded ZTSI report information
         /// </summary>
         public byte[] ZtsiReport { get; set; }
-
     }
 }

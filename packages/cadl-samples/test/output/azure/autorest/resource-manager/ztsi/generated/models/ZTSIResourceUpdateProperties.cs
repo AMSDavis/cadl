@@ -24,6 +24,5 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
         /// Billing plan information.
         /// </summary>
         public PlanData PlanData { get; set; }
-
     }
 }

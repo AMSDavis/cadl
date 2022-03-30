@@ -24,6 +24,5 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
         /// ZTSI report from last RequestReport call, if any
         /// </summary>
         public byte[] LastZtsiReport { get; set; }
-
     }
 }

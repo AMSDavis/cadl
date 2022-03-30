@@ -25,6 +25,7 @@ import {
   getServiceVersion,
   isIntrinsic,
   joinPaths,
+  mapChildModels,
   ModelSpreadPropertyNode,
   ModelType,
   ModelTypeProperty,
@@ -39,7 +40,13 @@ import {
   Type,
   UnionType,
 } from "@cadl-lang/compiler";
-import { getSegment, http, HttpOperationParameter, OperationDetails } from "@cadl-lang/rest";
+import {
+  getDiscriminator,
+  getSegment,
+  http,
+  HttpOperationParameter,
+  OperationDetails,
+} from "@cadl-lang/rest";
 import Handlebars from "handlebars";
 import { fileURLToPath } from "url";
 import { reportDiagnostic } from "./lib.js";
@@ -137,6 +144,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     serviceName: string;
     description?: string;
     properties: Property[];
+    discriminatorInfo?: DiscriminatorInfo;
   }
 
   interface Property extends TraceableEntity {
@@ -194,6 +202,12 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
     enumerations: Enumeration[];
   }
 
+  interface DiscriminatorInfo {
+    baseType?: TypeReference;
+    propertyName?: string;
+    value?: string;
+  }
+
   const outputModel: ServiceModel = {
     nameSpace: serviceNamespace,
     serviceName: serviceName,
@@ -227,6 +241,10 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
 
     // maps resource model name to arm Namespace
     const resourceNamespaceTable = new Map<string, string>();
+
+    // create child model map
+    const modelDiscriminatorInfoMap = new Map<ModelType, DiscriminatorInfo>();
+    const childModelMap = mapChildModels(program);
 
     function transformPathParameter(
       parameter: HttpOperationParameter,
@@ -419,9 +437,57 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       }
 
       function visitModel(model: ModelType) {
-        const modelKey: string = getFriendlyName(program, model) || model.name;
-        if (!modelsToGenerate.has(modelKey) && !getKnownType(model)) {
-          modelsToGenerate.set(modelKey, model);
+        function tryAddModel(model: ModelType) {
+          const modelKey: string = getFriendlyName(program, model) || model.name;
+          if (!modelsToGenerate.has(modelKey) && !getKnownType(model)) {
+            modelsToGenerate.set(modelKey, model);
+          }
+        }
+        function addModelDiscriminatorInfoToMap(
+          model: ModelType,
+          baseType: TypeReference,
+          fieldName: string,
+          discriminatorValue: string
+        ) {
+          const baseDiscriminatorInfo: DiscriminatorInfo = {
+            baseType: baseType,
+            propertyName: fieldName,
+            value: discriminatorValue,
+          };
+          if (!modelDiscriminatorInfoMap.has(model)) {
+            modelDiscriminatorInfoMap.set(model, baseDiscriminatorInfo);
+          }
+        }
+
+        tryAddModel(model);
+
+        // create discriminatorInfo if has @discriminator
+        const discriminator = getDiscriminator(program, model);
+        if (discriminator) {
+          const baseType = getCSharpType(model);
+          addModelDiscriminatorInfoToMap(
+            model,
+            baseType as TypeReference,
+            discriminator.propertyName,
+            ""
+          );
+
+          const childModels = childModelMap.get(model) ?? [];
+          // add all children to be generated
+          for (const child of childModels) {
+            const childFieldType = (
+              child.properties.get(discriminator.propertyName) as ModelTypeProperty
+            ).type;
+            if (childFieldType.kind == "String") {
+              tryAddModel(child);
+              addModelDiscriminatorInfoToMap(
+                child,
+                baseType as TypeReference,
+                discriminator.propertyName,
+                childFieldType.value.toString()
+              );
+            }
+          }
         }
       }
 
@@ -605,6 +671,7 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
               isBuiltIn: typeRef?.isBuiltIn ?? false,
               validations: getValidations(cadlType),
               sourceNode: cadlType.node,
+              discriminatorInfo: modelDiscriminatorInfoMap.get(model),
             };
 
             // The model type may need to derive from another type if:
@@ -1435,6 +1502,8 @@ export function CreateServiceCodeGenerator(program: Program, options: ServiceGen
       join: (arr: string[], separator: string) => arr.join(separator),
       split: (str: string, separator: string) => (str ? str.split(separator) : ""),
       trim: (str: string) => (str ? str.trim() : ""),
+      csharpname: (str: string) => transformCSharpIdentifier(str),
+      curly: (open: boolean) => (open ? "{" : "}"),
     };
     const operationsPath = genPath;
     const routesPath = resolvePath(joinPaths(genPath, service + "ServiceRoutes.cs"));

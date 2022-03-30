@@ -39,6 +39,5 @@ namespace Microsoft.Observability.Service.Models
         /// Billing plan information.
         /// </summary>
         public PlanData PlanData { get; set; }
-
     }
 }

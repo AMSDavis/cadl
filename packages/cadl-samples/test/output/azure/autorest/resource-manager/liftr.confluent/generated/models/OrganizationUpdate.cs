@@ -21,6 +21,5 @@ namespace Microsoft.Confluent.Service.Models
         public IDictionary<string, string> Tags { get; set; }
 
         public OrganizationUpdateProperties Properties { get; set; }
-
     }
 }

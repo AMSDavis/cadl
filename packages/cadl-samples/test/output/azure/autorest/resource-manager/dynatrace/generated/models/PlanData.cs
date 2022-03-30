@@ -37,6 +37,5 @@ namespace Microsoft.Observability.Service.Models
         /// date when plan was applied
         /// </summary>
         public DateTime EffectiveDate { get; set; }
-
     }
 }

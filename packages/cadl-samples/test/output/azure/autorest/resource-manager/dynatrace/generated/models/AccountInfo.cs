@@ -24,6 +24,5 @@ namespace Microsoft.Observability.Service.Models
         /// Region in which the account is created
         /// </summary>
         public string RegionId { get; set; }
-
     }
 }

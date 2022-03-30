@@ -24,6 +24,5 @@ namespace Microsoft.FluidRelay.Service.Models
         /// The secondary key for this server.
         /// </summary>
         public string Key2 { get; set; }
-
     }
 }

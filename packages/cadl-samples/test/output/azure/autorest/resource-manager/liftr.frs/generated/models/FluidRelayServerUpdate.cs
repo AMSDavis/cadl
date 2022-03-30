@@ -21,6 +21,5 @@ namespace Microsoft.FluidRelay.Service.Models
         public IDictionary<string, string> Tags { get; set; }
 
         public FluidRelayServerUpdateProperties Properties { get; set; }
-
     }
 }

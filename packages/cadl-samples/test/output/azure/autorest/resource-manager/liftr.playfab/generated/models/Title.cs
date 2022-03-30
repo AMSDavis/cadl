@@ -19,6 +19,5 @@ namespace Microsoft.PlayFab.Service.Models
         /// The resource-specific properties for this resource.
         /// </summary>
         public TitleProperties Properties { get; set; }
-
     }
 }

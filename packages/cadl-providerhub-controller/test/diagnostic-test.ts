@@ -1,4 +1,8 @@
-import { BasicTestRunner, expectDiagnostics } from "@cadl-lang/compiler/testing";
+import {
+  BasicTestRunner,
+  expectDiagnosticEmpty,
+  expectDiagnostics,
+} from "@cadl-lang/compiler/testing";
 import { createRPaasControllerTestRunner } from "./test-host.js";
 
 describe("Test identifier validation in service code emitter", () => {
@@ -173,5 +177,62 @@ describe("Test identifier validation in service code emitter", () => {
     expectDiagnostics(result, {
       code: "@azure-tools/cadl-providerhub-controller/invalid-identifier",
     });
+  });
+
+  it("Ensure successful generation of discriminator types", async () => {
+    const result = await runner.diagnose(`
+      @armNamespace
+      @serviceTitle("Microsoft.Test")
+      @serviceVersion("2021-03-01-preview")
+      namespace Microsoft.Test;
+      
+      using Azure.ResourceManager;
+      using Cadl.Http;
+      using Cadl.Rest;
+
+      @doc("Foo is life")
+      model Foo is TrackedResource<FooProperties> {
+        @key("fooName")
+        @doc("foo name")
+        @segment("Foo")
+        name: string;
+      }
+
+      interface FooStore mixes ResourceCreate<Foo>, ResourceDelete<Foo> {}
+
+      @doc("The status of the current operation.")
+      @knownValues(ProvisioningStateKV)
+      model ProvisioningState is string {}
+      enum ProvisioningStateKV {
+        Succeeded, Failed, Canceled, Provisioning, Updating, Deleting, Accepted
+      }
+      
+      @doc("Pet model")
+      @discriminator("type")
+      model Pet {
+      }
+
+      @doc("Dog model")
+      model Dog extends Pet {
+        type: "Dog";
+        bark: string;
+      }
+
+      @doc("Cat model")
+      model Cat extends Pet {
+        type: "Cat";
+        meow: string;
+      }
+
+      @doc("The properties of foo")
+      model FooProperties {
+        @doc("The status of the last operation.")
+        provisioningState?: ProvisioningState;
+
+        @doc("Pet")
+        pet: Pet;
+      }
+    `);
+    expectDiagnosticEmpty(result);
   });
 });

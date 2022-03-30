@@ -24,6 +24,5 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
         /// Base64 encoded attestation data.
         /// </summary>
         public byte[] AttestationData { get; set; }
-
     }
 }

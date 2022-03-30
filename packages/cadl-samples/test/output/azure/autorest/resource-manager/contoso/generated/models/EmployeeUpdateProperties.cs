@@ -18,6 +18,5 @@ namespace Microsoft.ContosoProviderHub.Service.Models
         public int Age { get; set; }
 
         public string City { get; set; }
-
     }
 }

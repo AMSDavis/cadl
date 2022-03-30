@@ -34,6 +34,5 @@ namespace Microsoft.Observability.Service.Models
         /// The identities assigned to this resource by the user.
         /// </summary>
         public IDictionary<string, UserAssignedIdentity> UserAssignedIdentities { get; set; }
-
     }
 }

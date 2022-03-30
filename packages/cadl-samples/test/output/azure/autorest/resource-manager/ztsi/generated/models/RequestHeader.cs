@@ -30,6 +30,5 @@ namespace Microsoft.ZeroTrustSystemIntegrity.Service.Models
         /// Type of the message that follows this header
         /// </summary>
         public string MessageType { get; set; }
-
     }
 }
